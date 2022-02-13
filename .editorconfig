@@ -1,0 +1,12 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+[*.md]
+# trailing white spaces are used for linebreaks in paragraphs.
+trim_trailing_whitespace = false
+
+[*.ts]
+charset = utf-8

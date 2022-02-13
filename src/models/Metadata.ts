@@ -1,3 +1,13 @@
+import {Component} from "./Component";
+import {ToolRepository} from "./Tool"
+import {OrganizationalEntity} from "./OrganizationalEntity";
+import {OrganizationalContactRepository} from "./OrganizationalContact";
+
 export class Metadata {
-    // todo
+    timestamp?: Date
+    tools = new ToolRepository()
+    authors = new OrganizationalContactRepository()
+    component?: Component
+    manufacture?: OrganizationalEntity
+    supplier?: OrganizationalEntity
 }

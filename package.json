@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "packageurl-js": "^0.0.5"
+  }
+}

@@ -1,21 +1,24 @@
 import {Metadata} from "./Metadata"
-import {Component} from "./Component"
+import {ComponentRepository} from "./Component"
+
+const SerialNumberRegExp = /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 
 export class Bom {
 
-    // bomFormat is not part of model, its a runtime information
-    // specVersion is not part of model, its a runtime information
+    // bomFormat is not part of model, it is a runtime information
+    // specVersion is not part of model, it is a runtime information
 
     private _version: number = 1
+    private _serialNumber?: string
+    metadata = new Metadata()
+    components = new ComponentRepository()
 
-    /** @returns {number} positive integer */
+    /** @type {number} positive integer */
     get version(): number {
         return this._version
     }
 
-    /**
-     * @param {number} value positive integer
-     */
+    /** @param {number} value positive integer */
     set version(value: number) {
         let asInt = Number.parseInt(`${value}`)
         if (asInt != value) {
@@ -26,15 +29,6 @@ export class Bom {
         }
         this._version = asInt
     }
-
-    private static __SerialNumberRegEx: RegExp = /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
-
-    static isSerialNumber(value: string | any): boolean {
-        return typeof value == 'string' &&
-            Bom.__SerialNumberRegEx.test(value)
-    }
-
-    private _serialNumber: string | undefined;
 
     get serialNumber(): string | undefined {
         return this._serialNumber
@@ -47,8 +41,8 @@ export class Bom {
         this._serialNumber = value
     }
 
-    metadata = new Metadata()
-
-    components = new Set<Component>()
-
+    static isSerialNumber(value: string | any): boolean {
+        return typeof value == 'string' &&
+            SerialNumberRegExp.test(value)
+    }
 }
