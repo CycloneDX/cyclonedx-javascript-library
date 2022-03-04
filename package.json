@@ -1,8 +1,13 @@
 {
+  "dependencies": {
+    "packageurl-js": "^0.0.5"
+  },
   "devDependencies": {
     "typescript": "^4.5.5"
   },
-  "dependencies": {
-    "packageurl-js": "^0.0.5"
+  "scripts": {
+    "lint": "",
+    "build": "tsc",
+    "test": "echi 'todo'"
   }
 }

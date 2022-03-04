@@ -1,9 +1,9 @@
 import {AttachmentEncoding} from "../enums/AttachmentEncoding";
 
 export class Attachment {
-    contentType?: string
+    contentType: string | null = null
     content: string
-    encoding?: AttachmentEncoding
+    encoding: AttachmentEncoding | null = null
 
     constructor(content:string) {
         this.content = content

@@ -8,14 +8,14 @@ export class Bom {
     // bomFormat is not part of model, it is a runtime information
     // specVersion is not part of model, it is a runtime information
 
-    private _version: number = 1
-    private _serialNumber?: string
+    #version: number = 1
+    #serialNumber: string | null = null
     metadata = new Metadata()
     components = new ComponentRepository()
 
     /** @type {number} positive integer */
     get version(): number {
-        return this._version
+        return this.#version
     }
 
     /** @param {number} value positive integer */
@@ -27,18 +27,18 @@ export class Bom {
         if (asInt < 1) {
             throw RangeError(`${asInt} must be >= 1`)
         }
-        this._version = asInt
+        this.#version = asInt
     }
 
-    get serialNumber(): string | undefined {
-        return this._serialNumber
+    get serialNumber(): string | null {
+        return this.#serialNumber
     }
 
-    set serialNumber(value: string | undefined) {
+    set serialNumber(value: string | null) {
         if (value !== undefined && !Bom.isSerialNumber(value)) {
             throw new RangeError(`${value} is no valid SerialNumber`)
         }
-        this._serialNumber = value
+        this.#serialNumber = value
     }
 
     static isSerialNumber(value: string | any): boolean {

@@ -1,8 +1,8 @@
 import {OrganizationalContactRepository} from "./OrganizationalContact";
 
 export class OrganizationalEntity {
-    name?: string
-    url = new Set<URL>() //
+    name: string | null = null
+    url = new Set<URL>()
     contact = new OrganizationalContactRepository()
 }
 

@@ -4,10 +4,10 @@ import {OrganizationalEntity} from "./OrganizationalEntity";
 import {OrganizationalContactRepository} from "./OrganizationalContact";
 
 export class Metadata {
-    timestamp?: Date
+    timestamp: Date | null = null
     tools = new ToolRepository()
     authors = new OrganizationalContactRepository()
-    component?: Component
-    manufacture?: OrganizationalEntity
-    supplier?: OrganizationalEntity
+    component: Component | null = null
+    manufacture: OrganizationalEntity | null = null
+    supplier: OrganizationalEntity | null = null
 }

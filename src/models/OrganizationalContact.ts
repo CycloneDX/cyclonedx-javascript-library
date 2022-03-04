@@ -1,7 +1,7 @@
 export class OrganizationalContact {
-    name?: string
-    email?: string
-    phone?: string
+    name: string | null = null
+    email: string | null = null
+    phone: string | null = null
 }
 
 export class OrganizationalContactRepository extends Set<OrganizationalContact> {

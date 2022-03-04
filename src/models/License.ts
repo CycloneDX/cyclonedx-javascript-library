@@ -9,8 +9,8 @@ export class LicenseExpression {
 
 export class NamedLicense {
     name: string
-    text?: string
-    url?: URL
+    text: string | null = null
+    url: URL | null = null
 
     constructor(name: string) {
         this.name = name
@@ -19,8 +19,8 @@ export class NamedLicense {
 
 export class SpdxLicense {
     id: string // todo spdx enum
-    text?: string
-    url?: URL
+    text: string | null = null
+    url: URL | null = null
 
     constructor(id: string) {
         this.id = id
