@@ -20,12 +20,12 @@ export class Bom {
 
     /** @param {number} value positive integer */
     set version(value: number) {
-        let asInt = Number.parseInt(`${value}`)
+        const asInt = Number.parseInt(`${value}`)
         if (asInt != value) {
-            throw TypeError(`${value} is not integer`)
+            throw new TypeError(`${value} is not integer`)
         }
         if (asInt < 1) {
-            throw RangeError(`${asInt} must be >= 1`)
+            throw new RangeError(`${asInt} must be >= 1`)
         }
         this.#version = asInt
     }
