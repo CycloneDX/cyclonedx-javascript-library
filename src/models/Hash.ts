@@ -4,7 +4,7 @@ import {HashAlgorithm} from "../enums/HashAlogorithms";
 export type HashContent = string
 
 export type Hash = [
-    // order matters: it must reflect key, value of HashRepository -
+    // order matters: it must reflect [key, value] of HashRepository -
     // this way a HashRepository can be constructed from multiple Hash objects.
     algorithm: HashAlgorithm,
     content: HashContent
