@@ -3,11 +3,11 @@
     "packageurl-js": "^0.0.5"
   },
   "devDependencies": {
-    "typescript": "^4.5.5"
+    "typescript": "^4.6"
   },
   "scripts": {
-    "lint": "",
-    "build": "tsc",
-    "test": "echi 'todo'"
+    "lint": "tsc --noEmit",
+    "build": "tsc --build",
+    "test": "echo 'todo: test dist/'"
   }
 }

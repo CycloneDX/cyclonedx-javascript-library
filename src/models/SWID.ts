@@ -14,20 +14,22 @@ export class SWID {
         this.name = name
     }
 
-    /** @type {(number|null)} positive integer */
+    /** @type {(number|null)} positive integer ur null */
     get tagVersion(): number | null {
         return this.#tagVersion
     }
 
-    /** @param {(number|null)} value positive integer */
+    /** @param {(number|null)} value positive integer ur null */
     set tagVersion(value: number | null) {
-        const asInt = Number.parseInt(`${value}`)
-        if (asInt != value) {
-            throw new TypeError(`${value} is not integer`)
+        if (value !== null) {
+            if (!Number.isInteger(value)) {
+                throw new TypeError(`${value} is not integer`)
+            }
+            if (value < 1) {
+                throw new RangeError(`${value} must be >= 1`)
+            }
         }
-        if (asInt < 1) {
-            throw new RangeError(`${asInt} must be >= 1`)
-        }
-        this.#tagVersion = asInt
+        this.#tagVersion = value
     }
+
 }
