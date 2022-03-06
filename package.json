@@ -1,4 +1,6 @@
 {
+  "name": "@cyclonedx/cyclonedx-library",
+  "version": "0.0.1-alpha",
   "dependencies": {
     "packageurl-js": "^0.0.5"
   },
