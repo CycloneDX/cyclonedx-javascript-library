@@ -1,0 +1,13 @@
+# docs: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+
+name: Release
+
+on:
+  push:
+    branches: ["master"]  # run auto-release via semantic-release?
+  workflow_dispatch:
+
+env:
+  NODE_ACTIVE_LTS: "16"
+
+jobs: # TODO write workflow
