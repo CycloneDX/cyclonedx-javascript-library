@@ -12,12 +12,11 @@ export class Component {
     readonly bomRef = new BomRef()
     type: ComponentType
     name: string
-
     author: string | null = null
     copyright: string | null = null
     cpe: string | null = null
     description: string | null = null
-    externalReferences = new ExternalReferenceRepository() // TODO
+    externalReferences = new ExternalReferenceRepository()
     group: string | null = null
     hashes = new HashRepository()
     licenses = new LicenseRepository()
@@ -27,7 +26,6 @@ export class Component {
     supplier: OrganizationalEntity | null = null
     swid: SWID | null = null
     version: string | null = null
-
 
     constructor(type: ComponentType, name: string) {
         this.type = type

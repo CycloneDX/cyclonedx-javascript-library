@@ -6,7 +6,6 @@ export class LicenseExpression {
     }
 }
 
-
 export class NamedLicense {
     name: string
     text: string | null = null
@@ -18,7 +17,7 @@ export class NamedLicense {
 }
 
 export class SpdxLicense {
-    id: string // todo spdx enum
+    id: string // @TODO: have dynamic SPDX enum basec on json schema file -- use json import feature of nodejs?
     text: string | null = null
     url: URL | null = null
 
