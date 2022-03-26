@@ -3,6 +3,7 @@
 
 # project internals can be ignored
 /CODEOWNERS
+/CONTRIBUTING.*
 
 # this file is part of the license
 !/NOTICE
