@@ -1,3 +1,4 @@
 # Tests
 
-Tests are written in plain javascript, and they are intended to test the build target(`dist/`).
+Tests are written in plain JavaScript, and 
+they are intended to test the build target(`dist/`) - instead of the source(`src/`).
