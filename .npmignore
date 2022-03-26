@@ -11,5 +11,6 @@
 !/dist/
 
 # ??? should the src/ and tests/ and build-related files be ignored?
-# i think not, as typescript-users would love to have it.
-# !!! see how other projects do it.
+# I think not, as TypeScript-users would love to have sources (and tests),
+# so they can compile into the desired target themselves.
+# Conclusion: have sources shipped, as long as they have value downstream!
