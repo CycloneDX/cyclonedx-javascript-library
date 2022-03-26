@@ -10,4 +10,4 @@ on:
 env:
   NODE_ACTIVE_LTS: "16"
 
-jobs: # TODO write workflow
+jobs: # TODO write workflow thar cleans and builds

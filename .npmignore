@@ -1,4 +1,4 @@
-# nodeignore - test with ``
+# nodeignore - test with `npm pack`
 
 # ignore dot-files/-folders
 .*
