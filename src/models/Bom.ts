@@ -1,5 +1,6 @@
 import {Metadata} from "./Metadata"
 import {ComponentRepository} from "./Component"
+import {PositiveInteger, isPositiveInteger} from "../types"
 
 const SerialNumberRegExp = /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 
@@ -12,18 +13,15 @@ export class Bom {
     components = new ComponentRepository()
 
     /** positive integer */
-    #version: number = 1
-    /** @type {number} positive integer */
-    get version(): number {
+    #version: PositiveInteger = 1
+    /** @type {PositiveInteger} positive integer */
+    get version(): PositiveInteger {
         return this.#version
     }
-    /** @param {number} value positive integer */
-    set version(value: number) {
-        if (!Number.isInteger(value)) {
-            throw new TypeError(`${value} is not integer`)
-        }
-        if (value < 1) {
-            throw new RangeError(`${value} must be >= 1`)
+    /** @param {PositiveInteger} value positive integer */
+    set version(value: PositiveInteger) {
+        if (!isPositiveInteger(value)) {
+            throw new RangeError(`${value} is not PositiveInteger`)
         }
         this.#version = value
     }

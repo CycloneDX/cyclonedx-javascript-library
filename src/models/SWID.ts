@@ -1,4 +1,5 @@
 import {Attachment} from "./Attachment";
+import {PositiveInteger, isPositiveInteger} from "../types"
 
 export class SWID {
     tagId: string
@@ -14,20 +15,15 @@ export class SWID {
     }
 
     /** integer ur nul */
-    #tagVersion: number | null = null
-    /** @type {(number|null)} positive integer ur null */
-    get tagVersion(): number | null {
+    #tagVersion: PositiveInteger | null = null
+    /** @type {(PositiveInteger|null)} positive integer or null */
+    get tagVersion(): PositiveInteger | null {
         return this.#tagVersion
     }
-    /** @param {(number|null)} value positive integer ur null */
-    set tagVersion(value: number | null) {
-        if (value !== null) {
-            if (!Number.isInteger(value)) {
-                throw new TypeError(`${value} is not integer`)
-            }
-            if (value < 1) {
-                throw new RangeError(`${value} must be >= 1`)
-            }
+    /** @param {(PositiveInteger|null)} value positive integer or null */
+    set tagVersion(value: PositiveInteger | null) {
+        if (value !== null && !isPositiveInteger(value)) {
+            throw new TypeError(`${value} is not PositiveInteger or null`)
         }
         this.#tagVersion = value
     }
