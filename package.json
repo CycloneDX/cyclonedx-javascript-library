@@ -6,7 +6,6 @@
     "packageurl-js": "^0.0.5"
   },
   "devDependencies": {
-    "@types/node": "^17.0.23",
     "typescript": "^4.6"
   },
   "main": "dist/index.js",
