@@ -1,3 +1,5 @@
+# nodeignore - test with ``
+
 # ignore dot-files/-folders
 .*
 
@@ -12,6 +14,10 @@
 !/dist/
 
 # ??? should the src/ and tests/ and build-related files be ignored?
-# I think not, as TypeScript-users would love to have sources (and tests),
+# Sources are not to be excluded, as TypeScript-users would love to have sources (and tests),
 # so they can compile into the desired target themselves.
+# Tests, on he other hand, do not provide value downstream.
 # Conclusion: have sources shipped, as long as they have value downstream!
+!/src/
+!/tsconfig.json
+/tests/
