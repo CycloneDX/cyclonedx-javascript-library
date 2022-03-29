@@ -163,3 +163,6 @@ dist
 !/src/
 !/tsconfig.json
 /tests/
+
+/.*.cache/
+/report/

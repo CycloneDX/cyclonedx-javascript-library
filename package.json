@@ -6,7 +6,9 @@
     "packageurl-js": "^0.0.5"
   },
   "devDependencies": {
-    "typescript": "^4.6"
+    "@types/jest": "27.4.1",
+    "jest": "27.5.1",
+    "typescript": "4.6.3"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,6 +16,6 @@
     "lint": "tsc --noEmit",
     "clean": "tsc --build --clean",
     "build": "tsc --build",
-    "test": "echo 'todo: test dist/'"
+    "test": "jest"
   }
 }
