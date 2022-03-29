@@ -164,3 +164,6 @@ dist
 !/tsconfig.json
 /tests/
 /examples/
+
+/.*.cache/
+/report/
