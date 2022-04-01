@@ -1,7 +1,7 @@
 const assert = require('assert');
 const {models: {
     Bom, Metadata, ComponentRepository, ToolRepository, OrganizationalContactRepository
-}} = require("../../../");
+}} = require('../../../');
 
 describe('BOM', () => {
 
