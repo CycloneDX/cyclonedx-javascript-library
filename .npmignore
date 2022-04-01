@@ -163,3 +163,4 @@ dist
 !/src/
 !/tsconfig.json
 /tests/
+/examples/
