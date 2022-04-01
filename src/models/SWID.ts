@@ -14,16 +14,13 @@ export class SWID {
         this.name = name
     }
 
-    /** integer ur nul */
     #tagVersion: PositiveInteger | null = null
-    /** @type {(PositiveInteger|null)} positive integer or null */
     get tagVersion(): PositiveInteger | null {
         return this.#tagVersion
     }
-    /** @param {(PositiveInteger|null)} value positive integer or null */
     set tagVersion(value: PositiveInteger | null) {
         if (value !== null && !isPositiveInteger(value)) {
-            throw new TypeError(`${value} is not PositiveInteger or null`)
+            throw new TypeError(`${value} is not PositiveInteger nor null`)
         }
         this.#tagVersion = value
     }
