@@ -4,6 +4,7 @@ name: Node CI
 
 on: 
   push:
+    # TODO: remove 1.0-dev after dev-merge
     branches: ["master", "1.0-dev"]
   pull_request:
   workflow_dispatch:
@@ -16,6 +17,8 @@ jobs:
   test:
     name: build & test
     timeout-minutes: 30
+    # TODO: make it a matrix of all supported node versions
+    # -- the build may happen in a separate latest-node version run
     runs-on: "ubuntu-latest"
     steps:
       - name: Checkout
