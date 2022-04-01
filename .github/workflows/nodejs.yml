@@ -13,8 +13,8 @@ env:
   NODE_ACTIVE_LTS: "16"
 
 jobs:
-  lint:
-    name: Lint
+  test:
+    name: build & test
     timeout-minutes: 30
     runs-on: "ubuntu-latest"
     steps:
