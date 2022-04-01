@@ -1,3 +1,5 @@
+import {SpdxId} from '../enums/SpdxId'
+
 export class LicenseExpression {
     value: string
 
@@ -17,11 +19,11 @@ export class NamedLicense {
 }
 
 export class SpdxLicense {
-    id: string // @TODO: have dynamic SPDX enum basec on json schema file -- use json import feature of nodejs?
+    id: SpdxId
     text: string | null = null
     url: URL | null = null
 
-    constructor(id: string) {
+    constructor(id: SpdxId) {
         this.id = id
     }
 }
