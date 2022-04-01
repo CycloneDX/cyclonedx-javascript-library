@@ -12,13 +12,10 @@ export class Bom {
     metadata = new Metadata()
     components = new ComponentRepository()
 
-    /** positive integer */
     #version: PositiveInteger = 1
-    /** @type {PositiveInteger} positive integer */
     get version(): PositiveInteger {
         return this.#version
     }
-    /** @param {PositiveInteger} value positive integer */
     set version(value: PositiveInteger) {
         if (!isPositiveInteger(value)) {
             throw new RangeError(`${value} is not PositiveInteger`)
