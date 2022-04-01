@@ -1,5 +1,7 @@
 const assert = require('assert');
-const {models: {Bom, Metadata, ComponentRepository, ToolRepository, OrganizationalContactRepository}} = require("../../../");
+const {models: {
+    Bom, Metadata, ComponentRepository, ToolRepository, OrganizationalContactRepository
+}} = require("../../../");
 
 describe('BOM', () => {
 
@@ -35,7 +37,14 @@ describe('BOM', () => {
     })
 
     describe('cannot set version', () => {
-        [0, -1, 3.5, -3.5, 'foo', '3', true, false, null, undefined, ['list'], {'ob': 'ject'}].forEach(newVersion => {
+        [
+            0, -1, 3.5, -3.5,
+            'foo', '3',
+            true, false,
+            null, undefined,
+            ['list'],
+            {'ob': 'ject'}
+        ].forEach(newVersion => {
             it(`for: ${newVersion}`, () => {
                 const bom = new Bom()
                 assert.notStrictEqual(bom.version, newVersion)
@@ -46,6 +55,5 @@ describe('BOM', () => {
             })
         })
     })
-
 
 })
