@@ -1,6 +1,10 @@
 /.*.cache/
 /report/
 
+/dist/
+/dist.node/
+/dist.web/
+
 ### https://github.com/github/gitignore/blob/main/Node.gitignore
 
 # Logs
