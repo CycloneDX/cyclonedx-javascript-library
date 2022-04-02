@@ -7,14 +7,19 @@
   },
   "devDependencies": {
     "mocha": "9.2.2",
-    "typescript": "4.6.3"
+    "typescript": "4.6.3",
+    "webpack": "^5.71.0",
+    "webpack-cli": "^4.9.2"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist.node/index.js",
+  "types": "dist.node/index.d.ts",
   "scripts": {
     "lint": "tsc --noEmit",
-    "clean": "node -r fs -e 'fs.rmSync(\"dist\",{recursive:true,force:true})'",
-    "build": "tsc --build",
+    "build": "npm run build:node && npm run build:web",
+    "prebuild:node": "node -r fs -e 'fs.rmSync(\"dist.node\",{recursive:true,force:true})'",
+    "build:node": "tsc --build",
+    "prebuild:web": "node -r fs -e 'fs.rmSync(\"dist.web\",{recursive:true,force:true})'",
+    "build:web": "webpack",
     "test": "mocha"
   }
 }

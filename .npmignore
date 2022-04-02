@@ -154,6 +154,8 @@ dist
 
 # never ignore the results - these are intended to be shipped
 !/dist/
+!/dist.node/
+!/dist.web/
 
 # ??? should the src/ and tests/ and build-related files be ignored?
 # Sources are not to be excluded, as TypeScript-users would love to have sources (and tests),
