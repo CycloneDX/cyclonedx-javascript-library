@@ -3,7 +3,7 @@
   "type": "commonjs",
   "version": "0.0.1-alpha",
   "dependencies": {
-    "packageurl-js": "^0.0.5"
+    "packageurl-js": "^0.0.6"
   },
   "devDependencies": {
     "mocha": "9.2.2",
