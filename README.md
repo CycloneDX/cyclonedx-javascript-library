@@ -3,15 +3,13 @@
 Core functionality of CDX for JavaScript (node or web-browser),
 written in TypeScript and compiled to the target.
 
-## Usage
-
-### Install 
+## Install 
 
 ```shell
 npm i -S @cyclonedx/cyclonedx-library
 ```
 
-### Programmatic
+## Usage
 
 Example 1:
 ```javascript
@@ -21,7 +19,7 @@ bom.components.add(
     new cdx.models.Component(cdx.enums.ComponentType.Library, 'myComponent'))
 ```
 
-## Development 
+## Development
 
 ### Set up the project
 
