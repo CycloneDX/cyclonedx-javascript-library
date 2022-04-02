@@ -1,4 +1,4 @@
-import {SpdxId} from '../enums/SpdxId'
+import {SpdxId, isSpdxId} from '../spdx'
 
 export class LicenseExpression {
     value: string
@@ -19,13 +19,26 @@ export class NamedLicense {
 }
 
 export class SpdxLicense {
-    id: SpdxId
     text: string | null = null
     url: URL | null = null
 
     constructor(id: SpdxId) {
         this.id = id
     }
+
+    #id!: SpdxId
+    get id(): SpdxId
+    {
+        return this.#id
+    }
+    set id(value: SpdxId)
+    {
+        if (!isSpdxId(value)) {
+            throw new RangeError(`Unknown SpdxId: ${value}`)
+        }
+        this.#id = value
+    }
+
 }
 
 export type LicenseChoice = NamedLicense | SpdxLicense | LicenseExpression
