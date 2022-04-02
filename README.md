@@ -11,12 +11,32 @@ npm i -S @cyclonedx/cyclonedx-library
 
 ## Usage
 
-Example 1:
+As node module:
 ```javascript
-const cdx = require('@cyclonedx/cyclonedx-library')
-let bom = new cdx.models.Bom()
+const CycloneDX_library = require('@cyclonedx/cyclonedx-library')
+
+let bom = new CycloneDX_library.models.Bom()
 bom.components.add(
-    new cdx.models.Component(cdx.enums.ComponentType.Library, 'myComponent'))
+    new CycloneDX_library.models.Component(
+        CycloneDX_library.enums.ComponentType.Library, 
+        'myComponent'
+    )
+)
+```
+
+In web-browser:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>test</title>
+    <script src="dist.web/CycloneDX_library.js"></script>
+</head>
+<body>
+<p>Library is available as <em>CycloneDX_library</em>.</p>
+</body>
+</html>
+
 ```
 
 ## Development
