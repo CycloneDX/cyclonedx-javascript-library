@@ -13,7 +13,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "lint": "tsc --noEmit",
-    "clean": "tsc --build --clean",
+    "clean": "node -r fs -e 'fs.rmSync(\"dist\",{recursive:true,force:true})'",
     "build": "tsc --build",
     "test": "mocha"
   }
