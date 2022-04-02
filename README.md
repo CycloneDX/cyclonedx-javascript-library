@@ -32,7 +32,6 @@ npm ci
 
 Build the JavaScript:
 ```shell
-npm run clean && \
 npm run build
 ```
 

@@ -2,13 +2,14 @@ const path = require('path');
 
 module.exports = {
     target: 'web',
-    mode: 'development',
+    mode: 'production',
     entry: path.resolve(__dirname, 'dist.node/index.js'),
     output: {
-        filename: 'index.js',
+        filename: 'CycloneDX_library.js',
         path: path.resolve(__dirname, 'dist.web'),
-        library: 'CDX',
+        library: 'CycloneDX_library',
         libraryTarget: 'umd',
         globalObject: 'this',
+        umdNamedDefine: true,
     },
 };
