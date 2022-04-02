@@ -1,7 +1,7 @@
 # CycloneDX JavaScript library
 
-Core functionality of CDX for JavaScript (node or web-browser),
-written in TypeScript and compiled to the target.
+Core functionality of CDX for _JavaScript_ (node or web-browser),
+written in _TypeScript_ and compiled to the target.
 
 ## Install 
 
