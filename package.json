@@ -3,13 +3,15 @@
   "type": "commonjs",
   "version": "0.0.1-alpha",
   "dependencies": {
+    "deepmerge": "^4.2.2",
     "packageurl-js": "^0.0.6"
   },
   "devDependencies": {
     "mocha": "9.2.2",
+    "ts-loader": "9.2.8",
     "typescript": "4.6.3",
-    "webpack": "^5.71.0",
-    "webpack-cli": "^4.9.2"
+    "webpack": "5.71.0",
+    "webpack-cli": "4.9.2"
   },
   "main": "dist.node/index.js",
   "types": "dist.node/index.d.ts",

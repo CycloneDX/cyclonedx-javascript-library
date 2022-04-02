@@ -1,9 +1,9 @@
-const CycloneDX_library = require('../')
+const cdx = require('../')
 
-let bom = new CycloneDX_library.models.Bom()
+let bom = new cdx.models.Bom()
 bom.components.add(
-    new CycloneDX_library.models.Component(
-        CycloneDX_library.enums.ComponentType.Library,
+    new cdx.models.Component(
+        cdx.enums.ComponentType.Library,
         'myComponent'
     )
 )
