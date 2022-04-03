@@ -1,5 +1,7 @@
 const assert = require('assert');
-const {spdx} = require('../../');
+const {spdx:{
+    fixupSpdxId, isSpdxId
+}} = require('../../');
 
 describe('isSpdxId()', () => {
 
@@ -8,7 +10,7 @@ describe('isSpdxId()', () => {
     describe('is true', () => {
         knownSpdxIds.forEach(value => {
             it(`for: ${value}`, () => {
-                assert.strictEqual(spdx.isSpdxId(value), true)
+                assert.strictEqual(isSpdxId(value), true)
             })
         })
     })
@@ -16,7 +18,7 @@ describe('isSpdxId()', () => {
     describe('is false', () => {
         [null, undefined, 'fooBarbaz', 'mit'].forEach(value => {
             it(`for: ${value}`, () => {
-                assert.strictEqual(spdx.isSpdxId(value), false)
+                assert.strictEqual(isSpdxId(value), false)
             })
         })
     })
@@ -36,7 +38,7 @@ describe('fixupSpdxId()', () => {
     describe('transform', () => {
         expectedFixed.forEach((expected, value) => {
             it(`${value} -> ${expected}`, () => {
-                assert.strictEqual(spdx.fixupSpdxId(value), expected)
+                assert.strictEqual(fixupSpdxId(value), expected)
             })
         })
     })
@@ -44,9 +46,10 @@ describe('fixupSpdxId()', () => {
     describe('miss', () => {
         [undefined, null, 'fooBarbaz'].forEach((value, expected) => {
             it(`${value}`, () => {
-                assert.strictEqual(spdx.fixupSpdxId(value), undefined)
+                assert.strictEqual(fixupSpdxId(value), undefined)
             })
         })
     })
+
 })
 
