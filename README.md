@@ -1,6 +1,6 @@
 # CycloneDX JavaScript library
 
-Core functionality of CDX for _JavaScript_ (node or web-browser),
+Core functionality of [CycloneDX] for _JavaScript_ (node or web-browser),
 written in _TypeScript_ and compiled to the target.
 
 ## Install 
@@ -69,3 +69,5 @@ Run the tests:
 ```shell
 npm run test
 ```
+
+[CycloneDX]: https://cyclonedx.org/
