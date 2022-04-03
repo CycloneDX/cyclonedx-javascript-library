@@ -1,16 +1,16 @@
 # CycloneDX JavaScript library
 
-Core functionality of CDX for _JavaScript_ (node or web-browser),
+Core functionality of [CycloneDX] for _JavaScript_ (node or web-browser),
 written in _TypeScript_ and compiled to the target.
 
-## Install 
+## Install
 
 This package and the build results are available as npm package:
 ```shell
 npm i -S @cyclonedx/cyclonedx-library
 ```
 
-However, you can install the package from source, 
+However, you can install the package from source,
 which will build automatically on installation:
 ```shell
 npm i -S git@github.com:CycloneDX/cyclonedx-javascript-library.git
@@ -67,5 +67,7 @@ npm run build
 
 Run the tests:
 ```shell
-npm run test
+npm test
 ```
+
+[CycloneDX]: https://cyclonedx.org/
