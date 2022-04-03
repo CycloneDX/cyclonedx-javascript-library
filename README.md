@@ -5,12 +5,13 @@ written in _TypeScript_ and compiled to the target.
 
 ## Install 
 
-This package and the resulting dist sources are available as npm package:
+This package and the build results are available as npm package:
 ```shell
 npm i -S @cyclonedx/cyclonedx-library
 ```
 
-However, you can install the package from source, which will compile the dist automatically on installation:
+However, you can install the package from source, 
+which will build automatically on installation:
 ```shell
 npm i -S git@github.com:CycloneDX/cyclonedx-javascript-library.git
 ```
@@ -52,6 +53,8 @@ Install dependencies:
 ```shell
 npm ci
 ```
+
+The setup will also build the project.
 
 ### Build from source
 
