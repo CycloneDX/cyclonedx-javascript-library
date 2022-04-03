@@ -19,6 +19,7 @@ jobs:
     runs-on: "ubuntu-latest"
     timeout-minutes: 30
     strategy:
+      fail-fast: false
       matrix:
         target:
           - node
@@ -50,11 +51,11 @@ jobs:
     name: test (node${{ matrix.node-version }}, ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         node-version:
           # action based on https://github.com/actions/node-versions/releases
           # see also: https://nodejs.org/en/about/releases/
-          - "18"
           - "17"      # current
           - "16"      # active LTS
           - "14"
