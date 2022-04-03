@@ -164,6 +164,9 @@ dist
 # Conclusion: have sources shipped, as long as they have value downstream!
 !/src/
 !/tsconfig.json
+!/webpack.config.js
+
+/test/
 /tests/
 /examples/
 
