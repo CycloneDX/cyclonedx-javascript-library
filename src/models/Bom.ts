@@ -1,6 +1,6 @@
 import {Metadata} from "./Metadata"
 import {ComponentRepository} from "./Component"
-import {PositiveInteger, isPositiveInteger} from "../types"
+import {isPositiveInteger, PositiveInteger} from "../types"
 
 const SerialNumberRegExp = /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 
