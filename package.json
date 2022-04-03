@@ -1,7 +1,25 @@
 {
   "name": "@cyclonedx/cyclonedx-library",
-  "type": "commonjs",
   "version": "0.0.1-alpha",
+  "description": "Core functionality of CDX for JavaScript (node or web-browser)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CycloneDX/cyclonedx-javascript-library"
+  },
+  "bugs": {
+    "url": "https://github.com/CycloneDX/cyclonedx-javascript-library/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "Jan Kowalleck",
+  "contributors": [
+    {
+      "name": "Jan Kowalleck"
+    }
+  ],
+  "type": "commonjs",
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "dependencies": {
     "packageurl-js": "^0.0.6"
   },
@@ -13,8 +31,15 @@
     "webpack": "5.71.0",
     "webpack-cli": "4.9.2"
   },
+  "browser": "dist.web/lib.js",
   "main": "dist.node/index.js",
   "types": "dist.node/index.d.ts",
+  "directories": {
+    "lib": "dist.node",
+    "doc": "docs",
+    "example": "examples",
+    "test": "test"
+  },
   "scripts": {
     "prepublish": "npm run build",
     "lint": "tsc --noEmit",
