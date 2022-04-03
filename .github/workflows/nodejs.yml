@@ -20,7 +20,9 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        target: [ node, web ]
+        target:
+          - node
+          - web
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -49,7 +51,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [ "12", "14", "16" ]
+        node-version:
+          # action based on https://github.com/actions/node-versions/releases
+          # see also: https://nodejs.org/en/about/releases/
+          - "17"      # current
+          - "16"      # active LTS
+          - "14"
+          - "12"
+          - "12.0.0"  # lowest supported
         os: [ "ubuntu-latest", "macos-latest", "windows-latest" ]
     timeout-minutes: 30
     steps:
