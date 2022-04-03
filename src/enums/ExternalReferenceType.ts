@@ -1,7 +1,7 @@
 export enum ExternalReferenceType {
     VCS = "vcs",
     IssueTracker = "issue-tracker",
-    Website= "website",
+    Website = "website",
     Advisories = "advisories",
     BOM = "bom",
     MailingList = "mailing-list",

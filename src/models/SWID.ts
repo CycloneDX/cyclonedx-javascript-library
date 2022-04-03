@@ -1,5 +1,5 @@
 import {Attachment} from "./Attachment";
-import {PositiveInteger, isPositiveInteger} from "../types"
+import {isPositiveInteger, PositiveInteger} from "../types"
 
 export class SWID {
     tagId: string

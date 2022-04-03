@@ -1,4 +1,4 @@
-import {ExternalReferenceType} from "../enums/ExternalReferenceType";
+import {ExternalReferenceType} from "../enums/"
 
 export class ExternalReference {
     url: URL

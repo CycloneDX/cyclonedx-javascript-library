@@ -1,15 +1,50 @@
 const path = require('path');
+const merge = require('deepmerge')
 
-module.exports = {
+// see https://webpack.js.org/guides/author-libraries/
+
+const configBase = {
     target: 'web',
-    mode: 'production',
-    entry: path.resolve(__dirname, 'dist.node/index.js'),
+    // mode: '',
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+        ],
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts'],
+    },
+    entry: path.resolve(__dirname, 'src/index.ts'),
     output: {
-        filename: 'CycloneDX_library.js',
         path: path.resolve(__dirname, 'dist.web'),
-        library: 'CycloneDX_library',
-        libraryTarget: 'umd',
-        globalObject: 'this',
-        umdNamedDefine: true,
+        // filename: '',
+        library: {
+            name: 'CycloneDX_library',
+            type: 'umd',
+        },
+    },
+    externals: {
+        'packageurl-js': 'PackageURL',
     },
 };
+
+
+module.exports = [
+    merge(configBase, {
+        mode: 'production',
+        output: {
+            filename: 'lib.js',
+        },
+    }),
+    merge(configBase, {
+        mode: 'development',
+        devtool: 'source-map',
+        output: {
+            filename: 'lib.dev.js',
+        },
+    }),
+]

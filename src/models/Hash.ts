@@ -1,4 +1,4 @@
-import {HashAlgorithm} from "../enums/HashAlogorithms";
+import {HashAlgorithm} from "../enums/";
 
 // no regex for the ashContent in here. It applies at runtime of a normalization/serialization process.
 export type HashContent = string
