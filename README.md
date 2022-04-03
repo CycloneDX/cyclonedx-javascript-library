@@ -67,7 +67,7 @@ npm run build
 
 Run the tests:
 ```shell
-npm run test
+npm test
 ```
 
 [CycloneDX]: https://cyclonedx.org/
