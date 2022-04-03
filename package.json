@@ -16,6 +16,7 @@
   "main": "dist.node/index.js",
   "types": "dist.node/index.d.ts",
   "scripts": {
+    "prepare": "npm run build",
     "lint": "tsc --noEmit",
     "build": "npm run build:node && npm run build:web",
     "prebuild:node": "node -r fs -e 'fs.rmSync(\"dist.node\",{recursive:true,force:true})'",
