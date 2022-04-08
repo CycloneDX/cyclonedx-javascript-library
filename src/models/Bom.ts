@@ -36,7 +36,7 @@ export class Bom {
 
     private static isEligibleSerialNumber(value: string | any): boolean {
         // this method might be moved to the Spec, as the spec defines valid values in general.
-        return typeof value == 'string' &&
-            SerialNumberRegExp.test(value)
+        return typeof value == 'string'
+            && SerialNumberRegExp.test(value)
     }
 }
