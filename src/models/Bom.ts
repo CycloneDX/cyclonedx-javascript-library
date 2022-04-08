@@ -6,8 +6,8 @@ const SerialNumberRegExp = /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-
 
 export class Bom {
 
-    // bomFormat is not part of model, it is a runtime information
-    // specVersion is not part of model, it is a runtime information
+    // property `bomFormat` is not part of model, it is a runtime information
+    // property `specVersion` is not part of model, it is a runtime information
 
     metadata = new Metadata()
     components = new ComponentRepository()
@@ -34,7 +34,8 @@ export class Bom {
         this.#serialNumber = value
     }
 
-    static isEligibleSerialNumber(value: string | any): boolean {
+    private static isEligibleSerialNumber(value: string | any): boolean {
+        // this method might be moved to the Spec, as the spec defines valid values in general.
         return typeof value == 'string' &&
             SerialNumberRegExp.test(value)
     }
