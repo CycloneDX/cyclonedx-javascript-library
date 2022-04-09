@@ -251,30 +251,39 @@ export namespace Normalizer {
         normalize(data: Models.LicenseChoice): object | undefined {
             switch (true) {
                 case data instanceof Models.NamedLicense:
-                    data = <Models.NamedLicense>data
-                    return {
-                        license: {
-                            name: data.name,
-                            text: data.text || undefined,
-                            url: data.url?.toString(),
-                        }
-                    }
+                    return this.normalizeNamedLicense(<Models.NamedLicense>data)
                 case data instanceof Models.SpdxLicense:
-                    data = <Models.SpdxLicense>data
-                    return {
-                        license: {
-                            id: data.id,
-                            text: data.text || undefined,
-                            url: data.url?.toString(),
-                        }
-                    }
+                    return this.normalizeSpdxLicense(<Models.SpdxLicense>data)
                 case data instanceof Models.LicenseExpression:
-                    data = <Models.LicenseExpression>data
-                    return {
-                        expression: data.value,
-                    }
+                    return this.normalizeLicenseExpression(<Models.LicenseExpression>data)
                 default:
                     throw new RangeError(`unexpected LicenseChoice: ${data}`) as never
+            }
+        }
+
+        public normalizeNamedLicense(data: Models.NamedLicense): object {
+            return {
+                license: {
+                    name: data.name,
+                    text: data.text || undefined,
+                    url: data.url?.toString(),
+                }
+            }
+        }
+
+        public normalizeSpdxLicense(data: Models.SpdxLicense): object {
+            return {
+                license: {
+                    id: data.id,
+                    text: data.text || undefined,
+                    url: data.url?.toString(),
+                }
+            }
+        }
+
+        public normalizeLicenseExpression(data: Models.LicenseExpression): object {
+            return {
+                expression: data.value,
             }
         }
 
