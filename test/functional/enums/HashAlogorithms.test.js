@@ -12,7 +12,7 @@ suite('all values from SPEC are available', () => {
         ).forEach(expected =>
             test(`${expected}`, () => {
                 assert.ok(HashAlgorithm.hasOwnProperty(expected))
-                assert.equal(HashAlgorithm[expected], expected)
+                assert.strictEqual(HashAlgorithm[expected], expected)
             })
         )
     })

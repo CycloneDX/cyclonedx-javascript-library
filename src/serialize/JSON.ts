@@ -165,7 +165,7 @@ export namespace Normalize {
 
     export class HashNormalizer extends Base {
         normalize([algorithm, content]: Models.Hash): object | undefined {
-            return this.factory.spec.isSupportedHashAlgorithm(algorithm)
+            return this.factory.spec.supportsHashAlgorithm(algorithm)
                 ? {
                     alg: algorithm,
                     content: content,
@@ -211,7 +211,7 @@ export namespace Normalize {
     export class ComponentNormalizer extends Base {
 
         normalize(data: Models.Component): object | undefined {
-            return this.factory.spec.isSupportedComponentType(data.type)
+            return this.factory.spec.supportsComponentType(data.type)
                 ? {
                     type: data.type,
                     name: data.name,
@@ -317,7 +317,7 @@ export namespace Normalize {
     class ExternalReferenceNormalizer extends Base {
 
         normalize(data: Models.ExternalReference): object | undefined {
-            return this.factory.spec.isSupportedExternalReferenceType(data.type)
+            return this.factory.spec.supportsExternalReferenceType(data.type)
                 ? {
                     url: data.url.toString(),
                     type: data.type,

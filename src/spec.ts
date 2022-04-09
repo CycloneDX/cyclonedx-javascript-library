@@ -13,19 +13,53 @@ export enum Version {
 export interface Protocol {
     readonly version: Version
 
-    isSupportedComponentType(ct: any): boolean;
+    supportsComponentType(ct: any): boolean;
 
-    isSupportedHashAlgorithm(ha: any): boolean;
+    supportsHashAlgorithm(ha: any): boolean;
 
-    isSupportedExternalReferenceType(ert: any): boolean;
+    supportsExternalReferenceType(ert: any): boolean;
 }
 
+class Spec implements Protocol {
 
-export class Spec1_4 implements Protocol {
+    #version: Version
+    #supportedComponentTypes: ReadonlySet<ComponentType>
+    #supportedHashAlgorithms: ReadonlySet<HashAlgorithm>
+    #supportedExternalReferenceTypes: ReadonlySet<ExternalReferenceType>
 
-    readonly version = Version.v1_4
+    constructor(
+        version: Version,
+        supportedComponentTypes: Iterable<ComponentType>,
+        supportedHashAlgorithms: Iterable<HashAlgorithm>,
+        supportedExternalReferenceTypes: Iterable<ExternalReferenceType>
+    ) {
+        this.#version = version
+        this.#supportedComponentTypes = new Set(supportedComponentTypes)
+        this.#supportedHashAlgorithms = new Set(supportedHashAlgorithms)
+        this.#supportedExternalReferenceTypes = new Set(supportedExternalReferenceTypes)
+    }
 
-    static readonly #supportedComponentTypes: ReadonlySet<ComponentType> = new Set([
+    get version(): Version {
+        return this.#version
+    }
+
+    supportsComponentType(ct: any): boolean {
+        return this.#supportedComponentTypes.has(ct)
+    }
+
+    supportsHashAlgorithm(ha: any): boolean {
+        return this.#supportedHashAlgorithms.has(ha)
+    }
+
+    supportsExternalReferenceType(ert: any): boolean {
+        return this.#supportedExternalReferenceTypes.has(ert)
+    }
+
+}
+
+export const Spec1_4: Protocol = Object.freeze(new Spec(
+    Version.v1_4,
+    [
         ComponentType.Application,
         ComponentType.Framework,
         ComponentType.Library,
@@ -34,14 +68,8 @@ export class Spec1_4 implements Protocol {
         ComponentType.Device,
         ComponentType.Firmware,
         ComponentType.File,
-    ])
-
-    isSupportedComponentType(ct: any): boolean {
-        return Spec1_4.#supportedComponentTypes.has(ct)
-    }
-
-
-    static readonly #supportedHashAlgorithms: ReadonlySet<HashAlgorithm> = new Set([
+    ],
+    [
         HashAlgorithm.MD5,
         HashAlgorithm["SHA-1"],
         HashAlgorithm["SHA-256"],
@@ -54,14 +82,8 @@ export class Spec1_4 implements Protocol {
         HashAlgorithm["BLAKE2b-384"],
         HashAlgorithm["BLAKE2b-512"],
         HashAlgorithm.BLAKE3,
-    ])
-
-    isSupportedHashAlgorithm(ha: any): boolean {
-        return Spec1_4.#supportedHashAlgorithms.has(ha)
-    }
-
-
-    static readonly #supportedExternalReferenceTypes: ReadonlySet<ExternalReferenceType> = new Set([
+    ],
+    [
         ExternalReferenceType.VCS,
         ExternalReferenceType.IssueTracker,
         ExternalReferenceType.Website,
@@ -78,13 +100,7 @@ export class Spec1_4 implements Protocol {
         ExternalReferenceType.BuildSystem,
         ExternalReferenceType.ReleaseNotes,
         ExternalReferenceType.Other,
-    ])
-
-    isSupportedExternalReferenceType(ert: any): boolean {
-        return Spec1_4.#supportedExternalReferenceTypes.has(ert)
-    }
-
-
-}
+    ]
+))
 
 // @TODO add the other versions
