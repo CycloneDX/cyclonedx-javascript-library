@@ -10,7 +10,7 @@ const {Enums, Models, Spec} = require('../../')
  * @param {Spec.Version} spec
  * @return {string}
  */
-function serializeResults (purpose, spec) {
+function serializeResults(purpose, spec) {
     return fs.readFileSync(
         path.resolve(__dirname, 'serializeResults', `${purpose}-spec${spec}.txt`)
     ).toString()
@@ -63,7 +63,7 @@ function createComplexStructure() {
             return ref
         })(new Models.ExternalReference(new URL('https://localhost/acme'), Enums.ExternalReferenceType.Website)))
         component.group = 'acme'
-        component.hashes.set(Enums.HashAlgorithm.SHA1, 'e6f36746ccba42c288acf906e636bb278eaeb7e8')
+        component.hashes.set(Enums.HashAlgorithm['SHA-1'], 'e6f36746ccba42c288acf906e636bb278eaeb7e8')
         component.licenses.add((function (license) {
             license.text = `Some\nlicense\ntext.`
             license.url = new URL('https://localhost/license')
@@ -79,6 +79,14 @@ function createComplexStructure() {
         component.purl = new PackageURL('npm', 'acme', 'dummy-component', '1337-beta')
         component.scope = Enums.ComponentScope.Required
         component.supplier = new Models.OrganizationalEntity()
+        component.supplier.name = 'Component Supplier'
+        component.supplier.url.add(new URL('https://localhost/componentSupplier'))
+        component.supplier.contact.add((function (contact){
+            contact.name = 'Franz'
+            contact.email = 'franz-aus-bayern@komplett.verwahrlosten.taxi'
+            contact.phone = '555-732378879'
+            return contact
+        })(new Models.OrganizationalContact()))
         component.swid = new Models.SWID('some-tag', 'dummy-component')
         component.swid.version = '1337-beta'
         component.swid.path = true
@@ -92,4 +100,5 @@ function createComplexStructure() {
 
     return bom
 }
+
 module.exports.createComplexStructure = createComplexStructure

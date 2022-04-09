@@ -57,12 +57,29 @@
             "group": "acme",
             "version": "1337-beta",
             "bom-ref": "dummy-component",
-            "supplier": {},
+            "supplier": {
+                "name": "Component Supplier",
+                "url": [
+                    "https://localhost/componentSupplier"
+                ],
+                "contact": [
+                    {
+                        "name": "Franz",
+                        "email": "franz-aus-bayern@komplett.verwahrlosten.taxi",
+                        "phone": "555-732378879"
+                    }
+                ]
+            },
             "author": "component's author",
             "publisher": "the publisher",
             "description": "this is a test component",
             "scope": "required",
-            "hashes": [],
+            "hashes": [
+                {
+                    "alg": "SHA-1",
+                    "content": "e6f36746ccba42c288acf906e636bb278eaeb7e8"
+                }
+            ],
             "licenses": [
                 {
                     "license": {
