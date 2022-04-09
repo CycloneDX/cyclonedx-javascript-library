@@ -1,5 +1,5 @@
 import * as Models from "../models";
-import {Protocol as SpecProtocol, SpecVersion} from "./specs";
+import {Protocol as SpecProtocol, Version as SpecVersion} from "../spec";
 import {Protocol as SerializerProtocol} from "./serializer";
 
 

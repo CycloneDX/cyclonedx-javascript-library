@@ -2,7 +2,7 @@ const assert = require('assert');
 const {suite, test} = require('mocha');
 
 const JsonSerialize = require('../../').Serialize.JSON
-const {Spec1_4} = require('../../').Serialize.Spec
+const {Spec1_4} = require('../../').Spec
 const {Enums, Models} = require('../../')
 
 suite('complex to JSON', () => {

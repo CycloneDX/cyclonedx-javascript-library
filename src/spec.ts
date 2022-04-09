@@ -1,7 +1,7 @@
-import {ComponentType, ExternalReferenceType, HashAlgorithm} from "../enums/";
+import {ComponentType, ExternalReferenceType, HashAlgorithm} from "./enums/";
 
 
-export enum SpecVersion {
+export enum Version {
     v1_4 = '1.4',
     v1_3 = '1.3',
     v1_2 = '1.2',
@@ -11,7 +11,7 @@ export enum SpecVersion {
 
 
 export interface Protocol {
-    readonly version: SpecVersion
+    readonly version: Version
 
     isSupportedComponentType(ct: any): boolean;
 
@@ -23,7 +23,7 @@ export interface Protocol {
 
 export class Spec1_4 implements Protocol {
 
-    readonly version = SpecVersion.v1_4
+    readonly version = Version.v1_4
 
     static readonly #supportedComponentTypes: ReadonlySet<ComponentType> = new Set([
         ComponentType.Application,
