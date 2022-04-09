@@ -1,7 +1,5 @@
 const assert = require('assert');
-const {SPDX:{
-    fixupSpdxId, isSpdxId
-}} = require('../../');
+const {fixupSpdxId, isSpdxId} = require('../../').SPDX;
 
 describe('isSpdxId()', () => {
 

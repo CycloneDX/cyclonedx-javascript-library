@@ -2,8 +2,8 @@
 import {default as spdxSpec} from "../res/spdx.SNAPSHOT.schema.json"
 
 const _spdxSpecEnum: Array<string> = spdxSpec.enum
-const spdxIds: Set<string> = new Set(_spdxSpecEnum)
-const spdxLowerToActual: Map<string, string> = new Map(_spdxSpecEnum.map(
+const spdxIds: ReadonlySet<string> = new Set(_spdxSpecEnum)
+const spdxLowerToActual: ReadonlyMap<string, string> = new Map(_spdxSpecEnum.map(
     function (spdxId: string): [string, string] {
         return [spdxId.toLowerCase(), spdxId];
     }

@@ -1,7 +1,5 @@
 const assert = require('assert');
-const {Models:{
-    Bom, ComponentRepository, Metadata
-}} = require('../../../');
+const {Bom, ComponentRepository, Metadata} = require('../../').Models;
 
 describe('BOM', () => {
 

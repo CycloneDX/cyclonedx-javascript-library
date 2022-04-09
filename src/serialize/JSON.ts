@@ -13,15 +13,14 @@ export const JsonSchemaUrl: ReadonlyMap<SpecVersion, string | undefined> = new M
 
 
 export class Serializer implements SerializerProtocol {
-    #normalizerFactory: Normalizer.Factory
+    #normalizerFactory: Normalize.Factory
 
-    constructor(normalizerFactory: Normalizer.Factory) {
+    constructor(normalizerFactory: Normalize.Factory) {
         this.#normalizerFactory = normalizerFactory
     }
 
     serialize(bom: Models.Bom): string {
-        // use the fact, that `stringify` will drop `undefined` values automatically
-        // @TODO bom-refs values set ...
+        // @TODO bom-refs values make unique ...
         return JSON.stringify(
             {
                 '$schema': JsonSchemaUrl.get(this.#normalizerFactory.spec.version),
@@ -34,7 +33,7 @@ export class Serializer implements SerializerProtocol {
 }
 
 
-export namespace Normalizer {
+export namespace Normalize {
 
     export class Factory {
         readonly spec: SpecProtocol
@@ -113,7 +112,10 @@ export namespace Normalizer {
                 version: data.version,
                 serialNumber: data.serialNumber || undefined,
                 metadata: this.factory.makeForMetadata().normalize(data.metadata),
-                components: this.factory.makeForComponent().normalizeIter(data.components),
+                components: data.components.size > 0
+                    ? this.factory.makeForComponent().normalizeIter(data.components)
+                    // spec < 1.4 requires `component` to be array
+                    : [],
             }
         }
     }
@@ -236,7 +238,9 @@ export namespace Normalizer {
                     swid: data.swid
                         ? this.factory.makeForSWID().normalize(data.swid)
                         : undefined,
-                    externalReferences: this.factory.makeForExternalReference().normalizeIter(data.externalReferences),
+                    externalReferences: data.externalReferences.size > 0
+                        ? this.factory.makeForExternalReference().normalizeIter(data.externalReferences)
+                        : undefined,
                 } : undefined
         }
 
@@ -248,6 +252,7 @@ export namespace Normalizer {
     }
 
     class LicenseNormalizer extends Base {
+
         normalize(data: Models.LicenseChoice): object | undefined {
             switch (true) {
                 case data instanceof Models.NamedLicense:
@@ -261,31 +266,25 @@ export namespace Normalizer {
             }
         }
 
-        private normalizeNamedLicense(data: Models.NamedLicense): object {
-            return {
-                license: {
-                    name: data.name,
-                    text: data.text || undefined,
-                    url: data.url?.toString(),
-                }
+        private normalizeNamedLicense = (data: Models.NamedLicense): object => ({
+            license: {
+                name: data.name,
+                text: data.text || undefined,
+                url: data.url?.toString(),
             }
-        }
+        });
 
-        private normalizeSpdxLicense(data: Models.SpdxLicense): object {
-            return {
-                license: {
-                    id: data.id,
-                    text: data.text || undefined,
-                    url: data.url?.toString(),
-                }
+        private normalizeSpdxLicense = (data: Models.SpdxLicense): object => ({
+            license: {
+                id: data.id,
+                text: data.text || undefined,
+                url: data.url?.toString(),
             }
-        }
+        });
 
-        private normalizeLicenseExpression(data: Models.LicenseExpression): object {
-            return {
-                expression: data.value,
-            }
-        }
+        private normalizeLicenseExpression = (data: Models.LicenseExpression): object => ({
+            expression: data.value,
+        });
 
         normalizeIter(data: Iterable<Models.LicenseChoice>): Array<object> {
             return Array.from(data, c => this.normalize(c))
@@ -294,6 +293,7 @@ export namespace Normalizer {
     }
 
     class SWIDNormalizer extends Base {
+
         normalize(data: Models.SWID): object {
             return {
                 tagId: data.tagId,
@@ -311,9 +311,11 @@ export namespace Normalizer {
                 url: data.url?.toString(),
             }
         }
+
     }
 
     class ExternalReferenceNormalizer extends Base {
+
         normalize(data: Models.ExternalReference): object | undefined {
             return this.factory.spec.isSupportedExternalReferenceType(data.type)
                 ? {
@@ -327,9 +329,11 @@ export namespace Normalizer {
             return Array.from(data, r => this.normalize(r))
                 .filter(r => undefined !== r) as Array<object>
         }
+
     }
 
     class AttachmentNormalizer extends Base {
+
         normalize(data: Models.Attachment): object {
             return {
                 content: data.content,
@@ -337,6 +341,7 @@ export namespace Normalizer {
                 encoding: data.encoding || undefined,
             }
         }
+
     }
 
 }

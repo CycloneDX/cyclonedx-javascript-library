@@ -25,7 +25,7 @@ export class Spec1_4 implements Protocol {
 
     readonly version = SpecVersion.v1_4
 
-    static readonly #supportedComponentTypes = Object.freeze([
+    static readonly #supportedComponentTypes: ReadonlySet<ComponentType> = new Set([
         ComponentType.Application,
         ComponentType.Framework,
         ComponentType.Library,
@@ -37,11 +37,11 @@ export class Spec1_4 implements Protocol {
     ])
 
     isSupportedComponentType(ct: any): boolean {
-        return ct in Spec1_4.#supportedComponentTypes
+        return Spec1_4.#supportedComponentTypes.has(ct)
     }
 
 
-    static readonly #supportedHashAlgorithms = Object.freeze([
+    static readonly #supportedHashAlgorithms: ReadonlySet<HashAlgorithm> = new Set([
         HashAlgorithm.MD5,
         HashAlgorithm["SHA-1"],
         HashAlgorithm["SHA-256"],
@@ -57,11 +57,11 @@ export class Spec1_4 implements Protocol {
     ])
 
     isSupportedHashAlgorithm(ha: any): boolean {
-        return ha in Spec1_4.#supportedHashAlgorithms
+        return Spec1_4.#supportedHashAlgorithms.has(ha)
     }
 
 
-    static readonly #supportedExternalReferenceTypes = Object.freeze([
+    static readonly #supportedExternalReferenceTypes: ReadonlySet<ExternalReferenceType> = new Set([
         ExternalReferenceType.VCS,
         ExternalReferenceType.IssueTracker,
         ExternalReferenceType.Website,
@@ -81,7 +81,7 @@ export class Spec1_4 implements Protocol {
     ])
 
     isSupportedExternalReferenceType(ert: any): boolean {
-        return ert in Spec1_4.#supportedExternalReferenceTypes
+        return Spec1_4.#supportedExternalReferenceTypes.has(ert)
     }
 
 
