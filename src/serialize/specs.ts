@@ -60,7 +60,8 @@ export class Spec1_4 implements Protocol {
         return ha in Spec1_4.#supportedHashAlgorithms
     }
 
-    static readonly #supportedExternalReferenceTypes =  Object.freeze([
+
+    static readonly #supportedExternalReferenceTypes = Object.freeze([
         ExternalReferenceType.VCS,
         ExternalReferenceType.IssueTracker,
         ExternalReferenceType.Website,
@@ -78,6 +79,7 @@ export class Spec1_4 implements Protocol {
         ExternalReferenceType.ReleaseNotes,
         ExternalReferenceType.Other,
     ])
+
     isSupportedExternalReferenceType(ert: any): boolean {
         return ert in Spec1_4.#supportedExternalReferenceTypes
     }
