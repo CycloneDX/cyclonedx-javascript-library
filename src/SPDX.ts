@@ -15,9 +15,7 @@ export function isSpdxId(value: SpdxId | any): value is SpdxId {
     return spdxIds.has(value)
 }
 
-/**
- * Try to convert a string to `SpdxId`.
- */
+/** Try to convert a string to `SpdxId`. */
 export function fixupSpdxId(value: string | any): SpdxId | undefined {
     return typeof value === 'string'
         ? spdxLowerToActual.get(value.toLowerCase())
