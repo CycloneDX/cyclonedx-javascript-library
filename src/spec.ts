@@ -83,7 +83,7 @@ class Spec implements Protocol {
 
 // @TODO add the other versions
 
-
+/** Specification v1.4 */
 export const Spec1_4: Protocol = Object.freeze(new Spec(
     Version.v1_4,
     [
