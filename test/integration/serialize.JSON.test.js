@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {describe, beforeEach, it} = require('mocha');
+const {describe, beforeEach, afterEach, it} = require('mocha');
 
 const JsonSerialize = require('../../').Serialize.JSON
 const {Spec} = require('../../')
@@ -52,14 +52,17 @@ describe('JSON serialize', () => {
             const serializer = new JsonSerialize.Serializer(
                 new JsonSerialize.Normalize.Factory(spec)
             )
-            let bom = undefined
 
             beforeEach(function () {
-                bom = createComplex()
+                this.bom = createComplex()
             })
 
-            it('can serialize', () => {
-                const serialized = serializer.serialize(bom)
+            afterEach(function () {
+                delete this.bom
+            })
+
+            it('can serialize', function () {
+                const serialized = serializer.serialize(this.bom)
 
                 assert.strictEqual(typeof serialized, 'string')
             })
