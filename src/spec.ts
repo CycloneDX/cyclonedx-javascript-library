@@ -10,30 +10,46 @@ export enum Version {
 }
 
 
+export enum Format {
+    JSON = 'json',
+    XML = 'xml',
+}
+
+
+/**
+ * This protocol is internal, and may change without any warning,
+ * nor will it be maintained for backwards compatibility.
+ * @internal
+ */
 export interface Protocol {
     readonly version: Version
 
-    supportsComponentType(ct: any): boolean;
+    supportsFormat(f: Format | any): boolean
 
-    supportsHashAlgorithm(ha: any): boolean;
+    supportsComponentType(ct: ComponentType | any): boolean;
 
-    supportsExternalReferenceType(ert: any): boolean;
+    supportsHashAlgorithm(ha: HashAlgorithm | any): boolean;
+
+    supportsExternalReferenceType(ert: ExternalReferenceType | any): boolean;
 }
 
 class Spec implements Protocol {
 
-    #version: Version
-    #supportedComponentTypes: ReadonlySet<ComponentType>
-    #supportedHashAlgorithms: ReadonlySet<HashAlgorithm>
-    #supportedExternalReferenceTypes: ReadonlySet<ExternalReferenceType>
+    readonly #version: Version
+    readonly #supportedFormats: ReadonlySet<Format>
+    readonly #supportedComponentTypes: ReadonlySet<ComponentType>
+    readonly #supportedHashAlgorithms: ReadonlySet<HashAlgorithm>
+    readonly #supportedExternalReferenceTypes: ReadonlySet<ExternalReferenceType>
 
     constructor(
         version: Version,
+        supportedFormats: Iterable<Format>,
         supportedComponentTypes: Iterable<ComponentType>,
         supportedHashAlgorithms: Iterable<HashAlgorithm>,
         supportedExternalReferenceTypes: Iterable<ExternalReferenceType>
     ) {
         this.#version = version
+        this.#supportedFormats = new Set(supportedFormats)
         this.#supportedComponentTypes = new Set(supportedComponentTypes)
         this.#supportedHashAlgorithms = new Set(supportedHashAlgorithms)
         this.#supportedExternalReferenceTypes = new Set(supportedExternalReferenceTypes)
@@ -43,22 +59,34 @@ class Spec implements Protocol {
         return this.#version
     }
 
-    supportsComponentType(ct: any): boolean {
+    supportsFormat(f: Format | any): boolean {
+        return this.#supportedFormats.has(f)
+    }
+
+    supportsComponentType(ct: ComponentType | any): boolean {
         return this.#supportedComponentTypes.has(ct)
     }
 
-    supportsHashAlgorithm(ha: any): boolean {
+    supportsHashAlgorithm(ha: HashAlgorithm | any): boolean {
         return this.#supportedHashAlgorithms.has(ha)
     }
 
-    supportsExternalReferenceType(ert: any): boolean {
+    supportsExternalReferenceType(ert: ExternalReferenceType | any): boolean {
         return this.#supportedExternalReferenceTypes.has(ert)
     }
 
 }
 
+
+// @TODO add the other versions
+
+
 export const Spec1_4: Protocol = Object.freeze(new Spec(
     Version.v1_4,
+    [
+        Format.XML,
+        Format.JSON,
+    ],
     [
         ComponentType.Application,
         ComponentType.Framework,
@@ -102,5 +130,3 @@ export const Spec1_4: Protocol = Object.freeze(new Spec(
         ExternalReferenceType.Other,
     ]
 ))
-
-// @TODO add the other versions

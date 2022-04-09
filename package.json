@@ -48,6 +48,8 @@
     "build:node": "tsc --build",
     "prebuild:web": "node -r fs -e 'fs.rmSync(\"dist.web\",{recursive:true,force:true})'",
     "build:web": "webpack",
-    "test": "mocha"
+    "test": "npm run test:node && npm run test:web",
+    "test:node" : "mocha",
+    "test:web" : "node -e 'console.log(\"todo: write web test\")'"
   }
 }

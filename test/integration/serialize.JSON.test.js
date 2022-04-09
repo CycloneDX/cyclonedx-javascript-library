@@ -30,4 +30,5 @@ describe('JSON serialize', () => {
 
         // TODO add more tests
     }))
+
 })

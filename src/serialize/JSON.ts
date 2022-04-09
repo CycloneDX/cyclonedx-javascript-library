@@ -1,5 +1,5 @@
 import * as Models from "../models";
-import {Protocol as SpecProtocol, Version as SpecVersion} from "../spec";
+import {Protocol as SpecProtocol, Version as SpecVersion, Format} from "../spec";
 import {Protocol as SerializerProtocol} from "./serializer";
 
 
@@ -16,6 +16,10 @@ export class Serializer implements SerializerProtocol {
     #normalizerFactory: Normalize.Factory
 
     constructor(normalizerFactory: Normalize.Factory) {
+        if (!normalizerFactory.spec.supportsFormat(Format.JSON))
+        {
+            throw new RangeError('Spec does not support JSON format.')
+        }
         this.#normalizerFactory = normalizerFactory
     }
 
