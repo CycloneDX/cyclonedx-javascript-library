@@ -1,4 +1,4 @@
-import {isSpdxId, SpdxId} from '../spdx'
+import {isSpdxId, SpdxId} from '../SPDX'
 
 export class LicenseExpression {
     value: string

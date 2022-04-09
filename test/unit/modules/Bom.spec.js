@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {models:{
+const {Models:{
     Bom, ComponentRepository, Metadata
 }} = require('../../../');
 

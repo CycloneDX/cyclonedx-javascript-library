@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {spdx:{
+const {SPDX:{
     fixupSpdxId, isSpdxId
 }} = require('../../');
 

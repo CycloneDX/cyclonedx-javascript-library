@@ -1,4 +1,5 @@
-export * as enums from "./enums/";
-export * as models from "./models/"
-export * as spdx from "./spdx"
-export * as types from "./types"
+export * as Enums from "./enums/"
+export * as Models from "./models/"
+export * as Serialize from "./serialize/"
+export * as SPDX from "./SPDX"
+export * as Types from "./types"

@@ -1,5 +1,5 @@
 import {Bom} from "../models";
 
-export interface Serializer {
+export interface Protocol {
     serialize(bom: Bom): string
 }

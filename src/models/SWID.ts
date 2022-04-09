@@ -1,4 +1,4 @@
-import {Attachment} from "./Attachment";
+import {Attachment} from "./attachment";
 import {isPositiveInteger, PositiveInteger} from "../types"
 
 export class SWID {

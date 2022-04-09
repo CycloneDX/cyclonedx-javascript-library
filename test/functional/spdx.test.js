@@ -1,6 +1,6 @@
 const assert = require('assert');
 const {spdxSpecEnum} = require('../_data/spdx')
-const {spdx} = require('../../');
+const {SPDX} = require('../../');
 
 describe('isSpdxId()', () => {
 
@@ -11,7 +11,7 @@ describe('isSpdxId()', () => {
     describe('knows', () => {
         knownSpdxIds.forEach(value => {
             it(`${value}`, () => {
-                assert.strictEqual(spdx.isSpdxId(value), true)
+                assert.strictEqual(SPDX.isSpdxId(value), true)
             })
         })
     })
@@ -29,7 +29,7 @@ describe('fixupSpdxId()', () => {
     describe('transform', () => {
         expectedFixed.forEach((expected, value) => {
             it(`${value} -> ${expected}`, () => {
-                assert.strictEqual(spdx.fixupSpdxId(value), expected)
+                assert.strictEqual(SPDX.fixupSpdxId(value), expected)
             })
         })
     })

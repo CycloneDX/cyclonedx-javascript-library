@@ -1,4 +1,4 @@
-import {HashRepository} from "./Hash";
+import {HashRepository} from "./hash";
 
 export class Tool {
     vendor: string | null = null
