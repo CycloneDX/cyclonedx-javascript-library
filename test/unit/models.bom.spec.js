@@ -1,9 +1,11 @@
 const assert = require('assert');
+const {suite, test} = require('mocha');
+
 const {Bom, ComponentRepository, Metadata} = require('../../').Models;
 
-describe('BOM', () => {
+suite('BOM', () => {
 
-    it('construct with empty properties', () => {
+    test('construct with empty properties', () => {
         const bom = new Bom()
 
         assert.ok(bom.metadata instanceof Metadata)
@@ -14,9 +16,9 @@ describe('BOM', () => {
         assert.strictEqual(bom.serialNumber, null)
     })
 
-    describe('can set version', () => {
-        [3, 6.0].forEach(newVersion => {
-            it(`for: ${newVersion}`, () => {
+    suite('can set version', () =>
+        [3, 6.0].forEach(newVersion =>
+            test(`for: ${newVersion}`, () => {
                 const bom = new Bom()
                 assert.notStrictEqual(bom.version, newVersion)
 
@@ -24,10 +26,10 @@ describe('BOM', () => {
 
                 assert.strictEqual(bom.version, newVersion)
             })
-        })
-    })
+        )
+    )
 
-    describe('cannot set version', () => {
+    suite('cannot set version', () =>
         [
             0, -1, 3.5, -3.5,
             'foo', '3',
@@ -35,8 +37,8 @@ describe('BOM', () => {
             null, undefined,
             ['list'],
             {'ob': 'ject'}
-        ].forEach(newVersion => {
-            it(`for: ${newVersion}`, () => {
+        ].forEach(newVersion =>
+            test(`for: ${newVersion}`, () => {
                 const bom = new Bom()
                 assert.notStrictEqual(bom.version, newVersion)
 
@@ -44,7 +46,7 @@ describe('BOM', () => {
                     bom.version = newVersion
                 }, new RegExp('not PositiveInteger'))
             })
-        })
-    })
+        )
+    )
 
 })
