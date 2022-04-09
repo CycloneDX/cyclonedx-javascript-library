@@ -261,7 +261,7 @@ export namespace Normalizer {
             }
         }
 
-        public normalizeNamedLicense(data: Models.NamedLicense): object {
+        private normalizeNamedLicense(data: Models.NamedLicense): object {
             return {
                 license: {
                     name: data.name,
@@ -271,7 +271,7 @@ export namespace Normalizer {
             }
         }
 
-        public normalizeSpdxLicense(data: Models.SpdxLicense): object {
+        private normalizeSpdxLicense(data: Models.SpdxLicense): object {
             return {
                 license: {
                     id: data.id,
@@ -281,7 +281,7 @@ export namespace Normalizer {
             }
         }
 
-        public normalizeLicenseExpression(data: Models.LicenseExpression): object {
+        private normalizeLicenseExpression(data: Models.LicenseExpression): object {
             return {
                 expression: data.value,
             }
