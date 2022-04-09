@@ -18,12 +18,6 @@ export enum Format {
 export class UnsupportedFormatError extends Error {}
 
 
-
-/**
- * This protocol is internal, and may change without any warning,
- * nor will it be maintained for backwards compatibility.
- * @internal
- */
 export interface Protocol {
     readonly version: Version
 
