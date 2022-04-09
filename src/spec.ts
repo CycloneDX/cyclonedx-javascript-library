@@ -15,6 +15,9 @@ export enum Format {
     XML = 'xml',
 }
 
+export class UnsupportedFormatError extends Error {}
+
+
 
 /**
  * This protocol is internal, and may change without any warning,

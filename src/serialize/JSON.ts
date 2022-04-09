@@ -1,9 +1,9 @@
 import * as Models from "../models";
-import {Protocol as SpecProtocol, Version as SpecVersion, Format} from "../spec";
+import {Protocol as SpecProtocol, Version as SpecVersion, Format, UnsupportedFormatError} from "../spec";
 import {Protocol as SerializerProtocol} from "./serializer";
 
 
-export const JsonSchemaUrl: ReadonlyMap<SpecVersion, string | undefined> = new Map([
+const JsonSchemaUrl: ReadonlyMap<SpecVersion, string | undefined> = new Map([
     [SpecVersion.v1_0, undefined],
     [SpecVersion.v1_1, undefined],
     [SpecVersion.v1_2, 'http://cyclonedx.org/schema/bom-1.2.schema.json'],
@@ -11,14 +11,18 @@ export const JsonSchemaUrl: ReadonlyMap<SpecVersion, string | undefined> = new M
     [SpecVersion.v1_4, 'http://cyclonedx.org/schema/bom-1.4.schema.json'],
 ])
 
+class UnsupportedFormat extends Error {}
 
 export class Serializer implements SerializerProtocol {
     #normalizerFactory: Normalize.Factory
 
+    /**
+     * @throws {UnsupportedFormatError} if spec does not support JSON format.
+     */
     constructor(normalizerFactory: Normalize.Factory) {
         if (!normalizerFactory.spec.supportsFormat(Format.JSON))
         {
-            throw new RangeError('Spec does not support JSON format.')
+            throw new UnsupportedFormatError('Spec does not support JSON format.')
         }
         this.#normalizerFactory = normalizerFactory
     }
