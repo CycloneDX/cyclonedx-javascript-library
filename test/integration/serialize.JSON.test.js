@@ -25,7 +25,10 @@ describe('JSON serialize', () => {
             const serialized = serializer.serialize(this.bom)
 
             // TODO: outsource this content
-            assert.strictEqual(serialized, serializeResults('complex', spec.version))
+            assert.deepStrictEqual(
+                JSON.parse(serialized),
+                JSON.parse(serializeResults('complex', spec.version, 'json'))
+            )
         })
 
         // TODO add more tests

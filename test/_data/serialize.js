@@ -8,12 +8,14 @@ const {Enums, Models, Spec} = require('../../')
 /**
  * @param {string} purpose
  * @param {Spec.Version} spec
+ * @param {string} format
+ * @param {BufferEncoding} [encoding]
  * @return {string}
  */
-function serializeResults(purpose, spec) {
+function serializeResults(purpose, spec, format, encoding='utf-8') {
     return fs.readFileSync(
-        path.resolve(__dirname, 'serializeResults', `${purpose}-spec${spec}.txt`)
-    ).toString()
+        path.resolve(__dirname, 'serializeResults', `${purpose}-spec${spec}.${format}`)
+    ).toString(encoding)
 }
 
 module.exports.serializeResults = serializeResults
@@ -81,7 +83,7 @@ function createComplexStructure() {
         component.supplier = new Models.OrganizationalEntity()
         component.supplier.name = 'Component Supplier'
         component.supplier.url.add(new URL('https://localhost/componentSupplier'))
-        component.supplier.contact.add((function (contact){
+        component.supplier.contact.add((function (contact) {
             contact.name = 'Franz'
             contact.email = 'franz-aus-bayern@komplett.verwahrlosten.taxi'
             contact.phone = '555-732378879'
