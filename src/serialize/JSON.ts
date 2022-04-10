@@ -279,7 +279,7 @@ export namespace Normalize {
                 name: data.name,
                 text: data.text
                     ? this.factory.makeForAttachment().normalize(data.text)
-                    > undefined,
+                    : undefined,
                 url: data.url?.toString(),
             }
         });
@@ -289,7 +289,7 @@ export namespace Normalize {
                 id: data.id,
                 text: data.text
                     ? this.factory.makeForAttachment().normalize(data.text)
-                    > undefined,
+                    : undefined,
                 url: data.url?.toString(),
             }
         });

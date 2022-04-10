@@ -1,4 +1,5 @@
 import {isSpdxId, SpdxId} from '../SPDX'
+import {Attachment} from './attachment'
 
 export class LicenseExpression {
     value: string
@@ -10,7 +11,7 @@ export class LicenseExpression {
 
 export class NamedLicense {
     name: string
-    text: string | null = null // TODO / FIXME: text is attachment
+    text: Attachment | null = null
     url: URL | null = null
 
     constructor(name: string) {
@@ -19,7 +20,7 @@ export class NamedLicense {
 }
 
 export class SpdxLicense {
-    text: string | null = null // TODO / FIXME: text is atyachment
+    text: Attachment | null = null
     url: URL | null = null
 
     constructor(id: SpdxId) {
