@@ -24,7 +24,6 @@ describe('JSON serialize', () => {
         it('can serialize', function () {
             const serialized = serializer.serialize(this.bom)
 
-            // TODO: outsource this content
             assert.deepStrictEqual(
                 JSON.parse(serialized),
                 JSON.parse(serializeResults('complex', spec.version, 'json'))
