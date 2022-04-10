@@ -82,7 +82,7 @@ function jsonStringifyReplacer(spec: SpecProtocol): (this: any, key: string, val
                     version: v.version,
                     serialNumber: v.serialNumber || undefined,
                     metadata: v.metadata,
-                    components: v.components,
+                    components: v.components, // TODO / FIXME improper filter for unsupported component types
                 }
             case v instanceof Metadata:
                 return {
