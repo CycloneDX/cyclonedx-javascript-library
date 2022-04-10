@@ -1,6 +1,8 @@
 import * as Models from "../models";
 import {Protocol as SpecProtocol, Version as SpecVersion, Format, UnsupportedFormatError} from "../spec";
 import {Protocol as SerializerProtocol} from "./serializer";
+import * as url from "url";
+import {PackageURL} from "packageurl-js";
 
 
 const JsonSchemaUrl: ReadonlyMap<SpecVersion, string | undefined> = new Map([
@@ -11,7 +13,8 @@ const JsonSchemaUrl: ReadonlyMap<SpecVersion, string | undefined> = new Map([
     [SpecVersion.v1_4, 'http://cyclonedx.org/schema/bom-1.4.schema.json'],
 ])
 
-class UnsupportedFormat extends Error {}
+class UnsupportedFormat extends Error {
+}
 
 export class Serializer implements SerializerProtocol {
     #normalizerFactory: Normalize.Factory
@@ -20,23 +23,80 @@ export class Serializer implements SerializerProtocol {
      * @throws {UnsupportedFormatError} if spec does not support JSON format.
      */
     constructor(normalizerFactory: Normalize.Factory) {
-        if (!normalizerFactory.spec.supportsFormat(Format.JSON))
-        {
+        if (!normalizerFactory.spec.supportsFormat(Format.JSON)) {
             throw new UnsupportedFormatError('Spec does not support JSON format.')
         }
         this.#normalizerFactory = normalizerFactory
     }
 
+    private static getReplacer(normalizerFactory: Normalize.Factory): (this: any, key: string, value: any) => any {
+        return function replacer(k: string, v: any): any {
+            switch (true) {
+                case k === 'hashes':
+                    return v.size > 0 || v.length > 0
+                        ? (new Normalize.HashNormalizer(normalizerFactory)).normalizeIter(v)
+                        : undefined
+                case '' === v:
+                    return v || undefined
+                case v instanceof Date:
+                    return v.toISOString()
+                case v instanceof Set:
+                    return v.size > 0
+                        ? Array.from(v)
+                        : undefined
+                case v instanceof Array:
+                    return v.length > 0
+                        ? v
+                        : undefined
+                case v instanceof URL:
+                    return v.toString()
+                case v === null:
+                    return undefined
+                case v instanceof PackageURL:
+                    return v.toString()
+                case v instanceof Models.Bom:
+                    return {
+                        ...v,
+                        // override
+                        '$schema': JsonSchemaUrl.get(normalizerFactory.spec.version),
+                        bomFormat: 'CycloneDX',
+                        specVersion: normalizerFactory.spec.version,
+                        components: v.components.size > 0
+                            ? v.components
+                            : [],
+                    }
+                case v instanceof Models.Component:
+                    return {
+                        ...v,
+                        // override
+                        'bom-ref': v.bomRef.value || undefined,
+                        version: v.version || '',
+                        // remove
+                        bomRef: undefined,
+                    }
+                case v instanceof Models.NamedLicense:
+                case v instanceof Models.SpdxLicense:
+                    return {
+                        license: {
+                            id: v.id,
+                            name: v.name,
+                            text: v.text || undefined,
+                            url: v.url?.toString(),
+                        }
+                    }
+                case v instanceof Models.LicenseExpression:
+                    return {
+                        expression: v.value,
+                    }
+                default:
+                    return v
+            }
+        }
+    }
+
     serialize(bom: Models.Bom): string {
         // @TODO bom-refs values make unique ...
-        return JSON.stringify(
-            {
-                '$schema': JsonSchemaUrl.get(this.#normalizerFactory.spec.version),
-                ...this.#normalizerFactory.makeForBom().normalize(bom)
-            },
-            null,
-            4
-        )
+        return JSON.stringify(bom, Serializer.getReplacer(this.#normalizerFactory), 4)
     }
 }
 
@@ -274,7 +334,7 @@ export namespace Normalize {
             }
         }
 
-        private normalizeNamedLicense = (data: Models.NamedLicense): object => ({
+        normalizeNamedLicense = (data: Models.NamedLicense): object => ({
             license: {
                 name: data.name,
                 text: data.text
@@ -284,7 +344,7 @@ export namespace Normalize {
             }
         });
 
-        private normalizeSpdxLicense = (data: Models.SpdxLicense): object => ({
+        normalizeSpdxLicense = (data: Models.SpdxLicense): object => ({
             license: {
                 id: data.id,
                 text: data.text
@@ -294,7 +354,7 @@ export namespace Normalize {
             }
         });
 
-        private normalizeLicenseExpression = (data: Models.LicenseExpression): object => ({
+        normalizeLicenseExpression = (data: Models.LicenseExpression): object => ({
             expression: data.value,
         });
 
