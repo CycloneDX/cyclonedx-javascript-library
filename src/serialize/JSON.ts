@@ -261,7 +261,7 @@ export namespace Normalize {
 
     class LicenseNormalizer extends Base {
 
-        normalize(data: Models.LicenseChoice): object | undefined {
+        normalize(data: Models.License): object | undefined {
             switch (true) {
                 case data instanceof Models.NamedLicense:
                     return this.normalizeNamedLicense(<Models.NamedLicense>data)
@@ -294,7 +294,7 @@ export namespace Normalize {
             expression: data.value,
         });
 
-        normalizeIter(data: Iterable<Models.LicenseChoice>): Array<object> {
+        normalizeIter(data: Iterable<Models.License>): Array<object> {
             return Array.from(data, c => this.normalize(c))
                 .filter(c => undefined !== c) as Array<object>
         }

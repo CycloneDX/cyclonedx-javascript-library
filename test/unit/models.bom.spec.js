@@ -35,8 +35,7 @@ suite('BOM', () => {
             'foo', '3',
             true, false,
             null, undefined,
-            ['list'],
-            {'ob': 'ject'}
+            [], {}
         ].forEach(newVersion =>
             test(`for: ${newVersion}`, () => {
                 const bom = new Bom()

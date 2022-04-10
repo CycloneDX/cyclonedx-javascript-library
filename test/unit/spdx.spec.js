@@ -37,7 +37,7 @@ suite('fixupSpdxId()', () => {
 
     suite('transform', () =>
         expectedFixed.forEach((expected, value) =>
-            test(`${value} -> ${expected}`, () =>
+            test(`${value} => ${expected}`, () =>
                 assert.strictEqual(fixupSpdxId(value), expected)
             )
         )
