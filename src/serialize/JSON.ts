@@ -5,24 +5,25 @@ import {Protocol as SerializerProtocol} from "./serializer"
 import {
     Attachment,
     Bom,
-    Component, ExternalReference,
+    Component,
+    ExternalReference,
     Hash,
-    HashRepository, LicenseExpression,
-    Metadata, NamedLicense,
+    LicenseExpression,
+    Metadata,
+    NamedLicense,
     OrganizationalContact,
-    OrganizationalEntity, SpdxLicense, SWID,
+    OrganizationalEntity,
+    SpdxLicense,
+    SWID,
     Tool
 } from "../models";
 
 
-const JsonSchemaUrl: ReadonlyMap<SpecVersion, string | undefined> = new Map([
+const JsonSchemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
     [SpecVersion.v1_2, 'http://cyclonedx.org/schema/bom-1.2.schema.json'],
     [SpecVersion.v1_3, 'http://cyclonedx.org/schema/bom-1.3.schema.json'],
     [SpecVersion.v1_4, 'http://cyclonedx.org/schema/bom-1.4.schema.json'],
 ])
-
-class UnsupportedFormat extends Error {
-}
 
 export class Serializer implements SerializerProtocol {
     readonly #spec: SpecProtocol
@@ -44,7 +45,7 @@ export class Serializer implements SerializerProtocol {
 }
 
 function jsonStringifyReplacer(spec: SpecProtocol): (this: any, key: string, value: any) => any {
-    function replaceHashes(hashes: HashRepository, spec: SpecProtocol) {
+    function replaceHashes(hashes: Iterable<Hash>, spec: SpecProtocol) {
         return Array.from(
             hashes,
             ([algorithm, content]: Hash): object | undefined =>
