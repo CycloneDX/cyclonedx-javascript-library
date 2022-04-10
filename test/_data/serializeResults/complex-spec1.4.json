@@ -26,10 +26,9 @@
       }
     ],
     "component": {
+      "bom-ref": "dummy.metadata.component",
       "type": "library",
-      "name": "Root Component",
-      "version": "",
-      "bom-ref": "dummy.metadata.component"
+      "name": "Root Component"
     },
     "manufacture": {
       "name": "meta manufacture",
@@ -52,11 +51,11 @@
   },
   "components": [
     {
+      "bom-ref": "dummy-component",
       "type": "library",
       "name": "dummy-component",
       "group": "acme",
       "version": "1337-beta",
-      "bom-ref": "dummy-component",
       "supplier": {
         "name": "Component Supplier",
         "url": [
@@ -113,7 +112,7 @@
         "tagId": "some-tag",
         "name": "dummy-component",
         "version": "1337-beta",
-        "patch": true,
+        "patch": false,
         "text": {
           "content": "some context",
           "contentType": "some context type",

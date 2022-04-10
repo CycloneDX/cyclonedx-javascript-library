@@ -95,7 +95,7 @@ function createComplexStructure() {
         })(new Models.OrganizationalContact()))
         component.swid = new Models.SWID('some-tag', 'dummy-component')
         component.swid.version = '1337-beta'
-        component.swid.patch = true
+        component.swid.patch = false
         component.swid.text = new Models.Attachment('some context')
         component.swid.text.contentType = 'some context type'
         component.swid.text.encoding = Enums.AttachmentEncoding.Base64
