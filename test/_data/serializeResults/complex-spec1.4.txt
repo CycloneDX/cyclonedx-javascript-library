@@ -105,6 +105,7 @@
                 "tagId": "some-tag",
                 "name": "dummy-component",
                 "version": "1337-beta",
+                "patch": true,
                 "text": {
                     "content": "some context",
                     "contentType": "some context type",
