@@ -10,7 +10,7 @@ export class LicenseExpression {
 
 export class NamedLicense {
     name: string
-    text: string | null = null
+    text: string | null = null // TODO / FIXME: text is attachment
     url: URL | null = null
 
     constructor(name: string) {
@@ -19,7 +19,7 @@ export class NamedLicense {
 }
 
 export class SpdxLicense {
-    text: string | null = null
+    text: string | null = null // TODO / FIXME: text is atyachment
     url: URL | null = null
 
     constructor(id: SpdxId) {
