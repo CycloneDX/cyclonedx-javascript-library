@@ -84,19 +84,27 @@
         {
           "license": {
             "name": "some other",
-            "text": "Some\nlicense\ntext.",
+            "text": {
+              "content": "U29tZQpsaWNlbnNlCnRleHQu",
+              "contentType": "text/plain",
+              "encoding": "base64"
+            },
             "url": "https://localhost/license"
           }
         },
         {
           "license": {
             "id": "MIT",
-            "text": "MIT License\n...\nTHE SOFTWARE IS PROVIDED \"AS IS\"...",
+            "text": {
+              "content": "TUlUIExpY2Vuc2UKLi4uClRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLi4u",
+              "contentType": "text/plain",
+              "encoding": "base64"
+            },
             "url": "https://spdx.org/licenses/MIT.html"
           }
         },
         {
-          "expression": "MIT or other"
+          "expression": "(MIT or Apache-2.0)"
         }
       ],
       "copyright": "(c) acme",

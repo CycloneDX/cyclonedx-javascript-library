@@ -67,16 +67,20 @@ function createComplexStructure() {
         component.group = 'acme'
         component.hashes.set(Enums.HashAlgorithm['SHA-1'], 'e6f36746ccba42c288acf906e636bb278eaeb7e8')
         component.licenses.add((function (license) {
-            license.text = `Some\nlicense\ntext.`
+            license.text = new Models.Attachment('U29tZQpsaWNlbnNlCnRleHQu')
+            license.text.contentType = 'text/plain'
+            license.text.encoding = Enums.AttachmentEncoding.Base64
             license.url = new URL('https://localhost/license')
             return license
         })(new Models.NamedLicense('some other')))
         component.licenses.add((function (license) {
-            license.text = `MIT License\n...\nTHE SOFTWARE IS PROVIDED "AS IS"...`
+            license.text = new Models.Attachment('TUlUIExpY2Vuc2UKLi4uClRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLi4u')
+            license.text.contentType = 'text/plain'
+            license.text.encoding = Enums.AttachmentEncoding.Base64
             license.url = new URL('https://spdx.org/licenses/MIT.html')
             return license
         })(new Models.SpdxLicense('MIT')))
-        component.licenses.add(new Models.LicenseExpression('MIT or other'))
+        component.licenses.add(new Models.LicenseExpression('(MIT or Apache-2.0)'))
         component.publisher = 'the publisher'
         component.purl = new PackageURL('npm', 'acme', 'dummy-component', '1337-beta')
         component.scope = Enums.ComponentScope.Required
