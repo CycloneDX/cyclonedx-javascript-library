@@ -1,4 +1,4 @@
-import {OrganizationalContactRepository} from "./OrganizationalContact";
+import {OrganizationalContactRepository} from "./organizationalContact";
 
 export class OrganizationalEntity {
     name: string | null = null

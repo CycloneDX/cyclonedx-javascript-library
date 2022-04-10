@@ -1,11 +1,13 @@
 import {ComponentScope, ComponentType} from "../enums/"
-import {BomRef} from "./BomRef"
-import {HashRepository} from "./Hash"
-import {OrganizationalEntity} from "./OrganizationalEntity"
-import {ExternalReferenceRepository} from "./ExternalReference"
-import {LicenseRepository} from "./License"
-import {PackageURL} from 'packageurl-js'
+import {BomRef} from "./bomRef"
+import {HashRepository} from "./hash"
+import {OrganizationalEntity} from "./organizationalEntity"
+import {ExternalReferenceRepository} from "./externalReference"
+import {LicenseRepository} from "./license"
 import {SWID} from "./SWID"
+
+import {PackageURL} from 'packageurl-js'
+
 
 export class Component {
     readonly bomRef = new BomRef()

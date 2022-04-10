@@ -2,7 +2,7 @@ export enum ComponentType {
     Application = "application",
     Framework = "framework",
     Library = "library",
-    container = "container",
+    Container = "container",
     OperatingSystem = "operating-system",
     Device = "device",
     Firmware = "firmware",

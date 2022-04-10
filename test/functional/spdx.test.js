@@ -1,24 +1,26 @@
 const assert = require('assert');
+const {suite, test} = require('mocha');
+
 const {spdxSpecEnum} = require('../_data/spdx')
-const {spdx} = require('../../');
+const {SPDX} = require('../../');
 
-describe('isSpdxId()', () => {
+suite('isSpdxId()', () => {
 
-    const knownSpdxIds = [
+    const knownSpdxIds = Object.freeze([
         ...spdxSpecEnum
-    ]
+    ])
 
-    describe('knows', () => {
-        knownSpdxIds.forEach(value => {
-            it(`${value}`, () => {
-                assert.strictEqual(spdx.isSpdxId(value), true)
-            })
-        })
+    suite('knows', () => {
+        knownSpdxIds.forEach(value =>
+            test(`${value}`, () =>
+                assert.strictEqual(SPDX.isSpdxId(value), true)
+            )
+        )
     })
 
 })
 
-describe('fixupSpdxId()', () => {
+suite('fixupSpdxId()', () => {
 
     const expectedFixed = new Map([
         ...spdxSpecEnum.map(v => [v, v]),
@@ -26,12 +28,12 @@ describe('fixupSpdxId()', () => {
         ...spdxSpecEnum.map(v => [v.toUpperCase(), v]),
     ])
 
-    describe('transform', () => {
-        expectedFixed.forEach((expected, value) => {
-            it(`${value} -> ${expected}`, () => {
-                assert.strictEqual(spdx.fixupSpdxId(value), expected)
-            })
-        })
+    suite('transform', () => {
+        expectedFixed.forEach((expected, value) =>
+            test(`${value} -> ${expected}`, () =>
+                assert.strictEqual(SPDX.fixupSpdxId(value), expected)
+            )
+        )
     })
 
 })

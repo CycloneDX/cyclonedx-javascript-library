@@ -1,4 +1,4 @@
-import {isSpdxId, SpdxId} from '../spdx'
+import {isSpdxId, SpdxId} from '../SPDX'
 
 export class LicenseExpression {
     value: string
@@ -41,7 +41,8 @@ export class SpdxLicense {
 
 }
 
-export type LicenseChoice = NamedLicense | SpdxLicense | LicenseExpression
+export type DisjunctiveLicense = NamedLicense | SpdxLicense
+export type License = DisjunctiveLicense | LicenseExpression
 
-export class LicenseRepository extends Set<LicenseChoice> {
+export class LicenseRepository extends Set<License> {
 }

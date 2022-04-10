@@ -1,8 +1,5 @@
-export * from "./AttachmentEncoding";
-export * from "./ComponentScope";
-export * from "./ComponentType";
-export * from "./ExternalReferenceType";
-export * from "./HashAlogorithms";
-
-
-
+export * from "./attachmentEncoding"
+export * from "./componentScope"
+export * from "./componentType"
+export * from "./externalReferenceType"
+export * from "./hashAlogorithm"
