@@ -40,7 +40,11 @@ export class Serializer implements SerializerProtocol {
 
     serialize(bom: Bom): string {
         // @TODO bom-refs values make unique ...
-        return JSON.stringify(bom, jsonStringifyReplacer(this.#spec), 4)
+        try {
+            return JSON.stringify(bom, jsonStringifyReplacer(this.#spec), 4)
+        } finally {
+            // @TODO reset bom-refs
+        }
     }
 }
 
@@ -60,14 +64,16 @@ function jsonStringifyReplacer(spec: SpecProtocol): (this: any, key: string, val
             case v === undefined:
             case v === null:
                 return undefined
-            case v instanceof Date:
-            case v instanceof URL:
-            case v instanceof PackageURL:
-                return v.toString()
             case v instanceof Array:
                 return v.length > 0 ? v : undefined
             case v instanceof Set:
                 return v.size > 0 ? Array.from(v) : undefined
+            case v instanceof Map:
+                return Object.fromEntries(v)
+            case v instanceof Date:
+            case v instanceof URL:
+            case v instanceof PackageURL:
+                return v.toString()
             case v instanceof Bom:
                 return {
                     '$schema': JsonSchemaUrl.get(spec.version),
