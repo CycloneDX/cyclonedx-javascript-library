@@ -1,7 +1,7 @@
-import {Component} from "./Component";
-import {ToolRepository} from "./Tool"
-import {OrganizationalEntity} from "./OrganizationalEntity";
-import {OrganizationalContactRepository} from "./OrganizationalContact";
+import {Component} from "./component";
+import {ToolRepository} from "./tool"
+import {OrganizationalEntity} from "./organizationalEntity";
+import {OrganizationalContactRepository} from "./organizationalContact";
 
 export class Metadata {
     timestamp: Date | null = null

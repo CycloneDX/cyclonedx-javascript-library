@@ -2,9 +2,31 @@
 <html lang="en">
 <head>
     <title>example</title>
-    <script src="../dist.web/lib.js"></script>
+    <script src="../dist.web/lib.js" type="application/javascript">
+        // full Library is available as `CycloneDX_library`, per default
+    </script>
+    <script type="application/javascript">
+
+        /** Example how to serialize a Bom to JSON. */
+        const cdx = CycloneDX_library
+
+        const bom = new cdx.Models.Bom()
+        bom.components.add(
+            new cdx.Models.Component(
+                cdx.Enums.ComponentType.Library,
+                'myComponent'
+            )
+        )
+
+        const serializer = new cdx.Serialize.JSON.Serializer(
+            new cdx.Serialize.JSON.Normalize.Factory(
+                cdx.Spec.Spec1_4))
+        const serialized = serializer.serialize(bom)
+
+        console.log(serialized)
+    </script>
 </head>
 <body>
-<p>Library is available as <em>CycloneDX_library</em>.</p>
+<p>see console log output for result.</p>
 </body>
 </html>
