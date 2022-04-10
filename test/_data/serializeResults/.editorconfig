@@ -1,8 +1,0 @@
-# data in this dir is to be treated as is - like binary
-root = true
-
-[*.txt]
-charset = utf-8
-insert_final_newline = false
-trim_trailing_whitespace = false
-indent_size = 0
