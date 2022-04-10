@@ -4,8 +4,7 @@ name: Node CI
 
 on: 
   push:
-    # TODO: remove 1.0-dev after dev-merge
-    branches: ["master", "1.0-dev"]
+    branches: [ master ]
   pull_request:
   workflow_dispatch:
 
