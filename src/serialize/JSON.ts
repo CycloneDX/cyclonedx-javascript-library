@@ -277,7 +277,9 @@ export namespace Normalize {
         private normalizeNamedLicense = (data: Models.NamedLicense): object => ({
             license: {
                 name: data.name,
-                text: data.text || undefined,
+                text: data.text
+                    ? this.factory.makeForAttachment().normalize(data.text)
+                    > undefined,
                 url: data.url?.toString(),
             }
         });
@@ -285,7 +287,9 @@ export namespace Normalize {
         private normalizeSpdxLicense = (data: Models.SpdxLicense): object => ({
             license: {
                 id: data.id,
-                text: data.text || undefined,
+                text: data.text
+                    ? this.factory.makeForAttachment().normalize(data.text)
+                    > undefined,
                 url: data.url?.toString(),
             }
         });
