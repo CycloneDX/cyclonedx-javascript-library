@@ -8,7 +8,8 @@ const {Spec} = require('../../')
 describe('JSON serialize', () => {
 
     [
-        // TODO add other versions
+        Spec.Spec1_2,
+        Spec.Spec1_3,
         Spec.Spec1_4,
     ].forEach(spec => describe(`complex with spec v${spec.version}`, () => {
         const serializer = new JsonSerialize.Serializer(new JsonSerialize.Normalize.Factory(spec))

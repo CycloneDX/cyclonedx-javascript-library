@@ -1,8 +1,7 @@
 import {Metadata} from "./metadata"
 import {ComponentRepository} from "./component"
-import {isPositiveInteger, PositiveInteger} from "../types"
+import {isPositiveInteger, isUrnUuid, PositiveInteger, UrnUuid} from "../types/";
 
-const SerialNumberRegExp = /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 
 export class Bom {
 
@@ -16,6 +15,7 @@ export class Bom {
     get version(): PositiveInteger {
         return this.#version
     }
+
     set version(value: PositiveInteger) {
         if (!isPositiveInteger(value)) {
             throw new RangeError(`${value} is not PositiveInteger`)
@@ -23,20 +23,18 @@ export class Bom {
         this.#version = value
     }
 
-    #serialNumber: string | null = null
-    get serialNumber(): string | null {
+    #serialNumber: UrnUuid | null = null
+    /** @type {(UrnUuid|null)} */
+    get serialNumber(): UrnUuid | null {
         return this.#serialNumber
     }
-    set serialNumber(value: string | null) {
-        if (value !== null && !Bom.isEligibleSerialNumber(value)) {
-            throw new RangeError(`${value} is no eligible SerialNumber`)
+
+    set serialNumber(value: UrnUuid | null) {
+        if (value !== null && !isUrnUuid(value)) {
+            throw new RangeError(`${value} is not UrnUuid`)
         }
         this.#serialNumber = value
     }
 
-    private static isEligibleSerialNumber(value: string | any): boolean {
-        // this method might be moved to the Spec, as the spec defines valid values in general.
-        return typeof value == 'string'
-            && SerialNumberRegExp.test(value)
-    }
+
 }

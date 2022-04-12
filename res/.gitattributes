@@ -1,4 +1,3 @@
-
 # snapshots are vendored for offline use
 *.SNAPSHOT.*    linguist-vendored
 
