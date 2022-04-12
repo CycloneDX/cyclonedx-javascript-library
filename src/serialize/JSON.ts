@@ -3,15 +3,14 @@ import {Protocol as SpecProtocol, Version as SpecVersion, Format, UnsupportedFor
 import {Protocol as SerializerProtocol} from "./serializer";
 
 
-const JsonSchemaUrl: ReadonlyMap<SpecVersion, string | undefined> = new Map([
-    [SpecVersion.v1_0, undefined],
-    [SpecVersion.v1_1, undefined],
-    [SpecVersion.v1_2, 'http://cyclonedx.org/schema/bom-1.2.schema.json'],
-    [SpecVersion.v1_3, 'http://cyclonedx.org/schema/bom-1.3.schema.json'],
+const JsonSchemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
+    [SpecVersion.v1_2, 'http://cyclonedx.org/schema/bom-1.2b.schema.json'],
+    [SpecVersion.v1_3, 'http://cyclonedx.org/schema/bom-1.3a.schema.json'],
     [SpecVersion.v1_4, 'http://cyclonedx.org/schema/bom-1.4.schema.json'],
 ])
 
-class UnsupportedFormat extends Error {}
+class UnsupportedFormat extends Error {
+}
 
 export class Serializer implements SerializerProtocol {
     #normalizerFactory: Normalize.Factory
@@ -20,8 +19,7 @@ export class Serializer implements SerializerProtocol {
      * @throws {UnsupportedFormatError} if spec does not support JSON format.
      */
     constructor(normalizerFactory: Normalize.Factory) {
-        if (!normalizerFactory.spec.supportsFormat(Format.JSON))
-        {
+        if (!normalizerFactory.spec.supportsFormat(Format.JSON)) {
             throw new UnsupportedFormatError('Spec does not support JSON format.')
         }
         this.#normalizerFactory = normalizerFactory
@@ -173,7 +171,8 @@ export namespace Normalize {
 
     export class HashNormalizer extends Base {
         normalize([algorithm, content]: Models.Hash): object | undefined {
-            return this.factory.spec.supportsHashAlgorithm(algorithm)
+            const spec = this.factory.spec
+            return spec.supportsHashAlgorithm(algorithm) && spec.supportsHashValue(content)
                 ? {
                     alg: algorithm,
                     content: content,

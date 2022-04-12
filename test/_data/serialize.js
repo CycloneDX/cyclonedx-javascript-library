@@ -58,6 +58,7 @@ function createComplexStructure() {
     bom.components.add((function (component) {
         component.bomRef.value = 'dummy-component'
         component.author = "component's author"
+        component.cpe = 'cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*'
         component.copyright = '(c) acme'
         component.description = 'this is a test component'
         component.externalReferences.add((function (ref) {
