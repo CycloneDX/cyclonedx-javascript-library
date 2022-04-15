@@ -1,6 +1,6 @@
+import { isPositiveInteger, isUrnUuid, PositiveInteger, UrnUuid } from '../types'
 import { Metadata } from './metadata'
 import { ComponentRepository } from './component'
-import { isPositiveInteger, isUrnUuid, PositiveInteger, UrnUuid } from '../types'
 
 export class Bom {
   // property `bomFormat` is not part of model, it is a runtime information
