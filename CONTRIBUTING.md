@@ -9,6 +9,7 @@ first.
 ## Set up the project
 
 Install dependencies:
+
 ```shell
 npm ci
 ```
@@ -18,6 +19,7 @@ The setup will also build the project.
 ## Build from source
 
 Build the JavaScript:
+
 ```shell
 npm run build
 ```
@@ -25,6 +27,7 @@ npm run build
 ## Test the build result
 
 Run the tests:
+
 ```shell
 npm test
 ```
@@ -32,6 +35,7 @@ npm test
 ## Coding standards 
 
 Apply coding standards via:
+
 ```shell
 npm run cs-fix
 ```
