@@ -9,29 +9,29 @@ const JsonSchemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
 ])
 
 export class Serializer implements SerializerProtocol {
-    #normalizerFactory: Normalize.Factory
+  #normalizerFactory: Normalize.Factory
 
-    /**
-     * @throws {UnsupportedFormatError} if spec does not support JSON format.
-     */
-    constructor (normalizerFactory: Normalize.Factory) {
-      if (!normalizerFactory.spec.supportsFormat(Format.JSON)) {
-        throw new UnsupportedFormatError('Spec does not support JSON format.')
-      }
-      this.#normalizerFactory = normalizerFactory
+  /**
+   * @throws {UnsupportedFormatError} if spec does not support JSON format.
+   */
+  constructor (normalizerFactory: Normalize.Factory) {
+    if (!normalizerFactory.spec.supportsFormat(Format.JSON)) {
+      throw new UnsupportedFormatError('Spec does not support JSON format.')
     }
+    this.#normalizerFactory = normalizerFactory
+  }
 
-    serialize (bom: Models.Bom): string {
-      // @TODO bom-refs values make unique ...
-      return JSON.stringify(
-        {
-          $schema: JsonSchemaUrl.get(this.#normalizerFactory.spec.version),
-          ...this.#normalizerFactory.makeForBom().normalize(bom)
-        },
-        null,
-        4
-      )
-    }
+  serialize (bom: Models.Bom): string {
+    // @TODO bom-refs values make unique ...
+    return JSON.stringify(
+      {
+        $schema: JsonSchemaUrl.get(this.#normalizerFactory.spec.version),
+        ...this.#normalizerFactory.makeForBom().normalize(bom)
+      },
+      null,
+      4
+    )
+  }
 }
 
 /* eslint-disable-next-line @typescript-eslint/no-namespace */
@@ -116,7 +116,7 @@ export namespace Normalize {
         metadata: this.factory.makeForMetadata().normalize(data.metadata),
         components: data.components.size > 0
           ? this.factory.makeForComponent().normalizeIter(data.components)
-        // spec < 1.4 requires `component` to be array
+          // spec < 1.4 requires `component` to be array
           : []
       }
     }
@@ -196,7 +196,7 @@ export namespace Normalize {
       return {
         name: data.name || undefined,
         url: data.url.size > 0
-        // must comply to https://datatracker.ietf.org/doc/html/rfc3987
+          // must comply to https://datatracker.ietf.org/doc/html/rfc3987
           ? Array.from(data.url, u => u.toString())
           : undefined,
         contact: data.contact.size > 0

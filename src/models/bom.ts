@@ -9,27 +9,33 @@ export class Bom {
   metadata = new Metadata()
   components = new ComponentRepository()
 
-    #version: PositiveInteger = 1
-    get version (): PositiveInteger {
-      return this.#version
-    }
+  #version: PositiveInteger = 1
+  get version (): PositiveInteger {
+    return this.#version
+  }
 
-    set version (value: PositiveInteger) {
-      if (!isPositiveInteger(value)) {
-        throw new RangeError('Not PositiveInteger')
-      }
-      this.#version = value
+  /**
+   * @throws {TypeError} if value is not positive integer
+   */
+  set version (value: PositiveInteger) {
+    if (!isPositiveInteger(value)) {
+      throw new TypeError('Not PositiveInteger')
     }
+    this.#version = value
+  }
 
-    #serialNumber: UrnUuid | null = null
-    get serialNumber (): UrnUuid | null {
-      return this.#serialNumber
-    }
+  #serialNumber: UrnUuid | null = null
+  get serialNumber (): UrnUuid | null {
+    return this.#serialNumber
+  }
 
-    set serialNumber (value: UrnUuid | null) {
-      if (value !== null && !isUrnUuid(value)) {
-        throw new RangeError('Not UrnUuid')
-      }
-      this.#serialNumber = value
+  /**
+   * @throws {TypeError} if value is not UrnUuid nor null
+   */
+  set serialNumber (value: UrnUuid | null) {
+    if (value !== null && !isUrnUuid(value)) {
+      throw new TypeError('Not UrnUuid')
     }
+    this.#serialNumber = value
+  }
 }

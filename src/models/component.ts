@@ -32,17 +32,20 @@ export class Component {
     this.name = name
   }
 
-    #cpe: CPE | null = null
-    get cpe (): CPE | null {
-      return this.#cpe
-    }
+  #cpe: CPE | null = null
+  get cpe (): CPE | null {
+    return this.#cpe
+  }
 
-    set cpe (value: CPE | null) {
-      if (value !== null && !isCPE(value)) {
-        throw new RangeError('Not CPE')
-      }
-      this.#cpe = value
+  /**
+   * @throws {TypeError} if value is not CPE not null
+   */
+  set cpe (value: CPE | null) {
+    if (value !== null && !isCPE(value)) {
+      throw new TypeError('Not CPE nor null')
     }
+    this.#cpe = value
+  }
 }
 
 export class ComponentRepository extends Set<Component> {

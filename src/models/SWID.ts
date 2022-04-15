@@ -14,15 +14,18 @@ export class SWID {
     this.name = name
   }
 
-    #tagVersion: PositiveInteger | null = null
-    get tagVersion (): PositiveInteger | null {
-      return this.#tagVersion
-    }
+  #tagVersion: PositiveInteger | null = null
+  get tagVersion (): PositiveInteger | null {
+    return this.#tagVersion
+  }
 
-    set tagVersion (value: PositiveInteger | null) {
-      if (value !== null && !isPositiveInteger(value)) {
-        throw new TypeError('Not PositiveInteger nor null')
-      }
-      this.#tagVersion = value
+  /**
+   * @throws {TypeError} if value is not PositiveInteger nor null
+   */
+  set tagVersion (value: PositiveInteger | null) {
+    if (value !== null && !isPositiveInteger(value)) {
+      throw new TypeError('Not PositiveInteger nor null')
     }
+    this.#tagVersion = value
+  }
 }
