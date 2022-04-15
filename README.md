@@ -22,7 +22,7 @@ As node module:
 ```javascript
 const cdx = require('@cyclonedx/cyclonedx-library')
 
-const bom = new cdx.models.Bom()
+const bom = new cdx.Models.Bom()
 bom.components.add(
     new cdx.Models.Component(
         cdx.Enums.ComponentType.Library, 
@@ -36,13 +36,13 @@ In web-browser:
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="path-to-this-module/dist.web/lib.js" type="application/javascript">
+    <script src="path-to-this-package/dist.web/lib.js" type="application/javascript">
         // full Library is available as `CycloneDX_library`, per default
     </script>
     <script type="application/javascript">
         const cdx = CycloneDX_library
         
-        let bom = new cdx.models.Bom()
+        let bom = new cdx.Models.Bom()
         bom.components.add(
                 new cdx.Models.Component(
                         cdx.Enums.ComponentType.Library,
