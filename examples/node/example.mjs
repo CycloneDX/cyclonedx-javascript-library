@@ -1,6 +1,6 @@
 /** Example how to serialize a Bom to JSON. */
 
-import * as  cdx from '../dist.node/index.js'
+import * as  cdx from '@cyclonedx/cyclonedx-library'
 // full Library is available as `cdx`, now
 
 const bom = new cdx.Models.Bom()

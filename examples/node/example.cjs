@@ -1,6 +1,6 @@
 /** Example how to serialize a Bom to JSON. */
 
-const cdx = require('../')
+const cdx = require('@cyclonedx/cyclonedx-library')
 // full Library is available as `cdx`, now
 
 const bom = new cdx.Models.Bom()
