@@ -43,7 +43,7 @@ suite('BOM', () => {
 
                 assert.throws(() => {
                     bom.version = newVersion
-                }, new RegExp('not PositiveInteger'))
+                }, new RegExp('not PositiveInteger', 'i'))
             })
         )
     )

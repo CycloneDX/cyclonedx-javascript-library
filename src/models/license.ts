@@ -7,7 +7,7 @@ export function isEligibleLicenseExpression(expression: string | any): boolean {
     return 'string' === typeof expression
         && expression.length >= 8
         && '(' === expression[0]
-        && ')' === expression[-1];
+        && ')' === expression[expression.length - 1];
 }
 
 
