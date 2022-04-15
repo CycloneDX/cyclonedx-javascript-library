@@ -43,6 +43,7 @@
   },
   "scripts": {
     "prepublish": "npm run build",
+    "prepack": "yarn run build",
     "lint": "tsc --noEmit",
     "build": "npm run build:web && npm run build:node",
     "prebuild:node": "node -r fs -e 'fs.rmSync(\"dist.node\",{recursive:true,force:true})'",

@@ -5,15 +5,17 @@ written in _TypeScript_ and compiled to the target.
 
 ## Install
 
-This package and the build results are available as npm package:
+This package and the build results are available for npm and yarn:
 ```shell
 npm i -S @cyclonedx/cyclonedx-library
+yarn add @cyclonedx/cyclonedx-library
 ```
 
 However, you can install the package from source,
 which will build automatically on installation:
 ```shell
-npm i -S git@github.com:CycloneDX/cyclonedx-javascript-library.git
+npm i -S github:CycloneDX/cyclonedx-javascript-library
+yarn add github:CycloneDX/cyclonedx-javascript-library
 ```
 
 ## Usage
