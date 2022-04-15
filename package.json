@@ -34,7 +34,7 @@
   },
   "browser": "dist.web/lib.js",
   "main": "dist.node/index.js",
-  "types": "dist.node/index.d.ts",
+  "types": "src/index.ts",
   "directories": {
     "lib": "dist.node",
     "doc": "docs",
