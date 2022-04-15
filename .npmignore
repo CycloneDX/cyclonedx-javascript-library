@@ -152,16 +152,13 @@ dist
 !/LICENSE
 !/NOTICE
 
-# never ignore the results - these are intended to be shipped
+# never ignore the build results - these are intended to be shipped
 !/dist/
 !/dist.*/
 
-# ??? should the src/ and tests/ and build-related files be ignored?
-# Sources are not to be excluded, as TypeScript-users would love to have sources (and tests),
-# so they can compile into the desired target themselves.
-# Furthermore, the source files can be used as typehint files.
-# Tests, on he other hand, do not provide value downstream.
-# Conclusion: have sources shipped, as long as they have value downstream!
+# TypeScript source files are intended to be shipped,
+# as they provide definition context and typing for downstream users.
+# The compiler configs are shipped, so downstream users can inherit from them.
 !/src/
 !/tsconfig.json
 !/webpack.config.js
