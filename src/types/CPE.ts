@@ -4,7 +4,7 @@
  */
 export declare type CPE = string
 
-// eslint-disable-next-line no-useless-escape -- value directly from XML or JSON spec, surrounded with ^$
+/* eslint-disable-next-line no-useless-escape -- value directly from XML or JSON spec, surrounded with ^$ */
 const cpePattern = /^([c][pP][eE]:\/[AHOaho]?(:[A-Za-z0-9\._\-~%]*){0,6})$|^(cpe:2\.3:[aho\*\-](:(((\?*|\*?)([a-zA-Z0-9\-\._]|(\\[\\\*\?!&quot;#$$%&amp;'\(\)\+,\/:;&lt;=&gt;@\[\]\^`\{\|}~]))+(\?*|\*?))|[\*\-])){5}(:(([a-zA-Z]{2,3}(-([a-zA-Z]{2}|[0-9]{3}))?)|[\*\-]))(:(((\?*|\*?)([a-zA-Z0-9\-\._]|(\\[\\\*\?!&quot;#$$%&amp;'\(\)\+,\/:;&lt;=&gt;@\[\]\^`\{\|}~]))+(\?*|\*?))|[\*\-])){4})$/
 
 export function isCPE (value: any): value is CPE {
