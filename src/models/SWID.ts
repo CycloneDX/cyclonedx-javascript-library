@@ -18,9 +18,10 @@ export class SWID {
     get tagVersion(): PositiveInteger | null {
         return this.#tagVersion
     }
+
     set tagVersion(value: PositiveInteger | null) {
         if (value !== null && !isPositiveInteger(value)) {
-            throw new TypeError(`${value} is not PositiveInteger nor null`)
+            throw new TypeError(`Not PositiveInteger nor null: ${value}`)
         }
         this.#tagVersion = value
     }
