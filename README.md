@@ -11,11 +11,10 @@ npm i -S @cyclonedx/cyclonedx-library
 yarn add @cyclonedx/cyclonedx-library
 ```
 
-However, you can install the package from source,
+You can install the package from source,
 which will build automatically on installation:
 ```shell
 npm i -S github:CycloneDX/cyclonedx-javascript-library
-yarn add github:CycloneDX/cyclonedx-javascript-library
 ```
 
 ## Usage
