@@ -4,7 +4,7 @@ const {suite, test} = require('mocha');
 const {spdxSpecEnum} = require('../_data/spdx')
 const {SPDX} = require('../../');
 
-suite('isSpdxId()', () => {
+suite('isSupportedSpdxId()', () => {
 
     const knownSpdxIds = Object.freeze([
         ...spdxSpecEnum
@@ -13,7 +13,7 @@ suite('isSpdxId()', () => {
     suite('knows', () => {
         knownSpdxIds.forEach(value =>
             test(`${value}`, () =>
-                assert.strictEqual(SPDX.isSpdxId(value), true)
+                assert.strictEqual(SPDX.isSupportedSpdxId(value), true)
             )
         )
     })

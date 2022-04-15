@@ -1,16 +1,16 @@
 const assert = require('assert');
 const {suite, test} = require('mocha');
 
-const {fixupSpdxId, isSpdxId} = require('../../').SPDX;
+const {fixupSpdxId, isSupportedSpdxId} = require('../../').SPDX;
 
-suite('isSpdxId()', () => {
+suite('isSupportedSpdxId()', () => {
 
     const knownSpdxIds = Object.freeze(["MIT", "Apache-2.0"])
 
     suite('is true', () =>
         knownSpdxIds.forEach(value =>
             test(`for: ${value}`, () =>
-                assert.strictEqual(isSpdxId(value), true)
+                assert.strictEqual(isSupportedSpdxId(value), true)
             )
         )
     )
@@ -18,7 +18,7 @@ suite('isSpdxId()', () => {
     suite('is false', () =>
         [null, undefined, 'fooBarbaz', 'mit'].forEach(value =>
             test(`for: ${value}`, () =>
-                assert.strictEqual(isSpdxId(value), false)
+                assert.strictEqual(isSupportedSpdxId(value), false)
             )
         )
     )
