@@ -5,17 +5,35 @@ But please read the
 [CycloneDX contributing guidelines](https://github.com/CycloneDX/.github/blob/master/CONTRIBUTING.md)
 first.
 
-## Setup
 
+## Set up the project
+
+Install dependencies:
 ```shell
-npm install
+npm ci
 ```
 
-## Tests
+The setup will also build the project.
 
+## Build from source
+
+Build the JavaScript:
 ```shell
-npm run lint
-npm run test
+npm run build
+```
+
+## Test the build result
+
+Run the tests:
+```shell
+npm test
+```
+
+## Coding standards 
+
+Apply coding standards via:
+```shell
+npm run cs-fix
 ```
 
 ## Sign your commits

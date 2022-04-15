@@ -1,5 +1,5 @@
 export enum ComponentScope {
-    Required = "required",
-    Optional = "optional",
-    Excluded = "excluded",
+  Required = 'required',
+  Optional = 'optional',
+  Excluded = 'excluded',
 }

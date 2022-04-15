@@ -1,5 +1,5 @@
-import {Bom} from "../models";
+import { Bom } from '../models'
 
 export interface Protocol {
-    serialize(bom: Bom): string
+  serialize: (bom: Bom) => string
 }
