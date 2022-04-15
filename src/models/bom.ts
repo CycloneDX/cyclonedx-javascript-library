@@ -18,20 +18,19 @@ export class Bom {
 
     set version(value: PositiveInteger) {
         if (!isPositiveInteger(value)) {
-            throw new RangeError(`${value} is not PositiveInteger`)
+            throw new RangeError(`Not PositiveInteger: ${value}`)
         }
         this.#version = value
     }
 
     #serialNumber: UrnUuid | null = null
-    /** @type {(UrnUuid|null)} */
     get serialNumber(): UrnUuid | null {
         return this.#serialNumber
     }
 
     set serialNumber(value: UrnUuid | null) {
         if (value !== null && !isUrnUuid(value)) {
-            throw new RangeError(`${value} is not UrnUuid`)
+            throw new RangeError(`Not UrnUuid: ${value}`)
         }
         this.#serialNumber = value
     }

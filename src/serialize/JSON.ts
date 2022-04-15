@@ -269,7 +269,7 @@ export namespace Normalize {
                 case data instanceof Models.LicenseExpression:
                     return this.normalizeLicenseExpression(<Models.LicenseExpression>data)
                 default:
-                    throw new RangeError(`unexpected LicenseChoice: ${data}`) as never
+                    throw new RangeError(`Unexpected LicenseChoice: ${data}`)
             }
         }
 
@@ -294,7 +294,7 @@ export namespace Normalize {
         });
 
         private normalizeLicenseExpression = (data: Models.LicenseExpression): object => ({
-            expression: data.value,
+            expression: data.expression,
         });
 
         normalizeIter(data: Iterable<Models.License>): Array<object> {

@@ -34,14 +34,13 @@ export class Component {
     }
 
     #cpe: CPE | null = null
-    /** @type {(CPE|null)} */
     get cpe(): CPE | null {
         return this.#cpe
     }
 
     set cpe(value: CPE | null) {
         if (value !== null && !isCPE(value)) {
-            throw new RangeError(`${value} is not CPE`)
+            throw new RangeError(`Not CPE: ${value}`)
         }
         this.#cpe = value
     }
