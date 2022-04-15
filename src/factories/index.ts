@@ -1,1 +1,1 @@
-import * as LicenseFactory from './licenseFactory'
+export * from './licenseFactory'

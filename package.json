@@ -28,6 +28,7 @@
     "deepmerge": "4.2.2",
     "mocha": "9.2.2",
     "ts-loader": "9.2.8",
+    "ts-standard": "^11.0.0",
     "typescript": "4.6.3",
     "webpack": "5.72.0",
     "webpack-cli": "4.9.2"
@@ -49,8 +50,10 @@
     "build:node": "tsc --build",
     "prebuild:web": "node -r fs -e 'fs.rmSync(\"dist.web\",{recursive:true,force:true})'",
     "build:web": "webpack",
-    "test": "npm run test:web && npm run test:node",
+    "cs-fix": "ts-standard --fix",
+    "test": " npm run test:style && npm run test:web && npm run test:node",
     "test:node": "mocha",
-    "test:web": "node -e 'console.log(\"todo: write web test\")'"
+    "test:web": "node -e 'console.log(\"todo: write web test\")'",
+    "test:style": "ts-standard"
   }
 }

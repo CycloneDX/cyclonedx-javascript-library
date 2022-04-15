@@ -57,27 +57,6 @@ In web-browser:
 
 ## Development
 
-### Set up the project
-
-Install dependencies:
-```shell
-npm ci
-```
-
-The setup will also build the project.
-
-### Build from source
-
-Build the JavaScript:
-```shell
-npm run build
-```
-
-### Test the build result
-
-Run the tests:
-```shell
-npm test
-```
+see [](CONTRIBUTING.md)
 
 [CycloneDX]: https://cyclonedx.org/
