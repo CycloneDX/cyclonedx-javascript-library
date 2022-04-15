@@ -1,5 +1,6 @@
 import { PackageURL } from 'packageurl-js'
 
+import { CPE, isCPE } from '../types'
 import { ComponentScope, ComponentType } from '../enums'
 import { BomRef } from './bomRef'
 import { HashRepository } from './hash'
@@ -7,7 +8,6 @@ import { OrganizationalEntity } from './organizationalEntity'
 import { ExternalReferenceRepository } from './externalReference'
 import { LicenseRepository } from './license'
 import { SWID } from './SWID'
-import { CPE, isCPE } from '../types'
 
 export class Component {
   readonly bomRef = new BomRef()
