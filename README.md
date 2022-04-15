@@ -17,6 +17,7 @@ which will build automatically on installation:
 
 ```shell
 npm i -S github:CycloneDX/cyclonedx-javascript-library
+# not supported with yarn
 ```
 
 ## Usage
