@@ -10,8 +10,14 @@ const configBase = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
                 exclude: /node_modules/,
+                loader: 'ts-loader',
+                // see https://github.com/TypeStrong/ts-loader
+                options: {
+                    compilerOptions: {
+                        // in here parts of typescript compiler can be overridden
+                    },
+                },
             },
         ],
     },

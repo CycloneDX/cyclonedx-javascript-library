@@ -3,8 +3,7 @@
 /CI_report/
 
 /dist/
-/dist.node/
-/dist.web/
+/dist.*/
 
 ### https://github.com/github/gitignore/blob/main/Node.gitignore
 
