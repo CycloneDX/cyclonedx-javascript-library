@@ -160,6 +160,7 @@ dist
 # ??? should the src/ and tests/ and build-related files be ignored?
 # Sources are not to be excluded, as TypeScript-users would love to have sources (and tests),
 # so they can compile into the desired target themselves.
+# Furthermore, the generated and shipped definition-files' source map will point to source files.
 # Tests, on he other hand, do not provide value downstream.
 # Conclusion: have sources shipped, as long as they have value downstream!
 !/src/
@@ -172,3 +173,4 @@ dist
 
 /.*.cache/
 /report/
+/CI_report/
