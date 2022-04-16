@@ -1,2 +1,3 @@
-export * as Serializer from './serializer'
+export * from './types'
+
 export * as JSON from './JSON'
