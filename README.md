@@ -39,26 +39,25 @@ bom.components.add(
 In web-browser:
 
 ```html
-<html>
-    <script src="path-to-this-package/dist.web/lib.js" type="application/javascript">
-        // full Library is available as `CycloneDX_library`, per default
-    </script>
-    <script type="application/javascript">
-        const cdx = CycloneDX_library
+<script src="path-to-this-package/dist.web/lib.js">
+    // full Library is available as `CycloneDX_library`, per default
+</script>
+<script type="application/javascript">
+    const cdx = CycloneDX_library
 
-        let bom = new cdx.Models.Bom()
-        bom.components.add(
-                new cdx.Models.Component(
-                        cdx.Enums.ComponentType.Library,
-                        'myComponent'
-                )
-        )
-    </script>
-</html>
+    let bom = new cdx.Models.Bom()
+    bom.components.add(
+            new cdx.Models.Component(
+                    cdx.Enums.ComponentType.Library,
+                    'myComponent'
+            )
+    )
+</script>
 ```
 
 ## Development & CONTRIBUTING
 
-See [CONTRIBUTING](CONTRIBUTING.md) file for details.
+See [CONTRIBUTING] file for details.
 
 [CycloneDX]: https://cyclonedx.org/
+[CONTRIBUTING]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/1.0-dev/CONTRIBUTING.md
