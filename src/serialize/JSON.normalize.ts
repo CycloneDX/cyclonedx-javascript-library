@@ -1,5 +1,6 @@
-import * as Models from '../models'
 import { Protocol as SpecProtocol } from '../spec'
+import * as Models from '../models'
+import * as Types from './JSON.types'
 
 export class Factory {
   readonly spec: SpecProtocol
@@ -72,7 +73,7 @@ abstract class Base implements Protocol {
  **/
 
 export class BomNormalizer extends Base {
-  normalize (data: Models.Bom): object {
+  normalize (data: Models.Bom): Types.Bom {
     return {
       bomFormat: 'CycloneDX',
       specVersion: this.factory.spec.version,
@@ -87,7 +88,7 @@ export class BomNormalizer extends Base {
 }
 
 export class MetadataNormalizer extends Base {
-  normalize (data: Models.Metadata): object {
+  normalize (data: Models.Metadata): Types.Metadata {
     const toolNormalizer = this.factory.makeForTool()
     const orgContactNormalizer = this.factory.makeForOrganizationalContact()
     const orgEntityNormalizer = this.factory.makeForOrganizationalEntity()
@@ -113,7 +114,7 @@ export class MetadataNormalizer extends Base {
 }
 
 export class ToolNormalizer extends Base {
-  normalize (data: Models.Tool): object {
+  normalize (data: Models.Tool): Types.Tool {
     const hashNormalizer = this.factory.makeForHash()
     return {
       vendor: data.vendor || undefined,
@@ -127,7 +128,7 @@ export class ToolNormalizer extends Base {
 }
 
 export class HashNormalizer extends Base {
-  normalize ([algorithm, content]: Models.Hash): object | undefined {
+  normalize ([algorithm, content]: Models.Hash): Types.Hash | undefined {
     const spec = this.factory.spec
     return spec.supportsHashAlgorithm(algorithm) && spec.supportsHashValue(content)
       ? {
@@ -137,14 +138,14 @@ export class HashNormalizer extends Base {
       : undefined
   }
 
-  normalizeIter (data: Iterable<Models.Hash>): object[] {
+  normalizeIter (data: Iterable<Models.Hash>): Types.Hash[] {
     return Array.from(data, h => this.normalize(h))
-      .filter(h => undefined !== h) as object[]
+      .filter(h => undefined !== h) as Types.Hash[]
   }
 }
 
 export class OrganizationalContactNormalizer extends Base {
-  normalize (data: Models.OrganizationalContact): object {
+  normalize (data: Models.OrganizationalContact): Types.OrganizationalContact {
     return {
       name: data.name || undefined,
       // email must conform to https://datatracker.ietf.org/doc/html/rfc6531
@@ -155,7 +156,7 @@ export class OrganizationalContactNormalizer extends Base {
 }
 
 export class OrganizationalEntityNormalizer extends Base {
-  normalize (data: Models.OrganizationalEntity): object {
+  normalize (data: Models.OrganizationalEntity): Types.OrganizationalEntity {
     const contactNormalizer = this.factory.makeForOrganizationalContact()
     return {
       name: data.name || undefined,
@@ -171,7 +172,7 @@ export class OrganizationalEntityNormalizer extends Base {
 }
 
 export class ComponentNormalizer extends Base {
-  normalize (data: Models.Component): object | undefined {
+  normalize (data: Models.Component): Types.Component | undefined {
     return this.factory.spec.supportsComponentType(data.type)
       ? {
           type: data.type,
@@ -206,14 +207,14 @@ export class ComponentNormalizer extends Base {
       : undefined
   }
 
-  normalizeIter (data: Iterable<Models.Component>): object[] {
+  normalizeIter (data: Iterable<Models.Component>): Types.Component[] {
     return Array.from(data, c => this.normalize(c))
-      .filter(c => undefined !== c) as object[]
+      .filter(c => undefined !== c) as Types.Component[]
   }
 }
 
 class LicenseNormalizer extends Base {
-  normalize (data: Models.License): object | undefined {
+  normalize (data: Models.License): Types.License {
     switch (true) {
       case data instanceof Models.NamedLicense:
         return this.normalizeNamedLicense(data as Models.NamedLicense)
@@ -226,7 +227,7 @@ class LicenseNormalizer extends Base {
     }
   }
 
-  private readonly normalizeNamedLicense = (data: Models.NamedLicense): object => ({
+  private readonly normalizeNamedLicense = (data: Models.NamedLicense): Types.NamedLicense => ({
     license: {
       name: data.name,
       text: data.text === null
@@ -236,7 +237,7 @@ class LicenseNormalizer extends Base {
     }
   })
 
-  private readonly normalizeSpdxLicense = (data: Models.SpdxLicense): object => ({
+  private readonly normalizeSpdxLicense = (data: Models.SpdxLicense): Types.SpdxLicense => ({
     license: {
       id: data.id,
       text: data.text === null
@@ -246,18 +247,17 @@ class LicenseNormalizer extends Base {
     }
   })
 
-  private readonly normalizeLicenseExpression = (data: Models.LicenseExpression): object => ({
+  private readonly normalizeLicenseExpression = (data: Models.LicenseExpression): Types.LicenseExpression => ({
     expression: data.expression
   })
 
-  normalizeIter (data: Iterable<Models.License>): object[] {
+  normalizeIter (data: Iterable<Models.License>): Types.License[] {
     return Array.from(data, c => this.normalize(c))
-      .filter(c => undefined !== c) as object[]
   }
 }
 
 class SWIDNormalizer extends Base {
-  normalize (data: Models.SWID): object {
+  normalize (data: Models.SWID): Types.SWID {
     return {
       tagId: data.tagId,
       name: data.name,
@@ -273,7 +273,7 @@ class SWIDNormalizer extends Base {
 }
 
 class ExternalReferenceNormalizer extends Base {
-  normalize (data: Models.ExternalReference): object | undefined {
+  normalize (data: Models.ExternalReference): Types.ExternalReference | undefined {
     return this.factory.spec.supportsExternalReferenceType(data.type)
       ? {
           url: data.url.toString(),
@@ -283,14 +283,14 @@ class ExternalReferenceNormalizer extends Base {
       : undefined
   }
 
-  normalizeIter (data: Iterable<Models.ExternalReference>): object[] {
+  normalizeIter (data: Iterable<Models.ExternalReference>): Types.ExternalReference[] {
     return Array.from(data, r => this.normalize(r))
-      .filter(r => undefined !== r) as object[]
+      .filter(r => undefined !== r) as Types.ExternalReference[]
   }
 }
 
 class AttachmentNormalizer extends Base {
-  normalize (data: Models.Attachment): object {
+  normalize (data: Models.Attachment): Types.Attachment {
     return {
       content: data.content,
       contentType: data.contentType || undefined,
