@@ -2,6 +2,7 @@ import { Bom } from '../models'
 import { Version as SpecVersion, Format, UnsupportedFormatError } from '../spec'
 import { Serializer as SerializerProtocol } from './types'
 import { Factory as NormalizerFactory } from './JSON.normalize'
+import { Bom as JsonBom } from './JSON.types'
 
 const JsonSchemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
   [SpecVersion.v1dot2, 'http://cyclonedx.org/schema/bom-1.2b.schema.json'],
@@ -24,14 +25,11 @@ export class Serializer implements SerializerProtocol {
 
   serialize (bom: Bom): string {
     // @TODO bom-refs values make unique ...
-    return JSON.stringify(
-      {
-        $schema: JsonSchemaUrl.get(this.#normalizerFactory.spec.version),
-        ...this.#normalizerFactory.makeForBom().normalize(bom)
-      },
-      null,
-      4
-    )
+    const _bom: JsonBom = {
+      $schema: JsonSchemaUrl.get(this.#normalizerFactory.spec.version),
+      ...this.#normalizerFactory.makeForBom().normalize(bom)
+    }
+    return JSON.stringify(_bom, null, 4)
   }
 }
 
