@@ -51,9 +51,9 @@
     "prebuild:web": "node -r fs -e 'fs.rmSync(\"dist.web\",{recursive:true,force:true})'",
     "build:web": "webpack",
     "cs-fix": "ts-standard --fix",
-    "test": " npm run test:style && npm run test:web && npm run test:node",
+    "test": " npm run test:standard && npm run test:web && npm run test:node",
     "test:node": "mocha",
     "test:web": "node -e 'console.log(\"todo: write web test\")'",
-    "test:style": "ts-standard"
+    "test:standard": "ts-standard"
   }
 }
