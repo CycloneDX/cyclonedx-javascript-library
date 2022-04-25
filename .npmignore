@@ -168,5 +168,5 @@ dist
 /examples/
 
 /.*.cache/
-/report/
-/CI_report/
+/reports/
+/CI_reports/

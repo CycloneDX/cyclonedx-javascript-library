@@ -1,6 +1,6 @@
 /.*.cache/
-/report/
-/CI_report/
+/reports/
+/CI_reports/
 
 /dist/
 /dist.*/
