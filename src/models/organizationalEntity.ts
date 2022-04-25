@@ -5,6 +5,3 @@ export class OrganizationalEntity {
   url = new Set<URL>()
   contact = new OrganizationalContactRepository()
 }
-
-export class OrganizationalEntityRepository extends Set<OrganizationalEntity> {
-}

@@ -1,7 +1,10 @@
+
 const assert = require('assert')
 const { describe, beforeEach, afterEach, it } = require('mocha')
 
-const { createComplexStructure, serializeResults } = require('../_data/serialize')
+const { createComplexStructure, loadSerializeResult } = require('../_data/serialize')
+/* uncomment next line to dump data */
+// const { writeSerializeResult } = require('../_data/serialize')
 
 const JsonSerialize = require('../../').Serialize.JSON
 const { Spec } = require('../../')
@@ -25,9 +28,24 @@ describe('JSON serialize', () => {
     it('can serialize', function () {
       const serialized = serializer.serialize(this.bom)
 
+      /* uncomment next line to dump data */
+      // writeSerializeResult(serialized, 'complex', spec.version, 'json')
+
       assert.deepStrictEqual(
         JSON.parse(serialized),
-        JSON.parse(serializeResults('complex', spec.version, 'json'))
+        JSON.parse(loadSerializeResult('complex', spec.version, 'json'))
+      )
+    })
+
+    it('can serialize with sorted lists', function () {
+      const serialized = serializer.serialize(this.bom, { sortLists: true })
+
+      /* uncomment next line to dump data */
+      // writeSerializeResult(serialized, 'sortedLists', spec.version, 'json')
+
+      assert.deepStrictEqual(
+        JSON.parse(serialized),
+        JSON.parse(loadSerializeResult('sortedLists', spec.version, 'json'))
       )
     })
 

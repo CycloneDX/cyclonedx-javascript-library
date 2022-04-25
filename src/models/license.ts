@@ -31,6 +31,10 @@ export class LicenseExpression {
     }
     this.#expression = value
   }
+
+  compare (other: LicenseExpression): number {
+    return this.#expression.localeCompare(other.#expression)
+  }
 }
 
 export class NamedLicense {
@@ -40,6 +44,10 @@ export class NamedLicense {
 
   constructor (name: string) {
     this.name = name
+  }
+
+  compare (other: NamedLicense): number {
+    return this.name.localeCompare(other.name)
   }
 }
 
@@ -68,10 +76,21 @@ export class SpdxLicense {
     }
     this.#id = value
   }
+
+  compare (other: SpdxLicense): number {
+    return this.#id.localeCompare(other.#id)
+  }
 }
 
 export type DisjunctiveLicense = NamedLicense | SpdxLicense
 export type License = DisjunctiveLicense | LicenseExpression
 
 export class LicenseRepository extends Set<License> {
+  static compareItems (a: License, b: License): number {
+    if (a.constructor === b.constructor) {
+      // @ts-expect-error -- classes are from same type -> they are comparable
+      return a.compare(b)
+    }
+    return a.constructor.name.localeCompare(b.constructor.name)
+  }
 }

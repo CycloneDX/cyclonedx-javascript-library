@@ -11,18 +11,33 @@ const { Enums, Models, Spec } = require('../../')
  * @param {Spec.Version} spec
  * @param {string} format
  * @param {BufferEncoding} [encoding]
- * @return {string}
+ * @returns {string}
  */
-function serializeResults (purpose, spec, format, encoding = 'utf-8') {
+function loadSerializeResult (purpose, spec, format, encoding = 'utf-8') {
   return fs.readFileSync(
-    path.resolve(__dirname, 'serializeResults', `${purpose}-spec${spec}.${format}`)
+    path.resolve(__dirname, 'serializeResults', `${purpose}_spec${spec}.${format}`)
   ).toString(encoding)
 }
 
-module.exports.serializeResults = serializeResults
+module.exports.loadSerializeResult = loadSerializeResult
 
 /**
- * @return {Models.Bom}
+ * @param {string} data
+ * @param {string} purpose
+ * @param {Spec.Version} spec
+ * @param {string} format
+ */
+function writeSerializeResult (data, purpose, spec, format) {
+  return fs.writeFileSync(
+    path.resolve(__dirname, 'serializeResults', `${purpose}_spec${spec}.${format}`),
+    data
+  )
+}
+
+module.exports.writeSerializeResult = writeSerializeResult
+
+/**
+ * @returns {Models.Bom}
  */
 function createComplexStructure () {
   const bom = new Models.Bom()
@@ -34,11 +49,21 @@ function createComplexStructure () {
     tool.name = 'tool name'
     tool.version = '0.8.15'
     tool.hashes.set(Enums.HashAlgorithm.MD5, 'f32a26e2a3a8aa338cd77b6e1263c535')
+    tool.hashes.set(Enums.HashAlgorithm['SHA-1'], '829c3804401b0727f70f73d4415e162400cbe57b')
+    return tool
+  })(new Models.Tool()))
+  bom.metadata.tools.add((function (tool) {
+    tool.vendor = 'tool vendor'
+    tool.name = 'other tool'
     return tool
   })(new Models.Tool()))
   bom.metadata.authors.add((function (author) {
+    author.name = 'John "the-co-author" Doe'
+    return author
+  })(new Models.OrganizationalContact()))
+  bom.metadata.authors.add((function (author) {
     author.name = 'Jane "the-author" Doe'
-    author.email = 'cdx-author@mailinator.com'
+    author.email = 'cdx-authors@mailinator.com'
     author.pone = '555-1234567890'
     return author
   })(new Models.OrganizationalContact()))
@@ -52,8 +77,12 @@ function createComplexStructure () {
   bom.metadata.supplier.url.add(new URL('https://meta-supplier.xmpl'))
   bom.metadata.supplier.contact.add((function (contact) {
     contact.name = 'John "the-supplier" Doe'
-    contact.email = 'cdx-supplier@mailinator.com'
+    contact.email = 'cdx-suppliers@mailinator.com'
     contact.pone = '555-0123456789'
+    return contact
+  })(new Models.OrganizationalContact()))
+  bom.metadata.supplier.contact.add((function (contact) {
+    contact.name = 'Jane "the-other-supplier" Doe'
     return contact
   })(new Models.OrganizationalContact()))
   bom.components.add((function (component) {
@@ -66,8 +95,18 @@ function createComplexStructure () {
       ref.comment = 'testing'
       return ref
     })(new Models.ExternalReference(new URL('https://localhost/acme'), Enums.ExternalReferenceType.Website)))
+    component.externalReferences.add(new Models.ExternalReference(
+      new URL('https://localhost/acme/support'),
+      Enums.ExternalReferenceType.Support
+    ))
+    component.externalReferences.add(new Models.ExternalReference(
+      new URL('https://localhost/acme/releases'),
+      Enums.ExternalReferenceType.ReleaseNotes // available since spec 1.4
+    ))
     component.group = 'acme'
     component.hashes.set(Enums.HashAlgorithm['SHA-1'], 'e6f36746ccba42c288acf906e636bb278eaeb7e8')
+    component.hashes.set(Enums.HashAlgorithm.MD5, '6bd3ac6fb35bb07c3f74d7f72451af57')
+    component.hashes.set(Enums.HashAlgorithm.MD5, '6bd3ac6fb35bb07c3f74d7f72451af57')
     component.licenses.add((function (license) {
       license.text = new Models.Attachment('U29tZQpsaWNlbnNlCnRleHQu')
       license.text.contentType = 'text/plain'
@@ -88,7 +127,12 @@ function createComplexStructure () {
     component.scope = Enums.ComponentScope.Required
     component.supplier = new Models.OrganizationalEntity()
     component.supplier.name = 'Component Supplier'
-    component.supplier.url.add(new URL('https://localhost/componentSupplier'))
+    component.supplier.url.add(new URL('https://localhost/componentSupplier-B'))
+    component.supplier.url.add(new URL('https://localhost/componentSupplier-A'))
+    component.supplier.contact.add((function (contact) {
+      contact.name = 'The quick brown fox'
+      return contact
+    })(new Models.OrganizationalContact()))
     component.supplier.contact.add((function (contact) {
       contact.name = 'Franz'
       contact.email = 'franz-aus-bayern@komplett.verwahrlosten.taxi'
@@ -105,6 +149,7 @@ function createComplexStructure () {
     component.version = '1337-beta'
     return component
   })(new Models.Component(Enums.ComponentType.Library, 'dummy-component')))
+  bom.components.add(new Models.Component(Enums.ComponentType.Library, 'a-component'))
 
   return bom
 }
