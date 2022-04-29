@@ -1,6 +1,6 @@
 import { HashAlgorithm } from '../enums'
 
-// no regex for the ashContent in here. It applies at runtime of a normalization/serialization process.
+// no regex for the HashContent in here. It applies at runtime of a normalization/serialization process.
 export type HashContent = string
 
 export type Hash = [
@@ -11,4 +11,9 @@ export type Hash = [
 ]
 
 export class HashRepository extends Map<HashAlgorithm, HashContent> {
+  static compareItems (a: Hash, b: Hash): number {
+    /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
+    return a[0].localeCompare(b[0]) ||
+      a[1].localeCompare(b[1])
+  }
 }
