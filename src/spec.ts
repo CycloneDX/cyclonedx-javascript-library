@@ -163,7 +163,7 @@ export const Spec1dot3: Protocol = Object.freeze(new Spec(
     HashAlgorithm['BLAKE2b-512'],
     HashAlgorithm.BLAKE3
   ],
-  /^([a-fA-F0-9]{32})$|^([a-fA-F0-9]{40})$|^([a-fA-F0-9]{64})$|%([a-fA-F0-9]{96})$|%([a-fA-F0-9]{128})$/,
+  /^([a-fA-F0-9]{32})$|^([a-fA-F0-9]{40})$|^([a-fA-F0-9]{64})$|^([a-fA-F0-9]{96})$|^([a-fA-F0-9]{128})$/,
   [
     ExternalReferenceType.VCS,
     ExternalReferenceType.IssueTracker,
