@@ -1,7 +1,7 @@
 {
-  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "$schema": "http://cyclonedx.org/schema/bom-1.2b.schema.json",
   "bomFormat": "CycloneDX",
-  "specVersion": "1.4",
+  "specVersion": "1.2",
   "version": 7,
   "serialNumber": "urn:uuid:12345678-1234-1234-1234-123456789012",
   "metadata": {
@@ -15,14 +15,25 @@
           {
             "alg": "MD5",
             "content": "f32a26e2a3a8aa338cd77b6e1263c535"
+          },
+          {
+            "alg": "SHA-1",
+            "content": "829c3804401b0727f70f73d4415e162400cbe57b"
           }
         ]
+      },
+      {
+        "vendor": "tool vendor",
+        "name": "other tool"
       }
     ],
     "authors": [
       {
+        "name": "John \"the-co-author\" Doe"
+      },
+      {
         "name": "Jane \"the-author\" Doe",
-        "email": "cdx-author@mailinator.com"
+        "email": "cdx-authors@mailinator.com"
       }
     ],
     "component": {
@@ -45,7 +56,10 @@
       "contact": [
         {
           "name": "John \"the-supplier\" Doe",
-          "email": "cdx-supplier@mailinator.com"
+          "email": "cdx-suppliers@mailinator.com"
+        },
+        {
+          "name": "Jane \"the-other-supplier\" Doe"
         }
       ]
     }
@@ -60,9 +74,13 @@
       "supplier": {
         "name": "Component Supplier",
         "url": [
-          "https://localhost/componentSupplier"
+          "https://localhost/componentSupplier-B",
+          "https://localhost/componentSupplier-A"
         ],
         "contact": [
+          {
+            "name": "The quick brown fox"
+          },
           {
             "name": "Franz",
             "email": "franz-aus-bayern@komplett.verwahrlosten.taxi",
@@ -78,6 +96,10 @@
         {
           "alg": "SHA-1",
           "content": "e6f36746ccba42c288acf906e636bb278eaeb7e8"
+        },
+        {
+          "alg": "MD5",
+          "content": "6bd3ac6fb35bb07c3f74d7f72451af57"
         }
       ],
       "licenses": [
@@ -127,8 +149,17 @@
           "url": "https://localhost/acme",
           "type": "website",
           "comment": "testing"
+        },
+        {
+          "url": "https://localhost/acme/support",
+          "type": "support"
         }
       ]
+    },
+    {
+      "type": "library",
+      "name": "a-component",
+      "version": ""
     }
   ]
 }

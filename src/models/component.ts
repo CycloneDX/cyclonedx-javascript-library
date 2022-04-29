@@ -32,13 +32,14 @@ export class Component {
     this.name = name
   }
 
+  // see https://nvd.nist.gov/products/cpe
   #cpe: CPE | null = null
   get cpe (): CPE | null {
     return this.#cpe
   }
 
   /**
-   * @throws {TypeError} if value is not CPE not null
+   * @throws {TypeError} if value is not CPE nor null
    */
   set cpe (value: CPE | null) {
     if (value !== null && !isCPE(value)) {
@@ -46,7 +47,25 @@ export class Component {
     }
     this.#cpe = value
   }
+
+  compare (other: Component): number {
+    const bomRefCompare = this.bomRef.compare(other.bomRef)
+    if (bomRefCompare !== 0) { return bomRefCompare }
+    if (this.purl !== null && other.purl !== null) {
+      return this.purl.toString().localeCompare(other.purl.toString())
+    }
+    if (this.#cpe !== null && other.#cpe !== null) {
+      return this.#cpe.toString().localeCompare(other.#cpe.toString())
+    }
+    /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
+    return (this.group ?? '').localeCompare(other.group ?? '') ||
+      this.name.localeCompare(other.name) ||
+      (this.version ?? '').localeCompare(other.version ?? '')
+  }
 }
 
 export class ComponentRepository extends Set<Component> {
+  static compareItems (a: Component, b: Component): number {
+    return a.compare(b)
+  }
 }
