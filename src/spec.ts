@@ -73,7 +73,7 @@ class Spec implements Protocol {
 
   supportsHashValue (hv: HashContent | any): boolean {
     return typeof hv === 'string' &&
-            this.#hashValuePattern.test(hv)
+      this.#hashValuePattern.test(hv)
   }
 
   supportsExternalReferenceType (ert: ExternalReferenceType | any): boolean {
@@ -234,3 +234,9 @@ export const Spec1dot4: Protocol = Object.freeze(new Spec(
     ExternalReferenceType.Other
   ]
 ))
+
+export const SpecVersionDict: { readonly [key in Version]?: Protocol } = Object.freeze(Object.fromEntries([
+  [Version.v1dot2, Spec1dot2],
+  [Version.v1dot3, Spec1dot3],
+  [Version.v1dot4, Spec1dot4]
+]))
