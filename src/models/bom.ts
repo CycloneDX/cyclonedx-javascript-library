@@ -34,7 +34,7 @@ export class Bom {
    */
   set serialNumber (value: UrnUuid | null) {
     if (value !== null && !isUrnUuid(value)) {
-      throw new TypeError('Not UrnUuid')
+      throw new TypeError('Not UrnUuid nor null')
     }
     this.#serialNumber = value
   }
