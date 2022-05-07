@@ -10,7 +10,7 @@ on:
 
 
 env:
-  NODE_ACTIVE_LTS: "16"
+  NODE_ACTIVE_LTS: "16" # see https://nodejs.org/en/about/releases/
 
 jobs:
   build:
@@ -55,7 +55,7 @@ jobs:
         node-version:
           # action based on https://github.com/actions/node-versions/releases
           # see also: https://nodejs.org/en/about/releases/
-          - "17"      # current
+          - "18"      # current
           - "16"      # active LTS
           - "14"
           - "14.0.0"  # lowest supported
