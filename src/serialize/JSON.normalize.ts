@@ -82,7 +82,7 @@ export class BomNormalizer extends Base {
       bomFormat: 'CycloneDX',
       specVersion: this.factory.spec.version,
       version: data.version,
-      serialNumber: data.serialNumber || undefined,
+      serialNumber: data.serialNumber ?? undefined,
       metadata: this.factory.makeForMetadata().normalize(data.metadata, options),
       components: data.components.size > 0
         ? this.factory.makeForComponent().normalizeIter(data.components, options)
@@ -213,7 +213,7 @@ export class ComponentNormalizer extends Base {
           author: data.author || undefined,
           publisher: data.publisher || undefined,
           description: data.description || undefined,
-          scope: data.scope || undefined,
+          scope: data.scope ?? undefined,
           hashes: data.hashes.size > 0
             ? this.factory.makeForHash().normalizeIter(data.hashes, options)
             : undefined,
@@ -332,7 +332,7 @@ class AttachmentNormalizer extends Base {
     return {
       content: data.content,
       contentType: data.contentType || undefined,
-      encoding: data.encoding || undefined
+      encoding: data.encoding ?? undefined
     }
   }
 }
