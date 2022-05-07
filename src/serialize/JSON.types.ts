@@ -1,17 +1,13 @@
 import * as Enums from '../enums'
+import { HashContent } from '../models'
 import { SpdxId } from '../SPDX'
 import { CPE, PositiveInteger, UrnUuid } from '../types'
 
-// #region JSON schema globals
 type IriReference = string
 type IdnEmail = string
 type DateTime = string
-// #endregion
 
-// #region JSON schema internals
-type HashContent = string
 type RefType = string
-// #endregion
 
 export interface Bom {
   '$schema'?: string
@@ -93,7 +89,7 @@ export interface NamedLicense {
 
 export interface SpdxLicense {
   license: {
-    id: SpdxId
+    id: SpdxId // See http://cyclonedx.org/schema/spdx
     text?: Attachment
     url?: string
   }
