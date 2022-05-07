@@ -1,13 +1,17 @@
 import * as Enums from '../enums'
 import { SpdxId } from '../SPDX'
 import { CPE, PositiveInteger, UrnUuid } from '../types'
-import { BomRef, HashContent } from '../models'
 
+// #region JSON schema globals
 type IriReference = string
 type IdnEmail = string
 type DateTime = string
+// #endregion
 
+// #region JSON schema internals
+type HashContent = string
 type RefType = string
+// #endregion
 
 export interface Bom {
   '$schema'?: string
@@ -124,6 +128,6 @@ export interface Attachment {
 }
 
 export interface Depndency {
-  ref: BomRef
-  dependsOn?: BomRef[]
+  ref: RefType
+  dependsOn?: RefType[]
 }
