@@ -86,8 +86,18 @@ export class BomNormalizer extends Base {
       metadata: this.factory.makeForMetadata().normalize(data.metadata, options),
       components: data.components.size > 0
         ? this.factory.makeForComponent().normalizeIter(data.components, options)
-        : [] // spec < 1.4 requires `component` to be array
+        // spec < 1.4 requires `component` to be array
+        : [],
+      dependencies: this.factory.spec.supportsDependencyGraph
+        ? this.#normalizeDependencies(data, options)
+        : undefined
     }
+  }
+
+  #normalizeDependencies (data: Models.Bom, options: Options): Types.Depndency[] | undefined {
+    // @TODO: render dependency graph
+    // @TODO bom-refs values make unique ... - and find a way to create consistent hash values or something. for reproducibility.... ?
+    return undefined
   }
 }
 

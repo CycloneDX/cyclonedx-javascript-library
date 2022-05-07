@@ -29,6 +29,8 @@ export interface Protocol {
   supportsHashValue: (hv: HashContent | any) => boolean
 
   supportsExternalReferenceType: (ert: ExternalReferenceType | any) => boolean
+
+  readonly supportsDependencyGraph: boolean
 }
 
 class Spec implements Protocol {
@@ -38,6 +40,7 @@ class Spec implements Protocol {
   readonly #hashAlgorithms: ReadonlySet<HashAlgorithm>
   readonly #hashValuePattern: RegExp
   readonly #externalReferenceTypes: ReadonlySet<ExternalReferenceType>
+  readonly #supportsDependencyGraph: boolean
 
   constructor (
     version: Version,
@@ -45,7 +48,8 @@ class Spec implements Protocol {
     componentTypes: Iterable<ComponentType>,
     hashAlgorithms: Iterable<HashAlgorithm>,
     hashValuePattern: RegExp,
-    externalReferenceTypes: Iterable<ExternalReferenceType>
+    externalReferenceTypes: Iterable<ExternalReferenceType>,
+    supportsDependencyGraph: boolean
   ) {
     this.#version = version
     this.#formats = new Set(formats)
@@ -53,6 +57,7 @@ class Spec implements Protocol {
     this.#hashAlgorithms = new Set(hashAlgorithms)
     this.#hashValuePattern = hashValuePattern
     this.#externalReferenceTypes = new Set(externalReferenceTypes)
+    this.#supportsDependencyGraph = supportsDependencyGraph
   }
 
   get version (): Version {
@@ -78,6 +83,10 @@ class Spec implements Protocol {
 
   supportsExternalReferenceType (ert: ExternalReferenceType | any): boolean {
     return this.#externalReferenceTypes.has(ert)
+  }
+
+  get supportsDependencyGraph (): boolean {
+    return this.#supportsDependencyGraph
   }
 }
 
@@ -129,7 +138,8 @@ export const Spec1dot2: Protocol = Object.freeze(new Spec(
     ExternalReferenceType.BuildMeta,
     ExternalReferenceType.BuildSystem,
     ExternalReferenceType.Other
-  ]
+  ],
+  true
 ))
 
 /** Specification v1.3 */
@@ -180,7 +190,8 @@ export const Spec1dot3: Protocol = Object.freeze(new Spec(
     ExternalReferenceType.BuildMeta,
     ExternalReferenceType.BuildSystem,
     ExternalReferenceType.Other
-  ]
+  ],
+  true
 ))
 
 /** Specification v1.4 */
@@ -232,7 +243,8 @@ export const Spec1dot4: Protocol = Object.freeze(new Spec(
     ExternalReferenceType.BuildSystem,
     ExternalReferenceType.ReleaseNotes,
     ExternalReferenceType.Other
-  ]
+  ],
+  true
 ))
 
 export const SpecVersionDict: { readonly [key in Version]?: Protocol } = Object.freeze(Object.fromEntries([
