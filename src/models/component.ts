@@ -2,7 +2,7 @@ import { PackageURL } from 'packageurl-js'
 
 import { CPE, isCPE } from '../types'
 import { ComponentScope, ComponentType } from '../enums'
-import { BomRef } from './bomRef'
+import { BomRef, BomRefRepository } from './bomRef'
 import { HashRepository } from './hash'
 import { OrganizationalEntity } from './organizationalEntity'
 import { ExternalReferenceRepository } from './externalReference'
@@ -46,6 +46,15 @@ export class Component {
       throw new TypeError('Not CPE nor null')
     }
     this.#cpe = value
+  }
+
+  #dependencies = new BomRefRepository()
+  get dependencies (): BomRefRepository {
+    return this.#dependencies
+  }
+
+  set dependencies (value: BomRefRepository) {
+    this.#dependencies = value
   }
 
   compare (other: Component): number {

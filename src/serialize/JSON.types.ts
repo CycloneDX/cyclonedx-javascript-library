@@ -1,7 +1,7 @@
 import * as Enums from '../enums'
 import { SpdxId } from '../SPDX'
 import { CPE, PositiveInteger, UrnUuid } from '../types'
-import { HashContent } from '../models'
+import { BomRef, HashContent } from '../models'
 
 type IriReference = string
 type IdnEmail = string
@@ -18,6 +18,7 @@ export interface Bom {
   metadata?: Metadata
   components?: Component[]
   externalReferences?: ExternalReference[]
+  dependencies?: Depndency[]
 }
 
 export interface Metadata {
@@ -120,4 +121,9 @@ export interface Attachment {
   content?: string
   contentType?: string
   encoding?: Enums.AttachmentEncoding
+}
+
+export interface Depndency {
+  ref: BomRef
+  dependsOn?: BomRef[]
 }
