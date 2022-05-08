@@ -18,7 +18,7 @@ export interface Bom {
   metadata?: Metadata
   components?: Component[]
   externalReferences?: ExternalReference[]
-  dependencies?: Depndency[]
+  dependencies?: Dependency[]
 }
 
 export interface Metadata {
@@ -123,7 +123,7 @@ export interface Attachment {
   encoding?: Enums.AttachmentEncoding
 }
 
-export interface Depndency {
+export interface Dependency {
   ref: RefType
   dependsOn?: RefType[]
 }
