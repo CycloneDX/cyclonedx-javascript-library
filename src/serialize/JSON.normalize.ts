@@ -350,7 +350,7 @@ export class AttachmentNormalizer extends Base {
 }
 
 export class DependencyGraphNormalizer extends Base {
-  normalize (data: Models.Bom, options: Options): Types.Depndency[] | undefined {
+  normalize (data: Models.Bom, options: Options): Types.Dependency[] | undefined {
     if (!data.metadata.component) {
       // the graph is missing the entry point -> omit the graph
       return undefined
@@ -360,7 +360,7 @@ export class DependencyGraphNormalizer extends Base {
     data.components.forEach(c => allDeps.set(c.bomRef, new Models.BomRefRepository(c.dependencies)))
     allDeps.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
 
-    const normalized: Types.Depndency[] = []
+    const normalized: Types.Dependency[] = []
     allDeps.forEach((deps, ref) => {
       const dep = this.normalizeDependency(ref, deps, allDeps)
       if (dep) { normalized.push(dep) }
@@ -378,7 +378,7 @@ export class DependencyGraphNormalizer extends Base {
     ref: Models.BomRef,
     deps: Models.BomRefRepository,
     allDeps: Map<Models.BomRef, Models.BomRefRepository>
-  ): Types.Depndency | undefined {
+  ): Types.Dependency | undefined {
     if (!ref.value) {
       // no value -> cannot render
       return undefined
