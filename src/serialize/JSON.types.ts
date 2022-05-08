@@ -10,7 +10,7 @@ type DateTime = string
 type RefType = string
 
 export interface Bom {
-  '$schema'?: string
+  $schema?: string
   bomFormat: 'CycloneDX'
   specVersion: string
   version: PositiveInteger
