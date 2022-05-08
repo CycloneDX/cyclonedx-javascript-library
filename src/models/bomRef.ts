@@ -1,5 +1,9 @@
 export class BomRef {
-  value: string | null = null
+  value: string | null
+
+  constructor (value: string | null = null) {
+    this.value = value
+  }
 
   compare (other: BomRef): number {
     return (this.value ?? '').localeCompare(other.value ?? '')

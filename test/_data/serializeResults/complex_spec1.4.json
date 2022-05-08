@@ -163,7 +163,26 @@
     {
       "type": "library",
       "name": "a-component",
-      "version": ""
+      "version": "",
+      "bom-ref": "a-component"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "dummy-component",
+      "dependsOn": [
+        "a-component"
+      ]
+    },
+    {
+      "ref": "a-component"
+    },
+    {
+      "ref": "dummy.metadata.component",
+      "dependsOn": [
+        "dummy-component",
+        "a-component"
+      ]
     }
   ]
 }

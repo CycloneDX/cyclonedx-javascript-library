@@ -68,7 +68,8 @@
     {
       "type": "library",
       "name": "a-component",
-      "version": ""
+      "version": "",
+      "bom-ref": "a-component"
     },
     {
       "type": "library",
@@ -163,6 +164,24 @@
           "type": "website",
           "comment": "testing"
         }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "a-component"
+    },
+    {
+      "ref": "dummy-component",
+      "dependsOn": [
+        "a-component"
+      ]
+    },
+    {
+      "ref": "dummy.metadata.component",
+      "dependsOn": [
+        "a-component",
+        "dummy-component"
       ]
     }
   ]
