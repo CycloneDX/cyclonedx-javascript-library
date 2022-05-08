@@ -2,7 +2,7 @@ import { DisjunctiveLicense, License, LicenseExpression, NamedLicense, SpdxLicen
 import { fixupSpdxId } from '../SPDX'
 
 export class LicenseFactory {
-  public makeFromString (value: string): License {
+  makeFromString (value: string): License {
     try {
       return this.makeExpression(value)
     } catch (Error) {
@@ -13,11 +13,11 @@ export class LicenseFactory {
   /**
    * @throws {RangeError} if expression is not eligible
    */
-  public makeExpression (value: string | any): LicenseExpression {
+  makeExpression (value: string | any): LicenseExpression {
     return new LicenseExpression(String(value))
   }
 
-  public makeDisjunctive (value: string): DisjunctiveLicense {
+  makeDisjunctive (value: string): DisjunctiveLicense {
     try {
       return this.makeDisjunctiveWithId(value)
     } catch (Error) {
@@ -28,7 +28,7 @@ export class LicenseFactory {
   /**
    * @throws {RangeError} if value is not supported SPDX id
    */
-  public makeDisjunctiveWithId (value: string | any): SpdxLicense {
+  makeDisjunctiveWithId (value: string | any): SpdxLicense {
     const spdxId = fixupSpdxId(String(value))
     if (undefined === spdxId) {
       throw new RangeError('Unknown SPDX id')
@@ -37,7 +37,7 @@ export class LicenseFactory {
     return new SpdxLicense(spdxId)
   }
 
-  public makeDisjunctiveWithName (value: string | any): NamedLicense {
+  makeDisjunctiveWithName (value: string | any): NamedLicense {
     return new NamedLicense(String(value))
   }
 }
