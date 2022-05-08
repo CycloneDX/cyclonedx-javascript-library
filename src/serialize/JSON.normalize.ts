@@ -79,6 +79,7 @@ abstract class Base {
 export class BomNormalizer extends Base {
   normalize (data: Models.Bom, options: Options): Types.Bom {
     return {
+      // Do not set $schema here. it is part of the final serializer, not the normalizer
       bomFormat: 'CycloneDX',
       specVersion: this._factory.spec.version,
       version: data.version,
