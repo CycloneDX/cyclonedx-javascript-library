@@ -62,18 +62,14 @@ export interface Options {
   sortLists?: boolean
 }
 
-export interface Protocol {
-  normalize: (data: any, options: Options) => object | undefined
-}
-
-abstract class Base implements Protocol {
-  protected factory: Factory
+abstract class Base {
+  protected readonly _factory: Factory
 
   constructor (factory: Factory) {
-    this.factory = factory
+    this._factory = factory
   }
 
-  abstract normalize (data: any, options: Options): object | undefined
+  abstract normalize (data: object, options: Options): object | undefined
 }
 
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions --
@@ -84,16 +80,16 @@ export class BomNormalizer extends Base {
   normalize (data: Models.Bom, options: Options): Types.Bom {
     return {
       bomFormat: 'CycloneDX',
-      specVersion: this.factory.spec.version,
+      specVersion: this._factory.spec.version,
       version: data.version,
       serialNumber: data.serialNumber ?? undefined,
-      metadata: this.factory.makeForMetadata().normalize(data.metadata, options),
+      metadata: this._factory.makeForMetadata().normalize(data.metadata, options),
       components: data.components.size > 0
-        ? this.factory.makeForComponent().normalizeIter(data.components, options)
+        ? this._factory.makeForComponent().normalizeIter(data.components, options)
         // spec < 1.4 requires `component` to be array
         : [],
-      dependencies: this.factory.spec.supportsDependencyGraph
-        ? this.factory.makeForDependencyGraph().normalize(data, options)
+      dependencies: this._factory.spec.supportsDependencyGraph
+        ? this._factory.makeForDependencyGraph().normalize(data, options)
         : undefined
     }
   }
@@ -101,18 +97,18 @@ export class BomNormalizer extends Base {
 
 export class MetadataNormalizer extends Base {
   normalize (data: Models.Metadata, options: Options): Types.Metadata {
-    const orgEntityNormalizer = this.factory.makeForOrganizationalEntity()
+    const orgEntityNormalizer = this._factory.makeForOrganizationalEntity()
     return {
       timestamp: data.timestamp?.toISOString(),
       tools: data.tools.size > 0
-        ? this.factory.makeForTool().normalizeIter(data.tools, options)
+        ? this._factory.makeForTool().normalizeIter(data.tools, options)
         : undefined,
       authors: data.authors.size > 0
-        ? this.factory.makeForOrganizationalContact().normalizeIter(data.authors, options)
+        ? this._factory.makeForOrganizationalContact().normalizeIter(data.authors, options)
         : undefined,
       component: data.component === null
         ? undefined
-        : this.factory.makeForComponent().normalize(data.component, options),
+        : this._factory.makeForComponent().normalize(data.component, options),
       manufacture: data.manufacture === null
         ? undefined
         : orgEntityNormalizer.normalize(data.manufacture, options),
@@ -130,7 +126,7 @@ export class ToolNormalizer extends Base {
       name: data.name || undefined,
       version: data.version || undefined,
       hashes: data.hashes.size > 0
-        ? this.factory.makeForHash().normalizeIter(data.hashes, options)
+        ? this._factory.makeForHash().normalizeIter(data.hashes, options)
         : undefined
     }
   }
@@ -146,7 +142,7 @@ export class ToolNormalizer extends Base {
 
 export class HashNormalizer extends Base {
   normalize ([algorithm, content]: Models.Hash, options: Options): Types.Hash | undefined {
-    const spec = this.factory.spec
+    const spec = this._factory.spec
     return spec.supportsHashAlgorithm(algorithm) && spec.supportsHashValue(content)
       ? {
           alg: algorithm,
@@ -193,7 +189,7 @@ export class OrganizationalEntityNormalizer extends Base {
         ? Array.from(data.url, u => u.toString())
         : undefined,
       contact: data.contact.size > 0
-        ? this.factory.makeForOrganizationalContact().normalizeIter(data.contact, options)
+        ? this._factory.makeForOrganizationalContact().normalizeIter(data.contact, options)
         : undefined
     }
     if (options.sortLists && r.url) {
@@ -205,7 +201,7 @@ export class OrganizationalEntityNormalizer extends Base {
 
 export class ComponentNormalizer extends Base {
   normalize (data: Models.Component, options: Options): Types.Component | undefined {
-    return this.factory.spec.supportsComponentType(data.type)
+    return this._factory.spec.supportsComponentType(data.type)
       ? {
           type: data.type,
           name: data.name,
@@ -215,25 +211,25 @@ export class ComponentNormalizer extends Base {
           'bom-ref': data.bomRef.value || undefined,
           supplier: data.supplier === null
             ? undefined
-            : this.factory.makeForOrganizationalEntity().normalize(data.supplier, options),
+            : this._factory.makeForOrganizationalEntity().normalize(data.supplier, options),
           author: data.author || undefined,
           publisher: data.publisher || undefined,
           description: data.description || undefined,
           scope: data.scope ?? undefined,
           hashes: data.hashes.size > 0
-            ? this.factory.makeForHash().normalizeIter(data.hashes, options)
+            ? this._factory.makeForHash().normalizeIter(data.hashes, options)
             : undefined,
           licenses: data.licenses.size > 0
-            ? this.factory.makeForLicense().normalizeIter(data.licenses, options)
+            ? this._factory.makeForLicense().normalizeIter(data.licenses, options)
             : undefined,
           copyright: data.copyright || undefined,
           cpe: data.cpe || undefined,
           purl: data.purl?.toString(),
           swid: data.swid === null
             ? undefined
-            : this.factory.makeForSWID().normalize(data.swid, options),
+            : this._factory.makeForSWID().normalize(data.swid, options),
           externalReferences: data.externalReferences.size > 0
-            ? this.factory.makeForExternalReference().normalizeIter(data.externalReferences, options)
+            ? this._factory.makeForExternalReference().normalizeIter(data.externalReferences, options)
             : undefined
         }
       : undefined
@@ -253,41 +249,41 @@ export class LicenseNormalizer extends Base {
   normalize (data: Models.License, options: Options): Types.License {
     switch (true) {
       case data instanceof Models.NamedLicense:
-        return this.normalizeNamedLicense(data as Models.NamedLicense, options)
+        return this.#normalizeNamedLicense(data as Models.NamedLicense, options)
       case data instanceof Models.SpdxLicense:
-        return this.normalizeSpdxLicense(data as Models.SpdxLicense, options)
+        return this.#normalizeSpdxLicense(data as Models.SpdxLicense, options)
       case data instanceof Models.LicenseExpression:
-        return this.normalizeLicenseExpression(data as Models.LicenseExpression)
+        return this.#normalizeLicenseExpression(data as Models.LicenseExpression)
       default:
         throw new RangeError('Unexpected LicenseChoice')
     }
   }
 
-  private normalizeNamedLicense (data: Models.NamedLicense, options: Options): Types.NamedLicense {
+  #normalizeNamedLicense (data: Models.NamedLicense, options: Options): Types.NamedLicense {
     return {
       license: {
         name: data.name,
         text: data.text === null
           ? undefined
-          : this.factory.makeForAttachment().normalize(data.text, options),
+          : this._factory.makeForAttachment().normalize(data.text, options),
         url: data.url?.toString()
       }
     }
   }
 
-  private normalizeSpdxLicense (data: Models.SpdxLicense, options: Options): Types.SpdxLicense {
+  #normalizeSpdxLicense (data: Models.SpdxLicense, options: Options): Types.SpdxLicense {
     return {
       license: {
         id: data.id,
         text: data.text === null
           ? undefined
-          : this.factory.makeForAttachment().normalize(data.text, options),
+          : this._factory.makeForAttachment().normalize(data.text, options),
         url: data.url?.toString()
       }
     }
   }
 
-  private normalizeLicenseExpression (data: Models.LicenseExpression): Types.LicenseExpression {
+  #normalizeLicenseExpression (data: Models.LicenseExpression): Types.LicenseExpression {
     return {
       expression: data.expression
     }
@@ -312,7 +308,7 @@ export class SWIDNormalizer extends Base {
       patch: data.patch ?? undefined,
       text: data.text === null
         ? undefined
-        : this.factory.makeForAttachment().normalize(data.text, options),
+        : this._factory.makeForAttachment().normalize(data.text, options),
       url: data.url?.toString()
     }
   }
@@ -320,7 +316,7 @@ export class SWIDNormalizer extends Base {
 
 export class ExternalReferenceNormalizer extends Base {
   normalize (data: Models.ExternalReference, options: Options): Types.ExternalReference | undefined {
-    return this.factory.spec.supportsExternalReferenceType(data.type)
+    return this._factory.spec.supportsExternalReferenceType(data.type)
       ? {
           url: data.url.toString(),
           type: data.type,
@@ -362,7 +358,7 @@ export class DependencyGraphNormalizer extends Base {
 
     const normalized: Types.Dependency[] = []
     allDeps.forEach((deps, ref) => {
-      const dep = this.normalizeDependency(ref, deps, allDeps)
+      const dep = this.#normalizeDependency(ref, deps, allDeps)
       if (dep) { normalized.push(dep) }
     })
 
@@ -374,7 +370,7 @@ export class DependencyGraphNormalizer extends Base {
     return normalized
   }
 
-  private normalizeDependency (
+  #normalizeDependency (
     ref: Models.BomRef,
     deps: Models.BomRefRepository,
     allDeps: Map<Models.BomRef, Models.BomRefRepository>

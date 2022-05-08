@@ -14,7 +14,7 @@ const JsonSchemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
 ])
 
 export class Serializer implements SerializerProtocol {
-  #normalizerFactory: NormalizerFactory
+  readonly #normalizerFactory: NormalizerFactory
 
   /**
    * @throws {UnsupportedFormatError} if spec does not support JSON format.

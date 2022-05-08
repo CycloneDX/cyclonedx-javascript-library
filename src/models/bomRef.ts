@@ -11,7 +11,4 @@ export class BomRef {
 }
 
 export class BomRefRepository extends Set<BomRef> {
-  static compareItems (a: BomRef, b: BomRef): number {
-    return a.compare(b)
-  }
 }
