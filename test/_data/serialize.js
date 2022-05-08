@@ -147,9 +147,20 @@ function createComplexStructure () {
     component.swid.text.encoding = Enums.AttachmentEncoding.Base64
     component.swid.url = new URL('https://localhost/swid')
     component.version = '1337-beta'
+
+    bom.metadata.component.dependencies.add(component.bomRef)
+
     return component
   })(new Models.Component(Enums.ComponentType.Library, 'dummy-component')))
-  bom.components.add(new Models.Component(Enums.ComponentType.Library, 'a-component'))
+  bom.components.add(function (component) {
+    component.bomRef.value = 'a-component'
+    component.dependencies.add(new Models.BomRef('unknown foreign ref that should not be rendered'))
+
+    bom.metadata.component.dependencies.add(component.bomRef)
+    bom.components.forEach(c => c.dependencies.add(component.bomRef))
+
+    return component
+  }(new Models.Component(Enums.ComponentType.Library, 'a-component')))
 
   return bom
 }

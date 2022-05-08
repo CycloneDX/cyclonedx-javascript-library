@@ -95,9 +95,35 @@ export class BomNormalizer extends Base {
   }
 
   #normalizeDependencies (data: Models.Bom, options: Options): Types.Depndency[] | undefined {
-    // @TODO: render dependency graph
-    // @TODO bom-refs values make unique ... - and find a way to create consistent hash values or something. for reproducibility.... ?
-    return undefined
+    if (!data.metadata.component) {
+      // the graph is missint the entry point -> omit the graph
+      return undefined
+    }
+
+    const allDeps = new Map<Models.BomRef, Models.BomRefRepository>()
+    data.components.forEach(c => allDeps.set(c.bomRef, new Models.BomRefRepository(c.dependencies)))
+    allDeps.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
+
+    const dependencies: Types.Depndency[] = []
+
+    allDeps.forEach((deps, ref) => {
+      if (ref.value === null) { return }
+      const dependsOn = Array.from(deps).filter(d => allDeps.has(d))
+        .map(d => d.value).filter(d => d !== null) as string[]
+      dependencies.push({
+        ref: ref.value,
+        dependsOn: dependsOn.length > 0
+          ? dependsOn
+          : undefined
+      })
+    })
+
+    if (options.sortLists) {
+      dependencies.sort((a, b) => a.ref.localeCompare(b.ref))
+      dependencies.forEach(d => d.dependsOn?.sort((a, b) => a.localeCompare(b)))
+    }
+
+    return dependencies
   }
 }
 
