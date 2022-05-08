@@ -1,7 +1,7 @@
 export class BomRef {
-  value: string | null
+  value: string | undefined
 
-  constructor (value: string | null = null) {
+  constructor (value: string | undefined = undefined) {
     this.value = value
   }
 
