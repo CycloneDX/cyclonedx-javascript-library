@@ -360,7 +360,9 @@ export class DependencyGraphNormalizer extends Base {
     const normalized: Types.Dependency[] = []
     allDeps.forEach((deps, ref) => {
       const dep = this.#normalizeDependency(ref, deps, allDeps)
-      if (dep) { normalized.push(dep) }
+      if (dep) {
+        normalized.push(dep)
+      }
     })
 
     if (options.sortLists) {
