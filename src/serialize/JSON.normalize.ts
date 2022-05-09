@@ -348,7 +348,7 @@ export class AttachmentNormalizer extends Base {
 
 export class DependencyGraphNormalizer extends Base {
   normalize (data: Models.Bom, options: Options): Types.Dependency[] | undefined {
-    if (!data.metadata.component) {
+    if (!data.metadata.component?.bomRef.value) {
       // the graph is missing the entry point -> omit the graph
       return undefined
     }
