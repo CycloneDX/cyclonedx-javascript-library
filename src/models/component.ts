@@ -32,7 +32,7 @@ export class Component {
     this.name = name
   }
 
-  // see https://nvd.nist.gov/products/cpe
+  /** @see {@link https://nvd.nist.gov/products/cpe} */
   #cpe: CPE | null = null
   get cpe (): CPE | null {
     return this.#cpe

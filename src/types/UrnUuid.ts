@@ -1,6 +1,6 @@
 /**
  * Defines a string representation of a UUID conforming to RFC 4122.
- * @see https://datatracker.ietf.org/doc/html/rfc4122
+ * @see {@link https://datatracker.ietf.org/doc/html/rfc4122}
  */
 export declare type UrnUuid = string
 

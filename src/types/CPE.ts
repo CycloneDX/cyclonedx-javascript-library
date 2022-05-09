@@ -1,6 +1,6 @@
 /**
  * Define the format for acceptable CPE URIs. Supports CPE 2.2 and CPE 2.3 formats.
- * Refer to https://nvd.nist.gov/products/cpe for official specification.
+ * Refer to {@link https://nvd.nist.gov/products/cpe} for official specification.
  */
 export declare type CPE = string
 
