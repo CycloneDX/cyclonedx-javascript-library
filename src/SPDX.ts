@@ -5,7 +5,7 @@ import { enum as _spdxSpecEnum } from '../res/spdx.SNAPSHOT.schema.json'
 
 /**
  * One of the known SPDX licence identifiers.
- * See http://cyclonedx.org/schema/spdx
+ * @see {@link http://cyclonedx.org/schema/spdx}
  * @see isSupportedSpdxId
  * @see fixupSpdxId
  */

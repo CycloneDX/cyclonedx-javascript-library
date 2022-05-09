@@ -166,7 +166,7 @@ export class OrganizationalContactNormalizer extends Base {
   normalize (data: Models.OrganizationalContact, options: Options): Types.OrganizationalContact {
     return {
       name: data.name || undefined,
-      // email must conform to https://datatracker.ietf.org/doc/html/rfc6531
+      /** email must conform to {@link https://datatracker.ietf.org/doc/html/rfc6531} */
       email: data.email || undefined,
       phone: data.phone || undefined
     }
@@ -185,8 +185,8 @@ export class OrganizationalEntityNormalizer extends Base {
   normalize (data: Models.OrganizationalEntity, options: Options): Types.OrganizationalEntity {
     const r = {
       name: data.name || undefined,
+      /** must comply to {@link https://datatracker.ietf.org/doc/html/rfc3987} */
       url: data.url.size > 0
-        // must comply to https://datatracker.ietf.org/doc/html/rfc3987
         ? Array.from(data.url, u => u.toString())
         : undefined,
       contact: data.contact.size > 0
@@ -359,7 +359,7 @@ export class DependencyGraphNormalizer extends Base {
 
     const normalized: Types.Dependency[] = []
     allDeps.forEach((deps, ref) => {
-      const dep = this.#normalizeDependency(ref, deps, allDeps)
+      const dep = this.#normalizeDependency(ref, deps, allDeps, options)
       if (dep) {
         normalized.push(dep)
       }
@@ -367,7 +367,6 @@ export class DependencyGraphNormalizer extends Base {
 
     if (options.sortLists) {
       normalized.sort((a, b) => a.ref.localeCompare(b.ref))
-      normalized.forEach(d => d.dependsOn?.sort((a, b) => a.localeCompare(b)))
     }
 
     return normalized
@@ -376,7 +375,8 @@ export class DependencyGraphNormalizer extends Base {
   #normalizeDependency (
     ref: Models.BomRef,
     deps: Models.BomRefRepository,
-    allDeps: Map<Models.BomRef, Models.BomRefRepository>
+    allDeps: Map<Models.BomRef, Models.BomRefRepository>,
+    options: Options
   ): Types.Dependency | undefined {
     if (!ref.value) {
       // no value -> cannot render
@@ -385,6 +385,10 @@ export class DependencyGraphNormalizer extends Base {
 
     const dependsOn = Array.from(deps).filter(d => allDeps.has(d))
       .map(d => d.value).filter(v => !!v) as string[]
+
+    if (options.sortLists) {
+      dependsOn.sort((a, b) => a.localeCompare(b))
+    }
 
     return {
       ref: ref.value,

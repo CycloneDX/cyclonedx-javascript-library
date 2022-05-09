@@ -89,7 +89,8 @@ export interface NamedLicense {
 
 export interface SpdxLicense {
   license: {
-    id: SpdxId // See http://cyclonedx.org/schema/spdx
+    /** @see {@link http://cyclonedx.org/schema/spdx} */
+    id: SpdxId
     text?: Attachment
     url?: string
   }
