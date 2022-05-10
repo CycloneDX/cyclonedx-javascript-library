@@ -256,7 +256,7 @@ export class LicenseNormalizer extends Base {
       case data instanceof Models.LicenseExpression:
         return this.#normalizeLicenseExpression(data as Models.LicenseExpression)
       default:
-        throw new RangeError('Unexpected LicenseChoice')
+        throw new TypeError('Unexpected LicenseChoice')
     }
   }
 
