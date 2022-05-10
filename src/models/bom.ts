@@ -6,11 +6,11 @@ export class Bom {
   metadata = new Metadata()
   components = new ComponentRepository()
 
-  // Property `bomFormat` is not part of model, it is a runtime information.
-  // Property `specVersion` is not part of model, it is a runtime information.
+  // Property `bomFormat` is not part of model, it is runtime information.
+  // Property `specVersion` is not part of model, it is runtime information.
 
   // Property `dependencies` is not part of this model, but part of `Component` and other models.
-  // The dependency grapth can be normalized on rendertime, no need to store it in the bom model.
+  // The dependency graph can be normalized on render-time, no need to store it in the bom model.
 
   #version: PositiveInteger = 1
   get version (): PositiveInteger {
