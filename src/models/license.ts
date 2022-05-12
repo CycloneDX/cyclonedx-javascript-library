@@ -27,7 +27,7 @@ export class LicenseExpression {
    */
   set expression (value: string) {
     if (!LicenseExpression.isEligibleExpression(value)) {
-      throw new RangeError('Not eligible license expression')
+      throw new RangeError('Not eligible expression')
     }
     this.#expression = value
   }
