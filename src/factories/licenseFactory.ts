@@ -13,8 +13,8 @@ export class LicenseFactory {
   /**
    * @throws {RangeError} if expression is not eligible
    */
-  makeExpression (value: string | any): LicenseExpression {
-    return new LicenseExpression(String(value))
+  makeExpression (value: string): LicenseExpression {
+    return new LicenseExpression(value)
   }
 
   makeDisjunctive (value: string): DisjunctiveLicense {
