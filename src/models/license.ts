@@ -1,15 +1,15 @@
 import { isSupportedSpdxId, SpdxId } from '../SPDX'
 import { Attachment } from './attachment'
 
-export function isEligibleLicenseExpression (expression: string | any): boolean {
-  // smallest known: (A or B)
-  return typeof expression === 'string' &&
-    expression.length >= 8 &&
-    expression[0] === '(' &&
-    expression[expression.length - 1] === ')'
-}
-
 export class LicenseExpression {
+  static isEligibleExpression (expression: string | any): boolean {
+    // smallest known: (A or B)
+    return typeof expression === 'string' &&
+      expression.length >= 8 &&
+      expression[0] === '(' &&
+      expression[expression.length - 1] === ')'
+  }
+
   /**
    * @throws {RangeError} if expression is not eligible
    */
@@ -26,7 +26,7 @@ export class LicenseExpression {
    * @throws {RangeError} if expression is not eligible
    */
   set expression (value: string) {
-    if (!isEligibleLicenseExpression(value)) {
+    if (!LicenseExpression.isEligibleExpression(value)) {
       throw new RangeError('Not eligible license expression')
     }
     this.#expression = value
