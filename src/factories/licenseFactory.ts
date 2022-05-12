@@ -20,7 +20,7 @@ export class LicenseFactory {
   makeDisjunctive (value: string): DisjunctiveLicense {
     try {
       return this.makeDisjunctiveWithId(value)
-    } catch (Error) {
+    } catch (error) {
       return this.makeDisjunctiveWithName(value)
     }
   }
