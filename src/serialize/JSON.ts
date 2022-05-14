@@ -13,6 +13,13 @@ const JsonSchemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
   [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom-1.4.schema.json']
 ])
 
+export interface SerializerOptions {
+  /**
+   * Add indention in serialization result. Indention increase readability for humans.
+   */
+  space?: string | number
+}
+
 export class Serializer implements SerializerProtocol {
   readonly #normalizerFactory: NormalizerFactory
 
@@ -26,16 +33,22 @@ export class Serializer implements SerializerProtocol {
     this.#normalizerFactory = normalizerFactory
   }
 
-  serialize (bom: Bom, options: NormalizerOptions = {}): string {
+  serialize (
+    bom: Bom,
+    {
+      sortLists = false,
+      space = 2
+    }: NormalizerOptions & SerializerOptions = {}
+  ): string {
     // @TODO bom-refs values make unique ...
     //       and find a way to create consistent hash values or something. for reproducibility.... ?
     //       see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/32
     try {
       const _bom: JsonBom = {
         $schema: JsonSchemaUrl.get(this.#normalizerFactory.spec.version),
-        ...this.#normalizerFactory.makeForBom().normalize(bom, options)
+        ...this.#normalizerFactory.makeForBom().normalize(bom, { sortLists })
       }
-      return JSON.stringify(_bom, null, 2)
+      return JSON.stringify(_bom, null, space)
     } finally {
       // @TODO revert modified bomRefs
       //       see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/32
