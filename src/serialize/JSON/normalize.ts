@@ -1,6 +1,6 @@
-import { Protocol as SpecProtocol } from '../spec'
-import * as Models from '../models'
-import * as Types from './JSON.types'
+import { Protocol as SpecProtocol } from '../../spec'
+import * as Models from '../../models'
+import * as Types from './types'
 
 export class Factory {
   readonly spec: SpecProtocol
