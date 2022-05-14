@@ -1,5 +1,5 @@
 const path = require('path')
-const merge = require('deepmerge')
+const deepmerge = require('deepmerge')
 
 // see https://webpack.js.org/guides/author-libraries/
 const configBase = {
@@ -38,13 +38,13 @@ const configBase = {
 }
 
 module.exports = [
-  merge(configBase, {
+  deepmerge(configBase, {
     mode: 'production',
     output: {
       filename: 'lib.js'
     }
   }),
-  merge(configBase, {
+  deepmerge(configBase, {
     mode: 'development',
     devtool: 'source-map',
     output: {
