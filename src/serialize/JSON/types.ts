@@ -1,7 +1,7 @@
-import * as Enums from '../enums'
-import { HashContent } from '../models'
-import { SpdxId } from '../SPDX'
-import { CPE, PositiveInteger, UrnUuid } from '../types'
+import * as Enums from '../../enums'
+import { HashContent } from '../../models'
+import { SpdxId } from '../../SPDX'
+import { CPE, PositiveInteger, UrnUuid } from '../../types'
 
 type IriReference = string
 type IdnEmail = string

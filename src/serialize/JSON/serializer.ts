@@ -1,13 +1,10 @@
-import { Bom } from '../models'
-import { Version as SpecVersion, Format, UnsupportedFormatError } from '../spec'
-import { Serializer as SerializerProtocol } from './types'
-import { Factory as NormalizerFactory, Options as NormalizerOptions } from './JSON.normalize'
-import { Bom as JsonBom } from './JSON.types'
+import { Bom } from '../../models'
+import { Version as SpecVersion, Format, UnsupportedFormatError } from '../../spec'
+import { Serializer as SerializerProtocol } from '../types'
+import { Factory as NormalizerFactory, Options as NormalizerOptions } from './normalize'
+import { Bom as JsonBom } from './types'
 
-export * as Normalize from './JSON.normalize'
-export * as Types from './JSON.types'
-
-const JsonSchemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
+const SchemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
   [SpecVersion.v1dot2, 'http://cyclonedx.org/schema/bom-1.2b.schema.json'],
   [SpecVersion.v1dot3, 'http://cyclonedx.org/schema/bom-1.3a.schema.json'],
   [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom-1.4.schema.json']
@@ -45,7 +42,7 @@ export class Serializer implements SerializerProtocol {
     //       see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/32
     try {
       const _bom: JsonBom = {
-        $schema: JsonSchemaUrl.get(this.#normalizerFactory.spec.version),
+        $schema: SchemaUrl.get(this.#normalizerFactory.spec.version),
         ...this.#normalizerFactory.makeForBom().normalize(bom, { sortLists })
       }
       return JSON.stringify(_bom, null, space)
