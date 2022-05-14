@@ -247,7 +247,9 @@ export const Spec1dot4: Protocol = Object.freeze(new Spec(
   true
 ))
 
-export const SpecVersionDict: { readonly [key in Version]?: Protocol } = Object.freeze(Object.fromEntries([
+export const SpecVersionDict: {
+  readonly [key in Version]?: Protocol
+} = Object.freeze(Object.fromEntries([
   [Version.v1dot2, Spec1dot2],
   [Version.v1dot3, Spec1dot3],
   [Version.v1dot4, Spec1dot4]
