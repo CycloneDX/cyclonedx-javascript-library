@@ -1,7 +1,7 @@
 import * as Enums from '../../enums'
 import { HashContent } from '../../models'
 import { SpdxId } from '../../SPDX'
-import { CPE, PositiveInteger, UrnUuid } from '../../types'
+import { CPE, Integer, UrnUuid } from '../../types'
 
 type IriReference = string
 type IdnEmail = string
@@ -13,7 +13,7 @@ export interface Bom {
   $schema?: string
   bomFormat: 'CycloneDX'
   specVersion: string
-  version: PositiveInteger
+  version: Integer
   serialNumber?: UrnUuid
   metadata?: Metadata
   components?: Component[]
@@ -106,7 +106,7 @@ export interface SWID {
   tagId: string
   name: string
   version?: string
-  tagVersion?: number
+  tagVersion?: Integer
   patch?: boolean
   text?: Attachment
   url?: IriReference

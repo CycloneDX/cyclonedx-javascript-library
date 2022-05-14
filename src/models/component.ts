@@ -39,7 +39,7 @@ export class Component {
   }
 
   /**
-   * @throws {TypeError} if value is not CPE nor null
+   * @throws {TypeError} if value is neither CPE nor null
    */
   set cpe (value: CPE | null) {
     if (value !== null && !isCPE(value)) {

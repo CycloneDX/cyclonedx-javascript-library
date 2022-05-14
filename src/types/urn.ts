@@ -2,7 +2,7 @@
  * Defines a string representation of a UUID conforming to RFC 4122.
  * @see {@link https://datatracker.ietf.org/doc/html/rfc4122}
  */
-export declare type UrnUuid = string
+export type UrnUuid = string
 
 const urnUuidPattern = /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 

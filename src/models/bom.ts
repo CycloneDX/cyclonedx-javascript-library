@@ -18,7 +18,7 @@ export class Bom {
   }
 
   /**
-   * @throws {TypeError} if value is not positive integer
+   * @throws {TypeError} if value is not PositiveInteger
    */
   set version (value: PositiveInteger) {
     if (!isPositiveInteger(value)) {
@@ -33,7 +33,7 @@ export class Bom {
   }
 
   /**
-   * @throws {TypeError} if value is not UrnUuid nor null
+   * @throws {TypeError} if value is neither UrnUuid nor null
    */
   set serialNumber (value: UrnUuid | null) {
     if (value !== null && !isUrnUuid(value)) {
