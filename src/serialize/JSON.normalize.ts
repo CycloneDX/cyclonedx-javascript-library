@@ -59,6 +59,9 @@ export class Factory {
 }
 
 export interface Options {
+  /**
+   * Whether to sort lists in normalization results. Sorted lists make the output reproducible.
+   */
   sortLists?: boolean
 }
 
