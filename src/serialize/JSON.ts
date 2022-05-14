@@ -15,7 +15,7 @@ const JsonSchemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
 
 export interface SerializerOptions {
   /**
-   * Add indention in serialization result. Indention increase readability for humans.
+   * Add indention in the serialization result. Indention increases readability for humans.
    */
   space?: string | number
 }
