@@ -1,4 +1,4 @@
-export declare type MimeType = string
+export type MimeType = string
 
 const mimeTypePattern = /^[-+a-z0-9.]+\/[-+a-z0-9.]+$/
 

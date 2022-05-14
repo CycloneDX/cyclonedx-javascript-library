@@ -1,6 +1,9 @@
-import { isPositiveInteger, PositiveInteger } from '../types'
+import { isNonNegativeInteger, NonNegativeInteger } from '../types'
 import { Attachment } from './attachment'
 
+/**
+ * @see {@link https://csrc.nist.gov/projects/Software-Identification-SWID}
+ */
 export class SWID {
   tagId: string
   name: string
@@ -14,17 +17,17 @@ export class SWID {
     this.name = name
   }
 
-  #tagVersion: PositiveInteger | null = null
-  get tagVersion (): PositiveInteger | null {
+  #tagVersion: NonNegativeInteger | null = null
+  get tagVersion (): NonNegativeInteger | null {
     return this.#tagVersion
   }
 
   /**
-   * @throws {TypeError} if value is not PositiveInteger nor null
+   * @throws {TypeError} if value is neither NonNegativeInteger nor null
    */
-  set tagVersion (value: PositiveInteger | null) {
-    if (value !== null && !isPositiveInteger(value)) {
-      throw new TypeError('Not PositiveInteger nor null')
+  set tagVersion (value: NonNegativeInteger | null) {
+    if (value !== null && !isNonNegativeInteger(value)) {
+      throw new TypeError('Not NonNegativeInteger nor null')
     }
     this.#tagVersion = value
   }
