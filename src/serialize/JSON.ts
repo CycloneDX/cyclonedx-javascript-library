@@ -27,7 +27,9 @@ export class Serializer implements SerializerProtocol {
   }
 
   serialize (bom: Bom, options: NormalizerOptions = {}): string {
-    // @TODO bom-refs values make unique ... - and find a way to create consistent hash values or something. for reproducibility.... ?
+    // @TODO bom-refs values make unique ...
+    //       and find a way to create consistent hash values or something. for reproducibility.... ?
+    //       see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/32
     try {
       const _bom: JsonBom = {
         $schema: JsonSchemaUrl.get(this.#normalizerFactory.spec.version),
@@ -36,6 +38,7 @@ export class Serializer implements SerializerProtocol {
       return JSON.stringify(_bom, null, 2)
     } finally {
       // @TODO revert modified bomRefs
+      //       see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/32
     }
   }
 }
