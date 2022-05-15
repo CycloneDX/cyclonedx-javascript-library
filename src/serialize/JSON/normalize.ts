@@ -1,11 +1,12 @@
-import { Protocol as SpecProtocol } from '../../spec'
 import * as Models from '../../models'
+import { Protocol as Spec } from '../../spec'
+import { NormalizeOptions } from '../types'
 import * as Types from './types'
 
 export class Factory {
-  readonly spec: SpecProtocol
+  readonly spec: Spec
 
-  constructor (spec: SpecProtocol) {
+  constructor (spec: Spec) {
     this.spec = spec
   }
 
@@ -58,13 +59,6 @@ export class Factory {
   }
 }
 
-export interface Options {
-  /**
-   * Whether to sort lists in normalization results. Sorted lists make the output reproducible.
-   */
-  sortLists?: boolean
-}
-
 abstract class Base {
   protected readonly _factory: Factory
 
@@ -72,7 +66,7 @@ abstract class Base {
     this._factory = factory
   }
 
-  abstract normalize (data: object, options: Options): object | undefined
+  abstract normalize (data: object, options: NormalizeOptions): object | undefined
 }
 
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions --
@@ -80,7 +74,7 @@ abstract class Base {
  */
 
 export class BomNormalizer extends Base {
-  normalize (data: Models.Bom, options: Options): Types.Bom {
+  normalize (data: Models.Bom, options: NormalizeOptions): Types.Bom {
     return {
       // Do not set $schema here. it is part of the final serializer, not the normalizer
       bomFormat: 'CycloneDX',
@@ -100,7 +94,7 @@ export class BomNormalizer extends Base {
 }
 
 export class MetadataNormalizer extends Base {
-  normalize (data: Models.Metadata, options: Options): Types.Metadata {
+  normalize (data: Models.Metadata, options: NormalizeOptions): Types.Metadata {
     const orgEntityNormalizer = this._factory.makeForOrganizationalEntity()
     return {
       timestamp: data.timestamp?.toISOString(),
@@ -124,7 +118,7 @@ export class MetadataNormalizer extends Base {
 }
 
 export class ToolNormalizer extends Base {
-  normalize (data: Models.Tool, options: Options): Types.Tool {
+  normalize (data: Models.Tool, options: NormalizeOptions): Types.Tool {
     return {
       vendor: data.vendor || undefined,
       name: data.name || undefined,
@@ -135,7 +129,7 @@ export class ToolNormalizer extends Base {
     }
   }
 
-  normalizeIter (data: Iterable<Models.Tool>, options: Options): Types.Tool[] {
+  normalizeIter (data: Iterable<Models.Tool>, options: NormalizeOptions): Types.Tool[] {
     const tools = Array.from(data)
     if (options.sortLists) {
       tools.sort(Models.ToolRepository.compareItems)
@@ -145,7 +139,7 @@ export class ToolNormalizer extends Base {
 }
 
 export class HashNormalizer extends Base {
-  normalize ([algorithm, content]: Models.Hash, options: Options): Types.Hash | undefined {
+  normalize ([algorithm, content]: Models.Hash, options: NormalizeOptions): Types.Hash | undefined {
     const spec = this._factory.spec
     return spec.supportsHashAlgorithm(algorithm) && spec.supportsHashValue(content)
       ? {
@@ -155,7 +149,7 @@ export class HashNormalizer extends Base {
       : undefined
   }
 
-  normalizeIter (data: Iterable<Models.Hash>, options: Options): Types.Hash[] {
+  normalizeIter (data: Iterable<Models.Hash>, options: NormalizeOptions): Types.Hash[] {
     const hashes = Array.from(data)
     if (options.sortLists) {
       hashes.sort(Models.HashRepository.compareItems)
@@ -166,7 +160,7 @@ export class HashNormalizer extends Base {
 }
 
 export class OrganizationalContactNormalizer extends Base {
-  normalize (data: Models.OrganizationalContact, options: Options): Types.OrganizationalContact {
+  normalize (data: Models.OrganizationalContact, options: NormalizeOptions): Types.OrganizationalContact {
     return {
       name: data.name || undefined,
       /** email must conform to {@link https://datatracker.ietf.org/doc/html/rfc6531} */
@@ -175,7 +169,7 @@ export class OrganizationalContactNormalizer extends Base {
     }
   }
 
-  normalizeIter (data: Iterable<Models.OrganizationalContact>, options: Options): Types.OrganizationalContact[] {
+  normalizeIter (data: Iterable<Models.OrganizationalContact>, options: NormalizeOptions): Types.OrganizationalContact[] {
     const contacts = Array.from(data)
     if (options.sortLists) {
       contacts.sort(Models.OrganizationalContactRepository.compareItems)
@@ -185,7 +179,7 @@ export class OrganizationalContactNormalizer extends Base {
 }
 
 export class OrganizationalEntityNormalizer extends Base {
-  normalize (data: Models.OrganizationalEntity, options: Options): Types.OrganizationalEntity {
+  normalize (data: Models.OrganizationalEntity, options: NormalizeOptions): Types.OrganizationalEntity {
     const r = {
       name: data.name || undefined,
       /** must comply to {@link https://datatracker.ietf.org/doc/html/rfc3987} */
@@ -204,7 +198,7 @@ export class OrganizationalEntityNormalizer extends Base {
 }
 
 export class ComponentNormalizer extends Base {
-  normalize (data: Models.Component, options: Options): Types.Component | undefined {
+  normalize (data: Models.Component, options: NormalizeOptions): Types.Component | undefined {
     return this._factory.spec.supportsComponentType(data.type)
       ? {
           type: data.type,
@@ -239,7 +233,7 @@ export class ComponentNormalizer extends Base {
       : undefined
   }
 
-  normalizeIter (data: Iterable<Models.Component>, options: Options): Types.Component[] {
+  normalizeIter (data: Iterable<Models.Component>, options: NormalizeOptions): Types.Component[] {
     const components = Array.from(data)
     if (options.sortLists) {
       components.sort(Models.ComponentRepository.compareItems)
@@ -250,7 +244,7 @@ export class ComponentNormalizer extends Base {
 }
 
 export class LicenseNormalizer extends Base {
-  normalize (data: Models.License, options: Options): Types.License {
+  normalize (data: Models.License, options: NormalizeOptions): Types.License {
     switch (true) {
       case data instanceof Models.NamedLicense:
         return this.#normalizeNamedLicense(data as Models.NamedLicense, options)
@@ -263,7 +257,7 @@ export class LicenseNormalizer extends Base {
     }
   }
 
-  #normalizeNamedLicense (data: Models.NamedLicense, options: Options): Types.NamedLicense {
+  #normalizeNamedLicense (data: Models.NamedLicense, options: NormalizeOptions): Types.NamedLicense {
     return {
       license: {
         name: data.name,
@@ -275,7 +269,7 @@ export class LicenseNormalizer extends Base {
     }
   }
 
-  #normalizeSpdxLicense (data: Models.SpdxLicense, options: Options): Types.SpdxLicense {
+  #normalizeSpdxLicense (data: Models.SpdxLicense, options: NormalizeOptions): Types.SpdxLicense {
     return {
       license: {
         id: data.id,
@@ -293,7 +287,7 @@ export class LicenseNormalizer extends Base {
     }
   }
 
-  normalizeIter (data: Iterable<Models.License>, options: Options): Types.License[] {
+  normalizeIter (data: Iterable<Models.License>, options: NormalizeOptions): Types.License[] {
     const licenses = Array.from(data)
     if (options.sortLists) {
       licenses.sort(Models.LicenseRepository.compareItems)
@@ -303,7 +297,7 @@ export class LicenseNormalizer extends Base {
 }
 
 export class SWIDNormalizer extends Base {
-  normalize (data: Models.SWID, options: Options): Types.SWID {
+  normalize (data: Models.SWID, options: NormalizeOptions): Types.SWID {
     return {
       tagId: data.tagId,
       name: data.name,
@@ -319,7 +313,7 @@ export class SWIDNormalizer extends Base {
 }
 
 export class ExternalReferenceNormalizer extends Base {
-  normalize (data: Models.ExternalReference, options: Options): Types.ExternalReference | undefined {
+  normalize (data: Models.ExternalReference, options: NormalizeOptions): Types.ExternalReference | undefined {
     return this._factory.spec.supportsExternalReferenceType(data.type)
       ? {
           url: data.url.toString(),
@@ -329,7 +323,7 @@ export class ExternalReferenceNormalizer extends Base {
       : undefined
   }
 
-  normalizeIter (data: Iterable<Models.ExternalReference>, options: Options): Types.ExternalReference[] {
+  normalizeIter (data: Iterable<Models.ExternalReference>, options: NormalizeOptions): Types.ExternalReference[] {
     const refs = Array.from(data)
     if (options.sortLists) {
       refs.sort(Models.ExternalReferenceRepository.compareItems)
@@ -340,7 +334,7 @@ export class ExternalReferenceNormalizer extends Base {
 }
 
 export class AttachmentNormalizer extends Base {
-  normalize (data: Models.Attachment, options: Options): Types.Attachment {
+  normalize (data: Models.Attachment, options: NormalizeOptions): Types.Attachment {
     return {
       content: data.content,
       contentType: data.contentType || undefined,
@@ -350,7 +344,7 @@ export class AttachmentNormalizer extends Base {
 }
 
 export class DependencyGraphNormalizer extends Base {
-  normalize (data: Models.Bom, options: Options): Types.Dependency[] | undefined {
+  normalize (data: Models.Bom, options: NormalizeOptions): Types.Dependency[] | undefined {
     if (!data.metadata.component?.bomRef.value) {
       // the graph is missing the entry point -> omit the graph
       return undefined
@@ -379,7 +373,7 @@ export class DependencyGraphNormalizer extends Base {
     ref: Models.BomRef,
     deps: Models.BomRefRepository,
     allDeps: Map<Models.BomRef, Models.BomRefRepository>,
-    options: Options
+    options: NormalizeOptions
   ): Types.Dependency | undefined {
     if (!ref.value) {
       // no value -> cannot render

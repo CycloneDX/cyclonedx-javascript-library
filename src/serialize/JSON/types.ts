@@ -3,11 +3,14 @@ import { HashContent } from '../../models'
 import { SpdxId } from '../../SPDX'
 import { CPE, Integer, UrnUuid } from '../../types'
 
-type IriReference = string
-type IdnEmail = string
-type DateTime = string
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace JsonSchema {
+  export type IriReference = string
+  export type IdnEmail = string
+  export type DateTime = string
+}
 
-type RefType = string
+export type RefType = string
 
 export interface Bom {
   $schema?: string
@@ -22,7 +25,7 @@ export interface Bom {
 }
 
 export interface Metadata {
-  timestamp?: DateTime
+  timestamp?: JsonSchema.DateTime
   tools?: Tool[]
   authors?: OrganizationalContact[]
   component?: Component
@@ -41,13 +44,13 @@ export interface Tool {
 
 export interface OrganizationalContact {
   name?: string
-  email?: IdnEmail
+  email?: JsonSchema.IdnEmail
   phone?: string
 }
 
 export interface OrganizationalEntity {
   name?: string
-  url?: IriReference[]
+  url?: JsonSchema.IriReference[]
   contact?: OrganizationalContact[]
 }
 
@@ -109,7 +112,7 @@ export interface SWID {
   tagVersion?: Integer
   patch?: boolean
   text?: Attachment
-  url?: IriReference
+  url?: JsonSchema.IriReference
 }
 
 export interface ExternalReference {

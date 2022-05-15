@@ -1,4 +1,3 @@
-
 const assert = require('assert')
 const { describe, beforeEach, afterEach, it } = require('mocha')
 
@@ -6,16 +5,21 @@ const { createComplexStructure, loadSerializeResult } = require('../_data/serial
 /* uncomment next line to dump data */
 // const { writeSerializeResult } = require('../_data/serialize')
 
-const JsonSerialize = require('../../').Serialize.JSON
-const { Spec } = require('../../')
+const {
+  Serialize: {
+    JsonSerializer,
+    JSON: { Normalize: { Factory: JsonNormalizeFactory } }
+  },
+  Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
+} = require('../../')
 
 describe('JSON serialize', () => {
   [
-    Spec.Spec1dot2,
-    Spec.Spec1dot3,
-    Spec.Spec1dot4
+    Spec1dot2,
+    Spec1dot3,
+    Spec1dot4
   ].forEach(spec => describe(`complex with spec v${spec.version}`, () => {
-    const serializer = new JsonSerialize.Serializer(new JsonSerialize.Normalize.Factory(spec))
+    const serializer = new JsonSerializer(new JsonNormalizeFactory(spec))
 
     beforeEach(function () {
       this.bom = createComplexStructure()

@@ -1,7 +1,9 @@
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const { Bom, ComponentRepository, Metadata } = require('../../').Models
+const {
+  Models: { Bom, ComponentRepository, Metadata }
+} = require('../../')
 
 suite('BOM', () => {
   test('construct with empty properties', () => {
