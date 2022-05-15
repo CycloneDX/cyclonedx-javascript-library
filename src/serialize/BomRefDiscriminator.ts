@@ -14,16 +14,22 @@ export class BomRefDiscriminator {
   discriminate (): void {
     const knownRefValues = new Set<string>()
     this.#originalValues.forEach((_, bomRef) => {
-      let discriminatedValue = bomRef.value
-      if (discriminatedValue === undefined || knownRefValues.has(discriminatedValue)) {
-        discriminatedValue = this._makeUniqueId()
-        bomRef.value = discriminatedValue
+      let value = bomRef.value
+      if (value === undefined || knownRefValues.has(value)) {
+        value = this.#makeUniqueId()
+        bomRef.value = value
       }
-      knownRefValues.add(discriminatedValue)
+      knownRefValues.add(value)
     })
   }
 
-  protected _makeUniqueId (): string {
+  reset (): void {
+    this.#originalValues.forEach((value, bomRef) => {
+      bomRef.value = value
+    })
+  }
+
+  #makeUniqueId (): string {
     return `${
       this.#prefix
     }${
@@ -31,11 +37,5 @@ export class BomRefDiscriminator {
     }${
       Math.random().toString(32).substring(1)
     }`
-  }
-
-  reset (): void {
-    this.#originalValues.forEach((originalValue, bomRef) => {
-      bomRef.value = originalValue
-    })
   }
 }
