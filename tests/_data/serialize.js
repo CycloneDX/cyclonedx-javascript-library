@@ -42,6 +42,7 @@ module.exports.writeSerializeResult = writeSerializeResult
  */
 function createComplexStructure () {
   const bom = new Models.Bom()
+
   bom.version = 7
   bom.serialNumber = 'urn:uuid:12345678-1234-1234-1234-123456789012'
   bom.metadata.timestamp = new Date('2001-05-23T13:37:42.000Z')
