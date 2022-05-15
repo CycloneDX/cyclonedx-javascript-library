@@ -14,7 +14,12 @@ export abstract class BaseSerializer implements Serializer {
   }
 
   #getAllBomRefs (bom: Bom): Iterable<BomRef> {
-    return [/* TODO */]
+    const bomRefs = new Set<BomRef>()
+    bom.components.forEach(c => bomRefs.add(c.bomRef))
+    if (bom.metadata.component !== null) {
+      bomRefs.add(bom.metadata.component.bomRef)
+    }
+    return bomRefs.values()
   }
 
   /**

@@ -1,7 +1,7 @@
 import { BomRef } from '../models'
 
 export class BomRefDiscriminator {
-  readonly #prefix = 'BomRef.'
+  readonly #prefix = 'BomRef'
 
   readonly #originalValues: ReadonlyMap<BomRef, string | undefined>
 
@@ -12,13 +12,30 @@ export class BomRefDiscriminator {
   }
 
   discriminate (): void {
-    // @TODO bom-refs values make unique ...
-    //       and find a way to create consistent hash values or something. for reproducibility.... ?
-    //       see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/32
+    const knownRefValues = new Set<string>()
+    this.#originalValues.forEach((_, bomRef) => {
+      let discriminatedValue = bomRef.value
+      if (discriminatedValue === undefined || knownRefValues.has(discriminatedValue)) {
+        discriminatedValue = this._makeUniqueId()
+        bomRef.value = discriminatedValue
+      }
+      knownRefValues.add(discriminatedValue)
+    })
+  }
+
+  protected _makeUniqueId (): string {
+    return `${
+      this.#prefix
+    }${
+      Math.random().toString(32).substring(1)
+    }${
+      Math.random().toString(32).substring(1)
+    }`
   }
 
   reset (): void {
-    // @TODO revert modified bomRefs
-    //       see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/32
+    this.#originalValues.forEach((originalValue, bomRef) => {
+      bomRef.value = originalValue
+    })
   }
 }
