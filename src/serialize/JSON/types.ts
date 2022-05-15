@@ -3,11 +3,11 @@ import { HashContent } from '../../models'
 import { SpdxId } from '../../SPDX'
 import { CPE, Integer, UrnUuid } from '../../types'
 
-type IriReference = string
-type IdnEmail = string
-type DateTime = string
+type jsonIriReference = string
+type jsonIdnEmail = string
+type jsonDateTime = string
 
-type RefType = string
+export type RefType = string
 
 export interface Bom {
   $schema?: string
@@ -22,7 +22,7 @@ export interface Bom {
 }
 
 export interface Metadata {
-  timestamp?: DateTime
+  timestamp?: jsonDateTime
   tools?: Tool[]
   authors?: OrganizationalContact[]
   component?: Component
@@ -41,13 +41,13 @@ export interface Tool {
 
 export interface OrganizationalContact {
   name?: string
-  email?: IdnEmail
+  email?: jsonIdnEmail
   phone?: string
 }
 
 export interface OrganizationalEntity {
   name?: string
-  url?: IriReference[]
+  url?: jsonIriReference[]
   contact?: OrganizationalContact[]
 }
 
@@ -109,7 +109,7 @@ export interface SWID {
   tagVersion?: Integer
   patch?: boolean
   text?: Attachment
-  url?: IriReference
+  url?: jsonIriReference
 }
 
 export interface ExternalReference {

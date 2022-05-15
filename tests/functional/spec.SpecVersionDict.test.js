@@ -1,7 +1,9 @@
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const { SpecVersionDict, Version } = require('../../').Spec
+const {
+  Spec: { SpecVersionDict, Version }
+} = require('../../')
 
 suite('SpecVersionDict', () => {
   Object.entries(SpecVersionDict).forEach(([key, spec]) =>
