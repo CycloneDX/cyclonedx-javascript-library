@@ -7,6 +7,8 @@ const { Enums, Models } = require('../../')
 
 /** @typedef {import('../../').Spec.Version} Version */
 
+/** @typedef {import('../../').Models.Bom} Bom */
+
 /**
  * @param {string} purpose
  * @param {Version} spec
@@ -14,13 +16,11 @@ const { Enums, Models } = require('../../')
  * @param {BufferEncoding} [encoding]
  * @returns {string}
  */
-function loadSerializeResult (purpose, spec, format, encoding = 'utf-8') {
+module.exports.loadSerializeResult = function (purpose, spec, format, encoding = 'utf-8') {
   return fs.readFileSync(
     path.resolve(__dirname, 'serializeResults', `${purpose}_spec${spec}.${format}`)
   ).toString(encoding)
 }
-
-module.exports.loadSerializeResult = loadSerializeResult
 
 /**
  * @param {string} data
@@ -28,19 +28,17 @@ module.exports.loadSerializeResult = loadSerializeResult
  * @param {Version} spec
  * @param {string} format
  */
-function writeSerializeResult (data, purpose, spec, format) {
+module.exports.writeSerializeResult = function (data, purpose, spec, format) {
   return fs.writeFileSync(
     path.resolve(__dirname, 'serializeResults', `${purpose}_spec${spec}.${format}`),
     data
   )
 }
 
-module.exports.writeSerializeResult = writeSerializeResult
-
 /**
- * @returns {Models.Bom}
+ * @returns {Bom}
  */
-function createComplexStructure () {
+module.exports.createComplexStructure = function () {
   const bom = new Models.Bom()
 
   bom.version = 7
@@ -166,5 +164,3 @@ function createComplexStructure () {
 
   return bom
 }
-
-module.exports.createComplexStructure = createComplexStructure
