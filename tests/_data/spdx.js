@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 
 const spdxSpecEnum = JSON.parse(fs.readFileSync(path.resolve(
-  __dirname, '../../', 'res/spdx.SNAPSHOT.schema.json'
+  __dirname, '..', '..', 'res', 'spdx.SNAPSHOT.schema.json'
 ))).enum
 
 assert.ok(spdxSpecEnum instanceof Array)
