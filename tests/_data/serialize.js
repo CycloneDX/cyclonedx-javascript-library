@@ -3,12 +3,13 @@ const path = require('path')
 
 const { PackageURL } = require('packageurl-js')
 
-// eslint-disable-next-line no-unused-vars
-const { Enums, Models, Spec } = require('../../')
+const { Enums, Models } = require('../../')
+
+/** @typedef {import('../../').Spec.Version} Version */
 
 /**
  * @param {string} purpose
- * @param {Spec.Version} spec
+ * @param {Version} spec
  * @param {string} format
  * @param {BufferEncoding} [encoding]
  * @returns {string}
@@ -24,7 +25,7 @@ module.exports.loadSerializeResult = loadSerializeResult
 /**
  * @param {string} data
  * @param {string} purpose
- * @param {Spec.Version} spec
+ * @param {Version} spec
  * @param {string} format
  */
 function writeSerializeResult (data, purpose, spec, format) {
@@ -87,7 +88,7 @@ function createComplexStructure () {
   })(new Models.OrganizationalContact()))
   bom.components.add((function (component) {
     component.bomRef.value = 'dummy-component'
-    component.author = "component's author"
+    component.author = 'component\'s author'
     component.cpe = 'cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*'
     component.copyright = '(c) acme'
     component.description = 'this is a test component'

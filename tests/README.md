@@ -6,7 +6,7 @@ instead of the source(`src/`).
 
 ## write tests
 
-Test files must follow the pattern `**.{spec,test}.{c,m}?js`,
+Test files must follow the pattern `**.{spec,test}.[cm]?js`,
 to be picked up.
 
 ## run node tests

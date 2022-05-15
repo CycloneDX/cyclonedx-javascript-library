@@ -1,8 +1,10 @@
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const { LicenseExpression, NamedLicense, SpdxLicense } = require('../../').Models
-const { LicenseFactory } = require('../../').Factories
+const {
+  Factories: { LicenseFactory },
+  Models: { LicenseExpression, NamedLicense, SpdxLicense }
+} = require('../../')
 
 suite('LicenseFactory', () => {
   test('makeFromString() -> LicenseExpression', () => {

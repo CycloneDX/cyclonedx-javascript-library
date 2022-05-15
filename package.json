@@ -40,7 +40,7 @@
     "lib": "dist.node",
     "doc": "docs",
     "example": "examples",
-    "test": "test"
+    "test": "tests"
   },
   "scripts": {
     "prepublish": "npm run build",

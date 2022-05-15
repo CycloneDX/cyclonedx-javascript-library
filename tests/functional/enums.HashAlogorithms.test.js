@@ -3,7 +3,9 @@ const { suite, test } = require('mocha')
 
 const enumLoader = require('../_data/enumLoader')
 
-const { HashAlgorithm } = require('../../').Enums
+const {
+  Enums: { HashAlgorithm }
+} = require('../../')
 
 suite('all values from SPEC are available', () => {
   const schemas = new Map([
