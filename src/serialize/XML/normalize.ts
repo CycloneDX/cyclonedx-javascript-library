@@ -2,7 +2,7 @@ import * as Models from '../../models'
 import { Protocol as Spec, Version as SpecVersion } from '../../spec'
 import { NormalizeOptions } from '../types'
 import * as Types from './types'
-import {ToolRepository} from "../../models";
+import { ToolRepository } from '../../models'
 
 export class Factory {
   readonly spec: Spec
