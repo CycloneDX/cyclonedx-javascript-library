@@ -1,5 +1,5 @@
 import * as Models from '../../models'
-import { Protocol as Spec } from '../../spec'
+import { Protocol as Spec, Version as SpecVersion } from '../../spec'
 import { NormalizeOptions } from '../types'
 import * as Types from './types'
 
@@ -59,6 +59,12 @@ export class Factory {
   }
 }
 
+const SchemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
+  [SpecVersion.v1dot2, 'http://cyclonedx.org/schema/bom-1.2b.schema.json'],
+  [SpecVersion.v1dot3, 'http://cyclonedx.org/schema/bom-1.3a.schema.json'],
+  [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom-1.4.schema.json']
+])
+
 abstract class Base {
   protected readonly _factory: Factory
 
@@ -76,7 +82,7 @@ abstract class Base {
 export class BomNormalizer extends Base {
   normalize (data: Models.Bom, options: NormalizeOptions): Types.Bom {
     return {
-      // Do not set $schema here. it is part of the final serializer, not the normalizer
+      $schema: SchemaUrl.get(this._factory.spec.version),
       bomFormat: 'CycloneDX',
       specVersion: this._factory.spec.version,
       version: data.version,
