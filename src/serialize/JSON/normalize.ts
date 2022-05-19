@@ -65,7 +65,13 @@ const SchemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
   [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom-1.4.schema.json']
 ])
 
-abstract class Base {
+interface Normalizer {
+  normalize: (data: object, options: NormalizeOptions) => object | undefined
+
+  normalizeIter?: (data: Iterable<object>, options: NormalizeOptions) => object[]
+}
+
+abstract class Base implements Normalizer {
   protected readonly _factory: Factory
 
   constructor (factory: Factory) {

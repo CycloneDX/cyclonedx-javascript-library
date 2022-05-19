@@ -65,25 +65,35 @@ const XmlNs: ReadonlyMap<SpecVersion, string> = new Map([
   [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom/1.4']
 ])
 
-abstract class Base {
+interface Normalizer {
+  normalize: (data: object, options: NormalizeOptions, elementName?: string) => object | undefined
+
+  normalizeIter?: (data: Iterable<object>, options: NormalizeOptions, elementName: string) => object[]
+}
+
+abstract class Base implements Normalizer {
   protected readonly _factory: Factory
 
   constructor (factory: Factory) {
     this._factory = factory
   }
 
-  abstract normalize (data: object, options: NormalizeOptions): object | undefined
+  /**
+   * @param {*} data
+   * @param {NormalizeOptions} options
+   * @param {string} [elementName] element name.  XML defines structures; the element's name is defined on usage of a structure.
+   */
+  abstract normalize (data: object, options: NormalizeOptions, elementName?: string): object | undefined
 }
-
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions --
  * since empty strings need to be treated as undefined/null
  */
 
 export class BomNormalizer extends Base {
-  normalize (data: Models.Bom, options: NormalizeOptions): Types.SimpleXml.Element {
+  normalize (data: Models.Bom, options: NormalizeOptions, elementName: string = 'bom'): Types.SimpleXml.Element {
     return {
       type: 'element',
-      name: 'bom',
+      name: elementName, // this one has a name defined in the structure
       attributes: {
         xmlns: XmlNs.get(this._factory.spec.version),
         version: data.version,
@@ -91,7 +101,7 @@ export class BomNormalizer extends Base {
       },
       children: [
         data.metadata
-          ? this._factory.makeForMetadata().normalize(data.metadata, options)
+          ? this._factory.makeForMetadata().normalize(data.metadata, options, 'metadata')
           : undefined,
         {
           type: 'element',
@@ -101,7 +111,7 @@ export class BomNormalizer extends Base {
             : undefined // spec < 1.4 always requires a 'components' element
         },
         this._factory.spec.supportsDependencyGraph
-          ? this._factory.makeForDependencyGraph().normalize(data, options)
+          ? this._factory.makeForDependencyGraph().normalize(data, options, 'dependencies')
           : undefined
       ].filter(c => c !== undefined) as Types.SimpleXml.Element[]
     }
@@ -109,48 +119,52 @@ export class BomNormalizer extends Base {
 }
 
 export class MetadataNormalizer extends Base {
-  normalize (data: Models.Metadata, options: NormalizeOptions): Types.SimpleXml.Element {
+  normalize (data: Models.Metadata, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element {
     const orgEntityNormalizer = this._factory.makeForOrganizationalEntity()
     return {
       type: 'element',
-      name: 'metadata',
+      name: elementName,
       children: [
         data.timestamp === null
           ? undefined
-          : { type: 'element', name: 'timestamp', children: data.timestamp.toISOString() },
+          : {
+              type: 'element',
+              name: 'timestamp',
+              children: data.timestamp.toISOString()
+            },
         data.tools.size > 0
           ? {
               type: 'element',
               name: 'tools',
-              children: this._factory.makeForTool().normalizeIter(data.tools, options)
+              children: this._factory.makeForTool().normalizeIter(data.tools, options, 'tool')
             }
           : undefined,
         data.authors.size > 0
           ? {
               type: 'element',
               name: 'authors',
-              children: this._factory.makeForOrganizationalContact().normalizeIter(data.authors, options)
+              children: this._factory.makeForOrganizationalContact().normalizeIter(data.authors, options, 'author')
             }
           : undefined,
         data.component === null
           ? undefined
-          : this._factory.makeForComponent().normalize(data.component, options),
+          : this._factory.makeForComponent().normalize(data.component, options, 'component'),
         data.manufacture === null
           ? undefined
-          : orgEntityNormalizer.normalize(data.manufacture, options),
+          : orgEntityNormalizer.normalize(data.manufacture, options, 'manufacture'),
         data.supplier === null
           ? undefined
-          : orgEntityNormalizer.normalize(data.supplier, options)
+          : orgEntityNormalizer.normalize(data.supplier, options, 'supplier')
       ].filter(c => c !== undefined) as Types.SimpleXml.Element[]
     }
   }
 }
 
 export class ToolNormalizer extends Base {
-  normalize (data: Models.Tool, options: NormalizeOptions): Types.SimpleXml.Element {
+  normalize (data: Models.Tool, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element {
     return {
       type: 'element',
-      name: 'tool',
+      name: elementName,
       children: [
         data.vendor
           ? {
@@ -177,69 +191,74 @@ export class ToolNormalizer extends Base {
           ? {
               type: 'element',
               name: 'hashes',
-              children: this._factory.makeForHash().normalizeIter(data.hashes, options)
+              children: this._factory.makeForHash().normalizeIter(data.hashes, options, 'hash')
             }
           : undefined
       ].filter(c => c !== undefined) as Types.SimpleXml.Element[]
     }
   }
 
-  normalizeIter (data: Iterable<Models.Tool>, options: NormalizeOptions): Types.SimpleXml.Element[] {
+  normalizeIter (data: Iterable<Models.Tool>, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element[] {
     const tools = Array.from(data)
     if (options.sortLists) {
       tools.sort(Models.ToolRepository.compareItems)
     }
-    return tools.map(t => this.normalize(t, options))
+    return tools.map(t => this.normalize(t, options, elementName))
   }
 }
 
 export class HashNormalizer extends Base {
-  normalize ([algorithm, content]: Models.Hash, options: NormalizeOptions): Types.SimpleXml.Element | undefined {
+  normalize ([algorithm, content]: Models.Hash, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element | undefined {
     return {
       type: 'element',
-      name: 'TODO'
+      name: elementName
       // TODO
     }
   }
 
-  normalizeIter (data: Iterable<Models.Hash>, options: NormalizeOptions): Types.SimpleXml.Element[] {
-    return [] // TODO + sort
+  normalizeIter (data: Iterable<Models.Hash>, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element[] {
+    const hashes = Array.from(data)
+    if (options.sortLists) {
+      hashes.sort(Models.HashRepository.compareItems)
+    }
+    return hashes.map(h => this.normalize(h, options, elementName))
+      .filter(h => undefined !== h) as Types.SimpleXml.Element[]
   }
 }
 
 export class OrganizationalContactNormalizer extends Base {
-  normalize (data: Models.OrganizationalContact, options: NormalizeOptions): Types.SimpleXml.Element {
+  normalize (data: Models.OrganizationalContact, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element {
     return {
       type: 'element',
-      name: 'TODO'
+      name: elementName
       // TODO
     }
   }
 
-  normalizeIter (data: Iterable<Models.OrganizationalContact>, options: NormalizeOptions): Types.SimpleXml.Element[] {
+  normalizeIter (data: Iterable<Models.OrganizationalContact>, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element[] {
     const contacts = Array.from(data)
     if (options.sortLists) {
       contacts.sort(Models.OrganizationalContactRepository.compareItems)
     }
-    return contacts.map(c => this.normalize(c, options))
+    return contacts.map(c => this.normalize(c, options, elementName))
   }
 }
 
 export class OrganizationalEntityNormalizer extends Base {
-  normalize (data: Models.OrganizationalEntity, options: NormalizeOptions): Types.SimpleXml.Element {
+  normalize (data: Models.OrganizationalEntity, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element {
     return {
       type: 'element',
-      name: 'TODO'
+      name: elementName
       // TODO
     }
   }
 }
 
 export class ComponentNormalizer extends Base {
-  normalize (data: Models.Component, options: NormalizeOptions): Types.SimpleXml.Element {
+  normalize (data: Models.Component, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element {
     return {
       type: 'element',
-      name: 'TODO'
+      name: elementName
       // TODO
     }
   }
@@ -292,10 +311,10 @@ export class AttachmentNormalizer extends Base {
 }
 
 export class DependencyGraphNormalizer extends Base {
-  normalize (data: Models.Bom, options: NormalizeOptions): Types.SimpleXml.Element {
+  normalize (data: Models.Bom, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element {
     return {
       type: 'element',
-      name: 'dependencies'
+      name: elementName
       // TODO
     }
   }
