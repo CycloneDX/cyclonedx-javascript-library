@@ -81,10 +81,11 @@ abstract class Base implements Normalizer {
   /**
    * @param {*} data
    * @param {NormalizeOptions} options
-   * @param {string} [elementName] element name.  XML defines structures; the element's name is defined on usage of a structure.
+   * @param {string} [elementName] element name. XML defines structures; the element's name is defined on usage of a structure.
    */
   abstract normalize (data: object, options: NormalizeOptions, elementName?: string): object | undefined
 }
+
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions --
  * since empty strings need to be treated as undefined/null
  */
