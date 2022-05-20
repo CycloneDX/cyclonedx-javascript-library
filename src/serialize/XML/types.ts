@@ -1,4 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-namespace
+export namespace XmlSchema {
+  export type AnyURI = string
+  export function isAnyURI (value: AnyURI | any): value is AnyURI {
+    return typeof value === 'string'
+    // @TODO add validator according to XML spec
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace SimpleXml {
 
   /**

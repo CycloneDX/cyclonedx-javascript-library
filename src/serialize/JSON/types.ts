@@ -4,9 +4,22 @@ import { SpdxId } from '../../SPDX'
 import { CPE, Integer, UrnUuid } from '../../types'
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
-namespace JsonSchema {
+export namespace JsonSchema {
   export type IriReference = string
+  export function isIriReference (value: IriReference | any): value is IriReference {
+    return typeof value === 'string' &&
+      value.length > 0
+    // TODO add proper validation according to spec
+  }
+
   export type IdnEmail = string
+  export function isIdnEmail (value: IdnEmail | any): value is IdnEmail {
+    return typeof value === 'string' &&
+      value.length > 0
+    // TODO add proper validation according to spec
+    //      see {@link https://datatracker.ietf.org/doc/html/rfc6531}
+  }
+
   export type DateTime = string
 }
 

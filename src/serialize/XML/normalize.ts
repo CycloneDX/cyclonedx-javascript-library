@@ -108,13 +108,13 @@ export class BomNormalizer extends Base {
           type: 'element',
           name: 'components',
           children: data.components.size > 0
-            ? this._factory.makeForComponent().normalizeIter(data.components, options)
+            ? this._factory.makeForComponent().normalizeIter(data.components, options, 'component')
             : undefined // spec < 1.4 always requires a 'components' element
         },
         this._factory.spec.supportsDependencyGraph
           ? this._factory.makeForDependencyGraph().normalize(data, options, 'dependencies')
           : undefined
-      ].filter(c => c !== undefined) as Types.SimpleXml.Element[]
+      ].filter(isNotUndefined) as Types.SimpleXml.Element[]
     }
   }
 }
@@ -156,7 +156,7 @@ export class MetadataNormalizer extends Base {
         data.supplier === null
           ? undefined
           : orgEntityNormalizer.normalize(data.supplier, options, 'supplier')
-      ].filter(c => c !== undefined) as Types.SimpleXml.Element[]
+      ].filter(isNotUndefined) as Types.SimpleXml.Element[]
     }
   }
 }
@@ -195,7 +195,7 @@ export class ToolNormalizer extends Base {
               children: this._factory.makeForHash().normalizeIter(data.hashes, options, 'hash')
             }
           : undefined
-      ].filter(c => c !== undefined) as Types.SimpleXml.Element[]
+      ].filter(isNotUndefined) as Types.SimpleXml.Element[]
     }
   }
 
@@ -210,11 +210,15 @@ export class ToolNormalizer extends Base {
 
 export class HashNormalizer extends Base {
   normalize ([algorithm, content]: Models.Hash, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element | undefined {
-    return {
-      type: 'element',
-      name: elementName
-      // TODO
-    }
+    const spec = this._factory.spec
+    return spec.supportsHashAlgorithm(algorithm) && spec.supportsHashValue(content)
+      ? {
+          type: 'element',
+          name: elementName,
+          attributes: { hashAlg: algorithm },
+          children: content
+        }
+      : undefined
   }
 
   normalizeIter (data: Iterable<Models.Hash>, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element[] {
@@ -223,7 +227,7 @@ export class HashNormalizer extends Base {
       hashes.sort(Models.HashRepository.compareItems)
     }
     return hashes.map(h => this.normalize(h, options, elementName))
-      .filter(h => undefined !== h) as Types.SimpleXml.Element[]
+      .filter(isNotUndefined) as Types.SimpleXml.Element[]
   }
 }
 
@@ -231,8 +235,30 @@ export class OrganizationalContactNormalizer extends Base {
   normalize (data: Models.OrganizationalContact, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element {
     return {
       type: 'element',
-      name: elementName
-      // TODO
+      name: elementName,
+      children: [
+        data.name
+          ? {
+              type: 'element',
+              name: 'name',
+              children: data.name
+            }
+          : undefined,
+        data.email
+          ? {
+              type: 'element',
+              name: 'email',
+              children: data.email
+            }
+          : undefined,
+        data.phone
+          ? {
+              type: 'element',
+              name: 'phone',
+              children: data.phone
+            }
+          : undefined
+      ].filter(isNotUndefined) as Types.SimpleXml.Element[]
     }
   }
 
@@ -247,27 +273,58 @@ export class OrganizationalContactNormalizer extends Base {
 
 export class OrganizationalEntityNormalizer extends Base {
   normalize (data: Models.OrganizationalEntity, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element {
+    const urls: Types.XmlSchema.AnyURI[] = Array.from(
+      data.url, u => u.toString()
+    ).filter(Types.XmlSchema.isAnyURI)
+    if (options.sortLists) {
+      urls.sort((a, b) => a.localeCompare(b))
+    }
     return {
       type: 'element',
-      name: elementName
-      // TODO
+      name: elementName,
+      children: [
+        data.name
+          ? {
+              type: 'element',
+              name: 'name',
+              children: data.name
+            }
+          : undefined,
+        ...urls.map(u => ({
+          type: 'element',
+          name: 'url',
+          children: u
+        })),
+        data.contact
+          ? {
+              type: 'element',
+              name: 'contact',
+              children: data.contact
+            }
+          : undefined
+      ].filter(isNotUndefined) as Types.SimpleXml.Element[]
     }
   }
 }
 
 export class ComponentNormalizer extends Base {
-  normalize (data: Models.Component, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element {
-    return {
-      type: 'element',
-      name: elementName
-      // TODO
-    }
+  normalize (data: Models.Component, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element | undefined {
+    return this._factory.spec.supportsComponentType(data.type)
+      ? {
+          type: 'element',
+          name: elementName
+          // TODO
+        }
+      : undefined
   }
 
-  normalizeIter (data: Iterable<Models.Component>, options: NormalizeOptions): Types.SimpleXml.Element[] {
-    return [
-      // TODO + sort
-    ]
+  normalizeIter (data: Iterable<Models.Component>, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element[] {
+    const components = Array.from(data)
+    if (options.sortLists) {
+      components.sort(Models.ComponentRepository.compareItems)
+    }
+    return components.map(c => this.normalize(c, options, elementName))
+      .filter(isNotUndefined) as Types.SimpleXml.Element[]
   }
 }
 
@@ -322,3 +379,7 @@ export class DependencyGraphNormalizer extends Base {
 }
 
 /* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */
+
+function isNotUndefined (value: any): boolean {
+  return value !== undefined
+}

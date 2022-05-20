@@ -167,7 +167,7 @@ export class HashNormalizer extends Base {
       hashes.sort(Models.HashRepository.compareItems)
     }
     return hashes.map(h => this.normalize(h, options))
-      .filter(h => undefined !== h) as Types.Hash[]
+      .filter(isNotUndefined) as Types.Hash[]
   }
 }
 
@@ -175,8 +175,9 @@ export class OrganizationalContactNormalizer extends Base {
   normalize (data: Models.OrganizationalContact, options: NormalizeOptions): Types.OrganizationalContact {
     return {
       name: data.name || undefined,
-      /** email must conform to {@link https://datatracker.ietf.org/doc/html/rfc6531} */
-      email: data.email || undefined,
+      email: Types.JsonSchema.isIdnEmail(data.email)
+        ? data.email
+        : undefined,
       phone: data.phone || undefined
     }
   }
@@ -192,20 +193,22 @@ export class OrganizationalContactNormalizer extends Base {
 
 export class OrganizationalEntityNormalizer extends Base {
   normalize (data: Models.OrganizationalEntity, options: NormalizeOptions): Types.OrganizationalEntity {
-    const r = {
+    const urls: string[] = Array.from(
+      data.url, u => u.toString()
+    ).filter(Types.JsonSchema.isIriReference)
+    if (options.sortLists) {
+      urls.sort((a, b) => a.localeCompare(b))
+    }
+    return {
       name: data.name || undefined,
       /** must comply to {@link https://datatracker.ietf.org/doc/html/rfc3987} */
-      url: data.url.size > 0
-        ? Array.from(data.url, u => u.toString())
+      url: urls.length > 0
+        ? urls
         : undefined,
       contact: data.contact.size > 0
         ? this._factory.makeForOrganizationalContact().normalizeIter(data.contact, options)
         : undefined
     }
-    if (options.sortLists && r.url) {
-      r.url.sort((a, b) => a.localeCompare(b))
-    }
-    return r
   }
 }
 
@@ -251,7 +254,7 @@ export class ComponentNormalizer extends Base {
       components.sort(Models.ComponentRepository.compareItems)
     }
     return components.map(c => this.normalize(c, options))
-      .filter(c => undefined !== c) as Types.Component[]
+      .filter(isNotUndefined) as Types.Component[]
   }
 }
 
@@ -310,6 +313,7 @@ export class LicenseNormalizer extends Base {
 
 export class SWIDNormalizer extends Base {
   normalize (data: Models.SWID, options: NormalizeOptions): Types.SWID {
+    const url = data.url?.toString()
     return {
       tagId: data.tagId,
       name: data.name,
@@ -319,7 +323,9 @@ export class SWIDNormalizer extends Base {
       text: data.text === null
         ? undefined
         : this._factory.makeForAttachment().normalize(data.text, options),
-      url: data.url?.toString()
+      url: Types.JsonSchema.isIriReference(url)
+        ? url
+        : undefined
     }
   }
 }
@@ -341,7 +347,7 @@ export class ExternalReferenceNormalizer extends Base {
       refs.sort(Models.ExternalReferenceRepository.compareItems)
     }
     return refs.map(r => this.normalize(r, options))
-      .filter(r => undefined !== r) as Types.ExternalReference[]
+      .filter(isNotUndefined) as Types.ExternalReference[]
   }
 }
 
@@ -409,3 +415,7 @@ export class DependencyGraphNormalizer extends Base {
 }
 
 /* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */
+
+function isNotUndefined (value: any): boolean {
+  return value !== undefined
+}
