@@ -1,9 +1,17 @@
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace XmlSchema {
   export type AnyURI = string
+  /**
+   * Test whether format is XML::anyURI - best-effort.
+   *
+   * @see {@link http://www.w3.org/TR/xmlschema-2/#anyURI}
+   * @see {@link http://www.datypic.com/sc/xsd/t-xsd_anyURI.html}
+   */
   export function isAnyURI (value: AnyURI | any): value is AnyURI {
-    return typeof value === 'string'
-    // @TODO add validator according to XML spec
+    return typeof value === 'string' &&
+      value.length > 0 &&
+      Array.from(value).filter(c => c === '#').length <= 1
+    // TODO add more validation according to spec
   }
 }
 

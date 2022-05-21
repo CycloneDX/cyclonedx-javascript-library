@@ -6,18 +6,27 @@ import { CPE, Integer, UrnUuid } from '../../types'
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace JsonSchema {
   export type IriReference = string
+  /**
+   * Test whether format is JSON::iri-reference - best-effort.
+   *
+   * @see {@link https://datatracker.ietf.org/doc/html/rfc3987}
+   */
   export function isIriReference (value: IriReference | any): value is IriReference {
     return typeof value === 'string' &&
       value.length > 0
-    // TODO add proper validation according to spec
+    // TODO add more validation according to spec
   }
 
   export type IdnEmail = string
+  /**
+   * Test whether format is JSON::idn-email - best-effort.
+   *
+   * @see {@link https://datatracker.ietf.org/doc/html/rfc6531}
+   */
   export function isIdnEmail (value: IdnEmail | any): value is IdnEmail {
     return typeof value === 'string' &&
       value.length > 0
-    // TODO add proper validation according to spec
-    //      see {@link https://datatracker.ietf.org/doc/html/rfc6531}
+    // TODO add more validation according to spec
   }
 
   export type DateTime = string
