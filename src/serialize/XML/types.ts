@@ -44,13 +44,17 @@ export namespace SimpleXml {
    */
   export type Unset = undefined
 
+  export interface Attributes {
+    [key: attributeName]: Text | Unset
+  }
+
   /**
    * Element node.
    */
   export interface Element {
     type: 'element'
     name: elementName
-    attributes?: { [key: attributeName]: Text | Unset }
+    attributes?: Attributes
     children?: Iterable<Comment | Element> | Text | Unset
   }
 

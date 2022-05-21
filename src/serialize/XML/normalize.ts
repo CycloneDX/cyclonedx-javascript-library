@@ -92,10 +92,18 @@ abstract class Base implements Normalizer {
  */
 
 export class BomNormalizer extends Base {
-  normalize (data: Models.Bom, options: NormalizeOptions, elementName: string = 'bom'): Types.SimpleXml.Element {
+  normalize (data: Models.Bom, options: NormalizeOptions): Types.SimpleXml.Element {
+    const components: Types.SimpleXml.Element = {
+      // spec < 1.4 always requires a 'components' element
+      type: 'element',
+      name: 'components',
+      children: data.components.size > 0
+        ? this._factory.makeForComponent().normalizeIter(data.components, options, 'component')
+        : undefined
+    }
     return {
       type: 'element',
-      name: elementName, // this one has a name defined in the structure
+      name: 'bom',
       attributes: {
         xmlns: xmlNamespace.get(this._factory.spec.version),
         version: data.version,
@@ -105,18 +113,11 @@ export class BomNormalizer extends Base {
         data.metadata
           ? this._factory.makeForMetadata().normalize(data.metadata, options, 'metadata')
           : undefined,
-        {
-          // spec < 1.4 always requires a 'components' element
-          type: 'element',
-          name: 'components',
-          children: data.components.size > 0
-            ? this._factory.makeForComponent().normalizeIter(data.components, options, 'component')
-            : undefined
-        },
+        components,
         this._factory.spec.supportsDependencyGraph
           ? this._factory.makeForDependencyGraph().normalize(data, options, 'dependencies')
           : undefined
-      ].filter(isNotUndefined) as Types.SimpleXml.Element[]// TODO remove type hint
+      ].filter(isNotUndefined)
     }
   }
 }
@@ -124,31 +125,34 @@ export class BomNormalizer extends Base {
 export class MetadataNormalizer extends Base {
   normalize (data: Models.Metadata, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element {
     const orgEntityNormalizer = this._factory.makeForOrganizationalEntity()
+    const timestamp: Types.SimpleXml.Element | undefined = data.timestamp === null
+      ? undefined
+      : {
+          type: 'element',
+          name: 'timestamp',
+          children: data.timestamp.toISOString()
+        }
+    const tools: Types.SimpleXml.Element | undefined = data.tools.size > 0
+      ? {
+          type: 'element',
+          name: 'tools',
+          children: this._factory.makeForTool().normalizeIter(data.tools, options, 'tool')
+        }
+      : undefined
+    const authors: Types.SimpleXml.Element | undefined = data.authors.size > 0
+      ? {
+          type: 'element',
+          name: 'authors',
+          children: this._factory.makeForOrganizationalContact().normalizeIter(data.authors, options, 'author')
+        }
+      : undefined
     return {
       type: 'element',
       name: elementName,
       children: [
-        data.timestamp === null
-          ? undefined
-          : {
-              type: 'element',
-              name: 'timestamp',
-              children: data.timestamp.toISOString()
-            },
-        data.tools.size > 0
-          ? {
-              type: 'element',
-              name: 'tools',
-              children: this._factory.makeForTool().normalizeIter(data.tools, options, 'tool')
-            }
-          : undefined,
-        data.authors.size > 0
-          ? {
-              type: 'element',
-              name: 'authors',
-              children: this._factory.makeForOrganizationalContact().normalizeIter(data.authors, options, 'author')
-            }
-          : undefined,
+        timestamp,
+        tools,
+        authors,
         data.component === null
           ? undefined
           : this._factory.makeForComponent().normalize(data.component, options, 'component'),
@@ -158,13 +162,20 @@ export class MetadataNormalizer extends Base {
         data.supplier === null
           ? undefined
           : orgEntityNormalizer.normalize(data.supplier, options, 'supplier')
-      ].filter(isNotUndefined) as Types.SimpleXml.Element[]// TODO remove type hint
+      ].filter(isNotUndefined)
     }
   }
 }
 
 export class ToolNormalizer extends Base {
   normalize (data: Models.Tool, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element {
+    const hashes: Types.SimpleXml.Element | undefined = data.hashes.size > 0
+      ? {
+          type: 'element',
+          name: 'hashes',
+          children: this._factory.makeForHash().normalizeIter(data.hashes, options, 'hash')
+        }
+      : undefined
     return {
       type: 'element',
       name: elementName,
@@ -172,14 +183,8 @@ export class ToolNormalizer extends Base {
         normalizeStringableLax(data.vendor, 'vendor'),
         normalizeStringableLax(data.name, 'name'),
         normalizeStringableLax(data.version, 'version'),
-        data.hashes.size > 0
-          ? {
-              type: 'element',
-              name: 'hashes',
-              children: this._factory.makeForHash().normalizeIter(data.hashes, options, 'hash')
-            }
-          : undefined
-      ].filter(isNotUndefined) as Types.SimpleXml.Element[] // TODO remove type hint
+        hashes
+      ].filter(isNotUndefined)
     }
   }
 
@@ -254,59 +259,65 @@ export class OrganizationalEntityNormalizer extends Base {
 
 export class ComponentNormalizer extends Base {
   normalize (data: Models.Component, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element | undefined {
-    return this._factory.spec.supportsComponentType(data.type)
+    if (!this._factory.spec.supportsComponentType(data.type)) {
+      return undefined
+    }
+    const supplier: Types.SimpleXml.Element | undefined = data.supplier === null
+      ? undefined
+      : this._factory.makeForOrganizationalEntity().normalize(data.supplier, options, 'supplier')
+    const hashes: Types.SimpleXml.Element | undefined = data.hashes.size > 0
       ? {
           type: 'element',
-          name: elementName,
-          attributes: {
-            type: data.type,
-            'bom-ref': data.bomRef.value
-          },
-          children: [
-            data.supplier === null
-              ? undefined
-              : this._factory.makeForOrganizationalEntity().normalize(data.supplier, options, 'supplier'),
-            normalizeStringableLax(data.author, 'author'),
-            normalizeStringableLax(data.publisher, 'publisher'),
-            normalizeStringableLax(data.group, 'group'),
-            normalizeStringable(data.name, 'name'),
-            normalizeStringable(
-              // version fallback to string for spec < 1.4
-              data.version ?? '',
-              'version'
-            ),
-            normalizeStringableLax(data.description, 'description'),
-            normalizeStringableLax(data.scope, 'description'),
-            data.hashes.size > 0
-              ? {
-                  type: 'element',
-                  name: 'hashes',
-                  children: this._factory.makeForHash().normalizeIter(data.hashes, options, 'hash')
-                }
-              : undefined,
-            data.licenses.size > 0
-              ? {
-                  type: 'element',
-                  name: 'licenses',
-                  children: this._factory.makeForLicense().normalizeIter(data.licenses, options)
-                }
-              : undefined,
-            normalizeStringableLax(data.copyright, 'copyright'),
-            normalizeStringableLax(data.cpe, 'cpe'),
-            normalizeStringableLax(data.purl, 'purl'),
-            data.swid === null
-              ? undefined
-              : this._factory.makeForSWID().normalize(data.swid, options, 'swid'),
-            data.externalReferences.size > 0
-              ? {
-                  type: 'element',
-                  name: 'externalReferences',
-                  children: this._factory.makeForExternalReference().normalizeIter(data.externalReferences, options, 'reference')
-                }
-              : undefined
-          ].filter(isNotUndefined) as Types.SimpleXml.Element[] // TODO remove type hint
+          name: 'hashes',
+          children: this._factory.makeForHash().normalizeIter(data.hashes, options, 'hash')
         }
       : undefined
+    const licenses: Types.SimpleXml.Element | undefined = data.licenses.size > 0
+      ? {
+          type: 'element',
+          name: 'licenses',
+          children: this._factory.makeForLicense().normalizeIter(data.licenses, options)
+        }
+      : undefined
+    const swid: Types.SimpleXml.Element | undefined = data.swid === null
+      ? undefined
+      : this._factory.makeForSWID().normalize(data.swid, options, 'swid')
+    const extRefs: Types.SimpleXml.Element | undefined = data.externalReferences.size > 0
+      ? {
+          type: 'element',
+          name: 'externalReferences',
+          children: this._factory.makeForExternalReference().normalizeIter(data.externalReferences, options, 'reference')
+        }
+      : undefined
+    return {
+      type: 'element',
+      name: elementName,
+      attributes: {
+        type: data.type,
+        'bom-ref': data.bomRef.value
+      },
+      children: [
+        supplier,
+        normalizeStringableLax(data.author, 'author'),
+        normalizeStringableLax(data.publisher, 'publisher'),
+        normalizeStringableLax(data.group, 'group'),
+        normalizeStringable(data.name, 'name'),
+        normalizeStringable(
+          // version fallback to string for spec < 1.4
+          data.version ?? '',
+          'version'
+        ),
+        normalizeStringableLax(data.description, 'description'),
+        normalizeStringableLax(data.scope, 'description'),
+        hashes,
+        licenses,
+        normalizeStringableLax(data.copyright, 'copyright'),
+        normalizeStringableLax(data.cpe, 'cpe'),
+        normalizeStringableLax(data.purl, 'purl'),
+        swid,
+        extRefs
+      ].filter(isNotUndefined)
+    }
   }
 
   normalizeIter (data: Iterable<Models.Component>, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element[] {
