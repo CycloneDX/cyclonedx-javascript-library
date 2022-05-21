@@ -522,14 +522,16 @@ export class DependencyGraphNormalizer extends Base {
   }
 }
 
-function normalizeStringableLax (data: null | undefined | Stringable, elementName: string, allowEmpty?: boolean): undefined | (Types.SimpleXml.TextElement & { children: string }) {
+function normalizeStringableLax (data: null | undefined | Stringable, elementName: string, allowEmpty?: boolean): undefined | StrictTextElement {
   const s = data?.toString() ?? ''
   return s.length > 0 || allowEmpty
     ? normalizeStringable(s, elementName)
     : undefined
 }
 
-function normalizeStringable (data: Stringable, elementName: string): (Types.SimpleXml.TextElement & { children: string }) {
+type StrictTextElement = Types.SimpleXml.TextElement & { children: string }
+
+function normalizeStringable (data: Stringable, elementName: string): StrictTextElement {
   return {
     type: 'element',
     name: elementName,
