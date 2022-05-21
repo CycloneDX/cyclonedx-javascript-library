@@ -10,7 +10,7 @@ export class SWID {
   version: string | null = null
   patch: boolean | null = null
   text: Attachment | null = null
-  url: URL | null = null
+  url: URL | string | null = null
 
   constructor (tagId: string, name: string) {
     this.tagId = tagId

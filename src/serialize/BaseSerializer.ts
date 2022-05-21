@@ -23,8 +23,8 @@ export abstract class BaseSerializer implements Serializer {
   }
 
   /**
-   * Normalize the {@see Bom} and serialize this result.
    * @internal
+   * @private
    */
   protected abstract _normalize (bom: Bom, options?: SerializeOptions & NormalizeOptions): string
 }

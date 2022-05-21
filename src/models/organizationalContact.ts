@@ -1,4 +1,3 @@
-
 export class OrganizationalContact {
   name: string | null = null
   email: string | null = null

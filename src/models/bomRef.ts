@@ -6,7 +6,11 @@ export class BomRef {
   }
 
   compare (other: BomRef): number {
-    return (this.value ?? '').localeCompare(other.value ?? '')
+    return (this.toString()).localeCompare(other.toString())
+  }
+
+  toString (): string {
+    return this.value ?? ''
   }
 }
 

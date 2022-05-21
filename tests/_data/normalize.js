@@ -16,9 +16,9 @@ const { Enums, Models } = require('../../')
  * @param {BufferEncoding} [encoding]
  * @returns {string}
  */
-module.exports.loadSerializeResult = function (purpose, spec, format, encoding = 'utf-8') {
+module.exports.loadNormalizeResult = function (purpose, spec, format, encoding = 'utf-8') {
   return fs.readFileSync(
-    path.resolve(__dirname, 'serializeResults', `${purpose}_spec${spec}.${format}`)
+    path.resolve(__dirname, 'normalizeResults', `${purpose}_spec${spec}.${format}`)
   ).toString(encoding)
 }
 
@@ -28,9 +28,9 @@ module.exports.loadSerializeResult = function (purpose, spec, format, encoding =
  * @param {Version} spec
  * @param {string} format
  */
-module.exports.writeSerializeResult = function (data, purpose, spec, format) {
+module.exports.writeNormalizeResult = function (data, purpose, spec, format) {
   return fs.writeFileSync(
-    path.resolve(__dirname, 'serializeResults', `${purpose}_spec${spec}.${format}`),
+    path.resolve(__dirname, 'normalizeResults', `${purpose}_spec${spec}.${format}`),
     data
   )
 }
@@ -100,7 +100,7 @@ module.exports.createComplexStructure = function () {
       Enums.ExternalReferenceType.Support
     ))
     component.externalReferences.add(new Models.ExternalReference(
-      new URL('https://localhost/acme/releases'),
+      './other/file',
       Enums.ExternalReferenceType.ReleaseNotes // available since spec 1.4
     ))
     component.group = 'acme'
@@ -111,7 +111,7 @@ module.exports.createComplexStructure = function () {
       license.text = new Models.Attachment('U29tZQpsaWNlbnNlCnRleHQu')
       license.text.contentType = 'text/plain'
       license.text.encoding = Enums.AttachmentEncoding.Base64
-      license.url = new URL('https://localhost/license')
+      license.url = 'https://localhost/license'
       return license
     })(new Models.NamedLicense('some other')))
     component.licenses.add((function (license) {
