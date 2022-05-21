@@ -1,7 +1,7 @@
 export * as Types from './types'
 
 export * from './BomRefDiscriminator'
-export * from './BaseSerializer'
+// export * from './BaseSerializer' // no intention to publish
 
 export * as JSON from './JSON'
 export * from './JsonSerializer'

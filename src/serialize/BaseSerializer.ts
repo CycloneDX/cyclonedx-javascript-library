@@ -2,7 +2,6 @@ import { Bom, BomRef } from '../models'
 import { BomRefDiscriminator } from './BomRefDiscriminator'
 import { NormalizeOptions, SerializeOptions, Serializer } from './types'
 
-/** @internal */
 export abstract class BaseSerializer implements Serializer {
   serialize (bom: Bom, options?: SerializeOptions & NormalizeOptions): string {
     const bomRefDiscriminator = new BomRefDiscriminator(this.#getAllBomRefs(bom))
@@ -23,5 +22,9 @@ export abstract class BaseSerializer implements Serializer {
     return bomRefs.values()
   }
 
+  /**
+   * @internal
+   * @private
+   */
   protected abstract _normalize (bom: Bom, options?: SerializeOptions & NormalizeOptions): string
 }
