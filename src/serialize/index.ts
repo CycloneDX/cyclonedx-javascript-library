@@ -1,4 +1,5 @@
-export * from './types'
+export * as Types from './types'
+
 export * from './BomRefDiscriminator'
 export * from './BaseSerializer'
 

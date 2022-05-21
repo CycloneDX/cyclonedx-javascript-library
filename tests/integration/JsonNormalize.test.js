@@ -7,19 +7,18 @@ const { createComplexStructure, loadSerializeResult } = require('../_data/serial
 
 const {
   Serialize: {
-    JsonSerializer,
-    JSON: { Normalize: { Factory: JsonNormalizeFactory } }
+    JSON: { Normalize: { Factory: JsonNormalizeFactory } },
   },
   Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
 } = require('../../')
 
-describe('JSON serialize', () => {
+describe('JSON normalize', () => {
   [
     Spec1dot2,
     Spec1dot3,
     Spec1dot4
   ].forEach(spec => describe(`complex with spec v${spec.version}`, () => {
-    const serializer = new JsonSerializer(new JsonNormalizeFactory(spec))
+    const normalizerFactopry = new JsonNormalizeFactory(spec)
 
     beforeEach(function () {
       this.bom = createComplexStructure()
@@ -29,26 +28,30 @@ describe('JSON serialize', () => {
       delete this.bom
     })
 
-    it('can serialize', function () {
-      const serialized = serializer.serialize(this.bom)
+    it('can normalize', function () {
+      const normalized = normalizerFactopry.makeForBom()
+        .normalize(this.bom, {})
+      const json = JSON.stringify(normalized)
 
       /* uncomment next line to dump data */
-      // writeSerializeResult(serialized, 'complex', spec.version, 'json')
+      // writeSerializeResult(json, 'complex', spec.version, 'json')
 
       assert.deepStrictEqual(
-        JSON.parse(serialized),
+        JSON.parse(json),
         JSON.parse(loadSerializeResult('complex', spec.version, 'json'))
       )
     })
 
-    it('can serialize with sorted lists', function () {
-      const serialized = serializer.serialize(this.bom, { sortLists: true })
+    it('can normalize with sorted lists', function () {
+      const normalized = normalizerFactopry.makeForBom()
+        .normalize(this.bom, { sortLists: true })
+      const json = JSON.stringify(normalized)
 
       /* uncomment next line to dump data */
-      // writeSerializeResult(serialized, 'sortedLists', spec.version, 'json')
+      // writeSerializeResult(json, 'sortedLists', spec.version, 'json')
 
       assert.deepStrictEqual(
-        JSON.parse(serialized),
+        JSON.parse(json),
         JSON.parse(loadSerializeResult('sortedLists', spec.version, 'json'))
       )
     })
