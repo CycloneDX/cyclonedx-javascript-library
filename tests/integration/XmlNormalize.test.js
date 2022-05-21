@@ -7,7 +7,7 @@ const { createComplexStructure, loadNormalizeResult } = require('../_data/normal
 
 const {
   Serialize: {
-    JSON: { Normalize: { Factory: JsonNormalizeFactory } }
+    Xml: { Normalize: { Factory: XmlNormalizeFactory } }
   },
   Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
 } = require('../../')
@@ -18,7 +18,7 @@ describe('JSON normalize', () => {
     Spec1dot3,
     Spec1dot4
   ].forEach(spec => describe(`complex with spec v${spec.version}`, () => {
-    const normalizerFactory = new JsonNormalizeFactory(spec)
+    const normalizerFactory = new XmlNormalizeFactory(spec)
 
     beforeEach(function () {
       this.bom = createComplexStructure()
@@ -34,11 +34,11 @@ describe('JSON normalize', () => {
       const json = JSON.stringify(normalized)
 
       /* uncomment next line to dump data */
-      // writeNormalizeResult(json, 'json_complex', spec.version, 'json')
+      // writeNormalizeResult(json, 'xml_complex', spec.version, 'json')
 
       assert.deepStrictEqual(
         JSON.parse(json),
-        JSON.parse(loadNormalizeResult('json_complex', spec.version, 'json'))
+        JSON.parse(loadNormalizeResult('xml_complex', spec.version, 'json'))
       )
     })
 
@@ -48,11 +48,11 @@ describe('JSON normalize', () => {
       const json = JSON.stringify(normalized)
 
       /* uncomment next line to dump data */
-      // writeNormalizeResult(json, 'json_sortedLists', spec.version, 'json')
+      // writeNormalizeResult(json, 'xml_sortedLists', spec.version, 'json')
 
       assert.deepStrictEqual(
         JSON.parse(json),
-        JSON.parse(loadNormalizeResult('json_sortedLists', spec.version, 'json'))
+        JSON.parse(loadNormalizeResult('xml_sortedLists', spec.version, 'json'))
       )
     })
 
