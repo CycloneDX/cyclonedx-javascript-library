@@ -1,4 +1,4 @@
-import { isNotUndefined } from '../../types'
+import { isNotUndefined, Stringable } from '../../helpers/types'
 import * as Models from '../../models'
 import { Protocol as Spec, Version as SpecVersion } from '../../spec'
 import { NormalizeOptions } from '../types'
@@ -411,10 +411,6 @@ export class DependencyGraphNormalizer extends Base {
 }
 
 /* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */
-
-interface Stringable {
-  toString: () => string
-}
 
 function normalizeStringableIter (data: Iterable<Stringable>, options: NormalizeOptions): string[] {
   const r: string[] = Array.from(data, d => d.toString())
