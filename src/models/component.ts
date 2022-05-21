@@ -32,7 +32,6 @@ export class Component {
     this.name = name
   }
 
-  /** @see {@link https://nvd.nist.gov/products/cpe} */
   #cpe: CPE | null = null
   get cpe (): CPE | null {
     return this.#cpe
@@ -59,7 +58,9 @@ export class Component {
 
   compare (other: Component): number {
     const bomRefCompare = this.bomRef.compare(other.bomRef)
-    if (bomRefCompare !== 0) { return bomRefCompare }
+    if (bomRefCompare !== 0) {
+      return bomRefCompare
+    }
     if (this.purl !== null && other.purl !== null) {
       return this.purl.toString().localeCompare(other.purl.toString())
     }

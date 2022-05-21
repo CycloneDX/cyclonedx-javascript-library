@@ -1,11 +1,11 @@
 import { ExternalReferenceType } from '../enums'
 
 export class ExternalReference {
-  url: URL|string
+  url: URL | string
   type: ExternalReferenceType
   comment: string | null = null
 
-  constructor (url: URL|string, type: ExternalReferenceType) {
+  constructor (url: URL | string, type: ExternalReferenceType) {
     this.url = url
     this.type = type
   }
