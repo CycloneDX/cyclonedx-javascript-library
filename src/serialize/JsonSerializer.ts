@@ -1,15 +1,8 @@
 import { Bom } from '../models'
-import { Version as SpecVersion, Format, UnsupportedFormatError } from '../spec'
+import { Format, UnsupportedFormatError } from '../spec'
 import { SerializeOptions, NormalizeOptions } from './types'
 import { BaseSerializer } from './BaseSerializer'
 import { Factory as NormalizerFactory } from './JSON/normalize'
-import { Bom as JsonBom } from './JSON/types'
-
-const SchemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
-  [SpecVersion.v1dot2, 'http://cyclonedx.org/schema/bom-1.2b.schema.json'],
-  [SpecVersion.v1dot3, 'http://cyclonedx.org/schema/bom-1.3a.schema.json'],
-  [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom-1.4.schema.json']
-])
 
 export class JsonSerializer extends BaseSerializer {
   readonly #normalizerFactory: NormalizerFactory
@@ -26,7 +19,10 @@ export class JsonSerializer extends BaseSerializer {
     this.#normalizerFactory = normalizerFactory
   }
 
-  /** @internal */
+  /**
+   * @internal
+   * @private
+   */
   protected _normalize (
     bom: Bom,
     {
@@ -34,10 +30,8 @@ export class JsonSerializer extends BaseSerializer {
       space = 0
     }: NormalizeOptions & SerializeOptions = {}
   ): string {
-    const _bom: JsonBom = {
-      $schema: SchemaUrl.get(this.#normalizerFactory.spec.version),
-      ...this.#normalizerFactory.makeForBom().normalize(bom, { sortLists })
-    }
-    return JSON.stringify(_bom, null, space)
+    return JSON.stringify(
+      this.#normalizerFactory.makeForBom().normalize(bom, { sortLists }),
+      null, space)
   }
 }

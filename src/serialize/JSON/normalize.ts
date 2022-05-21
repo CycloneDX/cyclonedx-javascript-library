@@ -1,5 +1,6 @@
+import { isNotUndefined, Stringable } from '../../helpers/types'
 import * as Models from '../../models'
-import { Protocol as Spec } from '../../spec'
+import { Protocol as Spec, Version as SpecVersion } from '../../spec'
 import { NormalizeOptions } from '../types'
 import * as Types from './types'
 
@@ -59,7 +60,19 @@ export class Factory {
   }
 }
 
-abstract class Base {
+const schemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
+  [SpecVersion.v1dot2, 'http://cyclonedx.org/schema/bom-1.2b.schema.json'],
+  [SpecVersion.v1dot3, 'http://cyclonedx.org/schema/bom-1.3a.schema.json'],
+  [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom-1.4.schema.json']
+])
+
+interface Normalizer {
+  normalize: (data: object, options: NormalizeOptions) => object | undefined
+
+  normalizeIter?: (data: Iterable<object>, options: NormalizeOptions) => object[]
+}
+
+abstract class Base implements Normalizer {
   protected readonly _factory: Factory
 
   constructor (factory: Factory) {
@@ -76,7 +89,7 @@ abstract class Base {
 export class BomNormalizer extends Base {
   normalize (data: Models.Bom, options: NormalizeOptions): Types.Bom {
     return {
-      // Do not set $schema here. it is part of the final serializer, not the normalizer
+      $schema: schemaUrl.get(this._factory.spec.version),
       bomFormat: 'CycloneDX',
       specVersion: this._factory.spec.version,
       version: data.version,
@@ -131,7 +144,7 @@ export class ToolNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.Tool>, options: NormalizeOptions): Types.Tool[] {
     const tools = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       tools.sort(Models.ToolRepository.compareItems)
     }
     return tools.map(t => this.normalize(t, options))
@@ -151,11 +164,11 @@ export class HashNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.Hash>, options: NormalizeOptions): Types.Hash[] {
     const hashes = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       hashes.sort(Models.HashRepository.compareItems)
     }
     return hashes.map(h => this.normalize(h, options))
-      .filter(h => undefined !== h) as Types.Hash[]
+      .filter(isNotUndefined)
   }
 }
 
@@ -163,15 +176,16 @@ export class OrganizationalContactNormalizer extends Base {
   normalize (data: Models.OrganizationalContact, options: NormalizeOptions): Types.OrganizationalContact {
     return {
       name: data.name || undefined,
-      /** email must conform to {@link https://datatracker.ietf.org/doc/html/rfc6531} */
-      email: data.email || undefined,
+      email: Types.JsonSchema.isIdnEmail(data.email)
+        ? data.email
+        : undefined,
       phone: data.phone || undefined
     }
   }
 
   normalizeIter (data: Iterable<Models.OrganizationalContact>, options: NormalizeOptions): Types.OrganizationalContact[] {
     const contacts = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       contacts.sort(Models.OrganizationalContactRepository.compareItems)
     }
     return contacts.map(c => this.normalize(c, options))
@@ -180,20 +194,18 @@ export class OrganizationalContactNormalizer extends Base {
 
 export class OrganizationalEntityNormalizer extends Base {
   normalize (data: Models.OrganizationalEntity, options: NormalizeOptions): Types.OrganizationalEntity {
-    const r = {
+    const urls = normalizeStringableIter(data.url, options)
+      .filter(Types.JsonSchema.isIriReference)
+    return {
       name: data.name || undefined,
       /** must comply to {@link https://datatracker.ietf.org/doc/html/rfc3987} */
-      url: data.url.size > 0
-        ? Array.from(data.url, u => u.toString())
+      url: urls.length > 0
+        ? urls
         : undefined,
       contact: data.contact.size > 0
         ? this._factory.makeForOrganizationalContact().normalizeIter(data.contact, options)
         : undefined
     }
-    if (options.sortLists && r.url) {
-      r.url.sort((a, b) => a.localeCompare(b))
-    }
-    return r
   }
 }
 
@@ -235,11 +247,11 @@ export class ComponentNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.Component>, options: NormalizeOptions): Types.Component[] {
     const components = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       components.sort(Models.ComponentRepository.compareItems)
     }
     return components.map(c => this.normalize(c, options))
-      .filter(c => undefined !== c) as Types.Component[]
+      .filter(isNotUndefined)
   }
 }
 
@@ -289,7 +301,7 @@ export class LicenseNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.License>, options: NormalizeOptions): Types.License[] {
     const licenses = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       licenses.sort(Models.LicenseRepository.compareItems)
     }
     return licenses.map(c => this.normalize(c, options))
@@ -298,6 +310,7 @@ export class LicenseNormalizer extends Base {
 
 export class SWIDNormalizer extends Base {
   normalize (data: Models.SWID, options: NormalizeOptions): Types.SWID {
+    const url = data.url?.toString()
     return {
       tagId: data.tagId,
       name: data.name,
@@ -307,7 +320,9 @@ export class SWIDNormalizer extends Base {
       text: data.text === null
         ? undefined
         : this._factory.makeForAttachment().normalize(data.text, options),
-      url: data.url?.toString()
+      url: Types.JsonSchema.isIriReference(url)
+        ? url
+        : undefined
     }
   }
 }
@@ -325,11 +340,11 @@ export class ExternalReferenceNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.ExternalReference>, options: NormalizeOptions): Types.ExternalReference[] {
     const refs = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       refs.sort(Models.ExternalReferenceRepository.compareItems)
     }
     return refs.map(r => this.normalize(r, options))
-      .filter(r => undefined !== r) as Types.ExternalReference[]
+      .filter(isNotUndefined)
   }
 }
 
@@ -350,20 +365,20 @@ export class DependencyGraphNormalizer extends Base {
       return undefined
     }
 
-    const allDeps = new Map<Models.BomRef, Models.BomRefRepository>()
-    data.components.forEach(c => allDeps.set(c.bomRef, new Models.BomRefRepository(c.dependencies)))
-    allDeps.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
+    const allRefs = new Map<Models.BomRef, Models.BomRefRepository>()
+    data.components.forEach(c => allRefs.set(c.bomRef, new Models.BomRefRepository(c.dependencies)))
+    allRefs.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
 
     const normalized: Types.Dependency[] = []
-    allDeps.forEach((deps, ref) => {
-      const dep = this.#normalizeDependency(ref, deps, allDeps, options)
-      if (dep) {
+    allRefs.forEach((deps, ref) => {
+      const dep = this.#normalizeDependency(ref, deps, allRefs, options)
+      if (isNotUndefined(dep)) {
         normalized.push(dep)
       }
     })
 
-    if (options.sortLists) {
-      normalized.sort((a, b) => a.ref.localeCompare(b.ref))
+    if (options.sortLists ?? false) {
+      normalized.sort(({ ref: a }, { ref: b }) => a.localeCompare(b))
     }
 
     return normalized
@@ -372,23 +387,22 @@ export class DependencyGraphNormalizer extends Base {
   #normalizeDependency (
     ref: Models.BomRef,
     deps: Models.BomRefRepository,
-    allDeps: Map<Models.BomRef, Models.BomRefRepository>,
+    allRefs: Map<Models.BomRef, Models.BomRefRepository>,
     options: NormalizeOptions
   ): Types.Dependency | undefined {
-    if (!ref.value) {
+    const bomRef = ref.toString()
+    if (bomRef.length === 0) {
       // no value -> cannot render
       return undefined
     }
 
-    const dependsOn = Array.from(deps).filter(d => allDeps.has(d))
-      .map(d => d.value).filter(v => !!v) as string[]
-
-    if (options.sortLists) {
-      dependsOn.sort((a, b) => a.localeCompare(b))
-    }
+    const dependsOn: string[] = normalizeStringableIter(
+      Array.from(deps).filter(d => allRefs.has(d)),
+      options
+    ).filter(d => d.length > 0)
 
     return {
-      ref: ref.value,
+      ref: bomRef,
       dependsOn: dependsOn.length > 0
         ? dependsOn
         : undefined
@@ -397,3 +411,11 @@ export class DependencyGraphNormalizer extends Base {
 }
 
 /* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */
+
+function normalizeStringableIter (data: Iterable<Stringable>, options: NormalizeOptions): string[] {
+  const r: string[] = Array.from(data, d => d.toString())
+  if (options.sortLists ?? false) {
+    r.sort((a, b) => a.localeCompare(b))
+  }
+  return r
+}
