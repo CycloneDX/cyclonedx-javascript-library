@@ -100,7 +100,7 @@ module.exports.createComplexStructure = function () {
       Enums.ExternalReferenceType.Support
     ))
     component.externalReferences.add(new Models.ExternalReference(
-      new URL('https://localhost/acme/releases'),
+      './other/file',
       Enums.ExternalReferenceType.ReleaseNotes // available since spec 1.4
     ))
     component.group = 'acme'
@@ -111,7 +111,7 @@ module.exports.createComplexStructure = function () {
       license.text = new Models.Attachment('U29tZQpsaWNlbnNlCnRleHQu')
       license.text.contentType = 'text/plain'
       license.text.encoding = Enums.AttachmentEncoding.Base64
-      license.url = new URL('https://localhost/license')
+      license.url = 'https://localhost/license'
       return license
     })(new Models.NamedLicense('some other')))
     component.licenses.add((function (license) {

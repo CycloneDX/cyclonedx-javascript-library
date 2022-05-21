@@ -152,7 +152,7 @@
       },
       "externalReferences": [
         {
-          "url": "https://localhost/acme/releases",
+          "url": "./other/file",
           "type": "release-notes"
         },
         {

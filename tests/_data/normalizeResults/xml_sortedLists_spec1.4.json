@@ -453,7 +453,7 @@
                     {
                       "type": "element",
                       "name": "url",
-                      "children": "https://localhost/acme/releases"
+                      "children": "./other/file"
                     }
                   ]
                 },
