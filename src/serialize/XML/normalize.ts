@@ -1,4 +1,4 @@
-import { isNotUndefined, Stringable } from '../../types'
+import { isNotUndefined } from '../../types'
 import * as Models from '../../models'
 import { Protocol as Spec, Version as SpecVersion } from '../../spec'
 import { NormalizeOptions } from '../types'
@@ -180,9 +180,9 @@ export class ToolNormalizer extends Base {
       type: 'element',
       name: elementName,
       children: [
-        normalizeStringableLax(data.vendor, 'vendor'),
-        normalizeStringableLax(data.name, 'name'),
-        normalizeStringableLax(data.version, 'version'),
+        makeOptionalTextElement(data.vendor, 'vendor'),
+        makeOptionalTextElement(data.name, 'name'),
+        makeOptionalTextElement(data.version, 'version'),
         hashes
       ].filter(isNotUndefined)
     }
@@ -212,7 +212,7 @@ export class HashNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.Hash>, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element[] {
     const hashes = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       hashes.sort(Models.HashRepository.compareItems)
     }
     return hashes.map(h => this.normalize(h, options, elementName))
@@ -226,16 +226,16 @@ export class OrganizationalContactNormalizer extends Base {
       type: 'element',
       name: elementName,
       children: [
-        normalizeStringableLax(data.name, 'name'),
-        normalizeStringableLax(data.email, 'email'),
-        normalizeStringableLax(data.phone, 'phone')
+        makeOptionalTextElement(data.name, 'name'),
+        makeOptionalTextElement(data.email, 'email'),
+        makeOptionalTextElement(data.phone, 'phone')
       ].filter(isNotUndefined)
     }
   }
 
   normalizeIter (data: Iterable<Models.OrganizationalContact>, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element[] {
     const contacts = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       contacts.sort(Models.OrganizationalContactRepository.compareItems)
     }
     return contacts.map(c => this.normalize(c, options, elementName))
@@ -248,8 +248,8 @@ export class OrganizationalEntityNormalizer extends Base {
       type: 'element',
       name: elementName,
       children: [
-        normalizeStringableLax(data.name, 'name'),
-        ...normalizeStringableIter(data.url, options, 'url')
+        makeOptionalTextElement(data.name, 'name'),
+        ...makeTextElementIter(data.url, options, 'url')
           .filter(({ children: u }) => Types.XmlSchema.isAnyURI(u)),
         ...this._factory.makeForOrganizationalContact().normalizeIter(data.contact, options, 'contact')
       ].filter(isNotUndefined)
@@ -298,22 +298,22 @@ export class ComponentNormalizer extends Base {
       },
       children: [
         supplier,
-        normalizeStringableLax(data.author, 'author'),
-        normalizeStringableLax(data.publisher, 'publisher'),
-        normalizeStringableLax(data.group, 'group'),
-        normalizeStringable(data.name, 'name'),
-        normalizeStringable(
+        makeOptionalTextElement(data.author, 'author'),
+        makeOptionalTextElement(data.publisher, 'publisher'),
+        makeOptionalTextElement(data.group, 'group'),
+        makeTextElement(data.name, 'name'),
+        makeTextElement(
           // version fallback to string for spec < 1.4
           data.version ?? '',
           'version'
         ),
-        normalizeStringableLax(data.description, 'description'),
-        normalizeStringableLax(data.scope, 'description'),
+        makeOptionalTextElement(data.description, 'description'),
+        makeOptionalTextElement(data.scope, 'description'),
         hashes,
         licenses,
-        normalizeStringableLax(data.copyright, 'copyright'),
-        normalizeStringableLax(data.cpe, 'cpe'),
-        normalizeStringableLax(data.purl, 'purl'),
+        makeOptionalTextElement(data.copyright, 'copyright'),
+        makeOptionalTextElement(data.cpe, 'cpe'),
+        makeOptionalTextElement(data.purl, 'purl'),
         swid,
         extRefs
       ].filter(isNotUndefined)
@@ -322,7 +322,7 @@ export class ComponentNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.Component>, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element[] {
     const components = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       components.sort(Models.ComponentRepository.compareItems)
     }
     return components.map(c => this.normalize(c, options, elementName))
@@ -350,12 +350,12 @@ export class LicenseNormalizer extends Base {
       type: 'element',
       name: 'license',
       children: [
-        normalizeStringable(data.name, 'name'),
+        makeTextElement(data.name, 'name'),
         data.text === null
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options, 'text'),
         Types.XmlSchema.isAnyURI(url)
-          ? normalizeStringable(url, 'url')
+          ? makeTextElement(url, 'url')
           : undefined
       ].filter(isNotUndefined)
     }
@@ -367,24 +367,24 @@ export class LicenseNormalizer extends Base {
       type: 'element',
       name: 'license',
       children: [
-        normalizeStringable(data.id, 'id'),
+        makeTextElement(data.id, 'id'),
         data.text === null
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options, 'text'),
         Types.XmlSchema.isAnyURI(url)
-          ? normalizeStringable(url, 'url')
+          ? makeTextElement(url, 'url')
           : undefined
       ].filter(isNotUndefined)
     }
   }
 
   #normalizeLicenseExpression (data: Models.LicenseExpression): Types.SimpleXml.Element {
-    return normalizeStringable(data.expression, 'expression')
+    return makeTextElement(data.expression, 'expression')
   }
 
   normalizeIter (data: Models.LicenseRepository, options: NormalizeOptions): Types.SimpleXml.Element[] {
     const licenses = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       licenses.sort(Models.LicenseRepository.compareItems)
     }
     return licenses.map(c => this.normalize(c, options))
@@ -411,7 +411,7 @@ export class SWIDNormalizer extends Base {
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options, 'text'),
         Types.XmlSchema.isAnyURI(url)
-          ? normalizeStringable(url, 'url')
+          ? makeTextElement(url, 'url')
           : undefined
       ].filter(isNotUndefined)
     }
@@ -430,8 +430,8 @@ export class ExternalReferenceNormalizer extends Base {
             type: data.type
           },
           children: [
-            normalizeStringable(url, 'url'),
-            normalizeStringableLax(data.comment, 'comment')
+            makeTextElement(url, 'url'),
+            makeOptionalTextElement(data.comment, 'comment')
           ].filter(isNotUndefined)
         }
       : undefined
@@ -439,7 +439,7 @@ export class ExternalReferenceNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.ExternalReference>, options: NormalizeOptions, elementName: string): Types.SimpleXml.Element[] {
     const references = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       references.sort(Models.ExternalReferenceRepository.compareItems)
     }
     return references.map(r => this.normalize(r, options, elementName))
@@ -472,7 +472,7 @@ export class DependencyGraphNormalizer extends Base {
     data.components.forEach(c => allRefs.set(c.bomRef, new Models.BomRefRepository(c.dependencies)))
     allRefs.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
 
-    const normalized: Array<(Types.SimpleXml.Element & { attributes: { ref: string }})> = []
+    const normalized: Array<(Types.SimpleXml.Element & { attributes: { ref: string } })> = []
     allRefs.forEach((deps, ref) => {
       const dep = this.#normalizeDependency(ref, deps, allRefs, options)
       if (isNotUndefined(dep)) {
@@ -480,7 +480,7 @@ export class DependencyGraphNormalizer extends Base {
       }
     })
 
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       normalized.sort(({ attributes: { ref: a } }, { attributes: { ref: b } }) => a.localeCompare(b))
     }
 
@@ -496,7 +496,7 @@ export class DependencyGraphNormalizer extends Base {
     deps: Models.BomRefRepository,
     allRefs: Map<Models.BomRef, Models.BomRefRepository>,
     options: NormalizeOptions
-  ): undefined | (Types.SimpleXml.Element & { attributes: { ref: string }}) {
+  ): undefined | (Types.SimpleXml.Element & { attributes: { ref: string } }) {
     const bomRef = ref.toString()
     if (bomRef.length === 0) {
       // no value -> cannot render
@@ -505,7 +505,7 @@ export class DependencyGraphNormalizer extends Base {
 
     const dependsOn: string[] = Array.from(deps).filter(d => allRefs.has(d))
       .map(d => d.toString()).filter(d => d.length > 0)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       dependsOn.sort((a, b) => a.localeCompare(b))
     }
 
@@ -522,16 +522,22 @@ export class DependencyGraphNormalizer extends Base {
   }
 }
 
-function normalizeStringableLax (data: null | undefined | Stringable, elementName: string, allowEmpty?: boolean): undefined | StrictTextElement {
-  const s = data?.toString() ?? ''
-  return s.length > 0 || allowEmpty
-    ? normalizeStringable(s, elementName)
-    : undefined
+/* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */
+
+interface Stringable {
+  toString: () => string
 }
 
 type StrictTextElement = Types.SimpleXml.TextElement & { children: string }
 
-function normalizeStringable (data: Stringable, elementName: string): StrictTextElement {
+function makeOptionalTextElement (data: null | undefined | Stringable, elementName: string): undefined | StrictTextElement {
+  const s = data?.toString() ?? ''
+  return s.length > 0
+    ? makeTextElement(s, elementName)
+    : undefined
+}
+
+function makeTextElement (data: Stringable, elementName: string): StrictTextElement {
   return {
     type: 'element',
     name: elementName,
@@ -539,12 +545,10 @@ function normalizeStringable (data: Stringable, elementName: string): StrictText
   }
 }
 
-function normalizeStringableIter (data: Iterable<Stringable>, options: NormalizeOptions, elementName: string): Types.SimpleXml.TextElement[] {
-  const r = Array.from(data, d => normalizeStringable(d, elementName))
-  if (options.sortLists) {
+function makeTextElementIter (data: Iterable<Stringable>, options: NormalizeOptions, elementName: string): StrictTextElement[] {
+  const r: StrictTextElement[] = Array.from(data, d => makeTextElement(d, elementName))
+  if (options.sortLists ?? false) {
     r.sort(({ children: a }, { children: b }) => a.localeCompare(b))
   }
   return r
 }
-
-/* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */

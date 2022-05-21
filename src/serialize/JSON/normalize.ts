@@ -1,4 +1,4 @@
-import { isNotUndefined, Stringable } from '../../types'
+import { isNotUndefined } from '../../types'
 import * as Models from '../../models'
 import { Protocol as Spec, Version as SpecVersion } from '../../spec'
 import { NormalizeOptions } from '../types'
@@ -144,7 +144,7 @@ export class ToolNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.Tool>, options: NormalizeOptions): Types.Tool[] {
     const tools = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       tools.sort(Models.ToolRepository.compareItems)
     }
     return tools.map(t => this.normalize(t, options))
@@ -164,7 +164,7 @@ export class HashNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.Hash>, options: NormalizeOptions): Types.Hash[] {
     const hashes = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       hashes.sort(Models.HashRepository.compareItems)
     }
     return hashes.map(h => this.normalize(h, options))
@@ -185,7 +185,7 @@ export class OrganizationalContactNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.OrganizationalContact>, options: NormalizeOptions): Types.OrganizationalContact[] {
     const contacts = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       contacts.sort(Models.OrganizationalContactRepository.compareItems)
     }
     return contacts.map(c => this.normalize(c, options))
@@ -247,7 +247,7 @@ export class ComponentNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.Component>, options: NormalizeOptions): Types.Component[] {
     const components = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       components.sort(Models.ComponentRepository.compareItems)
     }
     return components.map(c => this.normalize(c, options))
@@ -301,7 +301,7 @@ export class LicenseNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.License>, options: NormalizeOptions): Types.License[] {
     const licenses = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       licenses.sort(Models.LicenseRepository.compareItems)
     }
     return licenses.map(c => this.normalize(c, options))
@@ -340,7 +340,7 @@ export class ExternalReferenceNormalizer extends Base {
 
   normalizeIter (data: Iterable<Models.ExternalReference>, options: NormalizeOptions): Types.ExternalReference[] {
     const refs = Array.from(data)
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       refs.sort(Models.ExternalReferenceRepository.compareItems)
     }
     return refs.map(r => this.normalize(r, options))
@@ -377,7 +377,7 @@ export class DependencyGraphNormalizer extends Base {
       }
     })
 
-    if (options.sortLists) {
+    if (options.sortLists ?? false) {
       normalized.sort(({ ref: a }, { ref: b }) => a.localeCompare(b))
     }
 
@@ -410,12 +410,16 @@ export class DependencyGraphNormalizer extends Base {
   }
 }
 
+/* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */
+
+interface Stringable {
+  toString: () => string
+}
+
 function normalizeStringableIter (data: Iterable<Stringable>, options: NormalizeOptions): string[] {
-  const r = Array.from(data, d => d.toString())
-  if (options.sortLists) {
+  const r: string[] = Array.from(data, d => d.toString())
+  if (options.sortLists ?? false) {
     r.sort((a, b) => a.localeCompare(b))
   }
   return r
 }
-
-/* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */
