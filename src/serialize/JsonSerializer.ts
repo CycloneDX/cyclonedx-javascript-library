@@ -19,7 +19,10 @@ export class JsonSerializer extends BaseSerializer {
     this.#normalizerFactory = normalizerFactory
   }
 
-  /** @internal */
+  /**
+   * @internal
+   * @private
+   */
   protected _normalize (
     bom: Bom,
     {
