@@ -7,7 +7,7 @@ const { createComplexStructure, loadSerializeResult } = require('../_data/serial
 
 const {
   Serialize: {
-    JSON: { Normalize: { Factory: JsonNormalizeFactory } },
+    JSON: { Normalize: { Factory: JsonNormalizeFactory } }
   },
   Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
 } = require('../../')

@@ -1,3 +1,4 @@
+import { isNotUndefined, Stringable } from '../../types'
 import * as Models from '../../models'
 import { Protocol as Spec, Version as SpecVersion } from '../../spec'
 import { NormalizeOptions } from '../types'
@@ -59,7 +60,7 @@ export class Factory {
   }
 }
 
-const SchemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
+const schemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
   [SpecVersion.v1dot2, 'http://cyclonedx.org/schema/bom-1.2b.schema.json'],
   [SpecVersion.v1dot3, 'http://cyclonedx.org/schema/bom-1.3a.schema.json'],
   [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom-1.4.schema.json']
@@ -88,7 +89,7 @@ abstract class Base implements Normalizer {
 export class BomNormalizer extends Base {
   normalize (data: Models.Bom, options: NormalizeOptions): Types.Bom {
     return {
-      $schema: SchemaUrl.get(this._factory.spec.version),
+      $schema: schemaUrl.get(this._factory.spec.version),
       bomFormat: 'CycloneDX',
       specVersion: this._factory.spec.version,
       version: data.version,
@@ -167,7 +168,7 @@ export class HashNormalizer extends Base {
       hashes.sort(Models.HashRepository.compareItems)
     }
     return hashes.map(h => this.normalize(h, options))
-      .filter(isNotUndefined) as Types.Hash[]
+      .filter(isNotUndefined)
   }
 }
 
@@ -193,12 +194,8 @@ export class OrganizationalContactNormalizer extends Base {
 
 export class OrganizationalEntityNormalizer extends Base {
   normalize (data: Models.OrganizationalEntity, options: NormalizeOptions): Types.OrganizationalEntity {
-    const urls: string[] = Array.from(
-      data.url, u => u.toString()
-    ).filter(Types.JsonSchema.isIriReference)
-    if (options.sortLists) {
-      urls.sort((a, b) => a.localeCompare(b))
-    }
+    const urls = normalizeStringableIter(data.url, options)
+      .filter(Types.JsonSchema.isIriReference)
     return {
       name: data.name || undefined,
       /** must comply to {@link https://datatracker.ietf.org/doc/html/rfc3987} */
@@ -254,7 +251,7 @@ export class ComponentNormalizer extends Base {
       components.sort(Models.ComponentRepository.compareItems)
     }
     return components.map(c => this.normalize(c, options))
-      .filter(isNotUndefined) as Types.Component[]
+      .filter(isNotUndefined)
   }
 }
 
@@ -347,7 +344,7 @@ export class ExternalReferenceNormalizer extends Base {
       refs.sort(Models.ExternalReferenceRepository.compareItems)
     }
     return refs.map(r => this.normalize(r, options))
-      .filter(isNotUndefined) as Types.ExternalReference[]
+      .filter(isNotUndefined)
   }
 }
 
@@ -368,20 +365,20 @@ export class DependencyGraphNormalizer extends Base {
       return undefined
     }
 
-    const allDeps = new Map<Models.BomRef, Models.BomRefRepository>()
-    data.components.forEach(c => allDeps.set(c.bomRef, new Models.BomRefRepository(c.dependencies)))
-    allDeps.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
+    const allRefs = new Map<Models.BomRef, Models.BomRefRepository>()
+    data.components.forEach(c => allRefs.set(c.bomRef, new Models.BomRefRepository(c.dependencies)))
+    allRefs.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
 
     const normalized: Types.Dependency[] = []
-    allDeps.forEach((deps, ref) => {
-      const dep = this.#normalizeDependency(ref, deps, allDeps, options)
-      if (dep) {
+    allRefs.forEach((deps, ref) => {
+      const dep = this.#normalizeDependency(ref, deps, allRefs, options)
+      if (isNotUndefined(dep)) {
         normalized.push(dep)
       }
     })
 
     if (options.sortLists) {
-      normalized.sort((a, b) => a.ref.localeCompare(b.ref))
+      normalized.sort(({ ref: a }, { ref: b }) => a.localeCompare(b))
     }
 
     return normalized
@@ -390,23 +387,22 @@ export class DependencyGraphNormalizer extends Base {
   #normalizeDependency (
     ref: Models.BomRef,
     deps: Models.BomRefRepository,
-    allDeps: Map<Models.BomRef, Models.BomRefRepository>,
+    allRefs: Map<Models.BomRef, Models.BomRefRepository>,
     options: NormalizeOptions
   ): Types.Dependency | undefined {
-    if (!ref.value) {
+    const bomRef = ref.toString()
+    if (bomRef.length === 0) {
       // no value -> cannot render
       return undefined
     }
 
-    const dependsOn = Array.from(deps).filter(d => allDeps.has(d))
-      .map(d => d.value).filter(v => !!v) as string[]
-
-    if (options.sortLists) {
-      dependsOn.sort((a, b) => a.localeCompare(b))
-    }
+    const dependsOn: string[] = normalizeStringableIter(
+      Array.from(deps).filter(d => allRefs.has(d)),
+      options
+    ).filter(d => d.length > 0)
 
     return {
-      ref: ref.value,
+      ref: bomRef,
       dependsOn: dependsOn.length > 0
         ? dependsOn
         : undefined
@@ -414,8 +410,12 @@ export class DependencyGraphNormalizer extends Base {
   }
 }
 
-/* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */
-
-function isNotUndefined (value: any): boolean {
-  return value !== undefined
+function normalizeStringableIter (data: Iterable<Stringable>, options: NormalizeOptions): string[] {
+  const r = Array.from(data, d => d.toString())
+  if (options.sortLists) {
+    r.sort((a, b) => a.localeCompare(b))
+  }
+  return r
 }
+
+/* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */

@@ -40,7 +40,7 @@ export class LicenseExpression {
 export class NamedLicense {
   name: string
   text: Attachment | null = null
-  url: URL | null = null
+  url: URL | string | null = null
 
   constructor (name: string) {
     this.name = name
@@ -53,7 +53,7 @@ export class NamedLicense {
 
 export class SpdxLicense {
   text: Attachment | null = null
-  url: URL | null = null
+  url: URL | string | null = null
 
   /**
    * @throws {RangeError} if value is not supported SPDX id

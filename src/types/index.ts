@@ -1,4 +1,6 @@
 export * from './CPE'
-export * from './mimeType'
 export * from './integer'
+export * from './mimeType'
+export * from './string'
+export * from './undefined'
 export * from './urn'
