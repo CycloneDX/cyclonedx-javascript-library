@@ -15,5 +15,10 @@ const serializer = new cdx.Serialize.JsonSerializer(
   new cdx.Serialize.JSON.Normalize.Factory(
     cdx.Spec.Spec1dot4))
 const serialized = serializer.serialize(bom)
-
 console.log(serialized)
+
+const XmlSerializer = new cdx.Serialize.XmlSerializer(
+  new cdx.Serialize.Xml.Normalize.Factory(
+    cdx.Spec.Spec1dot4))
+const serializedXml = XmlSerializer.serialize(bom)
+console.log(serializedXml)
