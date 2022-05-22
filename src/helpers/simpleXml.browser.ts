@@ -29,9 +29,9 @@ function buildElement (element: SimpleXml.Element, doc: Document): HTMLElement {
 }
 
 function setAttributes (node: HTMLElement, attributes: SimpleXml.ElementAttributes): void {
-  for (const [k, v] of Object.entries(attributes)) {
-    if (isNotUndefined(v)) {
-      node.setAttribute(k, `${v}`)
+  for (const [name, value] of Object.entries(attributes)) {
+    if (isNotUndefined(value)) {
+      node.setAttribute(name, `${value}`)
     }
   }
 }
