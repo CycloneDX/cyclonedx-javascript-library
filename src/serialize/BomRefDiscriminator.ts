@@ -13,20 +13,20 @@ export class BomRefDiscriminator {
 
   discriminate (): void {
     const knownRefValues = new Set<string>()
-    this.#originalValues.forEach((_, bomRef) => {
+    for (const [bomRef] of this.#originalValues) {
       let value = bomRef.value
       if (value === undefined || knownRefValues.has(value)) {
         value = this.#makeUniqueId()
         bomRef.value = value
       }
       knownRefValues.add(value)
-    })
+    }
   }
 
   reset (): void {
-    this.#originalValues.forEach((value, bomRef) => {
-      bomRef.value = value
-    })
+    for (const [bomRef, originalValue] of this.#originalValues) {
+      bomRef.value = originalValue
+    }
   }
 
   #makeUniqueId (): string {

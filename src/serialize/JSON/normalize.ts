@@ -366,16 +366,18 @@ export class DependencyGraphNormalizer extends Base {
     }
 
     const allRefs = new Map<Models.BomRef, Models.BomRefRepository>()
-    data.components.forEach(c => allRefs.set(c.bomRef, new Models.BomRefRepository(c.dependencies)))
+    for (const c of data.components) {
+      allRefs.set(c.bomRef, new Models.BomRefRepository(c.dependencies))
+    }
     allRefs.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
 
     const normalized: Types.Dependency[] = []
-    allRefs.forEach((deps, ref) => {
+    for (const [ref, deps] of allRefs) {
       const dep = this.#normalizeDependency(ref, deps, allRefs, options)
       if (isNotUndefined(dep)) {
         normalized.push(dep)
       }
-    })
+    }
 
     if (options.sortLists ?? false) {
       normalized.sort(({ ref: a }, { ref: b }) => a.localeCompare(b))
