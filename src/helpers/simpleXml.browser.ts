@@ -2,6 +2,10 @@ import { SimpleXml } from '../serialize/XML/types'
 import { isNotUndefined } from './types'
 import { SerializeOptions } from '../serialize/types'
 
+/**
+ * Test if all requirements are available.
+ * The required classes are in global space, in browsers.
+ */
 const isAvailable: boolean = typeof Document === 'function' &&
     typeof XMLSerializer === 'function'
 
@@ -14,6 +18,7 @@ export const stringify: Protocol | undefined = isAvailable
 function serialize (element: SimpleXml.Element, options: SerializeOptions): string {
   const doc = new Document()
   doc.appendChild(buildElement(element, doc))
+  // TODO: incorporate `options.space`
   return (new XMLSerializer()).serializeToString(doc)
 }
 
