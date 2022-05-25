@@ -24,6 +24,8 @@ export namespace SimpleXml {
    * Must be alphanumeric.
    * Must start with alpha.
    * Must not contain whitespace characters.
+   *
+   * @TODO: prevent literal 'xmlns'
    */
   export type AttributeName = string
 
@@ -64,6 +66,7 @@ export namespace SimpleXml {
   export interface Element {
     type: 'element'
     name: ElementName
+    namespace?: string | URL
     attributes?: ElementAttributes
     children?: ElementChildren
   }

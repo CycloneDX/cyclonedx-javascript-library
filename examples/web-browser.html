@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <title>example</title>
-  <script src="../dist.web/lib.js" type="application/javascript">
+  <script src="../dist.web/lib.dev.js" type="application/javascript">
     // full Library is available as `CycloneDX_library`, per default
   </script>
   <script type="application/javascript">
@@ -25,7 +25,7 @@
     const serializedJson = Jsonserializer.serialize(bom)
     console.log(serializedJson)
 
-    const XmlSerializer = new cdx.Serialize.XmlSerializer(
+    const XmlSerializer = new cdx.Serialize.XmlSerializerForWebBrowser(
       new cdx.Serialize.Xml.Normalize.Factory(
         cdx.Spec.Spec1dot4))
     const serializedXml = XmlSerializer.serialize(bom)
