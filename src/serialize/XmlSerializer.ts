@@ -2,7 +2,7 @@ import { BaseSerializer } from './BaseSerializer'
 import { Factory as NormalizerFactory } from './XML/normalize'
 import { Format, UnsupportedFormatError } from '../spec'
 import { Bom } from '../models'
-import { NormalizeOptions, SerializeOptions } from './types'
+import { NormalizeOptions, SerializeOptions, Serializer } from './types'
 import { SimpleXml } from './XML/types'
 import { isNotUndefined } from '../helpers/types'
 
@@ -24,12 +24,6 @@ export abstract class BaseXmlSerializer extends BaseSerializer<SimpleXml.Element
     this.#normalizerFactory = normalizerFactory
   }
 
-  /**
-   * @throws {Error}
-   *
-   * @private
-   * @internal
-   */
   protected _normalize (
     bom: Bom,
     { sortLists = false }: NormalizeOptions = {}
@@ -45,12 +39,6 @@ export const XmlSerializer: undefined | typeof BaseXmlSerializer = (function (is
    * XML serializer for web browsers.
    */
   class XmlSerializerForWebBrowser extends BaseXmlSerializer {
-    /**
-     * @throws {Error}
-     *
-     * @private
-     * @internal
-     */
     protected _serialize (
       normalizedBom: SimpleXml.Element,
       options: SerializeOptions = {}

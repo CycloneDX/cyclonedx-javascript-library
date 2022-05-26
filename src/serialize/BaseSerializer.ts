@@ -24,15 +24,7 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
     return bomRefs.values()
   }
 
-  /**
-   * @internal
-   * @private
-   */
   protected abstract _serialize (normalizedBom: NormalizedBom, options?: SerializeOptions): string
 
-  /**
-   * @internal
-   * @private
-   */
   protected abstract _normalize (bom: Bom, options?: NormalizeOptions): NormalizedBom
 }

@@ -23,10 +23,6 @@ export class JsonSerializer extends BaseSerializer<NormalizedBom> {
     this.#normalizerFactory = normalizerFactory
   }
 
-  /**
-   * @internal
-   * @private
-   */
   protected _serialize (
     bom: NormalizedBom,
     { space }: SerializeOptions = {}
@@ -34,10 +30,6 @@ export class JsonSerializer extends BaseSerializer<NormalizedBom> {
     return JSON.stringify(bom, null, space)
   }
 
-  /**
-   * @internal
-   * @private
-   */
   protected _normalize (
     bom: Bom,
     { sortLists }: NormalizeOptions = {}
