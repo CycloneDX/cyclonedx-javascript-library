@@ -24,8 +24,9 @@ export namespace SimpleXml {
    * Must be alphanumeric.
    * Must start with alpha.
    * Must not contain whitespace characters.
+   * Should not be literal "xmlns".
    */
-  type attributeName = string
+  export type AttributeName = string
 
   /**
    * Element's name.
@@ -34,7 +35,7 @@ export namespace SimpleXml {
    * Must start with alpha.
    * Must not contain whitespace characters.
    */
-  type elementName = string
+  export type ElementName = string
 
   /**
    * Textual representation.
@@ -52,14 +53,21 @@ export namespace SimpleXml {
    */
   export type Unset = undefined
 
+  export interface ElementAttributes {
+    [key: AttributeName]: Text | Unset
+  }
+
+  export type ElementChildren = Iterable<Comment | Element> | Text | Unset
+
   /**
    * Element node.
    */
   export interface Element {
     type: 'element'
-    name: elementName
-    attributes?: { [key: attributeName]: Text | Unset }
-    children?: Iterable<Comment | Element> | Text | Unset
+    name: ElementName
+    namespace?: string | URL
+    attributes?: ElementAttributes
+    children?: ElementChildren
   }
 
   /**

@@ -104,8 +104,8 @@ export class BomNormalizer extends Base {
     return {
       type: 'element',
       name: 'bom',
+      namespace: xmlNamespace.get(this._factory.spec.version),
       attributes: {
-        xmlns: xmlNamespace.get(this._factory.spec.version),
         version: data.version,
         serialNumber: data.serialNumber ?? undefined
       },
