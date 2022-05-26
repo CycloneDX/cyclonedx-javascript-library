@@ -19,15 +19,14 @@
       )
     )
 
-    const serializer = new cdx.Serialize.JsonSerializer(
+    const jsonSerializer = new cdx.Serialize.JsonSerializer(
       new cdx.Serialize.JSON.Normalize.Factory(
         cdx.Spec.Spec1dot4))
-    const serialized = serializer.serialize(bom)
-
-    console.log(serialized)
+    const serializedJson = jsonSerializer.serialize(bom)
+    console.log(serializedJson)
   </script>
 </head>
 <body>
-<p>see console log output for result.</p>
+<p>see javascript console output for result.</p>
 </body>
 </html>

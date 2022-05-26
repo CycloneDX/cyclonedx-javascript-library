@@ -3,8 +3,12 @@ import { Format, UnsupportedFormatError } from '../spec'
 import { SerializeOptions, NormalizeOptions } from './types'
 import { BaseSerializer } from './BaseSerializer'
 import { Factory as NormalizerFactory } from './JSON/normalize'
+import { Bom as NormalizedBom } from './JSON/types'
 
-export class JsonSerializer extends BaseSerializer {
+/**
+ * Multi purpose Json serializer.
+ */
+export class JsonSerializer extends BaseSerializer<NormalizedBom> {
   readonly #normalizerFactory: NormalizerFactory
 
   /**
@@ -19,19 +23,18 @@ export class JsonSerializer extends BaseSerializer {
     this.#normalizerFactory = normalizerFactory
   }
 
-  /**
-   * @internal
-   * @private
-   */
+  protected _serialize (
+    bom: NormalizedBom,
+    { space }: SerializeOptions = {}
+  ): string {
+    return JSON.stringify(bom, null, space)
+  }
+
   protected _normalize (
     bom: Bom,
-    {
-      sortLists = false,
-      space = 0
-    }: NormalizeOptions & SerializeOptions = {}
-  ): string {
-    return JSON.stringify(
-      this.#normalizerFactory.makeForBom().normalize(bom, { sortLists }),
-      null, space)
+    { sortLists }: NormalizeOptions = {}
+  ): NormalizedBom {
+    return this.#normalizerFactory.makeForBom()
+      .normalize(bom, { sortLists })
   }
 }
