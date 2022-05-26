@@ -7,7 +7,7 @@ const { createComplexStructure, loadNormalizeResult } = require('../_data/normal
 
 const {
   Serialize: {
-    Xml: { Normalize: { Factory: XmlNormalizeFactory } }
+    XML: { Normalize: { Factory: XmlNormalizeFactory } }
   },
   Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
 } = require('../../')

@@ -11,8 +11,8 @@ bom.components.add(
   )
 )
 
-const serializer = new cdx.Serialize.JsonSerializer(
+const jsonSerializer = new cdx.Serialize.JsonSerializer(
   new cdx.Serialize.JSON.Normalize.Factory(
     cdx.Spec.Spec1dot4))
-const serialized = serializer.serialize(bom)
+const serialized = jsonSerializer.serialize(bom)
 console.log(serialized)

@@ -24,8 +24,7 @@ export namespace SimpleXml {
    * Must be alphanumeric.
    * Must start with alpha.
    * Must not contain whitespace characters.
-   *
-   * @TODO: prevent literal 'xmlns'
+   * Should not be literal "xmlns".
    */
   export type AttributeName = string
 

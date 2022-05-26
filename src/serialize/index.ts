@@ -8,3 +8,4 @@ export * from './JsonSerializer'
 
 export * as XML from './XML'
 export * from './XmlSerializer'
+// export * from './XmlSerializer.web' // not public, yet
