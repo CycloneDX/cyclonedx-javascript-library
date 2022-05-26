@@ -6,5 +6,5 @@ export * from './BaseSerializer'
 export * as JSON from './JSON'
 export * from './JsonSerializer'
 
-export * as Xml from './XML'
+export * as XML from './XML'
 export * from './XmlSerializer'

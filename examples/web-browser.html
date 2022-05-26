@@ -26,7 +26,7 @@
     console.log(serializedJson)
 
     const XmlSerializer = new cdx.Serialize.XmlSerializerForWebBrowser(
-      new cdx.Serialize.Xml.Normalize.Factory(
+      new cdx.Serialize.XML.Normalize.Factory(
         cdx.Spec.Spec1dot4))
     const serializedXml = XmlSerializer.serialize(bom)
     console.log(serializedXml)
