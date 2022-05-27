@@ -13,6 +13,7 @@ const configBase = {
         loader: 'ts-loader',
         // see https://github.com/TypeStrong/ts-loader
         options: {
+          configFile: 'tsconfig.web.json',
           compilerOptions: {
             // in here parts of typescript compiler can be overridden
           }
@@ -23,7 +24,7 @@ const configBase = {
   resolve: {
     extensions: ['.tsx', '.ts']
   },
-  entry: path.resolve(__dirname, 'src/index.ts'),
+  entry: path.resolve(__dirname, 'src/_index.web.ts'),
   output: {
     path: path.resolve(__dirname, 'dist.web'),
     // filename: '',
