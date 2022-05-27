@@ -5,9 +5,8 @@ import { SimpleXml } from './XML/types'
 
 /**
  * XML serializer for web browsers.
- * @TODO this class is not final, unclear if it should be part of this dist.
  */
-export class XmlSerializerForWebBrowser extends XmlBaseSerializer {
+export class XmlSerializer extends XmlBaseSerializer {
   protected _serialize (
     normalizedBom: SimpleXml.Element,
     options: SerializerOptions = {}
