@@ -7,5 +7,5 @@ export * as JSON from './JSON'
 export * from './JsonSerializer'
 
 export * as XML from './XML'
-export * from './XmlSerializer'
+export * from './XmlBaseSerializer'
 // export * from './XmlSerializer.web' // not public, yet
