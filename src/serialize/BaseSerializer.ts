@@ -1,9 +1,9 @@
 import { Bom, BomRef } from '../models'
 import { BomRefDiscriminator } from './BomRefDiscriminator'
-import { NormalizeOptions, SerializeOptions, Serializer } from './types'
+import { NormalizerOptions, SerializerOptions, Serializer } from './types'
 
 export abstract class BaseSerializer<NormalizedBom> implements Serializer {
-  serialize (bom: Bom, options?: SerializeOptions & NormalizeOptions): string {
+  serialize (bom: Bom, options?: SerializerOptions & NormalizerOptions): string {
     const bomRefDiscriminator = new BomRefDiscriminator(this.#getAllBomRefs(bom))
     bomRefDiscriminator.discriminate()
     try {
@@ -24,7 +24,7 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
     return bomRefs.values()
   }
 
-  protected abstract _serialize (normalizedBom: NormalizedBom, options?: SerializeOptions): string
+  protected abstract _serialize (normalizedBom: NormalizedBom, options?: SerializerOptions): string
 
-  protected abstract _normalize (bom: Bom, options?: NormalizeOptions): NormalizedBom
+  protected abstract _normalize (bom: Bom, options?: NormalizerOptions): NormalizedBom
 }
