@@ -8,7 +8,7 @@ import { SimpleXml } from './XML/types'
 /**
  * Base XML serializer.
  */
-export abstract class BaseXmlSerializer extends BaseSerializer<SimpleXml.Element> {
+export abstract class XmlBaseSerializer extends BaseSerializer<SimpleXml.Element> {
   readonly #normalizerFactory: NormalizerFactory
 
   /**
