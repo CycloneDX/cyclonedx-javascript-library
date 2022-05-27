@@ -1,7 +1,7 @@
 import { Bom } from '../models'
 import { Format, UnsupportedFormatError } from '../spec'
 import { BaseSerializer } from './BaseSerializer'
-import { NormalizeOptions } from './types'
+import { NormalizerOptions } from './types'
 import { Factory as NormalizerFactory } from './XML/normalize'
 import { SimpleXml } from './XML/types'
 
@@ -25,7 +25,7 @@ export abstract class BaseXmlSerializer extends BaseSerializer<SimpleXml.Element
 
   protected _normalize (
     bom: Bom,
-    { sortLists = false }: NormalizeOptions = {}
+    { sortLists = false }: NormalizerOptions = {}
   ): SimpleXml.Element {
     return this.#normalizerFactory.makeForBom()
       .normalize(bom, { sortLists })

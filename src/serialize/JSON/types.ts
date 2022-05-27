@@ -5,6 +5,10 @@ import { CPE, Integer, UrnUuid } from '../../types'
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace JsonSchema {
+
+  /**
+   * @see isIriReference
+   */
   export type IriReference = string
   /**
    * Test whether format is JSON::iri-reference - best-effort.
@@ -17,6 +21,9 @@ export namespace JsonSchema {
     // TODO add more validation according to spec
   }
 
+  /**
+   * @see isIdnEmail
+   */
   export type IdnEmail = string
   /**
    * Test whether format is JSON::idn-email - best-effort.
@@ -30,126 +37,132 @@ export namespace JsonSchema {
   }
 
   export type DateTime = string
+
 }
 
-export type RefType = string
+// eslint-disable-next-line @typescript-eslint/no-namespace
+export namespace Normalized {
 
-export interface Bom {
-  $schema?: string
-  bomFormat: 'CycloneDX'
-  specVersion: string
-  version: Integer
-  serialNumber?: UrnUuid
-  metadata?: Metadata
-  components?: Component[]
-  externalReferences?: ExternalReference[]
-  dependencies?: Dependency[]
-}
+  export type RefType = string
 
-export interface Metadata {
-  timestamp?: JsonSchema.DateTime
-  tools?: Tool[]
-  authors?: OrganizationalContact[]
-  component?: Component
-  manufacture?: OrganizationalEntity
-  supplier?: OrganizationalEntity
-  licenses?: License[]
-}
+  export interface Bom {
+    $schema?: string
+    bomFormat: 'CycloneDX'
+    specVersion: string
+    version: Integer
+    serialNumber?: UrnUuid
+    metadata?: Metadata
+    components?: Component[]
+    externalReferences?: ExternalReference[]
+    dependencies?: Dependency[]
+  }
 
-export interface Tool {
-  vendor?: string
-  name?: string
-  version?: string
-  hashes?: Hash[]
-  externalReferences?: ExternalReference[]
-}
+  export interface Metadata {
+    timestamp?: JsonSchema.DateTime
+    tools?: Tool[]
+    authors?: OrganizationalContact[]
+    component?: Component
+    manufacture?: OrganizationalEntity
+    supplier?: OrganizationalEntity
+    licenses?: License[]
+  }
 
-export interface OrganizationalContact {
-  name?: string
-  email?: JsonSchema.IdnEmail
-  phone?: string
-}
+  export interface Tool {
+    vendor?: string
+    name?: string
+    version?: string
+    hashes?: Hash[]
+    externalReferences?: ExternalReference[]
+  }
 
-export interface OrganizationalEntity {
-  name?: string
-  url?: JsonSchema.IriReference[]
-  contact?: OrganizationalContact[]
-}
+  export interface OrganizationalContact {
+    name?: string
+    email?: JsonSchema.IdnEmail
+    phone?: string
+  }
 
-export interface Hash {
-  alg: Enums.HashAlgorithm
-  content: HashContent
-}
+  export interface OrganizationalEntity {
+    name?: string
+    url?: JsonSchema.IriReference[]
+    contact?: OrganizationalContact[]
+  }
 
-export interface Component {
-  type: Enums.ComponentType
-  name: string
-  'mime-type'?: string
-  'bom-ref'?: RefType
-  supplier?: OrganizationalEntity
-  author?: string
-  publisher?: string
-  group?: string
-  version?: string
-  description?: string
-  scope?: Enums.ComponentScope
-  hashes?: Hash[]
-  licenses?: License[]
-  copyright?: string
-  cpe?: CPE
-  purl?: string
-  swid?: SWID
-  modified?: boolean
-  externalReferences?: ExternalReference[]
-  components?: Component[]
-}
+  export interface Hash {
+    alg: Enums.HashAlgorithm
+    content: HashContent
+  }
 
-export interface NamedLicense {
-  license: {
+  export interface Component {
+    type: Enums.ComponentType
     name: string
-    text?: Attachment
-    url?: string
+    'mime-type'?: string
+    'bom-ref'?: RefType
+    supplier?: OrganizationalEntity
+    author?: string
+    publisher?: string
+    group?: string
+    version?: string
+    description?: string
+    scope?: Enums.ComponentScope
+    hashes?: Hash[]
+    licenses?: License[]
+    copyright?: string
+    cpe?: CPE
+    purl?: string
+    swid?: SWID
+    modified?: boolean
+    externalReferences?: ExternalReference[]
+    components?: Component[]
   }
-}
 
-export interface SpdxLicense {
-  license: {
-    /** @see {@link http://cyclonedx.org/schema/spdx} */
-    id: SpdxId
-    text?: Attachment
-    url?: string
+  export interface NamedLicense {
+    license: {
+      name: string
+      text?: Attachment
+      url?: string
+    }
   }
-}
 
-export interface LicenseExpression {
-  expression: string
-}
+  export interface SpdxLicense {
+    license: {
+      /** @see {@link http://cyclonedx.org/schema/spdx} */
+      id: SpdxId
+      text?: Attachment
+      url?: string
+    }
+  }
 
-export type License = NamedLicense | SpdxLicense | LicenseExpression
+  export interface LicenseExpression {
+    expression: string
+  }
 
-export interface SWID {
-  tagId: string
-  name: string
-  version?: string
-  tagVersion?: Integer
-  patch?: boolean
-  text?: Attachment
-  url?: JsonSchema.IriReference
-}
+  export type License = NamedLicense | SpdxLicense | LicenseExpression
 
-export interface ExternalReference {
-  url: string
-  type: Enums.ExternalReferenceType
-  comment?: string
-}
+  export interface SWID {
+    tagId: string
+    name: string
+    version?: string
+    tagVersion?: Integer
+    patch?: boolean
+    text?: Attachment
+    url?: JsonSchema.IriReference
+  }
 
-export interface Attachment {
-  content?: string
-  contentType?: string
-  encoding?: Enums.AttachmentEncoding
-}
+  export interface ExternalReference {
+    url: string
+    type: Enums.ExternalReferenceType
+    comment?: string
+  }
 
-export interface Dependency {
-  ref: RefType
-  dependsOn?: RefType[]
+  export interface Attachment {
+    content?: string
+    contentType?: string
+    encoding?: Enums.AttachmentEncoding
+  }
+
+  export interface Dependency {
+    ref: RefType
+    dependsOn?: RefType[]
+  }
+
 }

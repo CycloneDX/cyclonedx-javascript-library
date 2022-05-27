@@ -1,5 +1,5 @@
 import { isNotUndefined } from '../helpers/types'
-import { SerializeOptions } from './types'
+import { SerializerOptions } from './types'
 import { BaseXmlSerializer } from './XmlSerializer'
 import { SimpleXml } from './XML/types'
 
@@ -10,7 +10,7 @@ import { SimpleXml } from './XML/types'
 export class XmlSerializerForWebBrowser extends BaseXmlSerializer {
   protected _serialize (
     normalizedBom: SimpleXml.Element,
-    options: SerializeOptions = {}
+    options: SerializerOptions = {}
   ): string {
     const doc = document.implementation.createDocument(null, null)
     doc.appendChild(this.#buildElement(normalizedBom, doc))
