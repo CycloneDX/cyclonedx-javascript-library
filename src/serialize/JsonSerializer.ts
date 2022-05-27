@@ -1,14 +1,14 @@
 import { Bom } from '../models'
 import { Format, UnsupportedFormatError } from '../spec'
-import { SerializeOptions, NormalizeOptions } from './types'
+import { SerializerOptions, NormalizerOptions } from './types'
 import { BaseSerializer } from './BaseSerializer'
 import { Factory as NormalizerFactory } from './JSON/normalize'
-import { Bom as NormalizedBom } from './JSON/types'
+import { Normalized } from './JSON/types'
 
 /**
  * Multi purpose Json serializer.
  */
-export class JsonSerializer extends BaseSerializer<NormalizedBom> {
+export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
   readonly #normalizerFactory: NormalizerFactory
 
   /**
@@ -24,16 +24,16 @@ export class JsonSerializer extends BaseSerializer<NormalizedBom> {
   }
 
   protected _serialize (
-    bom: NormalizedBom,
-    { space }: SerializeOptions = {}
+    bom: Normalized.Bom,
+    { space }: SerializerOptions = {}
   ): string {
     return JSON.stringify(bom, null, space)
   }
 
   protected _normalize (
     bom: Bom,
-    { sortLists }: NormalizeOptions = {}
-  ): NormalizedBom {
+    { sortLists }: NormalizerOptions = {}
+  ): Normalized.Bom {
     return this.#normalizerFactory.makeForBom()
       .normalize(bom, { sortLists })
   }
