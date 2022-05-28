@@ -1,6 +1,6 @@
 import { Bom } from '../models'
 import { Format, UnsupportedFormatError } from '../spec'
-import { SerializerOptions, NormalizerOptions } from './types'
+import { NormalizerOptions, SerializerOptions } from './types'
 import { BaseSerializer } from './BaseSerializer'
 import { Factory as NormalizerFactory } from './JSON/normalize'
 import { Normalized } from './JSON/types'

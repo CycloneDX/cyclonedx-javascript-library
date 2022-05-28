@@ -1,6 +1,6 @@
 import { Bom, BomRef } from '../models'
 import { BomRefDiscriminator } from './BomRefDiscriminator'
-import { NormalizerOptions, SerializerOptions, Serializer } from './types'
+import { NormalizerOptions, Serializer, SerializerOptions } from './types'
 
 export abstract class BaseSerializer<NormalizedBom> implements Serializer {
   serialize (bom: Bom, options?: SerializerOptions & NormalizerOptions): string {

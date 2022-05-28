@@ -1,6 +1,6 @@
 /* eslint-disable */
 /* @ts-ignore: TS6059 -- this works as long as the paths are available in dist dir */
-import { enum as _spdxSpecEnum } from '../res/spdx.SNAPSHOT.schema.json'
+import {enum as _spdxSpecEnum} from '../res/spdx.SNAPSHOT.schema.json'
 /* eslint-enable */
 
 /**

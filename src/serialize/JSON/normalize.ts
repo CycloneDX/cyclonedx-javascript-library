@@ -2,7 +2,7 @@ import { isNotUndefined, Stringable } from '../../helpers/types'
 import * as Models from '../../models'
 import { Protocol as Spec, Version as SpecVersion } from '../../spec'
 import { NormalizerOptions } from '../types'
-import { Normalized, JsonSchema } from './types'
+import { JsonSchema, Normalized } from './types'
 
 export class Factory {
   readonly spec: Spec
