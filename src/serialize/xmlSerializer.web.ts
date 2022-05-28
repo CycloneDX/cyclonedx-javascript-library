@@ -1,7 +1,7 @@
 import { isNotUndefined } from '../helpers/types'
 import { SerializerOptions } from './types'
-import { XmlBaseSerializer } from './XmlBaseSerializer'
-import { SimpleXml } from './XML/types'
+import { XmlBaseSerializer } from './xmlBaseSerializer'
+import { SimpleXml } from './xml/types'
 
 /**
  * XML serializer for web browsers.

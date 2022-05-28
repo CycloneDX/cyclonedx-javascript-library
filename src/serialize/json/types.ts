@@ -1,6 +1,6 @@
 import * as Enums from '../../enums'
 import { HashContent } from '../../models'
-import { SpdxId } from '../../SPDX'
+import { SpdxId } from '../../spdx'
 import { CPE, Integer, UrnUuid } from '../../types'
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
