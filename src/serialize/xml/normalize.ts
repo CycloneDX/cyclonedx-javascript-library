@@ -103,6 +103,7 @@ export class BomNormalizer extends Base {
     }
     return {
       type: 'element',
+      // the element's name is hardcoded in the XSD
       name: 'bom',
       namespace: xmlNamespace.get(this._factory.spec.version),
       attributes: {
