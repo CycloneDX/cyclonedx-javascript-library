@@ -17,18 +17,28 @@ function loadSpec (resourceFile) {
 
 /**
  * @param {string} resourceFile
- * @param {string} definitionName
+ * @param {string} path
+ * @return {*}
+ */
+function getSpecElement (resourceFile, ...path) {
+  let element = loadSpec(resourceFile)
+  for (const segment of path) {
+    element = element[segment]
+  }
+  return element
+}
+
+/**
+ * @param {string} resourceFile
+ * @param {string} path
  * @return {Array<number|string>}
  */
-function getSpecEnum (resourceFile, ...definitionName) {
-  let r = loadSpec(resourceFile).definitions
-  for (const d of definitionName) {
-    r = r[d]
-  }
-  return r.enum
+function getSpecEnum (resourceFile, ...path) {
+  return getSpecElement(resourceFile, 'definitions', ...path, 'enum')
 }
 
 module.exports = {
   loadSpec: loadSpec,
+  getSpecElement: getSpecElement,
   getSpecEnum: getSpecEnum
 }
