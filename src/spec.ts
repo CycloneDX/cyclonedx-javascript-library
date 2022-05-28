@@ -91,7 +91,7 @@ class Spec implements Protocol {
 }
 
 /** Specification v1.2 */
-export const Spec1dot2: Protocol = Object.freeze(new Spec(
+export const Spec1dot2: Readonly<Protocol> = Object.freeze(new Spec(
   Version.v1dot2,
   [
     Format.XML,
@@ -143,7 +143,7 @@ export const Spec1dot2: Protocol = Object.freeze(new Spec(
 ))
 
 /** Specification v1.3 */
-export const Spec1dot3: Protocol = Object.freeze(new Spec(
+export const Spec1dot3: Readonly<Protocol> = Object.freeze(new Spec(
   Version.v1dot3,
   [
     Format.XML,
@@ -195,7 +195,7 @@ export const Spec1dot3: Protocol = Object.freeze(new Spec(
 ))
 
 /** Specification v1.4 */
-export const Spec1dot4: Protocol = Object.freeze(new Spec(
+export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
   Version.v1dot4,
   [
     Format.XML,
@@ -248,7 +248,7 @@ export const Spec1dot4: Protocol = Object.freeze(new Spec(
 ))
 
 export const SpecVersionDict: {
-  readonly [key in Version]?: Protocol
+  readonly [key in Version]?: Readonly<Protocol>
 } = Object.freeze(Object.fromEntries([
   [Version.v1dot2, Spec1dot2],
   [Version.v1dot3, Spec1dot3],
