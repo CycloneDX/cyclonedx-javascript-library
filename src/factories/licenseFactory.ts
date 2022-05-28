@@ -31,7 +31,7 @@ export class LicenseFactory {
   makeDisjunctiveWithId (value: string | any): SpdxLicense {
     const spdxId = fixupSpdxId(String(value))
     if (undefined === spdxId) {
-      throw new RangeError('Unknown SPDX id')
+      throw new RangeError('Unsupported SPDX id')
     }
 
     return new SpdxLicense(spdxId)
