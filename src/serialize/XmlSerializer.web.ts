@@ -9,12 +9,19 @@ import { SimpleXml } from './XML/types'
 export class XmlSerializer extends XmlBaseSerializer {
   protected _serialize (
     normalizedBom: SimpleXml.Element,
-    options: SerializerOptions = {}
+    { space }: SerializerOptions = {}
   ): string {
+    const doc = this.#buildXmlDocument(normalizedBom)
+    // TODO: add indention based on `space`
+    return (new XMLSerializer()).serializeToString(doc)
+  }
+
+  #buildXmlDocument (
+    normalizedBom: SimpleXml.Element
+  ): XMLDocument {
     const doc = document.implementation.createDocument(null, null)
     doc.appendChild(this.#buildElement(normalizedBom, doc))
-    // TODO: incorporate `options.space`
-    return (new XMLSerializer()).serializeToString(doc)
+    return doc
   }
 
   #getNs (element: SimpleXml.Element): string | null {
@@ -41,7 +48,7 @@ export class XmlSerializer extends XmlBaseSerializer {
   #setAttributes (node: Element, attributes: SimpleXml.ElementAttributes): void {
     for (const [name, value] of Object.entries(attributes)) {
       if (isNotUndefined(value) && name !== 'xmlns') {
-        // reminder: cannot change a namespace after the fact.
+        // reminder: cannot change a namespace(xmlns) after the fact.
         node.setAttribute(name, `${value}`)
       }
     }
@@ -54,9 +61,10 @@ export class XmlSerializer extends XmlBaseSerializer {
       return
     }
 
+    const doc = node.ownerDocument
     for (const c of (children as Iterable<SimpleXml.Comment | SimpleXml.Element>)) {
       if (c.type === 'element') {
-        node.appendChild(this.#buildElement(c, node.ownerDocument, parentNS))
+        node.appendChild(this.#buildElement(c, doc, parentNS))
       }
       // comments are not implemented, yet
     }

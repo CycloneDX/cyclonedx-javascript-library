@@ -25,9 +25,9 @@ export abstract class XmlBaseSerializer extends BaseSerializer<SimpleXml.Element
 
   protected _normalize (
     bom: Bom,
-    { sortLists = false }: NormalizerOptions = {}
+    options: NormalizerOptions = {}
   ): SimpleXml.Element {
     return this.#normalizerFactory.makeForBom()
-      .normalize(bom, { sortLists })
+      .normalize(bom, options)
   }
 }
