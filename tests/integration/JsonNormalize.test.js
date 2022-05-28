@@ -1,4 +1,4 @@
-const assert = require('node:assert')
+const assert = require('assert')
 const { describe, beforeEach, afterEach, it } = require('mocha')
 
 const { createComplexStructure, loadNormalizeResult } = require('../_data/normalize')
