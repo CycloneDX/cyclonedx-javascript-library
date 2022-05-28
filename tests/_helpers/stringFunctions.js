@@ -11,8 +11,8 @@ module.exports = {
    * @param {string} s
    * @return {string}
    */
-  upperCamelCase: s => s.replaceAll(
+  upperCamelCase: s => s.replace(
     /\b\w/g,
     f => f.slice(-1).toUpperCase()
-  ).replaceAll(/\W/g, '')
+  ).replace(/\W/g, '')
 }
