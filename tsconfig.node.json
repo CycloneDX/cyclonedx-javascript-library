@@ -1,8 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.json",
-  "files": ["src/_index.node.ts"],
-  "exclude": [
-    "src/**/*.web.ts"
-  ]
+  "files": ["src/_index.node.ts"]
 }
