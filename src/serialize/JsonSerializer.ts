@@ -32,9 +32,9 @@ export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
 
   protected _normalize (
     bom: Bom,
-    { sortLists }: NormalizerOptions = {}
+    options: NormalizerOptions = {}
   ): Normalized.Bom {
     return this.#normalizerFactory.makeForBom()
-      .normalize(bom, { sortLists })
+      .normalize(bom, options)
   }
 }
