@@ -1,6 +1,6 @@
+const fs = require('fs')
+const path = require('path')
 const assert = require('assert')
-const fs = require('node:fs')
-const path = require('node:path')
 
 const spdxSpecEnum = JSON.parse(fs.readFileSync(path.resolve(
   __dirname, '..', '..', 'res', 'spdx.SNAPSHOT.schema.json'
