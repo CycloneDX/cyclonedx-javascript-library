@@ -22,7 +22,7 @@ npm i -S github:CycloneDX/cyclonedx-javascript-library
 
 ## Usage
 
-As node module:
+### As node package
 
 ```javascript
 const cdx = require('@cyclonedx/cyclonedx-library')
@@ -36,7 +36,7 @@ bom.components.add(
 )
 ```
 
-In web-browser:
+### In web-browser
 
 ```html
 <script src="path-to-this-package/dist.web/lib.js">
@@ -55,7 +55,7 @@ In web-browser:
 </script>
 ```
 
-## Development & CONTRIBUTING
+## Development & Contributing
 
 See [CONTRIBUTING] file for details.
 
