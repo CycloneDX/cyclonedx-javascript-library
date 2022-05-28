@@ -7,7 +7,7 @@ import { HashRepository } from './hash'
 import { OrganizationalEntity } from './organizationalEntity'
 import { ExternalReferenceRepository } from './externalReference'
 import { LicenseRepository } from './license'
-import { SWID } from './SWID'
+import { SWID } from './swid'
 
 export class Component {
   readonly bomRef = new BomRef()

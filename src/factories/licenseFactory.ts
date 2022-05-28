@@ -1,5 +1,5 @@
 import { DisjunctiveLicense, License, LicenseExpression, NamedLicense, SpdxLicense } from '../models'
-import { fixupSpdxId } from '../SPDX'
+import { fixupSpdxId } from '../spdx'
 
 export class LicenseFactory {
   makeFromString (value: string): License {

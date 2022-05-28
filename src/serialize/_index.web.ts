@@ -1,3 +1,3 @@
 export * from './'
 
-export * from './XmlSerializer.web'
+export * from './xmlSerializer.web'

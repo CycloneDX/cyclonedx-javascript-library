@@ -2,10 +2,10 @@
 
 export * as Types from './types'
 
-export * from './BaseSerializer'
-export * from './BomRefDiscriminator'
+export * from './baseSerializer'
+export * from './bomRefDiscriminator'
 
-export * as JSON from './JSON'
-export * from './JsonSerializer'
+export * as JSON from './json'
+export * from './jsonSerializer'
 
-export * as XML from './XML'
+export * as XML from './xml'

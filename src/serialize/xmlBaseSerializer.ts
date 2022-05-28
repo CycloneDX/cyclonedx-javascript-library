@@ -1,9 +1,9 @@
 import { Bom } from '../models'
 import { Format, UnsupportedFormatError } from '../spec'
-import { BaseSerializer } from './BaseSerializer'
+import { BaseSerializer } from './baseSerializer'
 import { NormalizerOptions } from './types'
-import { Factory as NormalizerFactory } from './XML/normalize'
-import { SimpleXml } from './XML/types'
+import { Factory as NormalizerFactory } from './xml/normalize'
+import { SimpleXml } from './xml/types'
 
 /**
  * Base XML serializer.

@@ -1,4 +1,4 @@
-import { isSupportedSpdxId, SpdxId } from '../SPDX'
+import { isSupportedSpdxId, SpdxId } from '../spdx'
 import { Attachment } from './attachment'
 
 export class LicenseExpression {
