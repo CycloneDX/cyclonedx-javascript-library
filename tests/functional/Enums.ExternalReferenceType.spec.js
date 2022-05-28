@@ -5,10 +5,10 @@ const { getSpecEnum } = require('../_data/specLoader')
 const { upperCamelCase } = require('../_helpers/stringFunctions')
 
 const {
-  Enums: { ComponentScope }
+  Enums: { ExternalReferenceType }
 } = require('../../')
 
-suite('all ComponentScopes from SPEC are available', () => {
+suite('all ExternalReferenceTypes from SPEC are available', () => {
   const schemas = new Map([
     ['1.2', 'bom-1.2.SNAPSHOT.schema.json'],
     ['1.3', 'bom-1.3.SNAPSHOT.schema.json'],
@@ -17,10 +17,16 @@ suite('all ComponentScopes from SPEC are available', () => {
 
   schemas.forEach((resourceFile, specVersion) =>
     suite(`from spec ${specVersion}`, () =>
-      getSpecEnum(resourceFile, 'component', 'properties', 'scope').forEach(enumValue => {
-        const expectedName = upperCamelCase(enumValue)
+      getSpecEnum(resourceFile, 'externalReference', 'properties', 'type').forEach(enumValue => {
+        let expectedName = upperCamelCase(enumValue)
+        switch (enumValue) {
+          case 'vcs':
+          case 'bom':
+            expectedName = enumValue.toUpperCase()
+            break
+        }
         test(`${expectedName} -> ${enumValue}`, () =>
-          assert.strictEqual(ComponentScope[expectedName], enumValue)
+          assert.strictEqual(ExternalReferenceType[expectedName], enumValue)
         )
       })
     )

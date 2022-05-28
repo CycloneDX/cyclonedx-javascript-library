@@ -2,13 +2,13 @@ const assert = require('node:assert')
 const { suite, test } = require('mocha')
 
 const { getSpecEnum } = require('../_data/specLoader')
-const { capitaliseFirstLetter } = require('../_helpers/stringFunctions')
+const { upperCamelCase } = require('../_helpers/stringFunctions')
 
 const {
-  Enums: { HashAlgorithm }
+  Enums: { ComponentType }
 } = require('../../')
 
-suite('all HashAlgorithms from SPEC are available', () => {
+suite('all ComponentTypes from SPEC are available', () => {
   const schemas = new Map([
     ['1.2', 'bom-1.2.SNAPSHOT.schema.json'],
     ['1.3', 'bom-1.3.SNAPSHOT.schema.json'],
@@ -17,10 +17,10 @@ suite('all HashAlgorithms from SPEC are available', () => {
 
   schemas.forEach((resourceFile, specVersion) =>
     suite(`from spec ${specVersion}`, () =>
-      getSpecEnum(resourceFile, 'hash-alg').forEach(enumValue => {
-        const expectedName = capitaliseFirstLetter(enumValue)
+      getSpecEnum(resourceFile, 'component', 'properties', 'type').forEach(enumValue => {
+        const expectedName = upperCamelCase(enumValue)
         test(`${expectedName} -> ${enumValue}`, () =>
-          assert.strictEqual(HashAlgorithm[expectedName], enumValue)
+          assert.strictEqual(ComponentType[expectedName], enumValue)
         )
       })
     )
