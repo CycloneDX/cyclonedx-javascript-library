@@ -144,7 +144,8 @@ export class MetadataNormalizer extends Base {
       ? {
           type: 'element',
           name: 'authors',
-          children: this._factory.makeForOrganizationalContact().normalizeIter(data.authors, options, 'author')
+          children: this._factory.makeForOrganizationalContact()
+            .normalizeIter(data.authors, options, 'author')
         }
       : undefined
     return {
@@ -177,6 +178,15 @@ export class ToolNormalizer extends Base {
           children: this._factory.makeForHash().normalizeIter(data.hashes, options, 'hash')
         }
       : undefined
+    const externalReferences: SimpleXml.Element | undefined =
+      this._factory.spec.supportsToolReferences && data.externalReferences.size > 0
+        ? {
+            type: 'element',
+            name: 'externalReferences',
+            children: this._factory.makeForExternalReference()
+              .normalizeIter(data.externalReferences, options, 'reference')
+          }
+        : undefined
     return {
       type: 'element',
       name: elementName,
@@ -184,7 +194,8 @@ export class ToolNormalizer extends Base {
         makeOptionalTextElement(data.vendor, 'vendor'),
         makeOptionalTextElement(data.name, 'name'),
         makeOptionalTextElement(data.version, 'version'),
-        hashes
+        hashes,
+        externalReferences
       ].filter(isNotUndefined)
     }
   }
@@ -287,7 +298,8 @@ export class ComponentNormalizer extends Base {
       ? {
           type: 'element',
           name: 'externalReferences',
-          children: this._factory.makeForExternalReference().normalizeIter(data.externalReferences, options, 'reference')
+          children: this._factory.makeForExternalReference()
+            .normalizeIter(data.externalReferences, options, 'reference')
         }
       : undefined
     return {
@@ -484,7 +496,8 @@ export class DependencyGraphNormalizer extends Base {
     }
 
     if (options.sortLists ?? false) {
-      normalized.sort(({ attributes: { ref: a } }, { attributes: { ref: b } }) => a.localeCompare(b))
+      normalized.sort(
+        ({ attributes: { ref: a } }, { attributes: { ref: b } }) => a.localeCompare(b))
     }
 
     return {

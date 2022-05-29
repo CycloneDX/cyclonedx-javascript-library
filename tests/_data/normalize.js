@@ -55,6 +55,10 @@ module.exports.createComplexStructure = function () {
   bom.metadata.tools.add((function (tool) {
     tool.vendor = 'tool vendor'
     tool.name = 'other tool'
+    tool.externalReferences.add((function (ref) {
+      ref.comment = 'the tools that made this'
+      return ref
+    })(new Models.ExternalReference('https://cyclonedx.org/tool-center/', Enums.ExternalReferenceType.Website)))
     return tool
   })(new Models.Tool()))
   bom.metadata.authors.add((function (author) {

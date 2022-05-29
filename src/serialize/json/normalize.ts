@@ -138,6 +138,9 @@ export class ToolNormalizer extends Base {
       version: data.version || undefined,
       hashes: data.hashes.size > 0
         ? this._factory.makeForHash().normalizeIter(data.hashes, options)
+        : undefined,
+      externalReferences: this._factory.spec.supportsToolReferences && data.externalReferences.size > 0
+        ? this._factory.makeForExternalReference().normalizeIter(data.externalReferences, options)
         : undefined
     }
   }

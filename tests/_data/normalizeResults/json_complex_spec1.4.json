@@ -24,7 +24,14 @@
       },
       {
         "vendor": "tool vendor",
-        "name": "other tool"
+        "name": "other tool",
+        "externalReferences": [
+          {
+            "url": "https://cyclonedx.org/tool-center/",
+            "type": "website",
+            "comment": "the tools that made this"
+          }
+        ]
       }
     ],
     "authors": [

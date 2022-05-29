@@ -1,10 +1,12 @@
 import { HashRepository } from './hash'
+import { ExternalReferenceRepository } from './externalReference'
 
 export class Tool {
   vendor: string | null = null
   name: string | null = null
   version: string | null = null
   hashes = new HashRepository()
+  externalReferences = new ExternalReferenceRepository()
 
   compare (other: Tool): number {
     /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
