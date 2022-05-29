@@ -18,7 +18,7 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
     for (const c of bom.components) {
       bomRefs.add(c.bomRef)
     }
-    if (bom.metadata.component !== null) {
+    if (bom.metadata.component !== undefined) {
       bomRefs.add(bom.metadata.component.bomRef)
     }
     return bomRefs.values()

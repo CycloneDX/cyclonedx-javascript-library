@@ -31,11 +31,10 @@ describe('JSON normalize', () => {
     it('can normalize', function () {
       const normalized = normalizerFactory.makeForBom()
         .normalize(this.bom, {})
-      const json = JSON.stringify(normalized)
 
+      const json = JSON.stringify(normalized, null, 2)
       /* uncomment next line to dump data */
       // writeNormalizeResult(json, 'json_complex', spec.version, 'json')
-
       assert.deepStrictEqual(
         JSON.parse(json),
         JSON.parse(loadNormalizeResult('json_complex', spec.version, 'json'))
@@ -45,11 +44,10 @@ describe('JSON normalize', () => {
     it('can normalize with sorted lists', function () {
       const normalized = normalizerFactory.makeForBom()
         .normalize(this.bom, { sortLists: true })
-      const json = JSON.stringify(normalized)
 
+      const json = JSON.stringify(normalized, null, 2)
       /* uncomment next line to dump data */
       // writeNormalizeResult(json, 'json_sortedLists', spec.version, 'json')
-
       assert.deepStrictEqual(
         JSON.parse(json),
         JSON.parse(loadNormalizeResult('json_sortedLists', spec.version, 'json'))

@@ -10,6 +10,9 @@ export class LicenseExpression {
       expression[expression.length - 1] === ')'
   }
 
+  /** @see expression */
+  #expression!: string
+
   /**
    * @throws {RangeError} if expression is not eligible
    */
@@ -17,7 +20,6 @@ export class LicenseExpression {
     this.expression = expression
   }
 
-  #expression!: string
   get expression (): string {
     return this.#expression
   }
@@ -37,13 +39,20 @@ export class LicenseExpression {
   }
 }
 
+interface NamedLicenseOptionalProperties {
+  text?: NamedLicense['text']
+  url?: NamedLicense['url']
+}
+
 export class NamedLicense {
   name: string
-  text: Attachment | null = null
-  url: URL | string | null = null
+  text?: Attachment
+  url?: URL | string
 
-  constructor (name: string) {
+  constructor (name: string, op: NamedLicenseOptionalProperties = {}) {
     this.name = name
+    this.text = op.text
+    this.url = op.url
   }
 
   compare (other: NamedLicense): number {
@@ -51,18 +60,27 @@ export class NamedLicense {
   }
 }
 
+interface SpdxLicenseOptionalProperties {
+  text?: SpdxLicense['text']
+  url?: SpdxLicense['url']
+}
+
 export class SpdxLicense {
-  text: Attachment | null = null
-  url: URL | string | null = null
+  text?: Attachment
+  url?: URL | string
+
+  /** @see id */
+  #id!: SpdxId
 
   /**
    * @throws {RangeError} if value is not supported SPDX id
    */
-  constructor (id: SpdxId) {
+  constructor (id: SpdxId, op: SpdxLicenseOptionalProperties = {}) {
     this.id = id
+    this.text = op.text
+    this.url = op.url
   }
 
-  #id!: SpdxId
   get id (): SpdxId {
     return this.#id
   }

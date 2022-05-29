@@ -31,6 +31,8 @@ export interface Protocol {
   supportsExternalReferenceType: (ert: ExternalReferenceType | any) => boolean
 
   readonly supportsDependencyGraph: boolean
+
+  readonly supportsToolReferences: boolean
 }
 
 class Spec implements Protocol {
@@ -41,6 +43,7 @@ class Spec implements Protocol {
   readonly #hashValuePattern: RegExp
   readonly #externalReferenceTypes: ReadonlySet<ExternalReferenceType>
   readonly #supportsDependencyGraph: boolean
+  readonly #supportsToolReferences: boolean
 
   constructor (
     version: Version,
@@ -49,7 +52,8 @@ class Spec implements Protocol {
     hashAlgorithms: Iterable<HashAlgorithm>,
     hashValuePattern: RegExp,
     externalReferenceTypes: Iterable<ExternalReferenceType>,
-    supportsDependencyGraph: boolean
+    supportsDependencyGraph: boolean,
+    supportsToolReferences: boolean
   ) {
     this.#version = version
     this.#formats = new Set(formats)
@@ -58,6 +62,7 @@ class Spec implements Protocol {
     this.#hashValuePattern = hashValuePattern
     this.#externalReferenceTypes = new Set(externalReferenceTypes)
     this.#supportsDependencyGraph = supportsDependencyGraph
+    this.#supportsToolReferences = supportsToolReferences
   }
 
   get version (): Version {
@@ -87,6 +92,10 @@ class Spec implements Protocol {
 
   get supportsDependencyGraph (): boolean {
     return this.#supportsDependencyGraph
+  }
+
+  get supportsToolReferences (): boolean {
+    return this.#supportsToolReferences
   }
 }
 
@@ -139,7 +148,8 @@ export const Spec1dot2: Readonly<Protocol> = Object.freeze(new Spec(
     ExternalReferenceType.BuildSystem,
     ExternalReferenceType.Other
   ],
-  true
+  true,
+  false
 ))
 
 /** Specification v1.3 */
@@ -191,7 +201,8 @@ export const Spec1dot3: Readonly<Protocol> = Object.freeze(new Spec(
     ExternalReferenceType.BuildSystem,
     ExternalReferenceType.Other
   ],
-  true
+  true,
+  false
 ))
 
 /** Specification v1.4 */
@@ -244,6 +255,7 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
     ExternalReferenceType.ReleaseNotes,
     ExternalReferenceType.Other
   ],
+  true,
   true
 ))
 
