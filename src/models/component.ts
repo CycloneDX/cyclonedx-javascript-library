@@ -9,51 +9,84 @@ import { ExternalReferenceRepository } from './externalReference'
 import { LicenseRepository } from './license'
 import { SWID } from './swid'
 
+interface OptionalProperties {
+  bomRef?: BomRef['value']
+  author?: Component['author']
+  copyright?: Component['copyright']
+  description?: Component['description']
+  externalReferences?: Component['externalReferences']
+  group?: Component['group']
+  hashes?: Component['hashes']
+  licenses?: Component['licenses']
+  publisher?: Component['publisher']
+  purl?: Component['purl']
+  scope?: Component['scope']
+  supplier?: Component['supplier']
+  swid?: Component['swid']
+  version?: Component['version']
+  dependencies?: Component['dependencies']
+  cpe?: Component['cpe']
+}
+
 export class Component {
-  readonly bomRef = new BomRef()
   type: ComponentType
   name: string
-  author: string | null = null
-  copyright: string | null = null
-  description: string | null = null
-  externalReferences = new ExternalReferenceRepository()
-  group: string | null = null
-  hashes = new HashRepository()
-  licenses = new LicenseRepository()
-  publisher: string | null = null
-  purl: PackageURL | null = null
-  scope: ComponentScope | null = null
-  supplier: OrganizationalEntity | null = null
-  swid: SWID | null = null
-  version: string | null = null
+  author?: string
+  copyright?: string
+  description?: string
+  externalReferences: ExternalReferenceRepository
+  group?: string
+  hashes: HashRepository
+  licenses: LicenseRepository
+  publisher?: string
+  purl?: PackageURL
+  scope?: ComponentScope
+  supplier?: OrganizationalEntity
+  swid?: SWID
+  version?: string
+  dependencies: BomRefRepository
 
-  constructor (type: ComponentType, name: string) {
+  /** @see bomRef */
+  readonly #bomRef: BomRef
+
+  /** @see cpe */
+  #cpe?: CPE
+
+  constructor (type: ComponentType, name: string, op: OptionalProperties = {}) {
+    this.#bomRef = new BomRef(op.bomRef)
     this.type = type
     this.name = name
+    this.author = op.author
+    this.copyright = op.copyright
+    this.externalReferences = op.externalReferences ?? new ExternalReferenceRepository()
+    this.group = op.group
+    this.hashes = op.hashes ?? new HashRepository()
+    this.licenses = op.licenses ?? new LicenseRepository()
+    this.publisher = op.publisher
+    this.purl = op.purl
+    this.scope = op.scope
+    this.swid = op.swid
+    this.version = op.version
+    this.dependencies = op.dependencies ?? new BomRefRepository()
+    this.cpe = op.cpe
   }
 
-  #cpe: CPE | null = null
-  get cpe (): CPE | null {
+  get bomRef (): BomRef {
+    return this.#bomRef
+  }
+
+  get cpe (): CPE | undefined {
     return this.#cpe
   }
 
   /**
    * @throws {TypeError} if value is neither CPE nor null
    */
-  set cpe (value: CPE | null) {
-    if (value !== null && !isCPE(value)) {
-      throw new TypeError('Not CPE nor null')
+  set cpe (value: CPE | undefined) {
+    if (value !== undefined && !isCPE(value)) {
+      throw new TypeError('Not CPE nor undefined')
     }
     this.#cpe = value
-  }
-
-  #dependencies = new BomRefRepository()
-  get dependencies (): BomRefRepository {
-    return this.#dependencies
-  }
-
-  set dependencies (value: BomRefRepository) {
-    this.#dependencies = value
   }
 
   compare (other: Component): number {
@@ -61,10 +94,10 @@ export class Component {
     if (bomRefCompare !== 0) {
       return bomRefCompare
     }
-    if (this.purl !== null && other.purl !== null) {
+    if (this.purl !== undefined && other.purl !== undefined) {
       return this.purl.toString().localeCompare(other.purl.toString())
     }
-    if (this.#cpe !== null && other.#cpe !== null) {
+    if (this.#cpe !== undefined && other.#cpe !== undefined) {
       return this.#cpe.toString().localeCompare(other.#cpe.toString())
     }
     /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */

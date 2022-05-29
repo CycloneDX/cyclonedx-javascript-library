@@ -76,6 +76,31 @@
                   "type": "element",
                   "name": "name",
                   "children": "other tool"
+                },
+                {
+                  "type": "element",
+                  "name": "externalReferences",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "reference",
+                      "attributes": {
+                        "type": "website"
+                      },
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "url",
+                          "children": "https://cyclonedx.org/tool-center/"
+                        },
+                        {
+                          "type": "element",
+                          "name": "comment",
+                          "children": "the tools that made this"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }

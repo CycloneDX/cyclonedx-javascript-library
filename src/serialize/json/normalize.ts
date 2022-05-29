@@ -93,7 +93,7 @@ export class BomNormalizer extends Base {
       bomFormat: 'CycloneDX',
       specVersion: this._factory.spec.version,
       version: data.version,
-      serialNumber: data.serialNumber ?? undefined,
+      serialNumber: data.serialNumber,
       metadata: this._factory.makeForMetadata().normalize(data.metadata, options),
       components: data.components.size > 0
         ? this._factory.makeForComponent().normalizeIter(data.components, options)
@@ -117,13 +117,13 @@ export class MetadataNormalizer extends Base {
       authors: data.authors.size > 0
         ? this._factory.makeForOrganizationalContact().normalizeIter(data.authors, options)
         : undefined,
-      component: data.component === null
+      component: data.component === undefined
         ? undefined
         : this._factory.makeForComponent().normalize(data.component, options),
-      manufacture: data.manufacture === null
+      manufacture: data.manufacture === undefined
         ? undefined
         : orgEntityNormalizer.normalize(data.manufacture, options),
-      supplier: data.supplier === null
+      supplier: data.supplier === undefined
         ? undefined
         : orgEntityNormalizer.normalize(data.supplier, options)
     }
@@ -138,6 +138,9 @@ export class ToolNormalizer extends Base {
       version: data.version || undefined,
       hashes: data.hashes.size > 0
         ? this._factory.makeForHash().normalizeIter(data.hashes, options)
+        : undefined,
+      externalReferences: this._factory.spec.supportsToolReferences && data.externalReferences.size > 0
+        ? this._factory.makeForExternalReference().normalizeIter(data.externalReferences, options)
         : undefined
     }
   }
@@ -219,13 +222,13 @@ export class ComponentNormalizer extends Base {
           // version fallback to string for spec < 1.4
           version: data.version || '',
           'bom-ref': data.bomRef.value || undefined,
-          supplier: data.supplier === null
+          supplier: data.supplier === undefined
             ? undefined
             : this._factory.makeForOrganizationalEntity().normalize(data.supplier, options),
           author: data.author || undefined,
           publisher: data.publisher || undefined,
           description: data.description || undefined,
-          scope: data.scope ?? undefined,
+          scope: data.scope,
           hashes: data.hashes.size > 0
             ? this._factory.makeForHash().normalizeIter(data.hashes, options)
             : undefined,
@@ -235,7 +238,7 @@ export class ComponentNormalizer extends Base {
           copyright: data.copyright || undefined,
           cpe: data.cpe || undefined,
           purl: data.purl?.toString(),
-          swid: data.swid === null
+          swid: data.swid === undefined
             ? undefined
             : this._factory.makeForSWID().normalize(data.swid, options),
           externalReferences: data.externalReferences.size > 0
@@ -273,7 +276,7 @@ export class LicenseNormalizer extends Base {
     return {
       license: {
         name: data.name,
-        text: data.text === null
+        text: data.text === undefined
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options),
         url: data.url?.toString()
@@ -285,7 +288,7 @@ export class LicenseNormalizer extends Base {
     return {
       license: {
         id: data.id,
-        text: data.text === null
+        text: data.text === undefined
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options),
         url: data.url?.toString()
@@ -315,9 +318,9 @@ export class SWIDNormalizer extends Base {
       tagId: data.tagId,
       name: data.name,
       version: data.version || undefined,
-      tagVersion: data.tagVersion ?? undefined,
-      patch: data.patch ?? undefined,
-      text: data.text === null
+      tagVersion: data.tagVersion,
+      patch: data.patch,
+      text: data.text === undefined
         ? undefined
         : this._factory.makeForAttachment().normalize(data.text, options),
       url: JsonSchema.isIriReference(url)
@@ -353,7 +356,7 @@ export class AttachmentNormalizer extends Base {
     return {
       content: data.content,
       contentType: data.contentType || undefined,
-      encoding: data.encoding ?? undefined
+      encoding: data.encoding
     }
   }
 }

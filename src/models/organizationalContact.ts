@@ -1,7 +1,19 @@
+interface OptionalProperties {
+  name?: OrganizationalContact['name']
+  email?: OrganizationalContact['email']
+  phone?: OrganizationalContact['phone']
+}
+
 export class OrganizationalContact {
-  name: string | null = null
-  email: string | null = null
-  phone: string | null = null
+  name?: string
+  email?: string
+  phone?: string
+
+  constructor (op: OptionalProperties = {}) {
+    this.name = op.name
+    this.email = op.email
+    this.phone = op.phone
+  }
 
   compare (other: OrganizationalContact): number {
     /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */

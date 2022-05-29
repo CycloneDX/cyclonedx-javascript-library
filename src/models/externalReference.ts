@@ -1,13 +1,18 @@
 import { ExternalReferenceType } from '../enums'
 
+interface OptionalProperties {
+  comment?: ExternalReference['comment']
+}
+
 export class ExternalReference {
   url: URL | string
   type: ExternalReferenceType
-  comment: string | null = null
+  comment?: string
 
-  constructor (url: URL | string, type: ExternalReferenceType) {
+  constructor (url: URL | string, type: ExternalReferenceType, op: OptionalProperties = {}) {
     this.url = url
     this.type = type
+    this.comment = op.comment
   }
 
   compare (other: ExternalReference): number {

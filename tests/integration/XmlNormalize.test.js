@@ -12,7 +12,7 @@ const {
   Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
 } = require('../../')
 
-describe('JSON normalize', () => {
+describe('XML normalize', () => {
   [
     Spec1dot2,
     Spec1dot3,
@@ -31,11 +31,10 @@ describe('JSON normalize', () => {
     it('can normalize', function () {
       const normalized = normalizerFactory.makeForBom()
         .normalize(this.bom, {})
-      const json = JSON.stringify(normalized)
 
+      const json = JSON.stringify(normalized, null, 2)
       /* uncomment next line to dump data */
       // writeNormalizeResult(json, 'xml_complex', spec.version, 'json')
-
       assert.deepStrictEqual(
         JSON.parse(json),
         JSON.parse(loadNormalizeResult('xml_complex', spec.version, 'json'))
@@ -45,11 +44,10 @@ describe('JSON normalize', () => {
     it('can normalize with sorted lists', function () {
       const normalized = normalizerFactory.makeForBom()
         .normalize(this.bom, { sortLists: true })
-      const json = JSON.stringify(normalized)
 
+      const json = JSON.stringify(normalized, null, 2)
       /* uncomment next line to dump data */
       // writeNormalizeResult(json, 'xml_sortedLists', spec.version, 'json')
-
       assert.deepStrictEqual(
         JSON.parse(json),
         JSON.parse(loadNormalizeResult('xml_sortedLists', spec.version, 'json'))
