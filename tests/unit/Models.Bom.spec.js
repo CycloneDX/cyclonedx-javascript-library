@@ -18,7 +18,7 @@ suite('BOM', () => {
   })
 
   test('construct with preset properties', () => {
-    const version = 23
+    const version = Math.round(Math.random() * 1000)
     const serialNumber = 'urn:uuid:12345678-4321-0987-6547-abcdef123456'
     const metadata = new Metadata()
     const components = new ComponentRepository()
