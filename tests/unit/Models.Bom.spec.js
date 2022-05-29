@@ -14,7 +14,7 @@ suite('BOM', () => {
     assert.ok(bom.components instanceof ComponentRepository)
     assert.equal(bom.components.size, 0)
     assert.strictEqual(bom.version, 1)
-    assert.strictEqual(bom.serialNumber, null)
+    assert.strictEqual(bom.serialNumber, undefined)
   })
 
   suite('can set version', () =>

@@ -23,8 +23,8 @@ suite('LicenseFactory', () => {
 
     assert.ok(license instanceof NamedLicense)
     assert.strictEqual(license.name, '(c) foo bar')
-    assert.strictEqual(license.text, null)
-    assert.strictEqual(license.url, null)
+    assert.strictEqual(license.text, undefined)
+    assert.strictEqual(license.url, undefined)
   })
 
   test('makeFromString() -> SpdxLicense', () => {
@@ -34,7 +34,7 @@ suite('LicenseFactory', () => {
 
     assert.ok(license instanceof SpdxLicense)
     assert.strictEqual(license.id, 'MIT')
-    assert.strictEqual(license.text, null)
-    assert.strictEqual(license.url, null)
+    assert.strictEqual(license.text, undefined)
+    assert.strictEqual(license.url, undefined)
   })
 })

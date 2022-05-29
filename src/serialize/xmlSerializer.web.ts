@@ -19,8 +19,9 @@ export class XmlSerializer extends XmlBaseSerializer {
   #buildXmlDocument (
     normalizedBom: SimpleXml.Element
   ): XMLDocument {
-    const doc = document.implementation.createDocument(null, null)
-    doc.appendChild(this.#buildElement(normalizedBom, doc))
+    const namespace = null
+    const doc = document.implementation.createDocument(namespace, null)
+    doc.appendChild(this.#buildElement(normalizedBom, doc, namespace))
     return doc
   }
 
@@ -31,11 +32,9 @@ export class XmlSerializer extends XmlBaseSerializer {
       : null
   }
 
-  #buildElement (element: SimpleXml.Element, doc: XMLDocument, parentNS: string | null = null): Element {
+  #buildElement (element: SimpleXml.Element, doc: XMLDocument, parentNS: string | null): Element {
     const ns = this.#getNs(element) ?? parentNS
-    const node: Element = ns === null
-      ? doc.createElement(element.name)
-      : doc.createElementNS(ns, element.name)
+    const node: Element = doc.createElementNS(ns, element.name)
     if (isNotUndefined(element.attributes)) {
       this.#setAttributes(node, element.attributes)
     }

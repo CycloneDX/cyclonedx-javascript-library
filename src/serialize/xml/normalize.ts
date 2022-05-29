@@ -108,7 +108,7 @@ export class BomNormalizer extends Base {
       namespace: xmlNamespace.get(this._factory.spec.version),
       attributes: {
         version: data.version,
-        serialNumber: data.serialNumber ?? undefined
+        serialNumber: data.serialNumber
       },
       children: [
         data.metadata
@@ -126,7 +126,7 @@ export class BomNormalizer extends Base {
 export class MetadataNormalizer extends Base {
   normalize (data: Models.Metadata, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const orgEntityNormalizer = this._factory.makeForOrganizationalEntity()
-    const timestamp: SimpleXml.Element | undefined = data.timestamp === null
+    const timestamp: SimpleXml.Element | undefined = data.timestamp === undefined
       ? undefined
       : {
           type: 'element',
@@ -155,13 +155,13 @@ export class MetadataNormalizer extends Base {
         timestamp,
         tools,
         authors,
-        data.component === null
+        data.component === undefined
           ? undefined
           : this._factory.makeForComponent().normalize(data.component, options, 'component'),
-        data.manufacture === null
+        data.manufacture === undefined
           ? undefined
           : orgEntityNormalizer.normalize(data.manufacture, options, 'manufacture'),
-        data.supplier === null
+        data.supplier === undefined
           ? undefined
           : orgEntityNormalizer.normalize(data.supplier, options, 'supplier')
       ].filter(isNotUndefined)
@@ -274,7 +274,7 @@ export class ComponentNormalizer extends Base {
     if (!this._factory.spec.supportsComponentType(data.type)) {
       return undefined
     }
-    const supplier: SimpleXml.Element | undefined = data.supplier === null
+    const supplier: SimpleXml.Element | undefined = data.supplier === undefined
       ? undefined
       : this._factory.makeForOrganizationalEntity().normalize(data.supplier, options, 'supplier')
     const hashes: SimpleXml.Element | undefined = data.hashes.size > 0
@@ -291,7 +291,7 @@ export class ComponentNormalizer extends Base {
           children: this._factory.makeForLicense().normalizeIter(data.licenses, options)
         }
       : undefined
-    const swid: SimpleXml.Element | undefined = data.swid === null
+    const swid: SimpleXml.Element | undefined = data.swid === undefined
       ? undefined
       : this._factory.makeForSWID().normalize(data.swid, options, 'swid')
     const extRefs: SimpleXml.Element | undefined = data.externalReferences.size > 0
@@ -364,7 +364,7 @@ export class LicenseNormalizer extends Base {
       name: 'license',
       children: [
         makeTextElement(data.name, 'name'),
-        data.text === null
+        data.text === undefined
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options, 'text'),
         XmlSchema.isAnyURI(url)
@@ -381,7 +381,7 @@ export class LicenseNormalizer extends Base {
       name: 'license',
       children: [
         makeTextElement(data.id, 'id'),
-        data.text === null
+        data.text === undefined
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options, 'text'),
         XmlSchema.isAnyURI(url)
@@ -414,13 +414,13 @@ export class SWIDNormalizer extends Base {
         tagId: data.tagId,
         name: data.name,
         version: data.version || undefined,
-        tagVersion: data.tagVersion ?? undefined,
-        patch: data.patch === null
+        tagVersion: data.tagVersion,
+        patch: data.patch === undefined
           ? undefined
           : (data.patch ? 'true' : 'false')
       },
       children: [
-        data.text === null
+        data.text === undefined
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options, 'text'),
         XmlSchema.isAnyURI(url)

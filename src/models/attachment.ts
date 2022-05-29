@@ -1,11 +1,18 @@
 import { AttachmentEncoding } from '../enums'
 
-export class Attachment {
-  contentType: string | null = null
-  content: string
-  encoding: AttachmentEncoding | null = null
+interface OptionalProperties {
+  contentType?: Attachment['contentType']
+  encoding?: Attachment['encoding']
+}
 
-  constructor (content: string) {
+export class Attachment {
+  contentType?: string
+  content: string
+  encoding?: AttachmentEncoding
+
+  constructor (content: string, op: OptionalProperties = {}) {
+    this.contentType = op.contentType
     this.content = content
+    this.encoding = op.encoding
   }
 }
