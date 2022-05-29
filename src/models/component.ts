@@ -25,7 +25,7 @@ interface OptionalProperties {
   swid?: Component['swid']
   version?: Component['version']
   dependencies?: Component['dependencies']
-  cpe?: CPE
+  cpe?: Component['cpe']
 }
 
 export class Component {

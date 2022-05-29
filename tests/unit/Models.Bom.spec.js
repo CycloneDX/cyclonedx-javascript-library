@@ -17,6 +17,25 @@ suite('BOM', () => {
     assert.strictEqual(bom.serialNumber, undefined)
   })
 
+  test('construct with preset properties', () => {
+    const version = 23
+    const serialNumber = 'urn:uuid:12345678-4321-0987-6547-abcdef123456'
+    const metadata = new Metadata()
+    const components = new ComponentRepository()
+
+    const bom = new Bom({
+      version,
+      serialNumber,
+      metadata,
+      components
+    })
+
+    assert.strictEqual(bom.version, version)
+    assert.strictEqual(bom.serialNumber, serialNumber)
+    assert.strictEqual(bom.metadata, metadata)
+    assert.strictEqual(bom.components, components)
+  })
+
   suite('can set version', () =>
     [3, 6.0].forEach(newVersion =>
       test(`for: ${newVersion}`, () => {

@@ -5,8 +5,8 @@ import { ComponentRepository } from './component'
 interface OptionalProperties {
   metadata?: Bom['metadata']
   components?: Bom['components']
-  version?: PositiveInteger
-  serialNumber?: UrnUuid
+  version?: Bom['version']
+  serialNumber?: Bom['serialNumber']
 }
 
 export class Bom {

@@ -6,7 +6,7 @@ interface OptionalProperties {
   patch?: SWID['patch']
   text?: SWID['text']
   url?: SWID['url']
-  tagVersion?: NonNegativeInteger
+  tagVersion?: SWID['tagVersion']
 }
 
 /**
