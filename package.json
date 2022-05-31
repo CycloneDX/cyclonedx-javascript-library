@@ -19,7 +19,10 @@
     "url": "https://github.com/CycloneDX/cyclonedx-javascript-library/issues"
   },
   "license": "Apache-2.0",
-  "author": "Jan Kowalleck",
+  "author": {
+    "name": "Jan Kowalleck",
+    "email": "jan.kowalleck@gmail.com"
+  },
   "contributors": [
     {
       "name": "Jan Kowalleck"
