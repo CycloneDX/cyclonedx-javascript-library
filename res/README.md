@@ -24,4 +24,4 @@ Currently using version
 | [`bom-1.3-strict.SNAPSHOT.schema.json`](bom-1.3-strict.SNAPSHOT.schema.json) | `spdx.schema.json` was replaced with `spdx.SNAPSHOT.schema.json` |
 | [`spdx.SNAPSHOT.xsd`](spdx.SNAPSHOT.xsd)                                     | |
 | [`spdx.SNAPSHOT.schema.json`](spdx.SNAPSHOT.schema.json)                     | |
-| [`jsf-0.82.schema.json`](jsf-0.82.schema.json)  | |
+| [`jsf-0.82.SNAPSHOT.schema.json`](jsf-0.82.SNAPSHOT.schema.json) | |
