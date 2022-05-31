@@ -1,7 +1,9 @@
 const path = require('path')
 const deepmerge = require('deepmerge')
 
-// see https://webpack.js.org/guides/author-libraries/
+/**
+ * @see {@link https://webpack.js.org/guides/author-libraries/}
+ */
 const configBase = {
   target: 'web',
   // mode: '',
