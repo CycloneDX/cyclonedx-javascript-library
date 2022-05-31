@@ -52,6 +52,9 @@ export class Component {
   /** @see cpe */
   #cpe?: CPE
 
+  /**
+   * @throws {TypeError} if {@see op.cpe} is neither {@see CPE} nor {@see undefined}
+   */
   constructor (type: ComponentType, name: string, op: OptionalProperties = {}) {
     this.#bomRef = new BomRef(op.bomRef)
     this.type = type
@@ -80,7 +83,7 @@ export class Component {
   }
 
   /**
-   * @throws {TypeError} if value is neither CPE nor null
+   * @throws {TypeError} if value is neither {@see CPE} nor {@see undefined}
    */
   set cpe (value: CPE | undefined) {
     if (value !== undefined && !isCPE(value)) {

@@ -25,6 +25,10 @@ export class Bom {
   // Property `dependencies` is not part of this model, but part of `Component` and other models.
   // The dependency graph can be normalized on render-time, no need to store it in the bom model.
 
+  /**
+   * @throws {TypeError} if {@see op.version} is not {@see PositiveInteger} nor {@see undefined}
+   * @throws {TypeError} if {@see op.serialNumber} is neither {@see UrnUuid} nor {@see undefined}
+   */
   constructor (op: OptionalProperties = {}) {
     this.metadata = op.metadata ?? new Metadata()
     this.components = op.components ?? new ComponentRepository()
@@ -37,7 +41,7 @@ export class Bom {
   }
 
   /**
-   * @throws {TypeError} if value is not PositiveInteger
+   * @throws {TypeError} if value is not {@see PositiveInteger}
    */
   set version (value: PositiveInteger) {
     if (!isPositiveInteger(value)) {
@@ -51,7 +55,7 @@ export class Bom {
   }
 
   /**
-   * @throws {TypeError} if value is neither UrnUuid nor undefined
+   * @throws {TypeError} if value is neither {@see UrnUuid} nor {@see undefined}
    */
   set serialNumber (value: UrnUuid | undefined) {
     if (value !== undefined && !isUrnUuid(value)) {

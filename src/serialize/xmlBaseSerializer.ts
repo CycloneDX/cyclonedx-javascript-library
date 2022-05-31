@@ -12,7 +12,7 @@ export abstract class XmlBaseSerializer extends BaseSerializer<SimpleXml.Element
   readonly #normalizerFactory: NormalizerFactory
 
   /**
-   * @throws {UnsupportedFormatError} if spec does not support JSON format.
+   * @throws {UnsupportedFormatError} if {@see NormalizerFactory.spec} does not support {@see Format.XML}.
    */
   constructor (normalizerFactory: NormalizerFactory) {
     if (!normalizerFactory.spec.supportsFormat(Format.JSON)) {

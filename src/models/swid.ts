@@ -23,6 +23,9 @@ export class SWID {
   /** @see tagVersion */
   #tagVersion?: NonNegativeInteger
 
+  /**
+   * @throws {TypeError} if {@see op.tagVersion} is neither {@see NonNegativeInteger} nor {@see undefined}
+   */
   constructor (tagId: string, name: string, op: OptionalProperties = {}) {
     this.tagId = tagId
     this.name = name
@@ -38,7 +41,7 @@ export class SWID {
   }
 
   /**
-   * @throws {TypeError} if value is neither NonNegativeInteger nor undefined
+   * @throws {TypeError} if value is neither {@see NonNegativeInteger} nor {@see undefined}
    */
   set tagVersion (value: NonNegativeInteger | undefined) {
     if (value !== undefined && !isNonNegativeInteger(value)) {

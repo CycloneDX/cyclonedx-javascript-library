@@ -5,10 +5,14 @@ import { NormalizerOptions } from '../types'
 import { SimpleXml, XmlSchema } from './types'
 
 export class Factory {
-  readonly spec: Spec
+  readonly #spec: Spec
 
   constructor (spec: Spec) {
-    this.spec = spec
+    this.#spec = spec
+  }
+
+  get spec (): Spec {
+    return this.#spec
   }
 
   makeForBom (): BomNormalizer {
@@ -353,6 +357,7 @@ export class LicenseNormalizer extends Base {
       case data instanceof Models.LicenseExpression:
         return this.#normalizeLicenseExpression(data as Models.LicenseExpression)
       default:
+        // this case is not expected to happen - and therefore is undocumented
         throw new TypeError('Unexpected LicenseChoice')
     }
   }
