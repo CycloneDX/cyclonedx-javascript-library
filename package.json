@@ -70,10 +70,10 @@
     "build:node": "tsc -b ./tsconfig.node.json",
     "prebuild:web": "node -r fs -e 'fs.rmSync(\"dist.web\",{recursive:true,force:true})'",
     "build:web": "webpack",
-    "cs-fix": "ts-standard --fix",
+    "cs-fix": "eslint --fix .",
     "test": " npm run test:standard && npm run test:web && npm run test:node",
     "test:node": "mocha",
     "test:web": "node -e 'console.log(\"todo: write web test\")'",
-    "test:standard": "ts-standard"
+    "test:standard": "eslint ."
   }
 }
