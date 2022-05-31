@@ -2,7 +2,10 @@ const fs = require('fs')
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const { Resources } = require('../../')
+const {
+  Resources,
+  Spec: { Version }
+} = require('../../')
 
 suite('Resources', () => {
   suite('expected dir', () => {
@@ -17,19 +20,19 @@ suite('Resources', () => {
 
   suite('expected files', () => {
     [
-      Resources.FILE_CDX_JSON_SCHEMA_1_2,
-      Resources.FILE_CDX_JSON_SCHEMA_1_3,
-      Resources.FILE_CDX_JSON_SCHEMA_1_4,
-      Resources.FILE_CDX_JSON_STRICT_SCHEMA_1_2,
-      Resources.FILE_CDX_JSON_STRICT_SCHEMA_1_3,
-      Resources.FILE_CDX_XML_SCHEMA_1_0,
-      Resources.FILE_CDX_XML_SCHEMA_1_1,
-      Resources.FILE_CDX_XML_SCHEMA_1_2,
-      Resources.FILE_CDX_XML_SCHEMA_1_3,
-      Resources.FILE_CDX_XML_SCHEMA_1_4,
-      Resources.FILE_JSF_JSON_SCHEMA,
-      Resources.FILE_SPDX_XML_SCHEMA,
-      Resources.FILE_SPDX_JSON_SCHEMA
+      Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot2],
+      Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot3],
+      Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot4],
+      Resources.FILES.CDX.JSON_STRICT_SCHEMA[Version.v1dot2],
+      Resources.FILES.CDX.JSON_STRICT_SCHEMA[Version.v1dot3],
+      Resources.FILES.CDX.XML_SCHEMA[Version.v1dot0],
+      Resources.FILES.CDX.XML_SCHEMA[Version.v1dot1],
+      Resources.FILES.CDX.XML_SCHEMA[Version.v1dot2],
+      Resources.FILES.CDX.XML_SCHEMA[Version.v1dot3],
+      Resources.FILES.CDX.XML_SCHEMA[Version.v1dot4],
+      Resources.FILES.SPDX.JSON_SCHEMA,
+      Resources.FILES.SPDX.XML_SCHEMA,
+      Resources.FILES.JSF.JSON_SCHEMA
     ].forEach(expectedFile =>
       test(`${expectedFile}`, () =>
         assert.ok(fs.lstatSync(expectedFile).isFile())
