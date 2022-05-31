@@ -17,7 +17,4 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index'
-
-export * from './xmlSerializer.node'
-// export * from './xmlDeserializer.node' // TODO
+export * from './index.common'

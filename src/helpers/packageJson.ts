@@ -1,4 +1,3 @@
-'use strict'
 /*!
 This file is part of CycloneDX JavaScript Library.
 
@@ -18,17 +17,32 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const fs = require('fs')
-const assert = require('assert')
+/**
+ * Split name and group from a package's name.
+ * Returns a tuple: [name, ?group]
+ */
+export function splitNameGroup (data: string): [string, string?] {
+  return data[0] === '@'
+    ? data.split('/', 2).reverse() as [string, string?]
+    : [data]
+}
 
-const { _Resources: { FILES: { SPDX: { JSON_SCHEMA: SPDX_JSON_SCHEMA } } } } = require('../../')
-
-const spdxSpecEnum = JSON.parse(fs.readFileSync(
-  SPDX_JSON_SCHEMA
-)).enum
-
-assert.ok(spdxSpecEnum instanceof Array)
-assert.notEqual(spdxSpecEnum.length, 0)
-spdxSpecEnum.forEach(value => assert.strictEqual(typeof value, 'string'))
-
-exports.spdxSpecEnum = spdxSpecEnum
+export interface PackageJson {
+  name?: string
+  version?: string
+  description?: string
+  license?: string
+  author?: string | {
+    name?: string
+    email?: string
+  }
+  bugs?: string | {
+    url?: string
+  }
+  homepage?: string
+  repository?: string | {
+    url?: string
+    directory?: string
+  }
+  // .. to be continued
+}

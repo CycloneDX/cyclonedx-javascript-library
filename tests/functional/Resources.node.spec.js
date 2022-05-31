@@ -23,7 +23,7 @@ const assert = require('assert')
 const { suite, test } = require('mocha')
 
 const {
-  Resources,
+  _Resources: Resources,
   Spec: { Version }
 } = require('../../')
 

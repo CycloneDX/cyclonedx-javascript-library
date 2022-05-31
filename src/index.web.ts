@@ -1,4 +1,3 @@
-'use strict'
 /*!
 This file is part of CycloneDX JavaScript Library.
 
@@ -18,17 +17,11 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const fs = require('fs')
-const assert = require('assert')
-
-const { _Resources: { FILES: { SPDX: { JSON_SCHEMA: SPDX_JSON_SCHEMA } } } } = require('../../')
-
-const spdxSpecEnum = JSON.parse(fs.readFileSync(
-  SPDX_JSON_SCHEMA
-)).enum
-
-assert.ok(spdxSpecEnum instanceof Array)
-assert.notEqual(spdxSpecEnum.length, 0)
-spdxSpecEnum.forEach(value => assert.strictEqual(typeof value, 'string'))
-
-exports.spdxSpecEnum = spdxSpecEnum
+export * as Types from './types'
+export * as Enums from './enums'
+export * as SPDX from './spdx'
+export * as Models from './models'
+export * as Factories from './factories/index.web'
+export * as Spec from './spec'
+export * as Serialize from './serialize/index.web'
+// do not export the helpers, they are for internal use only

@@ -27,7 +27,7 @@ const { upperCamelCase } = require('../_helpers/stringFunctions')
 const {
   Enums: { ExternalReferenceType },
   Spec: { Version, SpecVersionDict },
-  Resources: { FILES: { CDX: { JSON_SCHEMA: CDX_JSON_SCHEMA } } }
+  _Resources: { FILES: { CDX: { JSON_SCHEMA: CDX_JSON_SCHEMA } } }
 } = require('../../')
 
 suite('ExternalReferenceType enum', () => {

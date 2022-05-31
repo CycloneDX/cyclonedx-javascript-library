@@ -32,13 +32,13 @@ written in _TypeScript_ and compiled for the target.
 
 ## Capabilities
 
-* Enums for the following use cases
+* Enums for the following use cases:
   * `AttachmentEncoding`
   * `ComponentScope`
   * `ComponentType`
   * `ExternalReferenceType`
   * `HashAlgorithm`
-* Data models for the following use cases
+* Data models for the following use cases:
   * `Attachment`
   * `Bom`
   * `BomRef`, `BomRefRepository`
@@ -51,7 +51,11 @@ written in _TypeScript_ and compiled for the target.
   * `OrganizationalEntity`
   * `SWID`
   * `Tool`, `ToolRepository`
-* Factory, that can create data models from any license descriptor string
+* Factories for the following use cases:
+  * Create data models from any license descriptor string
+  * Specific to _Node.js_: create data models from PackageJson-like data structures
+* Builders for the following use cases:
+  * Specific to _Node.js_: create deep data models from PackageJson-like data structures
 * Implementation of the [_CycloneDX_ Specification][CycloneDX-spec] for the following versions:
   * `1.4`
   * `1.3`
