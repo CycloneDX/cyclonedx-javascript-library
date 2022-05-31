@@ -13,8 +13,6 @@
     "dependency",
     "package-url",
     "PURL",
-    "appsec",
-    "scrm",
     "spdx"
   ],
   "repository": {
