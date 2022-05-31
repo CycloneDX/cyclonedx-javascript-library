@@ -14,7 +14,9 @@ limitations under the License.
 
 SPDX-License-Identifier: Apache-2.0
 Copyright (c) Steve Springett. All Rights Reserved.
-*/import { ComponentType, ExternalReferenceType, HashAlgorithm } from './enums'
+*/
+
+import { ComponentType, ExternalReferenceType, HashAlgorithm } from './enums'
 import { HashContent } from './models'
 
 export enum Version {
@@ -275,10 +277,8 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
   true
 ))
 
-export const SpecVersionDict: {
-  readonly [key in Version]?: Readonly<Protocol>
-} = Object.freeze(Object.fromEntries([
+export const SpecVersionDict = Object.freeze(Object.fromEntries([
   [Version.v1dot2, Spec1dot2],
   [Version.v1dot3, Spec1dot3],
   [Version.v1dot4, Spec1dot4]
-]))
+]) as { [key in Version]?: Readonly<Protocol> })
