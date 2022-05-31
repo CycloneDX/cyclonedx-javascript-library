@@ -25,7 +25,8 @@
   },
   "contributors": [
     {
-      "name": "Jan Kowalleck"
+      "name": "Jan Kowalleck",
+      "email": "jan.kowalleck@gmail.com"
     }
   ],
   "type": "commonjs",
