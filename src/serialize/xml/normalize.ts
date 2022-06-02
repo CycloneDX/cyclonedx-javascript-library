@@ -542,7 +542,7 @@ export class DependencyGraphNormalizer extends Base {
       return undefined
     }
 
-    const dependsOn: string[] = Array.from(deps).filter(d => allRefs.has(d))
+    const dependsOn: string[] = Array.from(deps).filter(d => allRefs.has(d) && d !== ref)
       .map(d => d.toString()).filter(d => d.length > 0)
     if (options.sortLists ?? false) {
       dependsOn.sort((a, b) => a.localeCompare(b))

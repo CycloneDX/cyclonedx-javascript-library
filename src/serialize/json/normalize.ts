@@ -425,7 +425,7 @@ export class DependencyGraphNormalizer extends Base {
     }
 
     const dependsOn: string[] = normalizeStringableIter(
-      Array.from(deps).filter(d => allRefs.has(d)),
+      Array.from(deps).filter(d => allRefs.has(d) && d !== ref),
       options
     ).filter(d => d.length > 0)
 
