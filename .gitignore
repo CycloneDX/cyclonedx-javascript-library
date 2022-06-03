@@ -1,4 +1,5 @@
-/.*.cache/
+/.*.cache
+
 /reports/
 /CI_reports/
 

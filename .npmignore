@@ -167,6 +167,7 @@ dist
 /tests/
 /examples/
 
-/.*.cache/
+/.*.cache
+
 /reports/
 /CI_reports/
