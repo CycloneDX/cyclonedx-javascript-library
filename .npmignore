@@ -160,8 +160,8 @@ dist
 # as they provide definition context and typing for downstream users.
 # The compiler configs are shipped, so downstream users can inherit from them.
 !/src/
-!/tsconfig.json
-!/webpack.config.js
+!/tsconfig.*
+!/webpack.*
 
 /test/
 /tests/
