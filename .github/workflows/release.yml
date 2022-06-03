@@ -75,7 +75,7 @@ jobs:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: install build tools
         run: npm ci --ignore-scripts
-      # no explicit npm build. if a build is required, it should be configured as prepublish script of npm.
+      # no explicit npm build. if a build is required, it should be configured as prepublish/prepublishOnly script of npm.
       - name: publish to NPM
         run: |
           npm config set "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN"

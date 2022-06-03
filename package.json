@@ -63,6 +63,7 @@
   },
   "scripts": {
     "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "lint": "tsc --noEmit",
     "build": "npm run build:node && npm run build:web",
     "prebuild:node": "node -r fs -e 'fs.rmSync(\"dist.node\",{recursive:true,force:true})'",
