@@ -19,10 +19,14 @@ Copyright (c) Steve Springett. All Rights Reserved.
 /**
  * mocha config
  * @see {@link https://mochajs.org/#configuring-mocha-nodejs}
+ * @see {@link https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.js example}
  */
 module.exports = {
   spec: 'tests',
   recursive: true,
+  parallel: true,
+  'check-leaks': false,
+  global: [],
   extension: [
     'spec.js', 'test.js',
     'spec.cjs', 'test.cjs',
