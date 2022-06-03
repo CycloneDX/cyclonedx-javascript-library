@@ -26,6 +26,7 @@ module.exports = {
   recursive: true,
   parallel: true,
   'check-leaks': false,
+  checkLeaks: true, // browser-compat version of setting `check-leaks`
   global: [],
   extension: [
     'spec.js', 'test.js',
