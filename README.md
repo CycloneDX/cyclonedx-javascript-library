@@ -55,8 +55,8 @@ written in _TypeScript_ and compiled for the target.
     * `1.4`
     * `1.3`
     * `1.2`
-* Normalizer that converts data models to JSON structures
-* Normalizer that converts data models to XML structures
+* Normalizers that convert data models to JSON structures
+* Normalizers that convert data models to XML structures
 * Universal serializer that converts `Bom` data models to JSON string
 * Serializer that converts `Bom` data models to XML string:
   * Specific to _WebBrowsers_: implementation `XmlSerializer` utilizes browser-specific document generators and printers.
