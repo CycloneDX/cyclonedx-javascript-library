@@ -23,10 +23,11 @@ written in _TypeScript_ and compiled for the target.
     * respects any injected [CycloneDX Specification][CycloneDX-spec] and generates valid output according to it.
     * takes care of BomRef-discrimination (uniqueness - not meaning).
     * can be configured to generate reproducible/deterministic output.
+    * can prepare data structures for JSON and XML.
 * Bring serialization to the target environment:
-    * Only for _WebBrowsers_.  
-      There is no built-in capability for XML in _Node.js_, so no common implementation can be done.
-* Allow users to implement custom serializers tailored to their target environment.
+    * JSON-serialization for all target environments.
+    * XML-serialization is available only for _WebBrowsers_.  
+    * Allow users to implement custom serializers tailored to their target environment.
 
 ## Capabilities
 
@@ -56,8 +57,12 @@ written in _TypeScript_ and compiled for the target.
     * `1.2`
 * Normalizer that converts data models to JSON structures
 * Normalizer that converts data models to XML structures
-* General purpose serializer that converts data models to JSON string
-* Specific to _WebBrowsers_: Serializer that converts data models to XML string
+* Universal serializer that converts `Bom` data models to JSON string
+* Serializer that converts `Bom` data models to XML string:
+  * Specific to _WebBrowsers_: implementation `XmlSerializer` utilizes browser-specific document generators and printers.
+  * Specific to _Node.js_: `XmlBaseSerializer` that already takes care of normalization and
+    allows downstream to implement custom serializers tailored to their target environment.
+    (In _Node.js_ there is no built-in capability for XML, so no common final serializer implementation can be done.)
 
 ## Installation
 
