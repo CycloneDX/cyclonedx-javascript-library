@@ -6,15 +6,14 @@
 
 ----
 
-# CycloneDX JavaScript library
+# CycloneDX JavaScript Library
 
-Core functionality of [CycloneDX] for _JavaScript_ (node or web-browser),
+Core functionality of [CycloneDX] for _JavaScript_ (_Node.js_ or _WebBrowsers_),
 written in _TypeScript_ and compiled to the target.
-
 
 ## Responsibilities
 
-* Bring general purpose JavaScript implementation for _WebBrowsers_ and _node.js_.
+* Bring general purpose JavaScript implementation for _Node.js_ and _WebBrowsers_.
 * Bring typing for said implementation, so developers and dev-tools can rely on it.
 * Bring core data models to the target environment.
 * Bring normalization to the target environment, that...
@@ -24,7 +23,7 @@ written in _TypeScript_ and compiled to the target.
     * can be configured to generate reproducible/deterministic output.
 * Bring serialization to the target environment:
     * Only for _WebBrowsers_.  
-      There is no built-in capability for XML in _node.js_, so no common implementation can be done.
+      There is no built-in capability for XML in _Node.js_, so no common implementation can be done.
 * Allow users to implement custom serializers tailored to their target environment.
 
 ## Capabilities
@@ -58,7 +57,7 @@ written in _TypeScript_ and compiled to the target.
 * General purpose serializer that converts data models to JSON string
 * Specific to _WebBrowsers_: Serializer that converts data models to XML string
 
-## Install
+## Installation
 
 This package and the build results are available for npm and yarn:
 
@@ -77,7 +76,7 @@ npm i -S github:CycloneDX/cyclonedx-javascript-library
 
 ## Usage
 
-### As node package
+### As _Node.js_ package
 
 ```javascript
 const cdx = require('@cyclonedx/cyclonedx-library')
@@ -91,7 +90,7 @@ bom.components.add(
 )
 ```
 
-### In web-browser
+### In _WebBrowsers_
 
 ```html
 <script src="path-to-this-package/dist.web/lib.js">
@@ -122,7 +121,6 @@ See the [LICENSE][license_file] file for the full license.
 
 [CycloneDX]: https://cyclonedx.org/
 [CycloneDX-spec]: https://github.com/CycloneDX/specification/tree/master/schema
-
 
 [license_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/master/LICENSE
 [contributing_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/master/CONTRIBUTING.md
