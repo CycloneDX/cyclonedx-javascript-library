@@ -11,6 +11,53 @@
 Core functionality of [CycloneDX] for _JavaScript_ (node or web-browser),
 written in _TypeScript_ and compiled to the target.
 
+
+## Responsibilities
+
+* Bring general purpose JavaScript implementation for _WebBrowsers_ and _node.js_.
+* Bring typing for said implementation, so developers and dev-tools can rely on it.
+* Bring core data models to the target environment.
+* Bring normalization to the target environment, that...
+    * supports all shipped data models.
+    * respects any injected [CycloneDX Specification][CycloneDX-spec] and generates valid output according to it.
+    * takes care of BomRef-discrimination (uniqueness).
+    * can be configured to generate reproducible/deterministic output.
+* Bring serialization to the target environment:
+    * Only for _WebBrowsers_.  
+      There is no built-in capability for XML in _node.js_, so no common implementation can be done.
+* Allow users to implement custom serializers tailored to their target environment.
+
+## Capabilities
+
+* Enums for the following use cases
+    * `AttachmentEncoding`
+    * `ComponentScope`
+    * `ComponentType`
+    * `ExternalReferenceType`
+    * `HashAlgorithm`
+* Data models for the following use cases
+    * `Attachment`
+    * `Bom`
+    * `BomRef`, `BomRefRepository`
+    * `Component`, `ComponentRepository`
+    * `ExternalReference`, `ExternalReferenceRepository`
+    * `HashContent`, `Hash`, `HashRepository`
+    * `LicenseExpression`, `NamedLicense`, `SpdxLicense`, `LicenseRepository`
+    * `Metadata`
+    * `OrganizationalContact`, `OrganizationalContactRepository`
+    * `OrganizationalEntity`
+    * `SWID`
+    * `Tool`, `ToolRepository`
+* Factory, that can create data models from any license descriptor string
+* Implementation of the [CycloneDX Specification][CycloneDX-spec] for the following versions:
+    * `1.4`
+    * `1.3`
+    * `1.2`
+* Normalizer that converts data models to JSON structures
+* Normalizer that converts data models to XML structures
+* General purpose serializer that converts data models to JSON string
+* Specific to _WebBrowsers_: Serializer that converts data models to XML string
+
 ## Install
 
 This package and the build results are available for npm and yarn:
@@ -74,6 +121,8 @@ Permission to modify and redistribute is granted under the terms of the Apache 2
 See the [LICENSE][license_file] file for the full license.
 
 [CycloneDX]: https://cyclonedx.org/
+[CycloneDX-spec]: https://github.com/CycloneDX/specification/tree/master/schema
+
 
 [license_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/master/LICENSE
 [contributing_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/master/CONTRIBUTING.md
