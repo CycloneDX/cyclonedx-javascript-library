@@ -37,8 +37,9 @@ suite('ExternalReferenceType enum', () => {
   ])
 
   schemas.forEach((resourceFile, specVersion) =>
-    suite(`from spec ${specVersion} (${resourceFile})`, () =>
-      getSpecEnum(resourceFile, 'externalReference', 'properties', 'type').forEach(enumValue => {
+    suite(`from spec ${specVersion} (${resourceFile})`, () => {
+      const knownValues = getSpecEnum(resourceFile, 'externalReference', 'properties', 'type')
+      knownValues.forEach(enumValue => {
         let expectedName = upperCamelCase(enumValue)
         switch (enumValue) {
           case 'vcs':
@@ -53,6 +54,12 @@ suite('ExternalReferenceType enum', () => {
           assert.ok(SpecVersionDict[specVersion]?.supportsExternalReferenceType(enumValue))
         )
       })
-    )
+      const unknownValues = Object.values(ExternalReferenceType).filter(enumValue => !knownValues.includes(enumValue))
+      unknownValues.forEach(enumValue =>
+        test(`not supported: ${enumValue}`, () =>
+          assert.ok(!SpecVersionDict[specVersion]?.supportsHashAlgorithm(enumValue))
+        )
+      )
+    })
   )
 })

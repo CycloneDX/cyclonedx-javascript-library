@@ -37,13 +37,14 @@ suite('ComponentScope enum', () => {
   ])
 
   schemas.forEach((resourceFile, specVersion) =>
-    suite(`from spec ${specVersion} (${resourceFile})`, () =>
-      getSpecEnum(resourceFile, 'component', 'properties', 'scope').forEach(enumValue => {
+    suite(`from spec ${specVersion} (${resourceFile})`, () => {
+      const enumValues = getSpecEnum(resourceFile, 'component', 'properties', 'scope')
+      enumValues.forEach(enumValue => {
         const expectedName = upperCamelCase(enumValue)
         test(`is known: ${expectedName} -> ${enumValue}`, () =>
           assert.strictEqual(ComponentScope[expectedName], enumValue)
         )
       })
-    )
+    })
   )
 })

@@ -37,8 +37,9 @@ suite('HashAlgorithm enum', () => {
   ])
 
   schemas.forEach((resourceFile, specVersion) =>
-    suite(`from spec ${specVersion} (${resourceFile})`, () =>
-      getSpecEnum(resourceFile, 'hash-alg').forEach(enumValue => {
+    suite(`from spec ${specVersion} (${resourceFile})`, () => {
+      const knownValues = getSpecEnum(resourceFile, 'hash-alg')
+      knownValues.forEach(enumValue => {
         const expectedName = capitaliseFirstLetter(enumValue)
         test(`is known: ${expectedName} -> ${enumValue}`, () =>
           assert.strictEqual(HashAlgorithm[expectedName], enumValue)
@@ -47,6 +48,12 @@ suite('HashAlgorithm enum', () => {
           assert.ok(SpecVersionDict[specVersion]?.supportsHashAlgorithm(enumValue))
         )
       })
-    )
+      const unknownValues = Object.values(HashAlgorithm).filter(enumValue => !knownValues.includes(enumValue))
+      unknownValues.forEach(enumValue =>
+        test(`not supported: ${enumValue}`, () =>
+          assert.ok(!SpecVersionDict[specVersion]?.supportsHashAlgorithm(enumValue))
+        )
+      )
+    })
   )
 })

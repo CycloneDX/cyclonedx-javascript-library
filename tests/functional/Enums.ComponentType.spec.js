@@ -37,8 +37,9 @@ suite('ComponentType enum', () => {
   ])
 
   schemas.forEach((resourceFile, specVersion) =>
-    suite(`from spec ${specVersion} (${resourceFile})`, () =>
-      getSpecEnum(resourceFile, 'component', 'properties', 'type').forEach(enumValue => {
+    suite(`from spec ${specVersion} (${resourceFile})`, () => {
+      const knownValues = getSpecEnum(resourceFile, 'component', 'properties', 'type')
+      knownValues.forEach(enumValue => {
         const expectedName = upperCamelCase(enumValue)
         test(`is known: ${expectedName} -> ${enumValue}`, () =>
           assert.strictEqual(ComponentType[expectedName], enumValue)
@@ -47,6 +48,12 @@ suite('ComponentType enum', () => {
           assert.ok(SpecVersionDict[specVersion]?.supportsComponentType(enumValue))
         )
       })
-    )
+      const unknownValues = Object.values(ComponentType).filter(enumValue => !knownValues.includes(enumValue))
+      unknownValues.forEach(enumValue =>
+        test(`not supported: ${enumValue}`, () =>
+          assert.ok(!SpecVersionDict[specVersion]?.supportsHashAlgorithm(enumValue))
+        )
+      )
+    })
   )
 })
