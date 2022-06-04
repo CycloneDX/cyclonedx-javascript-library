@@ -26,19 +26,22 @@ const { capitaliseFirstLetter } = require('../_helpers/stringFunctions')
 
 const {
   Enums: { HashAlgorithm },
-  Spec: { Version, SpecVersionDict }
+  Spec: { Version, SpecVersionDict },
+  Resources: { FILES: { CDX: { JSON_SCHEMA: CDX_JSON_SCHEMA } } }
 } = require('../../')
 
 suite('HashAlgorithm enum', () => {
-  const schemas = new Map([
-    [Version.v1dot2, 'bom-1.2.SNAPSHOT.schema.json'],
-    [Version.v1dot3, 'bom-1.3.SNAPSHOT.schema.json'],
-    [Version.v1dot4, 'bom-1.4.SNAPSHOT.schema.json']
+  const specVersions = new Set([
+    Version.v1dot2,
+    Version.v1dot3,
+    Version.v1dot4
   ])
 
-  schemas.forEach((resourceFile, specVersion) =>
-    suite(`from spec ${specVersion} (${resourceFile})`, () => {
-      const knownValues = getSpecEnum(resourceFile, 'hash-alg')
+  specVersions.forEach(specVersion =>
+    suite(`from spec ${specVersion}`, () => {
+      const knownValues = getSpecEnum(
+        CDX_JSON_SCHEMA[specVersion],
+        'hash-alg')
       knownValues.forEach(enumValue => {
         const expectedName = capitaliseFirstLetter(enumValue)
         test(`is known: ${expectedName} -> ${enumValue}`, () =>

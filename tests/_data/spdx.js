@@ -19,12 +19,13 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 const fs = require('fs')
-const path = require('path')
 const assert = require('assert')
 
-const spdxSpecEnum = JSON.parse(fs.readFileSync(path.resolve(
-  __dirname, '..', '..', 'res', 'spdx.SNAPSHOT.schema.json'
-))).enum
+const { Resources: { FILES: { SPDX: { JSON_SCHEMA: SPDX_JSON_SCHEMA } } } } = require('../../')
+
+const spdxSpecEnum = JSON.parse(fs.readFileSync(
+  SPDX_JSON_SCHEMA
+)).enum
 
 assert.ok(spdxSpecEnum instanceof Array)
 assert.notEqual(spdxSpecEnum.length, 0)

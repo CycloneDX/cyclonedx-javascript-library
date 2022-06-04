@@ -26,19 +26,22 @@ const { upperCamelCase } = require('../_helpers/stringFunctions')
 
 const {
   Enums: { ComponentScope },
-  Spec: { Version }
+  Spec: { Version },
+  Resources: { FILES: { CDX: { JSON_SCHEMA: CDX_JSON_SCHEMA } } }
 } = require('../../')
 
 suite('ComponentScope enum', () => {
-  const schemas = new Map([
-    [Version.v1dot2, 'bom-1.2.SNAPSHOT.schema.json'],
-    [Version.v1dot3, 'bom-1.3.SNAPSHOT.schema.json'],
-    [Version.v1dot4, 'bom-1.4.SNAPSHOT.schema.json']
+  const specVersions = new Set([
+    Version.v1dot2,
+    Version.v1dot3,
+    Version.v1dot4
   ])
 
-  schemas.forEach((resourceFile, specVersion) =>
-    suite(`from spec ${specVersion} (${resourceFile})`, () => {
-      const enumValues = getSpecEnum(resourceFile, 'component', 'properties', 'scope')
+  specVersions.forEach(specVersion =>
+    suite(`from spec ${specVersion}`, () => {
+      const enumValues = getSpecEnum(
+        CDX_JSON_SCHEMA[specVersion],
+        'component', 'properties', 'scope')
       enumValues.forEach(enumValue => {
         const expectedName = upperCamelCase(enumValue)
         test(`is known: ${expectedName} -> ${enumValue}`, () =>
