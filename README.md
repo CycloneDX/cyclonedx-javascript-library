@@ -11,7 +11,7 @@
 # CycloneDX JavaScript Library
 
 Core functionality of [CycloneDX] for _JavaScript_ (_Node.js_ or _WebBrowsers_),
-written in _TypeScript_ and compiled to the target.
+written in _TypeScript_ and compiled for the target.
 
 ## Responsibilities
 
