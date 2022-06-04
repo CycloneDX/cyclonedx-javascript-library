@@ -26,7 +26,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 module.exports = {
   spec: 'tests',
   recursive: true,
-  parallel: true,
+  parallel: false, // if true, then some IDEs cannot run it
   'check-leaks': false,
   checkLeaks: true, // browser-compat version of setting `check-leaks`
   global: [],

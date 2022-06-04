@@ -30,6 +30,10 @@ export class BomRefDiscriminator {
     )
   }
 
+  [Symbol.iterator] (): IterableIterator<BomRef> {
+    return this.#originalValues.keys()
+  }
+
   discriminate (): void {
     const knownRefValues = new Set<string>()
     for (const [bomRef] of this.#originalValues) {
@@ -48,6 +52,10 @@ export class BomRefDiscriminator {
     }
   }
 
+  /**
+   * generate a string in the format:
+   * <prefix>.<some-characters>.<some-characters>
+   */
   #makeUniqueId (): string {
     return `${
       this.#prefix

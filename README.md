@@ -20,7 +20,7 @@ written in _TypeScript_ and compiled to the target.
 * Bring normalization to the target environment, that...
     * supports all shipped data models.
     * respects any injected [CycloneDX Specification][CycloneDX-spec] and generates valid output according to it.
-    * takes care of BomRef-discrimination (uniqueness).
+    * takes care of BomRef-discrimination (uniqueness - not meaning).
     * can be configured to generate reproducible/deterministic output.
 * Bring serialization to the target environment:
     * Only for _WebBrowsers_.  

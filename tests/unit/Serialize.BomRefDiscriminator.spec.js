@@ -116,4 +116,31 @@ suite('BomRefDiscriminator', () => {
     assert.strictEqual(bomRef3.value, undefined)
     assert.strictEqual(bomRef4.value, 'bar')
   })
+
+  test('Array from iterator', () => {
+    const bomRef1 = new BomRef('foo')
+    const bomRef2 = new BomRef('bar')
+    const discriminator = new BomRefDiscriminator([bomRef1, bomRef2])
+
+    const arr = Array.from(discriminator)
+
+    assert.strictEqual(arr.length, 2)
+    assert.ok(arr.includes(bomRef1))
+    assert.ok(arr.includes(bomRef2))
+  })
+
+  test('loop of iterator', () => {
+    const bomRef1 = new BomRef('foo')
+    const bomRef2 = new BomRef('bar')
+    const discriminator = new BomRefDiscriminator([bomRef1, bomRef2])
+
+    const arr = []
+    for (const bomRef of discriminator) {
+      arr.push(bomRef)
+    }
+
+    assert.strictEqual(arr.length, 2)
+    assert.ok(arr.includes(bomRef1))
+    assert.ok(arr.includes(bomRef2))
+  })
 })

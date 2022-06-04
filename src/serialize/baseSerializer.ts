@@ -24,9 +24,13 @@ import { NormalizerOptions, Serializer, SerializerOptions } from './types'
 export abstract class BaseSerializer<NormalizedBom> implements Serializer {
   serialize (bom: Bom, options?: SerializerOptions & NormalizerOptions): string {
     const bomRefDiscriminator = new BomRefDiscriminator(this.#getAllBomRefs(bom))
-    bomRefDiscriminator.discriminate()
     try {
-      return this._serialize(this._normalize(bom, options), options)
+      // This IS NOT the place to put meaning to the BomRef values. This would be out of scope.
+      // This IS the place to make BomRef values (temporary) unique in their own document scope.
+      bomRefDiscriminator.discriminate()
+
+      const normalized = this._normalize(bom, options)
+      return this._serialize(normalized, options)
     } finally {
       bomRefDiscriminator.reset()
     }
@@ -34,11 +38,11 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
 
   #getAllBomRefs (bom: Bom): Iterable<BomRef> {
     const bomRefs = new Set<BomRef>()
-    for (const c of bom.components) {
-      bomRefs.add(c.bomRef)
-    }
     if (bom.metadata.component !== undefined) {
       bomRefs.add(bom.metadata.component.bomRef)
+    }
+    for (const { bomRef } of bom.components) {
+      bomRefs.add(bomRef)
     }
     return bomRefs.values()
   }
