@@ -1,7 +1,7 @@
 {
   "name": "@cyclonedx/cyclonedx-library",
   "version": "1.0.0-beta.1",
-  "description": "Core functionality of CycloneDX for JavaScript (node or web-browser).",
+  "description": "Core functionality of CycloneDX for JavaScript (Node.js or WebBrowser).",
   "keywords": [
     "CycloneDX",
     "SBOM",
