@@ -56,10 +56,10 @@ jobs:
           NPMV_MESSAGE: ${{ github.event.inputs.commitMessage }}
       - name: git push back
         run: git push --follow-tags
-  publish-NPM:
+  publish-NPMJS:
     needs:
       - "bump"
-    name: NPM - publish
+    name: NPMJS - publish
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -76,16 +76,16 @@ jobs:
       - name: install build tools
         run: npm ci --ignore-scripts
       # no explicit npm build. if a build is required, it should be configured as prepublish/prepublishOnly script of npm.
-      - name: publish to NPM
+      - name: publish to NPMJS
         run: |
-          npm config set "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN"
+          npm config set "//registry.npmjs.org/:_authToken=$NPMJS_AUTH_TOKEN"
           npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPMJS_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   release-GH:
     needs:
       - "bump"
-      - "publish-NPM"
+      - "publish-NPMJS"
     name: GitHub - release
     runs-on: ubuntu-latest
     timeout-minutes: 30
