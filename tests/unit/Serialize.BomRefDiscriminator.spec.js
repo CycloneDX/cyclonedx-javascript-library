@@ -123,6 +123,7 @@ suite('BomRefDiscriminator', () => {
     assert.strictEqual(bomRef4.value, 'bar')
 
     discriminator.reset()
+
     assert.strictEqual(bomRef1.value, undefined)
     assert.strictEqual(bomRef2.value, 'foo')
     assert.strictEqual(bomRef3.value, undefined)
