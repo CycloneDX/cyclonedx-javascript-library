@@ -57,10 +57,11 @@
   "main": "./dist.node/_index.node.js",
   "exports": "./dist.node/_index.node.js",
   "directories": {
-    "lib": "dist.node",
-    "doc": "docs",
-    "example": "examples",
-    "test": "tests"
+    "doc": "./docs",
+    "src": "./src",
+    "lib": "./dist.node",
+    "test": "./tests",
+    "example": "./examples"
   },
   "scripts": {
     "prepublish": "npm run build",
@@ -74,7 +75,7 @@
     "cs-fix": "eslint --fix .",
     "test": " npm run test:standard && npm run test:web && npm run test:node",
     "test:node": "mocha",
-    "test:web": "node -e 'console.log(\"todo: write web test\")'",
+    "test:web": "node -e 'console.log(\"TODO: write web test\")'",
     "test:standard": "eslint ."
   }
 }
