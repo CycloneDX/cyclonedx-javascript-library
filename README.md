@@ -10,24 +10,24 @@
 
 # CycloneDX JavaScript Library
 
-Core functionality of [CycloneDX] for _JavaScript_ (_Node.js_ or _WebBrowsers_),
+Core functionality of [_CycloneDX_][CycloneDX] for _JavaScript_ (_Node.js_ or _WebBrowsers_),
 written in _TypeScript_ and compiled for the target.
 
 ## Responsibilities
 
-* Bring general purpose JavaScript implementation for _Node.js_ and _WebBrowsers_.
-* Bring typing for said implementation, so developers and dev-tools can rely on it.
-* Bring core data models to the target environment.
-* Bring normalization to the target environment, that...
+* Provide a general purpose _JavaScript_-implementation of [_CycloneDX_][CycloneDX] for _Node.js_ and _WebBrowsers_.
+* Provide typing for said implementation, so developers and dev-tools can rely on it.
+* Provide data models to work with _CycloneDX_.
+* Provide a JSON- and an XML-normalizer, that...
     * supports all shipped data models.
-    * respects any injected [CycloneDX Specification][CycloneDX-spec] and generates valid output according to it.
-    * takes care of BomRef-discrimination (uniqueness - not meaning).
+    * respects any injected [_CycloneDX_ Specification][CycloneDX-spec] and generates valid output according to it.
     * can be configured to generate reproducible/deterministic output.
-    * can prepare data structures for JSON and XML.
-* Bring serialization to the target environment:
-    * JSON-serialization for all target environments.
-    * XML-serialization is available only for _WebBrowsers_.  
-    * Allow users to implement custom serializers tailored to their target environment.
+    * can prepare data structures for JSON- and XML-serialization.
+* Serialization:
+    * Provide a JSON-serializer for all target environments.
+    * Provide an XML-serializer for _WebBrowsers_.
+    * Support the implementation of custom XML-serializers tailored to specific _Node.js_ environments  
+      by providing an abstract base class that takes care of normalization and BomRef-discrimination.
 
 ## Capabilities
 
@@ -51,7 +51,7 @@ written in _TypeScript_ and compiled for the target.
     * `SWID`
     * `Tool`, `ToolRepository`
 * Factory, that can create data models from any license descriptor string
-* Implementation of the [CycloneDX Specification][CycloneDX-spec] for the following versions:
+* Implementation of the [_CycloneDX_ Specification][CycloneDX-spec] for the following versions:
     * `1.4`
     * `1.3`
     * `1.2`
@@ -60,9 +60,9 @@ written in _TypeScript_ and compiled for the target.
 * Universal serializer that converts `Bom` data models to JSON string
 * Serializer that converts `Bom` data models to XML string:
   * Specific to _WebBrowsers_: implementation `XmlSerializer` utilizes browser-specific document generators and printers.
-  * Specific to _Node.js_: `XmlBaseSerializer` that already takes care of normalization and
-    allows downstream to implement custom serializers tailored to their target environment.
-    (In _Node.js_ there is no built-in capability for XML, so no common final serializer implementation can be done.)
+  * Specific to _Node.js_: `XmlBaseSerializer` that already takes care of normalization and BomRef-discrimination,
+    allows downstream to implement custom serializers tailored to their specific _Node.js_ environment.
+    (Background: In _Node.js_ there is no built-in capability for XML, so no common serializer implementation can be provided.)
 
 ## Installation
 
