@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 /* eslint-disable */
-/* @ts-ignore: TS6059 -- this works as long as the paths are available in dist dir */
+/* @ts-ignore: TS6059 -- this works as long as the file/path is available in dist-package */
 import {enum as _spdxSpecEnum} from '../res/spdx.SNAPSHOT.schema.json'
 /* eslint-enable */
 
