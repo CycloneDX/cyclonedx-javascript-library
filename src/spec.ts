@@ -54,6 +54,10 @@ export interface Protocol {
   readonly supportsToolReferences: boolean
 }
 
+/**
+ * @internal This class was never intended to be public,
+ *           but it is a helper to get the Spec implemented according to {@see Protocol}.
+ */
 class Spec implements Protocol {
   readonly #version: Version
   readonly #formats: ReadonlySet<Format>
