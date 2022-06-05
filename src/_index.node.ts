@@ -24,5 +24,8 @@ export * as Serialize from './serialize/_index.node'
 export * as SPDX from './spdx'
 export * as Spec from './spec'
 export * as Types from './types'
+
+/** @internal until the resources-module was finalized and showed value */
 export * as Resources from './resources.node'
+
 // do not export the helpers, they are for internal use only

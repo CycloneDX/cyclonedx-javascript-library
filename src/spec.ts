@@ -56,7 +56,7 @@ export interface Protocol {
 
 /**
  * @internal This class was never intended to be public,
- *           but it is a helper to get the Spec implemented according to {@see Protocol}.
+ *           but it is a helper to get the exact spec-versions implemented according to {@see Protocol}.
  */
 class Spec implements Protocol {
   readonly #version: Version
