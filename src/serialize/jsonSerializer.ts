@@ -31,7 +31,7 @@ export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
   readonly #normalizerFactory: NormalizerFactory
 
   /**
-   * @throws {UnsupportedFormatError} if {@see NormalizerFactory.spec} does not support {@see Format.JSON}.
+   * @throws {UnsupportedFormatError} if {@see normalizerFactory.spec} does not support {@see Format.JSON}.
    */
   constructor (normalizerFactory: NormalizerFactory) {
     if (!normalizerFactory.spec.supportsFormat(Format.JSON)) {
@@ -42,18 +42,18 @@ export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
     this.#normalizerFactory = normalizerFactory
   }
 
-  protected _serialize (
-    bom: Normalized.Bom,
-    { space }: SerializerOptions = {}
-  ): string {
-    return JSON.stringify(bom, null, space)
-  }
-
   protected _normalize (
     bom: Bom,
     options: NormalizerOptions = {}
   ): Normalized.Bom {
     return this.#normalizerFactory.makeForBom()
       .normalize(bom, options)
+  }
+
+  protected _serialize (
+    bom: Normalized.Bom,
+    { space }: SerializerOptions = {}
+  ): string {
+    return JSON.stringify(bom, null, space)
   }
 }

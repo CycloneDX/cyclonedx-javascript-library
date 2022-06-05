@@ -20,14 +20,15 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import { BomRef } from '../models'
 
 export class BomRefDiscriminator {
-  readonly #prefix = 'BomRef'
-
   readonly #originalValues: ReadonlyMap<BomRef, string | undefined>
 
-  constructor (bomRefs: Iterable<BomRef>) {
+  readonly #prefix: string
+
+  constructor (bomRefs: Iterable<BomRef>, prefix: string = 'BomRef') {
     this.#originalValues = new Map(
       Array.from(bomRefs).map(ref => [ref, ref.value])
     )
+    this.#prefix = prefix
   }
 
   [Symbol.iterator] (): IterableIterator<BomRef> {

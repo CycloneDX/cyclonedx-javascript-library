@@ -47,7 +47,6 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
     return bomRefs.values()
   }
 
-  protected abstract _serialize (normalizedBom: NormalizedBom, options?: SerializerOptions): string
-
   protected abstract _normalize (bom: Bom, options?: NormalizerOptions): NormalizedBom
+  protected abstract _serialize (normalizedBom: NormalizedBom, options?: SerializerOptions): string
 }

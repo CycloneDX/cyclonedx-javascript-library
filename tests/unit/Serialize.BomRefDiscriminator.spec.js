@@ -62,17 +62,29 @@ suite('BomRefDiscriminator', () => {
     const bomRef3 = new BomRef()
     const bomRef4 = new BomRef('foo')
 
-    const discriminator = new BomRefDiscriminator([bomRef1, bomRef2, bomRef3, bomRef4])
+    const discriminatedPrefix = 'TESTING'
+    const expectedFormat = new RegExp(`^${discriminatedPrefix}\\.[0-9a-z]+\\.[0-9a-z]+$`)
+
+    const discriminator = new BomRefDiscriminator(
+      [bomRef1, bomRef2, bomRef3, bomRef4],
+      discriminatedPrefix
+    )
     assert.strictEqual(bomRef1.value, undefined)
     assert.strictEqual(bomRef2.value, 'foo')
     assert.strictEqual(bomRef3.value, undefined)
     assert.strictEqual(bomRef4.value, 'foo')
 
     discriminator.discriminate()
+
     assert.ok(typeof bomRef1.value === 'string')
     assert.ok(typeof bomRef2.value === 'string')
     assert.ok(typeof bomRef3.value === 'string')
     assert.ok(typeof bomRef4.value === 'string')
+
+    assert.match(bomRef1.value, expectedFormat)
+    assert.match(bomRef3.value, expectedFormat)
+
+    assert.ok(expectedFormat.test(bomRef2.value) ^ expectedFormat.test(bomRef4.value))
 
     assert.notStrictEqual(bomRef2.value, bomRef1.value)
     assert.notStrictEqual(bomRef3.value, bomRef1.value)
