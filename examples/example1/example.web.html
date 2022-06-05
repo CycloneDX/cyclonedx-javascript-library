@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <title>example</title>
-  <script src="../dist.web/lib.js" type="application/javascript">
+  <script src="node_modules/@cyclonedx/cyclonedx-library/dist.web/lib.js" type="application/javascript">
     // full Library is available as `CycloneDX_library`, per default
   </script>
   <script type="application/javascript">
@@ -28,6 +28,7 @@
 
     /** Example how to serialize a Bom to JSON / XML. */
 
+    /** @type {import('@cyclonedx/cyclonedx-library')} */
     const cdx = CycloneDX_library
     // full Library is available as `cdx`, now
 

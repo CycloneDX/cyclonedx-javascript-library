@@ -41,6 +41,7 @@
     "packageurl-js": "^0.0.6"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.24.2",
     "@types/mocha": "^9.1.1",
     "@types/node": "^17.0.39",
     "@types/webpack": "^5.28.0",
@@ -54,7 +55,7 @@
     "webpack-cli": "4.9.2"
   },
   "browser": "./dist.web/lib.js",
-  "types": "./src/_index.node.ts",
+  "types": "dist.d/_index.node.ts",
   "main": "./dist.node/_index.node.js",
   "exports": "./dist.node/_index.node.js",
   "directories": {
@@ -73,6 +74,7 @@
     "build:node": "tsc -b ./tsconfig.node.json",
     "prebuild:web": "node -r fs -e 'fs.rmSync(\"dist.web\",{recursive:true,force:true})'",
     "build:web": "webpack",
+    "build:declaration": "tsc -b tsconfig.declaration.json ",
     "cs-fix": "eslint --fix .",
     "test": "run-p --aggregate-output -lc test:*",
     "test:node": "mocha",
