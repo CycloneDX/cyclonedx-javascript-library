@@ -14,7 +14,7 @@ env:
 
 jobs:
   build:
-    name: build for ${{ matrix.target }}
+    name: build ${{ matrix.target }}
     runs-on: "ubuntu-latest"
     timeout-minutes: 30
     strategy:
@@ -45,9 +45,28 @@ jobs:
           name: dist.${{ matrix.target }}
           path: dist.${{ matrix.target }}
           if-no-files-found: error
-  test:
-    needs: [ build ]
-    name: test (node${{ matrix.node-version }}, ${{ matrix.os }})
+  test-standard:
+    name: test standard
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        # see https://github.com/actions/checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
+        # see https://github.com/actions/setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_ACTIVE_LTS }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+      - name: setup project
+        run: npm ci --ignore-scripts
+      - name: test
+        run: npm run test:standard
+  test-node:
+    needs: [ 'build' ]
+    name: test node (${{ matrix.node-version }}, ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -84,4 +103,6 @@ jobs:
           name: dist.node
           path: dist.node
       - name: test
-        run: npm test
+        run: npm run test:node
+  # test-web:
+    # TODO via https://github.com/CycloneDX/cyclonedx-javascript-library/issues/51
