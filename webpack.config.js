@@ -35,10 +35,7 @@ const configBase = {
         loader: 'ts-loader',
         // see https://github.com/TypeStrong/ts-loader
         options: {
-          configFile: 'tsconfig.web.json',
-          compilerOptions: {
-            // in here parts of typescript compiler can be overridden
-          }
+          configFile: 'tsconfig.web.json'
         }
       }
     ]
