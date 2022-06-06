@@ -18,18 +18,18 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const possibileStringifiers = [
+const possibleStringifiers = [
   // prioritized list of possible implementations
   'xmlbuilder2'
 ]
 
 module.exports.stringify = undefined
-let possibileStringifier
-for (const file of possibileStringifiers) {
+let possibleStringifier
+for (const file of possibleStringifiers) {
   try {
-    possibileStringifier = require(`./stringifiers/${file}`)
-    if (typeof possibileStringifier === 'function') {
-      module.exports.stringify = possibileStringifier
+    possibleStringifier = require(`./stringifiers/${file}`)
+    if (typeof possibleStringifier === 'function') {
+      module.exports.stringify = possibleStringifier
       break
     }
   } catch {
