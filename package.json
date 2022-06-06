@@ -75,7 +75,7 @@
     "build:web": "webpack",
     "cs-fix": "eslint --fix .",
     "test": "run-p --aggregate-output -lc test:*",
-    "test:node": "mocha",
+    "test:node": "mocha -p",
     "test:web": "node -e 'console.log(\"TODO: write web test\")'",
     "test:standard": "eslint ."
   }
