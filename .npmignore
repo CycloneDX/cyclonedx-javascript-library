@@ -171,3 +171,11 @@ dist
 
 /reports/
 /CI_reports/
+
+/libs/
+!/libs/**.js
+!/libs/**.d.ts
+/libs/test/
+/libs/tests/
+/libs/**.spec.*
+/libs/**.test.*

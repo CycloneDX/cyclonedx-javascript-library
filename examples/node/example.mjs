@@ -36,3 +36,9 @@ const jsonSerializer = new cdx.Serialize.JsonSerializer(
     cdx.Spec.Spec1dot4))
 const serialized = jsonSerializer.serialize(bom)
 console.log(serialized)
+
+const xmlSerializer = new cdx.Serialize.XmlSerializer(
+  new cdx.Serialize.XML.Normalize.Factory(
+    cdx.Spec.Spec1dot4))
+const serializedXML = xmlSerializer.serialize(bom)
+console.log(serializedXML)
