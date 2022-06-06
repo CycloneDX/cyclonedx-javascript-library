@@ -42,8 +42,10 @@ module.exports = !create
       }
 
       function transform (element) {
-        return {
-          todo: 'TODO' // TODO
+        return { // TODO
+          todo: {
+            foo: 'bar'
+          }
         }
       }
 
