@@ -24,7 +24,7 @@ import { XmlBaseSerializer } from './xmlBaseSerializer'
 import { SimpleXml } from './xml/types'
 
 /**
- * XML serializer for web browsers.
+ * XML serializer for node.
  */
 export class XmlSerializer extends XmlBaseSerializer {
   protected _serialize (
