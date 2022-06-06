@@ -17,11 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-try {
-  const { create } = require('xmlbuilder2')
-} catch {
-  return
-}
+const { create } = require('xmlbuilder2')
 if (!create) {
   return
 }
@@ -46,7 +42,7 @@ function stringify (element, options) {
 
 function transform (element) {
   return {
-    // TODO
+    todo: 'TODO' // TODO
   }
 }
 

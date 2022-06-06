@@ -28,7 +28,7 @@ let possibileStringifier
 for (const file of possibileStringifiers) {
   try {
     possibileStringifier = require(`./stringifiers/${file}`)
-    if (typeof stringifier === 'function') {
+    if (typeof possibileStringifier === 'function') {
       module.exports.stringify = possibileStringifier
       break
     }
