@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 /*!
 This file is part of CycloneDX JavaScript Library.
 
@@ -18,26 +18,25 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const possibileStringifiers = {
+const possibileStringifiers = [
   // prioritized list of possible implementations
-  xmlbuilder2: 'xmlbuilder2'
-}
+  'xmlbuilder2'
+]
 
-const stringifiers = {}
-let stringifier
-for (const [name, file] of Object.entries(possibileStringifiers)) {
+module.exports.stringify = undefined
+let possibileStringifier
+for (const file of possibileStringifiers) {
   try {
-    stringifier = require(`./lib/stringifiers/${file}`)
+    possibileStringifier = require(`./stringifiers/${file}`)
     if (typeof stringifier === 'function') {
-      stringifiers[name] = stringifier
+      module.exports.stringify = possibileStringifier
+      break
     }
   } catch {
     /* pass */
   }
 }
 
-module.exports.stringifiers = Object.freeze(stringifiers)
-module.exports.stringify = Object.values(module.exports.stringifiers)[0]
 module.exports.stringifyFallback = module.exports.stringify ?? function () {
   throw new TypeError('No stringifier available. Please install one of the optional xml libraries.')
 }

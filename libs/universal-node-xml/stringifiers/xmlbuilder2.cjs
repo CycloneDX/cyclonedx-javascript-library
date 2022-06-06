@@ -18,11 +18,28 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 try {
-  const { create: xmlCreate } = require('xmlbuilder2')
+  const { create } = require('xmlbuilder2')
 } catch {
   return
 }
-
-module.exports = function(d, o) {
-  return 'bla'
+if (!create) {
+  return
 }
+
+function stringify (element, options) {
+  let indent = ''
+  if (typeof options.space === 'number' && options.space > 0) {
+    indent = ' '.repeat(options.space)
+  } else if (typeof options.space === 'string') {
+    indent = options.space
+  }
+  return create(transform(element)).end({ format: 'xml', prettyPrint: indent.length > 0, indent })
+}
+
+function transform (element) {
+  return {
+    // TODO
+  }
+}
+
+module.exports = stringify

@@ -2,6 +2,6 @@
   "private": true,
   "description": "",
   "dependencies": {
-    "@cyclonedx/cyclonedx-library": "file:../..",
+    "@cyclonedx/cyclonedx-library": "file:../.."
   }
 }

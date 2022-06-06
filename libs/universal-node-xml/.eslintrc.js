@@ -1,3 +1,4 @@
+'use strict'
 /*!
 This file is part of CycloneDX JavaScript Library.
 
@@ -17,17 +18,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { SimpleXml } from '../../src/serialize/xml/types'
-import { SerializerOptions } from '../../src/serialize/types'
-
-type ThrowError = () => never
-
-declare type Stringify = (element: SimpleXml.Element, options: SerializerOptions) => string
-export declare const stringify: Stringify | undefined
-export declare const stringifyFallback: Stringify | ThrowError
-
-/*
-declare type Parse = (xml: string) => SimpleXml.Element
-export declare const parse: Parse | undefined
-export declare const parseFallback: Parse | ThrowError
-*/
+/**
+ * @see {@link https://eslint.org/}
+ * @type {import('eslint').Linter.Config}
+ */
+module.exports = {
+  env: {
+    node: true
+  }
+}

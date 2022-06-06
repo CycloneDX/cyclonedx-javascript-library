@@ -41,7 +41,7 @@
     "packageurl-js": "^0.0.6"
   },
   "optionalDependencies": {
-    "xmlbuilder2": "^3.0"
+    "xmlbuilder2": "^3.0.2"
   },
   "devDependencies": {
     "@types/mocha": "^9.1.1",
