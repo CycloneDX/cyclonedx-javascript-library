@@ -1,3 +1,4 @@
+'use strict'
 /*!
 This file is part of CycloneDX JavaScript Library.
 

@@ -1,3 +1,4 @@
+'use strict'
 /*!
 This file is part of CycloneDX JavaScript Library.
 
@@ -17,4 +18,14 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-// TODO
+const assert = require('assert')
+const { suite, test } = require('mocha')
+
+const stringify = require('./xmlbuilder2')
+
+suite('stringify with xmlbuilder2', () => {
+  assert.strictEqual(typeof stringify, 'function')
+  test('TODO', () => {
+    // TODO add tests
+  })
+})
