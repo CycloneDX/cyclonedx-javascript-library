@@ -18,32 +18,33 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 const { create } = require('xmlbuilder2')
-if (!create) {
-  return
-}
 
-function stringify (element, options) {
-  const transformed = transform(element)
-  const doc = create(transformed)
+module.exports = !create
+  ? undefined
+  : (() => {
+      function stringify (element, options) {
+        const transformed = transform(element)
+        const doc = create(transformed)
 
-  let indent = ''
-  if (typeof options.space === 'number' && options.space > 0) {
-    indent = ' '.repeat(options.space)
-  } else if (typeof options.space === 'string') {
-    indent = options.space
-  }
+        let indent = ''
+        if (typeof options.space === 'number' && options.space > 0) {
+          indent = ' '.repeat(options.space)
+        } else if (typeof options.space === 'string') {
+          indent = options.space
+        }
 
-  return doc.end({
-      format: 'xml',
-      prettyPrint: indent.length > 0,
-      indent
-    })
-}
+        return doc.end({
+          format: 'xml',
+          prettyPrint: indent.length > 0,
+          indent
+        })
+      }
 
-function transform (element) {
-  return {
-    todo: 'TODO' // TODO
-  }
-}
+      function transform (element) {
+        return {
+          todo: 'TODO' // TODO
+        }
+      }
 
-module.exports = stringify
+      return stringify
+    })()
