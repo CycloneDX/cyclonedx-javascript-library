@@ -32,7 +32,7 @@ Run the tests:
 npm test
 ```
 
-## Coding standards 
+## Coding standards
 
 Apply coding standards via:
 
