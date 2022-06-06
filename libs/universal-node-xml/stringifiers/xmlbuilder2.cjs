@@ -27,13 +27,21 @@ if (!create) {
 }
 
 function stringify (element, options) {
+  const transformed = transform(element)
+  const doc = create(transformed)
+
   let indent = ''
   if (typeof options.space === 'number' && options.space > 0) {
     indent = ' '.repeat(options.space)
   } else if (typeof options.space === 'string') {
     indent = options.space
   }
-  return create(transform(element)).end({ format: 'xml', prettyPrint: indent.length > 0, indent })
+
+  return doc.end({
+      format: 'xml',
+      prettyPrint: indent.length > 0,
+      indent
+    })
 }
 
 function transform (element) {
