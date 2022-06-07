@@ -60,6 +60,7 @@ written in _TypeScript_ and compiled for the target.
   * Specific to _WebBrowsers_: implementation utilizes browser-specific document generators and printers.
   * Specific to _Node.js_: implementation requires one of the following optional libraries
     * [`xmlbuilder2`](https://www.npmjs.com/package/xmlbuilder2)
+    * ... to be continued ...
 
 ## Installation
 

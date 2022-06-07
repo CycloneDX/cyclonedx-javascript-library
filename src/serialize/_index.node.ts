@@ -20,4 +20,4 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 export * from './index'
 
 export * from './xmlSerializer.node'
-// export * from './xmlDeserializer' // TODO
+// export * from './xmlDeserializer.node' // TODO
