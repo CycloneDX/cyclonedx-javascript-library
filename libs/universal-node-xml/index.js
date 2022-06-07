@@ -1,3 +1,4 @@
+'use strict'
 /*!
 This file is part of CycloneDX JavaScript Library.
 
@@ -17,7 +18,25 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index'
+const possibleStringifiers = [
+  // prioritized list of possible implementations
+  'xmlbuilder2'
+]
 
-export * from './xmlSerializer.node'
-// export * from './xmlDeserializer.node' // TODO
+module.exports.stringify = undefined
+let possibleStringifier
+for (const file of possibleStringifiers) {
+  try {
+    possibleStringifier = require(`./stringifiers/${file}`)
+    if (typeof possibleStringifier === 'function') {
+      module.exports.stringify = possibleStringifier
+      break
+    }
+  } catch {
+    /* pass */
+  }
+}
+
+module.exports.stringifyFallback = module.exports.stringify ?? function () {
+  throw new Error('No stringifier available. Please install one of the optional xml libraries.')
+}

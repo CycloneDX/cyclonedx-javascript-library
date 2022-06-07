@@ -72,7 +72,7 @@ export namespace SimpleXml {
   /**
    * Unset representation.
    *
-   * Do NOT allow null here, as it is context-aware sometimes an empty string or unset
+   * Do NOT allow null here, as it is context-aware sometimes an empty string or unset,
    * in a space where context is unknown.
    */
   export type Unset = undefined

@@ -17,7 +17,17 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index'
+import { SimpleXml } from '../../src/serialize/xml/types'
+import { SerializerOptions } from '../../src/serialize/types'
 
-export * from './xmlSerializer.node'
-// export * from './xmlDeserializer.node' // TODO
+declare type ThrowError = () => never
+
+declare type Stringify = (element: SimpleXml.Element, options: SerializerOptions) => string
+export declare const stringify: Stringify | undefined
+export declare const stringifyFallback: Stringify | ThrowError
+
+/*
+declare type Parse = (xml: string) => SimpleXml.Element
+export declare const parse: Parse | undefined
+export declare const parseFallback: Parse | ThrowError
+*/

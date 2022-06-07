@@ -19,50 +19,51 @@ written in _TypeScript_ and compiled for the target.
 * Provide typing for said implementation, so developers and dev-tools can rely on it.
 * Provide data models to work with _CycloneDX_.
 * Provide a JSON- and an XML-normalizer, that...
-    * supports all shipped data models.
-    * respects any injected [_CycloneDX_ Specification][CycloneDX-spec] and generates valid output according to it.
-    * can be configured to generate reproducible/deterministic output.
-    * can prepare data structures for JSON- and XML-serialization.
+  * supports all shipped data models.
+  * respects any injected [_CycloneDX_ Specification][CycloneDX-spec] and generates valid output according to it.
+  * can be configured to generate reproducible/deterministic output.
+  * can prepare data structures for JSON- and XML-serialization.
 * Serialization:
-    * Provide a JSON-serializer for all target environments.
-    * Provide an XML-serializer for _WebBrowsers_.
-    * Support the implementation of custom XML-serializers tailored to specific _Node.js_ environments  
-      by providing an abstract base class that takes care of normalization and BomRef-discrimination.
+  * Provide a JSON-serializer for all target environments.
+  * Provide an XML-serializer for all target environments.
 
 ## Capabilities
 
 * Enums for the following use cases
-    * `AttachmentEncoding`
-    * `ComponentScope`
-    * `ComponentType`
-    * `ExternalReferenceType`
-    * `HashAlgorithm`
+  * `AttachmentEncoding`
+  * `ComponentScope`
+  * `ComponentType`
+  * `ExternalReferenceType`
+  * `HashAlgorithm`
 * Data models for the following use cases
-    * `Attachment`
-    * `Bom`
-    * `BomRef`, `BomRefRepository`
-    * `Component`, `ComponentRepository`
-    * `ExternalReference`, `ExternalReferenceRepository`
-    * `HashContent`, `Hash`, `HashRepository`
-    * `LicenseExpression`, `NamedLicense`, `SpdxLicense`, `LicenseRepository`
-    * `Metadata`
-    * `OrganizationalContact`, `OrganizationalContactRepository`
-    * `OrganizationalEntity`
-    * `SWID`
-    * `Tool`, `ToolRepository`
+  * `Attachment`
+  * `Bom`
+  * `BomRef`, `BomRefRepository`
+  * `Component`, `ComponentRepository`
+  * `ExternalReference`, `ExternalReferenceRepository`
+  * `HashContent`, `Hash`, `HashRepository`
+  * `LicenseExpression`, `NamedLicense`, `SpdxLicense`, `LicenseRepository`
+  * `Metadata`
+  * `OrganizationalContact`, `OrganizationalContactRepository`
+  * `OrganizationalEntity`
+  * `SWID`
+  * `Tool`, `ToolRepository`
 * Factory, that can create data models from any license descriptor string
 * Implementation of the [_CycloneDX_ Specification][CycloneDX-spec] for the following versions:
-    * `1.4`
-    * `1.3`
-    * `1.2`
+  * `1.4`
+  * `1.3`
+  * `1.2`
 * Normalizers that convert data models to JSON structures
 * Normalizers that convert data models to XML structures
 * Universal serializer that converts `Bom` data models to JSON string
 * Serializer that converts `Bom` data models to XML string:
-  * Specific to _WebBrowsers_: implementation `XmlSerializer` utilizes browser-specific document generators and printers.
-  * Specific to _Node.js_: `XmlBaseSerializer` that already takes care of normalization and BomRef-discrimination,
-    allows downstream to implement custom serializers tailored to their specific _Node.js_ environment.
-    (Background: In _Node.js_ there is no built-in capability for XML, so no common serializer implementation can be provided.)
+  * Specific to _WebBrowsers_: implementation utilizes browser-specific document generators and printers.
+  * Specific to _Node.js_: implementation requires one of the following optional libraries
+    * [`xmlbuilder2`](https://www.npmjs.com/package/xmlbuilder2)
+    * ... to be continued ... (pull requests are welcome)
+  * Support the downstream implementation of custom XML-serializers tailored to specific environments  
+    by providing an abstract base class that takes care of normalization and BomRef-discrimination.  
+    This is done, because there is no common xml support in _JavaScript_.
 
 ## Installation
 

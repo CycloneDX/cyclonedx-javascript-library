@@ -31,3 +31,5 @@ export * from './jsonSerializer'
 // export * from './jsonDeserializer' // TODO
 
 export * as XML from './xml'
+export * from './xmlBaseSerializer'
+// export * from './xmlBaseDeserializer' // TODO

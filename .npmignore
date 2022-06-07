@@ -165,9 +165,10 @@ dist
 
 /test/
 /tests/
-/examples/
+*.spec.*
+*.test.*
 
-/.*.cache
+/examples/
 
 /reports/
 /CI_reports/

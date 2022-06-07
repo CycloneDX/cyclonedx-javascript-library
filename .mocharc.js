@@ -24,7 +24,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * @see {@link https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.js example}
  */
 module.exports = {
-  spec: 'tests',
+  spec: [
+    'tests',
+    'libs'
+  ],
   recursive: true,
   parallel: false, // if true, then some IDEs cannot run it
   'check-leaks': false,
