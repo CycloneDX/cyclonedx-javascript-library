@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import { SimpleXml } from '../../src/serialize/xml/types'
 import { SerializerOptions } from '../../src/serialize/types'
 
-type ThrowError = () => never
+declare type ThrowError = () => never
 
 declare type Stringify = (element: SimpleXml.Element, options: SerializerOptions) => string
 export declare const stringify: Stringify | undefined
