@@ -44,7 +44,7 @@ export class XmlSerializer extends XmlBaseSerializer {
     return doc
   }
 
-  #getNs (element: SimpleXml.Element): string | null {
+  #getNS (element: SimpleXml.Element): string | null {
     const ns = (element.namespace ?? element.attributes?.xmlns)?.toString() ?? ''
     return ns.length > 0
       ? ns
@@ -52,7 +52,7 @@ export class XmlSerializer extends XmlBaseSerializer {
   }
 
   #buildElement (element: SimpleXml.Element, doc: XMLDocument, parentNS: string | null): Element {
-    const ns = this.#getNs(element) ?? parentNS
+    const ns = this.#getNS(element) ?? parentNS
     const node: Element = doc.createElementNS(ns, element.name)
     if (isNotUndefined(element.attributes)) {
       this.#setAttributes(node, element.attributes)
@@ -73,16 +73,15 @@ export class XmlSerializer extends XmlBaseSerializer {
   }
 
   #setChildren (node: Element, children: SimpleXml.ElementChildren, parentNS: string | null = null): void {
-    const t = typeof children
-    if (t === 'string' || t === 'number') {
-      node.textContent = `${children as SimpleXml.Text}`
+    if (typeof children === 'string' || typeof children === 'number') {
+      node.textContent = children.toString()
       return
     }
 
     const doc = node.ownerDocument
-    for (const c of (children as Iterable<SimpleXml.Comment | SimpleXml.Element>)) {
-      if (c.type === 'element') {
-        node.appendChild(this.#buildElement(c, doc, parentNS))
+    for (const child of (children as Iterable<SimpleXml.Comment | SimpleXml.Element>)) {
+      if (child.type === 'element') {
+        node.appendChild(this.#buildElement(child, doc, parentNS))
       }
       // comments are not implemented, yet
     }

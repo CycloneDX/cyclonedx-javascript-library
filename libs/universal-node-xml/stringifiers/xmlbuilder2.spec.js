@@ -25,7 +25,57 @@ const stringify = require('./xmlbuilder2')
 
 suite('stringify with xmlbuilder2', () => {
   assert.strictEqual(typeof stringify, 'function')
-  test('TODO', () => {
-    // TODO add tests
+
+  const data = {
+    type: 'element',
+    name: 'some-children',
+    namespace: 'https://example.com/ns1',
+    children: [
+      {
+        type: 'element',
+        name: 'some-attributes',
+        attributes: {
+          foo: 'some-value',
+          bar: 1
+        }
+      },
+      {
+        type: 'element',
+        name: 'some-text',
+        children: 'This is my texT'
+      }
+    ]
+  }
+
+  test('stringify data', () => {
+    const stringified = stringify(data)
+    assert.strictEqual(stringified,
+      '<?xml version="1.0"?>' +
+      '<some-children xmlns="https://example.com/ns1">' +
+      '<some-attributes foo="some-value" bar="1"/>' +
+      '<some-text>This is my texT</some-text>' +
+      '</some-children>'
+    )
+  })
+
+  test('stringify data with space=4', () => {
+    const stringified = stringify(data, { space: 4 })
+    assert.strictEqual(stringified,
+      '<?xml version="1.0"?>\n' +
+      '<some-children xmlns="https://example.com/ns1">\n' +
+      '    <some-attributes foo="some-value" bar="1"/>\n' +
+      '    <some-text>This is my texT</some-text>\n' +
+      '</some-children>'
+    )
+  })
+
+  test('stringify data with space=TAB', () => {
+    const stringified = stringify(data, { space: '\t' })
+    assert.strictEqual(stringified,
+      '<?xml version="1.0"?>\n' +
+      '<some-children xmlns="https://example.com/ns1">\n' +
+      '\t<some-attributes foo="some-value" bar="1"/>\n' +
+      '\t<some-text>This is my texT</some-text>\n' +
+      '</some-children>')
   })
 })

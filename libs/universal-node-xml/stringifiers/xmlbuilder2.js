@@ -23,15 +23,16 @@ const { create } = require('xmlbuilder2')
 module.exports = !create
   ? undefined
   : (() => {
-      function stringify (element, options) {
-        const transformed = transform(element)
-        const doc = create(transformed)
+      function stringify (element, { space } = {}) {
+        const doc = create()
+
+        addEle(doc, element)
 
         let indent = ''
-        if (typeof options.space === 'number' && options.space > 0) {
-          indent = ' '.repeat(options.space)
-        } else if (typeof options.space === 'string') {
-          indent = options.space
+        if (typeof space === 'number' && space > 0) {
+          indent = ' '.repeat(space)
+        } else if (typeof space === 'string') {
+          indent = space
         }
 
         return doc.end({
@@ -41,10 +42,22 @@ module.exports = !create
         })
       }
 
-      function transform (element) {
-        return { // TODO
-          todo: {
-            foo: 'bar'
+      function getNS (element) {
+        const ns = (element.namespace ?? element.attributes?.xmlns)?.toString() ?? ''
+        return ns.length > 0
+          ? ns
+          : null
+      }
+
+      function addEle (parent, element, parentNS) {
+        if (element.type !== 'element') { return }
+        const ns = getNS(element) ?? parentNS
+        const ele = parent.ele(ns, element.name, element.attributes)
+        if (typeof element.children === 'string' || typeof element.children === 'number') {
+          ele.txt(element.children.toString())
+        } else if (Array.isArray(element.children)) {
+          for (const child of element.children) {
+            addEle(ele, child, ns)
           }
         }
       }
