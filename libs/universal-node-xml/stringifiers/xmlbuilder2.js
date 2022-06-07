@@ -36,7 +36,7 @@ function stringify (element, { space } = {}) {
   })
 }
 
-function addEle (parent, element, parentNS) {
+function addEle (parent, element, parentNS = null) {
   if (element.type !== 'element') { return }
   const ns = getNS(element) ?? parentNS
   const ele = parent.ele(ns, element.name, element.attributes)
