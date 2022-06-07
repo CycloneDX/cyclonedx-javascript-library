@@ -18,7 +18,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-/** Example how to serialize a Bom to JSON. */
+/** Example how to serialize a Bom to JSON / XML. */
 
 const cdx = require('@cyclonedx/cyclonedx-library')
 // full Library is available as `cdx`, now
