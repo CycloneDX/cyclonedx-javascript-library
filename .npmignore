@@ -165,6 +165,9 @@ dist
 
 /test/
 /tests/
+*.spec.*
+*.test.*
+
 /examples/
 
 /.*.cache
