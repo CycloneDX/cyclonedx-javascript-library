@@ -38,5 +38,5 @@ for (const file of possibleStringifiers) {
 }
 
 module.exports.stringifyFallback = module.exports.stringify ?? function () {
-  throw new TypeError('No stringifier available. Please install one of the optional xml libraries.')
+  throw new Error('No stringifier available. Please install one of the optional xml libraries.')
 }
