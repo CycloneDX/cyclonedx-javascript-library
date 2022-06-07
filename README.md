@@ -24,11 +24,11 @@ written in _TypeScript_ and compiled for the target.
   * can be configured to generate reproducible/deterministic output.
   * can prepare data structures for JSON- and XML-serialization.
 * Serialization:
-  * Provide a JSON-serializer for all target environments.
+  * Provide a universal JSON-serializer for all target environments.
   * Provide an XML-serializer for all target environments.
   * Support the downstream implementation of custom XML-serializers tailored to specific environments  
     by providing an abstract base class that takes care of normalization and BomRef-discrimination.  
-    This is done, because there is no common xml support in _JavaScript_.
+    This is done, because there is no universal xml support in _JavaScript_.
 
 ## Capabilities
 
