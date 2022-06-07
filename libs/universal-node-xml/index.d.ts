@@ -22,7 +22,7 @@ import { SerializerOptions } from '../../src/serialize/types'
 
 declare type ThrowError = () => never
 
-declare type Stringify = (element: SimpleXml.Element, options: SerializerOptions) => string
+declare type Stringify = (element: SimpleXml.Element, options?: SerializerOptions) => string
 export declare const stringify: Stringify | undefined
 export declare const stringifyFallback: Stringify | ThrowError
 
