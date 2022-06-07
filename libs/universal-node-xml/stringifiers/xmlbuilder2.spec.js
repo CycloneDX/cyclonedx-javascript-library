@@ -47,7 +47,7 @@ suite('stringify with xmlbuilder2', () => {
     ]
   }
 
-  test('stringify data', () => {
+  test('data w/o spacing', () => {
     const stringified = stringify(data)
     assert.strictEqual(stringified,
       '<?xml version="1.0"?>' +
@@ -58,7 +58,7 @@ suite('stringify with xmlbuilder2', () => {
     )
   })
 
-  test('stringify data with space=4', () => {
+  test('data with space=4', () => {
     const stringified = stringify(data, { space: 4 })
     assert.strictEqual(stringified,
       '<?xml version="1.0"?>\n' +
@@ -69,7 +69,7 @@ suite('stringify with xmlbuilder2', () => {
     )
   })
 
-  test('stringify data with space=TAB', () => {
+  test('data with space=TAB', () => {
     const stringified = stringify(data, { space: '\t' })
     assert.strictEqual(stringified,
       '<?xml version="1.0"?>\n' +
