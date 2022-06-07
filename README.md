@@ -26,6 +26,9 @@ written in _TypeScript_ and compiled for the target.
 * Serialization:
   * Provide a JSON-serializer for all target environments.
   * Provide an XML-serializer for all target environments.
+  * Support the downstream implementation of custom XML-serializers tailored to specific environments  
+    by providing an abstract base class that takes care of normalization and BomRef-discrimination.  
+    This is done, because there is no common xml support in _JavaScript_.
 
 ## Capabilities
 
@@ -58,12 +61,9 @@ written in _TypeScript_ and compiled for the target.
 * Universal serializer that converts `Bom` data models to JSON string
 * Serializer that converts `Bom` data models to XML string:
   * Specific to _WebBrowsers_: implementation utilizes browser-specific document generators and printers.
-  * Specific to _Node.js_: implementation requires one of the following optional libraries
+  * Specific to _Node.js_: implementation plugs/requires/utilizes one of the following optional libraries
     * [xmlbuilder2](https://www.npmjs.com/package/xmlbuilder2)
     * ... to be continued ... (pull requests are welcome)
-  * Support the downstream implementation of custom XML-serializers tailored to specific environments  
-    by providing an abstract base class that takes care of normalization and BomRef-discrimination.  
-    This is done, because there is no common xml support in _JavaScript_.
 
 ## Installation
 
