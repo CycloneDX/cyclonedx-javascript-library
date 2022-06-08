@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@types/mocha": "^9.1.1",
-    "@types/node": "^17.0.39",
+    "@types/node": "^17.0.41",
     "@types/webpack": "^5.28.0",
     "deepmerge": "4.2.2",
     "mocha": "10.0.0",
