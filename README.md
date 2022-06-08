@@ -137,7 +137,7 @@ See the [LICENSE][license_file] file for the full license.
 [examples]: https://github.com/CycloneDX/cyclonedx-javascript-library/tree/main/examples
 
 [shield_gh-workflow-test]: https://img.shields.io/github/workflow/status/CycloneDX/cyclonedx-javascript-library/Node%20CI/main?logo=GitHub&logoColor=white "tests"
-[shield_npm-version]: https://img.shields.io/npm/v/@cyclonedx/cyclonedx-library?logo=npm&logoColor=white "npm"
+[shield_npm-version]: https://img.shields.io/npm/v/%40cyclonedx/cyclonedx-library?logo=npm&logoColor=white "npm"
 [shield_license]: https://img.shields.io/github/license/CycloneDX/cyclonedx-javascript-library?logo=open%20source%20initiative&logoColor=white "license"
 [shield_website]: https://img.shields.io/badge/https://-cyclonedx.org-blue.svg "homepage"
 [shield_slack]: https://img.shields.io/badge/slack-join-blue?logo=Slack&logoColor=white "slack join"
