@@ -22,24 +22,25 @@ const assert = require('assert')
 const { describe, beforeEach, afterEach, it } = require('mocha')
 
 const { createComplexStructure } = require('../_data/models')
-const { loadNormalizeResult } = require('../_data/normalize')
+const { loadSerializeResult } = require('../_data/serialize')
 /* uncomment next line to dump data */
-// const { writeNormalizeResult } = require('../_data/normalize')
+// const { writeSerializeResult } = require('../_data/serialize')
 
 const {
   Serialize: {
-    JSON: { Normalize: { Factory: JsonNormalizeFactory } }
+    XML: { Normalize: { Factory: XmlNormalizeFactory } },
+    XmlSerializer
   },
   Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
 } = require('../../')
 
-describe('JSON normalize', () => {
+describe('XML serialize', () => {
   [
     Spec1dot2,
     Spec1dot3,
     Spec1dot4
   ].forEach(spec => describe(`complex with spec v${spec.version}`, () => {
-    const normalizerFactory = new JsonNormalizeFactory(spec)
+    const normalizerFactory = new XmlNormalizeFactory(spec)
 
     beforeEach(function () {
       this.bom = createComplexStructure()
@@ -49,34 +50,20 @@ describe('JSON normalize', () => {
       delete this.bom
     })
 
-    it('can normalize', function () {
-      const normalized = normalizerFactory.makeForBom()
-        .normalize(this.bom, {})
-
-      const json = JSON.stringify(normalized, null, 2)
-
-      /* uncomment next line to dump data */
-      // writeNormalizeResult(json, 'json_complex', spec.version, 'json')
-
-      assert.deepStrictEqual(
-        JSON.parse(json),
-        JSON.parse(loadNormalizeResult('json_complex', spec.version, 'json'))
-      )
-    })
-
-    it('can normalize with sorted lists', function () {
-      const normalized = normalizerFactory.makeForBom()
-        .normalize(this.bom, { sortLists: true })
-
-      const json = JSON.stringify(normalized, null, 2)
+    it('serialize', function () {
+      const serializer = new XmlSerializer(normalizerFactory)
+      const serialized = serializer.serialize(
+        this.bom, {
+          sortLists: true,
+          space: 4
+        })
 
       /* uncomment next line to dump data */
-      // writeNormalizeResult(json, 'json_sortedLists', spec.version, 'json')
+      // writeSerializeResult(serialized, 'xml_complex', spec.version, 'xml')
 
-      assert.deepStrictEqual(
-        JSON.parse(json),
-        JSON.parse(loadNormalizeResult('json_sortedLists', spec.version, 'json'))
-      )
+      assert.strictEqual(
+        serialized,
+        loadSerializeResult('xml_complex', spec.version, 'xml'))
     })
 
     // TODO add more tests

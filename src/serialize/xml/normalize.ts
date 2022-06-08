@@ -239,7 +239,7 @@ export class HashNormalizer extends Base {
       ? {
           type: 'element',
           name: elementName,
-          attributes: { hashAlg: algorithm },
+          attributes: { alg: algorithm },
           children: content
         }
       : undefined

@@ -63,7 +63,7 @@
                       "type": "element",
                       "name": "hash",
                       "attributes": {
-                        "hashAlg": "MD5"
+                        "alg": "MD5"
                       },
                       "children": "f32a26e2a3a8aa338cd77b6e1263c535"
                     },
@@ -71,7 +71,7 @@
                       "type": "element",
                       "name": "hash",
                       "attributes": {
-                        "hashAlg": "SHA-1"
+                        "alg": "SHA-1"
                       },
                       "children": "829c3804401b0727f70f73d4415e162400cbe57b"
                     }
@@ -323,7 +323,7 @@
                   "type": "element",
                   "name": "hash",
                   "attributes": {
-                    "hashAlg": "MD5"
+                    "alg": "MD5"
                   },
                   "children": "6bd3ac6fb35bb07c3f74d7f72451af57"
                 },
@@ -331,7 +331,7 @@
                   "type": "element",
                   "name": "hash",
                   "attributes": {
-                    "hashAlg": "SHA-1"
+                    "alg": "SHA-1"
                   },
                   "children": "e6f36746ccba42c288acf906e636bb278eaeb7e8"
                 }

@@ -21,7 +21,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { describe, beforeEach, afterEach, it } = require('mocha')
 
-const { createComplexStructure, loadNormalizeResult } = require('../_data/normalize')
+const { createComplexStructure } = require('../_data/models')
+const { loadNormalizeResult } = require('../_data/normalize')
 /* uncomment next line to dump data */
 // const { writeNormalizeResult } = require('../_data/normalize')
 
@@ -66,8 +67,10 @@ describe('XML normalize', () => {
         .normalize(this.bom, { sortLists: true })
 
       const json = JSON.stringify(normalized, null, 2)
+
       /* uncomment next line to dump data */
       // writeNormalizeResult(json, 'xml_sortedLists', spec.version, 'json')
+
       assert.deepStrictEqual(
         JSON.parse(json),
         JSON.parse(loadNormalizeResult('xml_sortedLists', spec.version, 'json'))
