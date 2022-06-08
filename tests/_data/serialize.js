@@ -33,7 +33,7 @@ const path = require('path')
 module.exports.loadSerializeResult = function (purpose, spec, format, encoding = 'utf-8') {
   return fs.readFileSync(
     path.resolve(__dirname, 'serializeResults', `${purpose}_spec${spec}.${format}.bin`),
-    { flag: 'rb' }
+    { flag: 'r' }
   ).toString(encoding)
 }
 
