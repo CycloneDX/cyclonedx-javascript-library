@@ -1,0 +1,539 @@
+{
+  "type": "element",
+  "name": "bom",
+  "namespace": "http://cyclonedx.org/schema/bom/1.2",
+  "attributes": {
+    "version": 7,
+    "serialNumber": "urn:uuid:12345678-1234-1234-1234-123456789012"
+  },
+  "children": [
+    {
+      "type": "element",
+      "name": "metadata",
+      "children": [
+        {
+          "type": "element",
+          "name": "timestamp",
+          "children": "2001-05-23T13:37:42.000Z"
+        },
+        {
+          "type": "element",
+          "name": "tools",
+          "children": [
+            {
+              "type": "element",
+              "name": "tool",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "vendor",
+                  "children": "tool vendor"
+                },
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "tool name"
+                },
+                {
+                  "type": "element",
+                  "name": "version",
+                  "children": "0.8.15"
+                },
+                {
+                  "type": "element",
+                  "name": "hashes",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "hash",
+                      "attributes": {
+                        "alg": "MD5"
+                      },
+                      "children": "f32a26e2a3a8aa338cd77b6e1263c535"
+                    },
+                    {
+                      "type": "element",
+                      "name": "hash",
+                      "attributes": {
+                        "alg": "SHA-1"
+                      },
+                      "children": "829c3804401b0727f70f73d4415e162400cbe57b"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "tool",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "vendor",
+                  "children": "tool vendor"
+                },
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "other tool"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "authors",
+          "children": [
+            {
+              "type": "element",
+              "name": "author",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "John \"the-co-author\" Doe"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "author",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "Jane \"the-author\" Doe"
+                },
+                {
+                  "type": "element",
+                  "name": "email",
+                  "children": "cdx-authors@mailinator.com"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "dummy.metadata.component"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "Root Component"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": ""
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "manufacture",
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "meta manufacture"
+            },
+            {
+              "type": "element",
+              "name": "url",
+              "children": "https://meta-manufacture.xmpl/"
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "supplier",
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "meta supplier"
+            },
+            {
+              "type": "element",
+              "name": "url",
+              "children": "https://meta-supplier.xmpl/"
+            },
+            {
+              "type": "element",
+              "name": "contact",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "John \"the-supplier\" Doe"
+                },
+                {
+                  "type": "element",
+                  "name": "email",
+                  "children": "cdx-suppliers@mailinator.com"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "contact",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "Jane \"the-other-supplier\" Doe"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "element",
+      "name": "components",
+      "children": [
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "dummy-component"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "supplier",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "Component Supplier"
+                },
+                {
+                  "type": "element",
+                  "name": "url",
+                  "children": "https://localhost/componentSupplier-B"
+                },
+                {
+                  "type": "element",
+                  "name": "url",
+                  "children": "https://localhost/componentSupplier-A"
+                },
+                {
+                  "type": "element",
+                  "name": "contact",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "The quick brown fox"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "contact",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "Franz"
+                    },
+                    {
+                      "type": "element",
+                      "name": "email",
+                      "children": "franz-aus-bayern@komplett.verwahrlosten.taxi"
+                    },
+                    {
+                      "type": "element",
+                      "name": "phone",
+                      "children": "555-732378879"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "author",
+              "children": "component's author"
+            },
+            {
+              "type": "element",
+              "name": "publisher",
+              "children": "the publisher"
+            },
+            {
+              "type": "element",
+              "name": "group",
+              "children": "acme"
+            },
+            {
+              "type": "element",
+              "name": "name",
+              "children": "dummy-component"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": "1337-beta"
+            },
+            {
+              "type": "element",
+              "name": "description",
+              "children": "this is a test component"
+            },
+            {
+              "type": "element",
+              "name": "description",
+              "children": "required"
+            },
+            {
+              "type": "element",
+              "name": "hashes",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "hash",
+                  "attributes": {
+                    "alg": "SHA-1"
+                  },
+                  "children": "e6f36746ccba42c288acf906e636bb278eaeb7e8"
+                },
+                {
+                  "type": "element",
+                  "name": "hash",
+                  "attributes": {
+                    "alg": "MD5"
+                  },
+                  "children": "6bd3ac6fb35bb07c3f74d7f72451af57"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "licenses",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "license",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "some other"
+                    },
+                    {
+                      "type": "element",
+                      "name": "text",
+                      "attributes": {
+                        "content-type": "text/plain",
+                        "encoding": "base64"
+                      },
+                      "children": "U29tZQpsaWNlbnNlCnRleHQu"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://localhost/license"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "license",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "id",
+                      "children": "MIT"
+                    },
+                    {
+                      "type": "element",
+                      "name": "text",
+                      "attributes": {
+                        "content-type": "text/plain",
+                        "encoding": "base64"
+                      },
+                      "children": "TUlUIExpY2Vuc2UKLi4uClRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLi4u"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://spdx.org/licenses/MIT.html"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "expression",
+                  "children": "(MIT or Apache-2.0)"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "copyright",
+              "children": "(c) acme"
+            },
+            {
+              "type": "element",
+              "name": "cpe",
+              "children": "cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*"
+            },
+            {
+              "type": "element",
+              "name": "purl",
+              "children": "pkg:npm/acme/dummy-component@1337-beta"
+            },
+            {
+              "type": "element",
+              "name": "swid",
+              "attributes": {
+                "tagId": "some-tag",
+                "name": "dummy-component",
+                "version": "1337-beta",
+                "patch": "true"
+              },
+              "children": [
+                {
+                  "type": "element",
+                  "name": "text",
+                  "attributes": {
+                    "content-type": "some context type",
+                    "encoding": "base64"
+                  },
+                  "children": "some context"
+                },
+                {
+                  "type": "element",
+                  "name": "url",
+                  "children": "https://localhost/swid"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "externalReferences",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "website"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://localhost/acme"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "testing"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "support"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://localhost/acme/support"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "a-component"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "a-component"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "element",
+      "name": "dependencies",
+      "children": [
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "dummy-component"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "a-component"
+              }
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "a-component"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "dummy.metadata.component"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "dummy-component"
+              }
+            },
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "a-component"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

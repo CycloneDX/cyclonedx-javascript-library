@@ -1,0 +1,48 @@
+/*!
+This file is part of CycloneDX JavaScript Library.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+SPDX-License-Identifier: Apache-2.0
+Copyright (c) OWASP Foundation. All Rights Reserved.
+*/
+
+/* eslint-disable */
+/* @ts-ignore: TS6059 -- this works as long as the file/path is available in dist-package */
+import {enum as _spdxSpecEnum} from '../res/spdx.SNAPSHOT.schema.json'
+/* eslint-enable */
+
+/**
+ * One of the known SPDX licence identifiers.
+ * @see {@link http://cyclonedx.org/schema/spdx}
+ * @see isSupportedSpdxId
+ * @see fixupSpdxId
+ */
+export type SpdxId = string
+
+const spdxIds: ReadonlySet<SpdxId> = new Set(_spdxSpecEnum)
+
+const spdxLowerToActual: ReadonlyMap<string, SpdxId> = new Map(
+  _spdxSpecEnum.map(spdxId => [spdxId.toLowerCase(), spdxId])
+)
+
+export function isSupportedSpdxId (value: SpdxId | any): value is SpdxId {
+  return spdxIds.has(value)
+}
+
+/** Try to convert a string to `SpdxId`. */
+export function fixupSpdxId (value: string | any): SpdxId | undefined {
+  return typeof value === 'string' && value.length > 0
+    ? spdxLowerToActual.get(value.toLowerCase())
+    : undefined
+}

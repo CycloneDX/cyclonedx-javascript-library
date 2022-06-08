@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.3" version="7" serialNumber="urn:uuid:12345678-1234-1234-1234-123456789012">
+    <metadata>
+        <timestamp>2001-05-23T13:37:42.000Z</timestamp>
+        <tools>
+            <tool>
+                <vendor>tool vendor</vendor>
+                <name>other tool</name>
+            </tool>
+            <tool>
+                <vendor>tool vendor</vendor>
+                <name>tool name</name>
+                <version>0.8.15</version>
+                <hashes>
+                    <hash alg="MD5">f32a26e2a3a8aa338cd77b6e1263c535</hash>
+                    <hash alg="SHA-1">829c3804401b0727f70f73d4415e162400cbe57b</hash>
+                </hashes>
+            </tool>
+        </tools>
+        <authors>
+            <author>
+                <name>Jane "the-author" Doe</name>
+                <email>cdx-authors@mailinator.com</email>
+            </author>
+            <author>
+                <name>John "the-co-author" Doe</name>
+            </author>
+        </authors>
+        <component type="library" bom-ref="dummy.metadata.component">
+            <name>Root Component</name>
+            <version/>
+        </component>
+        <manufacture>
+            <name>meta manufacture</name>
+            <url>https://meta-manufacture.xmpl/</url>
+        </manufacture>
+        <supplier>
+            <name>meta supplier</name>
+            <url>https://meta-supplier.xmpl/</url>
+            <contact>
+                <name>Jane "the-other-supplier" Doe</name>
+            </contact>
+            <contact>
+                <name>John "the-supplier" Doe</name>
+                <email>cdx-suppliers@mailinator.com</email>
+            </contact>
+        </supplier>
+    </metadata>
+    <components>
+        <component type="library" bom-ref="a-component">
+            <name>a-component</name>
+            <version/>
+        </component>
+        <component type="library" bom-ref="dummy-component">
+            <supplier>
+                <name>Component Supplier</name>
+                <url>https://localhost/componentSupplier-A</url>
+                <url>https://localhost/componentSupplier-B</url>
+                <contact>
+                    <name>Franz</name>
+                    <email>franz-aus-bayern@komplett.verwahrlosten.taxi</email>
+                    <phone>555-732378879</phone>
+                </contact>
+                <contact>
+                    <name>The quick brown fox</name>
+                </contact>
+            </supplier>
+            <author>component's author</author>
+            <publisher>the publisher</publisher>
+            <group>acme</group>
+            <name>dummy-component</name>
+            <version>1337-beta</version>
+            <description>this is a test component</description>
+            <description>required</description>
+            <hashes>
+                <hash alg="MD5">6bd3ac6fb35bb07c3f74d7f72451af57</hash>
+                <hash alg="SHA-1">e6f36746ccba42c288acf906e636bb278eaeb7e8</hash>
+            </hashes>
+            <licenses>
+                <expression>(MIT or Apache-2.0)</expression>
+                <license>
+                    <name>some other</name>
+                    <text content-type="text/plain" encoding="base64">U29tZQpsaWNlbnNlCnRleHQu</text>
+                    <url>https://localhost/license</url>
+                </license>
+                <license>
+                    <id>MIT</id>
+                    <text content-type="text/plain" encoding="base64">TUlUIExpY2Vuc2UKLi4uClRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLi4u</text>
+                    <url>https://spdx.org/licenses/MIT.html</url>
+                </license>
+            </licenses>
+            <copyright>(c) acme</copyright>
+            <cpe>cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*</cpe>
+            <purl>pkg:npm/acme/dummy-component@1337-beta</purl>
+            <swid tagId="some-tag" name="dummy-component" version="1337-beta" patch="true">
+                <text content-type="some context type" encoding="base64">some context</text>
+                <url>https://localhost/swid</url>
+            </swid>
+            <externalReferences>
+                <reference type="support">
+                    <url>https://localhost/acme/support</url>
+                </reference>
+                <reference type="website">
+                    <url>https://localhost/acme</url>
+                    <comment>testing</comment>
+                </reference>
+            </externalReferences>
+        </component>
+    </components>
+    <dependencies>
+        <dependency ref="a-component"/>
+        <dependency ref="dummy-component">
+            <dependency ref="a-component"/>
+        </dependency>
+        <dependency ref="dummy.metadata.component">
+            <dependency ref="a-component"/>
+            <dependency ref="dummy-component"/>
+        </dependency>
+    </dependencies>
+</bom>
