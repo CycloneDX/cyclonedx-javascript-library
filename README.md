@@ -28,7 +28,7 @@ written in _TypeScript_ and compiled for the target.
   * Provide an XML-serializer for all target environments.
   * Support the downstream implementation of custom XML-serializers tailored to specific environments  
     by providing an abstract base class that takes care of normalization and BomRef-discrimination.  
-    This is done, because there is no universal xml support in _JavaScript_.
+    This is done, because there is no universal XML support in _JavaScript_.
 
 ## Capabilities
 
