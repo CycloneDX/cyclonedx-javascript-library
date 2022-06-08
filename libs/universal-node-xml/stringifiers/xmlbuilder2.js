@@ -31,6 +31,7 @@ function stringify (element, { space } = {}) {
   addEle(doc, element)
   return doc.end({
     format: 'xml',
+    newline: '\n',
     prettyPrint: indent.length > 0,
     indent
   })
