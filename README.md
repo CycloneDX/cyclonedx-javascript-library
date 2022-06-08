@@ -84,7 +84,7 @@ npm i -S github:CycloneDX/cyclonedx-javascript-library
 
 ## Usage
 
-See [examples].
+See extended [examples].
 
 ### As _Node.js_ package
 
