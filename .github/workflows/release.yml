@@ -59,7 +59,7 @@ jobs:
   publish-NPMJS:
     needs:
       - "bump"
-    name: NPMJS - publish
+    name: publish NPMJS
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -86,7 +86,7 @@ jobs:
     needs:
       - "bump"
       - "publish-NPMJS"
-    name: GitHub - release
+    name: publish GitHub
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:

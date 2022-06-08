@@ -36,7 +36,7 @@ jobs:
           cache-dependency-path: "**/package-lock.json"
       - name: setup project
         run: npm ci --ignore-scripts
-      - name: build for ${{ matrix.target }}
+      - name: build ${{ matrix.target }}
         run: npm run build:${{ matrix.target }}
       - name: artifact build result
         # see https://github.com/actions/upload-artifact
@@ -87,7 +87,7 @@ jobs:
       - name: Checkout
         # see https://github.com/actions/checkout
         uses: actions/checkout@v3
-      - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
+      - name: Setup Node.js ${{ matrix.node-version }}
         # see https://github.com/actions/setup-node
         uses: actions/setup-node@v3
         with:
