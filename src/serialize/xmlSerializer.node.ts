@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import { SerializerOptions } from './types'
 import { XmlBaseSerializer } from './xmlBaseSerializer'
 import { SimpleXml } from './xml/types'
-import { stringifyFallback } from '../../libs/universal-node-xml'
+import { stringifyFallback } from '@cyclonedx/cyclonedx-library-universal-node-xml'
 
 /**
  * XML serializer for node.

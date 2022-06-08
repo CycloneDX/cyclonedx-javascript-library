@@ -26,7 +26,6 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 module.exports = {
   spec: [
     'tests',
-    'libs'
   ],
   recursive: true,
   parallel: false, // if true, then some IDEs cannot run it

@@ -106,3 +106,5 @@ jobs:
         run: npm run test:node
   # test-web:
     # TODO via https://github.com/CycloneDX/cyclonedx-javascript-library/issues/51
+
+# TODO test for packages - maybe just `npm ci && npm test` in a matrix?
