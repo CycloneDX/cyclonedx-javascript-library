@@ -33,7 +33,9 @@ const {
   Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
 } = require('../../')
 
-describe('JSON normalize', () => {
+describe('JSON normalize', function () {
+  this.timeout(60000);
+
   [
     Spec1dot2,
     Spec1dot3,

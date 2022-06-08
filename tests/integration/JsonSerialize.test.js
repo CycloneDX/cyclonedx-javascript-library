@@ -34,7 +34,9 @@ const {
   Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
 } = require('../../')
 
-describe('JSON serialize', () => {
+describe('JSON serialize', function () {
+  this.timeout(60000);
+
   [
     Spec1dot2,
     Spec1dot3,
