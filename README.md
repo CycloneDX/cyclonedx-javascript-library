@@ -130,13 +130,13 @@ Permission to modify and redistribute is granted under the terms of the Apache 2
 See the [LICENSE][license_file] file for the full license.
 
 [CycloneDX]: https://cyclonedx.org/
-[CycloneDX-spec]: https://github.com/CycloneDX/specification/tree/master/schema
+[CycloneDX-spec]: https://github.com/CycloneDX/specification/tree/main/schema
 
-[license_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/master/LICENSE
-[contributing_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/master/CONTRIBUTING.md
-[examples]: https://github.com/CycloneDX/cyclonedx-javascript-library/tree/master/examples
+[license_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/main/LICENSE
+[contributing_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/main/CONTRIBUTING.md
+[examples]: https://github.com/CycloneDX/cyclonedx-javascript-library/tree/main/examples
 
-[shield_gh-workflow-test]: https://img.shields.io/github/workflow/status/CycloneDX/cyclonedx-javascript-library/Node%20CI/master?logo=GitHub&logoColor=white "tests"
+[shield_gh-workflow-test]: https://img.shields.io/github/workflow/status/CycloneDX/cyclonedx-javascript-library/Node%20CI/main?logo=GitHub&logoColor=white "tests"
 [shield_npm-version]: https://img.shields.io/npm/v/@cyclonedx/cyclonedx-library?logo=npm&logoColor=white "npm"
 [shield_license]: https://img.shields.io/github/license/CycloneDX/cyclonedx-javascript-library?logo=open%20source%20initiative&logoColor=white "license"
 [shield_website]: https://img.shields.io/badge/https://-cyclonedx.org-blue.svg "homepage"
@@ -145,7 +145,7 @@ See the [LICENSE][license_file] file for the full license.
 [shield_twitter-follow]: https://img.shields.io/badge/Twitter-follow-blue?logo=Twitter&logoColor=white "twitter follow"
 
 [link_website]: https://cyclonedx.org/
-[link_gh-workflow-test]: https://github.com/CycloneDX/cyclonedx-javascript-library/actions/workflows/nodejs.yml?query=branch%3Amaster
+[link_gh-workflow-test]: https://github.com/CycloneDX/cyclonedx-javascript-library/actions/workflows/nodejs.yml?query=branch%3Amain
 [link_npm]: https://www.npmjs.com/package/%40cyclonedx/cyclonedx-library
 [link_slack]: https://cyclonedx.org/slack/invite
 [link_discussion]: https://groups.io/g/CycloneDX
