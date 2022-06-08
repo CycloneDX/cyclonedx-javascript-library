@@ -34,6 +34,7 @@ jobs:
       - name: Configure Git
         # needed for push back of changes
         run: |
+          set -ex
           git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git config --local user.name "${GITHUB_ACTOR}"
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
@@ -45,6 +46,7 @@ jobs:
       - name: bump VERSION
         id: bump
         run: |
+          set -ex
           VERSION="$(npm version "$NPMV_NEWVERSION" --message "$NPMV_MESSAGE")"
           echo "::debug::new version = $VERSION"
           VERSION_PLAIN="${VERSION:1}" # remove 'v' prefix
