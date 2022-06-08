@@ -15,7 +15,7 @@
     "PURL",
     "spdx"
   ],
-  "homepage": "https://github.com/CycloneDX/cyclonedx-javascript-library",
+  "homepage": "https://github.com/CycloneDX/cyclonedx-javascript-library#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/CycloneDX/cyclonedx-javascript-library.git"
