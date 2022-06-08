@@ -1,0 +1,195 @@
+{
+    "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.4",
+    "version": 7,
+    "serialNumber": "urn:uuid:12345678-1234-1234-1234-123456789012",
+    "metadata": {
+        "timestamp": "2001-05-23T13:37:42.000Z",
+        "tools": [
+            {
+                "vendor": "tool vendor",
+                "name": "other tool",
+                "externalReferences": [
+                    {
+                        "url": "https://cyclonedx.org/tool-center/",
+                        "type": "website",
+                        "comment": "the tools that made this"
+                    }
+                ]
+            },
+            {
+                "vendor": "tool vendor",
+                "name": "tool name",
+                "version": "0.8.15",
+                "hashes": [
+                    {
+                        "alg": "MD5",
+                        "content": "f32a26e2a3a8aa338cd77b6e1263c535"
+                    },
+                    {
+                        "alg": "SHA-1",
+                        "content": "829c3804401b0727f70f73d4415e162400cbe57b"
+                    }
+                ]
+            }
+        ],
+        "authors": [
+            {
+                "name": "Jane \"the-author\" Doe",
+                "email": "cdx-authors@mailinator.com"
+            },
+            {
+                "name": "John \"the-co-author\" Doe"
+            }
+        ],
+        "component": {
+            "type": "library",
+            "name": "Root Component",
+            "version": "",
+            "bom-ref": "dummy.metadata.component"
+        },
+        "manufacture": {
+            "name": "meta manufacture",
+            "url": [
+                "https://meta-manufacture.xmpl/"
+            ]
+        },
+        "supplier": {
+            "name": "meta supplier",
+            "url": [
+                "https://meta-supplier.xmpl/"
+            ],
+            "contact": [
+                {
+                    "name": "Jane \"the-other-supplier\" Doe"
+                },
+                {
+                    "name": "John \"the-supplier\" Doe",
+                    "email": "cdx-suppliers@mailinator.com"
+                }
+            ]
+        }
+    },
+    "components": [
+        {
+            "type": "library",
+            "name": "a-component",
+            "version": "",
+            "bom-ref": "a-component"
+        },
+        {
+            "type": "library",
+            "name": "dummy-component",
+            "group": "acme",
+            "version": "1337-beta",
+            "bom-ref": "dummy-component",
+            "supplier": {
+                "name": "Component Supplier",
+                "url": [
+                    "https://localhost/componentSupplier-A",
+                    "https://localhost/componentSupplier-B"
+                ],
+                "contact": [
+                    {
+                        "name": "Franz",
+                        "email": "franz-aus-bayern@komplett.verwahrlosten.taxi",
+                        "phone": "555-732378879"
+                    },
+                    {
+                        "name": "The quick brown fox"
+                    }
+                ]
+            },
+            "author": "component's author",
+            "publisher": "the publisher",
+            "description": "this is a test component",
+            "scope": "required",
+            "hashes": [
+                {
+                    "alg": "MD5",
+                    "content": "6bd3ac6fb35bb07c3f74d7f72451af57"
+                },
+                {
+                    "alg": "SHA-1",
+                    "content": "e6f36746ccba42c288acf906e636bb278eaeb7e8"
+                }
+            ],
+            "licenses": [
+                {
+                    "expression": "(MIT or Apache-2.0)"
+                },
+                {
+                    "license": {
+                        "name": "some other",
+                        "text": {
+                            "content": "U29tZQpsaWNlbnNlCnRleHQu",
+                            "contentType": "text/plain",
+                            "encoding": "base64"
+                        },
+                        "url": "https://localhost/license"
+                    }
+                },
+                {
+                    "license": {
+                        "id": "MIT",
+                        "text": {
+                            "content": "TUlUIExpY2Vuc2UKLi4uClRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLi4u",
+                            "contentType": "text/plain",
+                            "encoding": "base64"
+                        },
+                        "url": "https://spdx.org/licenses/MIT.html"
+                    }
+                }
+            ],
+            "copyright": "(c) acme",
+            "cpe": "cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*",
+            "purl": "pkg:npm/acme/dummy-component@1337-beta",
+            "swid": {
+                "tagId": "some-tag",
+                "name": "dummy-component",
+                "version": "1337-beta",
+                "patch": true,
+                "text": {
+                    "content": "some context",
+                    "contentType": "some context type",
+                    "encoding": "base64"
+                },
+                "url": "https://localhost/swid"
+            },
+            "externalReferences": [
+                {
+                    "url": "./other/file",
+                    "type": "release-notes"
+                },
+                {
+                    "url": "https://localhost/acme/support",
+                    "type": "support"
+                },
+                {
+                    "url": "https://localhost/acme",
+                    "type": "website",
+                    "comment": "testing"
+                }
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "a-component"
+        },
+        {
+            "ref": "dummy-component",
+            "dependsOn": [
+                "a-component"
+            ]
+        },
+        {
+            "ref": "dummy.metadata.component",
+            "dependsOn": [
+                "a-component",
+                "dummy-component"
+            ]
+        }
+    ]
+}

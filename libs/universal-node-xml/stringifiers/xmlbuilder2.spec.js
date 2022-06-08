@@ -34,14 +34,17 @@ suite('stringify with xmlbuilder2', () => {
         type: 'element',
         name: 'some-attributes',
         attributes: {
-          foo: 'some-value',
-          bar: 1
+          string: 'some-value',
+          number: 1,
+          'quote-encode': 'foo " bar'
         }
       },
       {
         type: 'element',
         name: 'some-text',
-        children: 'This is my texT'
+        children: 'testing... \n' +
+          'amp-encode? & \n' +
+          'tag-encode? <b>foo<b> \n'
       },
       {
         type: 'element',
@@ -60,10 +63,13 @@ suite('stringify with xmlbuilder2', () => {
   test('data w/o spacing', () => {
     const stringified = stringify(data)
     assert.strictEqual(stringified,
-      '<?xml version="1.0"?>' +
+      '<?xml version="1.0" encoding="UTF-8"?>' +
       '<some-children>' +
-      '<some-attributes foo="some-value" bar="1"/>' +
-      '<some-text>This is my texT</some-text>' +
+      '<some-attributes string="some-value" number="1" quote-encode="foo &quot; bar"/>' +
+      '<some-text>testing... \n' +
+      'amp-encode? &amp; \n' +
+      'tag-encode? &lt;b&gt;foo&lt;b&gt; \n' +
+      '</some-text>' +
       '<some-namespaced xmlns="https://example.com/ns1">' +
       '<empty/>' +
       '</some-namespaced>' +
@@ -74,10 +80,13 @@ suite('stringify with xmlbuilder2', () => {
   test('data with space=4', () => {
     const stringified = stringify(data, { space: 4 })
     assert.strictEqual(stringified,
-      '<?xml version="1.0"?>\n' +
+      '<?xml version="1.0" encoding="UTF-8"?>\n' +
       '<some-children>\n' +
-      '    <some-attributes foo="some-value" bar="1"/>\n' +
-      '    <some-text>This is my texT</some-text>\n' +
+      '    <some-attributes string="some-value" number="1" quote-encode="foo &quot; bar"/>\n' +
+      '    <some-text>testing... \n' +
+      'amp-encode? &amp; \n' +
+      'tag-encode? &lt;b&gt;foo&lt;b&gt; \n' +
+      '</some-text>\n' +
       '    <some-namespaced xmlns="https://example.com/ns1">\n' +
       '        <empty/>\n' +
       '    </some-namespaced>\n' +
@@ -88,10 +97,13 @@ suite('stringify with xmlbuilder2', () => {
   test('data with space=TAB', () => {
     const stringified = stringify(data, { space: '\t' })
     assert.strictEqual(stringified,
-      '<?xml version="1.0"?>\n' +
+      '<?xml version="1.0" encoding="UTF-8"?>\n' +
       '<some-children>\n' +
-      '\t<some-attributes foo="some-value" bar="1"/>\n' +
-      '\t<some-text>This is my texT</some-text>\n' +
+      '\t<some-attributes string="some-value" number="1" quote-encode="foo &quot; bar"/>\n' +
+      '\t<some-text>testing... \n' +
+      'amp-encode? &amp; \n' +
+      'tag-encode? &lt;b&gt;foo&lt;b&gt; \n' +
+      '</some-text>\n' +
       '\t<some-namespaced xmlns="https://example.com/ns1">\n' +
       '\t\t<empty/>\n' +
       '\t</some-namespaced>\n' +

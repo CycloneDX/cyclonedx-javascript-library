@@ -27,10 +27,11 @@ module.exports = typeof create === 'function'
 
 function stringify (element, { space } = {}) {
   const indent = makeIndent(space)
-  const doc = create()
+  const doc = create({ encoding: 'UTF-8' })
   addEle(doc, element)
   return doc.end({
     format: 'xml',
+    newline: '\n',
     prettyPrint: indent.length > 0,
     indent
   })

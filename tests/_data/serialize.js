@@ -30,9 +30,9 @@ const path = require('path')
  * @param {BufferEncoding} [encoding]
  * @returns {string}
  */
-module.exports.loadNormalizeResult = function (purpose, spec, format, encoding = 'utf-8') {
+module.exports.loadSerializeResult = function (purpose, spec, format, encoding = 'utf-8') {
   return fs.readFileSync(
-    path.resolve(__dirname, 'normalizeResults', `${purpose}_spec${spec}.${format}`)
+    path.resolve(__dirname, 'serializeResults', `${purpose}_spec${spec}.${format}.bin`)
   ).toString(encoding)
 }
 
@@ -42,9 +42,9 @@ module.exports.loadNormalizeResult = function (purpose, spec, format, encoding =
  * @param {Version} spec
  * @param {string} format
  */
-module.exports.writeNormalizeResult = function (data, purpose, spec, format) {
+module.exports.writeSerializeResult = function (data, purpose, spec, format) {
   return fs.writeFileSync(
-    path.resolve(__dirname, 'normalizeResults', `${purpose}_spec${spec}.${format}`),
+    path.resolve(__dirname, 'serializeResults', `${purpose}_spec${spec}.${format}.bin`),
     data
   )
 }
