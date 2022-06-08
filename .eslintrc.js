@@ -29,6 +29,9 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.json'
   },
+  ignorePatterns: [
+    'packages'
+  ],
   env: {
     node: true,
     browser: true

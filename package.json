@@ -37,7 +37,11 @@
   "engines": {
     "node": ">=14.0.0"
   },
+  "bundleDependencies": [
+    "@cyclonedx/cyclonedx-library-universal-node-xml"
+  ],
   "dependencies": {
+    "@cyclonedx/cyclonedx-library-universal-node-xml": "file:packages/universal-node-xml",
     "packageurl-js": "^0.0.6"
   },
   "optionalDependencies": {

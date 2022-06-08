@@ -1,0 +1,39 @@
+{
+  "name": "@cyclonedx/cyclonedx-library-universal-node-xml",
+  "description": "Universal XML lib",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CycloneDX/cyclonedx-javascript-library"
+  },
+  "bugs": {
+    "url": "https://github.com/CycloneDX/cyclonedx-javascript-library/issues"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Jan Kowalleck",
+    "email": "jan.kowalleck@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Jan Kowalleck",
+      "email": "jan.kowalleck@gmail.com"
+    }
+  ],
+  "type": "commonjs",
+  "optionalDependencies": {
+    "xmlbuilder2": "^3.0.2"
+  },
+  "devDependencies": {
+    "xmlbuilder2": "^3.0.2"
+  },
+  "types": "./index.d.ts",
+  "main": "./index.js",
+  "exports": "./index.js",
+  "files": [
+    "index.*",
+    "stringifiers/*.js",
+    "!stringifiers/*.spec.js",
+    "!stringifiers/*.test.js"
+  ]
+}
