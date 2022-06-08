@@ -67,7 +67,7 @@ written in _TypeScript_ and compiled for the target.
 
 ## Installation
 
-This package and the build results are available for npm and yarn:
+This package and the build results are available for _npm_ and _yarn_:
 
 ```shell
 npm i -S @cyclonedx/cyclonedx-library
