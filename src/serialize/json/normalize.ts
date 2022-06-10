@@ -93,7 +93,7 @@ const schemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
 interface Normalizer {
   normalize: (data: object, options: NormalizerOptions) => object | undefined
 
-  normalizeIter?: (data: Iterable<object>, options: NormalizerOptions) => object[]
+  normalizeRepository?: (data: Iterable<object>, options: NormalizerOptions) => object[]
 }
 
 abstract class Base implements Normalizer {
@@ -120,7 +120,7 @@ export class BomNormalizer extends Base {
       serialNumber: data.serialNumber,
       metadata: this._factory.makeForMetadata().normalize(data.metadata, options),
       components: data.components.size > 0
-        ? this._factory.makeForComponent().normalizeIter(data.components, options)
+        ? this._factory.makeForComponent().normalizeRepository(data.components, options)
         // spec < 1.4 requires `component` to be array
         : [],
       dependencies: this._factory.spec.supportsDependencyGraph
@@ -136,10 +136,10 @@ export class MetadataNormalizer extends Base {
     return {
       timestamp: data.timestamp?.toISOString(),
       tools: data.tools.size > 0
-        ? this._factory.makeForTool().normalizeIter(data.tools, options)
+        ? this._factory.makeForTool().normalizeRepository(data.tools, options)
         : undefined,
       authors: data.authors.size > 0
-        ? this._factory.makeForOrganizationalContact().normalizeIter(data.authors, options)
+        ? this._factory.makeForOrganizationalContact().normalizeRepository(data.authors, options)
         : undefined,
       component: data.component === undefined
         ? undefined
@@ -161,20 +161,20 @@ export class ToolNormalizer extends Base {
       name: data.name || undefined,
       version: data.version || undefined,
       hashes: data.hashes.size > 0
-        ? this._factory.makeForHash().normalizeIter(data.hashes, options)
+        ? this._factory.makeForHash().normalizeRepository(data.hashes, options)
         : undefined,
       externalReferences: this._factory.spec.supportsToolReferences && data.externalReferences.size > 0
-        ? this._factory.makeForExternalReference().normalizeIter(data.externalReferences, options)
+        ? this._factory.makeForExternalReference().normalizeRepository(data.externalReferences, options)
         : undefined
     }
   }
 
-  normalizeIter (data: Iterable<Models.Tool>, options: NormalizerOptions): Normalized.Tool[] {
-    const tools = Array.from(data)
-    if (options.sortLists ?? false) {
-      tools.sort(Models.ToolRepository.compareItems)
-    }
-    return tools.map(t => this.normalize(t, options))
+  normalizeRepository (data: Models.ToolRepository, options: NormalizerOptions): Normalized.Tool[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(t => this.normalize(t, options))
   }
 }
 
@@ -189,13 +189,13 @@ export class HashNormalizer extends Base {
       : undefined
   }
 
-  normalizeIter (data: Iterable<Models.Hash>, options: NormalizerOptions): Normalized.Hash[] {
-    const hashes = Array.from(data)
-    if (options.sortLists ?? false) {
-      hashes.sort(Models.HashRepository.compareItems)
-    }
-    return hashes.map(h => this.normalize(h, options))
-      .filter(isNotUndefined)
+  normalizeRepository (data: Models.HashRepository, options: NormalizerOptions): Normalized.Hash[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(h => this.normalize(h, options)
+    ).filter(isNotUndefined)
   }
 }
 
@@ -210,12 +210,12 @@ export class OrganizationalContactNormalizer extends Base {
     }
   }
 
-  normalizeIter (data: Iterable<Models.OrganizationalContact>, options: NormalizerOptions): Normalized.OrganizationalContact[] {
-    const contacts = Array.from(data)
-    if (options.sortLists ?? false) {
-      contacts.sort(Models.OrganizationalContactRepository.compareItems)
-    }
-    return contacts.map(c => this.normalize(c, options))
+  normalizeRepository (data: Models.OrganizationalContactRepository, options: NormalizerOptions): Normalized.OrganizationalContact[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(c => this.normalize(c, options))
   }
 }
 
@@ -230,7 +230,7 @@ export class OrganizationalEntityNormalizer extends Base {
         ? urls
         : undefined,
       contact: data.contact.size > 0
-        ? this._factory.makeForOrganizationalContact().normalizeIter(data.contact, options)
+        ? this._factory.makeForOrganizationalContact().normalizeRepository(data.contact, options)
         : undefined
     }
   }
@@ -254,10 +254,10 @@ export class ComponentNormalizer extends Base {
           description: data.description || undefined,
           scope: data.scope,
           hashes: data.hashes.size > 0
-            ? this._factory.makeForHash().normalizeIter(data.hashes, options)
+            ? this._factory.makeForHash().normalizeRepository(data.hashes, options)
             : undefined,
           licenses: data.licenses.size > 0
-            ? this._factory.makeForLicense().normalizeIter(data.licenses, options)
+            ? this._factory.makeForLicense().normalizeRepository(data.licenses, options)
             : undefined,
           copyright: data.copyright || undefined,
           cpe: data.cpe || undefined,
@@ -266,19 +266,19 @@ export class ComponentNormalizer extends Base {
             ? undefined
             : this._factory.makeForSWID().normalize(data.swid, options),
           externalReferences: data.externalReferences.size > 0
-            ? this._factory.makeForExternalReference().normalizeIter(data.externalReferences, options)
+            ? this._factory.makeForExternalReference().normalizeRepository(data.externalReferences, options)
             : undefined
         }
       : undefined
   }
 
-  normalizeIter (data: Iterable<Models.Component>, options: NormalizerOptions): Normalized.Component[] {
-    const components = Array.from(data)
-    if (options.sortLists ?? false) {
-      components.sort(Models.ComponentRepository.compareItems)
-    }
-    return components.map(c => this.normalize(c, options))
-      .filter(isNotUndefined)
+  normalizeRepository (data: Models.ComponentRepository, options: NormalizerOptions): Normalized.Component[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(c => this.normalize(c, options)
+    ).filter(isNotUndefined)
   }
 }
 
@@ -327,12 +327,12 @@ export class LicenseNormalizer extends Base {
     }
   }
 
-  normalizeIter (data: Iterable<Models.License>, options: NormalizerOptions): Normalized.License[] {
-    const licenses = Array.from(data)
-    if (options.sortLists ?? false) {
-      licenses.sort(Models.LicenseRepository.compareItems)
-    }
-    return licenses.map(c => this.normalize(c, options))
+  normalizeRepository (data: Models.LicenseRepository, options: NormalizerOptions): Normalized.License[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(c => this.normalize(c, options))
   }
 }
 
@@ -366,13 +366,13 @@ export class ExternalReferenceNormalizer extends Base {
       : undefined
   }
 
-  normalizeIter (data: Iterable<Models.ExternalReference>, options: NormalizerOptions): Normalized.ExternalReference[] {
-    const refs = Array.from(data)
-    if (options.sortLists ?? false) {
-      refs.sort(Models.ExternalReferenceRepository.compareItems)
-    }
-    return refs.map(r => this.normalize(r, options))
-      .filter(isNotUndefined)
+  normalizeRepository (data: Models.ExternalReferenceRepository, options: NormalizerOptions): Normalized.ExternalReference[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(r => this.normalize(r, options)
+    ).filter(isNotUndefined)
   }
 }
 

@@ -19,6 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { HashRepository } from './hash'
 import { ExternalReferenceRepository } from './externalReference'
+import { Comparable, SortableSet } from '../helpers/sortableSet'
 
 interface OptionalProperties {
   vendor?: Tool['vendor']
@@ -28,7 +29,7 @@ interface OptionalProperties {
   externalReferences?: Tool['externalReferences']
 }
 
-export class Tool {
+export class Tool implements Comparable {
   vendor?: string
   name?: string
   version?: string
@@ -51,8 +52,5 @@ export class Tool {
   }
 }
 
-export class ToolRepository extends Set<Tool> {
-  static compareItems (a: Tool, b: Tool): number {
-    return a.compare(b)
-  }
+export class ToolRepository extends SortableSet<Tool> {
 }

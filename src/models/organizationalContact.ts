@@ -17,13 +17,15 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { Comparable, SortableSet } from '../helpers/sortableSet'
+
 interface OptionalProperties {
   name?: OrganizationalContact['name']
   email?: OrganizationalContact['email']
   phone?: OrganizationalContact['phone']
 }
 
-export class OrganizationalContact {
+export class OrganizationalContact implements Comparable {
   name?: string
   email?: string
   phone?: string
@@ -42,8 +44,5 @@ export class OrganizationalContact {
   }
 }
 
-export class OrganizationalContactRepository extends Set<OrganizationalContact> {
-  static compareItems (a: OrganizationalContact, b: OrganizationalContact): number {
-    return a.compare(b)
-  }
+export class OrganizationalContactRepository extends SortableSet<OrganizationalContact> {
 }
