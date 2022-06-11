@@ -27,6 +27,7 @@ import { OrganizationalEntity } from './organizationalEntity'
 import { ExternalReferenceRepository } from './externalReference'
 import { LicenseRepository } from './license'
 import { SWID } from './swid'
+import { Comparable, SortableSet } from '../helpers/sortableSet'
 
 interface OptionalProperties {
   bomRef?: BomRef['value']
@@ -47,7 +48,7 @@ interface OptionalProperties {
   cpe?: Component['cpe']
 }
 
-export class Component {
+export class Component implements Comparable {
   type: ComponentType
   name: string
   author?: string
@@ -129,8 +130,5 @@ export class Component {
   }
 }
 
-export class ComponentRepository extends Set<Component> {
-  static compareItems (a: Component, b: Component): number {
-    return a.compare(b)
-  }
+export class ComponentRepository extends SortableSet<Component> {
 }

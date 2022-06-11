@@ -93,7 +93,7 @@ const xmlNamespace: ReadonlyMap<SpecVersion, string> = new Map([
 interface Normalizer {
   normalize: (data: object, options: NormalizerOptions, elementName?: string) => object | undefined
 
-  normalizeIter?: (data: Iterable<object>, options: NormalizerOptions, elementName: string) => object[]
+  normalizeRepository?: (data: Iterable<object>, options: NormalizerOptions, elementName: string) => object[]
 }
 
 abstract class Base implements Normalizer {
@@ -122,7 +122,7 @@ export class BomNormalizer extends Base {
       type: 'element',
       name: 'components',
       children: data.components.size > 0
-        ? this._factory.makeForComponent().normalizeIter(data.components, options, 'component')
+        ? this._factory.makeForComponent().normalizeRepository(data.components, options, 'component')
         : undefined
     }
     return {
@@ -161,7 +161,7 @@ export class MetadataNormalizer extends Base {
       ? {
           type: 'element',
           name: 'tools',
-          children: this._factory.makeForTool().normalizeIter(data.tools, options, 'tool')
+          children: this._factory.makeForTool().normalizeRepository(data.tools, options, 'tool')
         }
       : undefined
     const authors: SimpleXml.Element | undefined = data.authors.size > 0
@@ -169,7 +169,7 @@ export class MetadataNormalizer extends Base {
           type: 'element',
           name: 'authors',
           children: this._factory.makeForOrganizationalContact()
-            .normalizeIter(data.authors, options, 'author')
+            .normalizeRepository(data.authors, options, 'author')
         }
       : undefined
     return {
@@ -199,7 +199,7 @@ export class ToolNormalizer extends Base {
       ? {
           type: 'element',
           name: 'hashes',
-          children: this._factory.makeForHash().normalizeIter(data.hashes, options, 'hash')
+          children: this._factory.makeForHash().normalizeRepository(data.hashes, options, 'hash')
         }
       : undefined
     const externalReferences: SimpleXml.Element | undefined =
@@ -208,7 +208,7 @@ export class ToolNormalizer extends Base {
             type: 'element',
             name: 'externalReferences',
             children: this._factory.makeForExternalReference()
-              .normalizeIter(data.externalReferences, options, 'reference')
+              .normalizeRepository(data.externalReferences, options, 'reference')
           }
         : undefined
     return {
@@ -224,12 +224,12 @@ export class ToolNormalizer extends Base {
     }
   }
 
-  normalizeIter (data: Iterable<Models.Tool>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
-    const tools = Array.from(data)
-    if (options.sortLists) {
-      tools.sort(Models.ToolRepository.compareItems)
-    }
-    return tools.map(t => this.normalize(t, options, elementName))
+  normalizeRepository (data: Models.ToolRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(t => this.normalize(t, options, elementName))
   }
 }
 
@@ -246,13 +246,13 @@ export class HashNormalizer extends Base {
       : undefined
   }
 
-  normalizeIter (data: Iterable<Models.Hash>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
-    const hashes = Array.from(data)
-    if (options.sortLists ?? false) {
-      hashes.sort(Models.HashRepository.compareItems)
-    }
-    return hashes.map(h => this.normalize(h, options, elementName))
-      .filter(isNotUndefined)
+  normalizeRepository (data: Models.HashRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(h => this.normalize(h, options, elementName)
+    ).filter(isNotUndefined)
   }
 }
 
@@ -269,12 +269,12 @@ export class OrganizationalContactNormalizer extends Base {
     }
   }
 
-  normalizeIter (data: Iterable<Models.OrganizationalContact>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
-    const contacts = Array.from(data)
-    if (options.sortLists ?? false) {
-      contacts.sort(Models.OrganizationalContactRepository.compareItems)
-    }
-    return contacts.map(c => this.normalize(c, options, elementName))
+  normalizeRepository (data: Models.OrganizationalContactRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(c => this.normalize(c, options, elementName))
   }
 }
 
@@ -287,7 +287,7 @@ export class OrganizationalEntityNormalizer extends Base {
         makeOptionalTextElement(data.name, 'name'),
         ...makeTextElementIter(data.url, options, 'url')
           .filter(({ children: u }) => XmlSchema.isAnyURI(u)),
-        ...this._factory.makeForOrganizationalContact().normalizeIter(data.contact, options, 'contact')
+        ...this._factory.makeForOrganizationalContact().normalizeRepository(data.contact, options, 'contact')
       ].filter(isNotUndefined)
     }
   }
@@ -305,14 +305,14 @@ export class ComponentNormalizer extends Base {
       ? {
           type: 'element',
           name: 'hashes',
-          children: this._factory.makeForHash().normalizeIter(data.hashes, options, 'hash')
+          children: this._factory.makeForHash().normalizeRepository(data.hashes, options, 'hash')
         }
       : undefined
     const licenses: SimpleXml.Element | undefined = data.licenses.size > 0
       ? {
           type: 'element',
           name: 'licenses',
-          children: this._factory.makeForLicense().normalizeIter(data.licenses, options)
+          children: this._factory.makeForLicense().normalizeRepository(data.licenses, options)
         }
       : undefined
     const swid: SimpleXml.Element | undefined = data.swid === undefined
@@ -323,7 +323,7 @@ export class ComponentNormalizer extends Base {
           type: 'element',
           name: 'externalReferences',
           children: this._factory.makeForExternalReference()
-            .normalizeIter(data.externalReferences, options, 'reference')
+            .normalizeRepository(data.externalReferences, options, 'reference')
         }
       : undefined
     return {
@@ -357,13 +357,13 @@ export class ComponentNormalizer extends Base {
     }
   }
 
-  normalizeIter (data: Iterable<Models.Component>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
-    const components = Array.from(data)
-    if (options.sortLists ?? false) {
-      components.sort(Models.ComponentRepository.compareItems)
-    }
-    return components.map(c => this.normalize(c, options, elementName))
-      .filter(isNotUndefined)
+  normalizeRepository (data: Models.ComponentRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(c => this.normalize(c, options, elementName)
+    ).filter(isNotUndefined)
   }
 }
 
@@ -420,12 +420,12 @@ export class LicenseNormalizer extends Base {
     return makeTextElement(data.expression, 'expression')
   }
 
-  normalizeIter (data: Models.LicenseRepository, options: NormalizerOptions): SimpleXml.Element[] {
-    const licenses = Array.from(data)
-    if (options.sortLists ?? false) {
-      licenses.sort(Models.LicenseRepository.compareItems)
-    }
-    return licenses.map(c => this.normalize(c, options))
+  normalizeRepository (data: Models.LicenseRepository, options: NormalizerOptions): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(c => this.normalize(c, options))
   }
 }
 
@@ -460,7 +460,7 @@ export class ExternalReferenceNormalizer extends Base {
   normalize (data: Models.ExternalReference, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
     const url = data.url.toString()
     return this._factory.spec.supportsExternalReferenceType(data.type) &&
-      XmlSchema.isAnyURI(url)
+    XmlSchema.isAnyURI(url)
       ? {
           type: 'element',
           name: elementName,
@@ -475,13 +475,13 @@ export class ExternalReferenceNormalizer extends Base {
       : undefined
   }
 
-  normalizeIter (data: Iterable<Models.ExternalReference>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
-    const references = Array.from(data)
-    if (options.sortLists ?? false) {
-      references.sort(Models.ExternalReferenceRepository.compareItems)
-    }
-    return references.map(r => this.normalize(r, options, elementName))
-      .filter(isNotUndefined)
+  normalizeRepository (data: Models.ExternalReferenceRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(r => this.normalize(r, options, elementName)
+    ).filter(isNotUndefined)
   }
 }
 

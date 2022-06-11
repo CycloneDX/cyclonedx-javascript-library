@@ -18,12 +18,13 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { ExternalReferenceType } from '../enums'
+import { Comparable, SortableSet } from '../helpers/sortableSet'
 
 interface OptionalProperties {
   comment?: ExternalReference['comment']
 }
 
-export class ExternalReference {
+export class ExternalReference implements Comparable {
   url: URL | string
   type: ExternalReferenceType
   comment?: string
@@ -41,8 +42,5 @@ export class ExternalReference {
   }
 }
 
-export class ExternalReferenceRepository extends Set<ExternalReference> {
-  static compareItems (a: ExternalReference, b: ExternalReference): number {
-    return a.compare(b)
-  }
+export class ExternalReferenceRepository extends SortableSet<ExternalReference> {
 }

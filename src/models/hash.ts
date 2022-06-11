@@ -30,9 +30,13 @@ export type Hash = readonly [
 ]
 
 export class HashRepository extends Map<Hash[0], Hash[1]> {
-  static compareItems (a: Hash, b: Hash): number {
+  #compareItems ([a1, c1]: Hash, [a2, c2]: Hash): number {
     /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
-    return a[0].localeCompare(b[0]) ||
-      a[1].localeCompare(b[1])
+    return a1.localeCompare(a2) ||
+      c1.localeCompare(c2)
+  }
+
+  sorted (): Hash[] {
+    return Array.from(this.entries()).sort(this.#compareItems)
   }
 }
