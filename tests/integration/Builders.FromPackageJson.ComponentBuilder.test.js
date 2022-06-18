@@ -21,8 +21,6 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const { PackageURL } = require('packageurl-js')
-
 const {
   Enums,
   Models,
@@ -60,7 +58,6 @@ suite('Builders.FromPackageJson.ComponentBuilder', () => {
       externalReferences: new Models.ExternalReferenceRepository([`FAKE REFERENCES ${salt}`]),
       licenses: new Models.LicenseRepository([`FAKE LICENSE ${salt}`]),
       group: '@foo',
-      purl: new PackageURL('npm', '@foo', 'bar', `1.33.7-alpha.23.${salt}`, {}, undefined),
       version: `1.33.7-alpha.23.${salt}`
     }
   )
