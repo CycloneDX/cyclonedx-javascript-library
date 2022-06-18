@@ -27,7 +27,7 @@ const { capitaliseFirstLetter } = require('../_helpers/stringFunctions')
 const {
   Enums: { HashAlgorithm },
   Spec: { Version, SpecVersionDict },
-  Resources: { FILES: { CDX: { JSON_SCHEMA: CDX_JSON_SCHEMA } } }
+  _Resources: { FILES: { CDX: { JSON_SCHEMA: CDX_JSON_SCHEMA } } }
 } = require('../../')
 
 suite('HashAlgorithm enum', () => {

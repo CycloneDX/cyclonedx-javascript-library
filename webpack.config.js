@@ -43,7 +43,7 @@ const configBase = {
   resolve: {
     extensions: ['.tsx', '.ts']
   },
-  entry: path.resolve(__dirname, 'src/_index.web.ts'),
+  entry: path.resolve(__dirname, 'src/index.web.ts'),
   output: {
     path: path.resolve(__dirname, 'dist.web'),
     // filename: '',

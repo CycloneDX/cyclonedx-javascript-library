@@ -27,7 +27,7 @@ const { upperCamelCase } = require('../_helpers/stringFunctions')
 const {
   Enums: { ComponentScope },
   Spec: { Version },
-  Resources: { FILES: { CDX: { JSON_SCHEMA: CDX_JSON_SCHEMA } } }
+  _Resources: { FILES: { CDX: { JSON_SCHEMA: CDX_JSON_SCHEMA } } }
 } = require('../../')
 
 suite('ComponentScope enum', () => {

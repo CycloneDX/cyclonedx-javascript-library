@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.json",
-  "files": ["src/_index.node.ts"],
+  "files": ["src/index.node.ts"],
   "compilerOptions": {
     "outDir": "./dist.node/"
   }

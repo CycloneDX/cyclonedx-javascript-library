@@ -17,11 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * as Types from './types'
-export * as Enums from './enums'
-export * as SPDX from './spdx'
-export * as Models from './models'
-export * as Factories from './factories'
-export * as Spec from './spec'
-export * as Serialize from './serialize/_index.web'
-// do not export the helpers, they are for internal use only
+export * from './index.common'
+
+export * from './xmlSerializer.web'
+// export * from './xmlDeserializer.web' // TODO
