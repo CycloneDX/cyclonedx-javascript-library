@@ -20,3 +20,4 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 // not everything is public, yet
 
 export * from './license'
+export * from './packageUrl'

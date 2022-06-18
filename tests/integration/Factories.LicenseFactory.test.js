@@ -26,7 +26,7 @@ const {
   Models: { LicenseExpression, NamedLicense, SpdxLicense }
 } = require('../../')
 
-suite('LicenseFactory', () => {
+suite('Factories.LicenseFactory', () => {
   test('makeFromString() -> LicenseExpression', () => {
     const sut = new LicenseFactory()
 

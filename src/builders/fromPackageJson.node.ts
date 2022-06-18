@@ -17,10 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { PackageURL } from 'packageurl-js'
-
 import * as Enums from '../enums'
-import { ExternalReferenceType } from '../enums'
 import * as Models from '../models'
 import * as Factories from '../factories/index.node'
 import { PackageJson, splitNameGroup } from '../helpers/packageJson'
@@ -56,7 +53,10 @@ export class ComponentBuilder {
   readonly #extRefFactory: Factories.FromPackageJson.ExternalReferenceFactory
   readonly #licenseFactory: Factories.LicenseFactory
 
-  constructor (extRefFactory: Factories.FromPackageJson.ExternalReferenceFactory, licenseFactory: Factories.LicenseFactory) {
+  constructor (
+    extRefFactory: Factories.FromPackageJson.ExternalReferenceFactory,
+    licenseFactory: Factories.LicenseFactory
+  ) {
     this.#extRefFactory = extRefFactory
     this.#licenseFactory = licenseFactory
   }
@@ -67,7 +67,7 @@ export class ComponentBuilder {
     }
 
     const [name, group] = splitNameGroup(data.name)
-    if (name.length === 0) {
+    if (name.length <= 0) {
       return undefined
     }
 
@@ -101,28 +101,7 @@ export class ComponentBuilder {
           ? []
           : [license]
       ),
-      version,
-      purl: this.#makePurl(name, group, version, externalReferences)
+      version
     })
-  }
-
-  #makePurl (
-    name: string,
-    group: string | undefined,
-    version: string | undefined,
-    externalReferences: Models.ExternalReference[]
-  ): PackageURL {
-    const qualifiers: { [key: string]: string } = {}
-    const subpath = undefined
-
-    const vcsUrl = externalReferences.filter(
-      ({ type }) => type === ExternalReferenceType.VCS
-    )[0]?.url.toString()
-    if (vcsUrl !== undefined) {
-      qualifiers.vcs_url = vcsUrl
-    }
-
-    return new PackageURL(
-      'npm', group, name, version, qualifiers, subpath)
   }
 }
