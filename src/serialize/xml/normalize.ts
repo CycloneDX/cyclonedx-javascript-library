@@ -501,16 +501,13 @@ export class AttachmentNormalizer extends Base {
 
 export class DependencyGraphNormalizer extends Base {
   normalize (data: Models.Bom, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
-    if (!data.metadata.component?.bomRef.value) {
-      // the graph is missing the entry point -> omit the graph
-      return undefined
-    }
-
     const allRefs = new Map<Models.BomRef, Models.BomRefRepository>()
+    if (data.metadata.component !== undefined) {
+      allRefs.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
+    }
     for (const c of data.components) {
       allRefs.set(c.bomRef, new Models.BomRefRepository(c.dependencies))
     }
-    allRefs.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
 
     const normalized: Array<(SimpleXml.Element & { attributes: { ref: string } })> = []
     for (const [ref, deps] of allRefs) {
