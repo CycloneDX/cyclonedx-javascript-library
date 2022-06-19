@@ -1,4 +1,5 @@
 'use strict'
+
 /*!
 This file is part of CycloneDX JavaScript Library.
 
@@ -22,7 +23,7 @@ const path = require('path')
 const deepmerge = require('deepmerge')
 
 /**
- * @see {@link https://webpack.js.org/guides/author-libraries/}
+ * @see {@link https://webpack.js.org/configuration/}
  */
 const configBase = {
   target: 'web',
