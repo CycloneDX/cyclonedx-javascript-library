@@ -26,7 +26,7 @@ const {
   Serialize: { BomRefDiscriminator }
 } = require('../../')
 
-suite('BomRefDiscriminator', () => {
+suite('Serialize.BomRefDiscriminator', () => {
   test('does not alter BomRef.value unintended', () => {
     const bomRef1 = new BomRef()
     const bomRef2 = new BomRef('foo')

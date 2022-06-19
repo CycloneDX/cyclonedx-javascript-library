@@ -33,7 +33,7 @@ const {
   Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
 } = require('../../')
 
-describe('JSON normalize', function () {
+describe('Serialize.JsonNormalize', function () {
   this.timeout(60000);
 
   [

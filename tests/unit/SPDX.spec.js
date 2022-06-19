@@ -25,7 +25,7 @@ const {
   SPDX: { fixupSpdxId, isSupportedSpdxId }
 } = require('../../')
 
-suite('isSupportedSpdxId()', () => {
+suite('SPDX.isSupportedSpdxId()', () => {
   const knownSpdxIds = Object.freeze(['MIT', 'Apache-2.0'])
 
   suite('is true', () =>

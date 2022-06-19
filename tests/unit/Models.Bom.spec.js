@@ -25,7 +25,7 @@ const {
   Models: { Bom, ComponentRepository, Metadata }
 } = require('../../')
 
-suite('BOM', () => {
+suite('Models.Bom', () => {
   test('construct with empty properties', () => {
     const bom = new Bom()
 

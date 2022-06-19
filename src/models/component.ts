@@ -79,6 +79,7 @@ export class Component implements Comparable {
     this.#bomRef = new BomRef(op.bomRef)
     this.type = type
     this.name = name
+    this.supplier = op.supplier
     this.author = op.author
     this.copyright = op.copyright
     this.externalReferences = op.externalReferences ?? new ExternalReferenceRepository()

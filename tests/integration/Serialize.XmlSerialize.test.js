@@ -34,7 +34,7 @@ const {
   Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
 } = require('../../')
 
-describe('XML serialize', function () {
+describe('Serialize.XmlSerialize', function () {
   this.timeout(60000);
 
   [
