@@ -312,7 +312,7 @@
             },
             {
               "type": "element",
-              "name": "description",
+              "name": "scope",
               "children": "required"
             },
             {

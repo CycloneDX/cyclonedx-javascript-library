@@ -77,7 +77,7 @@
     "prebuild:node": "node -r fs -e 'fs.rmSync(\"dist.node\",{recursive:true,force:true})'",
     "build:node": "tsc -b ./tsconfig.node.json",
     "prebuild:web": "node -r fs -e 'fs.rmSync(\"dist.web\",{recursive:true,force:true})'",
-    "build:web": "webpack",
+    "build:web": "webpack build",
     "cs-fix": "eslint --fix .",
     "test": "run-p --aggregate-output -lc test:*",
     "test:node": "mocha -p",

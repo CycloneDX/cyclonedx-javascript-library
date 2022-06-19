@@ -71,7 +71,7 @@
             <name>dummy-component</name>
             <version>1337-beta</version>
             <description>this is a test component</description>
-            <description>required</description>
+            <scope>required</scope>
             <hashes>
                 <hash alg="MD5">6bd3ac6fb35bb07c3f74d7f72451af57</hash>
                 <hash alg="SHA-1">e6f36746ccba42c288acf906e636bb278eaeb7e8</hash>

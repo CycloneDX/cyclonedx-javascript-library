@@ -345,7 +345,7 @@ export class ComponentNormalizer extends Base {
           'version'
         ),
         makeOptionalTextElement(data.description, 'description'),
-        makeOptionalTextElement(data.scope, 'description'),
+        makeOptionalTextElement(data.scope, 'scope'),
         hashes,
         licenses,
         makeOptionalTextElement(data.copyright, 'copyright'),

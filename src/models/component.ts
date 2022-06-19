@@ -90,6 +90,7 @@ export class Component implements Comparable {
     this.scope = op.scope
     this.swid = op.swid
     this.version = op.version
+    this.description = op.description
     this.dependencies = op.dependencies ?? new BomRefRepository()
     this.cpe = op.cpe
   }
