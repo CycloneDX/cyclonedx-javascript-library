@@ -18,11 +18,12 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 export interface Comparable {
+  // The purpose of this method is not to test for equality, but have deterministic comparability.
   compare: (other: any) => number
 }
 
 export abstract class SortableSet<T extends Comparable> extends Set<T> {
   sorted (): T[] {
-    return Array.from(this).sort((a, b) => a.compare(b))
+    return Array.from(this).sort((a: T, b: T) => a.compare(b))
   }
 }
