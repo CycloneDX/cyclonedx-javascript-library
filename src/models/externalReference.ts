@@ -36,6 +36,7 @@ export class ExternalReference implements Comparable {
   }
 
   compare (other: ExternalReference): number {
+    // The purpose of this method is not to test for equality, but have deterministic comparability.
     /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return this.type.localeCompare(other.type) ||
       this.url.toString().localeCompare(other.url.toString())

@@ -115,6 +115,7 @@ export class Component implements Comparable {
   }
 
   compare (other: Component): number {
+    // The purpose of this method is not to test for equality, but have deterministic comparability.
     const bomRefCompare = this.bomRef.compare(other.bomRef)
     if (bomRefCompare !== 0) {
       return bomRefCompare
