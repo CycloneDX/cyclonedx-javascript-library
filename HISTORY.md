@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.0.1 - 2022-07-23
+
+Maintenance release.
+
+* Misc
+  * Use TypeScript `v4.7.4` now, was `v4.6.4`.
+
 ## 1.0.0 - 2022-06-20
 
 Initial release.
