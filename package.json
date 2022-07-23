@@ -58,14 +58,18 @@
     "webpack-cli": "4.10.0",
     "xmlbuilder2": "^3.0.2"
   },
-  "browser": "./dist.web/lib.js",
+  "browser": "./dist/web/lib.js",
   "types": "./src/index.node.ts",
-  "main": "./dist.node/index.node.js",
-  "exports": "./dist.node/index.node.js",
+  "main": "./dist.node.commonjs/index.node.cjs",
+  "exports": {
+    ".": {
+      "import": "./dist.node.esm/index.node.mjs",
+      "require": "./dist.node.commonjs/index.node.cjs"
+    }
+  },
   "directories": {
     "doc": "./docs",
     "src": "./src",
-    "lib": "./dist.node",
     "test": "./tests",
     "example": "./examples"
   },
@@ -73,9 +77,14 @@
     "prepublish": "npm run build",
     "prepublishOnly": "npm run build",
     "lint": "tsc --noEmit",
-    "build": "run-p --aggregate-output -l build:*",
-    "prebuild:node": "node -r fs -e 'fs.rmSync(\"dist.node\",{recursive:true,force:true})'",
-    "build:node": "tsc -b ./tsconfig.node.json",
+    "build": "run-p --aggregate-output -lc build:*",
+    "build:node": "run-p --aggregate-output -lc build:node:*",
+    "prebuild:node:commonjs": "node -r fs -e 'fs.rmSync(\"dist.node.commonjs\",{recursive:true,force:true})'",
+    "build:node:commonjs": "tsc -b ./tsconfig.node.commonjs.json",
+    "postbuild:node:commonjs": "node scripts/rename-dist.js dist.node.commonjs cjs",
+    "prebuild:node:esm": "node -r fs -e 'fs.rmSync(\"dist.node.esm\",{recursive:true,force:true})'",
+    "build:node:esm": "tsc -b ./tsconfig.node.esm.json",
+    "postbuild:node:esm": "node scripts/rename-dist.js dist.node.esm mjs",
     "prebuild:web": "node -r fs -e 'fs.rmSync(\"dist.web\",{recursive:true,force:true})'",
     "build:web": "webpack build",
     "cs-fix": "eslint --fix .",
