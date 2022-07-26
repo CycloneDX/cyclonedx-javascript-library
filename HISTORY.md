@@ -4,12 +4,24 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.0.2 - 2022-07-26
+
+Maintenance release.
+
+* Dependencies
+  * Widened the range of requirement `packageurl-js` to `>=0.0.6 <0.0.8`, was `^0.0.7`. ([#130] via [#131])
+
+[#130]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/130
+[#131]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/131
+
 ## 1.0.1 - 2022-07-23
 
 Maintenance release.
 
 * Misc
   * Use TypeScript `v4.7.4` now, was `v4.6.4`.
+* Dependencies
+  * Raised the requirement of `packageurl-js` to `^0.0.7`, was `^0.0.6`.
 
 ## 1.0.0 - 2022-06-20
 
