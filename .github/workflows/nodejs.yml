@@ -104,5 +104,6 @@ jobs:
           path: dist.node
       - name: test
         run: npm run test:node
+      # TODO: if failed() - then collect the reports dir as artifact
   # test-web:
     # TODO via https://github.com/CycloneDX/cyclonedx-javascript-library/issues/51

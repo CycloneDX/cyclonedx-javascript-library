@@ -18,6 +18,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+const path = require('path')
+
 /**
  * mocha config
  * @see {@link https://mochajs.org/#configuring-mocha-nodejs}
@@ -40,4 +42,14 @@ module.exports = {
     'spec.mjs', 'test.mjs',
   ],
   ui: 'tdd',
+  reporter: 'mocha-junit-reporter',
+  reporterOptions: {
+    // region mocha-junit-reporter options
+    // see https://github.com/michaelleeallen/mocha-junit-reporter#results-report
+    mochaFile: path.join(__dirname, 'reports', 'mocha-tests.[hash].junit.xml'), // @FIXME is not used at all - see https://github.com/michaelleeallen/mocha-junit-reporter/issues/112
+    // testsuitesTitle: true, // @FIXME causes issues
+    outputs: true,
+    toConsole: true // @FIXME is not used at all
+    // endregion mocha-junit-reporter options
+  }
 }
