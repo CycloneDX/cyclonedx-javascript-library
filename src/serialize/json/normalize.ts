@@ -270,6 +270,9 @@ export class ComponentNormalizer extends Base {
             : this._factory.makeForSWID().normalize(data.swid, options),
           externalReferences: data.externalReferences.size > 0
             ? this._factory.makeForExternalReference().normalizeRepository(data.externalReferences, options)
+            : undefined,
+          components: data.components.size > 0
+            ? this.normalizeRepository(data.components, options)
             : undefined
         }
       : undefined

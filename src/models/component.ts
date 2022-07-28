@@ -45,6 +45,7 @@ interface OptionalProperties {
   swid?: Component['swid']
   version?: Component['version']
   dependencies?: Component['dependencies']
+  components?: Component['components']
   cpe?: Component['cpe']
 }
 
@@ -65,6 +66,7 @@ export class Component implements Comparable {
   swid?: SWID
   version?: string
   dependencies: BomRefRepository
+  components: ComponentRepository
 
   /** @see bomRef */
   readonly #bomRef: BomRef
@@ -93,6 +95,7 @@ export class Component implements Comparable {
     this.version = op.version
     this.description = op.description
     this.dependencies = op.dependencies ?? new BomRefRepository()
+    this.components = op.components ?? new ComponentRepository()
     this.cpe = op.cpe
   }
 
