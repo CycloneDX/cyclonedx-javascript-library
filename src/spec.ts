@@ -52,6 +52,8 @@ export interface Protocol {
   readonly supportsDependencyGraph: boolean
 
   readonly supportsToolReferences: boolean
+
+  readonly requiresComponentVersion: boolean
 }
 
 /**
@@ -67,6 +69,7 @@ class Spec implements Protocol {
   readonly #externalReferenceTypes: ReadonlySet<ExternalReferenceType>
   readonly #supportsDependencyGraph: boolean
   readonly #supportsToolReferences: boolean
+  readonly #requiresComponentVersion: boolean
 
   constructor (
     version: Version,
@@ -76,7 +79,8 @@ class Spec implements Protocol {
     hashValuePattern: RegExp,
     externalReferenceTypes: Iterable<ExternalReferenceType>,
     supportsDependencyGraph: boolean,
-    supportsToolReferences: boolean
+    supportsToolReferences: boolean,
+    requiresComponentVersion: boolean
   ) {
     this.#version = version
     this.#formats = new Set(formats)
@@ -86,6 +90,7 @@ class Spec implements Protocol {
     this.#externalReferenceTypes = new Set(externalReferenceTypes)
     this.#supportsDependencyGraph = supportsDependencyGraph
     this.#supportsToolReferences = supportsToolReferences
+    this.#requiresComponentVersion = requiresComponentVersion
   }
 
   get version (): Version {
@@ -119,6 +124,10 @@ class Spec implements Protocol {
 
   get supportsToolReferences (): boolean {
     return this.#supportsToolReferences
+  }
+
+  get requiresComponentVersion (): boolean {
+    return this.#requiresComponentVersion
   }
 }
 
@@ -172,7 +181,8 @@ export const Spec1dot2: Readonly<Protocol> = Object.freeze(new Spec(
     ExternalReferenceType.Other
   ],
   true,
-  false
+  false,
+  true
 ))
 
 /** Specification v1.3 */
@@ -225,7 +235,8 @@ export const Spec1dot3: Readonly<Protocol> = Object.freeze(new Spec(
     ExternalReferenceType.Other
   ],
   true,
-  false
+  false,
+  true
 ))
 
 /** Specification v1.4 */
@@ -279,7 +290,8 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
     ExternalReferenceType.Other
   ],
   true,
-  true
+  true,
+  false
 ))
 
 export const SpecVersionDict = Object.freeze(Object.fromEntries([

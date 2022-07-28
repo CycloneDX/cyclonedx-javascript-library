@@ -34,7 +34,6 @@
         </authors>
         <component type="library" bom-ref="dummy.metadata.component">
             <name>Root Component</name>
-            <version/>
         </component>
         <manufacture>
             <name>meta manufacture</name>
@@ -55,7 +54,6 @@
     <components>
         <component type="library" bom-ref="a-component">
             <name>a-component</name>
-            <version/>
         </component>
         <component type="library" bom-ref="dummy-component">
             <supplier>

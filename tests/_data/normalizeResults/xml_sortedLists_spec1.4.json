@@ -151,11 +151,6 @@
               "type": "element",
               "name": "name",
               "children": "Root Component"
-            },
-            {
-              "type": "element",
-              "name": "version",
-              "children": ""
             }
           ]
         },
@@ -236,11 +231,6 @@
               "type": "element",
               "name": "name",
               "children": "a-component"
-            },
-            {
-              "type": "element",
-              "name": "version",
-              "children": ""
             }
           ]
         },

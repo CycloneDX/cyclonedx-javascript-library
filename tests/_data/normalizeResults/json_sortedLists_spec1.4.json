@@ -46,7 +46,6 @@
     "component": {
       "type": "library",
       "name": "Root Component",
-      "version": "",
       "bom-ref": "dummy.metadata.component"
     },
     "manufacture": {
@@ -75,7 +74,6 @@
     {
       "type": "library",
       "name": "a-component",
-      "version": "",
       "bom-ref": "a-component"
     },
     {
