@@ -238,13 +238,13 @@ export class OrganizationalEntityNormalizer extends Base {
 
 export class ComponentNormalizer extends Base {
   normalize (data: Models.Component, options: NormalizerOptions): Normalized.Component | undefined {
-    return this._factory.spec.supportsComponentType(data.type)
+    const spec = this._factory.spec
+    return spec.supportsComponentType(data.type)
       ? {
           type: data.type,
           name: data.name,
           group: data.group || undefined,
-          // version fallback to string for spec < 1.4
-          version: data.version || '',
+          version: data.version ?? (spec.requiresComponentVersion ? '' : undefined),
           'bom-ref': data.bomRef.value || undefined,
           supplier: data.supplier === undefined
             ? undefined

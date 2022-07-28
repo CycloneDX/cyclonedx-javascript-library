@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Added
+  * CycloneDX spec version 1.4 made element `bom.component.version` optional.  
+    Therefore, serialization/normalization with this spec version will no longer render this element,
+    when its value is empty. (via [#137])
+
+[#137]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/137
+
 ## 1.0.3 - 2022-07-28
 
 * Fixed

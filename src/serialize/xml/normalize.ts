@@ -295,12 +295,21 @@ export class OrganizationalEntityNormalizer extends Base {
 
 export class ComponentNormalizer extends Base {
   normalize (data: Models.Component, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
-    if (!this._factory.spec.supportsComponentType(data.type)) {
+    const spec = this._factory.spec
+    if (!spec.supportsComponentType(data.type)) {
       return undefined
     }
     const supplier: SimpleXml.Element | undefined = data.supplier === undefined
       ? undefined
       : this._factory.makeForOrganizationalEntity().normalize(data.supplier, options, 'supplier')
+    const version: SimpleXml.Element | undefined = (
+      spec.requiresComponentVersion
+        ? makeTextElement
+        : makeOptionalTextElement
+    )(
+      data.version ?? '',
+      'version'
+    )
     const hashes: SimpleXml.Element | undefined = data.hashes.size > 0
       ? {
           type: 'element',
@@ -339,11 +348,7 @@ export class ComponentNormalizer extends Base {
         makeOptionalTextElement(data.publisher, 'publisher'),
         makeOptionalTextElement(data.group, 'group'),
         makeTextElement(data.name, 'name'),
-        makeTextElement(
-          // version fallback to string for spec < 1.4
-          data.version ?? '',
-          'version'
-        ),
+        version,
         makeOptionalTextElement(data.description, 'description'),
         makeOptionalTextElement(data.scope, 'scope'),
         hashes,
