@@ -22,6 +22,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * mocha config
  * @see {@link https://mochajs.org/#configuring-mocha-nodejs}
  * @see {@link https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.js example}
+ * @type {import('@types/mocha').Mocha.MochaOptions}
  */
 module.exports = {
   spec: [
