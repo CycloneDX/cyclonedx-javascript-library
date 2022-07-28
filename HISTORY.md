@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 * Fixed
   * `Types.isCPE()` for CPE2.3 allows escaped(`\`) chars `&"><`, as expected. (via [#133])
 
-[#133]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/132
+[#133]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/133
 
 ## 1.0.2 - 2022-07-26
 
