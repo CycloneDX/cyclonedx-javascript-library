@@ -133,6 +133,7 @@
         <dependency ref="dummy.metadata.component">
             <dependency ref="a-component"/>
             <dependency ref="dummy-component"/>
+            <dependency ref="SomeFrameworkBundle"/>
         </dependency>
         <dependency ref="SomeFrameworkBundle"/>
     </dependencies>

@@ -197,7 +197,8 @@
             "ref": "dummy.metadata.component",
             "dependsOn": [
                 "a-component",
-                "dummy-component"
+                "dummy-component",
+                "SomeFrameworkBundle"
             ]
         },
         {

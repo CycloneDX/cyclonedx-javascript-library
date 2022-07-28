@@ -177,6 +177,9 @@ module.exports.createComplexStructure = function () {
     })
     subComponentA.dependencies.add(subComponentB.bomRef)
     component.components.add(subComponentB)
+
+    bom.metadata.component.dependencies.add(component.bomRef)
+
     return component
   })(new Models.Component(
     Enums.ComponentType.Framework, 'SomeFrameworkBundle', {

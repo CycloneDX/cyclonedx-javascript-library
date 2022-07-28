@@ -596,6 +596,13 @@
               "attributes": {
                 "ref": "dummy-component"
               }
+            },
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "SomeFrameworkBundle"
+              }
             }
           ]
         },
