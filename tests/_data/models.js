@@ -128,7 +128,7 @@ module.exports.createComplexStructure = function () {
     component.scope = Enums.ComponentScope.Required
     component.supplier = new Models.OrganizationalEntity({ name: 'Component Supplier' })
     component.supplier.url.add(new URL('https://localhost/componentSupplier-B'))
-    component.supplier.url.add(new URL('https://localhost/componentSupplier-A'))
+    component.supplier.url.add('https://localhost/componentSupplier-A')
     component.supplier.contact.add(new Models.OrganizationalContact({ name: 'The quick brown fox' }))
     component.supplier.contact.add((function (contact) {
       contact.name = 'Franz'
@@ -150,18 +150,38 @@ module.exports.createComplexStructure = function () {
     return component
   })(new Models.Component(Enums.ComponentType.Library, 'dummy-component', { version: '1337-beta' })))
 
-  bom.components.add(function (component) {
+  bom.components.add((function (component) {
     // interlink everywhere
     bom.metadata.component.dependencies.add(component.bomRef)
     bom.components.forEach(c => c.dependencies.add(component.bomRef))
     return component
-  }(new Models.Component(Enums.ComponentType.Library, 'a-component', {
+  })(new Models.Component(Enums.ComponentType.Library, 'a-component', {
     bomRef: 'a-component',
     version: '', // empty string - not undefined
     dependencies: new Models.BomRefRepository([
       new Models.BomRef('unknown foreign ref that should not be rendered')
     ])
   })))
+
+  bom.components.add((function (component) {
+    // scenario:
+    // * `subComponentA` is a bundled dependency, that itself depends on `subComponentB`.
+    // * `subComponentB` is a transitive bundled dependency.
+    const subComponentA = new Models.Component(Enums.ComponentType.Library, 'SubComponentA', {
+      bomRef: `${component.bomRef.value}#SubComponentA`
+    })
+    component.dependencies.add(subComponentA.bomRef)
+    component.components.add(subComponentA)
+    const subComponentB = new Models.Component(Enums.ComponentType.Library, 'SubComponentB', {
+      bomRef: `${component.bomRef.value}#SubComponentB`
+    })
+    subComponentA.dependencies.add(subComponentB.bomRef)
+    component.components.add(subComponentB)
+    return component
+  })(new Models.Component(
+    Enums.ComponentType.Framework, 'SomeFrameworkBundle', {
+      bomRef: 'SomeFrameworkBundle'
+    })))
 
   return bom
 }

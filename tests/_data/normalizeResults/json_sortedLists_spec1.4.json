@@ -170,6 +170,23 @@
           "comment": "testing"
         }
       ]
+    },
+    {
+      "type": "framework",
+      "name": "SomeFrameworkBundle",
+      "bom-ref": "SomeFrameworkBundle",
+      "components": [
+        {
+          "type": "library",
+          "name": "SubComponentA",
+          "bom-ref": "SomeFrameworkBundle#SubComponentA"
+        },
+        {
+          "type": "library",
+          "name": "SubComponentB",
+          "bom-ref": "SomeFrameworkBundle#SubComponentB"
+        }
+      ]
     }
   ],
   "dependencies": [
@@ -188,6 +205,9 @@
         "a-component",
         "dummy-component"
       ]
+    },
+    {
+      "ref": "SomeFrameworkBundle"
     }
   ]
 }

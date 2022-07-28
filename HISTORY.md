@@ -5,10 +5,13 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Added
+  * Implemented support for nested/bundled components via `bom.component.components`. ([#132] via [#136])
   * CycloneDX spec version 1.4 made element `bom.component.version` optional.  
     Therefore, serialization/normalization with this spec version will no longer render this element,
     when its value is empty. (via [#137], [#138])
 
+[#132]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/132
+[#136]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/136
 [#137]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/137
 [#138]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/138
 

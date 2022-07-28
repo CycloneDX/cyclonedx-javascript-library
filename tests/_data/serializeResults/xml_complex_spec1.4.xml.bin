@@ -113,6 +113,17 @@
                 </reference>
             </externalReferences>
         </component>
+        <component type="framework" bom-ref="SomeFrameworkBundle">
+            <name>SomeFrameworkBundle</name>
+            <components>
+                <component type="library" bom-ref="SomeFrameworkBundle#SubComponentA">
+                    <name>SubComponentA</name>
+                </component>
+                <component type="library" bom-ref="SomeFrameworkBundle#SubComponentB">
+                    <name>SubComponentB</name>
+                </component>
+            </components>
+        </component>
     </components>
     <dependencies>
         <dependency ref="a-component"/>
@@ -123,5 +134,6 @@
             <dependency ref="a-component"/>
             <dependency ref="dummy-component"/>
         </dependency>
+        <dependency ref="SomeFrameworkBundle"/>
     </dependencies>
 </bom>
