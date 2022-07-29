@@ -109,6 +109,7 @@ suite('Models.Component', () => {
     assert.strictEqual(component.supplier, dummySupplier)
     assert.strictEqual(component.swid, dummySWID)
     assert.strictEqual(component.version, '1.33.7')
+    assert.strictEqual(component.components.size, 1)
     assert.strictEqual(Array.from(component.components)[0], subComponent)
   })
 })
