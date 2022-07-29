@@ -131,6 +131,12 @@
             <dependency ref="dummy-component"/>
             <dependency ref="SomeFrameworkBundle"/>
         </dependency>
-        <dependency ref="SomeFrameworkBundle"/>
+        <dependency ref="SomeFrameworkBundle">
+            <dependency ref="SomeFrameworkBundle#SubComponentA"/>
+        </dependency>
+        <dependency ref="SomeFrameworkBundle#SubComponentA">
+            <dependency ref="SomeFrameworkBundle#SubComponentB"/>
+        </dependency>
+        <dependency ref="SomeFrameworkBundle#SubComponentB"/>
     </dependencies>
 </bom>

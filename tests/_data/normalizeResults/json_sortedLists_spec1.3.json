@@ -202,7 +202,19 @@
       ]
     },
     {
-      "ref": "SomeFrameworkBundle"
+      "ref": "SomeFrameworkBundle",
+      "dependsOn": [
+        "SomeFrameworkBundle#SubComponentA"
+      ]
+    },
+    {
+      "ref": "SomeFrameworkBundle#SubComponentA",
+      "dependsOn": [
+        "SomeFrameworkBundle#SubComponentB"
+      ]
+    },
+    {
+      "ref": "SomeFrameworkBundle#SubComponentB"
     }
   ]
 }

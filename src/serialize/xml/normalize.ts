@@ -23,6 +23,7 @@ import * as Models from '../../models'
 import { Protocol as Spec, Version as SpecVersion } from '../../spec'
 import { NormalizerOptions } from '../types'
 import { SimpleXml, XmlSchema } from './types'
+import { treeIterator } from '../../helpers/tree'
 
 export class Factory {
   readonly #spec: Spec
@@ -517,9 +518,12 @@ export class DependencyGraphNormalizer extends Base {
     const allRefs = new Map<Models.BomRef, Models.BomRefRepository>()
     if (data.metadata.component !== undefined) {
       allRefs.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
+      for (const component of data.metadata.component.components[treeIterator]()) {
+        allRefs.set(component.bomRef, new Models.BomRefRepository(component.dependencies))
+      }
     }
-    for (const c of data.components) {
-      allRefs.set(c.bomRef, new Models.BomRefRepository(c.dependencies))
+    for (const component of data.components[treeIterator]()) {
+      allRefs.set(component.bomRef, new Models.BomRefRepository(component.dependencies))
     }
 
     const normalized: Array<(SimpleXml.Element & { attributes: { ref: string } })> = []

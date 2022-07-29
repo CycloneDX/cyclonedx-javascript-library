@@ -612,6 +612,38 @@
           "attributes": {
             "ref": "SomeFrameworkBundle"
           },
+          "children": [
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "SomeFrameworkBundle#SubComponentA"
+              }
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "SomeFrameworkBundle#SubComponentA"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "SomeFrameworkBundle#SubComponentB"
+              }
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "SomeFrameworkBundle#SubComponentB"
+          },
           "children": []
         }
       ]

@@ -28,6 +28,7 @@ import { ExternalReferenceRepository } from './externalReference'
 import { LicenseRepository } from './license'
 import { SWID } from './swid'
 import { Comparable, SortableSet } from '../helpers/sortableSet'
+import { treeIterator } from '../helpers/tree'
 
 interface OptionalProperties {
   bomRef?: BomRef['value']
@@ -137,4 +138,10 @@ export class Component implements Comparable {
 }
 
 export class ComponentRepository extends SortableSet<Component> {
+  * [treeIterator] (): Generator<Component> {
+    for (const component of this) {
+      yield component
+      yield * component.components[treeIterator]()
+    }
+  }
 }
