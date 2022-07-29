@@ -22,8 +22,7 @@ const assert = require('assert')
 const { describe, beforeEach, afterEach, it } = require('mocha')
 
 const { createComplexStructure } = require('../_data/models')
-const { loadSerializeResult } = require('../_data/serialize')
-const { writeSerializeResult } = require('../_data/serialize')
+const { loadSerializeResult, writeSerializeResult } = require('../_data/serialize')
 
 const {
   Serialize: {
