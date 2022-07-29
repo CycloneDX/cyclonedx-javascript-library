@@ -23,7 +23,6 @@ const { describe, beforeEach, afterEach, it } = require('mocha')
 
 const { createComplexStructure } = require('../_data/models')
 const { loadNormalizeResult } = require('../_data/normalize')
-/* uncomment next line to dump data */
 const { writeNormalizeResult } = require('../_data/normalize')
 
 const {
