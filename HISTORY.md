@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Added
-  * Support for nested/bundled components via `Models.Component.components` as added, including
+  * Support for nested/bundled components via `Models.Component.components` was added, including
     serialization/normalization of models and impact on dependency graphs rendering. ([#132] via [#136])
   * CycloneDX spec version 1.4 made element `Models.Component.version` optional.
     Therefore, serialization/normalization with this spec version will no longer render this element
