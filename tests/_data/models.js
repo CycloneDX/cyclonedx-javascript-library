@@ -46,6 +46,7 @@ module.exports.createComplexStructure = function () {
         new Models.Tool({
           vendor: 'tool vendor',
           name: 'other tool',
+          version: '', // empty string, not undefined
           externalReferences: new Models.ExternalReferenceRepository([
             new Models.ExternalReference(
               'https://cyclonedx.org/tool-center/',
@@ -156,6 +157,7 @@ module.exports.createComplexStructure = function () {
     return component
   }(new Models.Component(Enums.ComponentType.Library, 'a-component', {
     bomRef: 'a-component',
+    version: '', // empty string - not undefined
     dependencies: new Models.BomRefRepository([
       new Models.BomRef('unknown foreign ref that should not be rendered')
     ])
