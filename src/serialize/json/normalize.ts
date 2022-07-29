@@ -403,7 +403,7 @@ export class DependencyGraphNormalizer extends Base {
       }
     }
     for (const component of data.components[treeIterator]()) {
-      allRefs.set(component.bomRef, new Models.BomRefRepository(component.dependencies))
+      allRefs.set(component.bomRef, component.dependencies)
     }
 
     const normalized: Normalized.Dependency[] = []

@@ -519,11 +519,11 @@ export class DependencyGraphNormalizer extends Base {
     if (data.metadata.component !== undefined) {
       allRefs.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
       for (const component of data.metadata.component.components[treeIterator]()) {
-        allRefs.set(component.bomRef, new Models.BomRefRepository(component.dependencies))
+        allRefs.set(component.bomRef, component.dependencies)
       }
     }
     for (const component of data.components[treeIterator]()) {
-      allRefs.set(component.bomRef, new Models.BomRefRepository(component.dependencies))
+      allRefs.set(component.bomRef, component.dependencies)
     }
 
     const normalized: Array<(SimpleXml.Element & { attributes: { ref: string } })> = []
