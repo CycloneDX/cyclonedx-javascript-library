@@ -40,9 +40,12 @@ Maintenance release.
 Maintenance release.
 
 * Misc
-  * Use TypeScript `v4.7.4` now, was `v4.6.4`.
+  * Use TypeScript `v4.7.4` now, was `v4.6.4`. (via [#55])
 * Dependencies
-  * Raised the requirement of `packageurl-js` to `^0.0.7`, was `^0.0.6`.
+  * Raised the requirement of `packageurl-js` to `^0.0.7`, was `^0.0.6`. (via [#123])
+
+[#55]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/55
+[#123]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/123
 
 ## 1.0.0 - 2022-06-20
 
