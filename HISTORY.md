@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.1.0 - 2022-07-29
+
 * Added
   * Support for nested/bundled (sub-)components via `Models.Component.components` was added, including
     serialization/normalization of models and impact on dependency graphs rendering. ([#132] via [#136])
