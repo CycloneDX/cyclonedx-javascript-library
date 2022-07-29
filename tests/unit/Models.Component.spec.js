@@ -26,7 +26,7 @@ const { PackageURL } = require('packageurl-js')
 
 const {
   Models: {
-    Component,
+    Component, ComponentRepository,
     BomRef, BomRefRepository,
     ExternalReferenceRepository, ExternalReference,
     HashRepository,
@@ -57,22 +57,24 @@ suite('Models.Component', () => {
     assert.strictEqual(component.supplier, undefined)
     assert.strictEqual(component.swid, undefined)
     assert.strictEqual(component.version, undefined)
+    assert.strictEqual(component.components.size, 0)
   })
 
   test('constructor with OptionalProperties', () => {
-    const dummnBomRef = new BomRef('testing')
+    const dummyBomRef = new BomRef('testing')
     const dummyExtRef = new ExternalReference('../', 'other')
     const dummyLicense = new NamedLicense('mine')
     const dummyPurl = new PackageURL('npm', 'ns', 'app', '1.33.7', {}, undefined)
     const dummySupplier = new OrganizationalEntity({ name: 'dummySupplier' })
     const dummySWID = new SWID('my-fake-swid', 'foo-bar')
+    const subComponent = new Component('library', 'MySubComponent')
 
     const component = new Component('application', 'foobar', {
       author: 'my author',
       bomRef: 'my-bomref',
       copyright: 'my copyright',
       cpe: 'cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*',
-      dependencies: new BomRefRepository([dummnBomRef]),
+      dependencies: new BomRefRepository([dummyBomRef]),
       description: 'this is a test',
       externalReferences: new ExternalReferenceRepository([dummyExtRef]),
       group: 'the-crew',
@@ -82,7 +84,8 @@ suite('Models.Component', () => {
       scope: 'optional',
       supplier: dummySupplier,
       swid: dummySWID,
-      version: '1.33.7'
+      version: '1.33.7',
+      components: new ComponentRepository([subComponent])
     })
 
     assert.strictEqual(component.type, 'application')
@@ -92,7 +95,7 @@ suite('Models.Component', () => {
     assert.strictEqual(component.copyright, 'my copyright')
     assert.strictEqual(component.cpe, 'cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*')
     assert.strictEqual(component.dependencies.size, 1)
-    assert.strictEqual(Array.from(component.dependencies)[0], dummnBomRef)
+    assert.strictEqual(Array.from(component.dependencies)[0], dummyBomRef)
     assert.strictEqual(component.description, 'this is a test')
     assert.strictEqual(component.externalReferences.size, 1)
     assert.strictEqual(Array.from(component.externalReferences)[0], dummyExtRef)
@@ -106,5 +109,7 @@ suite('Models.Component', () => {
     assert.strictEqual(component.supplier, dummySupplier)
     assert.strictEqual(component.swid, dummySWID)
     assert.strictEqual(component.version, '1.33.7')
+    assert.strictEqual(component.components.size, 1)
+    assert.strictEqual(Array.from(component.components)[0], subComponent)
   })
 })

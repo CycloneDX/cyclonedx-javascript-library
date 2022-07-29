@@ -161,6 +161,26 @@
                     "comment": "testing"
                 }
             ]
+        },
+        {
+            "type": "framework",
+            "name": "SomeFrameworkBundle",
+            "version": "",
+            "bom-ref": "SomeFrameworkBundle",
+            "components": [
+                {
+                    "type": "library",
+                    "name": "SubComponentA",
+                    "version": "",
+                    "bom-ref": "SomeFrameworkBundle#SubComponentA"
+                },
+                {
+                    "type": "library",
+                    "name": "SubComponentB",
+                    "version": "",
+                    "bom-ref": "SomeFrameworkBundle#SubComponentB"
+                }
+            ]
         }
     ],
     "dependencies": [
@@ -177,8 +197,24 @@
             "ref": "dummy.metadata.component",
             "dependsOn": [
                 "a-component",
-                "dummy-component"
+                "dummy-component",
+                "SomeFrameworkBundle"
             ]
+        },
+        {
+            "ref": "SomeFrameworkBundle",
+            "dependsOn": [
+                "SomeFrameworkBundle#SubComponentA"
+            ]
+        },
+        {
+            "ref": "SomeFrameworkBundle#SubComponentA",
+            "dependsOn": [
+                "SomeFrameworkBundle#SubComponentB"
+            ]
+        },
+        {
+            "ref": "SomeFrameworkBundle#SubComponentB"
         }
     ]
 }

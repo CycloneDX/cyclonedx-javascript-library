@@ -24,7 +24,7 @@ const { describe, beforeEach, afterEach, it } = require('mocha')
 const { createComplexStructure } = require('../_data/models')
 const { loadSerializeResult } = require('../_data/serialize')
 /* uncomment next line to dump data */
-// const { writeSerializeResult } = require('../_data/serialize')
+const { writeSerializeResult } = require('../_data/serialize')
 
 const {
   Serialize: {
@@ -60,8 +60,9 @@ describe('Serialize.JsonSerialize', function () {
           space: 4
         })
 
-      /* uncomment next line to dump data */
-      // writeSerializeResult(serialized, 'json_complex', spec.version, 'json')
+      if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
+        writeSerializeResult(serialized, 'json_complex', spec.version, 'json')
+      }
 
       assert.strictEqual(
         serialized,

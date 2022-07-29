@@ -24,7 +24,7 @@ const { describe, beforeEach, afterEach, it } = require('mocha')
 const { createComplexStructure } = require('../_data/models')
 const { loadNormalizeResult } = require('../_data/normalize')
 /* uncomment next line to dump data */
-// const { writeNormalizeResult } = require('../_data/normalize')
+const { writeNormalizeResult } = require('../_data/normalize')
 
 const {
   Serialize: {
@@ -63,8 +63,9 @@ describe('Serialize.XmlNormalize', function () {
 
       const json = JSON.stringify(normalized, null, 2)
 
-      /* uncomment next line to dump data */
-      // writeNormalizeResult(json, 'xml_sortedLists', spec.version, 'json')
+      if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
+        writeNormalizeResult(json, 'xml_sortedLists', spec.version, 'json')
+      }
 
       assert.deepStrictEqual(
         JSON.parse(json),

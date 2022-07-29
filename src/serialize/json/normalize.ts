@@ -23,6 +23,7 @@ import * as Models from '../../models'
 import { Protocol as Spec, Version as SpecVersion } from '../../spec'
 import { NormalizerOptions } from '../types'
 import { JsonSchema, Normalized } from './types'
+import { treeIterator } from '../../helpers/tree'
 
 export class Factory {
   readonly #spec: Spec
@@ -270,6 +271,9 @@ export class ComponentNormalizer extends Base {
             : this._factory.makeForSWID().normalize(data.swid, options),
           externalReferences: data.externalReferences.size > 0
             ? this._factory.makeForExternalReference().normalizeRepository(data.externalReferences, options)
+            : undefined,
+          components: data.components.size > 0
+            ? this.normalizeRepository(data.components, options)
             : undefined
         }
       : undefined
@@ -394,9 +398,12 @@ export class DependencyGraphNormalizer extends Base {
     const allRefs = new Map<Models.BomRef, Models.BomRefRepository>()
     if (data.metadata.component !== undefined) {
       allRefs.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
+      for (const component of data.metadata.component.components[treeIterator]()) {
+        allRefs.set(component.bomRef, component.dependencies)
+      }
     }
-    for (const c of data.components) {
-      allRefs.set(c.bomRef, new Models.BomRefRepository(c.dependencies))
+    for (const component of data.components[treeIterator]()) {
+      allRefs.set(component.bomRef, component.dependencies)
     }
 
     const normalized: Normalized.Dependency[] = []
