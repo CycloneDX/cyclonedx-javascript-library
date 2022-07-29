@@ -5,7 +5,8 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Added
-  * Implemented support for nested/bundled components via `bom.component.components`. ([#132] via [#136])
+  * Support for nested/bundled components via `bom.component.components` as added,
+    including normalization of models and extended integration in possible dependency graph. ([#132] via [#136])
   * CycloneDX spec version 1.4 made element `bom.component.version` optional.  
     Therefore, serialization/normalization with this spec version will no longer render this element,
     when its value is empty. (via [#137], [#138])
