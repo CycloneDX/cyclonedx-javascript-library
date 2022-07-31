@@ -9,6 +9,11 @@ instead of the source(`src/`).
 Test files must follow the pattern `**.{spec,test}.[cm]?js`,
 to be picked up.
 
+## Snapshots
+
+Some tests check against snapshots.  
+To update these, set the env var `CJL_TEST_UPDATE_SNAPSHOTS` to a non-falsy value.
+
 ## Run node tests
 
 Test runner is `mocha`,
