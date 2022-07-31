@@ -42,6 +42,10 @@ export abstract class XmlBaseSerializer extends BaseSerializer<SimpleXml.Element
     this.#normalizerFactory = normalizerFactory
   }
 
+  get normalizerFactory (): NormalizerFactory {
+    return this.#normalizerFactory
+  }
+
   protected _normalize (
     bom: Bom,
     options: NormalizerOptions = {}

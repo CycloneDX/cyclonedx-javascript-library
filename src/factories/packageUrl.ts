@@ -22,15 +22,19 @@ import { PackageURL } from 'packageurl-js'
 import { ExternalReferenceType } from '../enums'
 
 export class PackageUrlFactory {
-  readonly #type: string
+  readonly #type: PackageURL['type']
 
   constructor (type: PackageURL['type']) {
     this.#type = type
   }
 
+  get type (): PackageURL['type'] {
+    return this.#type
+  }
+
   makeFromComponent (component: Component): PackageURL | undefined {
-    const qualifiers: { [key: string]: string } = {}
-    let subpath: string | undefined
+    const qualifiers: PackageURL['qualifiers'] = {}
+    let subpath: PackageURL['subpath']
 
     for (const e of component.externalReferences) {
       if (e.type === ExternalReferenceType.VCS) {

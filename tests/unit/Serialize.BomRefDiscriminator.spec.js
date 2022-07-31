@@ -26,7 +26,25 @@ const {
   Serialize: { BomRefDiscriminator }
 } = require('../../')
 
+const { randomString } = require('../_helpers/stringFunctions')
+
 suite('Serialize.BomRefDiscriminator', () => {
+  test('constructor', () => {
+    const bomRef1 = new BomRef()
+    const bomRef2 = new BomRef('foo')
+    const prefix = randomString(10)
+
+    /* eslint-disable-next-line no-unused-vars */
+    const actual = new BomRefDiscriminator([bomRef1, bomRef2], prefix)
+
+    assert.strictEqual(actual.prefix, prefix)
+
+    const actualBomRefs = Array.from(actual) // convert the iterator to a list
+    assert.strictEqual(actualBomRefs.length, 2)
+    assert.strictEqual(actualBomRefs.includes(bomRef1), true)
+    assert.strictEqual(actualBomRefs.includes(bomRef2), true)
+  })
+
   test('does not alter BomRef.value unintended', () => {
     const bomRef1 = new BomRef()
     const bomRef2 = new BomRef('foo')

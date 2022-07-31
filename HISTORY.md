@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Added
+  * Getters/properties that represent the corresponding parameters of class constructor. (via [#145])
+    * `Builders.FromPackageJson.ComponentBuilder.extRefFactory`,  
+      `Builders.FromPackageJson.ComponentBuilder.licenseFactory`
+    * `Builders.FromPackageJson.ToolBuilder.extRefFactory`
+    * `Factories.PackageUrlFactory.type`
+    * `Serialize.BomRefDiscriminator.prefix`
+    * `Serialize.JsonSerializer.normalizerFactory`
+    * `Serialize.XmlBaseSerializer.normalizerFactory`,  
+      `Serialize.XmlSerializer.normalizerFactory`
+
+[#145]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/145
+
 ## 1.1.0 - 2022-07-29
 
 * Added

@@ -23,7 +23,7 @@ const { suite, test } = require('mocha')
 
 const {
   Types: { isCPE }
-} = require('../../../')
+} = require('../../')
 
 suite('Types.cpe', () => {
   suite('isCPE()', () => {
