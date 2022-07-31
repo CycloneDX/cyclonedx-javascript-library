@@ -32,18 +32,37 @@ export class PackageUrlFactory {
     return this.#type
   }
 
-  makeFromComponent (component: Component): PackageURL | undefined {
+  makeFromComponent (component: Component, sort: boolean = false): PackageURL | undefined {
+    /**
+     * For the list/spec of the well-known keys, see
+     * {@link https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst#known-qualifiers-keyvalue-pairs}
+     */
     const qualifiers: PackageURL['qualifiers'] = {}
     let subpath: PackageURL['subpath']
 
-    for (const e of component.externalReferences) {
-      if (e.type === ExternalReferenceType.VCS) {
-        [qualifiers.vcs_url, subpath] = e.url.toString().split('#', 2)
-        break
+    const extRefs = component.externalReferences
+    for (const extRef of (sort ? extRefs.sorted() : extRefs)) {
+      switch (extRef.type) {
+        case ExternalReferenceType.VCS:
+          [qualifiers.vcs_url, subpath] = extRef.url.toString().split('#', 2)
+          break
+        case ExternalReferenceType.Distribution:
+          qualifiers.download_url = extRef.url.toString()
+          break
       }
     }
 
+    const hashes = component.hashes
+    if (hashes.size > 0) {
+      qualifiers.checksum = Array.from(
+        sort ? hashes.sorted() : hashes,
+        ([hashAlgo, hashCont]) => `${hashAlgo.toLowerCase()}:${hashCont.toLowerCase()}`
+      ).join(',')
+    }
+
     try {
+      // Do not beautify the parameters here, because that is in the domain of PackageURL and its representation.
+      // No need to convert an empty `subpath` string to `undefined` and such.
       return new PackageURL(
         this.#type,
         component.group,

@@ -14,8 +14,12 @@ All notable changes to this project will be documented in this file.
     * `Serialize.JsonSerializer.normalizerFactory`
     * `Serialize.XmlBaseSerializer.normalizerFactory`,  
       `Serialize.XmlSerializer.normalizerFactory`
+  * Factory for `PackageURL` from `Models.Component` can handle additional data sources. (via [#146])
+    * `Models.Component.hashes` map -> `PackageURL.qualifiers.checksum` list
+    * `Models.Component.externalReferences[distribution].url` -> `PackageURL.qualifiers.download_url`
 
 [#145]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/145
+[#146]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/146
 
 ## 1.1.0 - 2022-07-29
 

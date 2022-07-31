@@ -62,7 +62,7 @@ suite('Factories.PackageUrlFactory', () => {
       assert.deepStrictEqual(actual, expected)
     })
 
-    test('vcs-url without subpath', () => {
+    test('extRef[vcs] -> qualifiers.vcs-url without subpath', () => {
       const component = new Models.Component(
         Enums.ComponentType.Library,
         `name-${salt}`,
@@ -77,7 +77,7 @@ suite('Factories.PackageUrlFactory', () => {
       assert.deepStrictEqual(actual, expected)
     })
 
-    test('vcs-url with subpath', () => {
+    test('extRef[vcs] -> qualifiers.vcs-url with subpath', () => {
       const component = new Models.Component(
         Enums.ComponentType.Library,
         `name-${salt}`,
@@ -91,5 +91,19 @@ suite('Factories.PackageUrlFactory', () => {
       const actual = sut.makeFromComponent(component)
       assert.deepStrictEqual(actual, expected)
     })
+
+    test('extRef[distribution] -> qualifiers.download_url', () => {
+      assert.strictEqual(false, true, 'TODO')
+    })
+
+    test('hashes -> qualifiers.checksum', () => {
+      assert.strictEqual(false, true, 'TODO')
+    })
+
+    test('sorted', () => {
+      assert.strictEqual(false, true, 'TODO')
+    })
   })
+
+
 })
