@@ -104,6 +104,10 @@ abstract class Base implements Normalizer {
     this._factory = factory
   }
 
+  get factory (): Factory {
+    return this._factory
+  }
+
   /**
    * @param {*} data
    * @param {NormalizerOptions} options

@@ -31,6 +31,11 @@ export class BomRefDiscriminator {
     this.#prefix = prefix
   }
 
+  get prefix (): string {
+    return this.#prefix
+  }
+
+  /** Iterate over the bomRefs. */
   [Symbol.iterator] (): IterableIterator<BomRef> {
     return this.#originalValues.keys()
   }

@@ -33,6 +33,10 @@ export class ToolBuilder {
     this.#extRefFactory = extRefFactory
   }
 
+  get extRefFactory (): Factories.FromPackageJson.ExternalReferenceFactory {
+    return this.#extRefFactory
+  }
+
   makeTool (data: PackageJson): Models.Tool | undefined {
     const [name, vendor] = typeof data.name === 'string'
       ? splitNameGroup(data.name)
@@ -59,6 +63,14 @@ export class ComponentBuilder {
   ) {
     this.#extRefFactory = extRefFactory
     this.#licenseFactory = licenseFactory
+  }
+
+  get extRefFactory (): Factories.FromPackageJson.ExternalReferenceFactory {
+    return this.#extRefFactory
+  }
+
+  get licenseFactory (): Factories.LicenseFactory {
+    return this.#licenseFactory
   }
 
   makeComponent (data: PackageJson, type: Enums.ComponentType = Enums.ComponentType.Library): Models.Component | undefined {

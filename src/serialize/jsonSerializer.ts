@@ -42,6 +42,10 @@ export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
     this.#normalizerFactory = normalizerFactory
   }
 
+  get normalizerFactory (): NormalizerFactory {
+    return this.#normalizerFactory
+  }
+
   protected _normalize (
     bom: Bom,
     options: NormalizerOptions = {}

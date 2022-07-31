@@ -18,28 +18,26 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-module.exports = {
+const assert = require('assert')
+const { suite, test } = require('mocha')
 
-  /**
-   * Capitalise the first letter of a string
-   * @param {string} s
-   * @return {string}
-   */
-  capitaliseFirstLetter: s => s.charAt(0).toUpperCase() + s.slice(1),
-  /**
-   * UpperCamelCase a string
-   * @param {string} s
-   * @return {string}
-   */
-  upperCamelCase: s => s.replace(
-    /\b\w/g,
-    f => f.slice(-1).toUpperCase()
-  ).replace(/\W/g, ''),
+const {
+  Serialize: {
+    XmlBaseSerializer,
+    XML: { Normalize: { Factory } }
+  },
+  Spec: { Spec1dot4 }
 
-  /**
-   * Generate a random string of length.
-   * @param {number} length
-   * @return {string}
-   */
-  randomString: length => Math.random().toString(32).substring(2, 2 + length)
-}
+} = require('../../')
+
+suite('Serialize.XmlBaseSerializer', () => {
+  test('constructor', () => {
+    const normalizerFactory = new Factory(Spec1dot4)
+
+    class MySerializer extends XmlBaseSerializer {}
+
+    const actual = new MySerializer(normalizerFactory)
+
+    assert.strictEqual(actual.normalizerFactory, normalizerFactory)
+  })
+})
