@@ -19,4 +19,6 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 export * from './index.common'
 
-export * as FromPackageJson from './fromPackageJson.node'
+export * as FromNodePackageJson from './fromNodePackageJson.node'
+/** @deprecated use {@see FromNodePackageJson} instead of {@see FromPackageJson} */
+export * as FromPackageJson from './fromNodePackageJson.node'

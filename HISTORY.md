@@ -20,9 +20,14 @@ All notable changes to this project will be documented in this file.
     * Method `Factories.PackageUrlFactory.makeFromComponent()` got a new optional param `sort`,
       to indicate whether to go the extra mile and bring hashes and qualifiers in alphabetical order.  
       This feature switch is related to reproducible builds.
+* Deprecated
+  * The sub-namespace `FromPackageJson` will be known as `FromNodePackageJson`. (via [#148])
+    * `Factories.FromPackageJson` -> `Factories.FromNodePackageJson`
+    * `Builders.FromPackageJson` -> `Builders.FromNodePackageJson`
 
 [#145]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/145
 [#146]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/146
+[#148]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/148
 
 ## 1.1.0 - 2022-07-29
 

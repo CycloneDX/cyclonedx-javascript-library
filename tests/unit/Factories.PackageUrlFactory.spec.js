@@ -27,7 +27,7 @@ const {
 
 const { randomString } = require('../_helpers/stringFunctions')
 
-suite('Builders.FromPackageJson.ToolBuilder', () => {
+suite('Builders.FromNodePackageJson.ToolBuilder', () => {
   test('construct', () => {
     const type = randomString(5)
 
