@@ -17,7 +17,7 @@ All notable changes to this project will be documented in this file.
   * Factory for `PackageURL` from `Models.Component` can handle additional data sources, now. (via [#146])
     * `Models.Component.hashes` map -> `PackageURL.qualifiers.checksum` list
     * `Models.Component.externalReferences[distribution].url` -> `PackageURL.qualifiers.download_url`
-    * Method `Factories.PackageUrlFactory.makeFromComponent()` got a new optional param `sort`,
+    * Method `Factories.PackageUrlFactory.makeFromComponent()` got a new optional parameter `sort`,
       to indicate whether to go the extra mile and bring hashes and qualifiers in alphabetical order.  
       This feature switch is related to reproducible builds.
 

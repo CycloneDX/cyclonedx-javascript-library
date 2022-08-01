@@ -53,9 +53,10 @@ written in _TypeScript_ and compiled for the target.
   * `Tool`, `ToolRepository`
 * Factories for the following use cases:
   * Create data models from any license descriptor string
+  * Create `PackageURL` from `Component` data models
   * Specific to _Node.js_: create data models from PackageJson-like data structures
 * Builders for the following use cases:
-  * Specific to _Node.js_: create deep data models from PackageJson-like data structures
+  * Specific to _Node.js_: create deep data models `Tool` or `Component` from PackageJson-like data structures
 * Implementation of the [_CycloneDX_ Specification][CycloneDX-spec] for the following versions:
   * `1.4`
   * `1.3`
