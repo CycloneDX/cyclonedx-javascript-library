@@ -18,7 +18,7 @@
   "homepage": "https://github.com/CycloneDX/cyclonedx-javascript-library#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CycloneDX/cyclonedx-javascript-library.git"
+    "url": "git+https://github.com/CycloneDX/cyclonedx-javascript-library.git"
   },
   "bugs": {
     "url": "https://github.com/CycloneDX/cyclonedx-javascript-library/issues"
