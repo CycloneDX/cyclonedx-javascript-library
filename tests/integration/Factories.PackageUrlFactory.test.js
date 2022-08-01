@@ -41,7 +41,9 @@ suite('Factories.PackageUrlFactory', () => {
         ''
       )
       const expected = undefined
+
       const actual = sut.makeFromComponent(component)
+
       assert.strictEqual(actual, expected)
     })
 
@@ -58,38 +60,109 @@ suite('Factories.PackageUrlFactory', () => {
         }
       )
       const expected = new PackageURL('testing', `@group-${salt}`, `name-${salt}`, `v1+${salt}`, {}, undefined)
+
       const actual = sut.makeFromComponent(component)
+
       assert.deepStrictEqual(actual, expected)
     })
 
-    test('vcs-url without subpath', () => {
+    test('extRef[vcs] -> qualifiers.vcs-url without subpath', () => {
       const component = new Models.Component(
         Enums.ComponentType.Library,
         `name-${salt}`,
         {
           externalReferences: new Models.ExternalReferenceRepository([
-            new Models.ExternalReference('git://foo.bar', Enums.ExternalReferenceType.VCS)
+            new Models.ExternalReference('git+https://foo.bar/repo.git', Enums.ExternalReferenceType.VCS)
           ])
         }
       )
-      const expected = new PackageURL('testing', undefined, `name-${salt}`, undefined, { vcs_url: 'git://foo.bar' }, undefined)
+      const expected = new PackageURL('testing', undefined, `name-${salt}`, undefined, { vcs_url: 'git+https://foo.bar/repo.git' }, undefined)
+
       const actual = sut.makeFromComponent(component)
+
       assert.deepStrictEqual(actual, expected)
     })
 
-    test('vcs-url with subpath', () => {
+    test('extRef[vcs] -> qualifiers.vcs-url with subpath', () => {
       const component = new Models.Component(
         Enums.ComponentType.Library,
         `name-${salt}`,
         {
           externalReferences: new Models.ExternalReferenceRepository([
-            new Models.ExternalReference('git://foo.bar#sub/path', Enums.ExternalReferenceType.VCS)
+            new Models.ExternalReference('git+https://foo.bar/repo.git#sub/path', Enums.ExternalReferenceType.VCS)
           ])
         }
       )
-      const expected = new PackageURL('testing', undefined, `name-${salt}`, undefined, { vcs_url: 'git://foo.bar' }, 'sub/path')
+      const expected = new PackageURL('testing', undefined, `name-${salt}`, undefined, { vcs_url: 'git+https://foo.bar/repo.git' }, 'sub/path')
+
       const actual = sut.makeFromComponent(component)
+
       assert.deepStrictEqual(actual, expected)
+    })
+
+    test('extRef[distribution] -> qualifiers.download_url', () => {
+      const component = new Models.Component(
+        Enums.ComponentType.Library,
+        `name-${salt}`,
+        {
+          externalReferences: new Models.ExternalReferenceRepository([
+            new Models.ExternalReference('https://foo.bar/download', Enums.ExternalReferenceType.Distribution)
+          ])
+        }
+      )
+      const expected = new PackageURL('testing', undefined, `name-${salt}`, undefined, { download_url: 'https://foo.bar/download' }, undefined)
+
+      const actual = sut.makeFromComponent(component)
+
+      assert.deepStrictEqual(actual, expected)
+    })
+
+    test('hashes -> qualifiers.checksum', () => {
+      const component = new Models.Component(
+        Enums.ComponentType.Library,
+        `name-${salt}`,
+        {
+          hashes: new Models.HashRepository([
+            [Enums.HashAlgorithm['SHA-256'], 'C3AB8FF13720E8AD9047DD39466B3C8974E592C2FA383D4A3960714CAEF0C4F2']
+          ])
+        }
+      )
+      const expected = new PackageURL('testing', undefined, `name-${salt}`, undefined, { checksum: 'sha-256:c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2' }, undefined)
+
+      const actual = sut.makeFromComponent(component)
+
+      assert.deepStrictEqual(actual, expected)
+    })
+
+    test('sorted', () => {
+      const component = new Models.Component(
+        Enums.ComponentType.Library,
+        'name',
+        {
+          externalReferences: new Models.ExternalReferenceRepository([
+            new Models.ExternalReference('git+https://foo.bar/repo.git', Enums.ExternalReferenceType.VCS),
+            new Models.ExternalReference('https://foo.bar/download', Enums.ExternalReferenceType.Distribution)
+          ]),
+          hashes: new Models.HashRepository([
+            [Enums.HashAlgorithm['SHA-256'], 'C3AB8FF13720E8AD9047DD39466B3C8974E592C2FA383D4A3960714CAEF0C4F2'],
+            [Enums.HashAlgorithm.BLAKE3, 'aa51dcd43d5c6c5203ee16906fd6b35db298b9b2e1de3fce81811d4806b76b7d']
+          ])
+        }
+      )
+      const expectedObject = new PackageURL('testing', undefined, 'name', undefined,
+        {
+          // expect sorted hash list
+          checksum: 'blake3:aa51dcd43d5c6c5203ee16906fd6b35db298b9b2e1de3fce81811d4806b76b7d,sha-256:c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2',
+          download_url: 'https://foo.bar/download',
+          vcs_url: 'git+https://foo.bar/repo.git'
+        }, undefined)
+      // expect objet's keys in alphabetical oder, expect sorted hash list
+      const expectedString = 'pkg:testing/name?checksum=blake3:aa51dcd43d5c6c5203ee16906fd6b35db298b9b2e1de3fce81811d4806b76b7d,sha-256:c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2&download_url=https://foo.bar/download&vcs_url=git+https://foo.bar/repo.git'
+
+      const actual = sut.makeFromComponent(component, true)
+
+      assert.deepStrictEqual(actual, expectedObject)
+      assert.deepStrictEqual(actual.toString(), expectedString)
     })
   })
 })
