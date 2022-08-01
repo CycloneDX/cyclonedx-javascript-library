@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.2.0 - 2022-08-01
+
 * Added
   * New getters/properties that represent the corresponding parameters of class constructor. (via [#145])
     * `Builders.FromPackageJson.ComponentBuilder.extRefFactory`,  
