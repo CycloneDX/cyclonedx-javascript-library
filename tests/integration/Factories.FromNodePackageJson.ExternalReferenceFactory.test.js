@@ -24,10 +24,10 @@ const { suite, test } = require('mocha')
 const {
   Enums: { ExternalReferenceType },
   Models: { ExternalReference },
-  Factories: { FromPackageJson: { ExternalReferenceFactory } }
+  Factories: { FromNodePackageJson: { ExternalReferenceFactory } }
 } = require('../../')
 
-suite('Factories.FromPackageJson.ExternalReferenceFactory', () => {
+suite('Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
   const sut = new ExternalReferenceFactory()
 
   suite('from "homepage"', () => {

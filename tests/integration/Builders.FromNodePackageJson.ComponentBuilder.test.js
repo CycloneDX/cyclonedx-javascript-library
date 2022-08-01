@@ -25,13 +25,13 @@ const {
   Enums,
   Models,
   Factories,
-  Builders: { FromPackageJson: { ComponentBuilder } }
+  Builders: { FromNodePackageJson: { ComponentBuilder } }
 } = require('../../')
 
-suite('Builders.FromPackageJson.ComponentBuilder', () => {
+suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
   const salt = Math.random()
 
-  const extRefFactory = new Factories.FromPackageJson.ExternalReferenceFactory()
+  const extRefFactory = new Factories.FromNodePackageJson.ExternalReferenceFactory()
   extRefFactory.makeExternalReferences = () => [`FAKE REFERENCES ${salt}`]
   const licenseFactory = new Factories.LicenseFactory()
   licenseFactory.makeFromString = () => `FAKE LICENSE ${salt}`

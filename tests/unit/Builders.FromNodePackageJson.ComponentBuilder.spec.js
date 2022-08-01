@@ -22,16 +22,21 @@ const assert = require('assert')
 const { suite, test } = require('mocha')
 
 const {
-  Builders: { FromPackageJson: { ToolBuilder } },
-  Factories: { FromPackageJson: { ExternalReferenceFactory } }
+  Builders: { FromNodePackageJson: { ComponentBuilder } },
+  Factories: {
+    FromNodePackageJson: { ExternalReferenceFactory },
+    LicenseFactory
+  }
 } = require('../../')
 
-suite('Builders.FromPackageJson.ToolBuilder', () => {
+suite('Builders.FromNodePackageJson.ToolBuilder', () => {
   test('construct', () => {
     const extRefFactory = new ExternalReferenceFactory()
+    const licenseFactory = new LicenseFactory()
 
-    const actual = new ToolBuilder(extRefFactory)
+    const actual = new ComponentBuilder(extRefFactory, licenseFactory)
 
     assert.strictEqual(actual.extRefFactory, extRefFactory)
+    assert.strictEqual(actual.licenseFactory, licenseFactory)
   })
 })
