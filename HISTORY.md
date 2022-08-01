@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Added
-  * Getters/properties that represent the corresponding parameters of class constructor. (via [#145])
+  * New getters/properties that represent the corresponding parameters of class constructor. (via [#145])
     * `Builders.FromPackageJson.ComponentBuilder.extRefFactory`,  
       `Builders.FromPackageJson.ComponentBuilder.licenseFactory`
     * `Builders.FromPackageJson.ToolBuilder.extRefFactory`
@@ -14,9 +14,12 @@ All notable changes to this project will be documented in this file.
     * `Serialize.JsonSerializer.normalizerFactory`
     * `Serialize.XmlBaseSerializer.normalizerFactory`,  
       `Serialize.XmlSerializer.normalizerFactory`
-  * Factory for `PackageURL` from `Models.Component` can handle additional data sources. (via [#146])
+  * Factory for `PackageURL` from `Models.Component` can handle additional data sources, now. (via [#146])
     * `Models.Component.hashes` map -> `PackageURL.qualifiers.checksum` list
     * `Models.Component.externalReferences[distribution].url` -> `PackageURL.qualifiers.download_url`
+    * Method `Factories.PackageUrlFactory.makeFromComponent()` got a new optional param `sort`,
+      to indicate whether to go the extra mile and bring hashes and qualifiers in alphabetical order.  
+      This feature switch is related to reproducible builds.
 
 [#145]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/145
 [#146]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/146
