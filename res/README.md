@@ -8,7 +8,7 @@ some schema for offline use.
 original sources: https://github.com/CycloneDX/specification/tree/master/schema
 
 Currently using version
-[82bf9e30ba3fd6413e72a0e66adce2cdf3354f32](https://github.com/CycloneDX/specification/tree/82bf9e30ba3fd6413e72a0e66adce2cdf3354f32)
+[9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb](https://github.com/CycloneDX/specification/tree/9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb)
 
 | file                                                                         | note |
 | ---  | --- |

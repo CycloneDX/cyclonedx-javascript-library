@@ -4,12 +4,20 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Changed
+  * Use [version 9b04a94 of CycloneDX specification][CDX-specification#9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb]
+    for XML and JSON schema validation. (via [#150])
+  * Use SPDX license enumeration from
+    [version 9b04a94 of CycloneDX specification][CDX-specification#9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb].
+    (via [#150])
 * Added
-  * Models for `Property` and `PropertyRepository`. (via [#151]) 
+  * Models for `Property` and `PropertyRepository`. (via [#151])
   * JSON- and XML-Normalizer for `Models.Property`, `Models.PropertyRepository`. (via [#151])
   * New property `Models.Component.properties`. (via [#151])
 
+[#150]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/150
 [#151]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/151
+[CDX-specification#9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb]: https://github.com/CycloneDX/specification/tree/9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb
 
 ## 1.2.0 - 2022-08-01
 
@@ -43,8 +51,8 @@ All notable changes to this project will be documented in this file.
 * Added
   * Support for nested/bundled (sub-)components via `Models.Component.components` was added, including
     serialization/normalization of models and impact on dependency graphs rendering. ([#132] via [#136])
-  * CycloneDX spec version 1.4 made element `Models.Component.version` optional.
-    Therefore, serialization/normalization with this spec version will no longer render this element
+  * [_CycloneDX_ Specification][CycloneDX-specification]-1.4 made element `Models.Component.version` optional.
+    Therefore, serialization/normalization with this specification version will no longer render this element
     if its value is empty. (via [#137], [#138])
 
 [#132]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/132
@@ -91,7 +99,7 @@ Initial release.
   * Provide data models to work with _CycloneDX_.
   * Provide a JSON- and an XML-normalizer, that...
     * supports all shipped data models.
-    * respects any injected [_CycloneDX_ Specification][CycloneDX-spec] and generates valid output according to it.
+    * respects any injected [_CycloneDX_ Specification][CycloneDX-specification] and generates valid output according to it.
     * can be configured to generate reproducible/deterministic output.
     * can prepare data structures for JSON- and XML-serialization.
   * Serialization:
@@ -125,7 +133,7 @@ Initial release.
     * Specific to _Node.js_: create data models from PackageJson-like data structures
   * Builders for the following use cases:
     * Specific to _Node.js_: create deep data models from PackageJson-like data structures
-  * Implementation of the [_CycloneDX_ Specification][CycloneDX-spec] for the following versions:
+  * Implementation of the [_CycloneDX_ Specification][CycloneDX-specification] for the following versions:
     * `1.4`
     * `1.3`
     * `1.2`
@@ -138,4 +146,4 @@ Initial release.
       * [xmlbuilder2](https://www.npmjs.com/package/xmlbuilder2)
 
 [CycloneDX]: https://cyclonedx.org/
-[CycloneDX-spec]: https://github.com/CycloneDX/specification/tree/main/schema
+[CycloneDX-specification]: https://github.com/CycloneDX/specification/tree/main/schema
