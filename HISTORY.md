@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.3.0 - 2022-08-03
+
 * Changed
   * Use [version 9b04a94 of CycloneDX specification][CDX-specification#9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb]
     for XML and JSON schema validation. (via [#150])
@@ -14,7 +16,10 @@ All notable changes to this project will be documented in this file.
   * Models for `Property` and `PropertyRepository`. (via [#151])
   * JSON- and XML-Normalizer for `Models.Property`, `Models.PropertyRepository`. (via [#151])
   * New property `Models.Component.properties`. (via [#151])
+* Build
+  * Use _Webpack_ `v5.74.0.` now, was `5.73.0`. (via [#141])
 
+[#141]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/141
 [#150]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/150
 [#151]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/151
 [CDX-specification#9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb]: https://github.com/CycloneDX/specification/tree/9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb
@@ -81,8 +86,8 @@ Maintenance release.
 
 Maintenance release.
 
-* Misc
-  * Use TypeScript `v4.7.4` now, was `v4.6.4`. (via [#55])
+* Build
+  * Use _TypeScript_ `v4.7.4` now, was `v4.6.4`. (via [#55])
 * Dependencies
   * Raised the requirement of `packageurl-js` to `^0.0.7`, was `^0.0.6`. (via [#123])
 
