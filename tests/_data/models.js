@@ -186,5 +186,15 @@ module.exports.createComplexStructure = function () {
       bomRef: 'SomeFrameworkBundle'
     })))
 
+  bom.components.add(new Models.Component(
+    Enums.ComponentType.Library, 'component-with-properties', {
+      bomRef: 'ComponentWithProperties',
+      properties: new Models.PropertyRepository([
+        new Models.Property('internal:testing:prop-Z', 'value Z'),
+        new Models.Property('internal:testing:prop-Z', 'value B'),
+        new Models.Property('internal:testing:prop-A', 'value A')
+      ])
+    }))
+
   return bom
 }

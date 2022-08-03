@@ -80,6 +80,10 @@ export class Factory {
     return new AttachmentNormalizer(this)
   }
 
+  makeForProperty (): PropertyNormalizer {
+    return new PropertyNormalizer(this)
+  }
+
   makeForDependencyGraph (): DependencyGraphNormalizer {
     return new DependencyGraphNormalizer(this)
   }
@@ -347,6 +351,13 @@ export class ComponentNormalizer extends Base {
           children: this.normalizeRepository(data.components, options, 'component')
         }
       : undefined
+    const properties: SimpleXml.Element | undefined = data.properties.size > 0
+      ? {
+          type: 'element',
+          name: 'properties',
+          children: this._factory.makeForProperty().normalizeRepository(data.properties, options, 'property')
+        }
+      : undefined
     return {
       type: 'element',
       name: elementName,
@@ -370,7 +381,8 @@ export class ComponentNormalizer extends Base {
         makeOptionalTextElement(data.purl, 'purl'),
         swid,
         extRefs,
-        components
+        components,
+        properties
       ].filter(isNotUndefined)
     }
   }
@@ -514,6 +526,27 @@ export class AttachmentNormalizer extends Base {
       },
       children: data.content
     }
+  }
+}
+
+export class PropertyNormalizer extends Base {
+  normalize (data: Models.Property, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    return {
+      type: 'element',
+      name: elementName,
+      attributes: {
+        name: data.name
+      },
+      children: data.value
+    }
+  }
+
+  normalizeRepository (data: Models.PropertyRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(p => this.normalize(p, options, elementName))
   }
 }
 

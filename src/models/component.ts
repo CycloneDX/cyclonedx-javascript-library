@@ -27,6 +27,7 @@ import { OrganizationalEntity } from './organizationalEntity'
 import { ExternalReferenceRepository } from './externalReference'
 import { LicenseRepository } from './license'
 import { SWID } from './swid'
+import { PropertyRepository } from './property'
 import { Comparable, SortableSet } from '../helpers/sortableSet'
 import { treeIterator } from '../helpers/tree'
 
@@ -48,6 +49,7 @@ interface OptionalProperties {
   dependencies?: Component['dependencies']
   components?: Component['components']
   cpe?: Component['cpe']
+  properties?: Component['properties']
 }
 
 export class Component implements Comparable {
@@ -68,6 +70,7 @@ export class Component implements Comparable {
   version?: string
   dependencies: BomRefRepository
   components: ComponentRepository
+  properties: PropertyRepository
 
   /** @see bomRef */
   readonly #bomRef: BomRef
@@ -78,7 +81,7 @@ export class Component implements Comparable {
   /**
    * @throws {TypeError} if {@see op.cpe} is neither {@see CPE} nor {@see undefined}
    */
-  constructor (type: ComponentType, name: string, op: OptionalProperties = {}) {
+  constructor (type: Component['type'], name: Component['name'], op: OptionalProperties = {}) {
     this.#bomRef = new BomRef(op.bomRef)
     this.type = type
     this.name = name
@@ -98,6 +101,7 @@ export class Component implements Comparable {
     this.dependencies = op.dependencies ?? new BomRefRepository()
     this.components = op.components ?? new ComponentRepository()
     this.cpe = op.cpe
+    this.properties = op.properties ?? new PropertyRepository()
   }
 
   get bomRef (): BomRef {

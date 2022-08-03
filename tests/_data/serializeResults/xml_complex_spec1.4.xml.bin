@@ -55,6 +55,14 @@
         <component type="library" bom-ref="a-component">
             <name>a-component</name>
         </component>
+        <component type="library" bom-ref="ComponentWithProperties">
+            <name>component-with-properties</name>
+            <properties>
+                <property name="internal:testing:prop-A">value A</property>
+                <property name="internal:testing:prop-Z">value B</property>
+                <property name="internal:testing:prop-Z">value Z</property>
+            </properties>
+        </component>
         <component type="library" bom-ref="dummy-component">
             <supplier>
                 <name>Component Supplier</name>
@@ -127,6 +135,7 @@
     </components>
     <dependencies>
         <dependency ref="a-component"/>
+        <dependency ref="ComponentWithProperties"/>
         <dependency ref="dummy-component">
             <dependency ref="a-component"/>
         </dependency>

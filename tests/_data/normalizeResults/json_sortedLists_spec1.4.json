@@ -78,6 +78,25 @@
     },
     {
       "type": "library",
+      "name": "component-with-properties",
+      "bom-ref": "ComponentWithProperties",
+      "properties": [
+        {
+          "name": "internal:testing:prop-A",
+          "value": "value A"
+        },
+        {
+          "name": "internal:testing:prop-Z",
+          "value": "value B"
+        },
+        {
+          "name": "internal:testing:prop-Z",
+          "value": "value Z"
+        }
+      ]
+    },
+    {
+      "type": "library",
       "name": "dummy-component",
       "group": "acme",
       "version": "1337-beta",
@@ -192,6 +211,9 @@
   "dependencies": [
     {
       "ref": "a-component"
+    },
+    {
+      "ref": "ComponentWithProperties"
     },
     {
       "ref": "dummy-component",

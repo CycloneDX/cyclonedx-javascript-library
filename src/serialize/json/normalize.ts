@@ -80,6 +80,10 @@ export class Factory {
     return new AttachmentNormalizer(this)
   }
 
+  makeForProperty (): PropertyNormalizer {
+    return new PropertyNormalizer(this)
+  }
+
   makeForDependencyGraph (): DependencyGraphNormalizer {
     return new DependencyGraphNormalizer(this)
   }
@@ -278,6 +282,9 @@ export class ComponentNormalizer extends Base {
             : undefined,
           components: data.components.size > 0
             ? this.normalizeRepository(data.components, options)
+            : undefined,
+          properties: data.properties.size > 0
+            ? this._factory.makeForProperty().normalizeRepository(data.properties, options)
             : undefined
         }
       : undefined
@@ -394,6 +401,23 @@ export class AttachmentNormalizer extends Base {
       contentType: data.contentType || undefined,
       encoding: data.encoding
     }
+  }
+}
+
+export class PropertyNormalizer extends Base {
+  normalize (data: Models.Property, options: NormalizerOptions): Normalized.Property {
+    return {
+      name: data.name,
+      value: data.value
+    }
+  }
+
+  normalizeRepository (data: Models.PropertyRepository, options: NormalizerOptions): Normalized.Property[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(p => this.normalize(p, options))
   }
 }
 
