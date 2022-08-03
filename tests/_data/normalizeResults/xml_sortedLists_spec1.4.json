@@ -239,6 +239,51 @@
           "name": "component",
           "attributes": {
             "type": "library",
+            "bom-ref": "ComponentWithProperties"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "component-with-properties"
+            },
+            {
+              "type": "element",
+              "name": "properties",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "property",
+                  "attributes": {
+                    "name": "internal:testing:prop-A"
+                  },
+                  "children": "value A"
+                },
+                {
+                  "type": "element",
+                  "name": "property",
+                  "attributes": {
+                    "name": "internal:testing:prop-Z"
+                  },
+                  "children": "value B"
+                },
+                {
+                  "type": "element",
+                  "name": "property",
+                  "attributes": {
+                    "name": "internal:testing:prop-Z"
+                  },
+                  "children": "value Z"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
             "bom-ref": "dummy-component"
           },
           "children": [
@@ -571,6 +616,14 @@
           "name": "dependency",
           "attributes": {
             "ref": "a-component"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "ComponentWithProperties"
           },
           "children": []
         },

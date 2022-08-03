@@ -132,6 +132,7 @@ export namespace Normalized {
     modified?: boolean
     externalReferences?: ExternalReference[]
     components?: Component[]
+    properties?: Property[]
   }
 
   export interface NamedLicense {
@@ -177,6 +178,11 @@ export namespace Normalized {
     content?: string
     contentType?: string
     encoding?: Enums.AttachmentEncoding
+  }
+
+  export interface Property {
+    name?: string
+    value?: string
   }
 
   export interface Dependency {

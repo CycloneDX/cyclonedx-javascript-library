@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Added
+  * Models for `Property` and `PropertyRepository`. (via [#151]) 
+  * JSON- and XML-Normalizer for `Models.Property`, `Models.PropertyRepository`. (via [#151])
+  * New property `Models.Component.properties`. (via [#151])
+
+[#151]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/151
+
 ## 1.2.0 - 2022-08-01
 
 * Added
