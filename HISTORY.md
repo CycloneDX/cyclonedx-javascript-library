@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.3.1 - 2022-08-04
+
+* Fixed
+  * JSON- and XML-Normalizer no longer render `Models.Component.properties`
+    with [_CycloneDX_ Specification][CycloneDX-specification]-1.2.
+    ([#152] via [#153])
+  * XML-Normalizer now has the correct order/position of rendered `Models.Component.properties`. (via [#153])
+
+[#152]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/152
+[#153]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/153
+
 ## 1.3.0 - 2022-08-03
 
 * Changed

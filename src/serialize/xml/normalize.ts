@@ -344,18 +344,18 @@ export class ComponentNormalizer extends Base {
             .normalizeRepository(data.externalReferences, options, 'reference')
         }
       : undefined
+    const properties: SimpleXml.Element | undefined = spec.supportsProperties(data) && data.properties.size > 0
+      ? {
+          type: 'element',
+          name: 'properties',
+          children: this._factory.makeForProperty().normalizeRepository(data.properties, options, 'property')
+        }
+      : undefined
     const components: SimpleXml.Element | undefined = data.components.size > 0
       ? {
           type: 'element',
           name: 'components',
           children: this.normalizeRepository(data.components, options, 'component')
-        }
-      : undefined
-    const properties: SimpleXml.Element | undefined = data.properties.size > 0
-      ? {
-          type: 'element',
-          name: 'properties',
-          children: this._factory.makeForProperty().normalizeRepository(data.properties, options, 'property')
         }
       : undefined
     return {
@@ -381,8 +381,8 @@ export class ComponentNormalizer extends Base {
         makeOptionalTextElement(data.purl, 'purl'),
         swid,
         extRefs,
-        components,
-        properties
+        properties,
+        components
       ].filter(isNotUndefined)
     }
   }
