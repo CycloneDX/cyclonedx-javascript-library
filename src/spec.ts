@@ -37,28 +37,21 @@ export class UnsupportedFormatError extends Error {
 }
 
 export interface Protocol {
-  readonly version: Version
-
+  version: Version
   supportsFormat: (f: Format | any) => boolean
-
   supportsComponentType: (ct: ComponentType | any) => boolean
-
   supportsHashAlgorithm: (ha: HashAlgorithm | any) => boolean
-
   supportsHashValue: (hv: HashContent | any) => boolean
-
   supportsExternalReferenceType: (ert: ExternalReferenceType | any) => boolean
-
-  readonly supportsDependencyGraph: boolean
-
-  readonly supportsToolReferences: boolean
-
-  readonly requiresComponentVersion: boolean
+  supportsDependencyGraph: boolean
+  supportsToolReferences: boolean
+  requiresComponentVersion: boolean
+  supportsProperties: (model: any) => boolean
 }
 
 /**
- * @internal This class was never intended to be public,
- *           but it is a helper to get the exact spec-versions implemented according to {@see Protocol}.
+ * @internal This class was never intended to be public, but
+ *           it is a helper to get the exact spec-versions implemented according to {@see Protocol}.
  */
 class Spec implements Protocol {
   readonly #version: Version
@@ -70,6 +63,7 @@ class Spec implements Protocol {
   readonly #supportsDependencyGraph: boolean
   readonly #supportsToolReferences: boolean
   readonly #requiresComponentVersion: boolean
+  readonly #supportsProperties: boolean
 
   constructor (
     version: Version,
@@ -80,7 +74,8 @@ class Spec implements Protocol {
     externalReferenceTypes: Iterable<ExternalReferenceType>,
     supportsDependencyGraph: boolean,
     supportsToolReferences: boolean,
-    requiresComponentVersion: boolean
+    requiresComponentVersion: boolean,
+    supportsProperties: boolean
   ) {
     this.#version = version
     this.#formats = new Set(formats)
@@ -91,6 +86,7 @@ class Spec implements Protocol {
     this.#supportsDependencyGraph = supportsDependencyGraph
     this.#supportsToolReferences = supportsToolReferences
     this.#requiresComponentVersion = requiresComponentVersion
+    this.#supportsProperties = supportsProperties
   }
 
   get version (): Version {
@@ -128,6 +124,11 @@ class Spec implements Protocol {
 
   get requiresComponentVersion (): boolean {
     return this.#requiresComponentVersion
+  }
+
+  supportsProperties (): boolean {
+    // currently a global allow/deny -- might work based on input, in the future
+    return this.#supportsProperties
   }
 }
 
@@ -182,7 +183,8 @@ export const Spec1dot2: Readonly<Protocol> = Object.freeze(new Spec(
   ],
   true,
   false,
-  true
+  true,
+  false
 ))
 
 /** Specification v1.3 */
@@ -236,6 +238,7 @@ export const Spec1dot3: Readonly<Protocol> = Object.freeze(new Spec(
   ],
   true,
   false,
+  true,
   true
 ))
 
@@ -291,11 +294,14 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
   ],
   true,
   true,
-  false
+  false,
+  true
 ))
 
-export const SpecVersionDict = Object.freeze(Object.fromEntries([
-  [Version.v1dot2, Spec1dot2],
-  [Version.v1dot3, Spec1dot3],
-  [Version.v1dot4, Spec1dot4]
-]) as { [key in Version]?: Readonly<Protocol> })
+export const SpecVersionDict: { readonly [key in Version]?: Readonly<Protocol> } = Object.freeze(
+  Object.fromEntries([
+    [Version.v1dot2, Spec1dot2],
+    [Version.v1dot3, Spec1dot3],
+    [Version.v1dot4, Spec1dot4]
+  ])
+)

@@ -280,11 +280,11 @@ export class ComponentNormalizer extends Base {
           externalReferences: data.externalReferences.size > 0
             ? this._factory.makeForExternalReference().normalizeRepository(data.externalReferences, options)
             : undefined,
+          properties: spec.supportsProperties(data) && data.properties.size > 0
+            ? this._factory.makeForProperty().normalizeRepository(data.properties, options)
+            : undefined,
           components: data.components.size > 0
             ? this.normalizeRepository(data.components, options)
-            : undefined,
-          properties: data.properties.size > 0
-            ? this._factory.makeForProperty().normalizeRepository(data.properties, options)
             : undefined
         }
       : undefined
