@@ -20,10 +20,12 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import { isPositiveInteger, isUrnUuid, PositiveInteger, UrnUuid } from '../types'
 import { Metadata } from './metadata'
 import { ComponentRepository } from './component'
+import { VulnerabilityRepository } from './vulnerability'
 
 interface OptionalProperties {
   metadata?: Bom['metadata']
   components?: Bom['components']
+  vulnerabilities?: Bom['vulnerabilities']
   version?: Bom['version']
   serialNumber?: Bom['serialNumber']
 }
@@ -31,6 +33,7 @@ interface OptionalProperties {
 export class Bom {
   metadata: Metadata
   components: ComponentRepository
+  vulnerabilities: VulnerabilityRepository
 
   /** @see version */
   #version: PositiveInteger = 1
@@ -51,6 +54,7 @@ export class Bom {
   constructor (op: OptionalProperties = {}) {
     this.metadata = op.metadata ?? new Metadata()
     this.components = op.components ?? new ComponentRepository()
+    this.vulnerabilities = op.vulnerabilities ?? new VulnerabilityRepository()
     this.version = op.version ?? this.version
     this.serialNumber = op.serialNumber
   }

@@ -17,24 +17,26 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './attachment'
-export * from './bom'
-export * from './bomRef'
-export * from './component'
-export * from './externalReference'
-export * from './hash'
-export * from './license'
-export * from './metadata'
-export * from './organizationalContact'
-export * from './organizationalEntity'
-export * from './property'
-export * from './source'
-export * from './swid'
-export * from './tool'
-export * from './vulnerability'
-export * from './vulnerabilityAdvisory'
-export * from './vulnerabilityAffects'
-export * from './vulnerabilityAnalysis'
-export * from './vulnerabilityCredits'
-export * from './vulnerabilityRating'
-export * from './vulnerabilityReference'
+import { Comparable, SortableSet } from '../helpers/sortableSet'
+
+interface OptionalProperties {
+  url?: URL | string
+  name?: string
+}
+
+export class Source implements Comparable {
+  url?: URL | string
+  name?: string
+
+  constructor (op: OptionalProperties = {}) {
+    this.url = op.url
+    this.name = op.name
+  }
+
+  compare (other: Source): number {
+    return (this.name ?? '').localeCompare(other.name ?? '')
+  }
+}
+
+export class SourceRepository extends SortableSet<Source> {
+}
