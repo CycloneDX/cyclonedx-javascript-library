@@ -32,5 +32,18 @@ module.exports = {
   env: {
     node: true,
     browser: true
-  }
+  },
+  overrides: [
+    {
+      files: [
+        '*.spec.*',
+        '*.test.*'
+      ],
+      env: {
+        node: true,
+        mocha: true,
+        browser: false // change, when mocha is enabled for browser
+      }
+    }
+  ]
 }
