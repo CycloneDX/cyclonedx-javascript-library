@@ -5,7 +5,6 @@ But please read the
 [CycloneDX contributing guidelines](https://github.com/CycloneDX/.github/blob/master/CONTRIBUTING.md)
 first.
 
-
 ## Set up the project
 
 Install dependencies:
