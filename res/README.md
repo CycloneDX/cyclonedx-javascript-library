@@ -5,7 +5,7 @@ These resources are shipped with the library.
 ## Schema files
 
 some schema for offline use.  
-original sources: https://github.com/CycloneDX/specification/tree/master/schema
+original sources: <https://github.com/CycloneDX/specification/tree/master/schema>
 
 Currently using version
 [9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb](https://github.com/CycloneDX/specification/tree/9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb)
