@@ -22,8 +22,26 @@ export interface Comparable {
   compare: (other: any) => number
 }
 
-export abstract class SortableSet<T extends Comparable> extends Set<T> {
+export abstract class SortableSet<T extends Comparable> extends Set<T> implements Comparable {
   sorted (): T[] {
     return Array.from(this).sort((a: T, b: T) => a.compare(b))
+  }
+
+  compare (other: SortableSet<T>): number {
+    const thisSorted = this.sorted()
+    const otherSorted = other.sorted()
+    const lenDiff = thisSorted.length - otherSorted.length
+    if (lenDiff !== 0) {
+      return lenDiff
+    }
+
+    for (let i = 0; i < thisSorted.length; i++) {
+      const elementCompare = thisSorted[i].compare(otherSorted[i])
+      if (elementCompare !== 0) {
+        return elementCompare
+      }
+    }
+
+    return 0
   }
 }

@@ -38,7 +38,28 @@ export class OrganizationalEntity implements Comparable {
   }
 
   compare (other: OrganizationalEntity): number {
-    return (this.name ?? '').localeCompare(other.name ?? '')
+    const nameCompare = (this.name ?? '').localeCompare(other.name ?? '')
+    if (nameCompare !== 0) {
+      return nameCompare
+    }
+
+    const urlSizeDiff = this.url.size - other.url.size
+    if (urlSizeDiff !== 0) {
+      return urlSizeDiff
+    }
+    const sortedUrls = [...this.url].map(u => u.toString()).sort()
+    const otherUrls = [...other.url].map(u => u.toString()).sort()
+    for (let i = 0; i < sortedUrls.length; i++) {
+      const urlCompare = sortedUrls[i].localeCompare(otherUrls[i])
+      if (urlCompare !== 0) {
+        return urlCompare
+      }
+    }
+
+    if (this.contact !== undefined && other.contact !== undefined) {
+      return this.contact.compare(other.contact)
+    }
+    return 0
   }
 }
 

@@ -18,6 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 export * from './cpe'
+export * from './cwe'
 export * from './integer'
 export * from './mimeType'
 export * from './urn'

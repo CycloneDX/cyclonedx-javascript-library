@@ -17,26 +17,15 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Comparable, SortableSet } from '../helpers/sortableSet'
+import { isPositiveInteger, PositiveInteger } from './integer'
 
-interface OptionalProperties {
-  url?: URL | string
-  name?: string
-}
+/**
+ * Define the format for acceptable Common Weakness Enumeration (CWE) IDs.
+ * Refer to {@link https://cwe.mitre.org/index.html} for official specification.
+ * @see isCWE
+ */
+export type CWE = number | PositiveInteger
 
-export class Source implements Comparable {
-  url?: URL | string
-  name?: string
-
-  constructor (op: OptionalProperties = {}) {
-    this.url = op.url
-    this.name = op.name
-  }
-
-  compare (other: Source): number {
-    return (this.name ?? '').localeCompare(other.name ?? '')
-  }
-}
-
-export class SourceRepository extends SortableSet<Source> {
+export function isCWE (value: any): value is CWE {
+  return isPositiveInteger(value)
 }
