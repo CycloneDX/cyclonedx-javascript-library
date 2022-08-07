@@ -17,11 +17,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export enum VulnerabilityAnalysisState {
-  Resolved = 'resolved',
-  ResolvedWithPedigree = 'resolved_with_pedigree',
-  Exploitable = 'exploitable',
-  InTriage = 'in_triage',
-  FalsePositive = 'false_positive',
-  NotAffacted = 'not_affected',
+export enum Severity {
+  Critical = 'critical',
+  High = 'high',
+  Medium = 'medium',
+  Low = 'low',
+  Info = 'info',
+  None = 'none',
+  Unknown = 'unknown',
 }

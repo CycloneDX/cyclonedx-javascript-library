@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export enum VulnerabilityAnalysisResponse {
+export enum ImpactAnalysisResponse {
   CanNotFix = 'can_not_fix',
   WillNotFix = 'will_not_fix',
   Update = 'update',

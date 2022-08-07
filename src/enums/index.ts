@@ -17,14 +17,14 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+export * from './affectedStatus'
 export * from './attachmentEncoding'
 export * from './componentScope'
 export * from './componentType'
 export * from './externalReferenceType'
 export * from './hashAlogorithm'
-export * from './vulnerabilityAffectsVersionStatus'
-export * from './vulnerabilityAnalysisJustification'
-export * from './vulnerabilityAnalysisResponse'
-export * from './vulnerabilityAnalysisState'
-export * from './vulnerabilityRatingMethod'
-export * from './vulnerabilityRatingSeverity'
+export * from './impactAnalysisJustification'
+export * from './impactAnalysisResponse'
+export * from './impactAnalysisState'
+export * from './scoreMethod'
+export * from './severity'

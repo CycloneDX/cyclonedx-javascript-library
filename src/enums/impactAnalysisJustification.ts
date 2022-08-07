@@ -17,10 +17,14 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export enum VulnerabilityRatingMethod {
-  CVSSv2 = 'CVSSv2',
-  CVSSv3 = 'CVSSv3',
-  CVSSv31 = 'CVSSv31',
-  OWASP = 'OWASP',
-  Other = 'other',
+export enum ImpactAnalysisJustification {
+  CodeNotPresent = 'code_not_present',
+  CodeNotReachable = 'code_not_reachable',
+  RequiresConfiguration = 'requires_configuration',
+  RequiresDependency = 'requires_dependency',
+  RequiresEnvironment = 'requires_environment',
+  ProtectedByCompiler = 'protected_by_compiler',
+  ProtectedAtRuntime = 'protected_at_runtime',
+  ProtectedAtPerimeter = 'protected_at_perimeter',
+  ProtectedByMitigatingControl = 'protected_by_mitigating_control',
 }

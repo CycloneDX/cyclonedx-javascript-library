@@ -17,12 +17,10 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export enum VulnerabiltyRatingSeverity {
-  Critical = 'critical',
-  High = 'high',
-  Medium = 'medium',
-  Low = 'low',
-  Info = 'info',
-  None = 'none',
-  Unknown = 'unknown',
+export enum ScoreMethod {
+  CVSSv2 = 'CVSSv2',
+  CVSSv3 = 'CVSSv3',
+  CVSSv31 = 'CVSSv31',
+  OWASP = 'OWASP',
+  Other = 'other',
 }
