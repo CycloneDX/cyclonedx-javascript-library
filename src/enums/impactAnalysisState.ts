@@ -23,5 +23,5 @@ export enum ImpactAnalysisState {
   Exploitable = 'exploitable',
   InTriage = 'in_triage',
   FalsePositive = 'false_positive',
-  NotAffacted = 'not_affected',
+  NotAffected = 'not_affected',
 }
