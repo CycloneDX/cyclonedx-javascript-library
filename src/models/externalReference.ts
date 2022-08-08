@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Comparable, SortableSet } from '../_helpers/sortableSet'
+import { Comparable, SortableSet } from '../_helpers/sortable'
 import { ExternalReferenceType } from '../enums'
 
 interface OptionalProperties {

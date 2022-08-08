@@ -17,6 +17,31 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { Stringable } from './stringable'
+
 export interface Sortable<T> {
   sorted: () => T[]
+}
+
+export abstract class SortableStringable<T extends Stringable> extends Set<T> implements Sortable<T> {
+  sorted (): T[] {
+    return Array.from(this).sort((a: T, b: T) => a.toString().localeCompare(b.toString()))
+  }
+}
+
+export abstract class SortableNumbers<T extends number> extends Set<T> implements Sortable<T> {
+  sorted (): T[] {
+    return Array.from(this).sort((a: T, b: T) => a - b)
+  }
+}
+
+export interface Comparable {
+  // The purpose of this method is not to test for equality, but have deterministic comparability.
+  compare: (other: any) => number
+}
+
+export abstract class SortableSet<TItem extends Comparable> extends Set<TItem> implements Sortable<TItem> {
+  sorted (): TItem[] {
+    return Array.from(this).sort((a, b) => a.compare(b))
+  }
 }
