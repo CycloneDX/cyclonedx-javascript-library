@@ -35,7 +35,7 @@ export class LicenseExpression {
   /**
    * @throws {RangeError} if {@see expression} is not eligible({@see LicenseExpression.isEligibleExpression})
    */
-  constructor (expression: string) {
+  constructor (expression: LicenseExpression['expression']) {
     this.expression = expression
   }
 
@@ -68,7 +68,7 @@ export class NamedLicense {
   text?: Attachment
   url?: URL | string
 
-  constructor (name: string, op: NamedLicenseOptionalProperties = {}) {
+  constructor (name: NamedLicense['name'], op: NamedLicenseOptionalProperties = {}) {
     this.name = name
     this.text = op.text
     this.url = op.url
@@ -94,7 +94,7 @@ export class SpdxLicense {
   /**
    * @throws {RangeError} if {@see id} is not supported SPDX id({@see isSupportedSpdxId})
    */
-  constructor (id: SpdxId, op: SpdxLicenseOptionalProperties = {}) {
+  constructor (id: SpdxLicense['id'], op: SpdxLicenseOptionalProperties = {}) {
     this.id = id
     this.text = op.text
     this.url = op.url

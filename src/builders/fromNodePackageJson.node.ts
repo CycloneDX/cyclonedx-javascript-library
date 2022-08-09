@@ -29,7 +29,7 @@ import { PackageJson, splitNameGroup } from '../helpers/packageJson'
 export class ToolBuilder {
   readonly #extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory
 
-  constructor (extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory) {
+  constructor (extRefFactory: ToolBuilder['extRefFactory']) {
     this.#extRefFactory = extRefFactory
   }
 
@@ -58,8 +58,8 @@ export class ComponentBuilder {
   readonly #licenseFactory: Factories.LicenseFactory
 
   constructor (
-    extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory,
-    licenseFactory: Factories.LicenseFactory
+    extRefFactory: ComponentBuilder['extRefFactory'],
+    licenseFactory: ComponentBuilder['licenseFactory']
   ) {
     this.#extRefFactory = extRefFactory
     this.#licenseFactory = licenseFactory

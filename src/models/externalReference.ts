@@ -29,7 +29,7 @@ export class ExternalReference implements Comparable {
   type: ExternalReferenceType
   comment?: string
 
-  constructor (url: URL | string, type: ExternalReferenceType, op: OptionalProperties = {}) {
+  constructor (url: ExternalReference['url'], type: ExternalReference['type'], op: OptionalProperties = {}) {
     this.url = url
     this.type = type
     this.comment = op.comment

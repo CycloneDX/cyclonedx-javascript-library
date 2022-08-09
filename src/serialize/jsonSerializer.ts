@@ -33,7 +33,7 @@ export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
   /**
    * @throws {UnsupportedFormatError} if {@see normalizerFactory.spec} does not support {@see Format.JSON}.
    */
-  constructor (normalizerFactory: NormalizerFactory) {
+  constructor (normalizerFactory: JsonSerializer['normalizerFactory']) {
     if (!normalizerFactory.spec.supportsFormat(Format.JSON)) {
       throw new UnsupportedFormatError('Spec does not support JSON format.')
     }

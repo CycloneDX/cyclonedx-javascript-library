@@ -24,12 +24,12 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 export class BomRef {
   value?: string
 
-  constructor (value?: string) {
+  constructor (value?: BomRef['value']) {
     this.value = value
   }
 
   compare (other: BomRef): number {
-    return (this.toString()).localeCompare(other.toString())
+    return this.toString().localeCompare(other.toString())
   }
 
   toString (): string {
