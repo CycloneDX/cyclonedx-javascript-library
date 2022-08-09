@@ -29,7 +29,7 @@ export class Attachment {
   content: string
   encoding?: AttachmentEncoding
 
-  constructor (content: string, op: OptionalProperties = {}) {
+  constructor (content: Attachment['content'], op: OptionalProperties = {}) {
     this.contentType = op.contentType
     this.content = content
     this.encoding = op.encoding

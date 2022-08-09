@@ -28,7 +28,7 @@ import { treeIterator } from '../../helpers/tree'
 export class Factory {
   readonly #spec: Spec
 
-  constructor (spec: Spec) {
+  constructor (spec: Factory['spec']) {
     this.#spec = spec
   }
 
@@ -104,7 +104,7 @@ interface Normalizer {
 abstract class Base implements Normalizer {
   protected readonly _factory: Factory
 
-  constructor (factory: Factory) {
+  constructor (factory: Base['factory']) {
     this._factory = factory
   }
 
@@ -203,7 +203,8 @@ export class HashNormalizer extends Base {
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
-    ).map(h => this.normalize(h, options)
+    ).map(
+      h => this.normalize(h, options)
     ).filter(isNotUndefined)
   }
 }
@@ -295,7 +296,8 @@ export class ComponentNormalizer extends Base {
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
-    ).map(c => this.normalize(c, options)
+    ).map(
+      c => this.normalize(c, options)
     ).filter(isNotUndefined)
   }
 }
@@ -389,7 +391,8 @@ export class ExternalReferenceNormalizer extends Base {
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
-    ).map(r => this.normalize(r, options)
+    ).map(
+      r => this.normalize(r, options)
     ).filter(isNotUndefined)
   }
 }

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Misc
+  * Improved readability of constructor parameter types. (via [#166]) 
+
+[#166]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/166
+
 ## 1.3.1 - 2022-08-04
 
 * Fixed

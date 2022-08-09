@@ -24,7 +24,7 @@ import { ExternalReferenceType } from '../enums'
 export class PackageUrlFactory {
   readonly #type: PackageURL['type']
 
-  constructor (type: PackageURL['type']) {
+  constructor (type: PackageUrlFactory['type']) {
     this.#type = type
   }
 

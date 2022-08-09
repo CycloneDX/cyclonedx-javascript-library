@@ -24,7 +24,7 @@ export class LicenseFactory {
   makeFromString (value: string): License {
     try {
       return this.makeExpression(value)
-    } catch (Error) {
+    } catch {
       return this.makeDisjunctive(value)
     }
   }
@@ -39,7 +39,7 @@ export class LicenseFactory {
   makeDisjunctive (value: string): DisjunctiveLicense {
     try {
       return this.makeDisjunctiveWithId(value)
-    } catch (error) {
+    } catch {
       return this.makeDisjunctiveWithName(value)
     }
   }

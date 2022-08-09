@@ -45,7 +45,7 @@ export class SWID {
   /**
    * @throws {TypeError} if {@see op.tagVersion} is neither {@see NonNegativeInteger} nor {@see undefined}
    */
-  constructor (tagId: string, name: string, op: OptionalProperties = {}) {
+  constructor (tagId: SWID['tagId'], name: SWID['name'], op: OptionalProperties = {}) {
     this.tagId = tagId
     this.name = name
     this.version = op.version

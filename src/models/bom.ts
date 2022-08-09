@@ -45,7 +45,7 @@ export class Bom {
   // The dependency graph can be normalized on render-time, no need to store it in the bom model.
 
   /**
-   * @throws {TypeError} if {@see op.version} is not {@see PositiveInteger} nor {@see undefined}
+   * @throws {TypeError} if {@see op.version} is neither {@see PositiveInteger} nor {@see undefined}
    * @throws {TypeError} if {@see op.serialNumber} is neither {@see UrnUuid} nor {@see undefined}
    */
   constructor (op: OptionalProperties = {}) {
