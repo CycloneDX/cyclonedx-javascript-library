@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Bom, BomRef } from '../models'
+import { Component, Bom, BomRef } from '../models'
 import { BomRefDiscriminator } from './bomRefDiscriminator'
 import { NormalizerOptions, Serializer, SerializerOptions } from './types'
 
@@ -38,12 +38,19 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
 
   #getAllBomRefs (bom: Bom): Iterable<BomRef> {
     const bomRefs = new Set<BomRef>()
+    function iterComponents (cs: Iterable<Component>): void {
+      for (const { bomRef, components } of cs) {
+        bomRefs.add(bomRef)
+        iterComponents(components)
+      }
+    }
+
     if (bom.metadata.component !== undefined) {
       bomRefs.add(bom.metadata.component.bomRef)
+      iterComponents(bom.metadata.component.components)
     }
-    for (const { bomRef } of bom.components) {
-      bomRefs.add(bomRef)
-    }
+    iterComponents(bom.components)
+
     return bomRefs.values()
   }
 
