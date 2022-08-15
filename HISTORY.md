@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.3.3 - 2022-08-16
+
 * Fixed
   * Improved omission of invalid `anyURI` when it comes to XML-normalization. ([#178] via [#179])
 
