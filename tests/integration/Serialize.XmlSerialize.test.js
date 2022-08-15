@@ -25,6 +25,7 @@ const { createComplexStructure } = require('../_data/models')
 const { loadSerializeResult, writeSerializeResult } = require('../_data/serialize')
 
 const {
+  Models, Enums,
   Serialize: {
     XML: { Normalize: { Factory: XmlNormalizeFactory } },
     XmlSerializer
@@ -52,6 +53,7 @@ describe('Serialize.XmlSerialize', function () {
 
     it('serialize', function () {
       const serializer = new XmlSerializer(normalizerFactory)
+
       const serialized = serializer.serialize(
         this.bom, {
           sortLists: true,
@@ -69,4 +71,56 @@ describe('Serialize.XmlSerialize', function () {
 
     // TODO add more tests
   }))
+
+  describe('make bom-refs unique', () => {
+    it('as expected', () => {
+      const bom = new Models.Bom({
+        metadata: new Models.Metadata({
+          component: new Models.Component(Enums.ComponentType.Library, 'root', {
+            bomRef: 'testing',
+            components: new Models.ComponentRepository([
+              new Models.Component(Enums.ComponentType.Library, 'c2', {
+                bomRef: 'testing'
+              })
+            ])
+          })
+        }),
+        components: new Models.ComponentRepository([
+          new Models.Component(Enums.ComponentType.Library, 'c1', {
+            bomRef: 'testing',
+            components: new Models.ComponentRepository([
+              new Models.Component(Enums.ComponentType.Library, 'c2', {
+                bomRef: 'testing'
+              })
+            ])
+          })
+        ])
+      })
+      const knownBomRefs = [
+        bom.metadata.component.bomRef,
+        [...bom.metadata.component.components][0].bomRef,
+        [...bom.components.values()][0].bomRef,
+        [...[...bom.components][0].components][0].bomRef
+      ]
+      const normalizedBomRefs = new Set(/* will be filled on call */)
+      const bomNormalizer = {
+        normalize: (bom) => {
+          normalizedBomRefs.add(bom.metadata.component.bomRef.value)
+          normalizedBomRefs.add([...bom.metadata.component.components][0].bomRef.value)
+          normalizedBomRefs.add([...bom.components.values()][0].bomRef.value)
+          normalizedBomRefs.add([...[...bom.components][0].components][0].bomRef.value)
+          return { type: 'element', name: 'dummy' }
+        }
+      }
+      const normalizerFactory = { makeForBom: () => bomNormalizer, spec: Spec1dot4 }
+      const serializer = new XmlSerializer(normalizerFactory)
+
+      serializer.serialize(bom)
+
+      assert.strictEqual(normalizedBomRefs.has('testing'), true)
+      assert.strictEqual(normalizedBomRefs.size, 4, 'not every value was unique')
+      // everything back to before - all have
+      knownBomRefs.forEach(({ value }) => assert.strictEqual(value, 'testing'))
+    })
+  })
 })
