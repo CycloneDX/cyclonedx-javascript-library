@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Fixed
+  * Improved omission of invalid `anyURI` when it comes to XML-normalization. ([#178] via [#179])
+
+[#178]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/178
+[#179]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/179
+
 ## 1.3.2 - 2022-08-15
 
 * Fixed

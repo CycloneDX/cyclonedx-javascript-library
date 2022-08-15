@@ -20,6 +20,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace XmlSchema {
 
+  const _anyUriSchemePattern = /^[a-z][a-z0-9+\-.]*$/i
+
   /**
    * @see isAnyURI
    */
@@ -28,13 +30,42 @@ export namespace XmlSchema {
    * Test whether format is XML::anyURI - best-effort.
    *
    * @see {@link http://www.w3.org/TR/xmlschema-2/#anyURI}
-   * @see {@link http://www.datypic.com/sc/xsd/t-xsd_anyURI.html}
+   * @see {@link https://www.w3.org/2011/04/XMLSchema/TypeLibrary-URI-RFC3986.xsd}
+   * @see {@link https://www.w3.org/2011/04/XMLSchema/TypeLibrary-IRI-RFC3987.xsd}
    */
   export function isAnyURI (value: AnyURI | any): value is AnyURI {
-    return typeof value === 'string' &&
-      value.length > 0 &&
-      Array.from(value).filter(c => c === '#').length <= 1
-    // TODO add more validation according to spec
+    if (typeof value !== 'string') {
+      // not a string
+      return false
+    }
+    if (value.length === 0) {
+      // empty string
+      return false
+    }
+
+    const fragmentPos = value.indexOf('#')
+    let beforeFragment: string
+    if (fragmentPos >= 0) {
+      if (value.includes('#', fragmentPos + 1)) {
+        // has a second fragment marker
+        return false
+      }
+      beforeFragment = value.slice(undefined, fragmentPos)
+    } else {
+      beforeFragment = value
+    }
+
+    const schemePos = beforeFragment.indexOf(':')
+    if (schemePos >= 0) {
+      if (!_anyUriSchemePattern.test(beforeFragment.slice(undefined, schemePos))) {
+        // invalid schema
+        return false
+      }
+    }
+
+    // @TODO add more validation according to spec
+
+    return true
   }
 
 }
