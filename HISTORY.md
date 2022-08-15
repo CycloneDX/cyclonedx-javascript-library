@@ -4,10 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.3.2 - 2022-08-15
+
 * Fixed
-  * All serializers render unique `bom-ref` values of nested components. ([#175] via [#176])
+  * Serializers render `bom-ref` values of nested components as unique values, as expected. ([#175] via [#176])
 * Misc
-  * Improved readability of constructor parameter types. (via [#166])
+  * Style: improved readability of constructor parameter types. (via [#166])
 
 [#166]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/166
 [#175]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/175
