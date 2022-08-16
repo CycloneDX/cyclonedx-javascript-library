@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Fixed
+  * `Factories.PackageUrlFactory` omits empty-string URLs for PackageUrl's qualifiers `download_url` & `vcs_url`. (via [#180]) 
+
+[#180]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/180
+
 ## 1.3.3 - 2022-08-16
 
 * Fixed

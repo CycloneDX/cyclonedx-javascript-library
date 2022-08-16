@@ -117,6 +117,24 @@ suite('Factories.PackageUrlFactory', () => {
       assert.deepStrictEqual(actual, expected)
     })
 
+    test('extRef empty url -> omit', () => {
+      const component = new Models.Component(
+        Enums.ComponentType.Library,
+        `name-${salt}`,
+        {
+          externalReferences: new Models.ExternalReferenceRepository([
+            new Models.ExternalReference('', Enums.ExternalReferenceType.VCS),
+            new Models.ExternalReference('', Enums.ExternalReferenceType.Distribution)
+          ])
+        }
+      )
+      const expected = new PackageURL('testing', undefined, `name-${salt}`, undefined, {}, undefined)
+
+      const actual = sut.makeFromComponent(component)
+
+      assert.deepStrictEqual(actual, expected)
+    })
+
     test('hashes -> qualifiers.checksum', () => {
       const component = new Models.Component(
         Enums.ComponentType.Library,
@@ -134,7 +152,7 @@ suite('Factories.PackageUrlFactory', () => {
       assert.deepStrictEqual(actual, expected)
     })
 
-    test('sorted', () => {
+    test('sorted hashes', () => {
       const component = new Models.Component(
         Enums.ComponentType.Library,
         'name',
@@ -163,6 +181,48 @@ suite('Factories.PackageUrlFactory', () => {
 
       assert.deepStrictEqual(actual, expectedObject)
       assert.deepStrictEqual(actual.toString(), expectedString)
+    })
+
+    test('sorted references', () => {
+      const component1 = new Models.Component(
+        Enums.ComponentType.Library,
+        'name',
+        {
+          externalReferences: new Models.ExternalReferenceRepository([
+            new Models.ExternalReference('https://foo.bar/download-1', Enums.ExternalReferenceType.Distribution),
+            new Models.ExternalReference('git+https://foo.bar/repo.git', Enums.ExternalReferenceType.VCS),
+            new Models.ExternalReference('https://foo.bar/download-2', Enums.ExternalReferenceType.Distribution)
+          ])
+        }
+      )
+      const component2 = new Models.Component(
+        Enums.ComponentType.Library,
+        'name',
+        {
+          externalReferences: new Models.ExternalReferenceRepository([
+            // different order of extRefs
+            new Models.ExternalReference('https://foo.bar/download-2', Enums.ExternalReferenceType.Distribution),
+            new Models.ExternalReference('git+https://foo.bar/repo.git', Enums.ExternalReferenceType.VCS),
+            new Models.ExternalReference('https://foo.bar/download-1', Enums.ExternalReferenceType.Distribution)
+          ])
+        }
+      )
+      const expectedObject = new PackageURL('testing', undefined, 'name', undefined,
+        {
+          // expect sorted hash list
+          download_url: 'https://foo.bar/download-2',
+          vcs_url: 'git+https://foo.bar/repo.git'
+        }, undefined)
+      // expect objet's keys in alphabetical oder, expect sorted hash list
+      const expectedString = 'pkg:testing/name?download_url=https://foo.bar/download-2&vcs_url=git+https://foo.bar/repo.git'
+
+      const actual1 = sut.makeFromComponent(component1, true)
+      const actual2 = sut.makeFromComponent(component2, true)
+
+      assert.deepStrictEqual(actual1, expectedObject)
+      assert.deepStrictEqual(actual1.toString(), expectedString)
+      assert.deepStrictEqual(actual2, expectedObject)
+      assert.deepStrictEqual(actual2.toString(), expectedString)
     })
   })
 })
