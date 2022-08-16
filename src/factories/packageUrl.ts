@@ -40,14 +40,25 @@ export class PackageUrlFactory {
     const qualifiers: PackageURL['qualifiers'] = {}
     let subpath: PackageURL['subpath']
 
-    const extRefs = component.externalReferences
-    for (const extRef of (sort ? extRefs.sorted() : extRefs)) {
+    // sorting to allow reproducibility: use the last instance for a `extRef.type`, if multiples exist
+    const extRefs = sort
+      ? component.externalReferences.sorted()
+      : component.externalReferences
+    for (const extRef of extRefs) {
+      const url = extRef.url.toString()
+      if (url.length <= 0) {
+        continue
+      }
+      // No further need for validation.
+      // According to https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst
+      // there is no formal requirement to a `..._url`.
+      // Everything is possible: URL-encoded, not encoded, with schema, without schema
       switch (extRef.type) {
         case ExternalReferenceType.VCS:
-          [qualifiers.vcs_url, subpath] = extRef.url.toString().split('#', 2)
+          [qualifiers.vcs_url, subpath] = url.split('#', 2)
           break
         case ExternalReferenceType.Distribution:
-          qualifiers.download_url = extRef.url.toString()
+          qualifiers.download_url = url
           break
       }
     }
