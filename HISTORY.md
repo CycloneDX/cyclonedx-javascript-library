@@ -4,10 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Build
+  * Use _TypeScript_ `v4.8.2` now, was `v4.7.4`. (via [#190])
+
+[#190]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/190
+
 ## 1.3.4 - 2022-08-16
 
 * Fixed
-  * `Factories.PackageUrlFactory` omits empty-string URLs for PackageUrl's qualifiers `download_url` & `vcs_url`. (via [#180]) 
+  * `Factories.PackageUrlFactory` omits empty-string URLs for PackageUrl's qualifiers `download_url` & `vcs_url`. (via [#180])
 
 [#180]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/180
 
