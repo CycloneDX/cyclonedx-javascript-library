@@ -17,10 +17,13 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index.common'
-
-/** @since 1.2.0 */
-export * as FromNodePackageJson from './fromNodePackageJson.node'
-
-/** @deprecated use {@link FromNodePackageJson} instead of {@link FromPackageJson} */
-export * as FromPackageJson from './fromNodePackageJson.node'
+/**
+ * Known PURL qualifier names.
+ * To be used until {@link https://github.com/package-url/packageurl-js/pull/34} gets merged
+ * and {@link https://github.com/package-url/packageurl-js/issues/35} gets sorted out.
+ */
+export const enum PackageUrlQualifierNames {
+  DownloadURL = 'download_url',
+  VcsUrl = 'vcs_url',
+  Checksum = 'checksum',
+}

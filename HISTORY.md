@@ -4,9 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Added
+  * New class `Factories.FromNodePackageJson.PackageUrlFactory` that acts like `Factories.PackageUrlFactory`, but
+    omits PackageUrl's npm-specific "default derived" qualifier values for `download_url` & `vcs_url`. ([#204] via [#207])
 * Build
   * Use _TypeScript_ `v4.8.2` now, was `v4.7.4`. (via [#190])
 
+[#204]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/178
+[#207]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/207
 [#190]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/190
 
 ## 1.3.4 - 2022-08-16

@@ -17,9 +17,11 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Component } from '../models'
 import { PackageURL } from 'packageurl-js'
+
 import { ExternalReferenceType } from '../enums'
+import { Component } from '../models'
+import { PackageUrlQualifierNames } from '../helpers/packageUrl'
 
 export class PackageUrlFactory {
   readonly #type: PackageURL['type']
@@ -55,25 +57,27 @@ export class PackageUrlFactory {
       // Everything is possible: URL-encoded, not encoded, with schema, without schema
       switch (extRef.type) {
         case ExternalReferenceType.VCS:
-          [qualifiers.vcs_url, subpath] = url.split('#', 2)
+          [qualifiers[PackageUrlQualifierNames.VcsUrl], subpath] = url.split('#', 2)
           break
         case ExternalReferenceType.Distribution:
-          qualifiers.download_url = url
+          qualifiers[PackageUrlQualifierNames.DownloadURL] = url
           break
       }
     }
 
     const hashes = component.hashes
     if (hashes.size > 0) {
-      qualifiers.checksum = Array.from(
-        sort ? hashes.sorted() : hashes,
+      qualifiers[PackageUrlQualifierNames.Checksum] = Array.from(
+        sort
+          ? hashes.sorted()
+          : hashes,
         ([hashAlgo, hashCont]) => `${hashAlgo.toLowerCase()}:${hashCont.toLowerCase()}`
       ).join(',')
     }
 
     try {
       // Do not beautify the parameters here, because that is in the domain of PackageURL and its representation.
-      // No need to convert an empty `subpath` string to `undefined` and such.
+      // No need to convert an empty "subpath" string to `undefined` and such.
       return new PackageURL(
         this.#type,
         component.group,
