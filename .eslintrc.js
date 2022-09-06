@@ -30,8 +30,9 @@ module.exports = {
     project: './tsconfig.json'
   },
   env: {
-    node: true,
-    browser: true
+    commonjs: true,
+    browser: true,
+    node: true
   },
   overrides: [
     {
@@ -40,8 +41,9 @@ module.exports = {
         '*.test.*'
       ],
       env: {
-        node: true,
         mocha: true,
+        commonjs: true,
+        node: true,
         browser: false // change, when mocha is enabled for browser
       }
     }
