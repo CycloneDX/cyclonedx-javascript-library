@@ -21,6 +21,16 @@ import { Component } from '../models'
 import { PackageURL } from 'packageurl-js'
 import { ExternalReferenceType } from '../enums'
 
+enum PackageUrlQualifierNames {
+  DownloadURL = 'download_url',
+  VcsUrl = 'vcs_url',
+  Checksum = 'checksum',
+}
+
+const npmDefaultRegistryMatcher = /^https?:\/\/registry\.npmjs\.org/
+
+type PackageUrlQualifiers = Map<PackageUrlQualifierNames, string>
+
 export class PackageUrlFactory {
   readonly #type: PackageURL['type']
 
@@ -37,7 +47,7 @@ export class PackageUrlFactory {
      * For the list/spec of the well-known keys, see
      * {@link https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst#known-qualifiers-keyvalue-pairs}
      */
-    const qualifiers: PackageURL['qualifiers'] = {}
+    const qualifiers: PackageUrlQualifiers = new Map()
     let subpath: PackageURL['subpath']
 
     // sorting to allow reproducibility: use the last instance for a `extRef.type`, if multiples exist
@@ -49,41 +59,76 @@ export class PackageUrlFactory {
       if (url.length <= 0) {
         continue
       }
+      let vcsUrl: [path: string, anchor: string | undefined]
       // No further need for validation.
       // According to https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst
       // there is no formal requirement to a `..._url`.
       // Everything is possible: URL-encoded, not encoded, with schema, without schema
       switch (extRef.type) {
         case ExternalReferenceType.VCS:
-          [qualifiers.vcs_url, subpath] = url.split('#', 2)
+          /* @ts-expect-error TS2322 */
+          vcsUrl = url.split('#', 2)
+          qualifiers.set(PackageUrlQualifierNames.VcsUrl, vcsUrl[0])
+          subpath = vcsUrl[1]
           break
         case ExternalReferenceType.Distribution:
-          qualifiers.download_url = url
+          qualifiers.set(PackageUrlQualifierNames.DownloadURL, url)
           break
       }
     }
 
     const hashes = component.hashes
     if (hashes.size > 0) {
-      qualifiers.checksum = Array.from(
-        sort ? hashes.sorted() : hashes,
-        ([hashAlgo, hashCont]) => `${hashAlgo.toLowerCase()}:${hashCont.toLowerCase()}`
-      ).join(',')
+      qualifiers.set(
+        PackageUrlQualifierNames.Checksum,
+        Array.from(
+          sort ? hashes.sorted() : hashes,
+          ([hashAlgo, hashCont]) => `${hashAlgo.toLowerCase()}:${hashCont.toLowerCase()}`
+        ).join(',')
+      )
     }
 
     try {
       // Do not beautify the parameters here, because that is in the domain of PackageURL and its representation.
-      // No need to convert an empty `subpath` string to `undefined` and such.
+      // No need to convert an empty "subpath" string to `undefined` and such.
       return new PackageURL(
         this.#type,
         component.group,
         component.name,
         component.version,
-        qualifiers,
+        this.#finalizeQualifiers(qualifiers),
         subpath
       )
     } catch {
       return undefined
     }
+  }
+
+  /**
+   * Will strip unnecessary qualifiers according to {@link https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst#known-qualifiers-keyvalue-pairs PURL-SPECIFICATION}:
+   * > Do not abuse qualifiers: it can be tempting to use many qualifier keys but their usage should be limited
+   * > to the bare minimum for proper package identification to ensure that a purl stays compact and readable
+   * > in most cases.
+   *
+   * Therefore,
+   * - "vcs_url" is stripped if a "download_url" is given.
+   * - "download_url" is stripped, if it is NPMs default registry ("registry.npmjs.org")
+   * - "checksum" is stripped unless a "download_url" or "vcs_url" is given.
+   */
+  #finalizeQualifiers (qualifiers: PackageUrlQualifiers): PackageURL['qualifiers'] {
+    const downloadUrl = qualifiers.get(PackageUrlQualifierNames.DownloadURL)
+    if (downloadUrl !== undefined) {
+      qualifiers.delete(PackageUrlQualifierNames.VcsUrl)
+      if (npmDefaultRegistryMatcher.test(downloadUrl)) {
+        qualifiers.delete(PackageUrlQualifierNames.DownloadURL)
+      }
+    }
+    if (!qualifiers.has(PackageUrlQualifierNames.DownloadURL) && !qualifiers.has(PackageUrlQualifierNames.VcsUrl)) {
+      // nothing to base a checksum on
+      qualifiers.delete(PackageUrlQualifierNames.Checksum)
+    }
+    return qualifiers.size > 0
+      ? Object.fromEntries(qualifiers.entries())
+      : undefined
   }
 }

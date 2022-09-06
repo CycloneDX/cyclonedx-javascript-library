@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Changed
+  * `Factories.PackageUrlFactory` omits default URLs for PackageUrl's qualifiers `download_url` & `vcs_url`. (via [#180])
 * Build
   * Use _TypeScript_ `v4.8.2` now, was `v4.7.4`. (via [#190])
 
