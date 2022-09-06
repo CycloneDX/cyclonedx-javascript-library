@@ -58,7 +58,7 @@ function getSpecEnum (resourceFile, ...path) {
 }
 
 module.exports = {
-  loadSpec: loadSpec,
-  getSpecElement: getSpecElement,
-  getSpecEnum: getSpecEnum
+  loadSpec,
+  getSpecElement,
+  getSpecEnum
 }

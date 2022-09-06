@@ -193,7 +193,7 @@ export class HashNormalizer extends Base {
     return spec.supportsHashAlgorithm(algorithm) && spec.supportsHashValue(content)
       ? {
           alg: algorithm,
-          content: content
+          content
         }
       : undefined
   }
