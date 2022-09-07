@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.4.0 - 2022-09-07
+
 * Added
   * New class `Factories.FromNodePackageJson.PackageUrlFactory` that acts like `Factories.PackageUrlFactory`, but
     omits PackageUrl's npm-specific "default derived" qualifier values for `download_url` & `vcs_url`. ([#204] via [#207])
