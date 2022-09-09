@@ -73,11 +73,12 @@ written in _TypeScript_ and compiled for the target.
 
 ## Installation
 
-This package and the build results are available for _npm_ and _yarn_:
+This package and the build results are available for _npm_, _yarn_ and _pnpm_:
 
 ```shell
 npm i -S @cyclonedx/cyclonedx-library
 yarn add @cyclonedx/cyclonedx-library
+pnpm add @cyclonedx/cyclonedx-library
 ```
 
 You can install the package from source,
@@ -86,6 +87,7 @@ which will build automatically on installation:
 ```shell
 npm i -S github:CycloneDX/cyclonedx-javascript-library
 # not supported with yarn
+# not supported with pnpm
 ```
 
 ## Usage
