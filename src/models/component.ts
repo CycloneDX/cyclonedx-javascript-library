@@ -21,7 +21,7 @@ import { PackageURL } from 'packageurl-js'
 
 import { ComponentScope, ComponentType } from '../enums'
 import { Comparable, SortableSet } from '../helpers/sortableSet'
-import { treeIterator } from '../helpers/tree'
+import { treeIteratorSymbol } from '../helpers/tree'
 import { CPE, isCPE } from '../types'
 import { BomRef, BomRefRepository } from './bomRef'
 import { ExternalReferenceRepository } from './externalReference'
@@ -142,10 +142,10 @@ export class Component implements Comparable {
 }
 
 export class ComponentRepository extends SortableSet<Component> {
-  * [treeIterator] (): Generator<Component> {
+  * [treeIteratorSymbol] (): Generator<Component> {
     for (const component of this) {
       yield component
-      yield * component.components[treeIterator]()
+      yield * component.components[treeIteratorSymbol]()
     }
   }
 }

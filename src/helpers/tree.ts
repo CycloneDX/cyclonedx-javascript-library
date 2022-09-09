@@ -17,4 +17,4 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export const treeIterator = Symbol('iterator of a tree/nesting-like structure')
+export const treeIteratorSymbol = Symbol('iterator of a tree/nesting-like structure')

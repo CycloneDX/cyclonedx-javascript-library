@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { isNotUndefined } from '../../helpers/notUndefined'
 import { Stringable } from '../../helpers/stringable'
-import { treeIterator } from '../../helpers/tree'
+import { treeIteratorSymbol } from '../../helpers/tree'
 import * as Models from '../../models'
 import { Protocol as Spec, Version as SpecVersion } from '../../spec'
 import { NormalizerOptions } from '../types'
@@ -558,11 +558,11 @@ export class DependencyGraphNormalizer extends Base {
     const allRefs = new Map<Models.BomRef, Models.BomRefRepository>()
     if (data.metadata.component !== undefined) {
       allRefs.set(data.metadata.component.bomRef, data.metadata.component.dependencies)
-      for (const component of data.metadata.component.components[treeIterator]()) {
+      for (const component of data.metadata.component.components[treeIteratorSymbol]()) {
         allRefs.set(component.bomRef, component.dependencies)
       }
     }
-    for (const component of data.components[treeIterator]()) {
+    for (const component of data.components[treeIteratorSymbol]()) {
       allRefs.set(component.bomRef, component.dependencies)
     }
 
