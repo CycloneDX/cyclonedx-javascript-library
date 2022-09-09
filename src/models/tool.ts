@@ -17,9 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { HashRepository } from './hash'
-import { ExternalReferenceRepository } from './externalReference'
 import { Comparable, SortableSet } from '../helpers/sortableSet'
+import { ExternalReferenceRepository } from './externalReference'
+import { HashRepository } from './hash'
 
 interface OptionalProperties {
   vendor?: Tool['vendor']

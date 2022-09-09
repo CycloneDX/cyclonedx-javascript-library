@@ -18,9 +18,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import * as Enums from '../enums'
-import * as Models from '../models'
 import * as Factories from '../factories/index.node'
 import { PackageJson, splitNameGroup } from '../helpers/packageJson'
+import * as Models from '../models'
 
 /**
  * @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json PackageJson spec}

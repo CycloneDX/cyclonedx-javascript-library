@@ -18,3 +18,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 export * from './index.common'
+
+// region web-specifics
+
+// ... nothing yet
+
+// endregion web-specifics

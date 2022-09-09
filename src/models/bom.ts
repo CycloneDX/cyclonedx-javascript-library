@@ -18,8 +18,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { isPositiveInteger, isUrnUuid, PositiveInteger, UrnUuid } from '../types'
-import { Metadata } from './metadata'
 import { ComponentRepository } from './component'
+import { Metadata } from './metadata'
 
 interface OptionalProperties {
   metadata?: Bom['metadata']

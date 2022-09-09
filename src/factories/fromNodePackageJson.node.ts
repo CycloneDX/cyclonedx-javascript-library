@@ -19,12 +19,12 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { PackageURL } from 'packageurl-js'
 
-import * as Models from '../models'
 import * as Enums from '../enums'
-import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
 import { isNotUndefined } from '../helpers/notUndefined'
 import { PackageJson } from '../helpers/packageJson'
 import { PackageUrlQualifierNames } from '../helpers/packageUrl'
+import * as Models from '../models'
+import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
 
 /**
  * Node-specifics.

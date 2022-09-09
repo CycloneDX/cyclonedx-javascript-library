@@ -19,17 +19,17 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { PackageURL } from 'packageurl-js'
 
-import { CPE, isCPE } from '../types'
 import { ComponentScope, ComponentType } from '../enums'
-import { BomRef, BomRefRepository } from './bomRef'
-import { HashRepository } from './hash'
-import { OrganizationalEntity } from './organizationalEntity'
-import { ExternalReferenceRepository } from './externalReference'
-import { LicenseRepository } from './license'
-import { SWID } from './swid'
-import { PropertyRepository } from './property'
 import { Comparable, SortableSet } from '../helpers/sortableSet'
-import { treeIterator } from '../helpers/tree'
+import { treeIteratorSymbol } from '../helpers/tree'
+import { CPE, isCPE } from '../types'
+import { BomRef, BomRefRepository } from './bomRef'
+import { ExternalReferenceRepository } from './externalReference'
+import { HashRepository } from './hash'
+import { LicenseRepository } from './license'
+import { OrganizationalEntity } from './organizationalEntity'
+import { PropertyRepository } from './property'
+import { SWID } from './swid'
 
 interface OptionalProperties {
   bomRef?: BomRef['value']
@@ -142,10 +142,10 @@ export class Component implements Comparable {
 }
 
 export class ComponentRepository extends SortableSet<Component> {
-  * [treeIterator] (): Generator<Component> {
+  * [treeIteratorSymbol] (): Generator<Component> {
     for (const component of this) {
       yield component
-      yield * component.components[treeIterator]()
+      yield * component.components[treeIteratorSymbol]()
     }
   }
 }

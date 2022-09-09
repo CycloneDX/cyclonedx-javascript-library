@@ -19,5 +19,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 export * from './index.common'
 
+// region node-specifics
+
 export * from './xmlSerializer.node'
 // export * from './xmlDeserializer.node' // TODO
+
+// endregion node-specifics

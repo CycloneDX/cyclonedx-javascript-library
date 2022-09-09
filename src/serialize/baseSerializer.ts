@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Component, Bom, BomRef } from '../models'
+import { Bom, BomRef, Component } from '../models'
 import { BomRefDiscriminator } from './bomRefDiscriminator'
 import { NormalizerOptions, Serializer, SerializerOptions } from './types'
 
