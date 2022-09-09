@@ -20,8 +20,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import { PackageURL } from 'packageurl-js'
 
 import { ExternalReferenceType } from '../enums'
-import { Component } from '../models'
 import { PackageUrlQualifierNames } from '../helpers/packageUrl'
+import { Component } from '../models'
 
 export class PackageUrlFactory {
   readonly #type: PackageURL['type']

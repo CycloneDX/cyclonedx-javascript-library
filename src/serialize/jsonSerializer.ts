@@ -19,10 +19,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { Bom } from '../models'
 import { Format, UnsupportedFormatError } from '../spec'
-import { NormalizerOptions, SerializerOptions } from './types'
 import { BaseSerializer } from './baseSerializer'
 import { Factory as NormalizerFactory } from './json/normalize'
 import { Normalized } from './json/types'
+import { NormalizerOptions, SerializerOptions } from './types'
 
 /**
  * Multi purpose Json serializer.

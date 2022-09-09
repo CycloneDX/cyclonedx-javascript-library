@@ -19,11 +19,11 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { isNotUndefined } from '../../helpers/notUndefined'
 import { Stringable } from '../../helpers/stringable'
+import { treeIterator } from '../../helpers/tree'
 import * as Models from '../../models'
 import { Protocol as Spec, Version as SpecVersion } from '../../spec'
 import { NormalizerOptions } from '../types'
 import { JsonSchema, Normalized } from './types'
-import { treeIterator } from '../../helpers/tree'
 
 export class Factory {
   readonly #spec: Spec

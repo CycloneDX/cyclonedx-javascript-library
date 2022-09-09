@@ -19,5 +19,6 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 /** @since 1.2.0 */
 export * as FromNodePackageJson from './fromNodePackageJson.node'
+
 /** @deprecated use {@link FromNodePackageJson} instead of {@link FromPackageJson} */
 export * as FromPackageJson from './fromNodePackageJson.node'

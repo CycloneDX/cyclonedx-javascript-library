@@ -18,9 +18,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { Component } from './component'
-import { ToolRepository } from './tool'
-import { OrganizationalEntity } from './organizationalEntity'
 import { OrganizationalContactRepository } from './organizationalContact'
+import { OrganizationalEntity } from './organizationalEntity'
+import { ToolRepository } from './tool'
 
 interface OptionalProperties {
   timestamp?: Metadata['timestamp']
