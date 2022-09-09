@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.4.1 - 2022-09-00
+
+Maintenance release.
+
 * Misc
   * Style: imports are sorted, now. (via [#208])
 * Dependencies
