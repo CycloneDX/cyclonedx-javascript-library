@@ -19,8 +19,11 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 /**
  * Known PURL qualifier names.
- * To be used until {@link https://github.com/package-url/packageurl-js/pull/34} gets merged
+ * To be used until {@link https://github.com/package-url/packageurl-js/pull/34} gets merged and released,
  * and {@link https://github.com/package-url/packageurl-js/issues/35} gets sorted out.
+ *
+ * For the list/spec of the well-known keys,
+ * see {@link https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst#known-qualifiers-keyvalue-pairs}
  */
 export const enum PackageUrlQualifierNames {
   DownloadURL = 'download_url',

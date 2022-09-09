@@ -37,6 +37,8 @@ export class ToolBuilder {
     return this.#extRefFactory
   }
 
+  // Current implementation does not return `undefined` yet, but it is an option for future implementation.
+  // To prevent breaking changes, it is declared to return `undefined`.
   makeTool (data: PackageJson): Models.Tool | undefined {
     const [name, vendor] = typeof data.name === 'string'
       ? splitNameGroup(data.name)

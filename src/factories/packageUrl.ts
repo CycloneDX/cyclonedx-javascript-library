@@ -35,10 +35,6 @@ export class PackageUrlFactory {
   }
 
   makeFromComponent (component: Component, sort: boolean = false): PackageURL | undefined {
-    /**
-     * For the list/spec of the well-known keys, see
-     * {@link https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst#known-qualifiers-keyvalue-pairs}
-     */
     const qualifiers: PackageURL['qualifiers'] = {}
     let subpath: PackageURL['subpath']
 
