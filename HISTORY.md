@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Dependencies
+  * Widened the range of requirement `packageurl-js` to `>=0.0.6 <0.0.8 || ^1`, was `>=0.0.6 <0.0.8`. (via [#210])
+
+* [#210]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/210
+
 ## 1.4.0 - 2022-09-07
 
 * Added
