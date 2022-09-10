@@ -18,15 +18,17 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const assert = require('assert')
-const { suite, test } = require('mocha')
+import * as assert from 'assert'
+import { suite, test } from 'mocha'
 
-const {
+import {
   Enums,
   Models,
   Factories,
-  Builders: { FromNodePackageJson: { ComponentBuilder } }
-} = require('../../')
+  Builders
+} from '../../dist.node/lib.mjs'
+
+const ComponentBuilder = Builders.FromNodePackageJson
 
 suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
   const salt = Math.random()
