@@ -4,12 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.4.2 - 2022-09-10
+
+Maintenance release.
+
 * Build
   * Use _TypeScript_ `v4.8.3` now, was `v4.8.2`. (via [#212])
 
 [#212]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/212
 
-## 1.4.1 - 2022-09-00
+## 1.4.1 - 2022-09-09
 
 Maintenance release.
 
