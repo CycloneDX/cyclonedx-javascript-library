@@ -1,5 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "./tsconfig.json",
-  "files": ["src/index.web.ts"]
+  "extends": "./tsconfig.base.json",
+  "files": ["src/index.web.ts"],
+  "compilerOptions": {
+    "importHelpers": true,                            /* Allow importing helper functions from tslib once per project, instead of including them per-file. */
+  }
+  /* ground for webpack */
 }

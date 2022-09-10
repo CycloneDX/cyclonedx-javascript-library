@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "type": "commonjs",
+  "main": "./index.cjs",
+  "types": "./index.d.ts",
+  "optionalDependencies": {
+    "xmlbuilder2": "^3.0.2"
+  }
+}

@@ -1,8 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig.base.json",
   "files": ["src/index.node.ts"],
   "compilerOptions": {
-    "outDir": "./dist.node/"
+    "importHelpers": true,                            /* Allow importing helper functions from tslib once per project, instead of including them per-file. */
   }
+  /* ground for rollup */
 }

@@ -17,7 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { stringifyFallback } from '../../libs/universal-node-xml'
+// @ts-ignore
+import { stringifyFallback } from '../../libs/universal-node-xml/index.cjs'
 import { SerializerOptions } from './types'
 import { SimpleXml } from './xml/types'
 import { XmlBaseSerializer } from './xmlBaseSerializer'

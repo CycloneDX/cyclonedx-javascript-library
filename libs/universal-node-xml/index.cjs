@@ -27,7 +27,7 @@ module.exports.stringify = undefined
 let possibleStringifier
 for (const file of possibleStringifiers) {
   try {
-    possibleStringifier = require(`./stringifiers/${file}`)
+    possibleStringifier = require(`./stringifiers/${file}.cjs`)
     if (typeof possibleStringifier === 'function') {
       module.exports.stringify = possibleStringifier
       break
