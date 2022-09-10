@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 const { create } = require('xmlbuilder2')
-const { getNS, makeIndent } = require('./helpers')
+const { getNS, makeIndent } = require('./helpers.cjs')
 
 module.exports = typeof create === 'function'
   ? stringify

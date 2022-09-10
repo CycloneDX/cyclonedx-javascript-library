@@ -160,9 +160,11 @@ dist
 # TypeScript source files are intended to be shipped,
 # as they provide definition context and typing for downstream users.
 # The compiler configs are shipped, so downstream users can inherit from them.
+# So the result is a mix of binary- and source-distribution.
 !/src/
 !/tsconfig.*
 !/webpack.*
+!/rollup.*
 
 /test/
 /tests/
