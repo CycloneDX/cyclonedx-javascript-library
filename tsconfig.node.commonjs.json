@@ -3,6 +3,8 @@
   "extends": "./tsconfig.json",
   "files": ["src/index.node.ts"],
   "compilerOptions": {
-    "outDir": "./dist.node/"
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "outDir": "./dist.node.commonjs/"
   }
 }
