@@ -44,7 +44,7 @@ written in _TypeScript_ and compiled for the target.
   * `BomRef`, `BomRefRepository`
   * `Component`, `ComponentRepository`
   * `ExternalReference`, `ExternalReferenceRepository`
-  * `Hash`, `HashDictionary`, `HashContent`
+  * `Hash`, `HashContent`,  `HashDictionary`
   * `LicenseExpression`, `NamedLicense`, `SpdxLicense`, `LicenseRepository`
   * `Metadata`
   * `OrganizationalContact`, `OrganizationalContactRepository`
