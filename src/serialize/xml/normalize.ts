@@ -98,6 +98,9 @@ const xmlNamespace: ReadonlyMap<SpecVersion, string> = new Map([
 interface Normalizer {
   normalize: (data: object, options: NormalizerOptions, elementName?: string) => object | undefined
 
+  /** @since 1.5.1 */
+  normalizeIterable?: (data: Iterable<object>, options: NormalizerOptions, elementName: string) => object[]
+  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
   normalizeRepository?: (data: Iterable<object>, options: NormalizerOptions, elementName: string) => object[]
 }
 
@@ -131,7 +134,7 @@ export class BomNormalizer extends Base {
       type: 'element',
       name: 'components',
       children: data.components.size > 0
-        ? this._factory.makeForComponent().normalizeRepository(data.components, options, 'component')
+        ? this._factory.makeForComponent().normalizeIterable(data.components, options, 'component')
         : undefined
     }
     return {
@@ -170,7 +173,7 @@ export class MetadataNormalizer extends Base {
       ? {
           type: 'element',
           name: 'tools',
-          children: this._factory.makeForTool().normalizeRepository(data.tools, options, 'tool')
+          children: this._factory.makeForTool().normalizeIterable(data.tools, options, 'tool')
         }
       : undefined
     const authors: SimpleXml.Element | undefined = data.authors.size > 0
@@ -178,7 +181,7 @@ export class MetadataNormalizer extends Base {
           type: 'element',
           name: 'authors',
           children: this._factory.makeForOrganizationalContact()
-            .normalizeRepository(data.authors, options, 'author')
+            .normalizeIterable(data.authors, options, 'author')
         }
       : undefined
     return {
@@ -208,7 +211,7 @@ export class ToolNormalizer extends Base {
       ? {
           type: 'element',
           name: 'hashes',
-          children: this._factory.makeForHash().normalizeRepository(data.hashes, options, 'hash')
+          children: this._factory.makeForHash().normalizeIterable(data.hashes, options, 'hash')
         }
       : undefined
     const externalReferences: SimpleXml.Element | undefined =
@@ -217,7 +220,7 @@ export class ToolNormalizer extends Base {
             type: 'element',
             name: 'externalReferences',
             children: this._factory.makeForExternalReference()
-              .normalizeRepository(data.externalReferences, options, 'reference')
+              .normalizeIterable(data.externalReferences, options, 'reference')
           }
         : undefined
     return {
@@ -233,13 +236,17 @@ export class ToolNormalizer extends Base {
     }
   }
 
-  normalizeRepository (data: Models.ToolRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+  /** @since 1.5.1 */
+  normalizeIterable (data: Models.ToolRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
     ).map(t => this.normalize(t, options, elementName))
   }
+
+  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  normalizeRepository = this.normalizeIterable
 }
 
 export class HashNormalizer extends Base {
@@ -255,7 +262,8 @@ export class HashNormalizer extends Base {
       : undefined
   }
 
-  normalizeRepository (data: Models.HashDictionary, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+  /** @since 1.5.1 */
+  normalizeIterable (data: Models.HashDictionary, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -264,6 +272,9 @@ export class HashNormalizer extends Base {
       h => this.normalize(h, options, elementName)
     ).filter(isNotUndefined)
   }
+
+  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  normalizeRepository = this.normalizeIterable
 }
 
 export class OrganizationalContactNormalizer extends Base {
@@ -279,13 +290,17 @@ export class OrganizationalContactNormalizer extends Base {
     }
   }
 
-  normalizeRepository (data: Models.OrganizationalContactRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+  /** @since 1.5.1 */
+  normalizeIterable (data: Models.OrganizationalContactRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
     ).map(c => this.normalize(c, options, elementName))
   }
+
+  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  normalizeRepository = this.normalizeIterable
 }
 
 export class OrganizationalEntityNormalizer extends Base {
@@ -297,7 +312,7 @@ export class OrganizationalEntityNormalizer extends Base {
         makeOptionalTextElement(data.name, 'name'),
         ...makeTextElementIter(data.url, options, 'url')
           .filter(({ children: u }) => XmlSchema.isAnyURI(u)),
-        ...this._factory.makeForOrganizationalContact().normalizeRepository(data.contact, options, 'contact')
+        ...this._factory.makeForOrganizationalContact().normalizeIterable(data.contact, options, 'contact')
       ].filter(isNotUndefined)
     }
   }
@@ -324,14 +339,14 @@ export class ComponentNormalizer extends Base {
       ? {
           type: 'element',
           name: 'hashes',
-          children: this._factory.makeForHash().normalizeRepository(data.hashes, options, 'hash')
+          children: this._factory.makeForHash().normalizeIterable(data.hashes, options, 'hash')
         }
       : undefined
     const licenses: SimpleXml.Element | undefined = data.licenses.size > 0
       ? {
           type: 'element',
           name: 'licenses',
-          children: this._factory.makeForLicense().normalizeRepository(data.licenses, options)
+          children: this._factory.makeForLicense().normalizeIterable(data.licenses, options)
         }
       : undefined
     const swid: SimpleXml.Element | undefined = data.swid === undefined
@@ -342,21 +357,21 @@ export class ComponentNormalizer extends Base {
           type: 'element',
           name: 'externalReferences',
           children: this._factory.makeForExternalReference()
-            .normalizeRepository(data.externalReferences, options, 'reference')
+            .normalizeIterable(data.externalReferences, options, 'reference')
         }
       : undefined
     const properties: SimpleXml.Element | undefined = spec.supportsProperties(data) && data.properties.size > 0
       ? {
           type: 'element',
           name: 'properties',
-          children: this._factory.makeForProperty().normalizeRepository(data.properties, options, 'property')
+          children: this._factory.makeForProperty().normalizeIterable(data.properties, options, 'property')
         }
       : undefined
     const components: SimpleXml.Element | undefined = data.components.size > 0
       ? {
           type: 'element',
           name: 'components',
-          children: this.normalizeRepository(data.components, options, 'component')
+          children: this.normalizeIterable(data.components, options, 'component')
         }
       : undefined
     return {
@@ -388,7 +403,8 @@ export class ComponentNormalizer extends Base {
     }
   }
 
-  normalizeRepository (data: Models.ComponentRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+  /** @since 1.5.1 */
+  normalizeIterable (data: Models.ComponentRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -397,6 +413,9 @@ export class ComponentNormalizer extends Base {
       c => this.normalize(c, options, elementName)
     ).filter(isNotUndefined)
   }
+
+  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  normalizeRepository = this.normalizeIterable
 }
 
 export class LicenseNormalizer extends Base {
@@ -452,13 +471,17 @@ export class LicenseNormalizer extends Base {
     return makeTextElement(data.expression, 'expression')
   }
 
-  normalizeRepository (data: Models.LicenseRepository, options: NormalizerOptions): SimpleXml.Element[] {
+  /** @since 1.5.1 */
+  normalizeIterable (data: Models.LicenseRepository, options: NormalizerOptions): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
     ).map(c => this.normalize(c, options))
   }
+
+  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  normalizeRepository = this.normalizeIterable
 }
 
 export class SWIDNormalizer extends Base {
@@ -507,7 +530,8 @@ export class ExternalReferenceNormalizer extends Base {
       : undefined
   }
 
-  normalizeRepository (data: Models.ExternalReferenceRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+  /** @since 1.5.1 */
+  normalizeIterable (data: Models.ExternalReferenceRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -516,6 +540,9 @@ export class ExternalReferenceNormalizer extends Base {
       r => this.normalize(r, options, elementName)
     ).filter(isNotUndefined)
   }
+
+  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  normalizeRepository = this.normalizeIterable
 }
 
 export class AttachmentNormalizer extends Base {
@@ -544,13 +571,17 @@ export class PropertyNormalizer extends Base {
     }
   }
 
-  normalizeRepository (data: Models.PropertyRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+  /** @since 1.5.1 */
+  normalizeIterable (data: Models.PropertyRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
     ).map(p => this.normalize(p, options, elementName))
   }
+
+  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  normalizeRepository = this.normalizeIterable
 }
 
 export class DependencyGraphNormalizer extends Base {

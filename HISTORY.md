@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.5.1 - 2022-09-17
+
+* Deprecated
+  * The normalizer methods `normalizeRepository` will be known as `normalizeIterable`. (via [#230])
+
+[#230]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/230
+
 ## 1.5.0 - 2022-09-17
 
 * Deprecated
