@@ -140,7 +140,7 @@ suite('Factories.PackageUrlFactory', () => {
         Enums.ComponentType.Library,
         `name-${salt}`,
         {
-          hashes: new Models.HashRepository([
+          hashes: new Models.HashDictionary([
             [Enums.HashAlgorithm['SHA-256'], 'C3AB8FF13720E8AD9047DD39466B3C8974E592C2FA383D4A3960714CAEF0C4F2']
           ])
         }
@@ -161,7 +161,7 @@ suite('Factories.PackageUrlFactory', () => {
             new Models.ExternalReference('git+https://foo.bar/repo.git', Enums.ExternalReferenceType.VCS),
             new Models.ExternalReference('https://foo.bar/download', Enums.ExternalReferenceType.Distribution)
           ]),
-          hashes: new Models.HashRepository([
+          hashes: new Models.HashDictionary([
             [Enums.HashAlgorithm['SHA-256'], 'C3AB8FF13720E8AD9047DD39466B3C8974E592C2FA383D4A3960714CAEF0C4F2'],
             [Enums.HashAlgorithm.BLAKE3, 'aa51dcd43d5c6c5203ee16906fd6b35db298b9b2e1de3fce81811d4806b76b7d']
           ])

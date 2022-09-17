@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.5.0 - 2022-09-17
+
+* Deprecated
+  * The class `HashRepository` will be known as `HashDictionary`. (via [#229])
+
+[#229]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/229
+
 ## 1.4.2 - 2022-09-10
 
 Maintenance release.
@@ -196,7 +203,7 @@ Initial release.
     * `BomRef`, `BomRefRepository`
     * `Component`, `ComponentRepository`
     * `ExternalReference`, `ExternalReferenceRepository`
-    * `HashContent`, `Hash`, `HashRepository`
+    * `HashContent`, `Hash`, `HashDictionary`
     * `LicenseExpression`, `NamedLicense`, `SpdxLicense`, `LicenseRepository`
     * `Metadata`
     * `OrganizationalContact`, `OrganizationalContactRepository`

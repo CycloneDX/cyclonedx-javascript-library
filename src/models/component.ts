@@ -25,7 +25,7 @@ import { treeIteratorSymbol } from '../helpers/tree'
 import { CPE, isCPE } from '../types'
 import { BomRef, BomRefRepository } from './bomRef'
 import { ExternalReferenceRepository } from './externalReference'
-import { HashRepository } from './hash'
+import { HashDictionary } from './hash'
 import { LicenseRepository } from './license'
 import { OrganizationalEntity } from './organizationalEntity'
 import { PropertyRepository } from './property'
@@ -60,7 +60,7 @@ export class Component implements Comparable {
   description?: string
   externalReferences: ExternalReferenceRepository
   group?: string
-  hashes: HashRepository
+  hashes: HashDictionary
   licenses: LicenseRepository
   publisher?: string
   purl?: PackageURL
@@ -90,7 +90,7 @@ export class Component implements Comparable {
     this.copyright = op.copyright
     this.externalReferences = op.externalReferences ?? new ExternalReferenceRepository()
     this.group = op.group
-    this.hashes = op.hashes ?? new HashRepository()
+    this.hashes = op.hashes ?? new HashDictionary()
     this.licenses = op.licenses ?? new LicenseRepository()
     this.publisher = op.publisher
     this.purl = op.purl
