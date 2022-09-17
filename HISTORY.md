@@ -203,7 +203,7 @@ Initial release.
     * `BomRef`, `BomRefRepository`
     * `Component`, `ComponentRepository`
     * `ExternalReference`, `ExternalReferenceRepository`
-    * `HashContent`, `Hash`, `HashDictionary`
+    * `HashContent`, `Hash`, `HashRepository`
     * `LicenseExpression`, `NamedLicense`, `SpdxLicense`, `LicenseRepository`
     * `Metadata`
     * `OrganizationalContact`, `OrganizationalContactRepository`
