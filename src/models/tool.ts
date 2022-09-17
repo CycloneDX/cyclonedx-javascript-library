@@ -46,10 +46,11 @@ export class Tool implements Comparable {
 
   compare (other: Tool): number {
     // The purpose of this method is not to test for equality, but have deterministic comparability.
-    /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return (this.vendor ?? '').localeCompare(other.vendor ?? '') ||
       (this.name ?? '').localeCompare(other.name ?? '') ||
       (this.version ?? '').localeCompare(other.version ?? '')
+    /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
 }
 
