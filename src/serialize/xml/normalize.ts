@@ -255,7 +255,7 @@ export class HashNormalizer extends Base {
       : undefined
   }
 
-  normalizeRepository (data: Models.HashRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+  normalizeRepository (data: Models.HashDictionary, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()

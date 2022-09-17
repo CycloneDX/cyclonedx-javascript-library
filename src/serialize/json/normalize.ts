@@ -198,7 +198,7 @@ export class HashNormalizer extends Base {
       : undefined
   }
 
-  normalizeRepository (data: Models.HashRepository, options: NormalizerOptions): Normalized.Hash[] {
+  normalizeRepository (data: Models.HashDictionary, options: NormalizerOptions): Normalized.Hash[] {
     return (
       options.sortLists ?? false
         ? data.sorted()

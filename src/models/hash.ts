@@ -23,20 +23,25 @@ import { HashAlgorithm } from '../enums'
 export type HashContent = string
 
 export type Hash = readonly [
-  // order matters: it must reflect [key, value] of HashRepository -
-  // this way a HashRepository can be constructed from multiple Hash objects.
+  // order matters: it must reflect [key, value] of HashDictionary -
+  // this way a HashDictionary can be constructed from multiple Hash objects.
   algorithm: HashAlgorithm,
   content: HashContent
 ]
 
-export class HashRepository extends Map<Hash[0], Hash[1]> {
+/** @since 1.5.0 */
+export class HashDictionary extends Map<Hash[0], Hash[1]> {
   #compareItems ([a1, c1]: Hash, [a2, c2]: Hash): number {
-    /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return a1.localeCompare(a2) ||
       c1.localeCompare(c2)
+    /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
 
   sorted (): Hash[] {
     return Array.from(this.entries()).sort(this.#compareItems)
   }
 }
+
+/** @deprecated use {@see HashDictionary} instead of {@link HashRepository} */
+export class HashRepository extends HashDictionary {}

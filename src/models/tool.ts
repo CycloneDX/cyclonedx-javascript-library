@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { Comparable, SortableSet } from '../helpers/sortableSet'
 import { ExternalReferenceRepository } from './externalReference'
-import { HashRepository } from './hash'
+import { HashDictionary } from './hash'
 
 interface OptionalProperties {
   vendor?: Tool['vendor']
@@ -33,14 +33,14 @@ export class Tool implements Comparable {
   vendor?: string
   name?: string
   version?: string
-  hashes: HashRepository
+  hashes: HashDictionary
   externalReferences: ExternalReferenceRepository
 
   constructor (op: OptionalProperties = {}) {
     this.vendor = op.vendor
     this.name = op.name
     this.version = op.version
-    this.hashes = op.hashes ?? new HashRepository()
+    this.hashes = op.hashes ?? new HashDictionary()
     this.externalReferences = op.externalReferences ?? new ExternalReferenceRepository()
   }
 

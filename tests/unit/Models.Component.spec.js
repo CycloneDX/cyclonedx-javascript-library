@@ -29,7 +29,7 @@ const {
     Component, ComponentRepository,
     BomRef, BomRefRepository,
     ExternalReferenceRepository, ExternalReference,
-    HashRepository,
+    HashDictionary,
     LicenseRepository, NamedLicense,
     OrganizationalEntity,
     SWID
@@ -78,7 +78,7 @@ suite('Models.Component', () => {
       description: 'this is a test',
       externalReferences: new ExternalReferenceRepository([dummyExtRef]),
       group: 'the-crew',
-      hashes: new HashRepository([['MD5', '59bcc3ad6775562f845953cf01624225']]),
+      hashes: new HashDictionary([['MD5', '59bcc3ad6775562f845953cf01624225']]),
       licenses: new LicenseRepository([dummyLicense]),
       purl: dummyPurl,
       scope: 'optional',
