@@ -134,10 +134,11 @@ export class Component implements Comparable {
     if (this.#cpe !== undefined && other.#cpe !== undefined) {
       return this.#cpe.toString().localeCompare(other.#cpe.toString())
     }
-    /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return (this.group ?? '').localeCompare(other.group ?? '') ||
       this.name.localeCompare(other.name) ||
       (this.version ?? '').localeCompare(other.version ?? '')
+    /* eslint-enable  @typescript-eslint/strict-boolean-expressions */
   }
 }
 
