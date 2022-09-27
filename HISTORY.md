@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
   * Removed synthetic default imports. (via [#243])  
     The resulting _JavaScript_ did not change in functionality, but in size.  
     Downstream users of the _TypeScript_ sources might consider this a bugfix, others a feature, others a style-change. 
+* Added
+  * Documentation and example regarding dependency tree modelling were added in multiple places. (via [#])  
 * Build
   * No longer enable _TypeScript_ config `esModuleInterop` & `allowSyntheticDefaultImports`, 
     which causes smaller build results and less unnecessary generated code.
