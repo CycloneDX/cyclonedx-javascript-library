@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Changed
+  * Removed synthetic default imports. (via [#243])  
+    The resulting _JavaScript_ did not change in functionality, but in size.  
+    Downstream users of the _TypeScript_ sources might consider this a bugfix, others a feature, others a style-change. 
+* Build
+  * No longer enable _TypeScript_ config `esModuleInterop` & `allowSyntheticDefaultImports`, 
+    which causes smaller build results and less unnecessary generated code.
+
+[#243]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/243
+
 ## 1.5.1 - 2022-09-17
 
 * Deprecated
