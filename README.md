@@ -10,12 +10,12 @@
 
 # CycloneDX JavaScript Library
 
-Core functionality of [_CycloneDX_][CycloneDX] for _JavaScript_ (_Node.js_ or _WebBrowsers_),
+Core functionality of [_CycloneDX_][link_website] for _JavaScript_ (_Node.js_ or _WebBrowsers_),
 written in _TypeScript_ and compiled for the target.
 
 ## Responsibilities
 
-* Provide a general purpose _JavaScript_-implementation of [_CycloneDX_][CycloneDX] for _Node.js_ and _WebBrowsers_.
+* Provide a general purpose _JavaScript_-implementation of [_CycloneDX_][link_website] for _Node.js_ and _WebBrowsers_.
 * Provide typing for said implementation, so developers and dev-tools can rely on it.
 * Provide data models to work with _CycloneDX_.
 * Provide a JSON- and an XML-normalizer, that...
@@ -137,7 +137,6 @@ See the [CONTRIBUTING][contributing_file] file for details.
 Permission to modify and redistribute is granted under the terms of the Apache 2.0 license.  
 See the [LICENSE][license_file] file for the full license.
 
-[CycloneDX]: https://cyclonedx.org/
 [CycloneDX-spec]: https://github.com/CycloneDX/specification/tree/main/schema
 
 [license_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/main/LICENSE
