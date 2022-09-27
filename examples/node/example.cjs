@@ -24,12 +24,16 @@ const cdx = require('@cyclonedx/cyclonedx-library')
 // full Library is available as `cdx`, now
 
 const bom = new cdx.Models.Bom()
-bom.components.add(
-  new cdx.Models.Component(
-    cdx.Enums.ComponentType.Library,
-    'myComponent'
-  )
+bom.metadata.component = new cdx.Models.Component(
+  cdx.Enums.ComponentType.Application,
+  'MyProject'
 )
+const componentA = new cdx.Models.Component(
+  cdx.Enums.ComponentType.Library,
+  'myComponentA',
+)
+bom.components.add(componentA)
+bom.metadata.component.dependencies.add(componentA.bomRef)
 
 const jsonSerializer = new cdx.Serialize.JsonSerializer(
   new cdx.Serialize.JSON.Normalize.Factory(

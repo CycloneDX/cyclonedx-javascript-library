@@ -100,12 +100,16 @@ See extended [examples].
 const cdx = require('@cyclonedx/cyclonedx-library')
 
 const bom = new cdx.Models.Bom()
-bom.components.add(
-  new cdx.Models.Component(
-    cdx.Enums.ComponentType.Library,
-    'myComponent'
-  )
+bom.metadata.component = new cdx.Models.Component(
+  cdx.Enums.ComponentType.Application,
+  'MyProject'
 )
+const componentA = new cdx.Models.Component(
+  cdx.Enums.ComponentType.Library,
+  'myComponentA',
+)
+bom.components.add(componentA)
+bom.metadata.component.dependencies.add(componentA.bomRef)
 ```
 
 ### In _WebBrowsers_
@@ -118,12 +122,16 @@ bom.components.add(
     const cdx = CycloneDX_library
 
     let bom = new cdx.Models.Bom()
-    bom.components.add(
-            new cdx.Models.Component(
-                    cdx.Enums.ComponentType.Library,
-                    'myComponent'
-            )
+    bom.metadata.component = new cdx.Models.Component(
+        cdx.Enums.ComponentType.Application,
+        'MyProject'
     )
+    const componentA = new cdx.Models.Component(
+        cdx.Enums.ComponentType.Library,
+        'myComponentA',
+    )
+    bom.components.add(componentA)
+    bom.metadata.component.dependencies.add(componentA.bomRef)
 </script>
 ```
 
@@ -141,7 +149,7 @@ See the [LICENSE][license_file] file for the full license.
 
 [license_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/main/LICENSE
 [contributing_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/main/CONTRIBUTING.md
-[examples]: https://github.com/CycloneDX/cyclonedx-javascript-library/tree/main/examples
+[examples]: https://github.com/CycloneDX/cyclonedx-javascript-library/tree/main/examples/README.md
 
 [shield_gh-workflow-test]: https://img.shields.io/github/workflow/status/CycloneDX/cyclonedx-javascript-library/Node%20CI/main?logo=GitHub&logoColor=white "tests"
 [shield_npm-version]: https://img.shields.io/npm/v/%40cyclonedx/cyclonedx-library?logo=npm&logoColor=white "npm"
