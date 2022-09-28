@@ -19,9 +19,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { PackageURL } from 'packageurl-js'
 
+import { Comparable, SortableSet } from '../_helpers/sortableSet'
+import { treeIteratorSymbol } from '../_helpers/tree'
 import { ComponentScope, ComponentType } from '../enums'
-import { Comparable, SortableSet } from '../helpers/sortableSet'
-import { treeIteratorSymbol } from '../helpers/tree'
 import { CPE, isCPE } from '../types'
 import { BomRef, BomRefRepository } from './bomRef'
 import { ExternalReferenceRepository } from './externalReference'

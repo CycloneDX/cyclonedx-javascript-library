@@ -17,9 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { PackageJson, splitNameGroup } from '../_helpers/packageJson'
 import * as Enums from '../enums'
 import * as Factories from '../factories/index.node'
-import { PackageJson, splitNameGroup } from '../helpers/packageJson'
 import * as Models from '../models'
 
 /**
