@@ -17,9 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { isNotUndefined } from '../../helpers/notUndefined'
-import { Stringable } from '../../helpers/stringable'
-import { treeIteratorSymbol } from '../../helpers/tree'
+import { isNotUndefined } from '../../_helpers/notUndefined'
+import { Stringable } from '../../_helpers/stringable'
+import { treeIteratorSymbol } from '../../_helpers/tree'
 import * as Models from '../../models'
 import { Protocol as Spec, Version as SpecVersion } from '../../spec'
 import { NormalizerOptions } from '../types'

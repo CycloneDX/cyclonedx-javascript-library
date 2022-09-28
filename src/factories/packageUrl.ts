@@ -19,8 +19,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { PackageURL } from 'packageurl-js'
 
+import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
 import { ExternalReferenceType } from '../enums'
-import { PackageUrlQualifierNames } from '../helpers/packageUrl'
 import { Component } from '../models'
 
 export class PackageUrlFactory {
