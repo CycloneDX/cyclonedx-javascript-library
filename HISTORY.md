@@ -14,8 +14,7 @@ All notable changes to this project will be documented in this file.
 * Added
   * Documentation and example regarding dependency tree modelling were added in multiple places. (via [#250])  
 * Build
-  * No longer enable _TypeScript_ config `esModuleInterop` & `allowSyntheticDefaultImports`, 
-    which causes smaller build results and less unnecessary generated code.
+  * No longer enable _TypeScript_ config `esModuleInterop` & `allowSyntheticDefaultImports`. (via [#243])
   * Use _TypeScript_ `v4.8.4` now, was `v4.8.3`. (via [#246])
 
 [#243]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/243
