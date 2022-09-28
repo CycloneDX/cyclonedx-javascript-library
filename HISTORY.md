@@ -4,17 +4,23 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.6.0 - 2022-09-31
+
 * Changed
-  * Removed synthetic default imports. (via [#243])  
-    The resulting _JavaScript_ did not change in functionality, but in size.  
-    Downstream users of the _TypeScript_ sources might consider this a bugfix, others a feature, others a style-change. 
+  * Removed synthetic default imports im TypeScript sources. (via [#243])  
+    The resulting _JavaScript_ did not change in functionality.  
+    Downstream users of the _TypeScript_ sources/definitions might consider this a feature,
+    as they are no longer required to compile with `allowSyntheticDefaultImports` enabled. 
 * Added
-  * Documentation and example regarding dependency tree modelling were added in multiple places. (via [#])  
+  * Documentation and example regarding dependency tree modelling were added in multiple places. (via [#250])  
 * Build
   * No longer enable _TypeScript_ config `esModuleInterop` & `allowSyntheticDefaultImports`, 
     which causes smaller build results and less unnecessary generated code.
+  * Use _TypeScript_ `v4.8.4` now, was `v4.8.3`. (via [#246])
 
 [#243]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/243
+[#246]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/246
+[#250]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/250
 
 ## 1.5.1 - 2022-09-17
 
