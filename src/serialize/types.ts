@@ -34,5 +34,8 @@ export interface SerializerOptions {
 }
 
 export interface Serializer {
+  /**
+   * @throws {Error}
+   */
   serialize: (bom: Bom, options?: SerializerOptions & NormalizerOptions) => string
 }

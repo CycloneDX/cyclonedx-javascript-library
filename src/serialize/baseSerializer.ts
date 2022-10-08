@@ -22,20 +22,6 @@ import { BomRefDiscriminator } from './bomRefDiscriminator'
 import { NormalizerOptions, Serializer, SerializerOptions } from './types'
 
 export abstract class BaseSerializer<NormalizedBom> implements Serializer {
-  serialize (bom: Bom, options?: SerializerOptions & NormalizerOptions): string {
-    const bomRefDiscriminator = new BomRefDiscriminator(this.#getAllBomRefs(bom))
-    try {
-      // This IS NOT the place to put meaning to the BomRef values. This would be out of scope.
-      // This IS the place to make BomRef values (temporary) unique in their own document scope.
-      bomRefDiscriminator.discriminate()
-
-      const normalized = this._normalize(bom, options)
-      return this._serialize(normalized, options)
-    } finally {
-      bomRefDiscriminator.reset()
-    }
-  }
-
   #getAllBomRefs (bom: Bom): Iterable<BomRef> {
     const bomRefs = new Set<BomRef>()
     function iterComponents (cs: Iterable<Component>): void {
@@ -54,6 +40,39 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
     return bomRefs.values()
   }
 
+  /**
+   * @throws {Error}
+   */
+  #normalize (bom: Bom, options?: NormalizerOptions): NormalizedBom {
+    const bomRefDiscriminator = new BomRefDiscriminator(this.#getAllBomRefs(bom))
+    bomRefDiscriminator.discriminate()
+    // This IS NOT the place to put meaning to the BomRef values. This would be out of scope.
+    // This IS the place to make BomRef values (temporary) unique in their own document scope.
+    try {
+      return this._normalize(bom, options)
+    } finally {
+      bomRefDiscriminator.reset()
+    }
+  }
+
+  /**
+   * @readonly as in "final"
+   * @throws {Error}
+   */
+  public serialize (bom: Bom, options?: SerializerOptions & NormalizerOptions): string {
+    return this._serialize(
+      this.#normalize(bom, options),
+      options
+    )
+  }
+
+  /**
+   * @throws {Error}
+   */
   protected abstract _normalize (bom: Bom, options?: NormalizerOptions): NormalizedBom
+
+  /**
+   * @throws {Error}
+   */
   protected abstract _serialize (normalizedBom: NormalizedBom, options?: SerializerOptions): string
 }
