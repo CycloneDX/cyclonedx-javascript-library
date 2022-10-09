@@ -135,6 +135,11 @@ bom.metadata.component.dependencies.add(componentA.bomRef)
 </script>
 ```
 
+## API documentation
+
+There is no pre-rendered documentation at the time.  
+Instead, there are annotated type definitions, so that your IDE and tools may pick up the documentation when you use this library downstream.
+
 ## Development & Contributing
 
 Feel free to open issues, bugreports or pull requests.  
