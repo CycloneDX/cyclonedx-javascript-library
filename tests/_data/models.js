@@ -61,7 +61,7 @@ module.exports.createComplexStructure = function () {
         new Models.OrganizationalContact({
           name: 'Jane "the-author" Doe',
           email: 'cdx-authors@mailinator.com',
-          pone: '555-1234567890'
+          phone: '555-1234567890'
         })
       ]),
       component: new Models.Component(Enums.ComponentType.Library, 'Root Component', {
@@ -78,7 +78,7 @@ module.exports.createComplexStructure = function () {
           new Models.OrganizationalContact({
             name: 'John "the-supplier" Doe',
             email: 'cdx-suppliers@mailinator.com',
-            pone: '555-0123456789'
+            phone: '555-0123456789'
           }),
           new Models.OrganizationalContact({
             name: 'Jane "the-other-supplier" Doe'

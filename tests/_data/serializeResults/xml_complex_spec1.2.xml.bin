@@ -21,6 +21,7 @@
             <author>
                 <name>Jane "the-author" Doe</name>
                 <email>cdx-authors@mailinator.com</email>
+                <phone>555-1234567890</phone>
             </author>
             <author>
                 <name>John "the-co-author" Doe</name>
@@ -43,6 +44,7 @@
             <contact>
                 <name>John "the-supplier" Doe</name>
                 <email>cdx-suppliers@mailinator.com</email>
+                <phone>555-0123456789</phone>
             </contact>
         </supplier>
     </metadata>
