@@ -17,7 +17,6 @@ jobs:
   build:
     name: build ${{ matrix.target }}
     runs-on: "ubuntu-latest"
-    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -25,6 +24,7 @@ jobs:
           - node
           - web
           - d
+    timeout-minutes: 10
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -50,7 +50,7 @@ jobs:
   test-standard:
     name: test standard
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -104,7 +104,7 @@ jobs:
           - ubuntu-latest
           - macos-latest
           - windows-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -128,6 +128,39 @@ jobs:
         run: npm run test:node
   # test-web:
     # TODO via https://github.com/CycloneDX/cyclonedx-javascript-library/issues/51
-  # test-declaration:
-    # TODO test if they integrate with TS3.x
-    # TODO test if they integrate with TS4.x
+  test-declaration:
+    needs: [ 'build' ]
+    name: digest declarations (TS${{ matrix.typescript-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        typescript-version:
+          - '^4.0'    # latest 4.X
+          - '4.0.0'   # some 4.x
+          - '^3.8'    # latest 3.X
+          - '3.8.0'   # lowest supported
+    env:
+      EXAMPLE_DIR: examples/node-typescript
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        # see https://github.com/actions/checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
+        # see https://github.com/actions/setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_ACTIVE_LTS }}
+      - name: setup project
+        run: npm i --no-save 'typescript@${{ matrix.typescript-version }}'
+        working-directory: ${{ env.EXAMPLE_DIR }}
+      - name: fetch build artifact
+        # see https://github.com/actions/download-artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist.d
+          path: dist.d
+      - name: build - digest declarations
+        run: npm run build
+        working-directory: ${{ env.EXAMPLE_DIR }}

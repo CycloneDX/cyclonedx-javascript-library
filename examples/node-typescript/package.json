@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "cyclonedx-javascript-use-example",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -b ./tsconfig.json"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@cyclonedx/cyclonedx-library": "file:../.."
+  },
+  "devDependencies": {
+    "typescript": "^3.8 || ^4"
+  }
+}

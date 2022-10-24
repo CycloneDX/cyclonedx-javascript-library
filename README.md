@@ -97,15 +97,15 @@ See extended [examples].
 ### As _Node.js_ package
 
 ```javascript
-const cdx = require('@cyclonedx/cyclonedx-library')
+const CDX = require('@cyclonedx/cyclonedx-library')
 
-const bom = new cdx.Models.Bom()
-bom.metadata.component = new cdx.Models.Component(
-  cdx.Enums.ComponentType.Application,
+const bom = new CDX.Models.Bom()
+bom.metadata.component = new CDX.Models.Component(
+  CDX.Enums.ComponentType.Application,
   'MyProject'
 )
-const componentA = new cdx.Models.Component(
-  cdx.Enums.ComponentType.Library,
+const componentA = new CDX.Models.Component(
+  CDX.Enums.ComponentType.Library,
   'myComponentA',
 )
 bom.components.add(componentA)
@@ -115,19 +115,17 @@ bom.metadata.component.dependencies.add(componentA.bomRef)
 ### In _WebBrowsers_
 
 ```html
-<script src="path-to-this-package/dist.web/lib.js">
-    // full Library is available as `CycloneDX_library`, per default
-</script>
+<script src="path-to-this-package/dist.web/lib.js"></script>
 <script type="application/javascript">
-    const cdx = CycloneDX_library
+    const CDX = CycloneDX_library
 
-    let bom = new cdx.Models.Bom()
-    bom.metadata.component = new cdx.Models.Component(
-        cdx.Enums.ComponentType.Application,
+    let bom = new CDX.Models.Bom()
+    bom.metadata.component = new CDX.Models.Component(
+        CDX.Enums.ComponentType.Application,
         'MyProject'
     )
-    const componentA = new cdx.Models.Component(
-        cdx.Enums.ComponentType.Library,
+    const componentA = new CDX.Models.Component(
+        CDX.Enums.ComponentType.Library,
         'myComponentA',
     )
     bom.components.add(componentA)
