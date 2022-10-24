@@ -2,7 +2,7 @@
 
 name: Node CI
 
-on: 
+on:
   push:
     branches: [ main ]
   pull_request:
@@ -24,6 +24,7 @@ jobs:
         target:
           - node
           - web
+          - d
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -99,7 +100,7 @@ jobs:
           - "16"      # active LTS
           - "14"
           - "14.0.0"  # lowest supported
-        os: 
+        os:
           - ubuntu-latest
           - macos-latest
           - windows-latest
@@ -127,3 +128,6 @@ jobs:
         run: npm run test:node
   # test-web:
     # TODO via https://github.com/CycloneDX/cyclonedx-javascript-library/issues/51
+  # test-declaration:
+    # TODO test if they integrate with TS3.x
+    # TODO test if they integrate with TS4.x
