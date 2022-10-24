@@ -1,17 +1,15 @@
 {
   "private": true,
-  "name": "cyclonedx-javascript-use-example",
-  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "build": "tsc -b ./tsconfig.json"
+    "prebuild": "tsc -b --clean",
+    "build": "tsc -b"
   },
-  "license": "ISC",
   "dependencies": {
     "@cyclonedx/cyclonedx-library": "file:../.."
   },
   "devDependencies": {
+    "@types/node": ">=14",
     "typescript": "^3.8 || ^4"
   }
 }

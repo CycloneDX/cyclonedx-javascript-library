@@ -61,7 +61,7 @@
     "xmlbuilder2": "^3.0.2"
   },
   "browser": "./dist.web/lib.js",
-  "types": "dist.d/index.node.d.ts",
+  "types": "./dist.d/index.node.d.ts",
   "main": "./dist.node/index.node.js",
   "exports": "./dist.node/index.node.js",
   "directories": {

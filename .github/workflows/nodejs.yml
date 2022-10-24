@@ -136,10 +136,10 @@ jobs:
       fail-fast: false
       matrix:
         typescript-version:
-          - '^4.0'    # latest 4.X
-          - '4.0.0'   # some 4.x
-          - '^3.8'    # latest 3.X
-          - '3.8.0'   # lowest supported
+          - '^4'      # latest 4.X
+          - '~4.0'    # some 4.0.x
+          - '^3'      # latest 3.X
+          - '3.8.2'   # some 3.8.x - lowest reasonable number that works
     env:
       EXAMPLE_DIR: examples/node-typescript
     timeout-minutes: 10
