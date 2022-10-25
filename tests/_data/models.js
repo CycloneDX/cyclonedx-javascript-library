@@ -124,7 +124,7 @@ module.exports.createComplexStructure = function () {
     })(new Models.SpdxLicense('MIT')))
     component.licenses.add(new Models.LicenseExpression('(MIT or Apache-2.0)'))
     component.publisher = 'the publisher'
-    component.purl = new PackageURL('npm', 'acme', 'dummy-component', '1337-beta')
+    component.purl = new PackageURL('npm', 'acme', 'dummy-component', '1337-beta', undefined, undefined)
     component.scope = Enums.ComponentScope.Required
     component.supplier = new Models.OrganizationalEntity({ name: 'Component Supplier' })
     component.supplier.url.add(new URL('https://localhost/componentSupplier-B'))

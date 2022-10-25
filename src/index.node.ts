@@ -25,7 +25,7 @@ export * as Builders from './builders/index.node'
 export * as Factories from './factories/index.node'
 export * as Serialize from './serialize/index.node'
 
-/** @internal until the resources-module was finalized and showed value */
+/** @internal until the resources-module was finalized and shows any value */
 export * as _Resources from './resources.node'
 
 // endregion node-specifics

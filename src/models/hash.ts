@@ -25,8 +25,9 @@ export type HashContent = string
 export type Hash = readonly [
   // order matters: it must reflect [key, value] of HashDictionary -
   // this way a HashDictionary can be constructed from multiple Hash objects.
-  algorithm: HashAlgorithm,
-  content: HashContent
+  /* algorithm: */ HashAlgorithm,
+  /* content:   */ HashContent,
+  // cannot use named tuple syntax ala `[a: T1, b: T2]` as it causes errors when downstream-projects compile with older versions of TypeScript
 ]
 
 /** @since 1.5.0 */

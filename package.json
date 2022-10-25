@@ -61,7 +61,7 @@
     "xmlbuilder2": "^3.0.2"
   },
   "browser": "./dist.web/lib.js",
-  "types": "./src/index.node.ts",
+  "types": "./dist.d/index.node.d.ts",
   "main": "./dist.node/index.node.js",
   "exports": "./dist.node/index.node.js",
   "directories": {
@@ -80,6 +80,8 @@
     "build:node": "tsc -b ./tsconfig.node.json",
     "prebuild:web": "node -r fs -e 'fs.rmSync(\"dist.web\",{recursive:true,force:true})'",
     "build:web": "webpack build",
+    "prebuild:d": "node -r fs -e 'fs.rmSync(\"dist.d\",{recursive:true,force:true})'",
+    "build:d": "tsc -b ./tsconfig.d.json",
     "cs-fix": "eslint --fix .",
     "test": "run-p --aggregate-output -lc test:*",
     "test:node": "mocha -p",
