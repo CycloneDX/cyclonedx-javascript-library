@@ -161,6 +161,6 @@ jobs:
         with:
           name: dist.d
           path: dist.d
-      - name: build - digest declarations
+      - name: use type declarations
         run: npm run build
         working-directory: ${{ env.EXAMPLE_DIR }}

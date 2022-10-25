@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Added
-  * Shipped TypeScript declarations are digestible for TypeScript v3.8 and above now. ([#291] via [#292])
+  * Shipped TypeScript declarations are usable by TypeScript v3.8 and above now. ([#291] via [#292])
     Previously the source code was abused as type declarations, so they required a certain version of TypeScript 4.
 
 [#291]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/291
