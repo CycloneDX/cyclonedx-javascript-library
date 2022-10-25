@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
-* Added
+## 1.7.0 - 2022-10-25
+
+* Changed
   * Shipped TypeScript declarations are usable by TypeScript v3.8 and above now. ([#291] via [#292])
     Previously the source code was abused as type declarations, so they required a certain version of TypeScript 4.
 
