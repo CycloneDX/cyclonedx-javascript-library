@@ -29,7 +29,7 @@ const {
   }
 } = require('../../')
 
-suite('Builders.FromNodePackageJson.ToolBuilder', () => {
+suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
   test('construct', () => {
     const extRefFactory = new ExternalReferenceFactory()
     const licenseFactory = new LicenseFactory()

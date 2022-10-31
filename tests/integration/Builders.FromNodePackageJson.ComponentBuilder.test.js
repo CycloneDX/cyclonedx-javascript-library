@@ -34,7 +34,8 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
   const extRefFactory = new Factories.FromNodePackageJson.ExternalReferenceFactory()
   extRefFactory.makeExternalReferences = () => [`FAKE REFERENCES ${salt}`]
   const licenseFactory = new Factories.LicenseFactory()
-  licenseFactory.makeFromString = () => `FAKE LICENSE ${salt}`
+  licenseFactory.makeFromString = (s) => ({ name: `FAKE LICENSE: ${s}` })
+  licenseFactory.makeDisjunctive = (s) => ({ name: `FAKE DISJUNCTIVE LICENSE: ${s}` })
 
   const sut = new ComponentBuilder(extRefFactory, licenseFactory)
 
@@ -44,9 +45,15 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
     description: `dummy lib ${salt}`,
     author: {
       name: 'Jane Doe',
-      url: 'http://acme.org/~jd'
+      url: 'https://acme.org/~jd'
     },
-    license: 'dummy license'
+    license: `dummy license ${salt}`,
+    licenses: [
+      {
+        type: `some license ${salt}`,
+        url: `https://acme.org/license/${salt}`
+      }
+    ]
     // to be continued
   }
   const expected = new Models.Component(
@@ -56,7 +63,10 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
       author: 'Jane Doe',
       description: `dummy lib ${salt}`,
       externalReferences: new Models.ExternalReferenceRepository([`FAKE REFERENCES ${salt}`]),
-      licenses: new Models.LicenseRepository([`FAKE LICENSE ${salt}`]),
+      licenses: new Models.LicenseRepository([
+        { name: `FAKE LICENSE: dummy license ${salt}` },
+        { name: `FAKE DISJUNCTIVE LICENSE: some license ${salt}`, url: `https://acme.org/license/${salt}` }
+      ]),
       group: '@foo',
       version: `1.33.7-alpha.23.${salt}`
     }

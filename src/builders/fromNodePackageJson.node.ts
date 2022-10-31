@@ -91,30 +91,43 @@ export class ComponentBuilder {
       : (typeof data.author?.name === 'string'
           ? data.author.name
           : undefined)
+
     /** @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#description-1} */
     const description = typeof data.description === 'string'
       ? data.description
       : undefined
+
     /** @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#version} */
     const version = typeof data.version === 'string'
       ? data.version
       : undefined
+
     const externalReferences = this.#extRefFactory.makeExternalReferences(data)
-    /** @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#license} */
-    const license = typeof data.license === 'string'
-      ? this.#licenseFactory.makeFromString(data.license)
-      : undefined
+
+    const licenses = new Models.LicenseRepository()
+    if (typeof data.license === 'string') {
+      /** @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#license} */
+      licenses.add(this.#licenseFactory.makeFromString(data.license))
+    }
+    if (Array.isArray(data.licenses)) {
+      /** @see {@link https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json} */
+      for (const licenseData of data.licenses) {
+        if (typeof licenseData?.type === 'string') {
+          const license = this.#licenseFactory.makeDisjunctive(licenseData.type)
+          license.url = typeof licenseData.url === 'string'
+            ? licenseData.url
+            : undefined
+          licenses.add(license)
+        }
+      }
+    }
 
     return new Models.Component(type, name, {
       author,
       description,
       externalReferences: new Models.ExternalReferenceRepository(externalReferences),
       group,
-      licenses: new Models.LicenseRepository(
-        license === undefined
-          ? []
-          : [license]
-      ),
+      licenses,
       version
     })
   }
