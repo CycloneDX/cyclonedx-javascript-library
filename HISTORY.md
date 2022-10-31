@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.8.0 - 2022-10-31
+
 * Added
   * Detection for node-package manifests deprecated licenses format in the node-specific builders ([#308] via [#309])
 
