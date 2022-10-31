@@ -32,6 +32,10 @@ export interface PackageJson {
   version?: string
   description?: string
   license?: string
+  licenses?: Array<{
+    type?: string
+    url?: string
+  }>
   author?: string | {
     name?: string
     email?: string

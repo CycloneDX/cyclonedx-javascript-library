@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Added
+  * Detection for node-package manifests deprecated licenses format in the node-specific builders ([#308] via [#309])
+
+[#308]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/308
+[#309]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/309
+
 ## 1.7.0 - 2022-10-25
 
 * Changed
