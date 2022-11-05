@@ -22,6 +22,14 @@ import * as Enums from '../enums'
 import * as Factories from '../factories/index.node'
 import * as Models from '../models'
 
+/**
+ * Node-specifics.
+ * @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json PackageJson spec}
+ */
+
+/**
+ * Node-specific ToolBuilder.
+ */
 export class ToolBuilder {
   readonly #extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory
 
@@ -51,6 +59,9 @@ export class ToolBuilder {
   }
 }
 
+/**
+ * Node-specific ComponentBuilder.
+ */
 export class ComponentBuilder {
   readonly #extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory
   readonly #licenseFactory: Factories.LicenseFactory

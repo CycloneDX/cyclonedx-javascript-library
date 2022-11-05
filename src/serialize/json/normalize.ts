@@ -103,7 +103,7 @@ interface Normalizer<TModel, TNormalized> {
 
   /** @since 1.5.1 */
   normalizeIterable?: (data: SortableIterable<TModel>, options: NormalizerOptions) => TNormalized[]
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository?: (data: SortableIterable<TModel>, options: NormalizerOptions) => TNormalized[]
 }
 
@@ -193,7 +193,7 @@ export class ToolNormalizer extends Base<Models.Tool> {
     ).map(t => this.normalize(t, options))
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 
@@ -219,7 +219,7 @@ export class HashNormalizer extends Base<Models.Hash> {
     ).filter(isNotUndefined)
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 
@@ -243,7 +243,7 @@ export class OrganizationalContactNormalizer extends Base<Models.OrganizationalC
     ).map(c => this.normalize(c, options))
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 
@@ -320,7 +320,7 @@ export class ComponentNormalizer extends Base<Models.Component> {
     ).filter(isNotUndefined)
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 
@@ -378,7 +378,7 @@ export class LicenseNormalizer extends Base<Models.License> {
     ).map(c => this.normalize(c, options))
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 
@@ -423,7 +423,7 @@ export class ExternalReferenceNormalizer extends Base<Models.ExternalReference> 
     ).filter(isNotUndefined)
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 
@@ -454,7 +454,7 @@ export class PropertyNormalizer extends Base<Models.Property> {
     ).map(p => this.normalize(p, options))
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 

@@ -79,7 +79,7 @@ export class Component implements Comparable {
   #cpe?: CPE
 
   /**
-   * @throws {TypeError} if {@see op.cpe} is neither {@see CPE} nor {@see undefined}
+   * @throws {TypeError} if {@link op.cpe} is neither {@link CPE} nor {@link undefined}
    */
   constructor (type: Component['type'], name: Component['name'], op: OptionalProperties = {}) {
     this.#bomRef = new BomRef(op.bomRef)
@@ -113,7 +113,7 @@ export class Component implements Comparable {
   }
 
   /**
-   * @throws {TypeError} if value is neither {@see CPE} nor {@see undefined}
+   * @throws {TypeError} if value is neither {@link CPE} nor {@link undefined}
    */
   set cpe (value: CPE | undefined) {
     if (value !== undefined && !isCPE(value)) {

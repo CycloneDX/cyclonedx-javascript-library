@@ -45,5 +45,5 @@ export class HashDictionary extends Map<Hash[0], Hash[1]> implements Sortable<Ha
   }
 }
 
-/** @deprecated use {@see HashDictionary} instead of {@link HashRepository} */
+/** @deprecated use {@link HashDictionary} instead of {@link HashRepository} */
 export class HashRepository extends HashDictionary {}

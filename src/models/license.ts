@@ -34,7 +34,7 @@ export class LicenseExpression {
   #expression!: string
 
   /**
-   * @throws {RangeError} if {@see expression} is not eligible({@see LicenseExpression.isEligibleExpression})
+   * @throws {RangeError} if {@link expression} is not eligible({@link LicenseExpression.isEligibleExpression})
    */
   constructor (expression: LicenseExpression['expression']) {
     this.expression = expression
@@ -45,7 +45,7 @@ export class LicenseExpression {
   }
 
   /**
-   * @throws {RangeError} if expression is not eligible({@see LicenseExpression.isEligibleExpression})
+   * @throws {RangeError} if expression is not eligible({@link LicenseExpression.isEligibleExpression})
    */
   set expression (value: string) {
     if (!LicenseExpression.isEligibleExpression(value)) {
@@ -93,7 +93,7 @@ export class SpdxLicense {
   #id!: SpdxId
 
   /**
-   * @throws {RangeError} if {@see id} is not supported SPDX id({@see isSupportedSpdxId})
+   * @throws {RangeError} if {@link id} is not supported SPDX id({@link isSupportedSpdxId})
    */
   constructor (id: SpdxLicense['id'], op: SpdxLicenseOptionalProperties = {}) {
     this.id = id
@@ -106,7 +106,7 @@ export class SpdxLicense {
   }
 
   /**
-   * @throws {RangeError} if value is not supported SPDX id({@see isSupportedSpdxId})
+   * @throws {RangeError} if value is not supported SPDX id({@link isSupportedSpdxId})
    */
   set id (value: SpdxId) {
     if (!isSupportedSpdxId(value)) {
