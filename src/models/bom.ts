@@ -46,8 +46,8 @@ export class Bom {
   // The dependency graph can be normalized on render-time, no need to store it in the bom model.
 
   /**
-   * @throws {TypeError} if `op.version` is neither {@link PositiveInteger} nor `undefined`
-   * @throws {TypeError} if `op.serialNumber` is neither {@link UrnUuid} nor `undefined`
+   * @throws {@link TypeError} if `op.version` is neither {@link PositiveInteger} nor `undefined`
+   * @throws {@link TypeError} if `op.serialNumber` is neither {@link UrnUuid} nor `undefined`
    */
   constructor (op: OptionalBomProperties = {}) {
     this.metadata = op.metadata ?? new Metadata()
@@ -61,7 +61,7 @@ export class Bom {
   }
 
   /**
-   * @throws {TypeError} if value is not {@link PositiveInteger}
+   * @throws {@link TypeError} if value is not {@link PositiveInteger}
    */
   set version (value: PositiveInteger) {
     if (!isPositiveInteger(value)) {
@@ -75,7 +75,7 @@ export class Bom {
   }
 
   /**
-   * @throws {TypeError} if value is neither {@link UrnUuid} nor `undefined`
+   * @throws {@link TypeError} if value is neither {@link UrnUuid} nor `undefined`
    */
   set serialNumber (value: UrnUuid | undefined) {
     if (value !== undefined && !isUrnUuid(value)) {
