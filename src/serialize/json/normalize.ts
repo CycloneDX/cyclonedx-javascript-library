@@ -110,7 +110,7 @@ interface Normalizer<TModel, TNormalized> {
 abstract class Base<TModel, TNormalized=object> implements Normalizer<TModel, TNormalized> {
   protected readonly _factory: Factory
 
-  constructor (factory: Base<any, any>['factory']) {
+  constructor (factory: Base<TModel, TNormalized>['factory']) {
     this._factory = factory
   }
 
