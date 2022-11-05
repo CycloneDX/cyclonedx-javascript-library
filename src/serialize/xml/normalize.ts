@@ -119,9 +119,7 @@ abstract class Base<TModel, TNormalized=SimpleXml.Element> implements Normalizer
   }
 
   /**
-   * @param {*} data
-   * @param {NormalizerOptions} options
-   * @param {string} [elementName] element name. XML defines structures; the element's name is defined on usage of a structure.
+   * @param {string} [elementName] - element name. XML defines structures; the element's name is defined on usage of a structure.
    */
   abstract normalize (data: TModel, options: NormalizerOptions, elementName?: string): TNormalized | undefined
 }
