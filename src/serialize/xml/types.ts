@@ -20,12 +20,13 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace XmlSchema {
 
-  const _anyUriSchemePattern = /^[a-z][a-z0-9+\-.]*$/i
+  const _AnyUriSchemePattern = /^[a-z][a-z0-9+\-.]*$/i
 
   /**
    * @see isAnyURI
    */
   export type AnyURI = string
+
   /**
    * Test whether format is XML::anyURI - best-effort.
    *
@@ -57,7 +58,7 @@ export namespace XmlSchema {
 
     const schemePos = beforeFragment.indexOf(':')
     if (schemePos >= 0) {
-      if (!_anyUriSchemePattern.test(beforeFragment.slice(undefined, schemePos))) {
+      if (!_AnyUriSchemePattern.test(beforeFragment.slice(undefined, schemePos))) {
         // invalid schema
         return false
       }

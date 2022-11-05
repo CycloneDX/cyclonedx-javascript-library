@@ -4,10 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Changed
+  * Widened the accepted types for parameter1 of all `normalizeIterable()` methods (via [#317])
+
+[#317]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/317
+
 ## 1.8.0 - 2022-10-31
 
 * Added
-  * Detection for node-package manifests deprecated licenses format in the node-specific builders ([#308] via [#309])
+  * Enabled detection for node-package manifest's deprecated licenses format in the node-specific builders ([#308] via [#309])
 
 [#308]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/308
 [#309]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/309

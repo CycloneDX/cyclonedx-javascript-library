@@ -17,6 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { Sortable } from '../_helpers/sortable'
 import { HashAlgorithm } from '../enums'
 
 // no regex for the HashContent in here. It applies at runtime of a normalization/serialization process.
@@ -31,7 +32,7 @@ export type Hash = readonly [
 ]
 
 /** @since 1.5.0 */
-export class HashDictionary extends Map<Hash[0], Hash[1]> {
+export class HashDictionary extends Map<Hash[0], Hash[1]> implements Sortable<Hash> {
   #compareItems ([a1, c1]: Hash, [a2, c2]: Hash): number {
     /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return a1.localeCompare(a2) ||
@@ -44,5 +45,5 @@ export class HashDictionary extends Map<Hash[0], Hash[1]> {
   }
 }
 
-/** @deprecated use {@see HashDictionary} instead of {@link HashRepository} */
+/** @deprecated use {@link HashDictionary} instead of {@link HashRepository} */
 export class HashRepository extends HashDictionary {}

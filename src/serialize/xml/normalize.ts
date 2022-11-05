@@ -18,6 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { isNotUndefined } from '../../_helpers/notUndefined'
+import { Sortable } from '../../_helpers/sortable'
 import { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
 import * as Models from '../../models'
@@ -95,19 +96,21 @@ const xmlNamespace: ReadonlyMap<SpecVersion, string> = new Map([
   [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom/1.4']
 ])
 
-interface Normalizer {
-  normalize: (data: object, options: NormalizerOptions, elementName?: string) => object | undefined
+type SortableIterable<T> = Iterable<T> & Sortable<T>
+
+interface Normalizer<TModel, TNormalized> {
+  normalize: (data: TModel, options: NormalizerOptions, elementName?: string) => TNormalized | undefined
 
   /** @since 1.5.1 */
-  normalizeIterable?: (data: Iterable<object>, options: NormalizerOptions, elementName: string) => object[]
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
-  normalizeRepository?: (data: Iterable<object>, options: NormalizerOptions, elementName: string) => object[]
+  normalizeIterable?: (data: SortableIterable<TModel>, options: NormalizerOptions, elementName: string) => TNormalized[]
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
+  normalizeRepository?: (data: SortableIterable<TModel>, options: NormalizerOptions, elementName: string) => TNormalized[]
 }
 
-abstract class Base implements Normalizer {
+abstract class Base<TModel, TNormalized=SimpleXml.Element> implements Normalizer<TModel, TNormalized> {
   protected readonly _factory: Factory
 
-  constructor (factory: Base['factory']) {
+  constructor (factory: Base<TModel, TNormalized>['factory']) {
     this._factory = factory
   }
 
@@ -116,18 +119,16 @@ abstract class Base implements Normalizer {
   }
 
   /**
-   * @param {*} data
-   * @param {NormalizerOptions} options
-   * @param {string} [elementName] element name. XML defines structures; the element's name is defined on usage of a structure.
+   * @param {string} [elementName] - element name. XML defines structures; the element's name is defined on usage of a structure.
    */
-  abstract normalize (data: object, options: NormalizerOptions, elementName?: string): object | undefined
+  abstract normalize (data: TModel, options: NormalizerOptions, elementName?: string): TNormalized | undefined
 }
 
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions --
  * since empty strings need to be treated as undefined/null
  */
 
-export class BomNormalizer extends Base {
+export class BomNormalizer extends Base<Models.Bom> {
   normalize (data: Models.Bom, options: NormalizerOptions): SimpleXml.Element {
     const components: SimpleXml.Element = {
       // spec < 1.4 always requires a 'components' element
@@ -159,7 +160,7 @@ export class BomNormalizer extends Base {
   }
 }
 
-export class MetadataNormalizer extends Base {
+export class MetadataNormalizer extends Base<Models.Metadata> {
   normalize (data: Models.Metadata, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const orgEntityNormalizer = this._factory.makeForOrganizationalEntity()
     const timestamp: SimpleXml.Element | undefined = data.timestamp === undefined
@@ -205,7 +206,7 @@ export class MetadataNormalizer extends Base {
   }
 }
 
-export class ToolNormalizer extends Base {
+export class ToolNormalizer extends Base<Models.Tool> {
   normalize (data: Models.Tool, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const hashes: SimpleXml.Element | undefined = data.hashes.size > 0
       ? {
@@ -237,7 +238,7 @@ export class ToolNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.ToolRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+  normalizeIterable (data: SortableIterable<Models.Tool>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -245,11 +246,11 @@ export class ToolNormalizer extends Base {
     ).map(t => this.normalize(t, options, elementName))
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 
-export class HashNormalizer extends Base {
+export class HashNormalizer extends Base<Models.Hash> {
   normalize ([algorithm, content]: Models.Hash, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
     const spec = this._factory.spec
     return spec.supportsHashAlgorithm(algorithm) && spec.supportsHashValue(content)
@@ -263,7 +264,7 @@ export class HashNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.HashDictionary, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+  normalizeIterable (data: SortableIterable<Models.Hash>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -273,11 +274,11 @@ export class HashNormalizer extends Base {
     ).filter(isNotUndefined)
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 
-export class OrganizationalContactNormalizer extends Base {
+export class OrganizationalContactNormalizer extends Base<Models.OrganizationalContact> {
   normalize (data: Models.OrganizationalContact, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     return {
       type: 'element',
@@ -291,7 +292,7 @@ export class OrganizationalContactNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.OrganizationalContactRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+  normalizeIterable (data: SortableIterable<Models.OrganizationalContact>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -299,11 +300,11 @@ export class OrganizationalContactNormalizer extends Base {
     ).map(c => this.normalize(c, options, elementName))
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 
-export class OrganizationalEntityNormalizer extends Base {
+export class OrganizationalEntityNormalizer extends Base<Models.OrganizationalEntity> {
   normalize (data: Models.OrganizationalEntity, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     return {
       type: 'element',
@@ -318,7 +319,7 @@ export class OrganizationalEntityNormalizer extends Base {
   }
 }
 
-export class ComponentNormalizer extends Base {
+export class ComponentNormalizer extends Base<Models.Component> {
   normalize (data: Models.Component, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
     const spec = this._factory.spec
     if (!spec.supportsComponentType(data.type)) {
@@ -404,7 +405,7 @@ export class ComponentNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.ComponentRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+  normalizeIterable (data: SortableIterable<Models.Component>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -414,11 +415,11 @@ export class ComponentNormalizer extends Base {
     ).filter(isNotUndefined)
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 
-export class LicenseNormalizer extends Base {
+export class LicenseNormalizer extends Base<Models.License> {
   normalize (data: Models.License, options: NormalizerOptions): SimpleXml.Element {
     switch (true) {
       case data instanceof Models.NamedLicense:
@@ -472,7 +473,7 @@ export class LicenseNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.LicenseRepository, options: NormalizerOptions): SimpleXml.Element[] {
+  normalizeIterable (data: SortableIterable<Models.License>, options: NormalizerOptions): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -480,11 +481,11 @@ export class LicenseNormalizer extends Base {
     ).map(c => this.normalize(c, options))
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 
-export class SWIDNormalizer extends Base {
+export class SWIDNormalizer extends Base<Models.SWID> {
   normalize (data: Models.SWID, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const url = data.url?.toString()
     return {
@@ -511,7 +512,7 @@ export class SWIDNormalizer extends Base {
   }
 }
 
-export class ExternalReferenceNormalizer extends Base {
+export class ExternalReferenceNormalizer extends Base<Models.ExternalReference> {
   normalize (data: Models.ExternalReference, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
     const url = data.url.toString()
     return this._factory.spec.supportsExternalReferenceType(data.type) &&
@@ -531,7 +532,7 @@ export class ExternalReferenceNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.ExternalReferenceRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+  normalizeIterable (data: SortableIterable<Models.ExternalReference>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -541,11 +542,11 @@ export class ExternalReferenceNormalizer extends Base {
     ).filter(isNotUndefined)
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 
-export class AttachmentNormalizer extends Base {
+export class AttachmentNormalizer extends Base<Models.Attachment> {
   normalize (data: Models.Attachment, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     return {
       type: 'element',
@@ -559,7 +560,7 @@ export class AttachmentNormalizer extends Base {
   }
 }
 
-export class PropertyNormalizer extends Base {
+export class PropertyNormalizer extends Base<Models.Property> {
   normalize (data: Models.Property, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     return {
       type: 'element',
@@ -572,7 +573,7 @@ export class PropertyNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.PropertyRepository, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+  normalizeIterable (data: SortableIterable<Models.Property>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -580,11 +581,11 @@ export class PropertyNormalizer extends Base {
     ).map(p => this.normalize(p, options, elementName))
   }
 
-  /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
+  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
   normalizeRepository = this.normalizeIterable
 }
 
-export class DependencyGraphNormalizer extends Base {
+export class DependencyGraphNormalizer extends Base<Models.Bom> {
   normalize (data: Models.Bom, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
     const allRefs = new Map<Models.BomRef, Models.BomRefRepository>()
     if (data.metadata.component !== undefined) {
