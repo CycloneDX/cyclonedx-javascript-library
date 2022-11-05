@@ -25,7 +25,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 module.exports = {
   root: true,
   /** @see https://github.com/standard/ts-standard */
-  extends: 'standard-with-typescript',
+  extends: [
+    'standard-with-typescript',
+    "plugin:jsdoc/recommended"
+    ],
   parserOptions: {
     project: './tsconfig.json'
   },
