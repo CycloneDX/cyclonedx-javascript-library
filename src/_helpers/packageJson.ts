@@ -27,6 +27,9 @@ export function splitNameGroup (data: string): [string, string?] {
     : [data]
 }
 
+/**
+ * @see {@link https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json}
+ */
 export interface PackageJson {
   name?: string
   version?: string

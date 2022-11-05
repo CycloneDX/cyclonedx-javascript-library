@@ -22,8 +22,8 @@ export interface Comparable {
   compare: (other: any) => number
 }
 
-export abstract class SortableSet<T extends Comparable> extends Set<T> {
-  sorted (): T[] {
-    return Array.from(this).sort((a: T, b: T) => a.compare(b))
+export abstract class SortableSet<TItem extends Comparable> extends Set<TItem> {
+  sorted (): TItem[] {
+    return Array.from(this).sort((a: TItem, b: TItem) => a.compare(b))
   }
 }
