@@ -22,10 +22,6 @@ import * as Enums from '../enums'
 import * as Factories from '../factories/index.node'
 import * as Models from '../models'
 
-/**
- * @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json PackageJson spec}
- */
-
 export class ToolBuilder {
   readonly #extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory
 
