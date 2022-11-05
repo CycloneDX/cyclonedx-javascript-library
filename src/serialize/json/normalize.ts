@@ -18,6 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { isNotUndefined } from '../../_helpers/notUndefined'
+import { Sortable } from '../../_helpers/sortable'
 import { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
 import * as Models from '../../models'
@@ -95,19 +96,21 @@ const schemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
   [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom-1.4.schema.json']
 ])
 
-interface Normalizer {
-  normalize: (data: object, options: NormalizerOptions) => object | undefined
+type SortableIterable<T> = Iterable<T> & Sortable<T>
+
+interface Normalizer<TModel, TNormalized> {
+  normalize: (data: TModel, options: NormalizerOptions) => TNormalized | undefined
 
   /** @since 1.5.1 */
-  normalizeIterable?: (data: Iterable<object>, options: NormalizerOptions) => object[]
+  normalizeIterable?: (data: SortableIterable<TModel>, options: NormalizerOptions) => TNormalized[]
   /** @deprecated use {@see normalizeIterable} instead of {@see normalizeRepository} */
-  normalizeRepository?: (data: Iterable<object>, options: NormalizerOptions) => object[]
+  normalizeRepository?: (data: SortableIterable<TModel>, options: NormalizerOptions) => TNormalized[]
 }
 
-abstract class Base implements Normalizer {
+abstract class Base<TModel, TNormalized=object> implements Normalizer<TModel, TNormalized> {
   protected readonly _factory: Factory
 
-  constructor (factory: Base['factory']) {
+  constructor (factory: Base<any, any>['factory']) {
     this._factory = factory
   }
 
@@ -115,14 +118,14 @@ abstract class Base implements Normalizer {
     return this._factory
   }
 
-  abstract normalize (data: object, options: NormalizerOptions): object | undefined
+  abstract normalize (data: TModel, options: NormalizerOptions): TNormalized | undefined
 }
 
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions --
  * since empty strings need to be treated as undefined/null
  */
 
-export class BomNormalizer extends Base {
+export class BomNormalizer extends Base<Models.Bom> {
   normalize (data: Models.Bom, options: NormalizerOptions): Normalized.Bom {
     return {
       $schema: schemaUrl.get(this._factory.spec.version),
@@ -142,7 +145,7 @@ export class BomNormalizer extends Base {
   }
 }
 
-export class MetadataNormalizer extends Base {
+export class MetadataNormalizer extends Base<Models.Metadata> {
   normalize (data: Models.Metadata, options: NormalizerOptions): Normalized.Metadata {
     const orgEntityNormalizer = this._factory.makeForOrganizationalEntity()
     return {
@@ -166,7 +169,7 @@ export class MetadataNormalizer extends Base {
   }
 }
 
-export class ToolNormalizer extends Base {
+export class ToolNormalizer extends Base<Models.Tool> {
   normalize (data: Models.Tool, options: NormalizerOptions): Normalized.Tool {
     return {
       vendor: data.vendor || undefined,
@@ -182,7 +185,7 @@ export class ToolNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.ToolRepository, options: NormalizerOptions): Normalized.Tool[] {
+  normalizeIterable (data: SortableIterable<Models.Tool>, options: NormalizerOptions): Normalized.Tool[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -194,7 +197,7 @@ export class ToolNormalizer extends Base {
   normalizeRepository = this.normalizeIterable
 }
 
-export class HashNormalizer extends Base {
+export class HashNormalizer extends Base<Models.Hash> {
   normalize ([algorithm, content]: Models.Hash, options: NormalizerOptions): Normalized.Hash | undefined {
     const spec = this._factory.spec
     return spec.supportsHashAlgorithm(algorithm) && spec.supportsHashValue(content)
@@ -206,7 +209,7 @@ export class HashNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.HashDictionary, options: NormalizerOptions): Normalized.Hash[] {
+  normalizeIterable (data: SortableIterable<Models.Hash>, options: NormalizerOptions): Normalized.Hash[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -220,7 +223,7 @@ export class HashNormalizer extends Base {
   normalizeRepository = this.normalizeIterable
 }
 
-export class OrganizationalContactNormalizer extends Base {
+export class OrganizationalContactNormalizer extends Base<Models.OrganizationalContact> {
   normalize (data: Models.OrganizationalContact, options: NormalizerOptions): Normalized.OrganizationalContact {
     return {
       name: data.name || undefined,
@@ -232,7 +235,7 @@ export class OrganizationalContactNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.OrganizationalContactRepository, options: NormalizerOptions): Normalized.OrganizationalContact[] {
+  normalizeIterable (data: SortableIterable<Models.OrganizationalContact>, options: NormalizerOptions): Normalized.OrganizationalContact[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -244,7 +247,7 @@ export class OrganizationalContactNormalizer extends Base {
   normalizeRepository = this.normalizeIterable
 }
 
-export class OrganizationalEntityNormalizer extends Base {
+export class OrganizationalEntityNormalizer extends Base<Models.OrganizationalEntity> {
   normalize (data: Models.OrganizationalEntity, options: NormalizerOptions): Normalized.OrganizationalEntity {
     const urls = normalizeStringableIter(data.url, options)
       .filter(JsonSchema.isIriReference)
@@ -261,7 +264,7 @@ export class OrganizationalEntityNormalizer extends Base {
   }
 }
 
-export class ComponentNormalizer extends Base {
+export class ComponentNormalizer extends Base<Models.Component> {
   normalize (data: Models.Component, options: NormalizerOptions): Normalized.Component | undefined {
     const spec = this._factory.spec
     const version: string = data.version ?? ''
@@ -307,7 +310,7 @@ export class ComponentNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.ComponentRepository, options: NormalizerOptions): Normalized.Component[] {
+  normalizeIterable (data: SortableIterable<Models.Component>, options: NormalizerOptions): Normalized.Component[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -321,7 +324,7 @@ export class ComponentNormalizer extends Base {
   normalizeRepository = this.normalizeIterable
 }
 
-export class LicenseNormalizer extends Base {
+export class LicenseNormalizer extends Base<Models.License> {
   normalize (data: Models.License, options: NormalizerOptions): Normalized.License {
     switch (true) {
       case data instanceof Models.NamedLicense:
@@ -367,7 +370,7 @@ export class LicenseNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.LicenseRepository, options: NormalizerOptions): Normalized.License[] {
+  normalizeIterable (data: SortableIterable<Models.License>, options: NormalizerOptions): Normalized.License[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -379,7 +382,7 @@ export class LicenseNormalizer extends Base {
   normalizeRepository = this.normalizeIterable
 }
 
-export class SWIDNormalizer extends Base {
+export class SWIDNormalizer extends Base<Models.SWID> {
   normalize (data: Models.SWID, options: NormalizerOptions): Normalized.SWID {
     const url = data.url?.toString()
     return {
@@ -398,7 +401,7 @@ export class SWIDNormalizer extends Base {
   }
 }
 
-export class ExternalReferenceNormalizer extends Base {
+export class ExternalReferenceNormalizer extends Base<Models.ExternalReference> {
   normalize (data: Models.ExternalReference, options: NormalizerOptions): Normalized.ExternalReference | undefined {
     return this._factory.spec.supportsExternalReferenceType(data.type)
       ? {
@@ -410,7 +413,7 @@ export class ExternalReferenceNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.ExternalReferenceRepository, options: NormalizerOptions): Normalized.ExternalReference[] {
+  normalizeIterable (data: SortableIterable<Models.ExternalReference>, options: NormalizerOptions): Normalized.ExternalReference[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -424,7 +427,7 @@ export class ExternalReferenceNormalizer extends Base {
   normalizeRepository = this.normalizeIterable
 }
 
-export class AttachmentNormalizer extends Base {
+export class AttachmentNormalizer extends Base<Models.Attachment> {
   normalize (data: Models.Attachment, options: NormalizerOptions): Normalized.Attachment {
     return {
       content: data.content,
@@ -434,7 +437,7 @@ export class AttachmentNormalizer extends Base {
   }
 }
 
-export class PropertyNormalizer extends Base {
+export class PropertyNormalizer extends Base<Models.Property> {
   normalize (data: Models.Property, options: NormalizerOptions): Normalized.Property {
     return {
       name: data.name,
@@ -443,7 +446,7 @@ export class PropertyNormalizer extends Base {
   }
 
   /** @since 1.5.1 */
-  normalizeIterable (data: Models.PropertyRepository, options: NormalizerOptions): Normalized.Property[] {
+  normalizeIterable (data: SortableIterable<Models.Property>, options: NormalizerOptions): Normalized.Property[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -455,7 +458,7 @@ export class PropertyNormalizer extends Base {
   normalizeRepository = this.normalizeIterable
 }
 
-export class DependencyGraphNormalizer extends Base {
+export class DependencyGraphNormalizer extends Base<Models.Bom> {
   normalize (data: Models.Bom, options: NormalizerOptions): Normalized.Dependency[] | undefined {
     const allRefs = new Map<Models.BomRef, Models.BomRefRepository>()
     if (data.metadata.component !== undefined) {

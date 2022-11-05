@@ -17,6 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { Sortable } from '../_helpers/sortable'
 import { isSupportedSpdxId, SpdxId } from '../spdx'
 import { Attachment } from './attachment'
 
@@ -122,7 +123,7 @@ export class SpdxLicense {
 export type DisjunctiveLicense = NamedLicense | SpdxLicense
 export type License = DisjunctiveLicense | LicenseExpression
 
-export class LicenseRepository extends Set<License> {
+export class LicenseRepository extends Set<License> implements Sortable<License> {
   #compareItems (a: License, b: License): number {
     if (a.constructor === b.constructor) {
       // @ts-expect-error -- classes are from same type -> they are comparable
