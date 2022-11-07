@@ -67,6 +67,7 @@ module.exports = {
     // endregion sort imports/exports
     // region docs
     /* see https://github.com/gajus/eslint-plugin-jsdoc */
+    'jsdoc/no-undefined-types': 'error',
     'jsdoc/check-tag-names': 0,
     'jsdoc/check-types': 'error',
     'jsdoc/require-jsdoc': 0,
