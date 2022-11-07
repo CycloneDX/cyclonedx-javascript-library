@@ -84,7 +84,7 @@ module.exports = {
     'jsdoc/require-throws': 'error',
     'jsdoc/require-yields': 0,
     'jsdoc/require-yields-check': 'error',
-    'jsdoc/sort-tags': true
+    'jsdoc/sort-tags': 'warn'
     // endregion docs
   }
 }
