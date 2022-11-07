@@ -19,17 +19,22 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 /**
- * @see {@link https://eslint.org/}
  * @type {import('eslint').Linter.Config}
+ * @see {@link https://eslint.org/}
  */
 module.exports = {
   root: true,
-  /** @see https://github.com/standard/ts-standard */
-  extends: 'standard-with-typescript',
+  extends: [
+    /* see https://github.com/standard/ts-standard */
+    'standard-with-typescript',
+    /* see https://github.com/gajus/eslint-plugin-jsdoc */
+    'plugin:jsdoc/recommended'
+  ],
   parserOptions: {
     project: './tsconfig.json'
   },
   plugins: [
+    /* see https://github.com/lydell/eslint-plugin-simple-import-sort#readme */
     'simple-import-sort'
   ],
   env: {
@@ -49,16 +54,60 @@ module.exports = {
         node: true,
         browser: false // change, when mocha is enabled for browser
       }
+    },
+    {
+      files: ['*.js'],
+      rules: {
+        'jsdoc/require-param-type': 'error',
+        'jsdoc/require-property-type': 'error',
+        'jsdoc/require-returns-type': 'error'
+      },
+      settings: {
+        jsdoc: {
+          /* see https://github.com/gajus/eslint-plugin-jsdoc */
+          mode: 'jsdoc'
+        }
+      }
     }
   ],
   rules: {
     // region sort imports/exports
-    /** disable other sorters in favour of `simple-import-sort` **/
+    /* disable other sorters in favour of `simple-import-sort` */
     'import/order': 0,
     'sort-imports': 0,
-    /** @see https://github.com/lydell/eslint-plugin-simple-import-sort/ */
+    /* see https://github.com/lydell/eslint-plugin-simple-import-sort/ */
     'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error'
+    'simple-import-sort/exports': 'error',
     // endregion sort imports/exports
+    // region docs
+    /* see https://github.com/gajus/eslint-plugin-jsdoc */
+    'jsdoc/no-undefined-types': 'error',
+    'jsdoc/check-tag-names': 0,
+    'jsdoc/check-types': 'error',
+    'jsdoc/require-hyphen-before-param-description': ['error', 'always'],
+    'jsdoc/require-jsdoc': 0,
+    'jsdoc/require-param': 0,
+    'jsdoc/require-param-description': 0,
+    'jsdoc/require-param-name': 'error',
+    'jsdoc/require-param-type': 0,
+    'jsdoc/require-property': 0,
+    'jsdoc/require-property-description': 0,
+    'jsdoc/require-property-name': 'error',
+    'jsdoc/require-property-type': 0,
+    'jsdoc/require-returns': 0,
+    'jsdoc/require-returns-check': 'error',
+    'jsdoc/require-returns-description': 0,
+    'jsdoc/require-returns-type': 0,
+    'jsdoc/require-throws': 'error',
+    'jsdoc/require-yields': 0,
+    'jsdoc/require-yields-check': 'error',
+    'jsdoc/sort-tags': 'warn'
+    // endregion docs
+  },
+  settings: {
+    jsdoc: {
+      /* see https://github.com/gajus/eslint-plugin-jsdoc */
+      mode: 'typescript'
+    }
   }
 }

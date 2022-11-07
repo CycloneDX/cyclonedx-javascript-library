@@ -56,7 +56,7 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
   }
 
   /**
-   * @readonly as in "final"
+   * @readonly
    * @throws {Error}
    */
   public serialize (bom: Bom, options?: SerializerOptions & NormalizerOptions): string {
