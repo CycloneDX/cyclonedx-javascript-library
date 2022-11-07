@@ -21,9 +21,13 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const fs = require('fs')
 const path = require('path')
 
-/** @typedef {import('../../src/spec').Version} Version */
+/**
+ * @typedef {import('../../src/spec').Version} Version
+ */
 
-/** @typedef {import('@types/node').BufferEncoding} BufferEncoding */
+/**
+ * @typedef {import('@types/node').BufferEncoding} BufferEncoding
+ */
 
 /**
  * @param {string} purpose

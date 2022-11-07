@@ -22,7 +22,9 @@ const { PackageURL } = require('packageurl-js')
 
 const { Enums, Models } = require('../../')
 
-/** @typedef {import('../../src/models/bom').Bom} Bom */
+/**
+ * @typedef {import('../../src/models/bom').Bom} Bom
+ */
 
 /**
  * @returns {Bom}
