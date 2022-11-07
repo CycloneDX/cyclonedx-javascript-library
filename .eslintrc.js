@@ -70,6 +70,7 @@ module.exports = {
     'jsdoc/no-undefined-types': 'error',
     'jsdoc/check-tag-names': 0,
     'jsdoc/check-types': 'error',
+    'jsdoc/require-hyphen-before-param-description': ["error", "always"],
     'jsdoc/require-jsdoc': 0,
     'jsdoc/require-param': 0,
     'jsdoc/require-param-description': 0,
