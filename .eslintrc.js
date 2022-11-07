@@ -54,7 +54,21 @@ module.exports = {
         node: true,
         browser: false // change, when mocha is enabled for browser
       }
-    }
+    },
+    {
+      files: ['*.js'],
+      rules: {
+        'jsdoc/require-param-type': 'error',
+        'jsdoc/require-property-type': 'error',
+        'jsdoc/require-returns-type': 'error',
+      },
+      settings: {
+        jsdoc: {
+          /* see https://github.com/gajus/eslint-plugin-jsdoc */
+          mode: 'jsdoc'
+        }
+      }
+    },
   ],
   rules: {
     // region sort imports/exports
