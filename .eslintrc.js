@@ -58,10 +58,10 @@ module.exports = {
   ],
   rules: {
     // region sort imports/exports
-    /** disable other sorters in favour of `simple-import-sort` */
+    /* disable other sorters in favour of `simple-import-sort` */
     'import/order': 0,
     'sort-imports': 0,
-    /** @see https://github.com/lydell/eslint-plugin-simple-import-sort/ */
+    /* see https://github.com/lydell/eslint-plugin-simple-import-sort/ */
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     // endregion sort imports/exports
