@@ -60,7 +60,7 @@ module.exports = {
       rules: {
         'jsdoc/require-param-type': 'error',
         'jsdoc/require-property-type': 'error',
-        'jsdoc/require-returns-type': 'error',
+        'jsdoc/require-returns-type': 'error'
       },
       settings: {
         jsdoc: {
@@ -68,7 +68,7 @@ module.exports = {
           mode: 'jsdoc'
         }
       }
-    },
+    }
   ],
   rules: {
     // region sort imports/exports

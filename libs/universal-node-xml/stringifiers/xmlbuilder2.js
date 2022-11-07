@@ -25,6 +25,19 @@ module.exports = typeof create === 'function'
   ? stringify
   : undefined
 
+/**
+ * @typedef XMLBuilder - something from {import('xmlbuilder2')} that was not properly exported...
+ */
+
+/**
+ * @typedef {import('../../../src/serialize/xml/types').SimpleXml.Element} Element
+ */
+
+/**
+ * @param {Element} element
+ * @param {string|number} space
+ * @return {string}
+ */
 function stringify (element, { space } = {}) {
   const indent = makeIndent(space)
   const doc = create({ encoding: 'UTF-8' })
@@ -37,6 +50,11 @@ function stringify (element, { space } = {}) {
   })
 }
 
+/**
+ * @param {XMLBuilder} parent
+ * @param {Element} element
+ * @param {string|null} parentNS
+ */
 function addEle (parent, element, parentNS = null) {
   if (element.type !== 'element') { return }
   const ns = getNS(element) ?? parentNS
