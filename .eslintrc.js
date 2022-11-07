@@ -66,6 +66,8 @@ module.exports = {
     'simple-import-sort/exports': 'error',
     // endregion sort imports/exports
     // region docs
+    'check-tag-names': 0,
+    'jsdoc/check-types': 'error',
     'jsdoc/require-jsdoc': 0,
     'jsdoc/require-param': 0,
     'jsdoc/require-param-description': 0,
@@ -82,6 +84,7 @@ module.exports = {
     'jsdoc/require-throws': 'error',
     'jsdoc/require-yields': 0,
     'jsdoc/require-yields-check': 'error',
+    'jsdoc/sort-tags': true
     // endregion docs
   }
 }
