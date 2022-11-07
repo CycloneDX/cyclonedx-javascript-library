@@ -56,6 +56,11 @@ module.exports = {
       }
     }
   ],
+  settings: {
+    jsdoc: {
+      mode: 'typescript'
+    }
+  },
   rules: {
     // region sort imports/exports
     /** disable other sorters in favour of `simple-import-sort` */
