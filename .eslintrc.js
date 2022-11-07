@@ -56,11 +56,6 @@ module.exports = {
       }
     }
   ],
-  settings: {
-    jsdoc: {
-      mode: 'typescript'
-    }
-  },
   rules: {
     // region sort imports/exports
     /** disable other sorters in favour of `simple-import-sort` */
@@ -71,7 +66,8 @@ module.exports = {
     'simple-import-sort/exports': 'error',
     // endregion sort imports/exports
     // region docs
-    'check-tag-names': 0,
+    /* see https://github.com/gajus/eslint-plugin-jsdoc */
+    'jsdoc/check-tag-names': 0,
     'jsdoc/check-types': 'error',
     'jsdoc/require-jsdoc': 0,
     'jsdoc/require-param': 0,
@@ -91,5 +87,11 @@ module.exports = {
     'jsdoc/require-yields-check': 'error',
     'jsdoc/sort-tags': 'warn'
     // endregion docs
+  },
+  settings: {
+    jsdoc: {
+      /* see https://github.com/gajus/eslint-plugin-jsdoc */
+      mode: 'typescript'
+    }
   }
 }
