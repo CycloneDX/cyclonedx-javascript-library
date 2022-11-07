@@ -24,6 +24,7 @@ import * as Models from '../models'
 
 /**
  * Node-specifics.
+ *
  * @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json PackageJson spec}
  */
 

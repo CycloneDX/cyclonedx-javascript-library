@@ -49,10 +49,6 @@ export interface Protocol {
   supportsProperties: (model: any) => boolean
 }
 
-/**
- * @internal This class was never intended to be public, but
- *           it is a helper to get the exact spec-versions implemented according to {@link Protocol}.
- */
 class Spec implements Protocol {
   readonly #version: Version
   readonly #formats: ReadonlySet<Format>

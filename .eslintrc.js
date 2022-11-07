@@ -19,8 +19,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 /**
- * @see {@link https://eslint.org/}
  * @type {import('eslint').Linter.Config}
+ * @see {@link https://eslint.org/}
  */
 module.exports = {
   root: true,

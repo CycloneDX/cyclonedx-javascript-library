@@ -22,14 +22,16 @@ module.exports = {
 
   /**
    * Capitalise the first letter of a string
+   *
    * @param {string} s
-   * @return {string}
+   * @returns {string}
    */
   capitaliseFirstLetter: s => s.charAt(0).toUpperCase() + s.slice(1),
   /**
    * UpperCamelCase a string
+   *
    * @param {string} s
-   * @return {string}
+   * @returns {string}
    */
   upperCamelCase: s => s.replace(
     /\b\w/g,
@@ -38,8 +40,9 @@ module.exports = {
 
   /**
    * Generate a random string of length.
+   *
    * @param {number} length
-   * @return {string}
+   * @returns {string}
    */
   randomString: length => Math.random().toString(32).substring(2, 2 + length)
 }
