@@ -63,7 +63,25 @@ module.exports = {
     'sort-imports': 0,
     /** @see https://github.com/lydell/eslint-plugin-simple-import-sort/ */
     'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error'
+    'simple-import-sort/exports': 'error',
     // endregion sort imports/exports
+    // region docs
+    'jsdoc/require-jsdoc': 0,
+    'jsdoc/require-param': 0,
+    'jsdoc/require-param-description': 0,
+    'jsdoc/require-param-name': 'error',
+    'jsdoc/require-param-type': 0,
+    'jsdoc/require-property': 0,
+    'jsdoc/require-property-description': 0,
+    'jsdoc/require-property-name': 'error',
+    'jsdoc/require-property-type': 0,
+    'jsdoc/require-returns': 0,
+    'jsdoc/require-returns-check': 'error',
+    'jsdoc/require-returns-description': 0,
+    'jsdoc/require-returns-type': 0,
+    'jsdoc/require-throws': 'error',
+    'jsdoc/require-yields': 0,
+    'jsdoc/require-yields-check': 'error',
+    // endregion docs
   }
 }
