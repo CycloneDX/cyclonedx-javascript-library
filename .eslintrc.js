@@ -24,15 +24,17 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 module.exports = {
   root: true,
-  /** @see https://github.com/standard/ts-standard */
   extends: [
+    /* see https://github.com/standard/ts-standard */
     'standard-with-typescript',
-    "plugin:jsdoc/recommended"
-    ],
+    /* see https://github.com/gajus/eslint-plugin-jsdoc */
+    'plugin:jsdoc/recommended'
+  ],
   parserOptions: {
     project: './tsconfig.json'
   },
   plugins: [
+    /* see https://github.com/lydell/eslint-plugin-simple-import-sort#readme */
     'simple-import-sort'
   ],
   env: {
@@ -56,7 +58,7 @@ module.exports = {
   ],
   rules: {
     // region sort imports/exports
-    /** disable other sorters in favour of `simple-import-sort` **/
+    /** disable other sorters in favour of `simple-import-sort` */
     'import/order': 0,
     'sort-imports': 0,
     /** @see https://github.com/lydell/eslint-plugin-simple-import-sort/ */
