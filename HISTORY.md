@@ -5,9 +5,12 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Changed
-  * Widened the accepted types for parameter1 of all `normalizeIterable()` methods (via [#317])
+  * Widened the accepted types for first parameter of all `normalizeIterable` methods (via [#317])
+* Build
+  * Use _TypeScript_ `v4.9.3` now, was `v4.8.4`. (via [#335])
 
 [#317]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/317
+[#335]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/335
 
 ## 1.8.0 - 2022-10-31
 
