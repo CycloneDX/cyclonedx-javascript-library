@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.9.0 - 2022-11-19
+
 * Changed
   * Widened the accepted types for first parameter of all `normalizeIterable` methods (via [#317])
 * Build
