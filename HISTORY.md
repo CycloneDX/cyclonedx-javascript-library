@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Build
+  * Use _TypeScript_ `v4.9.4` now, was `v4.9.3`. (via [#360])
+
+[#360]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/360
+
 ## 1.9.0 - 2022-11-19
 
 * Changed
