@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Docs
+  * fix CI/CT shield ([badges/shields#8671] via [#371])
+
+[badges/shields#8671]: https://github.com/badges/shields/issues/8671
+[#371]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/371
+
 ## 1.9.1 - 2022-12-10
 
 Maintenance release.
