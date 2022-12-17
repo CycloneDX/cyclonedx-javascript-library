@@ -109,9 +109,7 @@ export namespace SimpleXml {
    */
   export type Unset = undefined
 
-  export interface ElementAttributes {
-    [key: AttributeName]: Text | Unset
-  }
+  export type ElementAttributes = Record<AttributeName, Text | Unset>
 
   export type ElementChildren = Iterable<Comment | Element> | Text | Unset
 

@@ -4,12 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Misc
+  * Use `eslint-config-standard-with-typescript@24.0.0` now, was `23.0.0` (via [#382])
+
+[#382]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/382
+
 ## 1.9.2 - 2022-12-16
 
 Maintenance release.
 
 * Docs
-  * fix CI/CT shield ([badges/shields#8671] via [#371])
+  * Fix CI/CT shield ([badges/shields#8671] via [#371])
 
 [badges/shields#8671]: https://github.com/badges/shields/issues/8671
 [#371]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/371
