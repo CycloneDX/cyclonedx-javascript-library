@@ -44,6 +44,7 @@ export interface PackageJson {
     name?: string
     email?: string
   }
+  path?: string
   bugs?: string | {
     url?: string
   }

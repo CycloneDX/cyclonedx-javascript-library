@@ -83,6 +83,14 @@ export class ComponentBuilder {
     return this.#licenseFactory
   }
 
+  createLicense (type: string, url: string | undefined, pkgPath: string | undefined): Models.DisjunctiveLicense {
+    const license = this.#licenseFactory.makeDisjunctive(type)
+    license.url = typeof url === 'string'
+      ? url
+      : undefined
+    return license
+  }
+
   makeComponent (data: PackageJson, type: Enums.ComponentType = Enums.ComponentType.Library): Models.Component | undefined {
     if (typeof data.name !== 'string') {
       return undefined
@@ -115,17 +123,16 @@ export class ComponentBuilder {
     const licenses = new Models.LicenseRepository()
     if (typeof data.license === 'string') {
       /** @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#license} */
-      licenses.add(this.#licenseFactory.makeFromString(data.license))
+      licenses.add(this.createLicense(data.license, undefined, data.path))
     }
     if (Array.isArray(data.licenses)) {
       /** @see {@link https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json} */
       for (const licenseData of data.licenses) {
         if (typeof licenseData?.type === 'string') {
-          const license = this.#licenseFactory.makeDisjunctive(licenseData.type)
-          license.url = typeof licenseData.url === 'string'
+          const url = typeof licenseData.url === 'string'
             ? licenseData.url
             : undefined
-          licenses.add(license)
+          licenses.add(this.createLicense(licenseData.type, url, data.path))
         }
       }
     }
