@@ -17,6 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import * as fs from 'fs'
+import * as path from 'path'
+
 import { PackageJson, splitNameGroup } from '../_helpers/packageJson'
 import * as Enums from '../enums'
 import * as Factories from '../factories/index.node'
@@ -66,13 +69,16 @@ export class ToolBuilder {
 export class ComponentBuilder {
   readonly #extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory
   readonly #licenseFactory: Factories.LicenseFactory
+  readonly addLicenseText: boolean
 
   constructor (
     extRefFactory: ComponentBuilder['extRefFactory'],
-    licenseFactory: ComponentBuilder['licenseFactory']
+    licenseFactory: ComponentBuilder['licenseFactory'],
+    addLicenseText: boolean = false
   ) {
     this.#extRefFactory = extRefFactory
     this.#licenseFactory = licenseFactory
+    this.addLicenseText = addLicenseText
   }
 
   get extRefFactory (): Factories.FromNodePackageJson.ExternalReferenceFactory {
@@ -83,11 +89,32 @@ export class ComponentBuilder {
     return this.#licenseFactory
   }
 
+  searchLicenseFilename (pkgPath: string): string {
+    const proposals = ['LICENSE', 'License', 'license.txt', 'LICENSE.md',
+      'LICENSE-MIT.txt', 'LICENSE-MIT', 'mit.LICENSE',
+      'LICENSE.BSD'
+    ]
+    for (const proposal of proposals) {
+      const filenameProposal = path.join(pkgPath, proposal)
+      if (fs.existsSync(filenameProposal)) {
+        return filenameProposal
+      }
+    }
+    return ''
+  }
+
   createLicense (type: string, url: string | undefined, pkgPath: string | undefined): Models.DisjunctiveLicense {
     const license = this.#licenseFactory.makeDisjunctive(type)
     license.url = typeof url === 'string'
       ? url
       : undefined
+    if (this.addLicenseText && pkgPath !== undefined) {
+      const licFilename = this.searchLicenseFilename(pkgPath)
+      if (licFilename.length > 0) {
+        const licText = fs.readFileSync(licFilename, { encoding: 'base64' }).trim()
+        license.text = new Models.Attachment(licText, { encoding: Enums.AttachmentEncoding.Base64 })
+      }
+    }
     return license
   }
 
