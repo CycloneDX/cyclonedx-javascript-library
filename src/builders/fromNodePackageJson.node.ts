@@ -17,19 +17,24 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { PackageJson, splitNameGroup } from '../_helpers/packageJson'
 import * as Enums from '../enums'
-import * as Models from '../models'
 import * as Factories from '../factories/index.node'
-import { PackageJson, splitNameGroup } from '../helpers/packageJson'
+import * as Models from '../models'
 
 /**
+ * Node-specifics.
+ *
  * @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json PackageJson spec}
  */
 
+/**
+ * Node-specific ToolBuilder.
+ */
 export class ToolBuilder {
   readonly #extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory
 
-  constructor (extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory) {
+  constructor (extRefFactory: ToolBuilder['extRefFactory']) {
     this.#extRefFactory = extRefFactory
   }
 
@@ -37,6 +42,8 @@ export class ToolBuilder {
     return this.#extRefFactory
   }
 
+  // Current implementation does not return `undefined` yet, but it is an option for future implementation.
+  // To prevent breaking changes, it is declared to return `undefined`.
   makeTool (data: PackageJson): Models.Tool | undefined {
     const [name, vendor] = typeof data.name === 'string'
       ? splitNameGroup(data.name)
@@ -53,13 +60,16 @@ export class ToolBuilder {
   }
 }
 
+/**
+ * Node-specific ComponentBuilder.
+ */
 export class ComponentBuilder {
   readonly #extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory
   readonly #licenseFactory: Factories.LicenseFactory
 
   constructor (
-    extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory,
-    licenseFactory: Factories.LicenseFactory
+    extRefFactory: ComponentBuilder['extRefFactory'],
+    licenseFactory: ComponentBuilder['licenseFactory']
   ) {
     this.#extRefFactory = extRefFactory
     this.#licenseFactory = licenseFactory
@@ -89,30 +99,43 @@ export class ComponentBuilder {
       : (typeof data.author?.name === 'string'
           ? data.author.name
           : undefined)
+
     /** @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#description-1} */
     const description = typeof data.description === 'string'
       ? data.description
       : undefined
+
     /** @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#version} */
     const version = typeof data.version === 'string'
       ? data.version
       : undefined
+
     const externalReferences = this.#extRefFactory.makeExternalReferences(data)
-    /** @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#license} */
-    const license = typeof data.license === 'string'
-      ? this.#licenseFactory.makeFromString(data.license)
-      : undefined
+
+    const licenses = new Models.LicenseRepository()
+    if (typeof data.license === 'string') {
+      /** @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#license} */
+      licenses.add(this.#licenseFactory.makeFromString(data.license))
+    }
+    if (Array.isArray(data.licenses)) {
+      /** @see {@link https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json} */
+      for (const licenseData of data.licenses) {
+        if (typeof licenseData?.type === 'string') {
+          const license = this.#licenseFactory.makeDisjunctive(licenseData.type)
+          license.url = typeof licenseData.url === 'string'
+            ? licenseData.url
+            : undefined
+          licenses.add(license)
+        }
+      }
+    }
 
     return new Models.Component(type, name, {
       author,
       description,
       externalReferences: new Models.ExternalReferenceRepository(externalReferences),
       group,
-      licenses: new Models.LicenseRepository(
-        license === undefined
-          ? []
-          : [license]
-      ),
+      licenses,
       version
     })
   }

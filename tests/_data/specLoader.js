@@ -25,7 +25,7 @@ const resPath = path.resolve(__dirname, '..', '..', 'res')
 
 /**
  * @param {string} resourceFile
- * @return {*}
+ * @returns {*}
  */
 function loadSpec (resourceFile) {
   return JSON.parse(
@@ -38,7 +38,7 @@ function loadSpec (resourceFile) {
 /**
  * @param {string} resourceFile
  * @param {string} path
- * @return {*}
+ * @returns {*}
  */
 function getSpecElement (resourceFile, ...path) {
   let element = loadSpec(resourceFile)
@@ -51,14 +51,14 @@ function getSpecElement (resourceFile, ...path) {
 /**
  * @param {string} resourceFile
  * @param {string} path
- * @return {Array<number|string>}
+ * @returns {Array<number|string>}
  */
 function getSpecEnum (resourceFile, ...path) {
   return getSpecElement(resourceFile, 'definitions', ...path, 'enum')
 }
 
 module.exports = {
-  loadSpec: loadSpec,
-  getSpecElement: getSpecElement,
-  getSpecEnum: getSpecEnum
+  loadSpec,
+  getSpecElement,
+  getSpecEnum
 }

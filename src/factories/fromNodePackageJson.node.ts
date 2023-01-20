@@ -17,15 +17,24 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import * as Models from '../models'
+import { PackageURL } from 'packageurl-js'
+
+import { isNotUndefined } from '../_helpers/notUndefined'
+import { PackageJson } from '../_helpers/packageJson'
+import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
 import * as Enums from '../enums'
-import { isNotUndefined } from '../helpers/notUndefined'
-import { PackageJson } from '../helpers/packageJson'
+import * as Models from '../models'
+import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
 
 /**
+ * Node-specifics.
+ *
  * @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json PackageJson spec}
  */
 
+/**
+ * Node-specific ExternalReferenceFactory.
+ */
 export class ExternalReferenceFactory {
   makeExternalReferences (data: PackageJson): Models.ExternalReference[] {
     const refs: Array<Models.ExternalReference | undefined> = []
@@ -84,5 +93,51 @@ export class ExternalReferenceFactory {
     return typeof url === 'string' && url.length > 0
       ? new Models.ExternalReference(url, Enums.ExternalReferenceType.IssueTracker, { comment })
       : undefined
+  }
+}
+
+const npmDefaultRegistryMatcher = /^https?:\/\/registry\.npmjs\.org/
+
+/**
+ * Node-specific PackageUrlFactory.
+ */
+export class PackageUrlFactory extends PlainPackageUrlFactory {
+  override makeFromComponent (component: Models.Component, sort: boolean = false): PackageURL | undefined {
+    const purl = super.makeFromComponent(component, sort)
+    return purl === undefined
+      ? undefined
+      : this.#finalizeQualifiers(purl)
+  }
+
+  /**
+   * Will strip unnecessary qualifiers according to {@link https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst#known-qualifiers-keyvalue-pairs PURL-SPECIFICATION}:
+   * > Do not abuse qualifiers: it can be tempting to use many qualifier keys but their usage should be limited
+   * > to the bare minimum for proper package identification to ensure that a purl stays compact and readable
+   * > in most cases.
+   *
+   * Therefore:
+   * - "vcs_url" is stripped, if a "download_url" is given.
+   * - "download_url" is stripped, if it is NPM's default registry ("registry.npmjs.org")
+   * - "checksum" is stripped, unless a "download_url" or "vcs_url" is given.
+   */
+  #finalizeQualifiers (purl: PackageURL): PackageURL {
+    const qualifiers = new Map(Object.entries(purl.qualifiers ?? {}))
+
+    const downloadUrl = qualifiers.get(PackageUrlQualifierNames.DownloadURL)
+    if (downloadUrl !== undefined) {
+      qualifiers.delete(PackageUrlQualifierNames.VcsUrl)
+      if (npmDefaultRegistryMatcher.test(downloadUrl)) {
+        qualifiers.delete(PackageUrlQualifierNames.DownloadURL)
+      }
+    }
+    if (!qualifiers.has(PackageUrlQualifierNames.DownloadURL) && !qualifiers.has(PackageUrlQualifierNames.VcsUrl)) {
+      // nothing to base a checksum on
+      qualifiers.delete(PackageUrlQualifierNames.Checksum)
+    }
+    purl.qualifiers = qualifiers.size > 0
+      ? Object.fromEntries(qualifiers.entries())
+      : undefined
+
+    return purl
   }
 }

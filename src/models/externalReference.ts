@@ -17,8 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { Comparable, SortableSet } from '../_helpers/sortableSet'
 import { ExternalReferenceType } from '../enums'
-import { Comparable, SortableSet } from '../helpers/sortableSet'
 
 interface OptionalProperties {
   comment?: ExternalReference['comment']
@@ -29,7 +29,7 @@ export class ExternalReference implements Comparable {
   type: ExternalReferenceType
   comment?: string
 
-  constructor (url: URL | string, type: ExternalReferenceType, op: OptionalProperties = {}) {
+  constructor (url: ExternalReference['url'], type: ExternalReference['type'], op: OptionalProperties = {}) {
     this.url = url
     this.type = type
     this.comment = op.comment

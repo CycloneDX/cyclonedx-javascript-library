@@ -19,17 +19,17 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { PackageURL } from 'packageurl-js'
 
-import { CPE, isCPE } from '../types'
+import { Comparable, SortableSet } from '../_helpers/sortableSet'
+import { treeIteratorSymbol } from '../_helpers/tree'
 import { ComponentScope, ComponentType } from '../enums'
+import { CPE, isCPE } from '../types'
 import { BomRef, BomRefRepository } from './bomRef'
-import { HashRepository } from './hash'
-import { OrganizationalEntity } from './organizationalEntity'
 import { ExternalReferenceRepository } from './externalReference'
+import { HashDictionary } from './hash'
 import { LicenseRepository } from './license'
-import { SWID } from './swid'
+import { OrganizationalEntity } from './organizationalEntity'
 import { PropertyRepository } from './property'
-import { Comparable, SortableSet } from '../helpers/sortableSet'
-import { treeIterator } from '../helpers/tree'
+import { SWID } from './swid'
 
 interface OptionalProperties {
   bomRef?: BomRef['value']
@@ -60,7 +60,7 @@ export class Component implements Comparable {
   description?: string
   externalReferences: ExternalReferenceRepository
   group?: string
-  hashes: HashRepository
+  hashes: HashDictionary
   licenses: LicenseRepository
   publisher?: string
   purl?: PackageURL
@@ -79,7 +79,7 @@ export class Component implements Comparable {
   #cpe?: CPE
 
   /**
-   * @throws {TypeError} if {@see op.cpe} is neither {@see CPE} nor {@see undefined}
+   * @throws {TypeError} if {@link op.cpe} is neither {@link CPE} nor {@link undefined}
    */
   constructor (type: Component['type'], name: Component['name'], op: OptionalProperties = {}) {
     this.#bomRef = new BomRef(op.bomRef)
@@ -90,7 +90,7 @@ export class Component implements Comparable {
     this.copyright = op.copyright
     this.externalReferences = op.externalReferences ?? new ExternalReferenceRepository()
     this.group = op.group
-    this.hashes = op.hashes ?? new HashRepository()
+    this.hashes = op.hashes ?? new HashDictionary()
     this.licenses = op.licenses ?? new LicenseRepository()
     this.publisher = op.publisher
     this.purl = op.purl
@@ -113,7 +113,7 @@ export class Component implements Comparable {
   }
 
   /**
-   * @throws {TypeError} if value is neither {@see CPE} nor {@see undefined}
+   * @throws {TypeError} if value is neither {@link CPE} nor {@link undefined}
    */
   set cpe (value: CPE | undefined) {
     if (value !== undefined && !isCPE(value)) {
@@ -134,18 +134,19 @@ export class Component implements Comparable {
     if (this.#cpe !== undefined && other.#cpe !== undefined) {
       return this.#cpe.toString().localeCompare(other.#cpe.toString())
     }
-    /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return (this.group ?? '').localeCompare(other.group ?? '') ||
       this.name.localeCompare(other.name) ||
       (this.version ?? '').localeCompare(other.version ?? '')
+    /* eslint-enable  @typescript-eslint/strict-boolean-expressions */
   }
 }
 
 export class ComponentRepository extends SortableSet<Component> {
-  * [treeIterator] (): Generator<Component> {
+  * [treeIteratorSymbol] (): Generator<Component> {
     for (const component of this) {
       yield component
-      yield * component.components[treeIterator]()
+      yield * component.components[treeIteratorSymbol]()
     }
   }
 }

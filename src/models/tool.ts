@@ -17,9 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { HashRepository } from './hash'
+import { Comparable, SortableSet } from '../_helpers/sortableSet'
 import { ExternalReferenceRepository } from './externalReference'
-import { Comparable, SortableSet } from '../helpers/sortableSet'
+import { HashDictionary } from './hash'
 
 interface OptionalProperties {
   vendor?: Tool['vendor']
@@ -33,23 +33,24 @@ export class Tool implements Comparable {
   vendor?: string
   name?: string
   version?: string
-  hashes: HashRepository
+  hashes: HashDictionary
   externalReferences: ExternalReferenceRepository
 
   constructor (op: OptionalProperties = {}) {
     this.vendor = op.vendor
     this.name = op.name
     this.version = op.version
-    this.hashes = op.hashes ?? new HashRepository()
+    this.hashes = op.hashes ?? new HashDictionary()
     this.externalReferences = op.externalReferences ?? new ExternalReferenceRepository()
   }
 
   compare (other: Tool): number {
     // The purpose of this method is not to test for equality, but have deterministic comparability.
-    /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return (this.vendor ?? '').localeCompare(other.vendor ?? '') ||
       (this.name ?? '').localeCompare(other.name ?? '') ||
       (this.version ?? '').localeCompare(other.version ?? '')
+    /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
 }
 

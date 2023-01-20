@@ -20,25 +20,29 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 /** Example how to serialize a Bom to JSON / XML. */
 
-import * as cdx from '@cyclonedx/cyclonedx-library'
-// full Library is available as `cdx`, now
+import * as CDX from '@cyclonedx/cyclonedx-library'
+// full Library is available as `CDX`, now
 
-const bom = new cdx.Models.Bom()
-bom.components.add(
-  new cdx.Models.Component(
-    cdx.Enums.ComponentType.Library,
-    'myComponent'
-  )
+const bom = new CDX.Models.Bom()
+bom.metadata.component = new CDX.Models.Component(
+  CDX.Enums.ComponentType.Application,
+  'MyProject'
 )
+const componentA = new CDX.Models.Component(
+  CDX.Enums.ComponentType.Library,
+  'myComponentA'
+)
+bom.components.add(componentA)
+bom.metadata.component.dependencies.add(componentA.bomRef)
 
-const jsonSerializer = new cdx.Serialize.JsonSerializer(
-  new cdx.Serialize.JSON.Normalize.Factory(
-    cdx.Spec.Spec1dot4))
+const jsonSerializer = new CDX.Serialize.JsonSerializer(
+  new CDX.Serialize.JSON.Normalize.Factory(
+    CDX.Spec.Spec1dot4))
 const serialized = jsonSerializer.serialize(bom)
 console.log(serialized)
 
-const xmlSerializer = new cdx.Serialize.XmlSerializer(
-  new cdx.Serialize.XML.Normalize.Factory(
-    cdx.Spec.Spec1dot4))
+const xmlSerializer = new CDX.Serialize.XmlSerializer(
+  new CDX.Serialize.XML.Normalize.Factory(
+    CDX.Spec.Spec1dot4))
 const serializedXML = xmlSerializer.serialize(bom)
 console.log(serializedXML)

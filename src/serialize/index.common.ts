@@ -17,19 +17,30 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-// not everything is public, yet
+// !!! not everything is public, yet
 
+export * from './bomRefDiscriminator'
 export * as Types from './types'
+
+// region base
 
 export * from './baseSerializer'
 // export * from './baseDeserializer' // TODO
 
-export * from './bomRefDiscriminator'
+// endregion base
+
+// region JSON
 
 export * as JSON from './json'
 export * from './jsonSerializer'
 // export * from './jsonDeserializer' // TODO
 
+// endregion JSON
+
+// region XML
+
 export * as XML from './xml'
 export * from './xmlBaseSerializer'
 // export * from './xmlBaseDeserializer' // TODO
+
+// endregion XML

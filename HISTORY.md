@@ -4,6 +4,147 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Misc
+  * Use `eslint-config-standard-with-typescript@24.0.0` now, was `23.0.0` (via [#382])
+
+[#382]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/382
+
+## 1.9.2 - 2022-12-16
+
+Maintenance release.
+
+* Docs
+  * Fix CI/CT shield ([badges/shields#8671] via [#371])
+
+[badges/shields#8671]: https://github.com/badges/shields/issues/8671
+[#371]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/371
+
+## 1.9.1 - 2022-12-10
+
+Maintenance release.
+
+* Build
+  * Use _TypeScript_ `v4.9.4` now, was `v4.9.3`. (via [#360])
+
+[#360]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/360
+
+## 1.9.0 - 2022-11-19
+
+* Changed
+  * Widened the accepted types for first parameter of all `normalizeIterable` methods (via [#317])
+* Build
+  * Use _TypeScript_ `v4.9.3` now, was `v4.8.4`. (via [#335])
+
+[#317]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/317
+[#335]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/335
+
+## 1.8.0 - 2022-10-31
+
+* Added
+  * Enabled detection for node-package manifest's deprecated licenses format in the node-specific builders ([#308] via [#309])
+
+[#308]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/308
+[#309]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/309
+
+## 1.7.0 - 2022-10-25
+
+* Changed
+  * Shipped TypeScript declarations are usable by TypeScript v3.8 and above now. ([#291] via [#292])
+    Previously the source code was abused as type declarations, so they required a certain version of TypeScript 4.
+
+[#291]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/291
+[#292]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/292
+
+## 1.6.0 - 2022-09-31
+
+* Changed
+  * Removed synthetic default imports im TypeScript sources. (via [#243])  
+    The resulting _JavaScript_ did not change in functionality.  
+    Downstream users of the _TypeScript_ sources/definitions might consider this a feature,
+    as they are no longer required to compile with `allowSyntheticDefaultImports` enabled. 
+* Added
+  * Documentation and example regarding dependency tree modelling were added in multiple places. (via [#250])  
+* Build
+  * No longer enable _TypeScript_ config `esModuleInterop` & `allowSyntheticDefaultImports`. (via [#243])
+  * Use _TypeScript_ `v4.8.4` now, was `v4.8.3`. (via [#246])
+
+[#243]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/243
+[#246]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/246
+[#250]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/250
+
+## 1.5.1 - 2022-09-17
+
+* Deprecated
+  * The normalizer methods `normalizeRepository` will be known as `normalizeIterable`. (via [#230])
+
+[#230]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/230
+
+## 1.5.0 - 2022-09-17
+
+* Deprecated
+  * The class `HashRepository` will be known as `HashDictionary`. (via [#229])
+
+[#229]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/229
+
+## 1.4.2 - 2022-09-10
+
+Maintenance release.
+
+* Build
+  * Use _TypeScript_ `v4.8.3` now, was `v4.8.2`. (via [#212])
+
+[#212]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/212
+
+## 1.4.1 - 2022-09-09
+
+Maintenance release.
+
+* Misc
+  * Style: imports are sorted, now. (via [#208])
+* Dependencies
+  * Widened the range of requirement `packageurl-js` to `>=0.0.6 <0.0.8 || ^1`, was `>=0.0.6 <0.0.8`. (via [#210])
+
+[#208]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/208
+[#210]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/210
+
+## 1.4.0 - 2022-09-07
+
+* Added
+  * New class `Factories.FromNodePackageJson.PackageUrlFactory` that acts like `Factories.PackageUrlFactory`, but
+    omits PackageUrl's npm-specific "default derived" qualifier values for `download_url` & `vcs_url`. ([#204] via [#207])
+* Build
+  * Use _TypeScript_ `v4.8.2` now, was `v4.7.4`. (via [#190])
+
+[#204]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/178
+[#207]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/207
+[#190]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/190
+
+## 1.3.4 - 2022-08-16
+
+* Fixed
+  * `Factories.PackageUrlFactory` omits empty-string URLs for PackageUrl's qualifiers `download_url` & `vcs_url`. (via [#180])
+
+[#180]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/180
+
+## 1.3.3 - 2022-08-16
+
+* Fixed
+  * Improved omission of invalid `anyURI` when it comes to XML-normalization. ([#178] via [#179])
+
+[#178]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/178
+[#179]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/179
+
+## 1.3.2 - 2022-08-15
+
+* Fixed
+  * Serializers render `bom-ref` values of nested components as unique values, as expected. ([#175] via [#176])
+* Misc
+  * Style: improved readability of constructor parameter types. (via [#166])
+
+[#166]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/166
+[#175]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/175
+[#176]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/176
+
 ## 1.3.1 - 2022-08-04
 
 * Fixed

@@ -22,7 +22,9 @@ const { PackageURL } = require('packageurl-js')
 
 const { Enums, Models } = require('../../')
 
-/** @typedef {import('../../').Models.Bom} Bom */
+/**
+ * @typedef {import('../../src/models/bom').Bom} Bom
+ */
 
 /**
  * @returns {Bom}
@@ -38,7 +40,7 @@ module.exports.createComplexStructure = function () {
           vendor: 'tool vendor',
           name: 'tool name',
           version: '0.8.15',
-          hashes: new Models.HashRepository([
+          hashes: new Models.HashDictionary([
             [Enums.HashAlgorithm.MD5, 'f32a26e2a3a8aa338cd77b6e1263c535'],
             [Enums.HashAlgorithm['SHA-1'], '829c3804401b0727f70f73d4415e162400cbe57b']
           ])
@@ -61,7 +63,7 @@ module.exports.createComplexStructure = function () {
         new Models.OrganizationalContact({
           name: 'Jane "the-author" Doe',
           email: 'cdx-authors@mailinator.com',
-          pone: '555-1234567890'
+          phone: '555-1234567890'
         })
       ]),
       component: new Models.Component(Enums.ComponentType.Library, 'Root Component', {
@@ -78,7 +80,7 @@ module.exports.createComplexStructure = function () {
           new Models.OrganizationalContact({
             name: 'John "the-supplier" Doe',
             email: 'cdx-suppliers@mailinator.com',
-            pone: '555-0123456789'
+            phone: '555-0123456789'
           }),
           new Models.OrganizationalContact({
             name: 'Jane "the-other-supplier" Doe'
@@ -124,7 +126,7 @@ module.exports.createComplexStructure = function () {
     })(new Models.SpdxLicense('MIT')))
     component.licenses.add(new Models.LicenseExpression('(MIT or Apache-2.0)'))
     component.publisher = 'the publisher'
-    component.purl = new PackageURL('npm', 'acme', 'dummy-component', '1337-beta')
+    component.purl = new PackageURL('npm', 'acme', 'dummy-component', '1337-beta', undefined, undefined)
     component.scope = Enums.ComponentScope.Required
     component.supplier = new Models.OrganizationalEntity({ name: 'Component Supplier' })
     component.supplier.url.add(new URL('https://localhost/componentSupplier-B'))

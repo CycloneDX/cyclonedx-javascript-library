@@ -17,16 +17,19 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * as Builders from './builders/index.node'
-export * as Enums from './enums'
-export * as Factories from './factories/index.node'
-export * as Models from './models'
-export * as Serialize from './serialize/index.node'
-export * as SPDX from './spdx'
-export * as Spec from './spec'
-export * as Types from './types'
+export * from './index.common'
 
-/** @internal until the resources-module was finalized and showed value */
+// region node-specifics
+
+export * as Builders from './builders/index.node'
+export * as Factories from './factories/index.node'
+export * as Serialize from './serialize/index.node'
+
+/**
+ * Internal, until the resources-module was finalized and shows any value
+ *
+ * @internal
+ */
 export * as _Resources from './resources.node'
 
-// do not export the helpers, they are for internal use only
+// endregion node-specifics

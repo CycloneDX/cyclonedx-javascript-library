@@ -17,10 +17,10 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { isNotUndefined } from '../helpers/notUndefined'
+import { isNotUndefined } from '../_helpers/notUndefined'
 import { SerializerOptions } from './types'
-import { XmlBaseSerializer } from './xmlBaseSerializer'
 import { SimpleXml } from './xml/types'
+import { XmlBaseSerializer } from './xmlBaseSerializer'
 
 /**
  * XML serializer for web browsers.

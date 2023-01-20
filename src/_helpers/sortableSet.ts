@@ -17,17 +17,19 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { Sortable } from './sortable'
+
 export interface Comparable {
   // The purpose of this method is not to test for equality, but have deterministic comparability.
   compare: (other: any) => number
 }
 
-export abstract class SortableSet<T extends Comparable> extends Set<T> implements Comparable {
-  sorted (): T[] {
-    return Array.from(this).sort((a: T, b: T) => a.compare(b))
+export abstract class SortableSet<TItem extends Comparable> extends Set<TItem> implements Comparable, Sortable<TItem> {
+  sorted (): TItem[] {
+    return Array.from(this).sort((a, b) => a.compare(b))
   }
 
-  compare (other: SortableSet<T>): number {
+  compare (other: SortableSet<TItem>): number {
     const thisSorted = this.sorted()
     const otherSorted = other.sorted()
     const lenDiff = thisSorted.length - otherSorted.length

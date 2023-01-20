@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "disableSourceOfProjectReferenceRedirect": false,
+    "outDir": "./"
+  },
+  "files": ["example.ts"],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts", "**/*.test.ts"
+  ]
+}

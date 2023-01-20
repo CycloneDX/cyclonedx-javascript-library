@@ -1,4 +1,3 @@
-'use strict'
 /*!
 This file is part of CycloneDX JavaScript Library.
 
@@ -18,34 +17,6 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-module.exports = {
-
-  /**
-   * Capitalise the first letter of a string
-   *
-   * @param {string} s
-   * @returns {string}
-   */
-  capitaliseFirstLetter: s => s.charAt(0).toUpperCase() + s.slice(1),
-  /**
-   * UpperCamelCase a string
-   *
-   * @param {string} s
-   * @returns {string}
-   */
-  upperCamelCase: s => s.replace(
-    /_/g,
-    ' '
-  ).replace(
-    /\b\w/g,
-    f => f.slice(-1).toUpperCase()
-  ).replace(/\W/g, ''),
-
-  /**
-   * Generate a random string of length.
-   *
-   * @param {number} length
-   * @returns {string}
-   */
-  randomString: length => Math.random().toString(32).substring(2, 2 + length)
+export interface Sortable<T> {
+  sorted: () => T[]
 }

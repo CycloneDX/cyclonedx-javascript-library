@@ -25,6 +25,7 @@ const { createComplexStructure } = require('../_data/models')
 const { loadNormalizeResult, writeNormalizeResult } = require('../_data/normalize')
 
 const {
+  Models, Enums,
   Serialize: {
     XML: { Normalize: { Factory: XmlNormalizeFactory } }
   },
@@ -73,4 +74,46 @@ describe('Serialize.XmlNormalize', function () {
 
     // TODO add more tests
   }))
+
+  describe('ExternalReference\'s `anyURI`', () => {
+    const normalizer = new XmlNormalizeFactory(Spec1dot4).makeForExternalReference()
+
+    describe('omit invalid', () => {
+      [
+        // only one fragment allowed
+        'foo#bar#baz',
+        // scheme must follow the RFC
+        'git@github.com:peterolson/BigInteger.js.git',
+        'git%40github.com:peterolson/BigInteger.js.git',
+        ':foo-bar'
+      ].forEach(uri => it(`${uri}`, () => {
+        const ref = new Models.ExternalReference(uri, Enums.ExternalReferenceType.Other)
+        const normalized = normalizer.normalize(ref, {}, 'ref')
+        assert.strictEqual(normalized, undefined)
+      }))
+    })
+    describe('render valid', () => {
+      [
+        'https://github.com/peterolson/BigInteger.js.git',
+        'git+ssh:git@github.com:peterolson/BigInteger.js.git',
+        'example.com:8080/foo/bar',
+        'foo#bar',
+        'foo@bar.com',
+        'g#it@github.com:peterolson/BigInteger.js.git'
+      ].forEach(uri => it(`${uri}`, () => {
+        const ref = new Models.ExternalReference(uri, Enums.ExternalReferenceType.Other)
+        const normalized = normalizer.normalize(ref, {}, 'ref')
+        assert.deepStrictEqual(normalized, {
+          type: 'element',
+          name: 'ref',
+          attributes: { type: 'other' },
+          children: [{
+            type: 'element',
+            name: 'url',
+            children: uri
+          }]
+        })
+      }))
+    })
+  })
 })

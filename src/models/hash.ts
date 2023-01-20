@@ -17,26 +17,33 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { Sortable } from '../_helpers/sortable'
 import { HashAlgorithm } from '../enums'
 
 // no regex for the HashContent in here. It applies at runtime of a normalization/serialization process.
 export type HashContent = string
 
 export type Hash = readonly [
-  // order matters: it must reflect [key, value] of HashRepository -
-  // this way a HashRepository can be constructed from multiple Hash objects.
-  algorithm: HashAlgorithm,
-  content: HashContent
+  // order matters: it must reflect [key, value] of HashDictionary -
+  // this way a HashDictionary can be constructed from multiple Hash objects.
+  /* algorithm: */ HashAlgorithm,
+  /* content:   */ HashContent,
+  // cannot use named tuple syntax ala `[a: T1, b: T2]` as it causes errors when downstream-projects compile with older versions of TypeScript
 ]
 
-export class HashRepository extends Map<Hash[0], Hash[1]> {
+/** @since 1.5.0 */
+export class HashDictionary extends Map<Hash[0], Hash[1]> implements Sortable<Hash> {
   #compareItems ([a1, c1]: Hash, [a2, c2]: Hash): number {
-    /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return a1.localeCompare(a2) ||
       c1.localeCompare(c2)
+    /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
 
   sorted (): Hash[] {
     return Array.from(this.entries()).sort(this.#compareItems)
   }
 }
+
+/** @deprecated use {@link HashDictionary} instead of {@link HashRepository} */
+export class HashRepository extends HashDictionary {}

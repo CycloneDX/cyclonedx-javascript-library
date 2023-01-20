@@ -13,6 +13,15 @@ on:
         description: 'Release/commit message (%s will be replaced with the resulting version number)'
         default: '%s'
         required: true
+      preid:
+        description: 'The "prerelease identifier" to use as a prefix for the "prerelease" part of a semver. Like the rc in `1.2.0-rc.8`.'
+        type: choice
+        options:
+          - rc
+          - beta
+          - alpha
+        default: rc
+        required: false
 
 env:
   REPORTS_DIR: CI_reports
@@ -23,7 +32,7 @@ jobs:
     name: bump and tag release
     concurrency: release-bump
     outputs:
-      version: ${{ steps.bump.outputs.version }}
+      version:       ${{ steps.bump.outputs.version }}
       version_plain: ${{ steps.bump.outputs.version_plain }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -47,17 +56,19 @@ jobs:
         id: bump
         run: |
           set -ex
-          VERSION="$(npm version "$NPMV_NEWVERSION" --message "$NPMV_MESSAGE")"
+          VERSION="$(npm version "$NPMV_NEWVERSION" --message "$NPMV_MESSAGE" --preid "$NPMV_PREID")"
           echo "::debug::new version = $VERSION"
           VERSION_PLAIN="${VERSION:1}" # remove 'v' prefix
           echo "::debug::plain version = $VERSION_PLAIN"
-          echo "::set-output name=version::$VERSION"
-          echo "::set-output name=version_plain::$VERSION_PLAIN"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version_plain=$VERSION_PLAIN" >> $GITHUB_OUTPUT
         env:
           NPMV_NEWVERSION: ${{ github.event.inputs.newversion }}
           NPMV_MESSAGE: ${{ github.event.inputs.commitMessage }}
+          NPMV_PREID: ${{ github.event.inputs.preid }}
       - name: git push back
         run: git push --follow-tags
+
   publish-NPMJS:
     needs:
       - "bump"
@@ -84,6 +95,7 @@ jobs:
           npm publish --access public
         env:
           NPMJS_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
   release-GH:
     needs:
       - "bump"
@@ -102,5 +114,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ needs.bump.outputs.version }}
-          name: ${{ needs.bump.outputs.version_plain }}
-          prerelease: ${{ startsWith(github.event.inputs.newversion, 'pre') }}
+          name:     ${{ needs.bump.outputs.version_plain }}
+          prerelease: ${{ startsWith(github.event.inputs.newversion, 'pre') || contains(github.event.inputs.newversion, 'rc') || contains(github.event.inputs.newversion, 'beta') || contains(github.event.inputs.newversion, 'alpha')}}

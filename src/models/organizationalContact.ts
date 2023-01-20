@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Comparable, SortableSet } from '../helpers/sortableSet'
+import { Comparable, SortableSet } from '../_helpers/sortableSet'
 
 interface OptionalProperties {
   name?: OrganizationalContact['name']
@@ -37,10 +37,11 @@ export class OrganizationalContact implements Comparable {
   }
 
   compare (other: OrganizationalContact): number {
-    /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return (this.name ?? '').localeCompare(other.name ?? '') ||
       (this.email ?? '').localeCompare(other.email ?? '') ||
       (this.phone ?? '').localeCompare(other.phone ?? '')
+    /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
 }
 

@@ -30,7 +30,8 @@
         "authors": [
             {
                 "name": "Jane \"the-author\" Doe",
-                "email": "cdx-authors@mailinator.com"
+                "email": "cdx-authors@mailinator.com",
+                "phone": "555-1234567890"
             },
             {
                 "name": "John \"the-co-author\" Doe"
@@ -59,7 +60,8 @@
                 },
                 {
                     "name": "John \"the-supplier\" Doe",
-                    "email": "cdx-suppliers@mailinator.com"
+                    "email": "cdx-suppliers@mailinator.com",
+                    "phone": "555-0123456789"
                 }
             ]
         }

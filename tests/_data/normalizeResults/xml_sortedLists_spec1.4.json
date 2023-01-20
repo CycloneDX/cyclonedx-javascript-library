@@ -123,6 +123,11 @@
                   "type": "element",
                   "name": "email",
                   "children": "cdx-authors@mailinator.com"
+                },
+                {
+                  "type": "element",
+                  "name": "phone",
+                  "children": "555-1234567890"
                 }
               ]
             },
@@ -208,6 +213,11 @@
                   "type": "element",
                   "name": "email",
                   "children": "cdx-suppliers@mailinator.com"
+                },
+                {
+                  "type": "element",
+                  "name": "phone",
+                  "children": "555-0123456789"
                 }
               ]
             }

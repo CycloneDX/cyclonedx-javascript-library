@@ -18,15 +18,15 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { isPositiveInteger, isUrnUuid, PositiveInteger, UrnUuid } from '../types'
-import { Metadata } from './metadata'
 import { ComponentRepository } from './component'
+import { Metadata } from './metadata'
 import { VulnerabilityRepository } from './vulnerability'
 
 interface OptionalProperties {
   metadata?: Bom['metadata']
   components?: Bom['components']
-  vulnerabilities?: Bom['vulnerabilities']
   version?: Bom['version']
+  vulnerabilities?: Bom['vulnerabilities']
   serialNumber?: Bom['serialNumber']
 }
 
@@ -48,14 +48,14 @@ export class Bom {
   // The dependency graph can be normalized on render-time, no need to store it in the bom model.
 
   /**
-   * @throws {TypeError} if {@see op.version} is not {@see PositiveInteger} nor {@see undefined}
-   * @throws {TypeError} if {@see op.serialNumber} is neither {@see UrnUuid} nor {@see undefined}
+   * @throws {TypeError} if {@link op.version} is neither {@link PositiveInteger} nor {@link undefined}
+   * @throws {TypeError} if {@link op.serialNumber} is neither {@link UrnUuid} nor {@link undefined}
    */
   constructor (op: OptionalProperties = {}) {
     this.metadata = op.metadata ?? new Metadata()
     this.components = op.components ?? new ComponentRepository()
-    this.vulnerabilities = op.vulnerabilities ?? new VulnerabilityRepository()
     this.version = op.version ?? this.version
+    this.vulnerabilities = op.vulnerabilities ?? new VulnerabilityRepository()
     this.serialNumber = op.serialNumber
   }
 
@@ -64,7 +64,7 @@ export class Bom {
   }
 
   /**
-   * @throws {TypeError} if value is not {@see PositiveInteger}
+   * @throws {TypeError} if value is not {@link PositiveInteger}
    */
   set version (value: PositiveInteger) {
     if (!isPositiveInteger(value)) {
@@ -78,7 +78,7 @@ export class Bom {
   }
 
   /**
-   * @throws {TypeError} if value is neither {@see UrnUuid} nor {@see undefined}
+   * @throws {TypeError} if value is neither {@link UrnUuid} nor {@link undefined}
    */
   set serialNumber (value: UrnUuid | undefined) {
     if (value !== undefined && !isUrnUuid(value)) {

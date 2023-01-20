@@ -26,6 +26,7 @@ const { spdxSpecEnum } = require('../_data/spdx')
 const { SPDX } = require('../../')
 
 suite('isSupportedSpdxId()', () => {
+  /** @type {string[]} knownSpdxIds */
   const knownSpdxIds = Object.freeze([
     ...spdxSpecEnum
   ])

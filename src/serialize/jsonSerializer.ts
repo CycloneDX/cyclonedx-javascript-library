@@ -19,10 +19,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { Bom } from '../models'
 import { Format, UnsupportedFormatError } from '../spec'
-import { NormalizerOptions, SerializerOptions } from './types'
 import { BaseSerializer } from './baseSerializer'
 import { Factory as NormalizerFactory } from './json/normalize'
 import { Normalized } from './json/types'
+import { NormalizerOptions, SerializerOptions } from './types'
 
 /**
  * Multi purpose Json serializer.
@@ -31,9 +31,9 @@ export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
   readonly #normalizerFactory: NormalizerFactory
 
   /**
-   * @throws {UnsupportedFormatError} if {@see normalizerFactory.spec} does not support {@see Format.JSON}.
+   * @throws {UnsupportedFormatError} if {@link normalizerFactory.spec} does not support {@link Format.JSON}.
    */
-  constructor (normalizerFactory: NormalizerFactory) {
+  constructor (normalizerFactory: JsonSerializer['normalizerFactory']) {
     if (!normalizerFactory.spec.supportsFormat(Format.JSON)) {
       throw new UnsupportedFormatError('Spec does not support JSON format.')
     }

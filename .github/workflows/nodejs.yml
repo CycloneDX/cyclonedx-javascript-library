@@ -2,7 +2,7 @@
 
 name: Node CI
 
-on: 
+on:
   push:
     branches: [ main ]
   pull_request:
@@ -11,18 +11,20 @@ on:
 
 env:
   NODE_ACTIVE_LTS: "16" # see https://nodejs.org/en/about/releases/
+  REPORTS_DIR: "reports"
 
 jobs:
   build:
     name: build ${{ matrix.target }}
     runs-on: "ubuntu-latest"
-    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
         target:
           - node
           - web
+          - d
+    timeout-minutes: 10
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -48,7 +50,7 @@ jobs:
   test-standard:
     name: test standard
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -62,8 +64,28 @@ jobs:
           cache-dependency-path: "**/package-lock.json"
       - name: setup project
         run: npm ci --ignore-scripts
+      - name: make reports dir
+        run: mkdir -p "$REPORTS_DIR"
       - name: test
-        run: npm run test:standard
+        run: >
+          npm run --
+          test:standard
+          --format checkstyle
+          --output-file "$REPORTS_DIR/eslint.xml"
+      - name: Publish Checkstyle report
+        # see https://github.com/Juuxel/publish-checkstyle-report
+        uses: Juuxel/publish-checkstyle-report@v1
+        if: ${{ failure() || success() }}
+        with:
+          reports: ${{ env.REPORTS_DIR }}/eslint.xml
+      - name: artifact build result
+        # see https://github.com/actions/upload-artifact
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
+        with:
+          name: eslint-results
+          path: ${{ env.REPORTS_DIR }}
+          if-no-files-found: error
   test-node:
     needs: [ 'build' ]
     name: test node (${{ matrix.node-version }}, ${{ matrix.os }})
@@ -78,11 +100,11 @@ jobs:
           - "16"      # active LTS
           - "14"
           - "14.0.0"  # lowest supported
-        os: 
+        os:
           - ubuntu-latest
           - macos-latest
           - windows-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -106,3 +128,39 @@ jobs:
         run: npm run test:node
   # test-web:
     # TODO via https://github.com/CycloneDX/cyclonedx-javascript-library/issues/51
+  test-declaration:
+    needs: [ 'build' ]
+    name: digest declarations (TS${{ matrix.typescript-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        typescript-version:
+          - '^4'      # latest 4.X
+          - '~4.0'    # some 4.0.x
+          - '^3'      # latest 3.X
+          - '3.8.2'   # some 3.8.x - lowest reasonable number that works
+    env:
+      EXAMPLE_DIR: examples/node-typescript
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        # see https://github.com/actions/checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
+        # see https://github.com/actions/setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_ACTIVE_LTS }}
+      - name: setup project
+        run: npm i --no-save 'typescript@${{ matrix.typescript-version }}'
+        working-directory: ${{ env.EXAMPLE_DIR }}
+      - name: fetch build artifact
+        # see https://github.com/actions/download-artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist.d
+          path: dist.d
+      - name: use type declarations
+        run: npm run build
+        working-directory: ${{ env.EXAMPLE_DIR }}

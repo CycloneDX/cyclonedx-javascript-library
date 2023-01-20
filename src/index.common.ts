@@ -17,32 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-/**
- * Split name and group from a package's name.
- * Returns a tuple: [name, ?group]
- */
-export function splitNameGroup (data: string): [string, string?] {
-  return data[0] === '@'
-    ? data.split('/', 2).reverse() as [string, string?]
-    : [data]
-}
-
-export interface PackageJson {
-  name?: string
-  version?: string
-  description?: string
-  license?: string
-  author?: string | {
-    name?: string
-    email?: string
-  }
-  bugs?: string | {
-    url?: string
-  }
-  homepage?: string
-  repository?: string | {
-    url?: string
-    directory?: string
-  }
-  // .. to be continued
-}
+export * as Enums from './enums'
+export * as Models from './models'
+export * as SPDX from './spdx'
+export * as Spec from './spec'
+export * as Types from './types'
+// do not export the _helpers, they are for internal use only

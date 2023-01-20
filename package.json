@@ -1,6 +1,6 @@
 {
   "name": "@cyclonedx/cyclonedx-library",
-  "version": "1.3.1",
+  "version": "1.9.2",
   "description": "Core functionality of CycloneDX for JavaScript (Node.js or WebBrowser).",
   "keywords": [
     "CycloneDX",
@@ -39,29 +39,30 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "packageurl-js": ">=0.0.6 <0.0.8"
+    "packageurl-js": ">=0.0.6 <0.0.8 || ^1"
   },
   "optionalDependencies": {
     "xmlbuilder2": "^3.0.2"
   },
   "devDependencies": {
-    "@types/mocha": "^9.1.1",
-    "@types/node": "^18.0.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": ">=14",
     "@types/webpack": "^5.28.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "deepmerge": "4.2.2",
-    "eslint": "^7.32.0",
-    "mocha": "10.0.0",
+    "deepmerge": "^4.2.2",
+    "eslint": "^8.23.0",
+    "eslint-config-standard-with-typescript": "^24.0.0",
+    "eslint-plugin-jsdoc": "^39.6.2",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "mocha": "10.2.0",
     "npm-run-all": "^4.1.5",
-    "ts-loader": "9.3.1",
-    "ts-standard": "^11.0.0",
-    "typescript": "4.7.4",
-    "webpack": "5.74.0",
-    "webpack-cli": "4.10.0",
+    "ts-loader": "9.4.2",
+    "typescript": "4.9.4",
+    "webpack": "5.75.0",
+    "webpack-cli": "5.0.1",
     "xmlbuilder2": "^3.0.2"
   },
   "browser": "./dist.web/lib.js",
-  "types": "./src/index.node.ts",
+  "types": "./dist.d/index.node.d.ts",
   "main": "./dist.node/index.node.js",
   "exports": "./dist.node/index.node.js",
   "directories": {
@@ -80,6 +81,8 @@
     "build:node": "tsc -b ./tsconfig.node.json",
     "prebuild:web": "node -r fs -e 'fs.rmSync(\"dist.web\",{recursive:true,force:true})'",
     "build:web": "webpack build",
+    "prebuild:d": "node -r fs -e 'fs.rmSync(\"dist.d\",{recursive:true,force:true})'",
+    "build:d": "tsc -b ./tsconfig.d.json",
     "cs-fix": "eslint --fix .",
     "test": "run-p --aggregate-output -lc test:*",
     "test:node": "mocha -p",

@@ -17,6 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { Sortable } from '../_helpers/sortable'
 import { isSupportedSpdxId, SpdxId } from '../spdx'
 import { Attachment } from './attachment'
 
@@ -33,9 +34,9 @@ export class LicenseExpression {
   #expression!: string
 
   /**
-   * @throws {RangeError} if {@see expression} is not eligible({@see LicenseExpression.isEligibleExpression})
+   * @throws {RangeError} if {@link expression} is not eligible({@link LicenseExpression.isEligibleExpression})
    */
-  constructor (expression: string) {
+  constructor (expression: LicenseExpression['expression']) {
     this.expression = expression
   }
 
@@ -44,7 +45,7 @@ export class LicenseExpression {
   }
 
   /**
-   * @throws {RangeError} if expression is not eligible({@see LicenseExpression.isEligibleExpression})
+   * @throws {RangeError} if expression is not eligible({@link LicenseExpression.isEligibleExpression})
    */
   set expression (value: string) {
     if (!LicenseExpression.isEligibleExpression(value)) {
@@ -68,7 +69,7 @@ export class NamedLicense {
   text?: Attachment
   url?: URL | string
 
-  constructor (name: string, op: NamedLicenseOptionalProperties = {}) {
+  constructor (name: NamedLicense['name'], op: NamedLicenseOptionalProperties = {}) {
     this.name = name
     this.text = op.text
     this.url = op.url
@@ -92,9 +93,9 @@ export class SpdxLicense {
   #id!: SpdxId
 
   /**
-   * @throws {RangeError} if {@see id} is not supported SPDX id({@see isSupportedSpdxId})
+   * @throws {RangeError} if {@link id} is not supported SPDX id({@link isSupportedSpdxId})
    */
-  constructor (id: SpdxId, op: SpdxLicenseOptionalProperties = {}) {
+  constructor (id: SpdxLicense['id'], op: SpdxLicenseOptionalProperties = {}) {
     this.id = id
     this.text = op.text
     this.url = op.url
@@ -105,7 +106,7 @@ export class SpdxLicense {
   }
 
   /**
-   * @throws {RangeError} if value is not supported SPDX id({@see isSupportedSpdxId})
+   * @throws {RangeError} if value is not supported SPDX id({@link isSupportedSpdxId})
    */
   set id (value: SpdxId) {
     if (!isSupportedSpdxId(value)) {
@@ -122,7 +123,7 @@ export class SpdxLicense {
 export type DisjunctiveLicense = NamedLicense | SpdxLicense
 export type License = DisjunctiveLicense | LicenseExpression
 
-export class LicenseRepository extends Set<License> {
+export class LicenseRepository extends Set<License> implements Sortable<License> {
   #compareItems (a: License, b: License): number {
     if (a.constructor === b.constructor) {
       // @ts-expect-error -- classes are from same type -> they are comparable

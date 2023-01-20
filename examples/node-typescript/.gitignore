@@ -1,0 +1,5 @@
+*
+!/.gitignore
+!/example.ts
+!/package.json
+!/tsconfig.json
