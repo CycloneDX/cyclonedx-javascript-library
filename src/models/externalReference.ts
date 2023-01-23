@@ -17,14 +17,14 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Comparable, SortableSet } from '../_helpers/sortableSet'
+import { Comparable, SortableComparables } from '../_helpers/sortable'
 import { ExternalReferenceType } from '../enums'
 
 interface OptionalProperties {
   comment?: ExternalReference['comment']
 }
 
-export class ExternalReference implements Comparable {
+export class ExternalReference implements Comparable<ExternalReference> {
   url: URL | string
   type: ExternalReferenceType
   comment?: string
@@ -43,5 +43,5 @@ export class ExternalReference implements Comparable {
   }
 }
 
-export class ExternalReferenceRepository extends SortableSet<ExternalReference> {
+export class ExternalReferenceRepository extends SortableComparables<ExternalReference> {
 }

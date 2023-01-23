@@ -32,12 +32,12 @@ export namespace JsonSchema {
   /**
    * Test whether format is JSON::iri-reference - best-effort.
    *
+   * @TODO add more validation according to spec
    * @see {@link https://datatracker.ietf.org/doc/html/rfc3987}
    */
   export function isIriReference (value: IriReference | any): value is IriReference {
     return typeof value === 'string' &&
       value.length > 0
-    // TODO add more validation according to spec
   }
 
   /**
@@ -47,12 +47,12 @@ export namespace JsonSchema {
   /**
    * Test whether format is JSON::idn-email - best-effort.
    *
+   * @TODO add more validation according to spec
    * @see {@link https://datatracker.ietf.org/doc/html/rfc6531}
    */
   export function isIdnEmail (value: IdnEmail | any): value is IdnEmail {
     return typeof value === 'string' &&
       value.length > 0
-    // TODO add more validation according to spec
   }
 
   export type DateTime = string

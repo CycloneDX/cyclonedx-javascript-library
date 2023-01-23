@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { PackageURL } from 'packageurl-js'
 
-import { Comparable, SortableSet } from '../_helpers/sortableSet'
+import { Comparable, SortableComparables } from '../_helpers/sortable'
 import { treeIteratorSymbol } from '../_helpers/tree'
 import { ComponentScope, ComponentType } from '../enums'
 import { CPE, isCPE } from '../types'
@@ -52,7 +52,7 @@ interface OptionalProperties {
   properties?: Component['properties']
 }
 
-export class Component implements Comparable {
+export class Component implements Comparable<Component> {
   type: ComponentType
   name: string
   author?: string
@@ -142,7 +142,7 @@ export class Component implements Comparable {
   }
 }
 
-export class ComponentRepository extends SortableSet<Component> {
+export class ComponentRepository extends SortableComparables<Component> {
   * [treeIteratorSymbol] (): Generator<Component> {
     for (const component of this) {
       yield component
