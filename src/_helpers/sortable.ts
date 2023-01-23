@@ -19,19 +19,19 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { Stringable } from './stringable'
 
-export interface Sortable<T> {
-  sorted: () => T[]
+export interface Sortable<TItem> {
+  sorted: () => TItem[]
 }
 
-export abstract class SortableStringable<T extends Stringable> extends Set<T> implements Sortable<T> {
-  sorted (): T[] {
-    return Array.from(this).sort((a: T, b: T) => a.toString().localeCompare(b.toString()))
+export abstract class SortableStringable<TItem extends Stringable = Stringable> extends Set<TItem> implements Sortable<TItem> {
+  sorted (): TItem[] {
+    return Array.from(this).sort((a, b) => a.toString().localeCompare(b.toString()))
   }
 }
 
-export abstract class SortableNumbers<T extends number> extends Set<T> implements Sortable<T> {
-  sorted (): T[] {
-    return Array.from(this).sort((a: T, b: T) => a - b)
+export abstract class SortableNumbers<TItem extends number = number> extends Set<TItem> implements Sortable<TItem> {
+  sorted (): TItem[] {
+    return Array.from(this).sort((a, b) => a - b)
   }
 }
 
@@ -42,24 +42,23 @@ export interface Comparable<TOther> {
 
 export abstract class SortableSet<TItem extends Comparable<TItem>>
   extends Set<TItem>
-  implements Sortable<TItem>, Comparable<SortableSet<TItem>>
-{
+  implements Sortable<TItem>, Comparable<SortableSet<TItem>> {
   sorted (): TItem[] {
     return Array.from(this).sort((a, b) => a.compare(b))
   }
 
-  compare (other: SortableSet<TItem>) : number {
+  compare (other: SortableSet<TItem>): number {
     const sortedOther = other.sorted()
     const sortedSelf = this.sorted()
 
-    if (sortedSelf.length !== sortedOther.length ) {
+    if (sortedSelf.length !== sortedOther.length) {
       return sortedSelf.length - sortedOther.length
     }
 
     // it was asserted, that both lists have equal length -> zip-like compare
-    for (let i = sortedSelf.length - 1 ; i >= 0 ; --i ) {
+    for (let i = sortedSelf.length - 1; i >= 0; --i) {
       const iCompared = sortedSelf[i].compare(sortedOther[i])
-      if ( 0 !== iCompared) {
+      if (iCompared !== 0) {
         return iCompared
       }
     }
