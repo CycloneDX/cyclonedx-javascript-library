@@ -59,5 +59,46 @@ suite('helpers.sortable', () => {
 
       assert.deepStrictEqual(actual, expected)
     })
+
+    suite('compare()', () => {
+
+      [
+        [[{ compare: () => 0 }], [], 1],
+        [[], [{ compare: () => 0 }], -1]
+      ].forEach(([sortedA, sortedB, expected]) => {
+        test('different length', () => {
+          const sortableA = new SortableSet()
+          sortableA.sorted = () => sortedA
+          const sortableB = new SortableSet()
+          sortableB.sorted = () => sortedB
+
+          const actual = sortableA.compare(sortableB)
+          assert.deepStrictEqual(actual, expected)
+        })
+      })
+
+      test('same length, different content', () => {
+        const sortableA = new SortableSet()
+        sortableA.sorted = () => [{ compare: () => 23 }]
+        const sortableB = new SortableSet()
+        sortableB.sorted = () => [{ compare: () => 23 }]
+
+        const actual = sortableA.compare(sortableB)
+        assert.deepStrictEqual(actual, 23)
+      })
+
+      test('same length, same content', () => {
+        const sortableA = new SortableSet()
+        sortableA.sorted = () => [{ compare: () => 0 }]
+        const sortableB = new SortableSet()
+        sortableB.sorted = () => [{ compare: () => 0 }]
+
+        const actual = sortableA.compare(sortableB)
+        assert.deepStrictEqual(actual, 0)
+      })
+
+    })
+
   })
+
 })
