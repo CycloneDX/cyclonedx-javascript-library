@@ -61,7 +61,6 @@ suite('helpers.sortable', () => {
     })
 
     suite('compare()', () => {
-
       [
         [[{ compare: () => 0 }], [], 1],
         [[], [{ compare: () => 0 }], -1]
@@ -96,9 +95,6 @@ suite('helpers.sortable', () => {
         const actual = sortableA.compare(sortableB)
         assert.deepStrictEqual(actual, 0)
       })
-
     })
-
   })
-
 })
