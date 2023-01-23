@@ -253,7 +253,6 @@ export class OrganizationalEntityNormalizer extends Base<Models.OrganizationalEn
       .filter(JsonSchema.isIriReference)
     return {
       name: data.name || undefined,
-      /** must comply to {@link https://datatracker.ietf.org/doc/html/rfc3987} */
       url: urls.length > 0
         ? urls
         : undefined,

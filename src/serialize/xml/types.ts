@@ -30,6 +30,7 @@ export namespace XmlSchema {
   /**
    * Test whether format is XML::anyURI - best-effort.
    *
+   * @TODO add more validation according to spec
    * @see {@link http://www.w3.org/TR/xmlschema-2/#anyURI}
    * @see {@link https://www.w3.org/2011/04/XMLSchema/TypeLibrary-URI-RFC3986.xsd}
    * @see {@link https://www.w3.org/2011/04/XMLSchema/TypeLibrary-IRI-RFC3987.xsd}
@@ -63,8 +64,6 @@ export namespace XmlSchema {
         return false
       }
     }
-
-    // @TODO add more validation according to spec
 
     return true
   }

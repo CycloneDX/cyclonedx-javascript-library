@@ -31,7 +31,7 @@ export class XmlSerializer extends XmlBaseSerializer {
     { space }: SerializerOptions = {}
   ): string {
     const doc = this.#buildXmlDocument(normalizedBom)
-    // TODO: add indention based on `space`
+    // @TODO: add indention based on `space`
     return (new XMLSerializer()).serializeToString(doc)
   }
 
