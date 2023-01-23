@@ -24,7 +24,12 @@ export interface Sortable<TItem> {
 }
 
 export interface Comparable<TOther> {
-  // The purpose of this method is not to test for equality, but have deterministic comparability.
+  /**
+   * Compare one with another.
+   *
+   * The purpose of this method is not to test for equality, but have deterministic comparability.
+   * As long as this method is deterministic, there is no need for a proper ordering in any result/downstream.
+   */
   compare: (other: TOther) => number
 }
 

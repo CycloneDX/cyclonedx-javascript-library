@@ -21,7 +21,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const { SortableStringables, SortableNumbers, SortableSet } = require('../../dist.node/_helpers/sortable')
+const { SortableStringables, SortableNumbers, SortableComparables } = require('../../dist.node/_helpers/sortable')
 
 suite('helpers.sortable', () => {
   suite('SortableStringables', () => {
@@ -31,8 +31,44 @@ suite('helpers.sortable', () => {
       const expected = [obj, 'fo', 'foo']
 
       const actual = sortable.sorted()
-
       assert.deepStrictEqual(actual, expected)
+    })
+
+    suite('compare()', () => {
+      [
+        [['foo'], [], 1],
+        [[], ['foo'], -1]
+      ].forEach(([sortedA, sortedB, expected]) => {
+        test('different length', () => {
+          const sortableA = new SortableStringables()
+          sortableA.sorted = () => sortedA
+          const sortableB = new SortableStringables()
+          sortableB.sorted = () => sortedB
+
+          const actual = sortableA.compare(sortableB)
+          assert.deepStrictEqual(actual, expected)
+        })
+      })
+
+      test('same length, different content', () => {
+        const sortableA = new SortableStringables()
+        sortableA.sorted = () => ['foo']
+        const sortableB = new SortableStringables()
+        sortableB.sorted = () => ['bar' ]
+
+        const actual = sortableA.compare(sortableB)
+        assert.deepStrictEqual(actual, 1)
+      })
+
+      test('same length, same content', () => {
+        const sortableA = new SortableStringables()
+        sortableA.sorted = () => ['foo']
+        const sortableB = new SortableStringables()
+        sortableB.sorted = () => ['foo']
+
+        const actual = sortableA.compare(sortableB)
+        assert.deepStrictEqual(actual, 0)
+      })
     })
   })
 
@@ -42,21 +78,56 @@ suite('helpers.sortable', () => {
       const expected = [-1337, 1, 3, 7, 23, 42]
 
       const actual = sortable.sorted()
-
       assert.deepStrictEqual(actual, expected)
+    })
+
+    suite('compare()', () => {
+      [
+        [[1], [], 1],
+        [[], [1], -1]
+      ].forEach(([sortedA, sortedB, expected]) => {
+        test('different length', () => {
+          const sortableA = new SortableNumbers()
+          sortableA.sorted = () => sortedA
+          const sortableB = new SortableNumbers()
+          sortableB.sorted = () => sortedB
+
+          const actual = sortableA.compare(sortableB)
+          assert.deepStrictEqual(actual, expected)
+        })
+      })
+
+      test('same length, different content', () => {
+        const sortableA = new SortableNumbers()
+        sortableA.sorted = () => [23]
+        const sortableB = new SortableNumbers()
+        sortableB.sorted = () => [0]
+
+        const actual = sortableA.compare(sortableB)
+        assert.deepStrictEqual(actual, 23)
+      })
+
+      test('same length, same content', () => {
+        const sortableA = new SortableNumbers()
+        sortableA.sorted = () => [23]
+        const sortableB = new SortableNumbers()
+        sortableB.sorted = () => [23]
+
+        const actual = sortableA.compare(sortableB)
+        assert.deepStrictEqual(actual, 0)
+      })
     })
   })
 
-  suite('SortableSet', () => {
+  suite('SortableComparables', () => {
     test('sorted()', () => {
       const left = { compare: () => -1, tag: 'left' }
       const stay = { compare: () => +0, tag: 'stay' }
       const right = { compare: () => +1, tag: 'right' }
-      const sortable = new SortableSet([right, left, stay, stay])
+      const sortable = new SortableComparables([right, left, stay, stay])
       const expected = [left, right, stay]
 
       const actual = sortable.sorted()
-
       assert.deepStrictEqual(actual, expected)
     })
 
@@ -66,9 +137,9 @@ suite('helpers.sortable', () => {
         [[], [{ compare: () => 0 }], -1]
       ].forEach(([sortedA, sortedB, expected]) => {
         test('different length', () => {
-          const sortableA = new SortableSet()
+          const sortableA = new SortableComparables()
           sortableA.sorted = () => sortedA
-          const sortableB = new SortableSet()
+          const sortableB = new SortableComparables()
           sortableB.sorted = () => sortedB
 
           const actual = sortableA.compare(sortableB)
@@ -77,9 +148,9 @@ suite('helpers.sortable', () => {
       })
 
       test('same length, different content', () => {
-        const sortableA = new SortableSet()
+        const sortableA = new SortableComparables()
         sortableA.sorted = () => [{ compare: () => 23 }]
-        const sortableB = new SortableSet()
+        const sortableB = new SortableComparables()
         sortableB.sorted = () => [{ compare: () => 23 }]
 
         const actual = sortableA.compare(sortableB)
@@ -87,9 +158,9 @@ suite('helpers.sortable', () => {
       })
 
       test('same length, same content', () => {
-        const sortableA = new SortableSet()
+        const sortableA = new SortableComparables()
         sortableA.sorted = () => [{ compare: () => 0 }]
-        const sortableB = new SortableSet()
+        const sortableB = new SortableComparables()
         sortableB.sorted = () => [{ compare: () => 0 }]
 
         const actual = sortableA.compare(sortableB)
