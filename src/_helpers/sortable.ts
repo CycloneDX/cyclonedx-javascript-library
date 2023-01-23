@@ -36,7 +36,7 @@ export interface Comparable<TOther> {
 abstract class SortableSet<TItem>
   extends Set<TItem>
   implements Sortable<TItem>, Comparable<Sortable<TItem>> {
-  abstract __compare (a: TItem, b: TItem): number
+  protected abstract __compare (a: TItem, b: TItem): number
 
   sorted (): TItem[] {
     return Array.from(this).sort(this.__compare)
@@ -63,19 +63,19 @@ abstract class SortableSet<TItem>
 }
 
 export abstract class SortableComparables<TItem extends Comparable<TItem>> extends SortableSet<TItem> {
-  __compare (a: TItem, b: TItem): number {
+  protected __compare (a: TItem, b: TItem): number {
     return a.compare(b)
   }
 }
 
 export abstract class SortableStringables<TItem extends Stringable = Stringable> extends SortableSet<TItem> {
-  __compare (a: TItem, b: TItem): number {
+  protected __compare (a: TItem, b: TItem): number {
     return a.toString().localeCompare(b.toString())
   }
 }
 
 export abstract class SortableNumbers<TItem extends number = number> extends SortableSet<TItem> {
-  __compare (a: TItem, b: TItem): number {
+  protected __compare (a: TItem, b: TItem): number {
     return a - b
   }
 }
