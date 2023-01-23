@@ -36,10 +36,10 @@ export interface Comparable<TOther> {
 abstract class SortableSet<TItem>
   extends Set<TItem>
   implements Sortable<TItem>, Comparable<Sortable<TItem>> {
-  abstract __compareFn (a: TItem, b: TItem): number
+  abstract __compare (a: TItem, b: TItem): number
 
   sorted (): TItem[] {
-    return Array.from(this).sort(this.__compareFn)
+    return Array.from(this).sort(this.__compare)
   }
 
   compare (other: Sortable<TItem>): number {
@@ -52,7 +52,7 @@ abstract class SortableSet<TItem>
 
     // it was asserted, that both lists have equal length -> zip-like compare
     for (let i = sortedSelf.length - 1; i >= 0; --i) {
-      const iCompared = this.__compareFn(sortedSelf[i], sortedOther[i])
+      const iCompared = this.__compare(sortedSelf[i], sortedOther[i])
       if (iCompared !== 0) {
         return iCompared
       }
@@ -63,19 +63,19 @@ abstract class SortableSet<TItem>
 }
 
 export abstract class SortableComparables<TItem extends Comparable<TItem>> extends SortableSet<TItem> {
-  __compareFn (a: TItem, b: TItem): number {
+  __compare (a: TItem, b: TItem): number {
     return a.compare(b)
   }
 }
 
 export abstract class SortableStringables<TItem extends Stringable = Stringable> extends SortableSet<TItem> {
-  __compareFn (a: TItem, b: TItem): number {
+  __compare (a: TItem, b: TItem): number {
     return a.toString().localeCompare(b.toString())
   }
 }
 
 export abstract class SortableNumbers<TItem extends number = number> extends SortableSet<TItem> {
-  __compareFn (a: TItem, b: TItem): number {
+  __compare (a: TItem, b: TItem): number {
     return a - b
   }
 }

@@ -54,7 +54,7 @@ suite('helpers.sortable', () => {
         const sortableA = new SortableStringables()
         sortableA.sorted = () => ['foo']
         const sortableB = new SortableStringables()
-        sortableB.sorted = () => ['bar' ]
+        sortableB.sorted = () => ['bar']
 
         const actual = sortableA.compare(sortableB)
         assert.deepStrictEqual(actual, 1)
