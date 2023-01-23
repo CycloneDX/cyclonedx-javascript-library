@@ -29,7 +29,7 @@ interface OptionalProperties {
   externalReferences?: Tool['externalReferences']
 }
 
-export class Tool implements Comparable {
+export class Tool implements Comparable<Tool> {
   vendor?: string
   name?: string
   version?: string

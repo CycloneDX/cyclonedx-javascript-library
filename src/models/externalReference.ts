@@ -24,7 +24,7 @@ interface OptionalProperties {
   comment?: ExternalReference['comment']
 }
 
-export class ExternalReference implements Comparable {
+export class ExternalReference implements Comparable<ExternalReference> {
   url: URL | string
   type: ExternalReferenceType
   comment?: string

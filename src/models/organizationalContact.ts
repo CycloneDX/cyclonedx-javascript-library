@@ -25,7 +25,7 @@ interface OptionalProperties {
   phone?: OrganizationalContact['phone']
 }
 
-export class OrganizationalContact implements Comparable {
+export class OrganizationalContact implements Comparable<OrganizationalContact> {
   name?: string
   email?: string
   phone?: string

@@ -52,7 +52,7 @@ interface OptionalProperties {
   properties?: Component['properties']
 }
 
-export class Component implements Comparable {
+export class Component implements Comparable<Component> {
   type: ComponentType
   name: string
   author?: string

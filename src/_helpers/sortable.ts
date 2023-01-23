@@ -35,12 +35,15 @@ export abstract class SortableNumbers<T extends number> extends Set<T> implement
   }
 }
 
-export interface Comparable {
+export interface Comparable<TOther> {
   // The purpose of this method is not to test for equality, but have deterministic comparability.
-  compare: (other: any) => number
+  compare: (other: TOther) => number
 }
 
-export abstract class SortableSet<TItem extends Comparable> extends Set<TItem> implements Sortable<TItem> {
+export abstract class SortableSet<TItem extends Comparable<TItem>>
+  extends Set<TItem>
+  implements Sortable<TItem>
+{
   sorted (): TItem[] {
     return Array.from(this).sort((a, b) => a.compare(b))
   }

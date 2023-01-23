@@ -22,7 +22,7 @@ import { Comparable, SortableSet } from '../_helpers/sortable'
 /**
  * @see {@link https://github.com/CycloneDX/cyclonedx-property-taxonomy property-taxonomy}
  */
-export class Property implements Comparable {
+export class Property implements Comparable<Property> {
   name: string
   value: string
 
