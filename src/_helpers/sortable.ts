@@ -28,7 +28,7 @@ export interface Comparable<TOther> {
   compare: (other: TOther) => number
 }
 
-abstract class __SortableSet<TItem>
+abstract class SortableSet<TItem>
   extends Set<TItem>
   implements Sortable<TItem>, Comparable<Sortable<TItem>> {
   abstract __compareFn (a: TItem, b: TItem): number
@@ -57,19 +57,19 @@ abstract class __SortableSet<TItem>
   }
 }
 
-export abstract class SortableSet<TItem extends Comparable<TItem>> extends __SortableSet<TItem> {
+export abstract class SortableComparables<TItem extends Comparable<TItem>> extends SortableSet<TItem> {
   __compareFn (a: TItem, b: TItem): number {
     return a.compare(b)
   }
 }
 
-export abstract class SortableStringables<TItem extends Stringable = Stringable> extends __SortableSet<TItem> {
+export abstract class SortableStringables<TItem extends Stringable = Stringable> extends SortableSet<TItem> {
   __compareFn (a: TItem, b: TItem): number {
     return a.toString().localeCompare(b.toString())
   }
 }
 
-export abstract class SortableNumbers<TItem extends number = number> extends __SortableSet<TItem> {
+export abstract class SortableNumbers<TItem extends number = number> extends SortableSet<TItem> {
   __compareFn (a: TItem, b: TItem): number {
     return a - b
   }

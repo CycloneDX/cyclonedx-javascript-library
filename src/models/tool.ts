@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Comparable, SortableSet } from '../_helpers/sortable'
+import { Comparable, SortableComparables } from '../_helpers/sortable'
 import { ExternalReferenceRepository } from './externalReference'
 import { HashDictionary } from './hash'
 
@@ -54,5 +54,5 @@ export class Tool implements Comparable<Tool> {
   }
 }
 
-export class ToolRepository extends SortableSet<Tool> {
+export class ToolRepository extends SortableComparables<Tool> {
 }
