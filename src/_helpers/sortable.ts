@@ -42,9 +42,28 @@ export interface Comparable<TOther> {
 
 export abstract class SortableSet<TItem extends Comparable<TItem>>
   extends Set<TItem>
-  implements Sortable<TItem>
+  implements Sortable<TItem>, Comparable<SortableSet<TItem>>
 {
   sorted (): TItem[] {
     return Array.from(this).sort((a, b) => a.compare(b))
+  }
+
+  compare (other: SortableSet<TItem>) : number {
+    const sortedOther = other.sorted()
+    const sortedSelf = this.sorted()
+
+    if (sortedSelf.length !== sortedOther.length ) {
+      return sortedSelf.length - sortedOther.length
+    }
+
+    // it was asserted, that both lists have equal length -> zip-like compare
+    for (let i = sortedSelf.length - 1 ; i >= 0 ; --i ) {
+      const iCompared = sortedSelf[i].compare(sortedOther[i])
+      if ( 0 !== iCompared) {
+        return iCompared
+      }
+    }
+
+    return 0
   }
 }
