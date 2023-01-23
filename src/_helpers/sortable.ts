@@ -23,32 +23,18 @@ export interface Sortable<TItem> {
   sorted: () => TItem[]
 }
 
-export abstract class SortableStringable<TItem extends Stringable = Stringable> extends Set<TItem> implements Sortable<TItem> {
-  sorted (): TItem[] {
-    return Array.from(this).sort((a, b) => a.toString().localeCompare(b.toString()))
-  }
-}
-
-export abstract class SortableNumbers<TItem extends number = number> extends Set<TItem> implements Sortable<TItem> {
-  sorted (): TItem[] {
-    return Array.from(this).sort((a, b) => a - b)
-  }
-}
-
 export interface Comparable<TOther> {
   // The purpose of this method is not to test for equality, but have deterministic comparability.
   compare: (other: TOther) => number
 }
 
-export abstract class SortableSet<TItem extends Comparable<TItem>>
+abstract class __SortableSet<TItem>
   extends Set<TItem>
   implements Sortable<TItem>, Comparable<Sortable<TItem>> {
-  #compareFn (a: TItem, b: TItem): number {
-    return a.compare(b)
-  }
+  abstract __compareFn (a: TItem, b: TItem): number
 
   sorted (): TItem[] {
-    return Array.from(this).sort(this.#compareFn)
+    return Array.from(this).sort(this.__compareFn)
   }
 
   compare (other: Sortable<TItem>): number {
@@ -61,12 +47,30 @@ export abstract class SortableSet<TItem extends Comparable<TItem>>
 
     // it was asserted, that both lists have equal length -> zip-like compare
     for (let i = sortedSelf.length - 1; i >= 0; --i) {
-      const iCompared = this.#compareFn(sortedSelf[i], sortedOther[i])
+      const iCompared = this.__compareFn(sortedSelf[i], sortedOther[i])
       if (iCompared !== 0) {
         return iCompared
       }
     }
 
     return 0
+  }
+}
+
+export abstract class SortableSet<TItem extends Comparable<TItem>> extends __SortableSet<TItem> {
+  __compareFn (a: TItem, b: TItem): number {
+    return a.compare(b)
+  }
+}
+
+export abstract class SortableStringables<TItem extends Stringable = Stringable> extends __SortableSet<TItem> {
+  __compareFn (a: TItem, b: TItem): number {
+    return a.toString().localeCompare(b.toString())
+  }
+}
+
+export abstract class SortableNumbers<TItem extends number = number> extends __SortableSet<TItem> {
+  __compareFn (a: TItem, b: TItem): number {
+    return a - b
   }
 }
