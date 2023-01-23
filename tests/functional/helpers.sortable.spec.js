@@ -21,7 +21,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const { SortableStringable, SortableNumbers, SortableSet } = require('../../dist.node/helpers/sortable')
+const { SortableStringable, SortableNumbers, SortableSet } = require('../../dist.node/_helpers/sortable')
 
 suite('helpers.sortable', () => {
   suite('SortableStringable', () => {
@@ -38,8 +38,8 @@ suite('helpers.sortable', () => {
 
   suite('SortableNumbers', () => {
     test('sorted()', () => {
-      const sortable = new SortableNumbers([1, 7, 3, 42, 23, 3])
-      const expected = [1, 3, 7, 23, 42]
+      const sortable = new SortableNumbers([1, 7, 3, 42, 23, 3, -1337])
+      const expected = [-1337, 1, 3, 7, 23, 42]
 
       const actual = sortable.sorted()
 
