@@ -27,6 +27,7 @@ module.exports = {
    * @returns {string}
    */
   capitaliseFirstLetter: s => s.charAt(0).toUpperCase() + s.slice(1),
+
   /**
    * UpperCamelCase a string
    *
