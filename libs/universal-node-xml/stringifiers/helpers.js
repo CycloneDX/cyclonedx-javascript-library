@@ -34,7 +34,7 @@ module.exports.getNS = function (element) {
 }
 
 /**
- * @param {string|number} space
+ * @param {string|number|*} [space]
  * @return {string}
  */
 module.exports.makeIndent = function (space) {
