@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Added
+  * Enums for ... (via [#...])
+  * Models for ... (via [#...])
 * Misc
   * Fixed type hints in internals (via [#432])
   * Added tests for internal helpers (via [#431])
