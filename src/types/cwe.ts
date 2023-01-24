@@ -22,6 +22,7 @@ import { isPositiveInteger, PositiveInteger } from './integer'
 /**
  * Define the format for acceptable Common Weakness Enumeration (CWE) IDs.
  * Refer to {@link https://cwe.mitre.org/index.html} for official specification.
+ *
  * @see isCWE
  */
 export type CWE = number | PositiveInteger
