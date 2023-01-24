@@ -25,7 +25,7 @@ export interface Sortable<TItem> {
 
 export interface Comparable<TOther> {
   /**
-   * Compare one with another.
+   * Compare one object with another.
    *
    * The purpose of this method is not to test for equality, but have deterministic comparability.
    * As long as this method is deterministic, there is no need for a proper ordering in any result/downstream.
@@ -33,15 +33,22 @@ export interface Comparable<TOther> {
   compare: (other: TOther) => number
 }
 
-abstract class SortableSet<TItem>
-  extends Set<TItem>
-  implements Sortable<TItem>, Comparable<Sortable<TItem>> {
+abstract class SortableSet<TItem> extends Set<TItem> implements Sortable<TItem>, Comparable<Sortable<TItem>> {
+  /**
+   * Comparator function to apply to two items.
+   */
   protected abstract __compare (a: TItem, b: TItem): number
 
+  /**
+   * Get a sorted array of all items in the collection..
+   */
   sorted (): TItem[] {
     return Array.from(this).sort(this.__compare)
   }
 
+  /**
+   * Comparator function to apply to two objects of the collection..
+   */
   compare (other: Sortable<TItem>): number {
     const sortedOther = other.sorted()
     const sortedSelf = this.sorted()
