@@ -33,17 +33,19 @@ export interface Comparable<TOther> {
   compare: (other: TOther) => number
 }
 
+const compareObjectsSymbol = Symbol('internal compare function')
+
 abstract class SortableSet<TItem> extends Set<TItem> implements Sortable<TItem>, Comparable<Sortable<TItem>> {
   /**
    * Comparator function to apply to two items.
    */
-  protected abstract __compare (a: TItem, b: TItem): number
+  protected abstract [compareObjectsSymbol] (a: TItem, b: TItem): number
 
   /**
    * Get a sorted array of all items in the collection..
    */
   sorted (): TItem[] {
-    return Array.from(this).sort(this.__compare)
+    return Array.from(this).sort(this[compareObjectsSymbol])
   }
 
   /**
@@ -59,7 +61,7 @@ abstract class SortableSet<TItem> extends Set<TItem> implements Sortable<TItem>,
 
     // it was asserted, that both lists have equal length -> zip-like compare
     for (let i = sortedSelf.length - 1; i >= 0; --i) {
-      const iCompared = this.__compare(sortedSelf[i], sortedOther[i])
+      const iCompared = this[compareObjectsSymbol](sortedSelf[i], sortedOther[i])
       if (iCompared !== 0) {
         return iCompared
       }
@@ -70,19 +72,19 @@ abstract class SortableSet<TItem> extends Set<TItem> implements Sortable<TItem>,
 }
 
 export abstract class SortableComparables<TItem extends Comparable<TItem>> extends SortableSet<TItem> {
-  protected __compare (a: TItem, b: TItem): number {
+  protected [compareObjectsSymbol] (a: TItem, b: TItem): number {
     return a.compare(b)
   }
 }
 
 export abstract class SortableStringables<TItem extends Stringable = Stringable> extends SortableSet<TItem> {
-  protected __compare (a: TItem, b: TItem): number {
+  protected [compareObjectsSymbol] (a: TItem, b: TItem): number {
     return a.toString().localeCompare(b.toString())
   }
 }
 
 export abstract class SortableNumbers<TItem extends number = number> extends SortableSet<TItem> {
-  protected __compare (a: TItem, b: TItem): number {
+  protected [compareObjectsSymbol] (a: TItem, b: TItem): number {
     return a - b
   }
 }

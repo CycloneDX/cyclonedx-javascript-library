@@ -48,5 +48,5 @@ module.exports = {
    * @param {number} length
    * @returns {string}
    */
-  randomString: length => Math.random().toString(32).substring(2, 2 + length)
+  randomString: length => Math.random().toString(32).substring(2, 2 + length).padEnd(length, 'x')
 }

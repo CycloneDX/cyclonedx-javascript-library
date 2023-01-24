@@ -132,7 +132,7 @@ export class Component implements Comparable<Component> {
       return this.purl.toString().localeCompare(other.purl.toString())
     }
     if (this.#cpe !== undefined && other.#cpe !== undefined) {
-      return this.#cpe.toString().localeCompare(other.#cpe.toString())
+      return this.#cpe.localeCompare(other.#cpe)
     }
     /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return (this.group ?? '').localeCompare(other.group ?? '') ||

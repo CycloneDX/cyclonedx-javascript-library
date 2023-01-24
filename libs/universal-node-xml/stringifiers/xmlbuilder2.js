@@ -26,7 +26,7 @@ module.exports = typeof create === 'function'
   : undefined
 
 /**
- * @typedef XMLBuilder - something from {import('xmlbuilder2')} that was not properly exported...
+ * @typedef {import('xmlbuilder2/lib/interfaces').XMLBuilder} XMLBuilder
  */
 
 /**
@@ -35,7 +35,7 @@ module.exports = typeof create === 'function'
 
 /**
  * @param {Element} element
- * @param {string|number} space
+ * @param {string|number|undefined} [space]
  * @return {string}
  */
 function stringify (element, { space } = {}) {
@@ -53,7 +53,7 @@ function stringify (element, { space } = {}) {
 /**
  * @param {XMLBuilder} parent
  * @param {Element} element
- * @param {string|null} parentNS
+ * @param {string|null} [parentNS=null]
  */
 function addEle (parent, element, parentNS = null) {
   if (element.type !== 'element') { return }
