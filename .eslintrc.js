@@ -1,4 +1,3 @@
-'use strict'
 /*!
 This file is part of CycloneDX JavaScript Library.
 
@@ -35,7 +34,9 @@ module.exports = {
   },
   plugins: [
     /* see https://github.com/lydell/eslint-plugin-simple-import-sort#readme */
-    'simple-import-sort'
+    'simple-import-sort',
+    /* see https://github.com/Stuk/eslint-plugin-header#readme */
+    'header'
   ],
   env: {
     commonjs: true,
@@ -58,9 +59,12 @@ module.exports = {
     {
       files: ['*.js'],
       rules: {
+        // region docs
+        /* see https://github.com/gajus/eslint-plugin-jsdoc */
         'jsdoc/require-param-type': 'error',
         'jsdoc/require-property-type': 'error',
         'jsdoc/require-returns-type': 'error'
+        // region docs
       },
       settings: {
         jsdoc: {
@@ -101,8 +105,12 @@ module.exports = {
     'jsdoc/require-throws': 'error',
     'jsdoc/require-yields': 0,
     'jsdoc/require-yields-check': 'error',
-    'jsdoc/sort-tags': 'warn'
+    'jsdoc/sort-tags': 'warn',
     // endregion docs
+    // region license-header
+    /* see https://github.com/Stuk/eslint-plugin-header#readme */
+    'header/header': ['error', '.license-header.js']
+    // endregion license-header
   },
   settings: {
     jsdoc: {
