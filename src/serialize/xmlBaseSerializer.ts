@@ -31,7 +31,7 @@ export abstract class XmlBaseSerializer extends BaseSerializer<SimpleXml.Element
   readonly #normalizerFactory: NormalizerFactory
 
   /**
-   * @throws {UnsupportedFormatError} if {@link normalizerFactory.spec} does not support {@link Format.XML}.
+   * @throws {UnsupportedFormatError} if `normalizerFactory.spec` does not support {@link Format.XML}.
    */
   constructor (normalizerFactory: XmlBaseSerializer['normalizerFactory']) {
     if (!normalizerFactory.spec.supportsFormat(Format.XML)) {
