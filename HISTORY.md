@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Added
+  * Ship [TypeDoc](https://typedoc.org) configuration, so that users can build the documentation on demand ([#57] via [#436]) 
 * Misc
   * Fixed type hints in internals (via [#432])
   * Added tests for internal helpers (via [#431])
@@ -11,12 +13,14 @@ All notable changes to this project will be documented in this file.
   * Slightly improved performance of compare methods when reproducible results were needed (via [#433])
   * Use `eslint-config-standard-with-typescript@31.0.0` now, was `23.0.0` (via [#382], [#423])
 
+[#57]:  https://github.com/CycloneDX/cyclonedx-javascript-library/issues/57
 [#165]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/165
 [#382]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/382
 [#423]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/423
 [#431]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/431
 [#432]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/432
 [#433]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/433
+[#436]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/436
 
 ## 1.9.2 - 2022-12-16
 

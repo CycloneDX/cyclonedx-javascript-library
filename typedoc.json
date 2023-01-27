@@ -1,0 +1,16 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "tsconfig": "tsconfig.d.json",
+  "commentStyle": "jsdoc",
+  "includeVersion": true,
+  "hideGenerator": true,
+  "readme": "none",
+  "name": "CycloneDX JavaScript Library",
+  "externalSymbolLinkMappings": {
+    "packageurl-js": {
+      "PackageURL": "https://github.com/package-url/packageurl-js#usage-examples"
+    }
+  },
+  "cleanOutputDir": true,
+  "emit": "both"
+}
