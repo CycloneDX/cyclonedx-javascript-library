@@ -31,7 +31,7 @@ import { OrganizationalEntity } from './organizationalEntity'
 import { PropertyRepository } from './property'
 import { SWID } from './swid'
 
-interface OptionalProperties {
+interface ComponentOptionalProperties {
   bomRef?: BomRef['value']
   author?: Component['author']
   copyright?: Component['copyright']
@@ -81,7 +81,7 @@ export class Component implements Comparable<Component> {
   /**
    * @throws {TypeError} if {@link op.cpe} is neither {@link CPE} nor {@link undefined}
    */
-  constructor (type: Component['type'], name: Component['name'], op: OptionalProperties = {}) {
+  constructor (type: Component['type'], name: Component['name'], op: ComponentOptionalProperties = {}) {
     this.#bomRef = new BomRef(op.bomRef)
     this.type = type
     this.name = name

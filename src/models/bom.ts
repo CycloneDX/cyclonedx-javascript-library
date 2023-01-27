@@ -21,7 +21,7 @@ import { isPositiveInteger, isUrnUuid, PositiveInteger, UrnUuid } from '../types
 import { ComponentRepository } from './component'
 import { Metadata } from './metadata'
 
-interface OptionalProperties {
+export interface BomOptionalProperties {
   metadata?: Bom['metadata']
   components?: Bom['components']
   version?: Bom['version']
@@ -48,7 +48,7 @@ export class Bom {
    * @throws {TypeError} if {@link op.version} is neither {@link PositiveInteger} nor {@link undefined}
    * @throws {TypeError} if {@link op.serialNumber} is neither {@link UrnUuid} nor {@link undefined}
    */
-  constructor (op: OptionalProperties = {}) {
+  constructor (op: BomOptionalProperties = {}) {
     this.metadata = op.metadata ?? new Metadata()
     this.components = op.components ?? new ComponentRepository()
     this.version = op.version ?? this.version

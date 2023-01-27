@@ -59,7 +59,7 @@ export class LicenseExpression {
   }
 }
 
-interface NamedLicenseOptionalProperties {
+export interface NamedLicenseOptionalProperties {
   text?: NamedLicense['text']
   url?: NamedLicense['url']
 }
@@ -80,7 +80,7 @@ export class NamedLicense {
   }
 }
 
-interface SpdxLicenseOptionalProperties {
+export interface SpdxLicenseOptionalProperties {
   text?: SpdxLicense['text']
   url?: SpdxLicense['url']
 }

@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { OrganizationalContactRepository } from './organizationalContact'
 
-interface OptionalProperties {
+export interface OrganizationalEntityOptionalProperties {
   name?: OrganizationalEntity['name']
   url?: OrganizationalEntity['url']
   contact?: OrganizationalEntity['contact']
@@ -30,7 +30,7 @@ export class OrganizationalEntity {
   url: Set<URL | string>
   contact: OrganizationalContactRepository
 
-  constructor (op: OptionalProperties = {}) {
+  constructor (op: OrganizationalEntityOptionalProperties = {}) {
     this.name = op.name
     this.url = op.url ?? new Set()
     this.contact = op.contact ?? new OrganizationalContactRepository()
