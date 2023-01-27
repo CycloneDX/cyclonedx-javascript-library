@@ -34,8 +34,8 @@ export abstract class XmlBaseSerializer extends BaseSerializer<SimpleXml.Element
    * @throws {UnsupportedFormatError} if {@link normalizerFactory.spec} does not support {@link Format.XML}.
    */
   constructor (normalizerFactory: XmlBaseSerializer['normalizerFactory']) {
-    if (!normalizerFactory.spec.supportsFormat(Format.JSON)) {
-      throw new UnsupportedFormatError('Spec does not support JSON format.')
+    if (!normalizerFactory.spec.supportsFormat(Format.XML)) {
+      throw new UnsupportedFormatError('Spec does not support XML format.')
     }
 
     super()
