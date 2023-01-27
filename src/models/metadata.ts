@@ -22,7 +22,7 @@ import { OrganizationalContactRepository } from './organizationalContact'
 import { OrganizationalEntity } from './organizationalEntity'
 import { ToolRepository } from './tool'
 
-export interface MetadataOptionalProperties {
+export interface OptionalMetadataProperties {
   timestamp?: Metadata['timestamp']
   tools?: Metadata['tools']
   authors?: Metadata['authors']
@@ -39,7 +39,7 @@ export class Metadata {
   manufacture?: OrganizationalEntity
   supplier?: OrganizationalEntity
 
-  constructor (op: MetadataOptionalProperties = {}) {
+  constructor (op: OptionalMetadataProperties = {}) {
     this.timestamp = op.timestamp
     this.tools = op.tools ?? new ToolRepository()
     this.authors = op.authors ?? new OrganizationalContactRepository()

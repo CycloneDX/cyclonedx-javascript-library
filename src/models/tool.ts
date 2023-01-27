@@ -21,7 +21,7 @@ import { Comparable, SortableComparables } from '../_helpers/sortable'
 import { ExternalReferenceRepository } from './externalReference'
 import { HashDictionary } from './hash'
 
-export interface ToolOptionalProperties {
+export interface OptionalToolProperties {
   vendor?: Tool['vendor']
   name?: Tool['name']
   version?: Tool['version']
@@ -36,7 +36,7 @@ export class Tool implements Comparable<Tool> {
   hashes: HashDictionary
   externalReferences: ExternalReferenceRepository
 
-  constructor (op: ToolOptionalProperties = {}) {
+  constructor (op: OptionalToolProperties = {}) {
     this.vendor = op.vendor
     this.name = op.name
     this.version = op.version

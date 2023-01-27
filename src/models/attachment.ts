@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { AttachmentEncoding } from '../enums'
 
-export interface AttachmentOptionalProperties {
+export interface OptionalAttachmentProperties {
   contentType?: Attachment['contentType']
   encoding?: Attachment['encoding']
 }
@@ -29,7 +29,7 @@ export class Attachment {
   content: string
   encoding?: AttachmentEncoding
 
-  constructor (content: Attachment['content'], op: AttachmentOptionalProperties = {}) {
+  constructor (content: Attachment['content'], op: OptionalAttachmentProperties = {}) {
     this.contentType = op.contentType
     this.content = content
     this.encoding = op.encoding

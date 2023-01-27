@@ -59,7 +59,7 @@ export class LicenseExpression {
   }
 }
 
-export interface NamedLicenseOptionalProperties {
+export interface OptionalNamedLicenseProperties {
   text?: NamedLicense['text']
   url?: NamedLicense['url']
 }
@@ -69,7 +69,7 @@ export class NamedLicense {
   text?: Attachment
   url?: URL | string
 
-  constructor (name: NamedLicense['name'], op: NamedLicenseOptionalProperties = {}) {
+  constructor (name: NamedLicense['name'], op: OptionalNamedLicenseProperties = {}) {
     this.name = name
     this.text = op.text
     this.url = op.url
@@ -80,7 +80,7 @@ export class NamedLicense {
   }
 }
 
-export interface SpdxLicenseOptionalProperties {
+export interface OptionalSpdxLicenseProperties {
   text?: SpdxLicense['text']
   url?: SpdxLicense['url']
 }
@@ -95,7 +95,7 @@ export class SpdxLicense {
   /**
    * @throws {RangeError} if {@link id} is not supported SPDX id({@link isSupportedSpdxId})
    */
-  constructor (id: SpdxLicense['id'], op: SpdxLicenseOptionalProperties = {}) {
+  constructor (id: SpdxLicense['id'], op: OptionalSpdxLicenseProperties = {}) {
     this.id = id
     this.text = op.text
     this.url = op.url
