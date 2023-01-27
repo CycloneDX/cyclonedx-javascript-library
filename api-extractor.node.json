@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
   "extends": "./api-extractor.base.json5",
   "mainEntryPointFilePath": "<projectFolder>/dist.d/index.node.d.ts",
-  "apiReport": {
+  "docModel": {
     "enabled": true,
-    "reportFileName": "<unscopedPackageName>.node.api.md"
+    "apiJsonFilePath": "<projectFolder>/docs/.temp/api-extractor/<unscopedPackageName>.node.api.json"
   }
 }
