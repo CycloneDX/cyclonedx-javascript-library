@@ -189,10 +189,3 @@ jobs:
         run: npm ci --ignore-scripts
       - name: gen docs ${{ matrix.target }}
         run: npm run docs:${{ matrix.target }}
-      - name: artifact build result
-        # see https://github.com/actions/upload-artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: docs.${{ matrix.target }}
-          path: docs.${{ matrix.target }}
-          if-no-files-found: error
