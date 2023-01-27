@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Added
- * Ship [TypeDoc](https://typedoc.org) configuration, so that users can build the documentation on demand ([#57] via [#436]) 
+  * Ship [TypeDoc](https://typedoc.org) configuration, so that users can build the documentation on demand ([#57] via [#436]) 
 * Misc
   * Fixed type hints in internals (via [#432])
   * Added tests for internal helpers (via [#431])
