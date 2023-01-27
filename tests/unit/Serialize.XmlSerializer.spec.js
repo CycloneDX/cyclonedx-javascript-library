@@ -35,10 +35,13 @@ suite('Serialize.XmlSerializer', () => {
       const actual = new XmlSerializer(normalizerFactory)
       assert.strictEqual(actual.normalizerFactory, normalizerFactory)
     })
-    test('throws if unsupported by spec', () => {
+    test('throws if XML unsupported by spec', () => {
       const normalizerFactoryDummy = { spec: { supportsFormat: f => f !== Format.XML } }
       assert.throws(
-        () => { new XmlSerializer(normalizerFactoryDummy) },
+        () => {
+          /* eslint-disable-next-line no-new */
+          new XmlSerializer(normalizerFactoryDummy)
+        },
         UnsupportedFormatError,
         'missing expected error'
       )

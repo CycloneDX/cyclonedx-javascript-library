@@ -35,10 +35,13 @@ suite('Serialize.JsonSerializer', () => {
       const actual = new JsonSerializer(normalizerFactory)
       assert.strictEqual(actual.normalizerFactory, normalizerFactory)
     })
-    test('throws if unsupported by spec', () => {
+    test('throws if JSON unsupported by spec', () => {
       const normalizerFactoryDummy = { spec: { supportsFormat: f => f !== Format.JSON } }
       assert.throws(
-        () => { new JsonSerializer(normalizerFactoryDummy) },
+        () => {
+          /* eslint-disable-next-line no-new */
+          new JsonSerializer(normalizerFactoryDummy)
+        },
         UnsupportedFormatError,
         'missing expected error'
       )
