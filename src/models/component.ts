@@ -31,7 +31,7 @@ import { OrganizationalEntity } from './organizationalEntity'
 import { PropertyRepository } from './property'
 import { SWID } from './swid'
 
-interface OptionalComponentProperties {
+export interface OptionalComponentProperties {
   bomRef?: BomRef['value']
   author?: Component['author']
   copyright?: Component['copyright']
