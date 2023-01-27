@@ -164,8 +164,8 @@ jobs:
       - name: use type declarations
         run: npm run build
         working-directory: ${{ env.EXAMPLE_DIR }}
-  api-docs:
-    name: gen API docs ${{ matrix.target }}
+  typedoc:
+    name: typedoc ${{ matrix.target }}
     runs-on: "ubuntu-latest"
     strategy:
       fail-fast: false
@@ -187,5 +187,5 @@ jobs:
           cache-dependency-path: "**/package-lock.json"
       - name: setup project
         run: npm ci --ignore-scripts
-      - name: gen API docs ${{ matrix.target }}
-        run: npm run doc:${{ matrix.target }}
+      - name: typedoc ${{ matrix.target }}
+        run: npm run typedoc:${{ matrix.target }}

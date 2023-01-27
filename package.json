@@ -90,8 +90,8 @@
     "test:node": "mocha -p",
     "test:web": "node -e 'console.log(\"TODO: write web test\")'",
     "test:standard": "eslint .",
-    "doc": "run-p --aggregate-output -lc doc:*",
-    "doc:node": "typedoc --options typedoc.node.json",
-    "doc:web": "typedoc --options typedoc.web.json"
+    "typedoc": "run-p --aggregate-output -lc typedoc:*",
+    "typedoc:node": "typedoc --options typedoc.node.json",
+    "typedoc:web": "typedoc --options typedoc.web.json"
   }
 }
