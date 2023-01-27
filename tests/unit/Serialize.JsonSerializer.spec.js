@@ -41,7 +41,7 @@ suite('Serialize.JsonSerializer', () => {
         () => { new JsonSerializer(normalizerFactoryDummy) },
         UnsupportedFormatError,
         'missing expected error'
-        )
+      )
     })
   })
 })
