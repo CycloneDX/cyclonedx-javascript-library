@@ -1,5 +1,10 @@
+/node_modules/**
+
+
+# generated files: dist and docs
 /dist/**
 /dist.*/**
-/node_modules/**
+/docs/api/**
+
 
 !/src/**
