@@ -164,3 +164,35 @@ jobs:
       - name: use type declarations
         run: npm run build
         working-directory: ${{ env.EXAMPLE_DIR }}
+  docs:
+    name: docs ${{ matrix.target }}
+    runs-on: "ubuntu-latest"
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - node
+          - web
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        # see https://github.com/actions/checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
+        # see https://github.com/actions/setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_ACTIVE_LTS }}
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+      - name: setup project
+        run: npm ci --ignore-scripts
+      - name: gen docs ${{ matrix.target }}
+        run: npm run docs:${{ matrix.target }}
+      - name: artifact build result
+        # see https://github.com/actions/upload-artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: docs.${{ matrix.target }}
+          path: docs.${{ matrix.target }}
+          if-no-files-found: error
