@@ -45,6 +45,7 @@
     "xmlbuilder2": "^3.0.2"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.34.0",
     "@types/mocha": "^10.0.0",
     "@types/node": ">=14",
     "@types/webpack": "^5.28.0",
@@ -88,6 +89,9 @@
     "test": "run-p --aggregate-output -lc test:*",
     "test:node": "mocha -p",
     "test:web": "node -e 'console.log(\"TODO: write web test\")'",
-    "test:standard": "eslint ."
+    "test:standard": "eslint .",
+    "docs": "run-p --aggregate-output -l docs:*",
+    "docs:node": "api-extractor run -v -c api-extractor.node.json --typescript-compiler-folder node_modules/typescript ",
+    "docs:web": "api-extractor run -v -c api-extractor.web.json --typescript-compiler-folder node_modules/typescript"
   }
 }
