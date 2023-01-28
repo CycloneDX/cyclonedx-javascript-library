@@ -29,7 +29,7 @@ import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
 /**
  * Node-specifics.
  *
- * @see [PackageJson spec]{@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json}
+ * @see [PackageJson spec](https://docs.npmjs.com/cli/v8/configuring-npm/package-json)
  */
 
 /**
@@ -47,7 +47,7 @@ export class ExternalReferenceFactory {
   }
 
   makeVcs (data: PackageJson): Models.ExternalReference | undefined {
-    /** @see [the spe]{@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#repositoryc} */
+    /** @see [the spec](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#repositoryc) */
     const repository = data.repository
     let url
     let comment: string | undefined
@@ -69,7 +69,7 @@ export class ExternalReferenceFactory {
   }
 
   makeHomepage (data: PackageJson): Models.ExternalReference | undefined {
-    /** @see [the spec]{@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#homepage} */
+    /** @see [the spec](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#homepage) */
     const url = data.homepage
     return typeof url === 'string' && url.length > 0
       ? new Models.ExternalReference(
@@ -79,7 +79,7 @@ export class ExternalReferenceFactory {
   }
 
   makeIssueTracker (data: PackageJson): Models.ExternalReference | undefined {
-    /** @see [the spec]{@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#bugs} */
+    /** @see [the spec](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#bugs) */
     const bugs = data.bugs
     let url
     let comment: string | undefined
@@ -110,7 +110,7 @@ export class PackageUrlFactory extends PlainPackageUrlFactory {
   }
 
   /**
-   * Will strip unnecessary qualifiers according to [PURL-SPECIFICATION]{@link https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst#known-qualifiers-keyvalue-pairs}:
+   * Will strip unnecessary qualifiers according to [PURL-SPECIFICATION](https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst#known-qualifiers-keyvalue-pairs):
    * > Do not abuse qualifiers: it can be tempting to use many qualifier keys but their usage should be limited
    * > to the bare minimum for proper package identification to ensure that a purl stays compact and readable
    * > in most cases.

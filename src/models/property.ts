@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import { Comparable, SortableComparables } from '../_helpers/sortable'
 
 /**
- * @see [property-taxonomy]{@link https://github.com/CycloneDX/cyclonedx-property-taxonomy}
+ * @see [CycloneDX Property Taxonomy](https://github.com/CycloneDX/cyclonedx-property-taxonomy)
  */
 export class Property implements Comparable<Property> {
   name: string
