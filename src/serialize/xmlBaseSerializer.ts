@@ -17,12 +17,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Bom } from '../models'
+import { type Bom } from '../models'
 import { Format, UnsupportedFormatError } from '../spec'
 import { BaseSerializer } from './baseSerializer'
-import { NormalizerOptions } from './types'
-import { Factory as NormalizerFactory } from './xml/normalize'
-import { SimpleXml } from './xml/types'
+import { type NormalizerOptions } from './types'
+import { type Factory as NormalizerFactory } from './xml/normalize'
+import { type SimpleXml } from './xml/types'
 
 /**
  * Base XML serializer.

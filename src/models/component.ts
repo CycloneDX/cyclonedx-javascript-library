@@ -17,19 +17,19 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { PackageURL } from 'packageurl-js'
+import { type PackageURL } from 'packageurl-js'
 
-import { Comparable, SortableComparables } from '../_helpers/sortable'
+import { type Comparable, SortableComparables } from '../_helpers/sortable'
 import { treeIteratorSymbol } from '../_helpers/tree'
-import { ComponentScope, ComponentType } from '../enums'
-import { CPE, isCPE } from '../types'
+import { type ComponentScope, type ComponentType } from '../enums'
+import { type CPE, isCPE } from '../types'
 import { BomRef, BomRefRepository } from './bomRef'
 import { ExternalReferenceRepository } from './externalReference'
 import { HashDictionary } from './hash'
 import { LicenseRepository } from './license'
-import { OrganizationalEntity } from './organizationalEntity'
+import { type OrganizationalEntity } from './organizationalEntity'
 import { PropertyRepository } from './property'
-import { SWID } from './swid'
+import { type SWID } from './swid'
 
 export interface OptionalComponentProperties {
   bomRef?: BomRef['value']

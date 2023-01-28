@@ -17,10 +17,10 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import * as Enums from '../../enums'
-import { HashContent } from '../../models'
-import { SpdxId } from '../../spdx'
-import { CPE, Integer, UrnUuid } from '../../types'
+import type * as Enums from '../../enums'
+import { type HashContent } from '../../models'
+import { type SpdxId } from '../../spdx'
+import { type CPE, type Integer, type UrnUuid } from '../../types'
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace JsonSchema {

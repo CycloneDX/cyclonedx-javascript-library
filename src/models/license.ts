@@ -17,9 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Sortable } from '../_helpers/sortable'
-import { isSupportedSpdxId, SpdxId } from '../spdx'
-import { Attachment } from './attachment'
+import { type Sortable } from '../_helpers/sortable'
+import { isSupportedSpdxId, type SpdxId } from '../spdx'
+import { type Attachment } from './attachment'
 
 export class LicenseExpression {
   static isEligibleExpression (expression: string | any): boolean {

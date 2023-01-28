@@ -17,8 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { isNonNegativeInteger, NonNegativeInteger } from '../types'
-import { Attachment } from './attachment'
+import { isNonNegativeInteger, type NonNegativeInteger } from '../types'
+import { type Attachment } from './attachment'
 
 export interface OptionalSWIDProperties {
   version?: SWID['version']
