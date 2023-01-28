@@ -5,10 +5,14 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Added
-  * Ship [TypeDoc](https://typedoc.org) configuration, so that users can build the documentation on demand ([#57] via [#436])
-  * Typing: Interfaces of models' optional properties are now public API ([#439] via [#440])
   * Enums for ... (via [#...])
   * Models for ... (via [#...])
+
+## 1.10.0 - 2023-01-28
+
+* Added
+  * Typing: Interfaces of models' optional properties are now public API ([#439] via [#440])
+  * Ship [TypeDoc](https://typedoc.org) configuration, so that users can build the documentation on demand ([#57] via [#436])
 * Fixed
   * XML serializer now properly throws `UnsupportedFormatError` if it is unsupported by the supplied Spec (via [#438])
 * Misc
