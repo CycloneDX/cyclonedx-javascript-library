@@ -25,9 +25,9 @@ import {enum as _spdxSpecEnum} from '../res/spdx.SNAPSHOT.schema.json'
 /**
  * One of the known SPDX licence identifiers.
  *
- * @see {@link http://cyclonedx.org/schema/spdx SPDX schema}
- * @see isSupportedSpdxId
- * @see fixupSpdxId
+ * @see [SPDX schema]{@link http://cyclonedx.org/schema/spdx}
+ * @see {@link isSupportedSpdxId}
+ * @see {@link fixupSpdxId}
  */
 export type SpdxId = string
 

@@ -104,7 +104,7 @@ interface Normalizer<TModel, TNormalized> {
   /** @since 1.5.1 */
   normalizeIterable?: (data: SortableIterable<TModel>, options: NormalizerOptions) => TNormalized[]
   /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
-  normalizeRepository?: (data: SortableIterable<TModel>, options: NormalizerOptions) => TNormalized[]
+  normalizeRepository?: ['normalizeIterable']
 }
 
 abstract class Base<TModel, TNormalized=object> implements Normalizer<TModel, TNormalized> {
