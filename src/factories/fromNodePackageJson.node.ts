@@ -17,6 +17,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+/**
+ * Node-specifics.
+ *
+ * @see [PackageJson spec](https://docs.npmjs.com/cli/v8/configuring-npm/package-json)
+ */
+
 import { PackageURL } from 'packageurl-js'
 
 import { isNotUndefined } from '../_helpers/notUndefined'
@@ -25,12 +31,6 @@ import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
 import * as Enums from '../enums'
 import * as Models from '../models'
 import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
-
-/**
- * Node-specifics.
- *
- * @see [PackageJson spec](https://docs.npmjs.com/cli/v8/configuring-npm/package-json)
- */
 
 /**
  * Node-specific ExternalReferenceFactory.
