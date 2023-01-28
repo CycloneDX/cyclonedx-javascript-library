@@ -17,9 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { AttachmentEncoding } from '../enums'
+import type { AttachmentEncoding } from '../enums'
 
-interface OptionalProperties {
+export interface OptionalAttachmentProperties {
   contentType?: Attachment['contentType']
   encoding?: Attachment['encoding']
 }
@@ -29,7 +29,7 @@ export class Attachment {
   content: string
   encoding?: AttachmentEncoding
 
-  constructor (content: Attachment['content'], op: OptionalProperties = {}) {
+  constructor (content: Attachment['content'], op: OptionalAttachmentProperties = {}) {
     this.contentType = op.contentType
     this.content = content
     this.encoding = op.encoding

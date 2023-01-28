@@ -17,11 +17,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Comparable, SortableComparables } from '../_helpers/sortable'
+import type { Comparable } from '../_helpers/sortable'
+import { SortableComparables } from '../_helpers/sortable'
 import { ExternalReferenceRepository } from './externalReference'
 import { HashDictionary } from './hash'
 
-interface OptionalProperties {
+export interface OptionalToolProperties {
   vendor?: Tool['vendor']
   name?: Tool['name']
   version?: Tool['version']
@@ -36,7 +37,7 @@ export class Tool implements Comparable<Tool> {
   hashes: HashDictionary
   externalReferences: ExternalReferenceRepository
 
-  constructor (op: OptionalProperties = {}) {
+  constructor (op: OptionalToolProperties = {}) {
     this.vendor = op.vendor
     this.name = op.name
     this.version = op.version

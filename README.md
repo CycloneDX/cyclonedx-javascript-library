@@ -138,6 +138,8 @@ bom.metadata.component.dependencies.add(componentA.bomRef)
 There is no pre-rendered documentation at the time.  
 Instead, there are annotated type definitions, so that your IDE and tools may pick up the documentation when you use this library downstream.
 
+Additionally, there is a prepared set of configs for [TypeDoc](https://typedoc.org), so that you can build the API documentation from source via `npm run api-doc`.
+
 ## Development & Contributing
 
 Feel free to open issues, bugreports or pull requests.  

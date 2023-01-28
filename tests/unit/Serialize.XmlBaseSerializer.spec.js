@@ -1,4 +1,3 @@
-'use strict'
 /*!
 This file is part of CycloneDX JavaScript Library.
 
@@ -26,18 +25,27 @@ const {
     XmlBaseSerializer,
     XML: { Normalize: { Factory } }
   },
-  Spec: { Spec1dot4 }
-
+  Spec: { Format, Spec1dot4, UnsupportedFormatError }
 } = require('../../')
 
 suite('Serialize.XmlBaseSerializer', () => {
-  test('constructor', () => {
-    const normalizerFactory = new Factory(Spec1dot4)
-
+  suite('constructor', () => {
     class MySerializer extends XmlBaseSerializer {}
-
-    const actual = new MySerializer(normalizerFactory)
-
-    assert.strictEqual(actual.normalizerFactory, normalizerFactory)
+    test('happy path', () => {
+      const normalizerFactory = new Factory(Spec1dot4)
+      const actual = new MySerializer(normalizerFactory)
+      assert.strictEqual(actual.normalizerFactory, normalizerFactory)
+    })
+    test('throws if XML unsupported by spec', () => {
+      const normalizerFactoryDummy = { spec: { supportsFormat: f => f !== Format.XML } }
+      assert.throws(
+        () => {
+          /* eslint-disable-next-line no-new */
+          new MySerializer(normalizerFactoryDummy)
+        },
+        UnsupportedFormatError,
+        'missing expected error'
+      )
+    })
   })
 })

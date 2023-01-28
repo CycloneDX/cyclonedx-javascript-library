@@ -16,26 +16,3 @@ limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
-
-const assert = require('assert')
-const { suite, test } = require('mocha')
-
-const {
-  Builders: { FromNodePackageJson: { ComponentBuilder } },
-  Factories: {
-    FromNodePackageJson: { ExternalReferenceFactory },
-    LicenseFactory
-  }
-} = require('../../')
-
-suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
-  test('construct', () => {
-    const extRefFactory = new ExternalReferenceFactory()
-    const licenseFactory = new LicenseFactory()
-
-    const actual = new ComponentBuilder(extRefFactory, licenseFactory)
-
-    assert.strictEqual(actual.extRefFactory, extRefFactory)
-    assert.strictEqual(actual.licenseFactory, licenseFactory)
-  })
-})

@@ -17,12 +17,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Bom } from '../models'
+import type { Bom } from '../models'
 import { Format, UnsupportedFormatError } from '../spec'
 import { BaseSerializer } from './baseSerializer'
-import { NormalizerOptions } from './types'
-import { Factory as NormalizerFactory } from './xml/normalize'
-import { SimpleXml } from './xml/types'
+import type { NormalizerOptions } from './types'
+import type { Factory as NormalizerFactory } from './xml/normalize'
+import type { SimpleXml } from './xml/types'
 
 /**
  * Base XML serializer.
@@ -31,11 +31,11 @@ export abstract class XmlBaseSerializer extends BaseSerializer<SimpleXml.Element
   readonly #normalizerFactory: NormalizerFactory
 
   /**
-   * @throws {UnsupportedFormatError} if {@link normalizerFactory.spec} does not support {@link Format.XML}.
+   * @throws {UnsupportedFormatError} if `normalizerFactory.spec` does not support {@link Format.XML}.
    */
   constructor (normalizerFactory: XmlBaseSerializer['normalizerFactory']) {
-    if (!normalizerFactory.spec.supportsFormat(Format.JSON)) {
-      throw new UnsupportedFormatError('Spec does not support JSON format.')
+    if (!normalizerFactory.spec.supportsFormat(Format.XML)) {
+      throw new UnsupportedFormatError('Spec does not support XML format.')
     }
 
     super()

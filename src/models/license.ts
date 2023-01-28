@@ -17,13 +17,15 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Sortable } from '../_helpers/sortable'
-import { isSupportedSpdxId, SpdxId } from '../spdx'
-import { Attachment } from './attachment'
+import type { Sortable } from '../_helpers/sortable'
+import type { SpdxId } from '../spdx'
+import { isSupportedSpdxId } from '../spdx'
+import type { Attachment } from './attachment'
 
 export class LicenseExpression {
   static isEligibleExpression (expression: string | any): boolean {
     // smallest known: (A or B)
+    // TODO: use a better detection - maybe validate via https://www.npmjs.com/package/spdx-expression-parse
     return typeof expression === 'string' &&
       expression.length >= 8 &&
       expression[0] === '(' &&
@@ -34,7 +36,7 @@ export class LicenseExpression {
   #expression!: string
 
   /**
-   * @throws {RangeError} if {@link expression} is not eligible({@link LicenseExpression.isEligibleExpression})
+   * @throws {RangeError} if `expression` is not {@link LicenseExpression.isEligibleExpression eligible}
    */
   constructor (expression: LicenseExpression['expression']) {
     this.expression = expression
@@ -45,7 +47,7 @@ export class LicenseExpression {
   }
 
   /**
-   * @throws {RangeError} if expression is not eligible({@link LicenseExpression.isEligibleExpression})
+   * @throws {RangeError} if value is not {@link LicenseExpression.isEligibleExpression eligible}
    */
   set expression (value: string) {
     if (!LicenseExpression.isEligibleExpression(value)) {
@@ -59,7 +61,7 @@ export class LicenseExpression {
   }
 }
 
-interface NamedLicenseOptionalProperties {
+export interface OptionalNamedLicenseProperties {
   text?: NamedLicense['text']
   url?: NamedLicense['url']
 }
@@ -69,7 +71,7 @@ export class NamedLicense {
   text?: Attachment
   url?: URL | string
 
-  constructor (name: NamedLicense['name'], op: NamedLicenseOptionalProperties = {}) {
+  constructor (name: NamedLicense['name'], op: OptionalNamedLicenseProperties = {}) {
     this.name = name
     this.text = op.text
     this.url = op.url
@@ -80,7 +82,7 @@ export class NamedLicense {
   }
 }
 
-interface SpdxLicenseOptionalProperties {
+export interface OptionalSpdxLicenseProperties {
   text?: SpdxLicense['text']
   url?: SpdxLicense['url']
 }
@@ -93,9 +95,9 @@ export class SpdxLicense {
   #id!: SpdxId
 
   /**
-   * @throws {RangeError} if {@link id} is not supported SPDX id({@link isSupportedSpdxId})
+   * @throws {RangeError} if `id` is not {@link isSupportedSpdxId supported}
    */
-  constructor (id: SpdxLicense['id'], op: SpdxLicenseOptionalProperties = {}) {
+  constructor (id: SpdxLicense['id'], op: OptionalSpdxLicenseProperties = {}) {
     this.id = id
     this.text = op.text
     this.url = op.url
@@ -106,7 +108,7 @@ export class SpdxLicense {
   }
 
   /**
-   * @throws {RangeError} if value is not supported SPDX id({@link isSupportedSpdxId})
+   * @throws {RangeError} if value is not {@link isSupportedSpdxId supported}
    */
   set id (value: SpdxId) {
     if (!isSupportedSpdxId(value)) {

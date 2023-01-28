@@ -26,8 +26,8 @@ import {enum as _spdxSpecEnum} from '../res/spdx.SNAPSHOT.schema.json'
  * One of the known SPDX licence identifiers.
  *
  * @see {@link http://cyclonedx.org/schema/spdx SPDX schema}
- * @see isSupportedSpdxId
- * @see fixupSpdxId
+ * @see {@link isSupportedSpdxId}
+ * @see {@link fixupSpdxId}
  */
 export type SpdxId = string
 
@@ -41,7 +41,7 @@ export function isSupportedSpdxId (value: SpdxId | any): value is SpdxId {
   return spdxIds.has(value)
 }
 
-/** Try to convert a {@link string}-like  to aa valid/known {@link SpdxId}. */
+/** Try to convert a `string`-like to a valid/known {@link SpdxId}. */
 export function fixupSpdxId (value: string | any): SpdxId | undefined {
   return typeof value === 'string' && value.length > 0
     ? spdxLowerToActual.get(value.toLowerCase())

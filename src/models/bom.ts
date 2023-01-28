@@ -17,12 +17,13 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { isPositiveInteger, isUrnUuid, PositiveInteger, UrnUuid } from '../types'
+import type { PositiveInteger, UrnUuid } from '../types'
+import { isPositiveInteger, isUrnUuid } from '../types'
 import { ComponentRepository } from './component'
 import { Metadata } from './metadata'
 import { VulnerabilityRepository } from './vulnerability'
 
-interface OptionalProperties {
+export interface OptionalBomProperties {
   metadata?: Bom['metadata']
   components?: Bom['components']
   version?: Bom['version']
@@ -48,10 +49,10 @@ export class Bom {
   // The dependency graph can be normalized on render-time, no need to store it in the bom model.
 
   /**
-   * @throws {TypeError} if {@link op.version} is neither {@link PositiveInteger} nor {@link undefined}
-   * @throws {TypeError} if {@link op.serialNumber} is neither {@link UrnUuid} nor {@link undefined}
+   * @throws {TypeError} if `op.version` is neither {@link PositiveInteger} nor `undefined`
+   * @throws {TypeError} if `op.serialNumber` is neither {@link UrnUuid} nor `undefined`
    */
-  constructor (op: OptionalProperties = {}) {
+  constructor (op: OptionalBomProperties = {}) {
     this.metadata = op.metadata ?? new Metadata()
     this.components = op.components ?? new ComponentRepository()
     this.version = op.version ?? this.version
@@ -78,7 +79,7 @@ export class Bom {
   }
 
   /**
-   * @throws {TypeError} if value is neither {@link UrnUuid} nor {@link undefined}
+   * @throws {TypeError} if value is neither {@link UrnUuid} nor `undefined`
    */
   set serialNumber (value: UrnUuid | undefined) {
     if (value !== undefined && !isUrnUuid(value)) {

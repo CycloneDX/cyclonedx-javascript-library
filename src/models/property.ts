@@ -17,10 +17,11 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Comparable, SortableComparables } from '../_helpers/sortable'
+import type { Comparable } from '../_helpers/sortable'
+import { SortableComparables } from '../_helpers/sortable'
 
 /**
- * @see {@link https://github.com/CycloneDX/cyclonedx-property-taxonomy property-taxonomy}
+ * @see [CycloneDX Property Taxonomy](https://github.com/CycloneDX/cyclonedx-property-taxonomy)
  */
 export class Property implements Comparable<Property> {
   name: string

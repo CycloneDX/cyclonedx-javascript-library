@@ -18,13 +18,15 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { isNotUndefined } from '../../_helpers/notUndefined'
-import { Sortable } from '../../_helpers/sortable'
-import { Stringable } from '../../_helpers/stringable'
+import type { Sortable } from '../../_helpers/sortable'
+import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
 import * as Models from '../../models'
-import { Protocol as Spec, Version as SpecVersion } from '../../spec'
-import { NormalizerOptions } from '../types'
-import { JsonSchema, Normalized } from './types'
+import type { Protocol as Spec } from '../../spec'
+import { Version as SpecVersion } from '../../spec'
+import type { NormalizerOptions } from '../types'
+import type { Normalized } from './types'
+import { JsonSchema } from './types'
 
 export class Factory {
   readonly #spec: Spec
@@ -104,7 +106,7 @@ interface Normalizer<TModel, TNormalized> {
   /** @since 1.5.1 */
   normalizeIterable?: (data: SortableIterable<TModel>, options: NormalizerOptions) => TNormalized[]
   /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
-  normalizeRepository?: (data: SortableIterable<TModel>, options: NormalizerOptions) => TNormalized[]
+  normalizeRepository?: ['normalizeIterable']
 }
 
 abstract class Base<TModel, TNormalized=object> implements Normalizer<TModel, TNormalized> {

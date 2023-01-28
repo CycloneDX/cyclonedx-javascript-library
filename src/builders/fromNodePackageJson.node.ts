@@ -17,16 +17,17 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { PackageJson, splitNameGroup } from '../_helpers/packageJson'
-import * as Enums from '../enums'
-import * as Factories from '../factories/index.node'
-import * as Models from '../models'
-
 /**
  * Node-specifics.
  *
- * @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json PackageJson spec}
+ * @see [PackageJson spec](https://docs.npmjs.com/cli/v8/configuring-npm/package-json)
  */
+
+import type { PackageJson } from '../_helpers/packageJson'
+import { splitNameGroup } from '../_helpers/packageJson'
+import * as Enums from '../enums'
+import type * as Factories from '../factories/index.node'
+import * as Models from '../models'
 
 /**
  * Node-specific ToolBuilder.

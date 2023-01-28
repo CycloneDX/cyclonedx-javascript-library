@@ -17,12 +17,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { Bom } from '../models'
+import type { Bom } from '../models'
 import { Format, UnsupportedFormatError } from '../spec'
 import { BaseSerializer } from './baseSerializer'
-import { Factory as NormalizerFactory } from './json/normalize'
-import { Normalized } from './json/types'
-import { NormalizerOptions, SerializerOptions } from './types'
+import type { Factory as NormalizerFactory } from './json/normalize'
+import type { Normalized } from './json/types'
+import type { NormalizerOptions, SerializerOptions } from './types'
 
 /**
  * Multi purpose Json serializer.
@@ -31,7 +31,7 @@ export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
   readonly #normalizerFactory: NormalizerFactory
 
   /**
-   * @throws {UnsupportedFormatError} if {@link normalizerFactory.spec} does not support {@link Format.JSON}.
+   * @throws {UnsupportedFormatError} if `normalizerFactory.spec` does not support {@link Format.JSON}.
    */
   constructor (normalizerFactory: JsonSerializer['normalizerFactory']) {
     if (!normalizerFactory.spec.supportsFormat(Format.JSON)) {

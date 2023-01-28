@@ -17,21 +17,23 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { PackageURL } from 'packageurl-js'
+import type { PackageURL } from 'packageurl-js'
 
-import { Comparable, SortableComparables } from '../_helpers/sortable'
+import type { Comparable } from '../_helpers/sortable'
+import { SortableComparables } from '../_helpers/sortable'
 import { treeIteratorSymbol } from '../_helpers/tree'
-import { ComponentScope, ComponentType } from '../enums'
-import { CPE, isCPE } from '../types'
+import type { ComponentScope, ComponentType } from '../enums'
+import type { CPE } from '../types'
+import { isCPE } from '../types'
 import { BomRef, BomRefRepository } from './bomRef'
 import { ExternalReferenceRepository } from './externalReference'
 import { HashDictionary } from './hash'
 import { LicenseRepository } from './license'
-import { OrganizationalEntity } from './organizationalEntity'
+import type { OrganizationalEntity } from './organizationalEntity'
 import { PropertyRepository } from './property'
-import { SWID } from './swid'
+import type { SWID } from './swid'
 
-interface OptionalProperties {
+export interface OptionalComponentProperties {
   bomRef?: BomRef['value']
   author?: Component['author']
   copyright?: Component['copyright']
@@ -79,9 +81,9 @@ export class Component implements Comparable<Component> {
   #cpe?: CPE
 
   /**
-   * @throws {TypeError} if {@link op.cpe} is neither {@link CPE} nor {@link undefined}
+   * @throws {TypeError} if `op.cpe` is neither {@link CPE} nor `undefined`
    */
-  constructor (type: Component['type'], name: Component['name'], op: OptionalProperties = {}) {
+  constructor (type: Component['type'], name: Component['name'], op: OptionalComponentProperties = {}) {
     this.#bomRef = new BomRef(op.bomRef)
     this.type = type
     this.name = name
@@ -113,7 +115,7 @@ export class Component implements Comparable<Component> {
   }
 
   /**
-   * @throws {TypeError} if value is neither {@link CPE} nor {@link undefined}
+   * @throws {TypeError} if value is neither {@link CPE} nor `undefined`
    */
   set cpe (value: CPE | undefined) {
     if (value !== undefined && !isCPE(value)) {

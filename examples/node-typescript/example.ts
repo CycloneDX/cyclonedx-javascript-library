@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 /** Example how to serialize a Bom to JSON / XML. */
 
 import * as CDX from '@cyclonedx/cyclonedx-library'
-// full Library is available as `cdx`, now
+// full Library is available as `CDX`, now
 
 const bom = new CDX.Models.Bom()
 bom.metadata.component = new CDX.Models.Component(
