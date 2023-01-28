@@ -17,8 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { type SerializerOptions } from '../../src/serialize/types'
-import { type SimpleXml } from '../../src/serialize/xml/types'
+import type { SerializerOptions } from '../../src/serialize/types'
+import type { SimpleXml } from '../../src/serialize/xml/types'
 
 declare type ThrowError = (..._: any[]) => never
 
