@@ -75,6 +75,7 @@ module.exports = {
     }
   ],
   rules: {
+    // region override rules from plugin 'standard-with-typescript'
     /* @see https://typescript-eslint.io/rules/consistent-type-imports/ */
     '@typescript-eslint/consistent-type-imports': ['error', {
       /* we need our generated declaration files backward compatible to TS3.8
@@ -82,6 +83,7 @@ module.exports = {
        */
       fixStyle: 'separate-type-imports'
     }],
+    // endregion override rules from plugin 'standard-with-typescript'
     // region sort imports/exports
     /* disable other sorters in favour of `simple-import-sort` */
     'import/order': 0,
