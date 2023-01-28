@@ -24,6 +24,7 @@ import { Attachment } from './attachment'
 export class LicenseExpression {
   static isEligibleExpression (expression: string | any): boolean {
     // smallest known: (A or B)
+    // TODO: use a better detection - maybe validate via https://www.npmjs.com/package/spdx-expression-parse
     return typeof expression === 'string' &&
       expression.length >= 8 &&
       expression[0] === '(' &&
@@ -34,7 +35,7 @@ export class LicenseExpression {
   #expression!: string
 
   /**
-   * @throws {RangeError} if {@link expression} is not eligible({@link LicenseExpression.isEligibleExpression})
+   * @throws {RangeError} if `expression` is not {@link LicenseExpression.isEligibleExpression eligible}
    */
   constructor (expression: LicenseExpression['expression']) {
     this.expression = expression
@@ -45,7 +46,7 @@ export class LicenseExpression {
   }
 
   /**
-   * @throws {RangeError} if expression is not eligible({@link LicenseExpression.isEligibleExpression})
+   * @throws {RangeError} if value is not {@link LicenseExpression.isEligibleExpression eligible}
    */
   set expression (value: string) {
     if (!LicenseExpression.isEligibleExpression(value)) {
@@ -93,7 +94,7 @@ export class SpdxLicense {
   #id!: SpdxId
 
   /**
-   * @throws {RangeError} if {@link id} is not supported SPDX id({@link isSupportedSpdxId})
+   * @throws {RangeError} if `id` is not {@link isSupportedSpdxId supported}
    */
   constructor (id: SpdxLicense['id'], op: OptionalSpdxLicenseProperties = {}) {
     this.id = id
@@ -106,7 +107,7 @@ export class SpdxLicense {
   }
 
   /**
-   * @throws {RangeError} if value is not supported SPDX id({@link isSupportedSpdxId})
+   * @throws {RangeError} if value is not {@link isSupportedSpdxId supported}
    */
   set id (value: SpdxId) {
     if (!isSupportedSpdxId(value)) {

@@ -10,9 +10,10 @@ All notable changes to this project will be documented in this file.
 * Fixed
   * XML serializer now properly throws `UnsupportedFormatError` if it is unsupported by the supplied Spec (via [#438])
 * Misc
-  * Fixed type hints in internals (via [#432])
   * Added tests for internal helpers (via [#431])
-  * Added more internal sortable data types (via [#165])
+  * Added more internal sortable data types (via [#165]) 
+  * Fixed type hints in internals (via [#432])
+  * Fixed type refs and links in doc-strings (via [#437])
   * Slightly improved performance of compare methods when reproducible results were needed (via [#433])
   * Use `eslint-config-standard-with-typescript@31.0.0` now, was `23.0.0` (via [#382], [#423])
 
@@ -24,6 +25,7 @@ All notable changes to this project will be documented in this file.
 [#432]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/432
 [#433]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/433
 [#436]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/436
+[#437]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/437
 [#438]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/438
 [#439]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/439
 [#440]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/440
