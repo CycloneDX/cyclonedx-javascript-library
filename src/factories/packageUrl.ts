@@ -21,7 +21,7 @@ import { PackageURL } from 'packageurl-js'
 
 import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
 import { ExternalReferenceType } from '../enums'
-import { Component } from '../models'
+import type { Component } from '../models'
 
 export class PackageUrlFactory {
   readonly #type: PackageURL['type']

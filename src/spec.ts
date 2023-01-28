@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { ComponentType, ExternalReferenceType, HashAlgorithm } from './enums'
-import { HashContent } from './models'
+import type { HashContent } from './models'
 
 export enum Version {
   v1dot0 = '1.0',

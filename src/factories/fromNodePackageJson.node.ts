@@ -23,10 +23,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * @see [PackageJson spec](https://docs.npmjs.com/cli/v8/configuring-npm/package-json)
  */
 
-import { PackageURL } from 'packageurl-js'
+import type { PackageURL } from 'packageurl-js'
 
 import { isNotUndefined } from '../_helpers/notUndefined'
-import { PackageJson } from '../_helpers/packageJson'
+import type { PackageJson } from '../_helpers/packageJson'
 import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
 import * as Enums from '../enums'
 import * as Models from '../models'

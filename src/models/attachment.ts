@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { AttachmentEncoding } from '../enums'
+import type { AttachmentEncoding } from '../enums'
 
 export interface OptionalAttachmentProperties {
   contentType?: Attachment['contentType']
