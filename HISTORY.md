@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 * Added
   * Ship [TypeDoc](https://typedoc.org) configuration, so that users can build the documentation on demand ([#57] via [#436])
+  * Typing: Interfaces of models' optional properties are now public API ([#439] via [#440])
 * Fixed
   * XML serializer now properly throws `UnsupportedFormatError` if it is unsupported by the supplied Spec (via [#438])
 * Misc
@@ -24,6 +25,8 @@ All notable changes to this project will be documented in this file.
 [#433]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/433
 [#436]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/436
 [#438]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/438
+[#439]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/439
+[#440]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/440
 
 ## 1.9.2 - 2022-12-16
 
