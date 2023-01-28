@@ -17,9 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type {  Component } from './component'
+import type { Component } from './component'
 import { OrganizationalContactRepository } from './organizationalContact'
-import type {  OrganizationalEntity } from './organizationalEntity'
+import type { OrganizationalEntity } from './organizationalEntity'
 import { ToolRepository } from './tool'
 
 export interface OptionalMetadataProperties {

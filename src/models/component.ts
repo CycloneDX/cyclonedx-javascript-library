@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { PackageURL } from 'packageurl-js'
 
-import type {  Comparable } from '../_helpers/sortable'
+import type { Comparable } from '../_helpers/sortable'
 import { SortableComparables } from '../_helpers/sortable'
 import { treeIteratorSymbol } from '../_helpers/tree'
 import type { ComponentScope, ComponentType } from '../enums'

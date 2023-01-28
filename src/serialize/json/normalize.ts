@@ -22,10 +22,10 @@ import type { Sortable } from '../../_helpers/sortable'
 import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
 import * as Models from '../../models'
-import type {  Protocol as Spec } from '../../spec'
+import type { Protocol as Spec } from '../../spec'
 import { Version as SpecVersion } from '../../spec'
-import type {  NormalizerOptions } from '../types'
-import type {  Normalized } from './types'
+import type { NormalizerOptions } from '../types'
+import type { Normalized } from './types'
 import { JsonSchema } from './types'
 
 export class Factory {

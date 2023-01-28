@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type * as Enums from '../../enums'
-import type {  HashContent } from '../../models'
+import type { HashContent } from '../../models'
 import type { SpdxId } from '../../spdx'
 import type { CPE, Integer, UrnUuid } from '../../types'
 

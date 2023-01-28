@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type {  BomRef } from '../models'
+import type { BomRef } from '../models'
 
 export class BomRefDiscriminator {
   readonly #originalValues: ReadonlyMap<BomRef, string | undefined>

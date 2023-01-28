@@ -17,10 +17,10 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type {  Sortable } from '../_helpers/sortable'
+import type { Sortable } from '../_helpers/sortable'
 import type { SpdxId } from '../spdx'
 import { isSupportedSpdxId } from '../spdx'
-import type {  Attachment } from './attachment'
+import type { Attachment } from './attachment'
 
 export class LicenseExpression {
   static isEligibleExpression (expression: string | any): boolean {
