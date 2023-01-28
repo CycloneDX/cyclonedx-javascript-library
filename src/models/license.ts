@@ -94,7 +94,7 @@ export class SpdxLicense {
   #id!: SpdxId
 
   /**
-   * @throws {RangeError} if `id` is not {@link isSupportedSpdxId }
+   * @throws {RangeError} if `id` is not {@link isSupportedSpdxId supported}
    */
   constructor (id: SpdxLicense['id'], op: OptionalSpdxLicenseProperties = {}) {
     this.id = id
@@ -107,7 +107,7 @@ export class SpdxLicense {
   }
 
   /**
-   * @throws {RangeError} if value is not {@link isSupportedSpdxId}
+   * @throws {RangeError} if value is not {@link isSupportedSpdxId supported}
    */
   set id (value: SpdxId) {
     if (!isSupportedSpdxId(value)) {
