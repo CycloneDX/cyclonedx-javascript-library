@@ -15,7 +15,7 @@ All notable changes to this project will be documented in this file.
   * Fixed type hints in internals (via [#432])
   * Fixed type refs and links in doc-strings (via [#437])
   * Slightly improved performance of compare methods when reproducible results were needed (via [#433])
-  * Use `eslint-config-standard-with-typescript@31.0.0` now, was `23.0.0` (via [#382], [#423])
+  * Use `eslint-config-standard-with-typescript@33.0.0` now, was `23.0.0` (via [#382], [#423], [#445])
 
 [#57]:  https://github.com/CycloneDX/cyclonedx-javascript-library/issues/57
 [#165]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/165
@@ -29,6 +29,7 @@ All notable changes to this project will be documented in this file.
 [#438]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/438
 [#439]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/439
 [#440]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/440
+[#445]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/445
 
 ## 1.9.2 - 2022-12-16
 
