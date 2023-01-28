@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import { isNonNegativeInteger, NonNegativeInteger } from '../types'
 import { Attachment } from './attachment'
 
-interface OptionalProperties {
+export interface OptionalSWIDProperties {
   version?: SWID['version']
   patch?: SWID['patch']
   text?: SWID['text']
@@ -45,7 +45,7 @@ export class SWID {
   /**
    * @throws {TypeError} if {@link op.tagVersion} is neither {@link NonNegativeInteger} nor {@link undefined}
    */
-  constructor (tagId: SWID['tagId'], name: SWID['name'], op: OptionalProperties = {}) {
+  constructor (tagId: SWID['tagId'], name: SWID['name'], op: OptionalSWIDProperties = {}) {
     this.tagId = tagId
     this.name = name
     this.version = op.version
