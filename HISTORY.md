@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
   * Added tests for internal helpers (via [#431])
   * Added more internal sortable data types (via [#165]) 
   * Fixed type hints in internals (via [#432])
-  * Fixed type refs and links in JSDoc strings (via [#437])
+  * Fixed type refs and links in doc-strings (via [#437])
   * Slightly improved performance of compare methods when reproducible results were needed (via [#433])
   * Use `eslint-config-standard-with-typescript@31.0.0` now, was `23.0.0` (via [#382], [#423])
 
