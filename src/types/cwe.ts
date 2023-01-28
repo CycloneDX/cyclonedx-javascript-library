@@ -17,7 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { isPositiveInteger, PositiveInteger } from './integer'
+import type { PositiveInteger } from './integer'
+import { isPositiveInteger } from './integer'
 
 /**
  * Define the format for acceptable Common Weakness Enumeration (CWE) IDs.
