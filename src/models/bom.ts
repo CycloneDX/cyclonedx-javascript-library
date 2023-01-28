@@ -17,7 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { isPositiveInteger, isUrnUuid, type PositiveInteger, type UrnUuid } from '../types'
+import type { PositiveInteger, UrnUuid } from '../types'
+import { isPositiveInteger, isUrnUuid } from '../types'
 import { ComponentRepository } from './component'
 import { Metadata } from './metadata'
 

@@ -17,9 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { type Bom, type BomRef, type Component } from '../models'
+import type {  Bom, BomRef, Component } from '../models'
 import { BomRefDiscriminator } from './bomRefDiscriminator'
-import { type NormalizerOptions, type Serializer, type SerializerOptions } from './types'
+import type {  NormalizerOptions, Serializer, SerializerOptions } from './types'
 
 export abstract class BaseSerializer<NormalizedBom> implements Serializer {
   #getAllBomRefs (bom: Bom): Iterable<BomRef> {

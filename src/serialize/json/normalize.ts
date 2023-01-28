@@ -18,13 +18,15 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { isNotUndefined } from '../../_helpers/notUndefined'
-import { type Sortable } from '../../_helpers/sortable'
-import { type Stringable } from '../../_helpers/stringable'
+import type { Sortable } from '../../_helpers/sortable'
+import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
 import * as Models from '../../models'
-import { type Protocol as Spec, Version as SpecVersion } from '../../spec'
-import { type NormalizerOptions } from '../types'
-import { JsonSchema, type Normalized } from './types'
+import type {  Protocol as Spec } from '../../spec'
+import { Version as SpecVersion } from '../../spec'
+import type {  NormalizerOptions } from '../types'
+import type {  Normalized } from './types'
+import { JsonSchema } from './types'
 
 export class Factory {
   readonly #spec: Spec

@@ -23,7 +23,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * @see [PackageJson spec](https://docs.npmjs.com/cli/v8/configuring-npm/package-json)
  */
 
-import { type PackageJson, splitNameGroup } from '../_helpers/packageJson'
+import type { PackageJson } from '../_helpers/packageJson'
+import { splitNameGroup } from '../_helpers/packageJson'
 import * as Enums from '../enums'
 import type * as Factories from '../factories/index.node'
 import * as Models from '../models'

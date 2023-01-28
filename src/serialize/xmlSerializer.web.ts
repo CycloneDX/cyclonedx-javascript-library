@@ -18,8 +18,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { isNotUndefined } from '../_helpers/notUndefined'
-import { type SerializerOptions } from './types'
-import { type SimpleXml } from './xml/types'
+import type {  SerializerOptions } from './types'
+import type { SimpleXml } from './xml/types'
 import { XmlBaseSerializer } from './xmlBaseSerializer'
 
 /**
