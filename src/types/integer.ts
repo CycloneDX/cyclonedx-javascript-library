@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 /**
  * Integer
  *
- * @see isInteger
+ * @see {@link isInteger}
  */
 export type Integer = number | NonNegativeInteger
 
@@ -31,7 +31,7 @@ export function isInteger (value: any): value is Integer {
 /**
  * Integer greater than 0
  *
- * @see isNonNegativeInteger
+ * @see {@link isNonNegativeInteger}
  */
 export type NonNegativeInteger = number | PositiveInteger
 
@@ -43,7 +43,7 @@ export function isNonNegativeInteger (value: any): value is NonNegativeInteger {
 /**
  * Integer greater 0
  *
- * @see isPositiveInteger
+ * @see {@link isPositiveInteger}
  */
 export type PositiveInteger = number
 

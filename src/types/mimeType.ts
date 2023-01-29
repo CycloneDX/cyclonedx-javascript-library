@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 /**
- * @see isMimeType
+ * @see {@link isMimeType}
  */
 export type MimeType = string
 

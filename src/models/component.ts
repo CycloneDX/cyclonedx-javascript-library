@@ -74,14 +74,14 @@ export class Component implements Comparable<Component> {
   components: ComponentRepository
   properties: PropertyRepository
 
-  /** @see bomRef */
+  /** @see {@link bomRef} */
   readonly #bomRef: BomRef
 
-  /** @see cpe */
+  /** @see {@link cpe} */
   #cpe?: CPE
 
   /**
-   * @throws {TypeError} if `op.cpe` is neither {@link CPE} nor `undefined`
+   * @throws {@link TypeError} if `op.cpe` is neither {@link CPE} nor `undefined`
    */
   constructor (type: Component['type'], name: Component['name'], op: OptionalComponentProperties = {}) {
     this.#bomRef = new BomRef(op.bomRef)
@@ -115,7 +115,7 @@ export class Component implements Comparable<Component> {
   }
 
   /**
-   * @throws {TypeError} if value is neither {@link CPE} nor `undefined`
+   * @throws {@link TypeError} if value is neither {@link CPE} nor `undefined`
    */
   set cpe (value: CPE | undefined) {
     if (value !== undefined && !isCPE(value)) {

@@ -41,7 +41,7 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
   }
 
   /**
-   * @throws {Error}
+   * @throws {@link Error}
    */
   #normalize (bom: Bom, options?: NormalizerOptions): NormalizedBom {
     const bomRefDiscriminator = new BomRefDiscriminator(this.#getAllBomRefs(bom))
@@ -57,7 +57,7 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
 
   /**
    * @readonly
-   * @throws {Error}
+   * @throws {@link Error}
    */
   public serialize (bom: Bom, options?: SerializerOptions & NormalizerOptions): string {
     return this._serialize(
@@ -67,12 +67,12 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
   }
 
   /**
-   * @throws {Error}
+   * @throws {@link Error}
    */
   protected abstract _normalize (bom: Bom, options?: NormalizerOptions): NormalizedBom
 
   /**
-   * @throws {Error}
+   * @throws {@link Error}
    */
   protected abstract _serialize (normalizedBom: NormalizedBom, options?: SerializerOptions): string
 }
