@@ -33,7 +33,7 @@ export namespace JsonSchema {
    * Test whether format is JSON::iri-reference - best-effort.
    *
    * @TODO add more validation according to spec
-   * @see {@link https://datatracker.ietf.org/doc/html/rfc3987}
+   * @see {@link https://datatracker.ietf.org/doc/html/rfc3987 | RFC 3987}
    */
   export function isIriReference (value: IriReference | any): value is IriReference {
     return typeof value === 'string' &&
@@ -48,7 +48,7 @@ export namespace JsonSchema {
    * Test whether format is JSON::idn-email - best-effort.
    *
    * @TODO add more validation according to spec
-   * @see {@link https://datatracker.ietf.org/doc/html/rfc6531}
+   * @see {@link https://datatracker.ietf.org/doc/html/rfc6531 | RFC 6531}
    */
   export function isIdnEmail (value: IdnEmail | any): value is IdnEmail {
     return typeof value === 'string' &&
@@ -145,7 +145,7 @@ export namespace Normalized {
 
   export interface SpdxLicense {
     license: {
-      /** @see {@link http://cyclonedx.org/schema/spdx} */
+      /* see http://cyclonedx.org/schema/spdx */
       id: SpdxId
       text?: Attachment
       url?: string

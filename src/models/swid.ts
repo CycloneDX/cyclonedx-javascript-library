@@ -30,7 +30,7 @@ export interface OptionalSWIDProperties {
 }
 
 /**
- * @see {@link https://csrc.nist.gov/projects/Software-Identification-SWID}
+ * @see {@link https://csrc.nist.gov/projects/Software-Identification-SWID | SWID spec}
  */
 export class SWID {
   tagId: string
