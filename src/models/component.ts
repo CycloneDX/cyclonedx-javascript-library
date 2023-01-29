@@ -74,10 +74,10 @@ export class Component implements Comparable<Component> {
   components: ComponentRepository
   properties: PropertyRepository
 
-  /** @see bomRef */
+  /** @see {@link bomRef} */
   readonly #bomRef: BomRef
 
-  /** @see cpe */
+  /** @see {@link cpe} */
   #cpe?: CPE
 
   /**

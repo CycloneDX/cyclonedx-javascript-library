@@ -26,7 +26,7 @@ import type { CPE, Integer, UrnUuid } from '../../types'
 export namespace JsonSchema {
 
   /**
-   * @see isIriReference
+   * @see {@link isIriReference}
    */
   export type IriReference = string
   /**
@@ -41,7 +41,7 @@ export namespace JsonSchema {
   }
 
   /**
-   * @see isIdnEmail
+   * @see {@link isIdnEmail}
    */
   export type IdnEmail = string
   /**

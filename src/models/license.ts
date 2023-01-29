@@ -32,7 +32,7 @@ export class LicenseExpression {
       expression[expression.length - 1] === ')'
   }
 
-  /** @see expression */
+  /** @see {@link expression} */
   #expression!: string
 
   /**
@@ -91,7 +91,7 @@ export class SpdxLicense {
   text?: Attachment
   url?: URL | string
 
-  /** @see id */
+  /** @see {@link id} */
   #id!: SpdxId
 
   /**

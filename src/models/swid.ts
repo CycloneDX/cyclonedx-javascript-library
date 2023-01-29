@@ -40,7 +40,7 @@ export class SWID {
   text?: Attachment
   url?: URL | string
 
-  /** @see tagVersion */
+  /** @see {@link tagVersion} */
   #tagVersion?: NonNegativeInteger
 
   /**

@@ -47,7 +47,7 @@ export class ExternalReferenceFactory {
   }
 
   makeVcs (data: PackageJson): Models.ExternalReference | undefined {
-    /** @see [the spec](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#repositoryc) */
+    /* see https://docs.npmjs.com/cli/v8/configuring-npm/package-json#repositoryc */
     const repository = data.repository
     let url
     let comment: string | undefined
@@ -69,7 +69,7 @@ export class ExternalReferenceFactory {
   }
 
   makeHomepage (data: PackageJson): Models.ExternalReference | undefined {
-    /** @see [the spec](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#homepage) */
+    /* see https://docs.npmjs.com/cli/v8/configuring-npm/package-json#homepage */
     const url = data.homepage
     return typeof url === 'string' && url.length > 0
       ? new Models.ExternalReference(
@@ -79,7 +79,7 @@ export class ExternalReferenceFactory {
   }
 
   makeIssueTracker (data: PackageJson): Models.ExternalReference | undefined {
-    /** @see [the spec](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#bugs) */
+    /* see https://docs.npmjs.com/cli/v8/configuring-npm/package-json#bugs */
     const bugs = data.bugs
     let url
     let comment: string | undefined

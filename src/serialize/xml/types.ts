@@ -23,7 +23,7 @@ export namespace XmlSchema {
   const _AnyUriSchemePattern = /^[a-z][a-z0-9+\-.]*$/i
 
   /**
-   * @see isAnyURI
+   * @see {@link isAnyURI}
    */
   export type AnyURI = string
 

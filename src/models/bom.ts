@@ -33,10 +33,10 @@ export class Bom {
   metadata: Metadata
   components: ComponentRepository
 
-  /** @see version */
+  /** @see {@link version} */
   #version: PositiveInteger = 1
 
-  /** @see serialNumber */
+  /** @see {@link serialNumber} */
   #serialNumber?: UrnUuid
 
   // Property `bomFormat` is not part of model, it is runtime information.
