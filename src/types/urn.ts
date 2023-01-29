@@ -18,10 +18,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 /**
- * Defines a string representation of a UUID conforming to RFC 4122.
+ * Defines a string representation of a UUID conforming to
+ * {@link https://datatracker.ietf.org/doc/html/rfc4122 | RFC 4122}.
  *
- * @see {@link https://datatracker.ietf.org/doc/html/rfc4122}
- * @see isUrnUuid
+ * @see {@link isUrnUuid}
  */
 export type UrnUuid = string
 

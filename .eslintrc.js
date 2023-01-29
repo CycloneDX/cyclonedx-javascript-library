@@ -25,9 +25,7 @@ module.exports = {
   root: true,
   extends: [
     /* see https://github.com/standard/ts-standard */
-    'standard-with-typescript',
-    /* see https://github.com/gajus/eslint-plugin-jsdoc */
-    'plugin:jsdoc/recommended'
+    'standard-with-typescript'
   ],
   parserOptions: {
     project: './tsconfig.json'
@@ -36,7 +34,9 @@ module.exports = {
     /* see https://github.com/lydell/eslint-plugin-simple-import-sort#readme */
     'simple-import-sort',
     /* see https://github.com/Stuk/eslint-plugin-header#readme */
-    'header'
+    'header',
+    /* see https://github.com/microsoft/tsdoc */
+    'eslint-plugin-tsdoc'
   ],
   env: {
     commonjs: true,
@@ -57,13 +57,40 @@ module.exports = {
       }
     },
     {
-      files: ['*.js'],
+      files: ['*.js', '*.mjs', '*.cjs'],
+      plugins: [
+        /* see https://github.com/gajus/eslint-plugin-jsdoc/ */
+        'jsdoc'
+      ],
+      extends: [
+        /* see https://github.com/gajus/eslint-plugin-jsdoc */
+        'plugin:jsdoc/recommended'
+      ],
       rules: {
         // region docs
+        'tsdoc/syntax': 0,
         /* see https://github.com/gajus/eslint-plugin-jsdoc */
+        'jsdoc/no-undefined-types': 'error',
+        'jsdoc/check-tag-names': 0,
+        'jsdoc/check-types': 'error',
+        'jsdoc/require-hyphen-before-param-description': ['error', 'always'],
+        'jsdoc/require-jsdoc': 0,
+        'jsdoc/require-param': 0,
+        'jsdoc/require-param-description': 0,
+        'jsdoc/require-param-name': 'error',
         'jsdoc/require-param-type': 'error',
+        'jsdoc/require-property': 0,
+        'jsdoc/require-property-description': 0,
+        'jsdoc/require-property-name': 'error',
         'jsdoc/require-property-type': 'error',
-        'jsdoc/require-returns-type': 'error'
+        'jsdoc/require-returns': 0,
+        'jsdoc/require-returns-check': 'error',
+        'jsdoc/require-returns-description': 0,
+        'jsdoc/require-returns-type': 'error',
+        'jsdoc/require-throws': 'error',
+        'jsdoc/require-yields': 0,
+        'jsdoc/require-yields-check': 'error',
+        'jsdoc/sort-tags': 'warn'
         // region docs
       },
       settings: {
@@ -93,38 +120,12 @@ module.exports = {
     'simple-import-sort/exports': 'error',
     // endregion sort imports/exports
     // region docs
-    /* see https://github.com/gajus/eslint-plugin-jsdoc */
-    'jsdoc/no-undefined-types': 'error',
-    'jsdoc/check-tag-names': 0,
-    'jsdoc/check-types': 'error',
-    'jsdoc/require-hyphen-before-param-description': ['error', 'always'],
-    'jsdoc/require-jsdoc': 0,
-    'jsdoc/require-param': 0,
-    'jsdoc/require-param-description': 0,
-    'jsdoc/require-param-name': 'error',
-    'jsdoc/require-param-type': 0,
-    'jsdoc/require-property': 0,
-    'jsdoc/require-property-description': 0,
-    'jsdoc/require-property-name': 'error',
-    'jsdoc/require-property-type': 0,
-    'jsdoc/require-returns': 0,
-    'jsdoc/require-returns-check': 'error',
-    'jsdoc/require-returns-description': 0,
-    'jsdoc/require-returns-type': 0,
-    'jsdoc/require-throws': 'error',
-    'jsdoc/require-yields': 0,
-    'jsdoc/require-yields-check': 'error',
-    'jsdoc/sort-tags': 'warn',
+    /* see https://github.com/microsoft/tsdoc */
+    'tsdoc/syntax': 'error',
     // endregion docs
     // region license-header
     /* see https://github.com/Stuk/eslint-plugin-header#readme */
     'header/header': ['error', '.license-header.js']
     // endregion license-header
-  },
-  settings: {
-    jsdoc: {
-      /* see https://github.com/gajus/eslint-plugin-jsdoc */
-      mode: 'typescript'
-    }
   }
 }

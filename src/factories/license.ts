@@ -31,7 +31,7 @@ export class LicenseFactory {
   }
 
   /**
-   * @throws {RangeError} if expression is not eligible
+   * @throws {@link RangeError} if expression is not eligible
    */
   makeExpression (value: string): LicenseExpression {
     return new LicenseExpression(value)
@@ -46,7 +46,7 @@ export class LicenseFactory {
   }
 
   /**
-   * @throws {RangeError} if value is not supported SPDX id
+   * @throws {@link RangeError} if value is not supported SPDX id
    */
   makeDisjunctiveWithId (value: string | any): SpdxLicense {
     const spdxId = fixupSpdxId(String(value))

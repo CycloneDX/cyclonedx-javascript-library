@@ -94,19 +94,19 @@ export class ComponentBuilder {
       return undefined
     }
 
-    /** @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#author} */
+    /* see https://docs.npmjs.com/cli/v8/configuring-npm/package-json#author */
     const author = typeof data.author === 'string'
       ? data.author
       : (typeof data.author?.name === 'string'
           ? data.author.name
           : undefined)
 
-    /** @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#description-1} */
+    /* see https://docs.npmjs.com/cli/v8/configuring-npm/package-json#description-1 */
     const description = typeof data.description === 'string'
       ? data.description
       : undefined
 
-    /** @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#version} */
+    /* see https://docs.npmjs.com/cli/v8/configuring-npm/package-json#version */
     const version = typeof data.version === 'string'
       ? data.version
       : undefined
@@ -115,11 +115,11 @@ export class ComponentBuilder {
 
     const licenses = new Models.LicenseRepository()
     if (typeof data.license === 'string') {
-      /** @see {@link https://docs.npmjs.com/cli/v8/configuring-npm/package-json#license} */
+      /* see https://docs.npmjs.com/cli/v8/configuring-npm/package-json#license */
       licenses.add(this.#licenseFactory.makeFromString(data.license))
     }
     if (Array.isArray(data.licenses)) {
-      /** @see {@link https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json} */
+      /* see https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json */
       for (const licenseData of data.licenses) {
         if (typeof licenseData?.type === 'string') {
           const license = this.#licenseFactory.makeDisjunctive(licenseData.type)

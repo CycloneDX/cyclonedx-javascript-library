@@ -30,7 +30,7 @@ export interface OptionalSWIDProperties {
 }
 
 /**
- * @see {@link https://csrc.nist.gov/projects/Software-Identification-SWID}
+ * @see {@link https://csrc.nist.gov/projects/Software-Identification-SWID | SWID spec}
  */
 export class SWID {
   tagId: string
@@ -40,11 +40,11 @@ export class SWID {
   text?: Attachment
   url?: URL | string
 
-  /** @see tagVersion */
+  /** @see {@link tagVersion} */
   #tagVersion?: NonNegativeInteger
 
   /**
-   * @throws {TypeError} if `op.tagVersion` is neither {@link NonNegativeInteger} nor `undefined`
+   * @throws {@link TypeError} if `op.tagVersion` is neither {@link NonNegativeInteger} nor `undefined`
    */
   constructor (tagId: SWID['tagId'], name: SWID['name'], op: OptionalSWIDProperties = {}) {
     this.tagId = tagId
@@ -61,7 +61,7 @@ export class SWID {
   }
 
   /**
-   * @throws {TypeError} if value is neither {@link NonNegativeInteger} nor `undefined`
+   * @throws {@link TypeError} if value is neither {@link NonNegativeInteger} nor `undefined`
    */
   set tagVersion (value: NonNegativeInteger | undefined) {
     if (value !== undefined && !isNonNegativeInteger(value)) {
