@@ -3,6 +3,7 @@
   "extends": "./tsconfig.json",
   "files": ["src/index.node.ts"],
   "compilerOptions": {
+    "moduleSuffixes": [".node", ""],
     "outDir": "./dist.node/"
   }
 }
