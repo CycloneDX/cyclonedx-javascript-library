@@ -26,7 +26,7 @@ export class BomRefDiscriminator {
 
   constructor (bomRefs: Iterable<BomRef>, prefix: string = 'BomRef') {
     this.#originalValues = new Map(
-      Array.from(bomRefs).map(ref => [ref, ref.value])
+      Array.from(bomRefs, r => [r, r.value])
     )
     this.#prefix = prefix
   }
