@@ -60,7 +60,7 @@ export class BomRefDiscriminator {
 
   /**
    * generate a string in the format:
-   * <prefix>.<some-characters>.<some-characters>
+   * `${this.prefix}.<random-characters>.<random-characters>`
    */
   #makeUniqueId (): string {
     return `${
