@@ -6,6 +6,7 @@
   "hideGenerator": true,
   "readme": "none",
   "name": "CycloneDX JavaScript Library",
+  "excludeExternals": true,
   "externalSymbolLinkMappings": {
     "packageurl-js": {
       "PackageURL": "https://github.com/package-url/packageurl-js#usage-examples"
