@@ -98,7 +98,8 @@ const xmlNamespace: ReadonlyMap<SpecVersion, string> = new Map([
   [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom/1.4']
 ])
 
-type SortableIterable<T> = Iterable<T> & Sortable<T>
+import type {SortableIterable} from '../../_helpers/sortable'
+
 
 interface Normalizer<TModel, TNormalized> {
   normalize: (data: TModel, options: NormalizerOptions, elementName?: string) => TNormalized | undefined
