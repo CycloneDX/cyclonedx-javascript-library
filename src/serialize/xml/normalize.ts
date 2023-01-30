@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { isNotUndefined } from '../../_helpers/notUndefined'
-import type { Sortable } from '../../_helpers/sortable'
+import type { SortableIterable } from '../../_helpers/sortable'
 import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
 import * as Models from '../../models'
@@ -98,10 +98,7 @@ const xmlNamespace: ReadonlyMap<SpecVersion, string> = new Map([
   [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom/1.4']
 ])
 
-import type {SortableIterable} from '../../_helpers/sortable'
-
-
-interface Normalizer<TModel, TNormalized> {
+interface XmlNormalizer<TModel, TNormalized> {
   normalize: (data: TModel, options: NormalizerOptions, elementName?: string) => TNormalized | undefined
 
   /** @since 1.5.1 */
@@ -110,10 +107,10 @@ interface Normalizer<TModel, TNormalized> {
   normalizeRepository?: ['normalizeIterable']
 }
 
-abstract class Base<TModel, TNormalized=SimpleXml.Element> implements Normalizer<TModel, TNormalized> {
+abstract class BaseXmlNormalizer<TModel, TNormalized=SimpleXml.Element> implements XmlNormalizer<TModel, TNormalized> {
   protected readonly _factory: Factory
 
-  constructor (factory: Base<TModel, TNormalized>['factory']) {
+  constructor (factory: Factory) {
     this._factory = factory
   }
 
@@ -131,7 +128,7 @@ abstract class Base<TModel, TNormalized=SimpleXml.Element> implements Normalizer
  * since empty strings need to be treated as undefined/null
  */
 
-export class BomNormalizer extends Base<Models.Bom> {
+export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
   normalize (data: Models.Bom, options: NormalizerOptions): SimpleXml.Element {
     const components: SimpleXml.Element = {
       // spec < 1.4 always requires a 'components' element
@@ -163,7 +160,7 @@ export class BomNormalizer extends Base<Models.Bom> {
   }
 }
 
-export class MetadataNormalizer extends Base<Models.Metadata> {
+export class MetadataNormalizer extends BaseXmlNormalizer<Models.Metadata> {
   normalize (data: Models.Metadata, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const orgEntityNormalizer = this._factory.makeForOrganizationalEntity()
     const timestamp: SimpleXml.Element | undefined = data.timestamp === undefined
@@ -209,7 +206,7 @@ export class MetadataNormalizer extends Base<Models.Metadata> {
   }
 }
 
-export class ToolNormalizer extends Base<Models.Tool> {
+export class ToolNormalizer extends BaseXmlNormalizer<Models.Tool> {
   normalize (data: Models.Tool, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const hashes: SimpleXml.Element | undefined = data.hashes.size > 0
       ? {
@@ -253,7 +250,7 @@ export class ToolNormalizer extends Base<Models.Tool> {
   normalizeRepository = this.normalizeIterable
 }
 
-export class HashNormalizer extends Base<Models.Hash> {
+export class HashNormalizer extends BaseXmlNormalizer<Models.Hash> {
   normalize ([algorithm, content]: Models.Hash, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
     const spec = this._factory.spec
     return spec.supportsHashAlgorithm(algorithm) && spec.supportsHashValue(content)
@@ -281,7 +278,7 @@ export class HashNormalizer extends Base<Models.Hash> {
   normalizeRepository = this.normalizeIterable
 }
 
-export class OrganizationalContactNormalizer extends Base<Models.OrganizationalContact> {
+export class OrganizationalContactNormalizer extends BaseXmlNormalizer<Models.OrganizationalContact> {
   normalize (data: Models.OrganizationalContact, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     return {
       type: 'element',
@@ -307,7 +304,7 @@ export class OrganizationalContactNormalizer extends Base<Models.OrganizationalC
   normalizeRepository = this.normalizeIterable
 }
 
-export class OrganizationalEntityNormalizer extends Base<Models.OrganizationalEntity> {
+export class OrganizationalEntityNormalizer extends BaseXmlNormalizer<Models.OrganizationalEntity> {
   normalize (data: Models.OrganizationalEntity, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     return {
       type: 'element',
@@ -322,7 +319,7 @@ export class OrganizationalEntityNormalizer extends Base<Models.OrganizationalEn
   }
 }
 
-export class ComponentNormalizer extends Base<Models.Component> {
+export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
   normalize (data: Models.Component, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
     const spec = this._factory.spec
     if (!spec.supportsComponentType(data.type)) {
@@ -422,7 +419,7 @@ export class ComponentNormalizer extends Base<Models.Component> {
   normalizeRepository = this.normalizeIterable
 }
 
-export class LicenseNormalizer extends Base<Models.License> {
+export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
   normalize (data: Models.License, options: NormalizerOptions): SimpleXml.Element {
     switch (true) {
       case data instanceof Models.NamedLicense:
@@ -488,7 +485,7 @@ export class LicenseNormalizer extends Base<Models.License> {
   normalizeRepository = this.normalizeIterable
 }
 
-export class SWIDNormalizer extends Base<Models.SWID> {
+export class SWIDNormalizer extends BaseXmlNormalizer<Models.SWID> {
   normalize (data: Models.SWID, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const url = data.url?.toString()
     return {
@@ -515,7 +512,7 @@ export class SWIDNormalizer extends Base<Models.SWID> {
   }
 }
 
-export class ExternalReferenceNormalizer extends Base<Models.ExternalReference> {
+export class ExternalReferenceNormalizer extends BaseXmlNormalizer<Models.ExternalReference> {
   normalize (data: Models.ExternalReference, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
     const url = data.url.toString()
     return this._factory.spec.supportsExternalReferenceType(data.type) &&
@@ -549,7 +546,7 @@ export class ExternalReferenceNormalizer extends Base<Models.ExternalReference> 
   normalizeRepository = this.normalizeIterable
 }
 
-export class AttachmentNormalizer extends Base<Models.Attachment> {
+export class AttachmentNormalizer extends BaseXmlNormalizer<Models.Attachment> {
   normalize (data: Models.Attachment, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     return {
       type: 'element',
@@ -563,7 +560,7 @@ export class AttachmentNormalizer extends Base<Models.Attachment> {
   }
 }
 
-export class PropertyNormalizer extends Base<Models.Property> {
+export class PropertyNormalizer extends BaseXmlNormalizer<Models.Property> {
   normalize (data: Models.Property, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     return {
       type: 'element',
@@ -588,7 +585,7 @@ export class PropertyNormalizer extends Base<Models.Property> {
   normalizeRepository = this.normalizeIterable
 }
 
-export class DependencyGraphNormalizer extends Base<Models.Bom> {
+export class DependencyGraphNormalizer extends BaseXmlNormalizer<Models.Bom> {
   normalize (data: Models.Bom, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
     const allRefs = new Map<Models.BomRef, Models.BomRefRepository>()
     if (data.metadata.component !== undefined) {
