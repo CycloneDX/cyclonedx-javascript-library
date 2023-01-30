@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './affectedStatus'
+export * from './impactAnalysisAffectedStatus'
 export * from './attachmentEncoding'
 export * from './componentScope'
 export * from './componentType'

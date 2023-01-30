@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export enum AffectedStatus {
+export enum ImpactAnalysisAffectedStatus {
   Affected = 'affected',
   Unaffected = 'unaffected',
   Unknown = 'unknown',
