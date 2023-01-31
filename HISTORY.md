@@ -5,12 +5,29 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Added
-  * Enums for ... (via [#...])
-  * Models for ... (via [#...])
+  * Enums for purpose `Vulnerability` ([#164] via [#419])
+    * `AffectStatus`
+    * `AnalysisJustification`
+    * `AnalysisResponse`
+    * `AnalysisState`
+    * `RatingMethod`
+    * `Severity`
+  * Models for purpose `Vulnerability` ([#164] via [#419])  
+    Attention: new models are _not yet supported by serializers nor normalizers_.
+    * `Advisory`, `AdvisoryRepository`
+    * `Affect`, `AffectRepository`, `AffectedSingleVersion`, `AffectedVersionRange`, `AffectedVersionRepository`
+    * `Analysis`
+    * `Credits`
+    * `Rating`, `RatingRepository`
+    * `Reference`, `ReferenceRepository`
+    * `Source`
+    * `Vulnerability`, `VulnerabilityRepository`
 * Docs
   * Use [TSDoc](https://tsdoc.org/) syntax in TypeScript files, instead of [JSDoc](https://jsdoc.app/) (via [#318], [#453])
 
+[#164]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/164
 [#318]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/318
+[#419]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/419
 [#453]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/453
 
 ## 1.10.0 - 2023-01-28
