@@ -25,7 +25,10 @@ import type { Attachment } from './attachment'
 export class LicenseExpression {
   static isEligibleExpression (expression: string | any): boolean {
     // smallest known: (A or B)
-    // TODO: use a better detection - maybe validate via https://www.npmjs.com/package/spdx-expression-parse
+    /* TODO: use a better detection.
+     * maybe validate via https://www.npmjs.com/package/spdx-expression-parse
+     * see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/271
+     */
     return typeof expression === 'string' &&
       expression.length >= 8 &&
       expression[0] === '(' &&

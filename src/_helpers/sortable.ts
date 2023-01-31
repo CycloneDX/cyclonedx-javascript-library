@@ -35,7 +35,9 @@ export interface Comparable<TOther> {
 
 const compareObjectsSymbol = Symbol('internal compare function')
 
-abstract class SortableSet<TItem> extends Set<TItem> implements Sortable<TItem>, Comparable<Sortable<TItem>> {
+export type SortableIterable<TItem> = Iterable<TItem> & Sortable<TItem>
+
+abstract class SortableSet<TItem> extends Set<TItem> implements SortableIterable<TItem>, Comparable<Sortable<TItem>> {
   /**
    * Comparator function to apply to two items.
    */

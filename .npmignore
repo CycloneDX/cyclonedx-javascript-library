@@ -157,14 +157,14 @@ dist
 !/dist/
 !/dist.*/
 
-# TypeScript source files are intended to be shipped,
-# as they can provide additional context for downstream users.
-# The compiler configs are shipped, so downstream users can inherit from them.
-# The TypeDoc configs are shipped, so downstream users can generate API documentation with them.
+# TypeScript source files are intended to be shipped, as they can provide additional context for downstream users.
+# The TSCompiler configs are shipped, so downstream users can inherit from them.
+# The TypeDoc & TSDoc configs are shipped, so downstream users can generate API documentation with them.
 !/src/
 !/tsconfig.*
 !/webpack.*
 !/typedoc.*
+!/tsdoc.json
 
 /test/
 /tests/

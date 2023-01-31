@@ -8,7 +8,10 @@ All notable changes to this project will be documented in this file.
   * Enums for ... (via [#...])
   * Models for ... (via [#...])
 * Docs
-  * Use [TSDoc](https://tsdoc.org/) syntax in TypeScript files, instead of [JSDoc](https://jsdoc.app/) (via [#318])
+  * Use [TSDoc](https://tsdoc.org/) syntax in TypeScript files, instead of [JSDoc](https://jsdoc.app/) (via [#318], [#453])
+
+[#318]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/318
+[#453]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/453
 
 ## 1.10.0 - 2023-01-28
 
@@ -19,7 +22,7 @@ All notable changes to this project will be documented in this file.
   * XML serializer now properly throws `UnsupportedFormatError` if it is unsupported by the supplied Spec (via [#438])
 * Misc
   * Added tests for internal helpers (via [#431])
-  * Added more internal sortable data types (via [#165]) 
+  * Added more internal sortable data types (via [#165])
   * Fixed type hints in internals (via [#432])
   * Fixed type refs and links in doc-strings (via [#437])
   * Slightly improved performance of compare methods when reproducible results were needed (via [#433])
@@ -91,7 +94,7 @@ Maintenance release.
   * Removed synthetic default imports im TypeScript sources. (via [#243])  
     The resulting _JavaScript_ did not change in functionality.  
     Downstream users of the _TypeScript_ sources/definitions might consider this a feature,
-    as they are no longer required to compile with `allowSyntheticDefaultImports` enabled. 
+    as they are no longer required to compile with `allowSyntheticDefaultImports` enabled.
 * Added
   * Documentation and example regarding dependency tree modelling were added in multiple places. (via [#250])  
 * Build
