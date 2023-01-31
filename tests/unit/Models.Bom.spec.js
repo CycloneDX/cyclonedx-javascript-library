@@ -21,7 +21,10 @@ const assert = require('assert')
 const { suite, test } = require('mocha')
 
 const {
-  Models: { Bom, ComponentRepository, Metadata, VulnerabilityRepository }
+  Models: {
+    Bom, ComponentRepository, Metadata,
+    Vulnerability: { VulnerabilityRepository }
+  }
 } = require('../../')
 
 suite('Models.Bom', () => {
