@@ -38,6 +38,13 @@ written in _TypeScript_ and compiled for the target.
   * `ComponentType`
   * `ExternalReferenceType`
   * `HashAlgorithm`
+  * `Vulnerability` namespace
+    * `AffectStatus`
+    * `AnalysisJustification`
+    * `AnalysisResponse`
+    * `AnalysisState`
+    * `RatingMethod`
+    * `Severity`
 * Data models for the following use cases:
   * `Attachment`
   * `Bom`
@@ -52,6 +59,15 @@ written in _TypeScript_ and compiled for the target.
   * `Property`, `PropertyRepository`
   * `SWID`
   * `Tool`, `ToolRepository`
+  * `Vulnerability` namespace (_not yet supported by serializers nor normalizers_)
+    * `Advisory`, `AdvisoryRepository`
+    * `Affect`, `AffectRepository`, `AffectedSingleVersion`, `AffectedVersionRange`, `AffectedVersionRepository`
+    * `Analysis`
+    * `Credits`
+    * `Rating`, `RatingRepository`
+    * `Reference`, `ReferenceRepository`
+    * `Source`
+    * `Vulnerability`, `VulnerabilityRepository`
 * Factories for the following use cases:
   * Create data models from any license descriptor string
   * Create `PackageURL` from `Component` data models
