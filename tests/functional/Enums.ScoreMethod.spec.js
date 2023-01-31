@@ -29,7 +29,7 @@ const {
   _Resources: { FILES: { CDX: { JSON_SCHEMA: CDX_JSON_SCHEMA } } }
 } = require('../../')
 
-suite('ScoreMethod enum', () => {
+suite('RatingMethod enum', () => {
   const specVersions = new Set([
     Version.v1dot4
   ])
