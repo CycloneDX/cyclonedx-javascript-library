@@ -17,9 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { SortableNumbers } from '../_helpers/sortable'
 import type { PositiveInteger } from './integer'
 import { isPositiveInteger } from './integer'
-import {SortableNumbers} from "../_helpers/sortable";
 
 /**
  * Integer representation of a Common Weaknesses Enumerations (CWE).
@@ -34,7 +34,6 @@ export type CWE = PositiveInteger
 export function isCWE (value: any): value is CWE {
   return isPositiveInteger(value)
 }
-
 
 export class CweRepository extends SortableNumbers<CWE> {
 }
