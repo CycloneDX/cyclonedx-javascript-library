@@ -26,6 +26,11 @@ All notable changes to this project will be documented in this file.
     * `Vulnerability`, `VulnerabilityRepository`
   * New class `Models.OrganizationalEntityRepository` to represent a collection of `Models.OrganizationalEntity` (via [#419])  
     Additionally, `Models.OrganizationalEntity.compare()` was implemented.
+  * New types and related functionality Common Weaknesses Enumerations (CWE) were added (via [#419])  
+    _Release stage is “beta”._ These types, functions and classes have been released to third-party developers experimentally for the purpose of collecting feedback. These types, functions and classes should not be used in production, because their contracts may change without notice.
+    * type `Types.CWE`
+    * runtime validation `Types.isCWE()`
+    * class `Types.CweRepository`
 * Docs
   * Use [TSDoc](https://tsdoc.org/) syntax in TypeScript files, instead of [JSDoc](https://jsdoc.app/) (via [#318], [#453])
 * Misc

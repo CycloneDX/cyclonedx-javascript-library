@@ -28,12 +28,15 @@ import { isPositiveInteger } from './integer'
  * value `399` might represent `https://cwe.mitre.org/data/definitions/399.html`.
  *
  * @see {@link isCWE}
+ *
+ * @beta
  */
 export type CWE = PositiveInteger
 
+/** @beta */
 export function isCWE (value: any): value is CWE {
   return isPositiveInteger(value)
 }
 
-export class CweRepository extends SortableNumbers<CWE> {
-}
+/** @beta */
+export class CweRepository extends SortableNumbers<CWE> {}
