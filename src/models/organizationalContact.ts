@@ -46,5 +46,4 @@ export class OrganizationalContact implements Comparable<OrganizationalContact> 
   }
 }
 
-export class OrganizationalContactRepository extends SortableComparables<OrganizationalContact> {
-}
+export class OrganizationalContactRepository extends SortableComparables<OrganizationalContact> {}

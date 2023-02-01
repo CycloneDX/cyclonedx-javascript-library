@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { Comparable } from '../_helpers/sortable'
-import { SortableComparables } from '../_helpers/sortable'
+import {SortableComparables, SortableStringables} from '../_helpers/sortable'
 import { OrganizationalContactRepository } from './organizationalContact'
 
 export interface OptionalOrganizationalEntityProperties {
@@ -38,31 +38,15 @@ export class OrganizationalEntity implements Comparable<OrganizationalEntity> {
     this.contact = op.contact ?? new OrganizationalContactRepository()
   }
 
+  /** @beta */
   compare (other: OrganizationalEntity): number {
-    const nameCompare = (this.name ?? '').localeCompare(other.name ?? '')
-    if (nameCompare !== 0) {
-      return nameCompare
-    }
-
-    const urlSizeDiff = this.url.size - other.url.size
-    if (urlSizeDiff !== 0) {
-      return urlSizeDiff
-    }
-    const sortedUrls = [...this.url].map(u => u.toString()).sort()
-    const otherUrls = [...other.url].map(u => u.toString()).sort()
-    for (let i = 0; i < sortedUrls.length; i++) {
-      const urlCompare = sortedUrls[i].localeCompare(otherUrls[i])
-      if (urlCompare !== 0) {
-        return urlCompare
-      }
-    }
-
-    if (this.contact !== undefined && other.contact !== undefined) {
-      return this.contact.compare(other.contact)
-    }
-    return 0
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
+    return (this.name ?? '').localeCompare(other.name ?? '') ||
+      (new SortableStringables( this.url)).compare(new SortableStringables(other.url)) ||
+      this.contact.compare(other.contact)
+    /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
 }
 
-export class OrganizationalEntityRepository extends SortableComparables<OrganizationalEntity> {
-}
+/** @beta */
+export class OrganizationalEntityRepository extends SortableComparables<OrganizationalEntity> {}
