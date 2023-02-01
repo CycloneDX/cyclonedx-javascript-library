@@ -38,7 +38,7 @@ written in _TypeScript_ and compiled for the target.
   * `ComponentType`
   * `ExternalReferenceType`
   * `HashAlgorithm`
-  * `Vulnerability` namespace  
+  * Vulnerability related:  
     _Release stage is “beta”._ These namespace and enums have been released to third-party developers experimentally for the purpose of collecting feedback. These enums should not be used in production, because their contracts may change without notice.
     * `AffectStatus`
     * `AnalysisJustification`
@@ -60,7 +60,7 @@ written in _TypeScript_ and compiled for the target.
   * `Property`, `PropertyRepository`
   * `SWID`
   * `Tool`, `ToolRepository`
-  * `Vulnerability` namespace  
+  * Vulnerability related:   
     _Release stage is “beta”._ These namespace and models have been released to third-party developers experimentally for the purpose of collecting feedback. These models should not be used in production, because their contracts may change without notice.  
     _Attention_: These models are not yet supported by serializers nor normalizers.
     * `Advisory`, `AdvisoryRepository`

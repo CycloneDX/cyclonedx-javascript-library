@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Added
-  * Enums for purpose `Vulnerability` ([#164] via [#419])  
+  * New vulnerability-related enums were added in a new namespace `Enums.Vulnerability` ([#164] via [#419])  
     _Release stage is “beta”._ These namespace and enums have been released to third-party developers experimentally for the purpose of collecting feedback. These enums should not be used in production, because their contracts may change without notice.
     * `AffectStatus`
     * `AnalysisJustification`
@@ -13,9 +13,9 @@ All notable changes to this project will be documented in this file.
     * `AnalysisState`
     * `RatingMethod`
     * `Severity`
-  * Models for purpose `Vulnerability` ([#164] via [#419])  
+  * New vulnerability-related models were added in a new namespace `Models.Vulnerability` ([#164] via [#419])  
     _Release stage is “beta”._ These namespace and models have been released to third-party developers experimentally for the purpose of collecting feedback. These models should not be used in production, because their contracts may change without notice.  
-    _Attention_: The models are not yet supported by serializers nor normalizers.
+    _Attention_: The models are not yet supported by shipped serializers nor shipped normalizers.
     * `Advisory`, `AdvisoryRepository`
     * `Affect`, `AffectRepository`, `AffectedSingleVersion`, `AffectedVersionRange`, `AffectedVersionRepository`
     * `Analysis`
