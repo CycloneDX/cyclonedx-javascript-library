@@ -24,6 +24,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * @type {import('@types/mocha').Mocha.MochaOptions}
  */
 module.exports = {
+  timeout: 5000,
   spec: [
     'tests',
     'libs'

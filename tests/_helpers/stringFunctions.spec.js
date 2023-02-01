@@ -22,7 +22,7 @@ const { suite, test } = require('mocha')
 
 const stringFunctions = require('./stringFunctions')
 
-suite('helpers: stringFunctions', () => {
+suite('test helpers: stringFunctions', () => {
   suite('capitaliseFirstLetter()', () => {
     [
       ['foo', 'Foo'],
