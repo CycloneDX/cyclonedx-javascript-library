@@ -56,7 +56,7 @@ written in _TypeScript_ and compiled for the target.
   * `LicenseExpression`, `NamedLicense`, `SpdxLicense`, `LicenseRepository`
   * `Metadata`
   * `OrganizationalContact`, `OrganizationalContactRepository`
-  * `OrganizationalEntity`
+  * `OrganizationalEntity`, `OrganizationalEntityRepository`
   * `Property`, `PropertyRepository`
   * `SWID`
   * `Tool`, `ToolRepository`

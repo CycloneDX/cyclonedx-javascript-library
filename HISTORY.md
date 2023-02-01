@@ -24,6 +24,8 @@ All notable changes to this project will be documented in this file.
     * `Reference`, `ReferenceRepository`
     * `Source`
     * `Vulnerability`, `VulnerabilityRepository`
+  * New class `Models.OrganizationalEntityRepository` to represent a collection of `Models.OrganizationalEntity` (via [#419])  
+    Additionally, `Models.OrganizationalEntity.compare()` was implemented.
 * Docs
   * Use [TSDoc](https://tsdoc.org/) syntax in TypeScript files, instead of [JSDoc](https://jsdoc.app/) (via [#318], [#453])
 * Misc

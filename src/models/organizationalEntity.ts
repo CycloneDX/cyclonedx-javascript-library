@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { Comparable } from '../_helpers/sortable'
-import {SortableComparables, SortableStringables} from '../_helpers/sortable'
+import { SortableComparables, SortableStringables } from '../_helpers/sortable'
 import { OrganizationalContactRepository } from './organizationalContact'
 
 export interface OptionalOrganizationalEntityProperties {
@@ -38,15 +38,13 @@ export class OrganizationalEntity implements Comparable<OrganizationalEntity> {
     this.contact = op.contact ?? new OrganizationalContactRepository()
   }
 
-  /** @beta */
   compare (other: OrganizationalEntity): number {
     /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return (this.name ?? '').localeCompare(other.name ?? '') ||
-      (new SortableStringables( this.url)).compare(new SortableStringables(other.url)) ||
-      this.contact.compare(other.contact)
+      this.contact.compare(other.contact) ||
+      (new SortableStringables(this.url)).compare(new SortableStringables(other.url))
     /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
 }
 
-/** @beta */
 export class OrganizationalEntityRepository extends SortableComparables<OrganizationalEntity> {}
