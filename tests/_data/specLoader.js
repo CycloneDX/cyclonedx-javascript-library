@@ -25,6 +25,7 @@ const resPath = path.resolve(__dirname, '..', '..', 'res')
 /**
  * @param {string} resourceFile
  * @returns {*}
+ * @throws {Error} if parsing the `resourceFile` failed somehow
  */
 function loadSpec (resourceFile) {
   return JSON.parse(
@@ -38,11 +39,16 @@ function loadSpec (resourceFile) {
  * @param {string} resourceFile
  * @param {string} path
  * @returns {*}
+ * @throws {TypeError} if resolving the `path` failed
+ * @throws {Error} if parsing the `resourceFile` failed somehow
  */
 function getSpecElement (resourceFile, ...path) {
   let element = loadSpec(resourceFile)
   for (const segment of path) {
     element = element[segment]
+    if (undefined === element) {
+      throw TypeError(`undefined element: ${resourceFile}#${path.join('.')}`)
+    }
   }
   return element
 }
@@ -51,9 +57,18 @@ function getSpecElement (resourceFile, ...path) {
  * @param {string} resourceFile
  * @param {string} path
  * @returns {Array<number|string>}
+ * @throws {TypeError} if resolved `path` is not non-empty-list
+ * @throws {TypeError} if resolving the `path` failed
+ * @throws {Error} if parsing the `resourceFile` failed somehow
  */
 function getSpecEnum (resourceFile, ...path) {
-  return getSpecElement(resourceFile, 'definitions', ...path, 'enum')
+  const element = getSpecElement(
+    resourceFile,
+    'definitions', ...path, 'enum')
+  if (!Array.isArray(element) || element.length === 0) {
+    throw TypeError(`did not resolve non-empty-list for: ${resourceFile}#${path.join('.')}`)
+  }
+  return element
 }
 
 module.exports = {
