@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 * Docs
   * Use [TSDoc](https://tsdoc.org/) syntax in TypeScript files, instead of [JSDoc](https://jsdoc.app/) (via [#318], [#453])
+* Misc
+  * Added tests for internal helpers (via [#])
 
 [#318]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/318
 [#453]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/453
