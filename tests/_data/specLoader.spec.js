@@ -43,7 +43,7 @@ suite('test helpers: specLoader', () => {
     test('happy path', () => {
       const loaded = loadSpec('bom-1.4.SNAPSHOT.schema.json')
       // dummy test to see if loading worked somehow ...
-      assert.deepEqual(loaded.definitions.affectedStatus.enum, expected_definitions_affectedStatus_enum)
+      assert.deepStrictEqual(loaded.definitions.affectedStatus.enum, expected_definitions_affectedStatus_enum)
     })
   })
 
@@ -64,7 +64,7 @@ suite('test helpers: specLoader', () => {
         'bom-1.4.SNAPSHOT.schema.json',
         'definitions', 'affectedStatus', 'enum')
       // dummy test to see if loading worked somehow ...
-      assert.deepEqual(loaded, expected_definitions_affectedStatus_enum)
+      assert.deepStrictEqual(loaded, expected_definitions_affectedStatus_enum)
     })
   })
 
@@ -74,7 +74,7 @@ suite('test helpers: specLoader', () => {
         'bom-1.4.SNAPSHOT.schema.json',
         'affectedStatus')
       // dummy test to see if loading worked somehow ...
-      assert.deepEqual(loaded, expected_definitions_affectedStatus_enum)
+      assert.deepStrictEqual(loaded, expected_definitions_affectedStatus_enum)
     })
   })
 })
