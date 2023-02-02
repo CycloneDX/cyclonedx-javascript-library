@@ -37,13 +37,18 @@ All notable changes to this project will be documented in this file.
   * Use _TypeScript_ `v4.9.5` now, was `v4.9.4`. (via [#463])
 * Misc
   * Added tests for internal helpers (via [#454])
+  * Use `eslint-config-standard-with-typescript@34.0.0` now, was `33.0.0` (via [#460])
 
 [#164]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/164
 [#318]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/318
 [#419]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/419
 [#453]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/453
 [#454]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/454
+<<<<<<< Updated upstream
 [#463]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/463
+=======
+[#460]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/460
+>>>>>>> Stashed changes
 
 ## 1.10.0 - 2023-01-28
 
