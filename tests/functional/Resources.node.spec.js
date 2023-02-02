@@ -27,7 +27,7 @@ const {
 } = require('../../')
 
 suite('Resources', () => {
-  suite('expected dir', () => {
+  suite('expected dirs', () => {
     [
       Resources.ROOT
     ].forEach(expectedDir =>

@@ -298,7 +298,7 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
   true
 ))
 
-export const SpecVersionDict: { readonly [key in Version]?: Readonly<Protocol> } = Object.freeze({
+export const SpecVersionDict: Readonly<Partial<Record<Version, Readonly<Protocol>>>> = Object.freeze({
   [Version.v1dot2]: Spec1dot2,
   [Version.v1dot3]: Spec1dot3,
   [Version.v1dot4]: Spec1dot4
