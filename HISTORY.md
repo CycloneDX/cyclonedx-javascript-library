@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.11.0 - 2023-02-02
+
 * Added
   * New vulnerability-related enums were added in a new namespace `Enums.Vulnerability` ([#164] via [#419])  
     _Release stage is “beta”._ These namespace and enums have been released to third-party developers experimentally for the purpose of collecting feedback. These enums should not be used in production, because their contracts may change without notice.
@@ -44,11 +46,8 @@ All notable changes to this project will be documented in this file.
 [#419]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/419
 [#453]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/453
 [#454]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/454
-<<<<<<< Updated upstream
-[#463]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/463
-=======
 [#460]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/460
->>>>>>> Stashed changes
+[#463]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/463
 
 ## 1.10.0 - 2023-01-28
 
