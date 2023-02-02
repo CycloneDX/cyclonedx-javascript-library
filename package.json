@@ -26,12 +26,20 @@
   "license": "Apache-2.0",
   "author": {
     "name": "Jan Kowalleck",
-    "email": "jan.kowalleck@gmail.com"
+    "url": "https://github.com/jkowalleck"
   },
   "contributors": [
     {
       "name": "Jan Kowalleck",
-      "email": "jan.kowalleck@gmail.com"
+      "url": "https://github.com/jkowalleck"
+    },
+    {
+      "name": "Craig Andrews",
+      "url": "https://github.com/candrews"
+    },
+    {
+      "name": "Peter Wagner",
+      "url": "https://github.com/thepwagner"
     }
   ],
   "type": "commonjs",
