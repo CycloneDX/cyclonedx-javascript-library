@@ -33,6 +33,8 @@ All notable changes to this project will be documented in this file.
     * class `Types.CweRepository`
 * Docs
   * Use [TSDoc](https://tsdoc.org/) syntax in TypeScript files, instead of [JSDoc](https://jsdoc.app/) (via [#318], [#453])
+* Build
+  * Use _TypeScript_ `v4.9.5` now, was `v4.9.4`. (via [#463])
 * Misc
   * Added tests for internal helpers (via [#454])
 
@@ -41,6 +43,7 @@ All notable changes to this project will be documented in this file.
 [#419]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/419
 [#453]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/453
 [#454]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/454
+[#463]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/463
 
 ## 1.10.0 - 2023-01-28
 
