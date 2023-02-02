@@ -22,3 +22,6 @@ export * from './componentScope'
 export * from './componentType'
 export * from './externalReferenceType'
 export * from './hashAlogorithm'
+
+/** @beta */
+export * as Vulnerability from './vulnerability'

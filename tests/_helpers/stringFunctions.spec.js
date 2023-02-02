@@ -59,6 +59,12 @@ suite('test helpers: stringFunctions', () => {
       ['foo-Bar', 'FooBar'],
       ['Foo-bar', 'FooBar'],
       // endregion hyphen delimiter
+      // region underscore delimiter
+      ['foo_bar', 'FooBar'],
+      ['Foo_bar', 'FooBar'],
+      ['foo_Bar', 'FooBar'],
+      ['Foo_bar', 'FooBar'],
+      // endregion underscore delimiter
       ['', '']
     ].forEach(([value, expected]) =>
       test(`for value: ${value}`, () =>

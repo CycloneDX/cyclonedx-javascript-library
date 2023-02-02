@@ -38,6 +38,14 @@ written in _TypeScript_ and compiled for the target.
   * `ComponentType`
   * `ExternalReferenceType`
   * `HashAlgorithm`
+  * Vulnerability related:  
+    _Release stage is “beta”._ These namespace and enums have been released to third-party developers experimentally for the purpose of collecting feedback. These enums should not be used in production, because their contracts may change without notice.
+    * `AffectStatus`
+    * `AnalysisJustification`
+    * `AnalysisResponse`
+    * `AnalysisState`
+    * `RatingMethod`
+    * `Severity`
 * Data models for the following use cases:
   * `Attachment`
   * `Bom`
@@ -48,10 +56,21 @@ written in _TypeScript_ and compiled for the target.
   * `LicenseExpression`, `NamedLicense`, `SpdxLicense`, `LicenseRepository`
   * `Metadata`
   * `OrganizationalContact`, `OrganizationalContactRepository`
-  * `OrganizationalEntity`
+  * `OrganizationalEntity`, `OrganizationalEntityRepository`
   * `Property`, `PropertyRepository`
   * `SWID`
   * `Tool`, `ToolRepository`
+  * Vulnerability related:   
+    _Release stage is “beta”._ These namespace and models have been released to third-party developers experimentally for the purpose of collecting feedback. These models should not be used in production, because their contracts may change without notice.  
+    _Attention_: These models are not yet supported by serializers nor normalizers.
+    * `Advisory`, `AdvisoryRepository`
+    * `Affect`, `AffectRepository`, `AffectedSingleVersion`, `AffectedVersionRange`, `AffectedVersionRepository`
+    * `Analysis`
+    * `Credits`
+    * `Rating`, `RatingRepository`
+    * `Reference`, `ReferenceRepository`
+    * `Source`
+    * `Vulnerability`, `VulnerabilityRepository`
 * Factories for the following use cases:
   * Create data models from any license descriptor string
   * Create `PackageURL` from `Component` data models

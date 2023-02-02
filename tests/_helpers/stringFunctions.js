@@ -34,6 +34,9 @@ module.exports = {
    * @returns {string}
    */
   upperCamelCase: s => s.replace(
+    /_/g,
+    ' '
+  ).replace(
     /\b\w/g,
     f => f.slice(-1).toUpperCase()
   ).replace(/\W/g, ''),

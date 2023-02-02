@@ -21,17 +21,20 @@ import type { PositiveInteger, UrnUuid } from '../types'
 import { isPositiveInteger, isUrnUuid } from '../types'
 import { ComponentRepository } from './component'
 import { Metadata } from './metadata'
+import { VulnerabilityRepository } from './vulnerability'
 
 export interface OptionalBomProperties {
   metadata?: Bom['metadata']
   components?: Bom['components']
   version?: Bom['version']
+  vulnerabilities?: Bom['vulnerabilities']
   serialNumber?: Bom['serialNumber']
 }
 
 export class Bom {
   metadata: Metadata
   components: ComponentRepository
+  vulnerabilities: VulnerabilityRepository
 
   /** @see {@link version} */
   #version: PositiveInteger = 1
@@ -53,6 +56,7 @@ export class Bom {
     this.metadata = op.metadata ?? new Metadata()
     this.components = op.components ?? new ComponentRepository()
     this.version = op.version ?? this.version
+    this.vulnerabilities = op.vulnerabilities ?? new VulnerabilityRepository()
     this.serialNumber = op.serialNumber
   }
 

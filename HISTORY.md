@@ -4,12 +4,41 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Added
+  * New vulnerability-related enums were added in a new namespace `Enums.Vulnerability` ([#164] via [#419])  
+    _Release stage is “beta”._ These namespace and enums have been released to third-party developers experimentally for the purpose of collecting feedback. These enums should not be used in production, because their contracts may change without notice.
+    * `AffectStatus`
+    * `AnalysisJustification`
+    * `AnalysisResponse`
+    * `AnalysisState`
+    * `RatingMethod`
+    * `Severity`
+  * New vulnerability-related models were added in a new namespace `Models.Vulnerability` ([#164] via [#419])  
+    _Release stage is “beta”._ These namespace and models have been released to third-party developers experimentally for the purpose of collecting feedback. These models should not be used in production, because their contracts may change without notice.  
+    _Attention_: The models are not yet supported by shipped serializers nor shipped normalizers.
+    * `Advisory`, `AdvisoryRepository`
+    * `Affect`, `AffectRepository`, `AffectedSingleVersion`, `AffectedVersionRange`, `AffectedVersionRepository`
+    * `Analysis`
+    * `Credits`
+    * `Rating`, `RatingRepository`
+    * `Reference`, `ReferenceRepository`
+    * `Source`
+    * `Vulnerability`, `VulnerabilityRepository`
+  * New class `Models.OrganizationalEntityRepository` to represent a collection of `Models.OrganizationalEntity` (via [#419])  
+    Additionally, `Models.OrganizationalEntity.compare()` was implemented.
+  * New types and related functionality Common Weaknesses Enumerations (CWE) were added (via [#419])  
+    _Release stage is “beta”._ These types, functions and classes have been released to third-party developers experimentally for the purpose of collecting feedback. These types, functions and classes should not be used in production, because their contracts may change without notice.
+    * type `Types.CWE`
+    * runtime validation `Types.isCWE()`
+    * class `Types.CweRepository`
 * Docs
   * Use [TSDoc](https://tsdoc.org/) syntax in TypeScript files, instead of [JSDoc](https://jsdoc.app/) (via [#318], [#453])
 * Misc
   * Added tests for internal helpers (via [#454])
 
+[#164]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/164
 [#318]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/318
+[#419]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/419
 [#453]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/453
 [#454]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/454
 

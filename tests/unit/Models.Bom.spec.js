@@ -21,7 +21,10 @@ const assert = require('assert')
 const { suite, test } = require('mocha')
 
 const {
-  Models: { Bom, ComponentRepository, Metadata }
+  Models: {
+    Bom, ComponentRepository, Metadata,
+    Vulnerability: { VulnerabilityRepository }
+  }
 } = require('../../')
 
 suite('Models.Bom', () => {
@@ -31,7 +34,9 @@ suite('Models.Bom', () => {
     assert.ok(bom.metadata instanceof Metadata)
     assert.deepStrictEqual(bom.metadata, new Metadata())
     assert.ok(bom.components instanceof ComponentRepository)
-    assert.equal(bom.components.size, 0)
+    assert.strictEqual(bom.components.size, 0)
+    assert.ok(bom.vulnerabilities instanceof VulnerabilityRepository)
+    assert.strictEqual(bom.vulnerabilities.size, 0)
     assert.strictEqual(bom.version, 1)
     assert.strictEqual(bom.serialNumber, undefined)
   })
@@ -41,18 +46,21 @@ suite('Models.Bom', () => {
     const serialNumber = 'urn:uuid:12345678-4321-0987-6547-abcdef123456'
     const metadata = new Metadata()
     const components = new ComponentRepository()
+    const vulnerabilities = new VulnerabilityRepository()
 
     const bom = new Bom({
       version,
       serialNumber,
       metadata,
-      components
+      components,
+      vulnerabilities
     })
 
     assert.strictEqual(bom.version, version)
     assert.strictEqual(bom.serialNumber, serialNumber)
     assert.strictEqual(bom.metadata, metadata)
     assert.strictEqual(bom.components, components)
+    assert.strictEqual(bom.vulnerabilities, vulnerabilities)
   })
 
   suite('can set version', () =>

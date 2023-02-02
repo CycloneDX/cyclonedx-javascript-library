@@ -17,6 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import type { Comparable } from '../_helpers/sortable'
+import { SortableComparables, SortableStringables } from '../_helpers/sortable'
 import { OrganizationalContactRepository } from './organizationalContact'
 
 export interface OptionalOrganizationalEntityProperties {
@@ -25,7 +27,7 @@ export interface OptionalOrganizationalEntityProperties {
   contact?: OrganizationalEntity['contact']
 }
 
-export class OrganizationalEntity {
+export class OrganizationalEntity implements Comparable<OrganizationalEntity> {
   name?: string
   url: Set<URL | string>
   contact: OrganizationalContactRepository
@@ -35,4 +37,14 @@ export class OrganizationalEntity {
     this.url = op.url ?? new Set()
     this.contact = op.contact ?? new OrganizationalContactRepository()
   }
+
+  compare (other: OrganizationalEntity): number {
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
+    return (this.name ?? '').localeCompare(other.name ?? '') ||
+      this.contact.compare(other.contact) ||
+      (new SortableStringables(this.url)).compare(new SortableStringables(other.url))
+    /* eslint-enable @typescript-eslint/strict-boolean-expressions */
+  }
 }
+
+export class OrganizationalEntityRepository extends SortableComparables<OrganizationalEntity> {}

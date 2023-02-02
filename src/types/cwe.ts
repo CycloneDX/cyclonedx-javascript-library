@@ -17,8 +17,26 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './cpe'
-export * from './cwe'
-export * from './integer'
-export * from './mimeType'
-export * from './urn'
+import { SortableNumbers } from '../_helpers/sortable'
+import type { PositiveInteger } from './integer'
+import { isPositiveInteger } from './integer'
+
+/**
+ * Integer representation of a Common Weaknesses Enumerations (CWE).
+ *
+ * @example
+ * value `399` might represent `https://cwe.mitre.org/data/definitions/399.html`.
+ *
+ * @see {@link isCWE}
+ *
+ * @beta
+ */
+export type CWE = PositiveInteger
+
+/** @beta */
+export function isCWE (value: any): value is CWE {
+  return isPositiveInteger(value)
+}
+
+/** @beta */
+export class CweRepository extends SortableNumbers<CWE> {}

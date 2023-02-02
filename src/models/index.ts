@@ -30,3 +30,6 @@ export * from './organizationalEntity'
 export * from './property'
 export * from './swid'
 export * from './tool'
+
+/** @beta */
+export * as Vulnerability from './vulnerability'

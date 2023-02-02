@@ -18,8 +18,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 /**
- * Define the format for acceptable CPE URIs. Supports CPE 2.2 and CPE 2.3 formats.
- * Refer to {@link https://nvd.nist.gov/products/cpe} for official specification.
+ * Specifies a well-formed CPE name that conforms to the CPE 2.2 or 2.3 specification.
+ * See the [official specification](https://nvd.nist.gov/products/cpe).
  *
  * @see {@link isCPE}
  */
