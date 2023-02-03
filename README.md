@@ -106,7 +106,7 @@ which will build automatically on installation:
 ```shell
 npm i -S github:CycloneDX/cyclonedx-javascript-library
 pnpm add github:CycloneDX/cyclonedx-javascript-library
-# not supported with yarn
+yarn add @cyclonedx/cyclonedx-library@github:CycloneDX/cyclonedx-javascript-library # only with yarn-2
 ```
 
 ## Usage
