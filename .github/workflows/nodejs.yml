@@ -135,11 +135,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        typescript-version:
-          - '^4'      # latest 4.X
-          - '~4.0'    # some 4.0.x
-          - '^3'      # latest 3.X
-          - '3.8.2'   # some 3.8.x - lowest reasonable number that works
+        include:
+          - # latest 4.X
+            typescript-version: '^4'
+          - # some 4.0.x
+            typescript-version: '~4.0'
+          - # latest 3.X
+            typescript-version: '^3'
+            nodeTypes-version: '^16'
+          - # some 3.8.x - lowest reasonable number that works
+            typescript-version: '3.8.2'
+            nodeTypes-version: '^16'
     env:
       EXAMPLE_DIR: examples/node-typescript
     timeout-minutes: 10
@@ -153,7 +159,10 @@ jobs:
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: setup project
-        run: npm i --no-save 'typescript@${{ matrix.typescript-version }}'
+        run: >
+          npm i --no-save 
+          'typescript@${{ matrix.typescript-version }}' 
+          '@types/node@${{ matrix.nodeTypes-version || env.NODE_ACTIVE_LTS }}'
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
