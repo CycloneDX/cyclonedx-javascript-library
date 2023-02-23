@@ -32,8 +32,8 @@ export * from './baseSerializer'
 // region JSON
 
 export * as JSON from './json'
+export * from './jsonDeserializer'
 export * from './jsonSerializer'
-// export * from './jsonDeserializer' // @TODO
 
 // endregion JSON
 

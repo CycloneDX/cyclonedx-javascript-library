@@ -18,37 +18,27 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { Bom } from '../models'
+import type { DenormalizerOptions, Deserializer, DesserializerOptions } from './types'
 
-export interface NormalizerOptions {
+export abstract class BaseDeserializer<NormalizedBom> implements Deserializer {
   /**
-   * Whether to sort lists in normalization results. Sorted lists make the output reproducible.
+   * @readonly
+   * @throws {@link Error}
    */
-  sortLists?: boolean
-}
+  public deserialize (str: string, options?: DesserializerOptions & DenormalizerOptions): Bom {
+    return this._denormalize(
+      this._deserialize(str, options),
+      options
+    )
+  }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface DenormalizerOptions {}
-
-export interface SerializerOptions {
-  /**
-   * Add indention in the serialization result. Indention increases readability for humans.
-   */
-  space?: string | number
-}
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface DesserializerOptions {}
-
-export interface Serializer {
   /**
    * @throws {@link Error}
    */
-  serialize: (bom: Bom, options?: SerializerOptions & NormalizerOptions) => string
-}
+  protected abstract _denormalize (bom: NormalizedBom, options?: DenormalizerOptions): Bom
 
-export interface Deserializer {
   /**
    * @throws {@link Error}
    */
-  deserialize: (str: string, options?: DesserializerOptions & DenormalizerOptions) => Bom
+  protected abstract _deserialize (data: string, options?: DesserializerOptions): NormalizedBom
 }

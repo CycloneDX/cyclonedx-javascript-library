@@ -29,6 +29,8 @@ written in _TypeScript_ and compiled for the target.
   * Support the downstream implementation of custom XML-serializers tailored to specific environments  
     by providing an abstract base class that takes care of normalization and BomRef-discrimination.  
     This is done, because there is no universal XML support in _JavaScript_.
+* Deserialization:
+  * Provide a JSON-deserializer for all target environments.
 
 ## Capabilities
 
@@ -82,8 +84,10 @@ written in _TypeScript_ and compiled for the target.
   * `1.3`
   * `1.2`
 * Normalizers that convert data models to JSON structures
+* Denormalizers that convert JSON structures to data models
 * Normalizers that convert data models to XML structures
 * Universal serializer that converts `Bom` data models to JSON string
+* Deserializer that converts JSON string to `Bom` data models
 * Serializer that converts `Bom` data models to XML string:
   * Specific to _WebBrowsers_: implementation utilizes browser-specific document generators and printers.
   * Specific to _Node.js_: implementation plugs/requires/utilizes one of the following _optional_ libraries

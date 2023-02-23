@@ -28,7 +28,7 @@ const { Enums, Models } = require('../../')
 /**
  * @returns {Bom}
  */
-module.exports.createComplexStructure = function () {
+module.exports.createComplexStructure = function (forSerialization = true) {
   const bom = new Models.Bom({
     version: 7,
     serialNumber: 'urn:uuid:12345678-1234-1234-1234-123456789012',
@@ -108,13 +108,15 @@ module.exports.createComplexStructure = function () {
     component.group = 'acme'
     component.hashes.set(Enums.HashAlgorithm['SHA-1'], 'e6f36746ccba42c288acf906e636bb278eaeb7e8')
     component.hashes.set(Enums.HashAlgorithm.MD5, '6bd3ac6fb35bb07c3f74d7f72451af57')
-    component.hashes.set(Enums.HashAlgorithm['SHA-256'], 'something-invalid-according-to-spec')
+    if (forSerialization) {
+      component.hashes.set(Enums.HashAlgorithm['SHA-256'], 'something-invalid-according-to-spec')
+    }
     component.licenses.add(new Models.NamedLicense('some other', {
       text: new Models.Attachment('U29tZQpsaWNlbnNlCnRleHQu', {
         contentType: 'text/plain',
         encoding: Enums.AttachmentEncoding.Base64
       }),
-      url: 'https://localhost/license'
+      url: forSerialization ? 'https://localhost/license' : new URL('https://localhost/license')
     }))
     component.licenses.add((function (license) {
       license.text = new Models.Attachment('TUlUIExpY2Vuc2UKLi4uClRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLi4u')

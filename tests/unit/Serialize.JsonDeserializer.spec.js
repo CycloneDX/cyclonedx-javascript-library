@@ -17,6 +17,22 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * as Denormalize from './denormalize'
-export * as Normalize from './normalize'
-export * as Types from './types'
+const assert = require('assert')
+const { suite, test } = require('mocha')
+
+const {
+  Serialize: {
+    JsonDeserializer,
+    JSON: { Denormalize: { Factory } }
+  }
+} = require('../../')
+
+suite('Serialize.JsonDeserializer', () => {
+  suite('constructor', () => {
+    test('happy path', () => {
+      const normalizerFactory = new Factory()
+      const actual = new JsonDeserializer(normalizerFactory)
+      assert.strictEqual(actual.normalizerFactory, normalizerFactory)
+    })
+  })
+})
