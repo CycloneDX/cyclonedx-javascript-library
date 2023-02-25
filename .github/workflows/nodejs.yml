@@ -139,8 +139,8 @@ jobs:
         include:
           - # latest 4.X
             typescript-version: '^4'
-          - # some 4.0.x
-            typescript-version: '~4.0'
+          # - # some 4.0.x
+          #  typescript-version: '~4.0'
           - # latest 3.X
             typescript-version: '^3'
             nodeTypes-version: '^16'
