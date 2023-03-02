@@ -20,10 +20,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 /**
  * Node-specifics.
  *
- * Intended to run on [normalized](https://www.npmjs.com/package/normalize-package-data) data structures
+ * Intended to run on normalized data structures
  * based on [PackageJson spec](https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json)
- * and [PackageJson description](https://docs.npmjs.com/cli/v9/configuring-npm/package-json).
- * Normalization should be done downstream.
+ * and explained by [PackageJson description](https://docs.npmjs.com/cli/v9/configuring-npm/package-json).
+ * Normalization should be done downstream, for example via [`normalize-package-data`](https://www.npmjs.com/package/normalize-package-data).
  */
 
 import type { PackageURL } from 'packageurl-js'

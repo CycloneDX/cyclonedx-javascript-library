@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
-## 1.12.0 -  2023-03-02
+## 1.12.0 - 2023-03-02
 
 * Docs
   * Made it clear, that `{Builders,Factories}.{FromNodePackageJson,FromPackageJson}.*` functionality is to be run on already normalized structures. ([#517] via [#518])  
