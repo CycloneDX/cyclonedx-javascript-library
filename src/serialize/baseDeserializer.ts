@@ -35,10 +35,10 @@ export abstract class BaseDeserializer<NormalizedBom> implements Deserializer {
   /**
    * @throws {@link Error}
    */
-  protected abstract _denormalize (bom: NormalizedBom, options?: DenormalizerOptions): Bom
+  protected abstract _denormalize (bom: any, options?: DenormalizerOptions): Bom
 
   /**
    * @throws {@link Error}
    */
-  protected abstract _deserialize (data: string, options?: DesserializerOptions): NormalizedBom
+  protected abstract _deserialize (data: string, options?: DesserializerOptions): any
 }

@@ -20,11 +20,76 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import { PackageURL } from 'packageurl-js'
 import { URL } from 'url'
 
+import { ComponentScope, HashAlgorithm } from '../../enums'
 import * as Models from '../../models'
-import type { Protocol as Spec, Version as SpecVersion } from '../../spec'
-import { SpecVersionDict, UnsupportedFormatError } from '../../spec'
+import type { Protocol, Protocol as Spec } from '../../spec'
+import { Format, SpecVersionDict, UnsupportedFormatError } from '../../spec'
 import type { DenormalizerOptions } from '../types'
 import type { Normalized } from './types'
+
+type VarType = 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function'
+type PathPart = string | number
+type PathType = PathPart[]
+
+function formatPath (path: PathType): string {
+  return path.map(p => typeof p === 'number' ? `[${p}]` : `.${p}`).join('')
+}
+
+function assertTypes (value: any, expected: VarType[], path: PathType): void {
+  const is = typeof value
+  if (!expected.includes(is)) {
+    throw new TypeError(`${formatPath(path)} is ${is} but should be one of ${expected.join(', ')}`)
+  }
+}
+
+function assertNonEmptyStr (value: any, path: PathType): asserts value is string {
+  assertTypes(value, ['string'], path)
+  if (value.length === 0) {
+    throw new RangeError(`${formatPath(path)} should be non empty string`)
+  }
+}
+
+function checkEnum (value: any, allowed: any[]): boolean {
+  return allowed.every(ev => ev !== value)
+}
+
+function assertEnum (value: any, allowed: any[], path: PathType): void {
+  if (!checkEnum(value, allowed)) {
+    throw new TypeError(`${formatPath(path)} is ${JSON.stringify(value)} but should be one of ${JSON.stringify(allowed)}`)
+  }
+}
+
+function assertArrayOrNull (value: any, path: PathType): asserts value is (any[] | undefined) {
+  if (value != null && !Array.isArray(value)) {
+    throw new TypeError(`${formatPath(path)} is ${typeof value} but should be an array or undefined`)
+  }
+}
+
+function captureErrorInPath<T> (func: () => T, path: PathType): T {
+  try {
+    return func()
+  } catch (e) {
+    if (e instanceof Error) {
+      e.message = `Error in ${formatPath(path)}: ${e.message}`
+      throw e
+    } else {
+      throw new Error(`Unknown error in ${formatPath(path)}`)
+    }
+  }
+}
+
+function createRepository<VT, RT> (
+  arr: any,
+  options: DenormalizerOptions,
+  path: PathType,
+  denormalizer: BaseJsonDenormalizer<VT, any>,
+  Repository: new(arr: VT[]) => RT
+): RT | undefined {
+  assertArrayOrNull(arr, path)
+  return (arr != null)
+    ? new Repository(arr.map((item: any, index) => denormalizer.denormalize(item, options, [...path, index])))
+    : undefined
+}
 
 export class Factory {
   #spec?: Spec
@@ -85,13 +150,17 @@ export class Factory {
     return new PropertyDenormalizer(this)
   }
 
-  makeForUrl (): (url: string, options: DenormalizerOptions) => (URL | string) {
-    return (u, o) => denormalizeUrl(u, o, this)
+  makeForUrl (): UrlDenormalizer {
+    return new UrlDenormalizer(this)
+  }
+
+  makeForBomRef (): BomRefDenormalizer {
+    return new BomRefDenormalizer(this)
   }
 }
 
 interface JsonDenormalizer<TModel, TNormalized> {
-  denormalize: (data: TNormalized, options: DenormalizerOptions) => TModel | undefined
+  denormalize: (data: TNormalized, options: DenormalizerOptions, path: PathType) => TModel | undefined
 }
 
 abstract class BaseJsonDenormalizer<TModel, TNormalized = object> implements JsonDenormalizer<TModel, TNormalized> {
@@ -105,32 +174,42 @@ abstract class BaseJsonDenormalizer<TModel, TNormalized = object> implements Jso
     return this._factory
   }
 
-  abstract denormalize (data: TNormalized, options: DenormalizerOptions): TModel | undefined
+  abstract denormalize (data: TNormalized, options: DenormalizerOptions, path: PathType): TModel
 }
 
 export class BomDenormalizer extends BaseJsonDenormalizer<Models.Bom> {
-  denormalize (data: Normalized.Bom, options: DenormalizerOptions): Models.Bom {
-    const spec = SpecVersionDict[data.specVersion as SpecVersion]
-    if (spec === undefined) {
-      throw new UnsupportedFormatError(`Spec version ${data.specVersion} is not supported.`)
-    }
+  denormalize (data: any, options: DenormalizerOptions, path: PathType): Models.Bom {
+    assertEnum(data.bomFormat, ['CycloneDX'], [...path, 'bomFormat'])
+    assertEnum(data.specVersion, Object.keys(SpecVersionDict), [...path, 'specVersion'])
+    const spec = SpecVersionDict[data.specVersion as keyof typeof SpecVersionDict] as Protocol
     this.factory.spec = spec
-    if (!this.factory.spec.supportsFormat('json')) {
-      throw new UnsupportedFormatError(`Spec version ${data.specVersion} is not supported for JSON format.`)
+    if (!spec.supportsFormat(Format.JSON)) {
+      throw new UnsupportedFormatError(`Spec version ${spec.version} is not supported for JSON format.`)
     }
+    assertTypes(data.serialNumber, ['string', 'undefined'], [...path, 'serialNumber'])
+    assertTypes(data.version, ['number', 'undefined'], [...path, 'version'])
+
     const bom = new Models.Bom({
-      metadata: (data.metadata != null) ? this._factory.makeForMetadata().denormalize(data.metadata, options) : undefined,
-      components: (data.components != null) ? new Models.ComponentRepository(data.components.map(c => this._factory.makeForComponent().denormalize(c, options))) : undefined,
-      serialNumber: data.serialNumber,
-      version: data.version
+      components: createRepository(data.components, options, [...path, 'components'], this._factory.makeForComponent(), Models.ComponentRepository),
+      metadata: (data.metadata != null)
+        ? this._factory.makeForMetadata().denormalize(data.metadata, options, [...path, 'metadata'])
+        : undefined,
+      serialNumber: (data.serialNumber != null)
+        ? data.serialNumber
+        : undefined,
+      version: (Number.isInteger(data.version)) ? data.version : undefined
+      // TODO
+      // vulnerabilities: (Array.isArray(data.vulnerabilities)) ? new Models.Vulnerability.VulnerabilityRepository(data.vulnerabilities.map(v => this._factory.makeForVulnerability()(v, options)))
     })
+    assertArrayOrNull(data.dependencies, [...path, 'dependencies'])
     const dependencyList = new Map<string, Models.BomRef[]>()
     if (Array.isArray(data.dependencies)) {
-      for (const { ref, dependsOn } of data.dependencies) {
-        if (dependsOn != null) {
-          dependencyList.set(ref, dependsOn.map(d => new Models.BomRef(d)))
+      const brf = this._factory.makeForBomRef()
+      data.dependencies.forEach(({ ref, dependsOn }: any, i: number) => {
+        if (Array.isArray(dependsOn) && typeof ref === 'string') {
+          dependencyList.set(ref, dependsOn.map(d => brf.denormalize(ref, options, [...path, 'dependencies', i])))
         }
-      }
+      })
     }
     if ((bom.metadata?.component) != null) {
       this.#addDepsToComponent(bom.metadata.component, dependencyList)
@@ -155,64 +234,93 @@ export class BomDenormalizer extends BaseJsonDenormalizer<Models.Bom> {
 }
 
 export class MetadataDenormalizer extends BaseJsonDenormalizer<Models.Metadata> {
-  denormalize (data: Normalized.Metadata, options: DenormalizerOptions): Models.Metadata {
+  denormalize (data: any, options: DenormalizerOptions, path: PathType): Models.Metadata {
+    assertTypes(data.timestamp, ['string', 'undefined'], [...path, 'timestamp'])
+    const doe = this._factory.makeForOrganizationalEntity()
     return new Models.Metadata({
-      authors: (data.authors != null) ? new Models.OrganizationalEntityRepository(data.authors.map(a => this._factory.makeForOrganizationalEntity().denormalize(a, options))) : undefined,
-      component: (data.component != null) ? this._factory.makeForComponent().denormalize(data.component, options) : undefined,
-      manufacture: (data.manufacture != null) ? this._factory.makeForOrganizationalEntity().denormalize(data.manufacture, options) : undefined,
-      supplier: (data.supplier != null) ? this._factory.makeForOrganizationalEntity().denormalize(data.supplier, options) : undefined,
+      authors: createRepository(data.authors, options, [...path, 'authors'], doe, Models.OrganizationalEntityRepository),
+      component: (data.component != null)
+        ? this._factory.makeForComponent().denormalize(data.component, options, [...path, 'component'])
+        : undefined,
+      manufacture: (data.manufacture != null)
+        ? doe.denormalize(data.manufacture, options, [...path, 'manufacture'])
+        : undefined,
+      supplier: (data.supplier != null)
+        ? doe.denormalize(data.supplier, options, [...path, 'supplier'])
+        : undefined,
       timestamp: (data.timestamp !== undefined) ? new Date(data.timestamp) : undefined,
-      tools: (data.tools != null) ? new Models.ToolRepository(data.tools.map(t => this._factory.makeForTool().denormalize(t, options))) : undefined
+      tools: createRepository(data.tools, options, [...path, 'tools'], this._factory.makeForTool(), Models.ToolRepository)
     })
   }
 }
 
 export class ComponentDenormalizer extends BaseJsonDenormalizer<Models.Component> {
-  denormalize (data: Normalized.Component, options: DenormalizerOptions): Models.Component {
+  denormalize (data: any, options: DenormalizerOptions, path: PathType): Models.Component {
     const erdn = this._factory.makeForExternalReference()
     const ldn = this._factory.makeForLicense()
     const pdn = this._factory.makeForProperty()
+
+    assertTypes(data.author, ['string', 'undefined'], [...path, 'author'])
+    assertTypes(data['bom-ref'], ['string', 'undefined'], [...path, 'bom-ref'])
+    assertTypes(data.copyright, ['string', 'undefined'], [...path, 'copyright'])
+    assertTypes(data.description, ['string', 'undefined'], [...path, 'description'])
+    assertTypes(data.group, ['string', 'undefined'], [...path, 'group'])
+    assertTypes(data.cpe, ['string', 'undefined'], [...path, 'cpe'])
+    assertTypes(data.publisher, ['string', 'undefined'], [...path, 'publisher'])
+    assertTypes(data.purl, ['string', 'undefined'], [...path, 'purl'])
+    assertEnum(data.scope, [...Object.values(ComponentScope), undefined], [...path, 'scope'])
+    assertTypes(data.version, ['string', 'undefined'], [...path, 'cpe'])
+
     return new Models.Component(data.type, data.name, {
       author: data.author,
       bomRef: data['bom-ref'],
-      components: (data.components != null) ? new Models.ComponentRepository(data.components.map(c => this.denormalize(c, options))) : undefined,
+      components: createRepository(data.components, options, [...path, 'components'], this, Models.ComponentRepository),
       copyright: data.copyright,
       description: data.description,
       group: data.group,
       cpe: data.cpe,
-      externalReferences: (data.externalReferences != null)
-        ? new Models.ExternalReferenceRepository(data.externalReferences.map(er => erdn.denormalize(er, options)))
-        : undefined,
-      hashes: (data.hashes != null) ? new Models.HashDictionary(data.hashes.map(h => this._factory.makeForHash().denormalize(h, options))) : undefined,
-      licenses: (data.licenses != null) ? new Models.LicenseRepository(data.licenses.map(l => ldn.denormalize(l, options))) : undefined,
-      properties: (data.properties != null) ? new Models.PropertyRepository(data.properties.map(p => pdn.denormalize(p, options))) : undefined,
+      externalReferences: createRepository(data.externalReferences, options, [...path, 'externalReferences'], erdn, Models.ExternalReferenceRepository),
+      hashes: createRepository(data.hashes, options, [...path, 'hashes'], this._factory.makeForHash(), Models.HashDictionary),
+      licenses: createRepository(data.licenses, options, [...path, 'licenses'], ldn, Models.LicenseRepository),
+      properties: createRepository(data.properties, options, [...path, 'properties'], pdn, Models.PropertyRepository),
       publisher: data.publisher,
-      purl: (data.purl !== undefined) ? PackageURL.fromString(data.purl) : undefined,
+      purl: (data.purl !== undefined)
+        ? captureErrorInPath(() => PackageURL.fromString(data.purl as string), [...path, 'purl'])
+        : undefined,
       scope: data.scope,
-      supplier: (data.supplier != null) ? this.factory.makeForOrganizationalEntity().denormalize(data.supplier, options) : undefined,
-      swid: (data.swid != null) ? this._factory.makeForSWID().denormalize(data.swid, options) : undefined,
+      supplier: (data.supplier != null)
+        ? this.factory.makeForOrganizationalEntity().denormalize(data.supplier, options, [...path, 'supplier'])
+        : undefined,
+      swid: (data.swid != null)
+        ? this._factory.makeForSWID().denormalize(data.swid, options, [...path, 'swid'])
+        : undefined,
       version: data.version
     })
   }
 }
 
 export class ToolDenormalizer extends BaseJsonDenormalizer<Models.Tool> {
-  denormalize (data: Normalized.Tool, options: DenormalizerOptions): Models.Tool {
+  denormalize (data: any, options: DenormalizerOptions, path: PathType): Models.Tool {
     const erdn = this._factory.makeForExternalReference()
+    assertTypes(data.vendor, ['string', 'undefined'], [...path, 'vendor'])
+    assertTypes(data.name, ['string', 'undefined'], [...path, 'name'])
+    assertTypes(data.version, ['string', 'undefined'], [...path, 'version'])
+
     return new Models.Tool({
       vendor: data.vendor,
       name: data.name,
       version: data.version,
-      externalReferences: (data.externalReferences != null)
-        ? new Models.ExternalReferenceRepository(data.externalReferences.map(er => erdn.denormalize(er, options)))
-        : undefined,
-      hashes: (data.hashes != null) ? new Models.HashDictionary(data.hashes.map(h => this._factory.makeForHash().denormalize(h, options))) : undefined
+      externalReferences: createRepository(data.externalReferences, options, [...path, 'externalReferences'], erdn, Models.ExternalReferenceRepository),
+      hashes: createRepository(data.hashes, options, [...path, 'hashes'], this._factory.makeForHash(), Models.HashDictionary)
     })
   }
 }
 
 export class OrganizationalContactDenormalizer extends BaseJsonDenormalizer<Models.OrganizationalContact> {
-  denormalize (data: Normalized.OrganizationalContact, options: DenormalizerOptions): Models.OrganizationalContact {
+  denormalize (data: any, options: DenormalizerOptions, path: PathType): Models.OrganizationalContact {
+    assertTypes(data.name, ['string', 'undefined'], [...path, 'name'])
+    assertTypes(data.email, ['string', 'undefined'], [...path, 'email'])
+    assertTypes(data.phone, ['string', 'undefined'], [...path, 'phone'])
     return new Models.OrganizationalContact({
       name: data.name,
       email: data.email,
@@ -222,37 +330,52 @@ export class OrganizationalContactDenormalizer extends BaseJsonDenormalizer<Mode
 }
 
 export class OrganizationalEntityDenormalizer extends BaseJsonDenormalizer<Models.OrganizationalEntity> {
-  denormalize (data: Normalized.OrganizationalEntity, options: DenormalizerOptions): Models.OrganizationalEntity {
+  denormalize (data: any, options: DenormalizerOptions, path: PathType): Models.OrganizationalEntity {
+    assertTypes(data.name, ['string', 'undefined'], [...path, 'name'])
     return new Models.OrganizationalEntity({
       name: data.name,
-      url: (data.url != null) ? new Set(data.url.map(u => this._factory.makeForUrl()(u, options))) : undefined,
-      contact: (data.contact != null) ? new Models.OrganizationalContactRepository(data.contact.map(c => this._factory.makeForOrganizationalContact().denormalize(c, options))) : undefined
+      url: createRepository<URL | string, Set<URL | string>>(data.url, options, [...path, 'url'], this._factory.makeForUrl(), Set),
+      contact: createRepository(data.contact, options, [...path, 'contact'], this._factory.makeForOrganizationalContact(), Models.OrganizationalContactRepository)
     })
   }
 }
 
 export class HashDenormalizer extends BaseJsonDenormalizer<Models.Hash, Normalized.Hash> {
-  denormalize (data: Normalized.Hash, options: DenormalizerOptions): Models.Hash {
+  denormalize (data: any, options: DenormalizerOptions, path: PathType): Models.Hash {
+    assertEnum(data.alg, Object.values(HashAlgorithm), [...path, 'algorithm'])
+    assertNonEmptyStr(data.content, [...path, 'content'])
     return [data.alg, data.content]
   }
 }
 
 export class LicenseDenormalizer extends BaseJsonDenormalizer<Models.License> {
-  denormalize (data: Normalized.License, options: DenormalizerOptions): Models.License {
-    if (typeof (data as Normalized.LicenseExpression).expression === 'string') {
-      return new Models.LicenseExpression((data as Normalized.LicenseExpression).expression)
-    } else if (typeof (data as Normalized.SpdxLicense).license === 'object') {
-      if (typeof (data as Normalized.SpdxLicense).license.id === 'string') {
-        const sl = data as Normalized.SpdxLicense
-        return new Models.SpdxLicense(sl.license.id, {
-          text: (sl.license.text != null) ? this._factory.makeForAttachment().denormalize(sl.license.text, options) : undefined,
-          url: typeof sl.license.url === 'string' ? this._factory.makeForUrl()(sl.license.url, options) : undefined
+  denormalize (data: any, options: DenormalizerOptions, path: PathType): Models.License {
+    if (typeof data.expression === 'string') {
+      return new Models.LicenseExpression(data.expression)
+    } else if (typeof data.license === 'object') {
+      if (typeof data.license.id === 'string') {
+        assertNonEmptyStr(data.license.id, [...path, 'license', 'id'])
+        assertTypes(data.license.text, ['object', 'undefined'], [...path, 'license', 'text'])
+        assertTypes(data.license.url, ['string', 'undefined'], [...path, 'license', 'url'])
+        return new Models.SpdxLicense(data.license.id, {
+          text: (data.license.text != null)
+            ? this._factory.makeForAttachment().denormalize(data.license.text, options, [...path, 'license', 'text'])
+            : undefined,
+          url: (data.license.text != null)
+            ? this._factory.makeForUrl().denormalize(data.license.url, options, [...path, 'license', 'url'])
+            : undefined
         })
       } else {
-        const nl = data as Normalized.NamedLicense
-        return new Models.NamedLicense(nl.license.name, {
-          text: (nl.license.text != null) ? this._factory.makeForAttachment().denormalize(nl.license.text, options) : undefined,
-          url: typeof nl.license.url === 'string' ? this._factory.makeForUrl()(nl.license.url, options) : undefined
+        assertNonEmptyStr(data.license.name, [...path, 'license', 'name'])
+        assertTypes(data.license.text, ['object', 'undefined'], [...path, 'license', 'text'])
+        assertTypes(data.license.url, ['string', 'undefined'], [...path, 'license', 'url'])
+        return new Models.NamedLicense(data.license.name, {
+          text: (data.license.text != null)
+            ? this._factory.makeForAttachment().denormalize(data.license.text, options, [...path, 'license', 'text'])
+            : undefined,
+          url: (data.license.text != null)
+            ? this._factory.makeForUrl().denormalize(data.license.url, options, [...path, 'license', 'url'])
+            : undefined
         })
       }
     } else {
@@ -262,36 +385,39 @@ export class LicenseDenormalizer extends BaseJsonDenormalizer<Models.License> {
 }
 
 export class SWIDDenormalizer extends BaseJsonDenormalizer<Models.SWID> {
-  denormalize (data: Normalized.SWID, options: DenormalizerOptions): Models.SWID {
-    if (typeof data.tagId !== 'string') {
-      throw new Error('SWID tagId is required')
-    }
+  denormalize (data: any, options: DenormalizerOptions, path: PathType): Models.SWID {
+    assertNonEmptyStr(data.tagId, [...path, 'tagId'])
+    assertNonEmptyStr(data.name, [...path, 'name'])
+    assertTypes(data.patch, ['boolean', 'undefined'], [...path, 'patch'])
+    assertTypes(data.version, ['string', 'undefined'], [...path, 'version'])
+    assertTypes(data.tagVersion, ['number', 'undefined'], [...path, 'tagVersion'])
     return new Models.SWID(data.tagId, data.name, {
       patch: data.patch,
       version: data.version,
       tagVersion: data.tagVersion,
-      text: (data.text != null) ? this._factory.makeForAttachment().denormalize(data.text, options) : undefined,
-      url: typeof data.url === 'string' ? this._factory.makeForUrl()(data.url, options) : undefined
+      text: (data.text != null)
+        ? this._factory.makeForAttachment().denormalize(data.text, options, [...path, 'text'])
+        : undefined,
+      url: typeof data.url === 'string'
+        ? this._factory.makeForUrl().denormalize(data.url, options, [...path, 'url'])
+        : undefined
     })
   }
 }
 
 export class ExternalReferenceDenormalizer extends BaseJsonDenormalizer<Models.ExternalReference> {
-  denormalize (data: Normalized.ExternalReference, options: DenormalizerOptions): Models.ExternalReference {
-    if (typeof data.url !== 'string' || typeof data.type !== 'string') {
-      throw new Error('External reference URL and type are required')
-    }
-    return new Models.ExternalReference(this._factory.makeForUrl()(data.url, options), data.type, {
+  denormalize (data: Normalized.ExternalReference, options: DenormalizerOptions, path: PathType): Models.ExternalReference {
+    assertNonEmptyStr(data.type, [...path, 'type'])
+    assertTypes(data.comment, ['string', 'undefined'], [...path, 'comment'])
+    return new Models.ExternalReference(this._factory.makeForUrl().denormalize(data.url, options, [...path, 'url']), data.type, {
       comment: data.comment
     })
   }
 }
 
 export class AttachmentDenormalizer extends BaseJsonDenormalizer<Models.Attachment> {
-  denormalize (data: Normalized.Attachment, options: DenormalizerOptions): Models.Attachment {
-    if (typeof data.content !== 'string') {
-      throw new Error('Attachment content is required')
-    }
+  denormalize (data: Normalized.Attachment, options: DenormalizerOptions, path: PathType): Models.Attachment {
+    assertNonEmptyStr(data.content, [...path, 'content'])
     return new Models.Attachment(data.content, {
       contentType: data.contentType,
       encoding: data.encoding
@@ -300,18 +426,27 @@ export class AttachmentDenormalizer extends BaseJsonDenormalizer<Models.Attachme
 }
 
 export class PropertyDenormalizer extends BaseJsonDenormalizer<Models.Property> {
-  denormalize (data: Normalized.Property, options: DenormalizerOptions): Models.Property {
-    if (typeof data.name !== 'string' || typeof data.value !== 'string') {
-      throw new Error('Property key and value are required')
-    }
-    return new Models.Property(data.name, data.value)
+  denormalize (data: Normalized.Property, options: DenormalizerOptions, path: PathType): Models.Property {
+    assertNonEmptyStr(data.name, [...path, 'name'])
+    assertTypes(data.value, ['string'], [...path, 'value'])
+    return new Models.Property(data.name, data.value as string)
   }
 }
 
-export function denormalizeUrl (url: string, options: DenormalizerOptions, factory: Factory): URL | string {
-  try {
-    return new URL(url)
-  } catch (e) {
-    return url
+export class UrlDenormalizer extends BaseJsonDenormalizer<URL | string> {
+  denormalize (url: any, options: DenormalizerOptions, path: PathType): URL | string {
+    assertNonEmptyStr(url, path)
+    try {
+      return new URL(url)
+    } catch (e) {
+      return url
+    }
+  }
+}
+
+export class BomRefDenormalizer extends BaseJsonDenormalizer<Models.BomRef> {
+  denormalize (data: any, options: DenormalizerOptions, path: PathType): Models.BomRef {
+    assertNonEmptyStr(data, path)
+    return new Models.BomRef(data)
   }
 }

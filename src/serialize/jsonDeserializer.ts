@@ -42,7 +42,7 @@ export class JsonDeserializer extends BaseDeserializer<Normalized.Bom> {
   }
 
   protected _denormalize (
-    data: Normalized.Bom,
+    data: any,
     options: DenormalizerOptions = {}
   ): Bom {
     return this.#normalizerFactory.makeForBom()
