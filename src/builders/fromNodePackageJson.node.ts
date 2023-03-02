@@ -20,7 +20,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 /**
  * Node-specifics.
  *
- * @see [PackageJson spec](https://docs.npmjs.com/cli/v8/configuring-npm/package-json)
+ * Intended to run on [normalized](https://www.npmjs.com/package/normalize-package-data) data structures
+ * based on [PackageJson spec](https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json)
+ * and [PackageJson description](https://docs.npmjs.com/cli/v9/configuring-npm/package-json).
+ * Normalization should be done downstream.
  */
 
 import type { PackageJson } from '../_helpers/packageJson'
@@ -94,19 +97,19 @@ export class ComponentBuilder {
       return undefined
     }
 
-    /* see https://docs.npmjs.com/cli/v8/configuring-npm/package-json#author */
+    /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#author */
     const author = typeof data.author === 'string'
       ? data.author
       : (typeof data.author?.name === 'string'
           ? data.author.name
           : undefined)
 
-    /* see https://docs.npmjs.com/cli/v8/configuring-npm/package-json#description-1 */
+    /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#description-1 */
     const description = typeof data.description === 'string'
       ? data.description
       : undefined
 
-    /* see https://docs.npmjs.com/cli/v8/configuring-npm/package-json#version */
+    /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#version */
     const version = typeof data.version === 'string'
       ? data.version
       : undefined
@@ -115,7 +118,7 @@ export class ComponentBuilder {
 
     const licenses = new Models.LicenseRepository()
     if (typeof data.license === 'string') {
-      /* see https://docs.npmjs.com/cli/v8/configuring-npm/package-json#license */
+      /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#license */
       licenses.add(this.#licenseFactory.makeFromString(data.license))
     }
     if (Array.isArray(data.licenses)) {

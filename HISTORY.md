@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.12.0 -  2023-03-02
+
+* Docs
+  * Made it clear, that `{Builders,Factories}.{FromNodePackageJson,FromPackageJson}.*` functionality is to be run on already normalized structures. ([#517] via [#518])  
+    Normalization should be done downstream, for example via [`normalize-package-data`](https://www.npmjs.com/package/normalize-package-data).
+
+[#517]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/517
+[#518]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/518
+
 ## 1.11.0 - 2023-02-02
 
 * Added
