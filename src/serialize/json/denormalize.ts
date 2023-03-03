@@ -81,7 +81,7 @@ function unifyNullUndef<T> (value: T | null | undefined): T | undefined {
 }
 
 function warnStringOrUndef (value: unknown, ctx: JSONDenormalizerContext, path: PathType): string | undefined {
-  if (value != null && typeof value !== 'string') {
+  if (value !== undefined && typeof value !== 'string') {
     callWarnFunc(ctx, {
       type: 'type',
       actual: typeof value,
@@ -96,7 +96,7 @@ function warnStringOrUndef (value: unknown, ctx: JSONDenormalizerContext, path: 
 }
 
 function warnBoolOrUndef (value: unknown, ctx: JSONDenormalizerContext, path: PathType): boolean | undefined {
-  if (value != null && typeof value !== 'boolean') {
+  if (value !== undefined && typeof value !== 'boolean') {
     callWarnFunc(ctx, {
       type: 'type',
       actual: typeof value,
@@ -111,7 +111,7 @@ function warnBoolOrUndef (value: unknown, ctx: JSONDenormalizerContext, path: Pa
 }
 
 function warnRecordOrUndef (value: unknown, ctx: JSONDenormalizerContext, path: PathType): Record<string, unknown> | undefined {
-  if (value != null && (typeof value !== 'object')) {
+  if (value !== undefined && (typeof value !== 'object')) {
     callWarnFunc(ctx, {
       type: 'type',
       actual: typeof value,
@@ -126,7 +126,7 @@ function warnRecordOrUndef (value: unknown, ctx: JSONDenormalizerContext, path: 
 }
 
 function warnEnumOrUndef<KT> (value: unknown, allowed: KT[], ctx: JSONDenormalizerContext, path: PathType): KT | undefined {
-  if (value != null && !allowed.includes(value as any)) {
+  if (value !== undefined && !allowed.includes(value as any)) {
     callWarnFunc(ctx, {
       type: 'value',
       path,
@@ -139,7 +139,7 @@ function warnEnumOrUndef<KT> (value: unknown, allowed: KT[], ctx: JSONDenormaliz
 }
 
 function warnNumberOrUndef (value: unknown, ctx: JSONDenormalizerContext, path: PathType): number | undefined {
-  if (value != null && typeof value !== 'number') {
+  if (value !== undefined && typeof value !== 'number') {
     callWarnFunc(ctx, {
       type: 'type',
       actual: typeof value,
@@ -154,7 +154,7 @@ function warnNumberOrUndef (value: unknown, ctx: JSONDenormalizerContext, path: 
 }
 
 function warnArrayOrUndef (value: unknown, ctx: JSONDenormalizerContext, path: PathType): unknown[] | undefined {
-  if (value != null && !Array.isArray(value)) {
+  if (value !== undefined && !Array.isArray(value)) {
     callWarnFunc(ctx, {
       type: 'type',
       actual: typeof value,
@@ -189,7 +189,7 @@ function createRepository<VT, RT> (
   Repository: new(arr: VT[]) => RT
 ): RT | undefined {
   const arr2 = warnArrayOrUndef(arr, ctx, path)
-  return (arr2 != null)
+  return (arr2 !== undefined)
     ? new Repository(arr2.map((item: unknown, index: number) => denormalizer.denormalize(item, ctx, [...path, index])))
     : undefined
 }
@@ -306,7 +306,7 @@ export class BomDenormalizer extends BaseJsonDenormalizer<Models.Bom> {
         }
       })
     }
-    if ((bom.metadata?.component) != null) {
+    if ((bom.metadata?.component) !== undefined) {
       this.#addDepsToComponent(bom.metadata.component, dependencyList)
     }
     for (const component of bom.components) {
@@ -317,7 +317,7 @@ export class BomDenormalizer extends BaseJsonDenormalizer<Models.Bom> {
 
   #addDepsToComponent (component: Models.Component, dependencyList: Map<string, Models.BomRef[]>): void {
     const deps = dependencyList.get(component.bomRef.toString())
-    if (deps != null) {
+    if (deps !== undefined) {
       for (const dep of deps) {
         component.dependencies.add(dep)
       }
