@@ -26,9 +26,6 @@ export interface NormalizerOptions {
   sortLists?: boolean
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface DenormalizerOptions {}
-
 export interface SerializerOptions {
   /**
    * Add indention in the serialization result. Indention increases readability for humans.
@@ -46,9 +43,30 @@ export interface Serializer {
   serialize: (bom: Bom, options?: SerializerOptions & NormalizerOptions) => string
 }
 
-export interface Deserializer {
+export type VarType = 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function' | '_array' | '_record'
+export type PathPart = string | number
+export type PathType = PathPart[]
+
+export interface JSONDenormalizerWarningTypeMismatch {
+  type: 'type'
+  path: PathType
+  value: any
+  expected: VarType
+  nullAllowed: boolean
+  actual: VarType
+}
+export interface JSONDenormalizerWarningInvalidValue {
+  type: 'value'
+  path: PathType
+  value: any
+  message: string
+}
+export type JSONDenormalizerWarning = JSONDenormalizerWarningTypeMismatch | JSONDenormalizerWarningInvalidValue
+
+export interface JSONDenormalizerOptions {
   /**
-   * @throws {@link Error}
+   * is called when a known property with an invalid type is encountered.
+   * default warningFunc will throw an exception
    */
-  deserialize: (str: string, options?: DesserializerOptions & DenormalizerOptions) => Bom
+  warningFunc?: (warning: JSONDenormalizerWarning) => void
 }

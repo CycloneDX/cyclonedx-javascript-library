@@ -21,7 +21,7 @@ import type { Bom } from '../models'
 import { BaseDeserializer } from './baseDeserializer'
 import type { Factory as DenormalizerFactory } from './json/denormalize'
 import type { Normalized } from './json/types'
-import type { DenormalizerOptions, DesserializerOptions } from './types'
+import type { DesserializerOptions, JSONDenormalizerOptions } from './types'
 
 /**
  * Multi purpose Json deserializer.
@@ -43,7 +43,7 @@ export class JsonDeserializer extends BaseDeserializer<Normalized.Bom> {
 
   protected _denormalize (
     data: any,
-    options: DenormalizerOptions = {}
+    options: JSONDenormalizerOptions = {}
   ): Bom {
     return this.#normalizerFactory.makeForBom()
       .denormalize(data, options)
