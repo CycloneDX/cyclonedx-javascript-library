@@ -45,8 +45,8 @@ export class JsonDeserializer extends BaseDeserializer<Normalized.Bom> {
     data: any,
     options: JSONDenormalizerOptions = {}
   ): Bom {
-    return this.#normalizerFactory.makeForBom()
-      .denormalize(data, options)
+    return this.#normalizerFactory.makeForBom({ options })
+      .denormalize(data, options, [])
   }
 
   protected _deserialize (
