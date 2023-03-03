@@ -18,7 +18,6 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { Bom } from '../models'
-import { BaseDeserializer } from './baseDeserializer'
 import type { Factory as DenormalizerFactory } from './json/denormalize'
 import type { Normalized } from './json/types'
 import type { DesserializerOptions, JSONDenormalizerOptions } from './types'
@@ -26,14 +25,13 @@ import type { DesserializerOptions, JSONDenormalizerOptions } from './types'
 /**
  * Multi purpose Json deserializer.
  */
-export class JsonDeserializer extends BaseDeserializer<Normalized.Bom> {
+export class JsonDeserializer {
   readonly #normalizerFactory: DenormalizerFactory
 
   /**
    * @throws {@link UnsupportedFormatError} if `normalizerFactory.spec` does not support {@link Format.JSON}.
    */
   constructor (normalizerFactory: JsonDeserializer['normalizerFactory']) {
-    super()
     this.#normalizerFactory = normalizerFactory
   }
 
@@ -46,7 +44,7 @@ export class JsonDeserializer extends BaseDeserializer<Normalized.Bom> {
     options: JSONDenormalizerOptions = {}
   ): Bom {
     return this.#normalizerFactory.makeForBom({ options })
-      .denormalize(data, options, [])
+      .denormalize(data, { options }, [])
   }
 
   protected _deserialize (

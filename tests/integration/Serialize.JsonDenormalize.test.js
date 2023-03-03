@@ -25,40 +25,96 @@ const { loadNormalizeResult } = require('../_data/normalize')
 
 const {
   Serialize: {
-    JSON: { Denormalize: { Factory: JsonDenormalizeFactory } }
+    JSON: {
+      Denormalize: { Factory: JsonDenormalizeFactory },
+      Normalize: { Factory: JsonNormalizeFactory }
+    }
   },
   Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
 } = require('../../')
 
 describe('Serialize.JsonDenormalize', function () {
-  this.timeout(60000);
+  this.timeout(60000)
+  it('fail without warningFunc1', function () {
+    const denormalizerFactory = new JsonDenormalizeFactory()
+    assert.throws(() => denormalizerFactory.makeForBom().denormalize({
+      bomFormat: 'CycloneDX',
+      specVersion: '1.2',
+      metadata: {
+        timestamp: 12345
+      }
+    }, { options: {} }, []), new TypeError('.metadata.timestamp is number but should be one of [string, undefined]'))
+  })
 
-  [
-    Spec1dot2,
-    Spec1dot3,
-    Spec1dot4
-  ].forEach(spec => describe(`complex with spec v${spec.version}`, () => {
-    const denormalizerFactory = new JsonDenormalizeFactory(spec)
+  it('fail without warningFunc2', function () {
+    const denormalizerFactory = new JsonDenormalizeFactory()
+    assert.throws(() => denormalizerFactory.makeForBom().denormalize({
+      bomFormat: 'CycloneDX',
+      specVersion: '1.2',
+      metadata: {
+        tools: 'many'
+      }
+    }, { options: {} }, []), new TypeError('.metadata.tools is string but should be one of [_array, undefined]'))
+  })
 
-    beforeEach(function () {
-      this.bom = createComplexStructure(false)
+  it('call warningFunc', function () {
+    const denormalizerFactory = new JsonDenormalizeFactory()
+    let warningFuncCalled = 0
+    denormalizerFactory.makeForBom().denormalize({
+      bomFormat: 'CycloneDX',
+      specVersion: '1.2',
+      metadata: {
+        timestamp: 12345,
+        tools: [
+          123,
+          {
+            vendor: 'tool vendor',
+            name: 'tool name',
+            hashes: {},
+            externalReferences: [
+              {
+                url: 'https://cyclonedx.org/tool-center/',
+                type: 'website',
+                comment: 123
+              }
+            ]
+          }
+        ]
+      }
+    }, {
+      options: {
+        warningFunc: (w) => {
+          warningFuncCalled++
+        }
+      }
+    }, [])
+    assert.strictEqual(warningFuncCalled, 3)
+  })
+
+  const specs = [Spec1dot2, Spec1dot3, Spec1dot4]
+  for (const spec of specs) {
+    describe(`complex with spec v${spec.version}`, () => {
+      const denormalizerFactory = new JsonDenormalizeFactory(spec)
+      const normalizerFactory = new JsonNormalizeFactory(spec)
+
+      beforeEach(function () {
+        this.bom = createComplexStructure(false)
+      })
+
+      afterEach(function () {
+        delete this.bom
+      })
+
+      it('can denormalize with correct result', function () {
+        const normalized = JSON.parse(loadNormalizeResult('json_sortedLists', spec.version, 'json'))
+        const denormalizedBom = denormalizerFactory.makeForBom()
+          .denormalize(normalized, { }, [])
+        const normalizedAgain = normalizerFactory.makeForBom().normalize(denormalizedBom, { sortLists: true })
+        assert.deepStrictEqual(
+          JSON.stringify(normalized, null, 2),
+          JSON.stringify(normalizedAgain, null, 2)
+        )
+      })
     })
-
-    afterEach(function () {
-      delete this.bom
-    })
-
-    it('can denormalize with correct result', function () {
-      const normalized = JSON.parse(loadNormalizeResult('json_sortedLists', spec.version, 'json'))
-      const denormalizedBom = denormalizerFactory.makeForBom()
-        .denormalize(normalized, { sortLists: true })
-
-      assert.deepStrictEqual(
-        denormalizedBom,
-        this.bom
-      )
-    })
-
-    // TODO add more tests
-  }))
+  }
 })
