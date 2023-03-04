@@ -18,7 +18,6 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { PackageURL } from 'packageurl-js'
-import { URL } from 'url'
 
 import { AttachmentEncoding, ComponentScope, ComponentType, ExternalReferenceType, HashAlgorithm } from '../../enums'
 import * as Models from '../../models'
