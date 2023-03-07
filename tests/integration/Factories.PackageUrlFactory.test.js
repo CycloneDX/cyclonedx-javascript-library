@@ -174,7 +174,7 @@ suite('Factories.PackageUrlFactory', () => {
           vcs_url: 'git+https://foo.bar/repo.git'
         }, undefined)
       // expect objet's keys in alphabetical oder, expect sorted hash list
-      const expectedString = 'pkg:testing/name?checksum=blake3:aa51dcd43d5c6c5203ee16906fd6b35db298b9b2e1de3fce81811d4806b76b7d,sha-256:c3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2&download_url=https://foo.bar/download&vcs_url=git+https://foo.bar/repo.git'
+      const expectedString = 'pkg:testing/name?checksum=blake3%3Aaa51dcd43d5c6c5203ee16906fd6b35db298b9b2e1de3fce81811d4806b76b7d%2Csha-256%3Ac3ab8ff13720e8ad9047dd39466b3c8974e592c2fa383d4a3960714caef0c4f2&download_url=https%3A//foo.bar/download&vcs_url=git%2Bhttps%3A//foo.bar/repo.git'
 
       const actual = sut.makeFromComponent(component, true)
 
@@ -213,7 +213,7 @@ suite('Factories.PackageUrlFactory', () => {
           vcs_url: 'git+https://foo.bar/repo.git'
         }, undefined)
       // expect objet's keys in alphabetical oder, expect sorted hash list
-      const expectedString = 'pkg:testing/name?download_url=https://foo.bar/download-2&vcs_url=git+https://foo.bar/repo.git'
+      const expectedString = 'pkg:testing/name?download_url=https%3A//foo.bar/download-2&vcs_url=git%2Bhttps%3A//foo.bar/repo.git'
 
       const actual1 = sut.makeFromComponent(component1, true)
       const actual2 = sut.makeFromComponent(component2, true)
