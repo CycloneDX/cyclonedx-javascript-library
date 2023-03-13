@@ -2,18 +2,27 @@
   "name": "@cyclonedx/cyclonedx-library",
   "version": "1.12.0",
   "description": "Core functionality of CycloneDX for JavaScript (Node.js or WebBrowser).",
+  "license": "Apache-2.0",
   "keywords": [
     "CycloneDX",
-    "SBOM",
-    "BOM",
-    "inventory",
+    "models",
+    "normalizer",
+    "serializer",
     "bill-of-materials",
+    "BOM",
     "software-bill-of-materials",
-    "component",
-    "dependency",
+    "SBOM",
+    "OBOM",
+    "MBOM",
+    "SaaSBOM",
+    "VEX",
     "package-url",
     "PURL",
-    "spdx"
+    "SPDX",
+    "OWASP",
+    "inventory",
+    "component",
+    "dependency"
   ],
   "homepage": "https://github.com/CycloneDX/cyclonedx-javascript-library#readme",
   "repository": {
@@ -23,7 +32,16 @@
   "bugs": {
     "url": "https://github.com/CycloneDX/cyclonedx-javascript-library/issues"
   },
-  "license": "Apache-2.0",
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/jkowalleck"
+    },
+    {
+      "type": "individual",
+      "url": "https://owasp.org/donate/?reponame=www-project-cyclonedx&title=OWASP+CycloneDX"
+    }
+  ],
   "author": {
     "name": "Jan Kowalleck",
     "url": "https://github.com/jkowalleck"
