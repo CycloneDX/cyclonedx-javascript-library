@@ -21,16 +21,22 @@ import spdxExpressionParse from 'spdx-expression-parse'
 
 import type { Sortable } from '../_helpers/sortable'
 import type { SpdxId } from '../spdx'
-import { isSupportedSpdxId } from '../spdx'
 import type { Attachment } from './attachment'
 
+/**
+ * (SPDX) License Expression.
+ *
+ * No validation is done internally.
+ * You may validate with {@link isValidLicenseExpression | isValidLicenseExpression()}.
+ * You may assert valid objects with {@link Factories.LicenseFactory.makeExpression | Factories.LicenseFactory.makeExpression()}.
+ */
 export class LicenseExpression {
-  static isEligibleExpression (expression: string | any): boolean {
-    if (typeof expression !== 'string') {
+  static isValidLicenseExpression (value: string | any): boolean {
+    if (typeof value !== 'string') {
       return false
     }
     try {
-      spdxExpressionParse(expression)
+      spdxExpressionParse(value)
     } catch {
       return false
     }
@@ -55,8 +61,8 @@ export class LicenseExpression {
    * @throws {@link RangeError} if `value` is empty string
    */
   set expression (value: string) {
-    if (!LicenseExpression.isEligibleExpression(value)) {
-      throw new RangeError('Not eligible expression')
+    if (value === '') {
+      throw new RangeError('value is empty string')
     }
     this.#expression = value
   }
@@ -96,7 +102,7 @@ export interface OptionalNamedLicenseProperties extends OptionalDisjunctiveLicen
 export class NamedLicense extends DisjunctiveLicenseBase {
   name: string
 
-  constructor (name: NamedLicense['name'], op: OptionalNamedLicenseProperties = {}) {
+  constructor (name: string, op: OptionalNamedLicenseProperties = {}) {
     super(op)
     this.name = name
   }
@@ -108,14 +114,21 @@ export class NamedLicense extends DisjunctiveLicenseBase {
 
 export interface OptionalSpdxLicenseProperties extends OptionalDisjunctiveLicenseProperties {}
 
+/**
+ * Disjunctive license with (SPDX-)ID - aka SpdxLicense.
+ *
+ * No validation is done internally.
+ * You may validate with {@link SPDX.isSupportedSpdxId | SPDX.isSupportedSpdxId()}.
+ * You may assert valid objects with {@link Factories.LicenseFactory.makeSpdxLicense | Factories.LicenseFactory.makeSpdxLicense()}.
+ */
 export class SpdxLicense extends DisjunctiveLicenseBase {
   /** @see {@link id} */
   #id!: SpdxId
 
   /**
-   * @throws {@link RangeError} if `id` is not {@link isSupportedSpdxId | supported}
+   * @throws {@link RangeError} if `id` is empy string
    */
-  constructor (id: SpdxLicense['id'], op: OptionalSpdxLicenseProperties = {}) {
+  constructor (id: SpdxId, op: OptionalSpdxLicenseProperties = {}) {
     super(op)
     this.id = id
   }
@@ -125,11 +138,11 @@ export class SpdxLicense extends DisjunctiveLicenseBase {
   }
 
   /**
-   * @throws {@link RangeError} if value is not {@link isSupportedSpdxId | supported}
+   * @throws {@link RangeError} if `value` is empy string
    */
   set id (value: SpdxId) {
-    if (!isSupportedSpdxId(value)) {
-      throw new RangeError('Unknown SPDX id')
+    if (value === '') {
+      throw new RangeError('value is empty string')
     }
     this.#id = value
   }

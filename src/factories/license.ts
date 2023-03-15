@@ -24,7 +24,7 @@ import { fixupSpdxId } from '../spdx'
 export class LicenseFactory {
   makeFromString (value: string): License {
     try {
-      return this.makeDisjunctiveWithId(value)
+      return this.makeSpdxLicense(value)
     } catch {
       /* pass */
     }
@@ -35,37 +35,41 @@ export class LicenseFactory {
       /* pass */
     }
 
-    return this.makeDisjunctiveWithName(value)
+    return this.makeNamedLicense(value)
   }
 
   /**
    * @throws {@link RangeError} if expression is not eligible
    */
-  makeExpression (value: string): LicenseExpression {
-    return new LicenseExpression(value)
+  makeExpression (value: string | any): LicenseExpression {
+    const expressopn = String(value)
+    if (LicenseExpression.isValidLicenseExpression(expressopn)) {
+      return new LicenseExpression(expressopn)
+    }
+    throw new RangeError('Not eligible expression')
   }
 
   makeDisjunctive (value: string): DisjunctiveLicense {
     try {
-      return this.makeDisjunctiveWithId(value)
+      return this.makeSpdxLicense(value)
     } catch {
-      return this.makeDisjunctiveWithName(value)
+      return this.makeNamedLicense(value)
     }
   }
 
   /**
    * @throws {@link RangeError} if value is not supported SPDX id
    */
-  makeDisjunctiveWithId (value: string | any): SpdxLicense {
+  makeSpdxLicense (value: string | any): SpdxLicense {
     const spdxId = fixupSpdxId(String(value))
     if (undefined === spdxId) {
-      throw new RangeError('Unsupported SPDX id')
+      throw new RangeError('Unsupported SPDX license ID')
     }
 
     return new SpdxLicense(spdxId)
   }
 
-  makeDisjunctiveWithName (value: string | any): NamedLicense {
+  makeNamedLicense (value: string | any): NamedLicense {
     return new NamedLicense(String(value))
   }
 }
