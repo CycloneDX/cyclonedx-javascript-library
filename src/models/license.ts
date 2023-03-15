@@ -31,7 +31,7 @@ export class LicenseExpression {
     }
     try {
       spdxExpressionParse(expression)
-    } catch (e) {
+    } catch {
       return false
     }
     return true
