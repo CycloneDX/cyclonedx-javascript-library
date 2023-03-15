@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { DisjunctiveLicense, License } from '../models'
 import { LicenseExpression, NamedLicense, SpdxLicense } from '../models'
-import { fixupSpdxId } from '../spdx'
+import { fixupSpdxId, isValidSpdxLicenseExpression } from '../spdx'
 
 export class LicenseFactory {
   makeFromString (value: string): License {
@@ -42,11 +42,11 @@ export class LicenseFactory {
    * @throws {@link RangeError} if expression is not eligible
    */
   makeExpression (value: string | any): LicenseExpression {
-    const expressopn = String(value)
-    if (LicenseExpression.isValidLicenseExpression(expressopn)) {
-      return new LicenseExpression(expressopn)
+    value = String(value)
+    if (isValidSpdxLicenseExpression(value)) {
+      return new LicenseExpression(value)
     }
-    throw new RangeError('Not eligible expression')
+    throw new RangeError('Invalid SPDX license expression')
   }
 
   makeDisjunctive (value: string): DisjunctiveLicense {
@@ -61,12 +61,12 @@ export class LicenseFactory {
    * @throws {@link RangeError} if value is not supported SPDX id
    */
   makeSpdxLicense (value: string | any): SpdxLicense {
-    const spdxId = fixupSpdxId(String(value))
-    if (undefined === spdxId) {
+    value = fixupSpdxId(String(value))
+    if (undefined === value) {
       throw new RangeError('Unsupported SPDX license ID')
     }
 
-    return new SpdxLicense(spdxId)
+    return new SpdxLicense(value)
   }
 
   makeNamedLicense (value: string | any): NamedLicense {

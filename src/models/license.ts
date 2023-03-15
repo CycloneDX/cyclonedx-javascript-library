@@ -17,8 +17,6 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import spdxExpressionParse from 'spdx-expression-parse'
-
 import type { Sortable } from '../_helpers/sortable'
 import type { SpdxId } from '../spdx'
 import type { Attachment } from './attachment'
@@ -27,22 +25,10 @@ import type { Attachment } from './attachment'
  * (SPDX) License Expression.
  *
  * No validation is done internally.
- * You may validate with {@link isValidLicenseExpression | isValidLicenseExpression()}.
+ * You may validate with {@link SPDX.isValidSpdxLicenseExpression | SPDX.isValidSpdxLicenseExpression()}.
  * You may assert valid objects with {@link Factories.LicenseFactory.makeExpression | Factories.LicenseFactory.makeExpression()}.
  */
 export class LicenseExpression {
-  static isValidLicenseExpression (value: string | any): boolean {
-    if (typeof value !== 'string') {
-      return false
-    }
-    try {
-      spdxExpressionParse(value)
-    } catch {
-      return false
-    }
-    return true
-  }
-
   /** @see {@link expression} */
   #expression!: string
 
