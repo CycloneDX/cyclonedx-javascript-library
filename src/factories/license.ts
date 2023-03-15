@@ -24,10 +24,18 @@ import { fixupSpdxId } from '../spdx'
 export class LicenseFactory {
   makeFromString (value: string): License {
     try {
+      return this.makeDisjunctiveWithId(value)
+    } catch {
+      /* pass */
+    }
+
+    try {
       return this.makeExpression(value)
     } catch {
-      return this.makeDisjunctive(value)
+      /* pass */
     }
+
+    return this.makeDisjunctiveWithName(value)
   }
 
   /**

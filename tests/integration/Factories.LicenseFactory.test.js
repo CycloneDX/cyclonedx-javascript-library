@@ -28,11 +28,12 @@ const {
 suite('Factories.LicenseFactory', () => {
   test('makeFromString() -> LicenseExpression', () => {
     const sut = new LicenseFactory()
+    const expression = '(MIT OR Apache-2.0)'
 
-    const license = sut.makeFromString('(MIT or Apache2.0)')
+    const license = sut.makeFromString(expression)
 
     assert.ok(license instanceof LicenseExpression)
-    assert.strictEqual(license.expression, '(MIT or Apache2.0)')
+    assert.strictEqual(license.expression, expression)
   })
 
   test('makeFromString() -> NamedLicense', () => {
