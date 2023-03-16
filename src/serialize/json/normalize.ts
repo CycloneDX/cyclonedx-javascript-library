@@ -527,10 +527,10 @@ export class DependencyGraphNormalizer extends BaseJsonNormalizer<Models.Bom> {
 }
 
 export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Vulnerability> {
-  normalize (data: Models.Vulnerability.Vulnerability, options: NormalizerOptions): Normalized.Vulnerability | undefined {
-    const source = data.source !== undefined
-      ? this._factory.makeForVulnerabilitySource().normalize(data.source, options)
-      : undefined
+  normalize (data: Models.Vulnerability.Vulnerability, options: NormalizerOptions): Normalized.Vulnerability {
+    const source = data.source === undefined
+      ? undefined
+      : this._factory.makeForVulnerabilitySource().normalize(data.source, options)
     const references = data.references.size > 0
       ? this._factory.makeForVulnerabilityReference().normalizeIterable(data.references, options)
       : undefined
@@ -555,18 +555,15 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
         : Array.from(data)
     ).map(
       c => this.normalize(c, options)
-    ).filter(isNotUndefined)
+    )
   }
 }
 
 export class VulnerabilitySourceNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Source> {
   normalize (data: Models.Vulnerability.Source, options: NormalizerOptions): Normalized.VulnerabilitySource {
-    const url = data.url !== undefined && typeof data.url !== 'string'
-      ? data.url.toString()
-      : data.url
     return {
       name: data.name,
-      url
+      url: data.url?.toString()
     }
   }
 }
@@ -575,9 +572,9 @@ export class VulnerabilityReferenceNormalizer extends BaseJsonNormalizer<Models.
   normalize (data: Models.Vulnerability.Reference, options: NormalizerOptions): Normalized.VulnerabilityReference {
     return {
       id: data.id,
-      source: data.source !== undefined
-        ? this._factory.makeForVulnerabilitySource().normalize(data.source, options)
-        : undefined
+      source: data.source === undefined
+        ? undefined
+        : this._factory.makeForVulnerabilitySource().normalize(data.source, options)
     }
   }
 
@@ -588,7 +585,7 @@ export class VulnerabilityReferenceNormalizer extends BaseJsonNormalizer<Models.
         : Array.from(data)
     ).map(
       c => this.normalize(c, options)
-    ).filter(isNotUndefined)
+    )
   }
 }
 

@@ -201,8 +201,8 @@ module.exports.createComplexStructure = function () {
     id: '1',
     source: new Models.Vulnerability.Source({ name: 'manual' }),
     references: new Models.Vulnerability.ReferenceRepository([
-      new Models.Vulnerability.Reference('CVE-2042-42420'),
-      new Models.Vulnerability.Reference('CVE-2042-42421')
+      new Models.Vulnerability.Reference('CVE-2042-42421'),
+      new Models.Vulnerability.Reference('CVE-2042-42420')
     ]),
     description: 'description of 1',
     detail: 'detail of 1',
