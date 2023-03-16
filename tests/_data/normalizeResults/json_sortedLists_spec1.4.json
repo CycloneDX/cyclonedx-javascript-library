@@ -249,11 +249,11 @@
   ],
   "vulnerabilities": [
     {
-      "created": "2023-03-03T00:00:00.040Z",
+      "created": "2023-03-03T00:00:40.000Z",
       "description": "description of 1",
       "detail": "detail of 1",
       "id": "1",
-      "published": "2023-03-03T00:00:00.041Z",
+      "published": "2023-03-03T00:00:41.000Z",
       "recommendation": "recommendation of 1",
       "references": [
         {
@@ -266,14 +266,14 @@
       "source": {
         "name": "manual"
       },
-      "updated": "2023-03-03T00:00:00.042Z"
+      "updated": "2023-03-03T00:00:42.000Z"
     },
     {
-      "created": "2023-03-03T00:00:00.040Z",
+      "created": "2023-03-03T00:00:40.000Z",
       "description": "description of 2",
       "detail": "detail of 2",
       "id": "2",
-      "published": "2023-03-03T00:00:00.041Z",
+      "published": "2023-03-03T00:00:41.000Z",
       "recommendation": "recommendation of 2",
       "references": [
         {
@@ -283,7 +283,7 @@
       "source": {
         "name": "manual"
       },
-      "updated": "2023-03-03T00:00:00.042Z"
+      "updated": "2023-03-03T00:00:42.000Z"
     }
   ]
 }

@@ -198,10 +198,9 @@ export namespace Normalized {
     description?: string
     detail?: string
     recommendation?: string
-    created?: Date
-    published?: Date
-    updated?: Date
-
+    created?: JsonSchema.DateTime
+    published?: JsonSchema.DateTime
+    updated?: JsonSchema.DateTime
   }
 
   export interface VulnerabilitySource {

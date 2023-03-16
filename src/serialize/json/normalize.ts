@@ -542,9 +542,9 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
       description: data.description,
       detail: data.detail,
       recommendation: data.recommendation,
-      created: data.created,
-      published: data.published,
-      updated: data.updated
+      created: data.created?.toISOString(),
+      published: data.published?.toISOString(),
+      updated: data.updated?.toISOString()
     }
   }
 
