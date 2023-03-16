@@ -197,5 +197,34 @@ module.exports.createComplexStructure = function () {
       ])
     }))
 
+  bom.vulnerabilities.add(new Models.Vulnerability.Vulnerability({
+    id: '1',
+    source: new Models.Vulnerability.Source({ name: 'manual' }),
+    references: new Models.Vulnerability.ReferenceRepository([
+      new Models.Vulnerability.Reference('CVE-2042-42420'),
+      new Models.Vulnerability.Reference('CVE-2042-42421')
+    ]),
+    description: 'description of 1',
+    detail: 'detail of 1',
+    recommendation: 'recommendation of 1',
+    created: '2023-03-03T00:00:00.040Z',
+    published: '2023-03-03T00:00:00.041Z',
+    updated: '2023-03-03T00:00:00.042Z'
+  }))
+
+  bom.vulnerabilities.add(new Models.Vulnerability.Vulnerability({
+    id: '2',
+    source: new Models.Vulnerability.Source({ name: 'manual' }),
+    references: new Models.Vulnerability.ReferenceRepository([
+      new Models.Vulnerability.Reference('CVE-2042-42422')
+    ]),
+    description: 'description of 2',
+    detail: 'detail of 2',
+    recommendation: 'recommendation of 2',
+    created: '2023-03-03T00:00:00.040Z',
+    published: '2023-03-03T00:00:00.041Z',
+    updated: '2023-03-03T00:00:00.042Z'
+  }))
+
   return bom
 }

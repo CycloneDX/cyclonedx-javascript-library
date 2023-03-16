@@ -74,6 +74,7 @@ export namespace Normalized {
     components?: Component[]
     externalReferences?: ExternalReference[]
     dependencies?: Dependency[]
+    vulnerabilities?: Vulnerability[]
   }
 
   export interface Metadata {
@@ -190,4 +191,26 @@ export namespace Normalized {
     dependsOn?: RefType[]
   }
 
+  export interface Vulnerability {
+    id?: string
+    source?: VulnerabilitySource
+    references?: VulnerabilityReference[]
+    description?: string
+    detail?: string
+    recommendation?: string
+    created?: Date
+    published?: Date
+    updated?: Date
+
+  }
+
+  export interface VulnerabilitySource {
+    name?: string
+    url?: string
+  }
+
+  export interface VulnerabilityReference {
+    id?: string
+    source?: VulnerabilitySource
+  }
 }

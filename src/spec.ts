@@ -47,6 +47,7 @@ export interface Protocol {
   supportsToolReferences: boolean
   requiresComponentVersion: boolean
   supportsProperties: (model: any) => boolean
+  supportsVulnerabilities: boolean
 }
 
 /**
@@ -64,6 +65,7 @@ class Spec implements Protocol {
   readonly #supportsToolReferences: boolean
   readonly #requiresComponentVersion: boolean
   readonly #supportsProperties: boolean
+  readonly #supportsVulnerabilities: boolean
 
   constructor (
     version: Version,
@@ -75,7 +77,8 @@ class Spec implements Protocol {
     supportsDependencyGraph: boolean,
     supportsToolReferences: boolean,
     requiresComponentVersion: boolean,
-    supportsProperties: boolean
+    supportsProperties: boolean,
+    supportsVulnerabilities: boolean
   ) {
     this.#version = version
     this.#formats = new Set(formats)
@@ -87,6 +90,7 @@ class Spec implements Protocol {
     this.#supportsToolReferences = supportsToolReferences
     this.#requiresComponentVersion = requiresComponentVersion
     this.#supportsProperties = supportsProperties
+    this.#supportsVulnerabilities = supportsVulnerabilities
   }
 
   get version (): Version {
@@ -129,6 +133,10 @@ class Spec implements Protocol {
   supportsProperties (): boolean {
     // currently a global allow/deny -- might work based on input, in the future
     return this.#supportsProperties
+  }
+
+  get supportsVulnerabilities (): boolean {
+    return this.#supportsVulnerabilities
   }
 }
 
@@ -184,6 +192,7 @@ export const Spec1dot2: Readonly<Protocol> = Object.freeze(new Spec(
   true,
   false,
   true,
+  false,
   false
 ))
 
@@ -239,7 +248,8 @@ export const Spec1dot3: Readonly<Protocol> = Object.freeze(new Spec(
   true,
   false,
   true,
-  true
+  true,
+  false
 ))
 
 /** Specification v1.4 */
@@ -295,6 +305,7 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
   true,
   true,
   false,
+  true,
   true
 ))
 

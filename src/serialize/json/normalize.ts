@@ -90,6 +90,18 @@ export class Factory {
   makeForDependencyGraph (): DependencyGraphNormalizer {
     return new DependencyGraphNormalizer(this)
   }
+
+  makeForVulnerability (): VulnerabilityNormalizer {
+    return new VulnerabilityNormalizer(this)
+  }
+
+  makeForVulnerabilitySource (): VulnerabilitySourceNormalizer {
+    return new VulnerabilitySourceNormalizer(this)
+  }
+
+  makeForVulnerabilityReference (): VulnerabilityReferenceNormalizer {
+    return new VulnerabilityReferenceNormalizer(this)
+  }
 }
 
 const schemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
@@ -140,6 +152,9 @@ export class BomNormalizer extends BaseJsonNormalizer<Models.Bom> {
         : [],
       dependencies: this._factory.spec.supportsDependencyGraph
         ? this._factory.makeForDependencyGraph().normalize(data, options)
+        : undefined,
+      vulnerabilities: this._factory.spec.supportsVulnerabilities && data.vulnerabilities.size > 0
+        ? this._factory.makeForVulnerability().normalizeIterable(data.vulnerabilities, options)
         : undefined
     }
   }
@@ -508,6 +523,72 @@ export class DependencyGraphNormalizer extends BaseJsonNormalizer<Models.Bom> {
         ? dependsOn
         : undefined
     }
+  }
+}
+
+export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Vulnerability> {
+  normalize (data: Models.Vulnerability.Vulnerability, options: NormalizerOptions): Normalized.Vulnerability | undefined {
+    const source = data.source !== undefined
+      ? this._factory.makeForVulnerabilitySource().normalize(data.source, options)
+      : undefined
+    const references = data.references.size > 0
+      ? this._factory.makeForVulnerabilityReference().normalizeIterable(data.references, options)
+      : undefined
+
+    return {
+      id: data.id,
+      source,
+      references,
+      description: data.description,
+      detail: data.detail,
+      recommendation: data.recommendation,
+      created: data.created,
+      published: data.published,
+      updated: data.updated
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Vulnerability>, options: NormalizerOptions): Normalized.Vulnerability[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      c => this.normalize(c, options)
+    ).filter(isNotUndefined)
+  }
+}
+
+export class VulnerabilitySourceNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Source> {
+  normalize (data: Models.Vulnerability.Source, options: NormalizerOptions): Normalized.VulnerabilitySource {
+    const url = data.url !== undefined && typeof data.url !== 'string'
+      ? data.url.toString()
+      : data.url
+    return {
+      name: data.name,
+      url
+    }
+  }
+}
+
+export class VulnerabilityReferenceNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Reference> {
+  normalize (data: Models.Vulnerability.Reference, options: NormalizerOptions): Normalized.VulnerabilityReference {
+    return {
+      id: data.id,
+      source: data.source !== undefined
+        ? this._factory.makeForVulnerabilitySource().normalize(data.source, options)
+        : undefined
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Reference>, options: NormalizerOptions): Normalized.VulnerabilityReference[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      c => this.normalize(c, options)
+    ).filter(isNotUndefined)
   }
 }
 

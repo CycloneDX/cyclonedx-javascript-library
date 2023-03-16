@@ -246,5 +246,44 @@
         {
             "ref": "SomeFrameworkBundle#SubComponentB"
         }
+    ],
+    "vulnerabilities": [
+        {
+            "id": "1",
+            "source": {
+                "name": "manual"
+            },
+            "references": [
+                {
+                    "id": "CVE-2042-42420"
+                },
+                {
+                    "id": "CVE-2042-42421"
+                }
+            ],
+            "description": "description of 1",
+            "detail": "detail of 1",
+            "recommendation": "recommendation of 1",
+            "created": "2023-03-03T00:00:00.040Z",
+            "published": "2023-03-03T00:00:00.041Z",
+            "updated": "2023-03-03T00:00:00.042Z"
+        },
+        {
+            "id": "2",
+            "source": {
+                "name": "manual"
+            },
+            "references": [
+                {
+                    "id": "CVE-2042-42422"
+                }
+            ],
+            "description": "description of 2",
+            "detail": "detail of 2",
+            "recommendation": "recommendation of 2",
+            "created": "2023-03-03T00:00:00.040Z",
+            "published": "2023-03-03T00:00:00.041Z",
+            "updated": "2023-03-03T00:00:00.042Z"
+        }
     ]
 }
