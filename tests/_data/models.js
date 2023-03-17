@@ -214,6 +214,9 @@ module.exports.createComplexStructure = function () {
       })
     ]),
     cwes: new Types.CweRepository([142, 42]),
+    advisories: new Models.Vulnerability.AdvisoryRepository([
+      new Models.Vulnerability.Advisory('https://www.advisories.com/', { title: 'vulnerability 1 discovered' })
+    ]),
     description: 'description of 1',
     detail: 'detail of 1',
     recommendation: 'recommendation of 1',
@@ -238,6 +241,9 @@ module.exports.createComplexStructure = function () {
       })
     ]),
     cwes: new Types.CweRepository([242]),
+    advisories: new Models.Vulnerability.AdvisoryRepository([
+      new Models.Vulnerability.Advisory('https://www.advisories.com/', { title: 'vulnerability 2 discovered' })
+    ]),
     description: 'description of 2',
     detail: 'detail of 2',
     recommendation: 'recommendation of 2',

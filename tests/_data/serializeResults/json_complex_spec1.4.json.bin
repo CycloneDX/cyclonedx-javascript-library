@@ -279,6 +279,12 @@
             "description": "description of 1",
             "detail": "detail of 1",
             "recommendation": "recommendation of 1",
+            "advisories": [
+                {
+                    "title": "vulnerability 1 discovered",
+                    "url": "https://www.advisories.com/"
+                }
+            ],
             "created": "2023-03-03T00:00:40.000Z",
             "published": "2023-03-03T00:00:41.000Z",
             "updated": "2023-03-03T00:00:42.000Z"
@@ -309,6 +315,12 @@
             "description": "description of 2",
             "detail": "detail of 2",
             "recommendation": "recommendation of 2",
+            "advisories": [
+                {
+                    "title": "vulnerability 2 discovered",
+                    "url": "https://www.advisories.com/"
+                }
+            ],
             "created": "2023-03-03T00:00:40.000Z",
             "published": "2023-03-03T00:00:41.000Z",
             "updated": "2023-03-03T00:00:42.000Z"

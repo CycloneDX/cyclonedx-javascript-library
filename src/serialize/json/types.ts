@@ -201,6 +201,7 @@ export namespace Normalized {
     description?: string
     detail?: string
     recommendation?: string
+    advisories?: VulnerabilityAdvisory[]
     created?: JsonSchema.DateTime
     published?: JsonSchema.DateTime
     updated?: JsonSchema.DateTime
@@ -223,5 +224,10 @@ export namespace Normalized {
     method?: Enums.Vulnerability.RatingMethod
     vector?: string
     justification?: string
+  }
+
+  export interface VulnerabilityAdvisory {
+    title?: string
+    url: string
   }
 }

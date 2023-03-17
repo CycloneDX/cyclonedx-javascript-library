@@ -107,6 +107,10 @@ export class Factory {
   makeForVulnerabilityRating (): VulnerabilityRatingNormalizer {
     return new VulnerabilityRatingNormalizer(this)
   }
+
+  makeForVulnerabilityAdvisory (): VulnerabilityAdvisoryNormalizer {
+    return new VulnerabilityAdvisoryNormalizer(this)
+  }
 }
 
 const schemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
@@ -545,6 +549,9 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
     const cwes = data.cwes.size > 0
       ? normalizeCweIter(data.cwes, options)
       : undefined
+    const advisories = data.advisories.size > 0
+      ? this._factory.makeForVulnerabilityAdvisory().normalizeIterable(data.advisories, options)
+      : undefined
 
     return {
       'bom-ref': data.bomRef.value || undefined,
@@ -556,6 +563,7 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
       description: data.description,
       detail: data.detail,
       recommendation: data.recommendation,
+      advisories,
       created: data.created?.toISOString(),
       published: data.published?.toISOString(),
       updated: data.updated?.toISOString()
@@ -616,6 +624,27 @@ export class VulnerabilityRatingNormalizer extends BaseJsonNormalizer<Models.Vul
   }
 
   normalizeIterable (data: SortableIterable<Models.Vulnerability.Rating>, options: NormalizerOptions): Normalized.VulnerabilityRating[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      c => this.normalize(c, options)
+    )
+  }
+}
+
+export class VulnerabilityAdvisoryNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Advisory> {
+  normalize (data: Models.Vulnerability.Advisory, options: NormalizerOptions): Normalized.VulnerabilityAdvisory {
+    return {
+      title: data.title === undefined
+        ? undefined
+        : data.title,
+      url: data.url.toString()
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Advisory>, options: NormalizerOptions): Normalized.VulnerabilityAdvisory[] {
     return (
       options.sortLists ?? false
         ? data.sorted()

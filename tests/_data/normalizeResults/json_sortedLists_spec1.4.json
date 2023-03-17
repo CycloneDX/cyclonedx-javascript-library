@@ -249,6 +249,12 @@
   ],
   "vulnerabilities": [
     {
+      "advisories": [
+          {
+              "title": "vulnerability 1 discovered",
+              "url": "https://www.advisories.com/"
+          }
+      ],
       "bom-ref": "dummy.vulnerability.1",
       "created": "2023-03-03T00:00:40.000Z",
       "cwes": [
@@ -284,6 +290,12 @@
       "updated": "2023-03-03T00:00:42.000Z"
     },
     {
+      "advisories": [
+          {
+              "title": "vulnerability 2 discovered",
+              "url": "https://www.advisories.com/"
+          }
+      ],
       "bom-ref": "dummy.vulnerability.2",
       "created": "2023-03-03T00:00:40.000Z",
       "cwes": [
