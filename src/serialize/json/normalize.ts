@@ -573,9 +573,7 @@ export class VulnerabilityReferenceNormalizer extends BaseJsonNormalizer<Models.
   normalize (data: Models.Vulnerability.Reference, options: NormalizerOptions): Normalized.VulnerabilityReference {
     return {
       id: data.id,
-      source: data.source === undefined
-        ? undefined
-        : this._factory.makeForVulnerabilitySource().normalize(data.source, options)
+      source: this._factory.makeForVulnerabilitySource().normalize(data.source, options)
     }
   }
 

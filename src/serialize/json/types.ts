@@ -210,7 +210,7 @@ export namespace Normalized {
   }
 
   export interface VulnerabilityReference {
-    id?: string
-    source?: VulnerabilitySource
+    id: string
+    source: VulnerabilitySource
   }
 }

@@ -258,10 +258,12 @@
       "recommendation": "recommendation of 1",
       "references": [
         {
-          "id": "CVE-2042-42420"
+          "id": "CVE-2042-42420",
+          "source": {}
         },
         {
-          "id": "CVE-2042-42421"
+          "id": "CVE-2042-42421",
+          "source": {}
         }
       ],
       "source": {
@@ -279,7 +281,8 @@
       "recommendation": "recommendation of 2",
       "references": [
         {
-          "id": "CVE-2042-42422"
+          "id": "CVE-2042-42422",
+          "source": {}
         }
       ],
       "source": {
