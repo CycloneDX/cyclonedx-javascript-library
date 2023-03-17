@@ -233,7 +233,13 @@ module.exports.createComplexStructure = function () {
       individuals: new Models.OrganizationalContactRepository([
         new Models.OrganizationalContact({ name: 'John "pentester" Doe' })
       ])
-    })
+    }),
+    tools: new Models.ToolRepository([
+      new Models.Tool({
+        vendor: 'v the vendor',
+        name: 'tool name'
+      })
+    ])
   }))
 
   bom.vulnerabilities.add(new Models.Vulnerability.Vulnerability({
@@ -271,7 +277,13 @@ module.exports.createComplexStructure = function () {
       individuals: new Models.OrganizationalContactRepository([
         new Models.OrganizationalContact({ name: 'John "pentester" Doe' })
       ])
-    })
+    }),
+    tools: new Models.ToolRepository([
+      new Models.Tool({
+        vendor: 'v the vendor',
+        name: 'tool name'
+      })
+    ])
   }))
 
   return bom

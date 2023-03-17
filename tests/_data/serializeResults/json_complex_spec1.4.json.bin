@@ -302,7 +302,13 @@
                         "name": "John \"pentester\" Doe"
                     }
                 ]
-            }
+            },
+            "tools": [
+                {
+                    "vendor": "v the vendor",
+                    "name": "tool name"
+                }
+            ]
         },
         {
             "bom-ref": "dummy.vulnerability.2",
@@ -353,7 +359,13 @@
                         "name": "John \"pentester\" Doe"
                     }
                 ]
-            }
+            },
+            "tools": [
+                {
+                    "vendor": "v the vendor",
+                    "name": "tool name"
+                }
+            ]
         }
     ]
 }

@@ -206,6 +206,7 @@ export namespace Normalized {
     published?: JsonSchema.DateTime
     updated?: JsonSchema.DateTime
     credits?: VulnerabilityCredits
+    tools?: Tool[]
   }
 
   export interface VulnerabilitySource {
