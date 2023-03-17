@@ -248,7 +248,10 @@ module.exports.createComplexStructure = function () {
         Enums.Vulnerability.AnalysisResponse.WillNotFix
       ]),
       detail: 'analysis details'
-    })
+    }),
+    properties: new Models.PropertyRepository([
+      new Models.Property('a name', 'a value')
+    ])
   }))
 
   bom.vulnerabilities.add(new Models.Vulnerability.Vulnerability({
@@ -301,7 +304,10 @@ module.exports.createComplexStructure = function () {
         Enums.Vulnerability.AnalysisResponse.WillNotFix
       ]),
       detail: 'analysis details'
-    })
+    }),
+    properties: new Models.PropertyRepository([
+      new Models.Property('a name', 'a value')
+    ])
   }))
 
   return bom

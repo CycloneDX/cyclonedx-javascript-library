@@ -580,6 +580,9 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
     const analysis = data.analysis === undefined
       ? undefined
       : this._factory.makeForVulnerabilityAnalysis().normalize(data.analysis, options)
+    const properties = data.properties.size > 0
+      ? this._factory.makeForProperty().normalizeIterable(data.properties, options)
+      : undefined
 
     return {
       'bom-ref': data.bomRef.value || undefined,
@@ -597,7 +600,8 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
       updated: data.updated?.toISOString(),
       credits,
       tools,
-      analysis
+      analysis,
+      properties
     }
   }
 

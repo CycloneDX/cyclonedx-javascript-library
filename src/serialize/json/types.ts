@@ -208,6 +208,7 @@ export namespace Normalized {
     credits?: VulnerabilityCredits
     tools?: Tool[]
     analysis?: VulnerabilityAnalysis
+    properties?: Property[]
   }
 
   export interface VulnerabilitySource {

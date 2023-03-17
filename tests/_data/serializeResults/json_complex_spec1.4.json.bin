@@ -317,7 +317,13 @@
                     "will_not_fix"
                 ],
                 "detail": "analysis details"
-            }
+            },
+            "properties": [
+                {
+                    "name": "a name",
+                    "value": "a value"
+                }
+            ]
         },
         {
             "bom-ref": "dummy.vulnerability.2",
@@ -383,7 +389,13 @@
                     "will_not_fix"
                 ],
                 "detail": "analysis details"
-            }
+            },
+            "properties": [
+                {
+                    "name": "a name",
+                    "value": "a value"
+                }
+            ]
         }
     ]
 }

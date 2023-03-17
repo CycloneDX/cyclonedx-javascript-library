@@ -288,6 +288,12 @@
       "description": "description of 1",
       "detail": "detail of 1",
       "id": "1",
+      "properties": [
+          {
+              "name": "a name",
+              "value": "a value"
+          }
+      ],
       "published": "2023-03-03T00:00:41.000Z",
       "ratings": [
           {
@@ -358,6 +364,12 @@
       "description": "description of 2",
       "detail": "detail of 2",
       "id": "2",
+      "properties": [
+          {
+              "name": "a name",
+              "value": "a value"
+          }
+      ],
       "published": "2023-03-03T00:00:41.000Z",
       "ratings": [
           {
