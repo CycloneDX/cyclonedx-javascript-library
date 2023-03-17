@@ -308,7 +308,16 @@
                     "vendor": "v the vendor",
                     "name": "tool name"
                 }
-            ]
+            ],
+            "analysis": {
+                "state": "false_positive",
+                "justification": "protected_at_runtime",
+                "response": [
+                    "can_not_fix",
+                    "will_not_fix"
+                ],
+                "detail": "analysis details"
+            }
         },
         {
             "bom-ref": "dummy.vulnerability.2",
@@ -365,7 +374,16 @@
                     "vendor": "v the vendor",
                     "name": "tool name"
                 }
-            ]
+            ],
+            "analysis": {
+                "state": "false_positive",
+                "justification": "protected_at_runtime",
+                "response": [
+                    "can_not_fix",
+                    "will_not_fix"
+                ],
+                "detail": "analysis details"
+            }
         }
     ]
 }

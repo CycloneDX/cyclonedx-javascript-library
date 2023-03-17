@@ -207,6 +207,7 @@ export namespace Normalized {
     updated?: JsonSchema.DateTime
     credits?: VulnerabilityCredits
     tools?: Tool[]
+    analysis?: VulnerabilityAnalysis
   }
 
   export interface VulnerabilitySource {
@@ -236,5 +237,12 @@ export namespace Normalized {
   export interface VulnerabilityCredits {
     organizations?: OrganizationalEntity[]
     individuals?: OrganizationalContact[]
+  }
+
+  export interface VulnerabilityAnalysis {
+    state?: Enums.Vulnerability.AnalysisState
+    justification?: Enums.Vulnerability.AnalysisJustification
+    response?: Enums.Vulnerability.AnalysisResponse[]
+    detail?: string
   }
 }

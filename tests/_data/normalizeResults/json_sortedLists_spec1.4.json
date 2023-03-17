@@ -255,6 +255,15 @@
               "url": "https://www.advisories.com/"
           }
       ],
+      "analysis": {
+          "state": "false_positive",
+          "justification": "protected_at_runtime",
+          "response": [
+              "can_not_fix",
+              "will_not_fix"
+          ],
+          "detail": "analysis details"
+      },
       "bom-ref": "dummy.vulnerability.1",
       "created": "2023-03-03T00:00:40.000Z",
       "credits": {
@@ -317,6 +326,15 @@
               "url": "https://www.advisories.com/"
           }
       ],
+      "analysis": {
+          "state": "false_positive",
+          "justification": "protected_at_runtime",
+          "response": [
+              "can_not_fix",
+              "will_not_fix"
+          ],
+          "detail": "analysis details"
+      },
       "bom-ref": "dummy.vulnerability.2",
       "created": "2023-03-03T00:00:40.000Z",
       "credits": {

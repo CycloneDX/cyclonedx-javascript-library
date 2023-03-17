@@ -239,7 +239,16 @@ module.exports.createComplexStructure = function () {
         vendor: 'v the vendor',
         name: 'tool name'
       })
-    ])
+    ]),
+    analysis: new Models.Vulnerability.Analysis({
+      state: Enums.Vulnerability.AnalysisState.FalsePositive,
+      justification: Enums.Vulnerability.AnalysisJustification.ProtectedAtRuntime,
+      response: new Enums.Vulnerability.AnalysisResponseRepository([
+        Enums.Vulnerability.AnalysisResponse.CanNotFix,
+        Enums.Vulnerability.AnalysisResponse.WillNotFix
+      ]),
+      detail: 'analysis details'
+    })
   }))
 
   bom.vulnerabilities.add(new Models.Vulnerability.Vulnerability({
@@ -283,7 +292,16 @@ module.exports.createComplexStructure = function () {
         vendor: 'v the vendor',
         name: 'tool name'
       })
-    ])
+    ]),
+    analysis: new Models.Vulnerability.Analysis({
+      state: Enums.Vulnerability.AnalysisState.FalsePositive,
+      justification: Enums.Vulnerability.AnalysisJustification.ProtectedAtRuntime,
+      response: new Enums.Vulnerability.AnalysisResponseRepository([
+        Enums.Vulnerability.AnalysisResponse.CanNotFix,
+        Enums.Vulnerability.AnalysisResponse.WillNotFix
+      ]),
+      detail: 'analysis details'
+    })
   }))
 
   return bom

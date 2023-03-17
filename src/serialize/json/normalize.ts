@@ -21,6 +21,7 @@ import { isNotUndefined } from '../../_helpers/notUndefined'
 import type { SortableIterable } from '../../_helpers/sortable'
 import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
+import type * as Enums from '../../enums'
 import * as Models from '../../models'
 import type { Protocol as Spec } from '../../spec'
 import { Version as SpecVersion } from '../../spec'
@@ -114,6 +115,10 @@ export class Factory {
 
   makeForVulnerabilityCredit (): VulnerabilityCreditNormalizer {
     return new VulnerabilityCreditNormalizer(this)
+  }
+
+  makeForVulnerabilityAnalysis (): VulnerabilityAnalysisNormalizer {
+    return new VulnerabilityAnalysisNormalizer(this)
   }
 }
 
@@ -572,6 +577,9 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
     const tools = data.tools.size > 0
       ? this._factory.makeForTool().normalizeIterable(data.tools, options)
       : undefined
+    const analysis = data.analysis === undefined
+      ? undefined
+      : this._factory.makeForVulnerabilityAnalysis().normalize(data.analysis, options)
 
     return {
       'bom-ref': data.bomRef.value || undefined,
@@ -588,7 +596,8 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
       published: data.published?.toISOString(),
       updated: data.updated?.toISOString(),
       credits,
-      tools
+      tools,
+      analysis
     }
   }
 
@@ -689,6 +698,20 @@ export class VulnerabilityCreditNormalizer extends BaseJsonNormalizer<Models.Vul
   }
 }
 
+export class VulnerabilityAnalysisNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Analysis> {
+  normalize (data: Models.Vulnerability.Analysis, options: NormalizerOptions): Normalized.VulnerabilityAnalysis {
+    const response = data.response.size > 0
+      ? normalizeAnalysisResponseIter(data.response, options)
+      : undefined
+    return {
+      state: data.state,
+      justification: data.justification,
+      response,
+      detail: data.detail
+    }
+  }
+}
+
 /* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */
 
 function normalizeStringableIter (data: Iterable<Stringable>, options: NormalizerOptions): string[] {
@@ -703,6 +726,14 @@ function normalizeCweIter (data: Iterable<CWE>, options: NormalizerOptions): CWE
   const r: CWE[] = Array.from(data)
   if (options.sortLists ?? false) {
     r.sort((a, b) => (b.toString().localeCompare(a.toString())))
+  }
+  return r
+}
+
+function normalizeAnalysisResponseIter (data: Iterable<Enums.Vulnerability.AnalysisResponse>, options: NormalizerOptions): Enums.Vulnerability.AnalysisResponse[] {
+  const r: Enums.Vulnerability.AnalysisResponse[] = Array.from(data)
+  if (options.sortLists ?? false) {
+    r.sort((a, b) => (a.localeCompare(b)))
   }
   return r
 }
