@@ -255,6 +255,14 @@
       "detail": "detail of 1",
       "id": "1",
       "published": "2023-03-03T00:00:41.000Z",
+      "ratings": [
+          {
+              "justification": "this is crazy",
+              "method": "other",
+              "score": 10,
+              "severity": "critical"
+          }
+      ],
       "recommendation": "recommendation of 1",
       "references": [
         {
@@ -278,6 +286,14 @@
       "detail": "detail of 2",
       "id": "2",
       "published": "2023-03-03T00:00:41.000Z",
+      "ratings": [
+          {
+              "justification": "this is crazy",
+              "method": "other",
+              "score": 10,
+              "severity": "critical"
+          }
+      ],
       "recommendation": "recommendation of 2",
       "references": [
         {

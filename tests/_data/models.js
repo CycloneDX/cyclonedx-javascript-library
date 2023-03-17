@@ -205,6 +205,14 @@ module.exports.createComplexStructure = function () {
       new Models.Vulnerability.Reference('CVE-2042-42421', new Models.Vulnerability.Source()),
       new Models.Vulnerability.Reference('CVE-2042-42420', new Models.Vulnerability.Source())
     ]),
+    ratings: new Models.Vulnerability.RatingRepository([
+      new Models.Vulnerability.Rating({
+        score: 10,
+        method: Enums.Vulnerability.RatingMethod.Other,
+        severity: Enums.Vulnerability.Severity.Critical,
+        justification: 'this is crazy'
+      })
+    ]),
     description: 'description of 1',
     detail: 'detail of 1',
     recommendation: 'recommendation of 1',
@@ -219,6 +227,14 @@ module.exports.createComplexStructure = function () {
     source: new Models.Vulnerability.Source({ name: 'manual' }),
     references: new Models.Vulnerability.ReferenceRepository([
       new Models.Vulnerability.Reference('CVE-2042-42422', new Models.Vulnerability.Source())
+    ]),
+    ratings: new Models.Vulnerability.RatingRepository([
+      new Models.Vulnerability.Rating({
+        score: 10,
+        method: Enums.Vulnerability.RatingMethod.Other,
+        severity: Enums.Vulnerability.Severity.Critical,
+        justification: 'this is crazy'
+      })
     ]),
     description: 'description of 2',
     detail: 'detail of 2',

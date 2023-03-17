@@ -102,6 +102,10 @@ export class Factory {
   makeForVulnerabilityReference (): VulnerabilityReferenceNormalizer {
     return new VulnerabilityReferenceNormalizer(this)
   }
+
+  makeForVulnerabilityRating (): VulnerabilityRatingNormalizer {
+    return new VulnerabilityRatingNormalizer(this)
+  }
 }
 
 const schemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
@@ -534,12 +538,16 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
     const references = data.references.size > 0
       ? this._factory.makeForVulnerabilityReference().normalizeIterable(data.references, options)
       : undefined
+    const ratings = data.ratings.size > 0
+      ? this._factory.makeForVulnerabilityRating().normalizeIterable(data.ratings, options)
+      : undefined
 
     return {
       'bom-ref': data.bomRef.value || undefined,
       id: data.id,
       source,
       references,
+      ratings,
       description: data.description,
       detail: data.detail,
       recommendation: data.recommendation,
@@ -578,6 +586,31 @@ export class VulnerabilityReferenceNormalizer extends BaseJsonNormalizer<Models.
   }
 
   normalizeIterable (data: SortableIterable<Models.Vulnerability.Reference>, options: NormalizerOptions): Normalized.VulnerabilityReference[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      c => this.normalize(c, options)
+    )
+  }
+}
+
+export class VulnerabilityRatingNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Rating> {
+  normalize (data: Models.Vulnerability.Rating, options: NormalizerOptions): Normalized.VulnerabilityRating {
+    return {
+      source: data.source === undefined
+        ? undefined
+        : this._factory.makeForVulnerabilitySource().normalize(data.source, options),
+      score: data.score,
+      severity: data.severity,
+      method: data.method,
+      vector: data.vector,
+      justification: data.justification
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Rating>, options: NormalizerOptions): Normalized.VulnerabilityRating[] {
     return (
       options.sortLists ?? false
         ? data.sorted()

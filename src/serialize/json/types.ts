@@ -196,6 +196,7 @@ export namespace Normalized {
     id?: string
     source?: VulnerabilitySource
     references?: VulnerabilityReference[]
+    ratings?: VulnerabilityRating[]
     description?: string
     detail?: string
     recommendation?: string
@@ -212,5 +213,14 @@ export namespace Normalized {
   export interface VulnerabilityReference {
     id: string
     source: VulnerabilitySource
+  }
+
+  export interface VulnerabilityRating {
+    source?: VulnerabilitySource
+    score?: number
+    severity?: Enums.Vulnerability.Severity
+    method?: Enums.Vulnerability.RatingMethod
+    vector?: string
+    justification?: string
   }
 }

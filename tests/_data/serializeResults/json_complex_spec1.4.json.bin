@@ -264,6 +264,14 @@
                     "source": {}
                 }
             ],
+            "ratings": [
+                {
+                    "score": 10,
+                    "severity": "critical",
+                    "method": "other",
+                    "justification": "this is crazy"
+                }
+            ],
             "description": "description of 1",
             "detail": "detail of 1",
             "recommendation": "recommendation of 1",
@@ -281,6 +289,14 @@
                 {
                     "id": "CVE-2042-42422",
                     "source": {}
+                }
+            ],
+            "ratings": [
+                {
+                    "score": 10,
+                    "severity": "critical",
+                    "method": "other",
+                    "justification": "this is crazy"
                 }
             ],
             "description": "description of 2",
