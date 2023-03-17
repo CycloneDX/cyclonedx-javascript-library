@@ -111,6 +111,10 @@ export class Factory {
   makeForVulnerabilityAdvisory (): VulnerabilityAdvisoryNormalizer {
     return new VulnerabilityAdvisoryNormalizer(this)
   }
+
+  makeForVulnerabilityCredit (): VulnerabilityCreditNormalizer {
+    return new VulnerabilityCreditNormalizer(this)
+  }
 }
 
 const schemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
@@ -284,6 +288,16 @@ export class OrganizationalEntityNormalizer extends BaseJsonNormalizer<Models.Or
         ? this._factory.makeForOrganizationalContact().normalizeIterable(data.contact, options)
         : undefined
     }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.OrganizationalEntity>, options: NormalizerOptions): Normalized.OrganizationalEntity[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      c => this.normalize(c, options)
+    )
   }
 }
 
@@ -552,6 +566,9 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
     const advisories = data.advisories.size > 0
       ? this._factory.makeForVulnerabilityAdvisory().normalizeIterable(data.advisories, options)
       : undefined
+    const credits = data.credits === undefined
+      ? undefined
+      : this._factory.makeForVulnerabilityCredit().normalize(data.credits, options)
 
     return {
       'bom-ref': data.bomRef.value || undefined,
@@ -566,7 +583,8 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
       advisories,
       created: data.created?.toISOString(),
       published: data.published?.toISOString(),
-      updated: data.updated?.toISOString()
+      updated: data.updated?.toISOString(),
+      credits
     }
   }
 
@@ -652,6 +670,18 @@ export class VulnerabilityAdvisoryNormalizer extends BaseJsonNormalizer<Models.V
     ).map(
       c => this.normalize(c, options)
     )
+  }
+}
+
+export class VulnerabilityCreditNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Credits> {
+  normalize (data: Models.Vulnerability.Credits, options: NormalizerOptions): Normalized.VulnerabilityCredits {
+    const organizations = data.organizations === undefined || data.organizations.size === 0
+      ? undefined
+      : this._factory.makeForOrganizationalEntity().normalizeIterable(data.organizations, options)
+    const individuals = data.individuals === undefined || data.individuals.size === 0
+      ? undefined
+      : this._factory.makeForOrganizationalContact().normalizeIterable(data.individuals, options)
+    return { organizations, individuals }
   }
 }
 

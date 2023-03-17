@@ -205,6 +205,7 @@ export namespace Normalized {
     created?: JsonSchema.DateTime
     published?: JsonSchema.DateTime
     updated?: JsonSchema.DateTime
+    credits?: VulnerabilityCredits
   }
 
   export interface VulnerabilitySource {
@@ -229,5 +230,10 @@ export namespace Normalized {
   export interface VulnerabilityAdvisory {
     title?: string
     url: string
+  }
+
+  export interface VulnerabilityCredits {
+    organizations?: OrganizationalEntity[]
+    individuals?: OrganizationalContact[]
   }
 }

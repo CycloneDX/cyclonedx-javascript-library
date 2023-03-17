@@ -222,7 +222,18 @@ module.exports.createComplexStructure = function () {
     recommendation: 'recommendation of 1',
     created: new Date('2023-03-03T00:00:40.000Z'),
     published: new Date('2023-03-03T00:00:41.000Z'),
-    updated: new Date('2023-03-03T00:00:42.000Z')
+    updated: new Date('2023-03-03T00:00:42.000Z'),
+    credits: new Models.Vulnerability.Credits({
+      organizations: new Models.OrganizationalEntityRepository([
+        new Models.OrganizationalEntity({
+          name: 'vulnerability researchers inc.',
+          url: new Set([new URL('https://vulnerabilities-researchers.com')])
+        })
+      ]),
+      individuals: new Models.OrganizationalContactRepository([
+        new Models.OrganizationalContact({ name: 'John "pentester" Doe' })
+      ])
+    })
   }))
 
   bom.vulnerabilities.add(new Models.Vulnerability.Vulnerability({
@@ -249,7 +260,18 @@ module.exports.createComplexStructure = function () {
     recommendation: 'recommendation of 2',
     created: new Date('2023-03-03T00:00:40.000Z'),
     published: new Date('2023-03-03T00:00:41.000Z'),
-    updated: new Date('2023-03-03T00:00:42.000Z')
+    updated: new Date('2023-03-03T00:00:42.000Z'),
+    credits: new Models.Vulnerability.Credits({
+      organizations: new Models.OrganizationalEntityRepository([
+        new Models.OrganizationalEntity({
+          name: 'vulnerability researchers inc.',
+          url: new Set([new URL('https://vulnerabilities-researchers.com')])
+        })
+      ]),
+      individuals: new Models.OrganizationalContactRepository([
+        new Models.OrganizationalContact({ name: 'John "pentester" Doe' })
+      ])
+    })
   }))
 
   return bom
