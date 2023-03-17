@@ -24,6 +24,7 @@ import { treeIteratorSymbol } from '../../_helpers/tree'
 import * as Models from '../../models'
 import type { Protocol as Spec } from '../../spec'
 import { Version as SpecVersion } from '../../spec'
+import type { CWE } from '../../types'
 import type { NormalizerOptions } from '../types'
 import type { Normalized } from './types'
 import { JsonSchema } from './types'
@@ -541,6 +542,9 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
     const ratings = data.ratings.size > 0
       ? this._factory.makeForVulnerabilityRating().normalizeIterable(data.ratings, options)
       : undefined
+    const cwes = data.cwes.size > 0
+      ? normalizeCweIter(data.cwes, options)
+      : undefined
 
     return {
       'bom-ref': data.bomRef.value || undefined,
@@ -548,6 +552,7 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
       source,
       references,
       ratings,
+      cwes,
       description: data.description,
       detail: data.detail,
       recommendation: data.recommendation,
@@ -627,6 +632,14 @@ function normalizeStringableIter (data: Iterable<Stringable>, options: Normalize
   const r: string[] = Array.from(data, d => d.toString())
   if (options.sortLists ?? false) {
     r.sort((a, b) => a.localeCompare(b))
+  }
+  return r
+}
+
+function normalizeCweIter (data: Iterable<CWE>, options: NormalizerOptions): CWE[] {
+  const r: CWE[] = Array.from(data)
+  if (options.sortLists ?? false) {
+    r.sort((a, b) => (b.toString().localeCompare(a.toString())))
   }
   return r
 }

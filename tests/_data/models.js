@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 const { PackageURL } = require('packageurl-js')
 
-const { Enums, Models } = require('../../')
+const { Enums, Models, Types } = require('../../')
 
 /**
  * @typedef {import('../../src/models/bom').Bom} Bom
@@ -213,6 +213,7 @@ module.exports.createComplexStructure = function () {
         justification: 'this is crazy'
       })
     ]),
+    cwes: new Types.CweRepository([142, 42]),
     description: 'description of 1',
     detail: 'detail of 1',
     recommendation: 'recommendation of 1',
@@ -236,6 +237,7 @@ module.exports.createComplexStructure = function () {
         justification: 'this is crazy'
       })
     ]),
+    cwes: new Types.CweRepository([242]),
     description: 'description of 2',
     detail: 'detail of 2',
     recommendation: 'recommendation of 2',

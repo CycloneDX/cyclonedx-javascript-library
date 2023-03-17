@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type * as Enums from '../../enums'
 import type { HashContent } from '../../models'
 import type { SpdxId } from '../../spdx'
-import type { CPE, Integer, UrnUuid } from '../../types'
+import type { CPE, CWE, Integer, UrnUuid } from '../../types'
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace JsonSchema {
@@ -197,6 +197,7 @@ export namespace Normalized {
     source?: VulnerabilitySource
     references?: VulnerabilityReference[]
     ratings?: VulnerabilityRating[]
+    cwes?: CWE[]
     description?: string
     detail?: string
     recommendation?: string

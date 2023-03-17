@@ -272,6 +272,10 @@
                     "justification": "this is crazy"
                 }
             ],
+            "cwes": [
+                42,
+                142
+            ],
             "description": "description of 1",
             "detail": "detail of 1",
             "recommendation": "recommendation of 1",
@@ -298,6 +302,9 @@
                     "method": "other",
                     "justification": "this is crazy"
                 }
+            ],
+            "cwes": [
+                242
             ],
             "description": "description of 2",
             "detail": "detail of 2",
