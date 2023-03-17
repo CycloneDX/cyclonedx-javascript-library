@@ -192,6 +192,7 @@ export namespace Normalized {
   }
 
   export interface Vulnerability {
+    'bom-ref'?: RefType
     id?: string
     source?: VulnerabilitySource
     references?: VulnerabilityReference[]

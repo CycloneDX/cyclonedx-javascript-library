@@ -198,6 +198,7 @@ module.exports.createComplexStructure = function () {
     }))
 
   bom.vulnerabilities.add(new Models.Vulnerability.Vulnerability({
+    bomRef: 'dummy.vulnerability.1',
     id: '1',
     source: new Models.Vulnerability.Source({ name: 'manual' }),
     references: new Models.Vulnerability.ReferenceRepository([
@@ -213,6 +214,7 @@ module.exports.createComplexStructure = function () {
   }))
 
   bom.vulnerabilities.add(new Models.Vulnerability.Vulnerability({
+    bomRef: 'dummy.vulnerability.2',
     id: '2',
     source: new Models.Vulnerability.Source({ name: 'manual' }),
     references: new Models.Vulnerability.ReferenceRepository([

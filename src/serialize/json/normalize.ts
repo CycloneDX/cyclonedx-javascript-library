@@ -536,6 +536,7 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
       : undefined
 
     return {
+      'bom-ref': data.bomRef.value || undefined,
       id: data.id,
       source,
       references,
