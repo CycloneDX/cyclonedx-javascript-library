@@ -136,16 +136,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        typescript-version:
+          - '^5'      # latest 5.X
+          - '^4'      # latest 4.X
+          # - '~4.0'  # some 4.0.x
+          - '^3'      # latest 3.X
         include:
-          - # latest 4.X
-            typescript-version: '^4'
-          # - # some 4.0.x
-          #  typescript-version: '~4.0'
-          - # latest 3.X
-            typescript-version: '^3'
+          ## some @types/node versions were incompatible or caused issues
+          - typescript-version: '^3'
             nodeTypes-version: '^16'
-          - # some 3.8.x - lowest reasonable number that works
-            typescript-version: '3.8.2'
+          - typescript-version: '3.8.2' # lowest reasonable number that works
             nodeTypes-version: '^16'
     env:
       EXAMPLE_DIR: examples/node-typescript
