@@ -629,7 +629,7 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
 }
 
 export class VulnerabilitySourceNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Source> {
-  normalize (data: Models.Vulnerability.Source, options: NormalizerOptions): Normalized.VulnerabilitySource {
+  normalize (data: Models.Vulnerability.Source, options: NormalizerOptions): Normalized.Vulnerability.Source {
     return {
       name: data.name,
       url: data.url?.toString()
@@ -638,14 +638,14 @@ export class VulnerabilitySourceNormalizer extends BaseJsonNormalizer<Models.Vul
 }
 
 export class VulnerabilityReferenceNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Reference> {
-  normalize (data: Models.Vulnerability.Reference, options: NormalizerOptions): Normalized.VulnerabilityReference {
+  normalize (data: Models.Vulnerability.Reference, options: NormalizerOptions): Normalized.Vulnerability.Reference {
     return {
       id: data.id,
       source: this._factory.makeForVulnerabilitySource().normalize(data.source, options)
     }
   }
 
-  normalizeIterable (data: SortableIterable<Models.Vulnerability.Reference>, options: NormalizerOptions): Normalized.VulnerabilityReference[] {
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Reference>, options: NormalizerOptions): Normalized.Vulnerability.Reference[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -657,7 +657,7 @@ export class VulnerabilityReferenceNormalizer extends BaseJsonNormalizer<Models.
 }
 
 export class VulnerabilityRatingNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Rating> {
-  normalize (data: Models.Vulnerability.Rating, options: NormalizerOptions): Normalized.VulnerabilityRating {
+  normalize (data: Models.Vulnerability.Rating, options: NormalizerOptions): Normalized.Vulnerability.Rating {
     return {
       source: data.source === undefined
         ? undefined
@@ -670,7 +670,7 @@ export class VulnerabilityRatingNormalizer extends BaseJsonNormalizer<Models.Vul
     }
   }
 
-  normalizeIterable (data: SortableIterable<Models.Vulnerability.Rating>, options: NormalizerOptions): Normalized.VulnerabilityRating[] {
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Rating>, options: NormalizerOptions): Normalized.Vulnerability.Rating[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -682,7 +682,7 @@ export class VulnerabilityRatingNormalizer extends BaseJsonNormalizer<Models.Vul
 }
 
 export class VulnerabilityAdvisoryNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Advisory> {
-  normalize (data: Models.Vulnerability.Advisory, options: NormalizerOptions): Normalized.VulnerabilityAdvisory {
+  normalize (data: Models.Vulnerability.Advisory, options: NormalizerOptions): Normalized.Vulnerability.Advisory {
     return {
       title: data.title === undefined
         ? undefined
@@ -691,7 +691,7 @@ export class VulnerabilityAdvisoryNormalizer extends BaseJsonNormalizer<Models.V
     }
   }
 
-  normalizeIterable (data: SortableIterable<Models.Vulnerability.Advisory>, options: NormalizerOptions): Normalized.VulnerabilityAdvisory[] {
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Advisory>, options: NormalizerOptions): Normalized.Vulnerability.Advisory[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -703,7 +703,7 @@ export class VulnerabilityAdvisoryNormalizer extends BaseJsonNormalizer<Models.V
 }
 
 export class VulnerabilityCreditNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Credits> {
-  normalize (data: Models.Vulnerability.Credits, options: NormalizerOptions): Normalized.VulnerabilityCredits {
+  normalize (data: Models.Vulnerability.Credits, options: NormalizerOptions): Normalized.Vulnerability.Credits {
     const organizations = data.organizations === undefined || data.organizations.size === 0
       ? undefined
       : this._factory.makeForOrganizationalEntity().normalizeIterable(data.organizations, options)
@@ -715,7 +715,7 @@ export class VulnerabilityCreditNormalizer extends BaseJsonNormalizer<Models.Vul
 }
 
 export class VulnerabilityAffectNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Affect> {
-  normalize (data: Models.Vulnerability.Affect, options: NormalizerOptions): Normalized.VulnerabilityAffect {
+  normalize (data: Models.Vulnerability.Affect, options: NormalizerOptions): Normalized.Vulnerability.Affect {
     return {
       ref: data.ref.toString(),
       versions: data.versions.size > 0
@@ -724,7 +724,7 @@ export class VulnerabilityAffectNormalizer extends BaseJsonNormalizer<Models.Vul
     }
   }
 
-  normalizeIterable (data: SortableIterable<Models.Vulnerability.Affect>, options: NormalizerOptions): Normalized.VulnerabilityAffect[] {
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Affect>, options: NormalizerOptions): Normalized.Vulnerability.Affect[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -736,7 +736,7 @@ export class VulnerabilityAffectNormalizer extends BaseJsonNormalizer<Models.Vul
 }
 
 export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<Models.Vulnerability.AffectedVersion> {
-  normalize (data: Models.Vulnerability.AffectedVersion, options: NormalizerOptions): Normalized.VulnerabilityAffectedVersion {
+  normalize (data: Models.Vulnerability.AffectedVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersion {
     switch (true) {
       case data instanceof Models.Vulnerability.AffectedSingleVersion:
         return this.#normalizeAffectedSingleVersion(data as Models.Vulnerability.AffectedSingleVersion, options)
@@ -748,21 +748,21 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
     }
   }
 
-  #normalizeAffectedSingleVersion (data: Models.Vulnerability.AffectedSingleVersion, options: NormalizerOptions): Normalized.VulnerabilityAffectedSingleVersion {
+  #normalizeAffectedSingleVersion (data: Models.Vulnerability.AffectedSingleVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedSingleVersion {
     return {
       version: data.version,
       status: data.status
     }
   }
 
-  #normalizeAffectedVersionRange (data: Models.Vulnerability.AffectedVersionRange, options: NormalizerOptions): Normalized.VulnerabilityAffectedVersionRange {
+  #normalizeAffectedVersionRange (data: Models.Vulnerability.AffectedVersionRange, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersionRange {
     return {
       range: data.range,
       status: data.status
     }
   }
 
-  normalizeIterable (data: SortableIterable<Models.Vulnerability.AffectedVersion>, options: NormalizerOptions): Normalized.VulnerabilityAffectedVersion[] {
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.AffectedVersion>, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersion[] {
     return (
       options.sortLists ?? false
         ? data.sorted()
@@ -774,7 +774,7 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
 }
 
 export class VulnerabilityAnalysisNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Analysis> {
-  normalize (data: Models.Vulnerability.Analysis, options: NormalizerOptions): Normalized.VulnerabilityAnalysis {
+  normalize (data: Models.Vulnerability.Analysis, options: NormalizerOptions): Normalized.Vulnerability.Analysis {
     const response = data.response.size > 0
       ? normalizeAnalysisResponseIter(data.response, options)
       : undefined

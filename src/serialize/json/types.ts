@@ -194,74 +194,77 @@ export namespace Normalized {
   export interface Vulnerability {
     'bom-ref'?: RefType
     id?: string
-    source?: VulnerabilitySource
-    references?: VulnerabilityReference[]
-    ratings?: VulnerabilityRating[]
+    source?: Vulnerability.Source
+    references?: Vulnerability.Reference[]
+    ratings?: Vulnerability.Rating[]
     cwes?: CWE[]
     description?: string
     detail?: string
     recommendation?: string
-    advisories?: VulnerabilityAdvisory[]
+    advisories?: Vulnerability.Advisory[]
     created?: JsonSchema.DateTime
     published?: JsonSchema.DateTime
     updated?: JsonSchema.DateTime
-    credits?: VulnerabilityCredits
+    credits?: Vulnerability.Credits
     tools?: Tool[]
-    analysis?: VulnerabilityAnalysis
-    affects?: VulnerabilityAffect[]
+    analysis?: Vulnerability.Analysis
+    affects?: Vulnerability.Affect[]
     properties?: Property[]
   }
 
-  export interface VulnerabilitySource {
-    name?: string
-    url?: string
-  }
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  export namespace Vulnerability {
+    export interface Source {
+      name?: string
+      url?: string
+    }
 
-  export interface VulnerabilityReference {
-    id: string
-    source: VulnerabilitySource
-  }
+    export interface Reference {
+      id: string
+      source: Source
+    }
 
-  export interface VulnerabilityRating {
-    source?: VulnerabilitySource
-    score?: number
-    severity?: Enums.Vulnerability.Severity
-    method?: Enums.Vulnerability.RatingMethod
-    vector?: string
-    justification?: string
-  }
+    export interface Rating {
+      source?: Source
+      score?: number
+      severity?: Enums.Vulnerability.Severity
+      method?: Enums.Vulnerability.RatingMethod
+      vector?: string
+      justification?: string
+    }
 
-  export interface VulnerabilityAdvisory {
-    title?: string
-    url: string
-  }
+    export interface Advisory {
+      title?: string
+      url: string
+    }
 
-  export interface VulnerabilityCredits {
-    organizations?: OrganizationalEntity[]
-    individuals?: OrganizationalContact[]
-  }
+    export interface Credits {
+      organizations?: OrganizationalEntity[]
+      individuals?: OrganizationalContact[]
+    }
 
-  export interface VulnerabilityAnalysis {
-    state?: Enums.Vulnerability.AnalysisState
-    justification?: Enums.Vulnerability.AnalysisJustification
-    response?: Enums.Vulnerability.AnalysisResponse[]
-    detail?: string
-  }
+    export interface Analysis {
+      state?: Enums.Vulnerability.AnalysisState
+      justification?: Enums.Vulnerability.AnalysisJustification
+      response?: Enums.Vulnerability.AnalysisResponse[]
+      detail?: string
+    }
 
-  export interface VulnerabilityAffect {
-    'ref': RefType
-    versions?: VulnerabilityAffectedVersion[]
-  }
+    export interface Affect {
+      'ref': RefType
+      versions?: AffectedVersion[]
+    }
 
-  export interface VulnerabilityAffectedSingleVersion {
-    version: string
-    status?: Enums.Vulnerability.AffectStatus
-  }
+    export interface AffectedSingleVersion {
+      version: string
+      status?: Enums.Vulnerability.AffectStatus
+    }
 
-  export interface VulnerabilityAffectedVersionRange {
-    range: string
-    status?: Enums.Vulnerability.AffectStatus
-  }
+    export interface AffectedVersionRange {
+      range: string
+      status?: Enums.Vulnerability.AffectStatus
+    }
 
-  export type VulnerabilityAffectedVersion = VulnerabilityAffectedSingleVersion | VulnerabilityAffectedVersionRange
+    export type AffectedVersion = AffectedSingleVersion | AffectedVersionRange
+  }
 }
