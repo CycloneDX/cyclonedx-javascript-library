@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type { Bom, BomRef, Component } from '../models'
+import type { Bom, BomRef, Component, Vulnerability } from '../models'
 import { BomRefDiscriminator } from './bomRefDiscriminator'
 import type { NormalizerOptions, Serializer, SerializerOptions } from './types'
 
@@ -30,12 +30,21 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
         iterComponents(components)
       }
     }
+    function iterVulnerabilities (vs: Iterable<Vulnerability.Vulnerability>): void {
+      for (const { bomRef } of vs) {
+        bomRefs.add(bomRef)
+      }
+    }
 
     if (bom.metadata.component !== undefined) {
       bomRefs.add(bom.metadata.component.bomRef)
       iterComponents(bom.metadata.component.components)
     }
     iterComponents(bom.components)
+
+    if (bom.vulnerabilities !== undefined) {
+      iterVulnerabilities(bom.vulnerabilities)
+    }
 
     return bomRefs.values()
   }
