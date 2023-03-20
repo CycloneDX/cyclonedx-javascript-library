@@ -208,6 +208,7 @@ export namespace Normalized {
     credits?: VulnerabilityCredits
     tools?: Tool[]
     analysis?: VulnerabilityAnalysis
+    affects?: VulnerabilityAffect[]
     properties?: Property[]
   }
 
@@ -246,4 +247,21 @@ export namespace Normalized {
     response?: Enums.Vulnerability.AnalysisResponse[]
     detail?: string
   }
+
+  export interface VulnerabilityAffect {
+    'ref': RefType
+    versions?: VulnerabilityAffectedVersion[]
+  }
+
+  export interface VulnerabilityAffectedSingleVersion {
+    version: string
+    status?: Enums.Vulnerability.AffectStatus
+  }
+
+  export interface VulnerabilityAffectedVersionRange {
+    range: string
+    status?: Enums.Vulnerability.AffectStatus
+  }
+
+  export type VulnerabilityAffectedVersion = VulnerabilityAffectedSingleVersion | VulnerabilityAffectedVersionRange
 }

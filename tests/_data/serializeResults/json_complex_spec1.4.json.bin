@@ -318,6 +318,30 @@
                 ],
                 "detail": "analysis details"
             },
+            "affects": [
+                {
+                    "ref": "another.dummy.library.affected",
+                    "versions": [
+                        {
+                            "version": "1.0.0",
+                            "status": "affected"
+                        }
+                    ]
+                },
+                {
+                    "ref": "dummy.library.affected",
+                    "versions": [
+                        {
+                            "version": "1.0.0",
+                            "status": "affected"
+                        },
+                        {
+                            "range": "> 1.0",
+                            "status": "unknown"
+                        }
+                    ]
+                }
+            ],
             "properties": [
                 {
                     "name": "a name",
@@ -390,6 +414,30 @@
                 ],
                 "detail": "analysis details"
             },
+            "affects": [
+                {
+                    "ref": "another.dummy.library.affected",
+                    "versions": [
+                        {
+                            "version": "1.0.0",
+                            "status": "affected"
+                        }
+                    ]
+                },
+                {
+                    "ref": "dummy.library.affected",
+                    "versions": [
+                        {
+                            "version": "1.0.0",
+                            "status": "affected"
+                        },
+                        {
+                            "range": "> 1.0",
+                            "status": "unknown"
+                        }
+                    ]
+                }
+            ],
             "properties": [
                 {
                     "name": "a name",

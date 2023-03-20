@@ -255,6 +255,30 @@
               "url": "https://www.advisories.com/"
           }
       ],
+      "affects": [
+          {
+              "ref": "another.dummy.library.affected",
+              "versions": [
+                  {
+                      "version": "1.0.0",
+                      "status": "affected"
+                  }
+              ]
+          },
+          {
+              "ref": "dummy.library.affected",
+              "versions": [
+                  {
+                      "version": "1.0.0",
+                      "status": "affected"
+                  },
+                  {
+                      "range": "> 1.0",
+                      "status": "unknown"
+                  }
+              ]
+          }
+      ],
       "analysis": {
           "state": "false_positive",
           "justification": "protected_at_runtime",
@@ -330,6 +354,30 @@
           {
               "title": "vulnerability 2 discovered",
               "url": "https://www.advisories.com/"
+          }
+      ],
+      "affects": [
+          {
+              "ref": "another.dummy.library.affected",
+              "versions": [
+                  {
+                      "version": "1.0.0",
+                      "status": "affected"
+                  }
+              ]
+          },
+          {
+              "ref": "dummy.library.affected",
+              "versions": [
+                  {
+                      "version": "1.0.0",
+                      "status": "affected"
+                  },
+                  {
+                      "range": "> 1.0",
+                      "status": "unknown"
+                  }
+              ]
           }
       ],
       "analysis": {

@@ -249,6 +249,25 @@ module.exports.createComplexStructure = function () {
       ]),
       detail: 'analysis details'
     }),
+    affects: new Models.Vulnerability.AffectRepository([
+      new Models.Vulnerability.Affect(new Models.BomRef('dummy.library.affected'), {
+        versions: new Models.Vulnerability.AffectedVersionRepository([
+          new Models.Vulnerability.AffectedSingleVersion('1.0.0', {
+            status: Enums.Vulnerability.AffectStatus.Affected
+          }),
+          new Models.Vulnerability.AffectedVersionRange('> 1.0', {
+            status: Enums.Vulnerability.AffectStatus.Unknown
+          })
+        ])
+      }),
+      new Models.Vulnerability.Affect(new Models.BomRef('another.dummy.library.affected'), {
+        versions: new Models.Vulnerability.AffectedVersionRepository([
+          new Models.Vulnerability.AffectedSingleVersion('1.0.0', {
+            status: Enums.Vulnerability.AffectStatus.Affected
+          })
+        ])
+      })
+    ]),
     properties: new Models.PropertyRepository([
       new Models.Property('a name', 'a value')
     ])
@@ -305,6 +324,25 @@ module.exports.createComplexStructure = function () {
       ]),
       detail: 'analysis details'
     }),
+    affects: new Models.Vulnerability.AffectRepository([
+      new Models.Vulnerability.Affect(new Models.BomRef('dummy.library.affected'), {
+        versions: new Models.Vulnerability.AffectedVersionRepository([
+          new Models.Vulnerability.AffectedSingleVersion('1.0.0', {
+            status: Enums.Vulnerability.AffectStatus.Affected
+          }),
+          new Models.Vulnerability.AffectedVersionRange('> 1.0', {
+            status: Enums.Vulnerability.AffectStatus.Unknown
+          })
+        ])
+      }),
+      new Models.Vulnerability.Affect(new Models.BomRef('another.dummy.library.affected'), {
+        versions: new Models.Vulnerability.AffectedVersionRepository([
+          new Models.Vulnerability.AffectedSingleVersion('1.0.0', {
+            status: Enums.Vulnerability.AffectStatus.Affected
+          })
+        ])
+      })
+    ]),
     properties: new Models.PropertyRepository([
       new Models.Property('a name', 'a value')
     ])
