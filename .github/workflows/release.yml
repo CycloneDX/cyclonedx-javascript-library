@@ -28,6 +28,10 @@ on:
         default: false
         required: false
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
 env:
   REPORTS_DIR: CI_reports
   NODE_ACTIVE_LTS: "18"
