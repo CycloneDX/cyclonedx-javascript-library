@@ -150,7 +150,6 @@ jobs:
   report-coverage:
     name: Publish test coverage
     needs: [ "test-node" ]
-    if: ${{ secrets.CODACY_PROJECT_TOKEN }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -161,10 +160,13 @@ jobs:
           name: ${{ env.TESTS_REPORTS_ARTIFACT }}
           path: ${{ env.REPORTS_DIR }}
       - name: Run codacy-coverage-reporter
+        env:
+          CODACY_PROJECT_TOKEN:  ${{ secrets.CODACY_PROJECT_TOKEN }}
+        if: ${{ env.CODACY_PROJECT_TOKEN != '' }} ## see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-secrets
         # see https://github.com/codacy/codacy-coverage-reporter-action
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          project-token: ${{ env.CODACY_PROJECT_TOKEN }}
           coverage-reports: ${{ env.REPORTS_DIR }}/coverage/*/*
   test-declaration:
     needs: [ 'build' ]
