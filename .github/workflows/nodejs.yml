@@ -14,7 +14,9 @@ concurrency:
 
 env:
   NODE_ACTIVE_LTS: "18" # see https://nodejs.org/en/about/releases/
-  REPORTS_DIR: "reports"
+  REPORTS_DIR: "CI_reports"
+  TESTS_REPORTS_ARTIFACT: tests-reports
+  STANDARD_REPORTS_ARTIFACT: cs-reports
 
 jobs:
   build:
@@ -86,7 +88,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: ${{ failure() }}
         with:
-          name: eslint-results
+          name: ${{ env.STANDARD_REPORTS_ARTIFACT }}
           path: ${{ env.REPORTS_DIR }}
           if-no-files-found: error
   test-node:
@@ -130,8 +132,39 @@ jobs:
           path: dist.node
       - name: test
         run: npm run test:node
-  # test-web:
+      - name: collect coverage
+        if: ${{ failure() || success() }}
+        run: >
+          npx c8 report 
+          --reporter clover 
+          --reports-dir "$REPORTS_DIR/coverage/${{ matrix.os }}_${{ matrix.node-version }}"
+      - name: artifact build result
+        if: ${{ ! cancelled() }}
+        # see https://github.com/actions/upload-artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.TESTS_REPORTS_ARTIFACT }}
+          path: ${{ env.REPORTS_DIR }}
+    # test-web:
     # TODO via https://github.com/CycloneDX/cyclonedx-javascript-library/issues/51
+  report-coverage:
+    name: Publish test coverage
+    needs: [ "test-node" ]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: fetch test artifacts
+        # see https://github.com/actions/download-artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.TESTS_REPORTS_ARTIFACT }}
+          path: ${{ env.REPORTS_DIR }}
+      - name: Run codacy-coverage-reporter
+        # see https://github.com/codacy/codacy-coverage-reporter-action
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: ${{ env.REPORTS_DIR }}/coverage/*/*
   test-declaration:
     needs: [ 'build' ]
     name: digest declarations (TS${{ matrix.typescript-version }})
