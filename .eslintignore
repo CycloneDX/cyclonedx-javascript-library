@@ -1,10 +1,10 @@
-/node_modules/**
+**/node_modules/**
 
 
 # generated files: dist and docs
 /dist/**
 /dist.*/**
 /docs/api/**
-
+/examples/node-typescript/dist/**
 
 !/src/**
