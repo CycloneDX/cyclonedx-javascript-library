@@ -134,7 +134,7 @@ jobs:
         run: npm run test:node
       - name: collect coverage
         if: ${{ failure() || success() }}
-        run: |
+        run: >
           npx c8 report 
           --reporter clover 
           --reports-dir "$REPORTS_DIR/coverage/${{ matrix.os }}_${{ matrix.node-version }}"
