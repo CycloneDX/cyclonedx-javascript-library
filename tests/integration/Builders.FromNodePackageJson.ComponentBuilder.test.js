@@ -36,43 +36,54 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
   licenseFactory.makeFromString = (s) => ({ name: `FAKE LICENSE: ${s}` })
   licenseFactory.makeDisjunctive = (s) => ({ name: `FAKE DISJUNCTIVE LICENSE: ${s}` })
 
-  const sut = new ComponentBuilder(extRefFactory, licenseFactory)
+  const sut = new ComponentBuilder(extRefFactory, licenseFactory);
 
-  const data = {
-    name: '@foo/bar',
-    version: `1.33.7-alpha.23.${salt}`,
-    description: `dummy lib ${salt}`,
-    author: {
-      name: 'Jane Doe',
-      url: 'https://acme.org/~jd'
-    },
-    license: `dummy license ${salt}`,
-    licenses: [
+  [
+    [
+      'minimal',
+      { name: 'foo_bar' },
+      new Models.Component(Enums.ComponentType.Library, 'foo_bar',
+        { externalReferences: new Models.ExternalReferenceRepository([`FAKE REFERENCES ${salt}`]) })
+    ],
+    [
+      'full',
       {
-        type: `some license ${salt}`,
-        url: `https://acme.org/license/${salt}`
-      }
+        name: '@foo/bar',
+        version: `1.33.7-alpha.23.${salt}`,
+        description: `dummy lib ${salt}`,
+        author: {
+          name: 'Jane Doe',
+          url: 'https://acme.org/~jd'
+        },
+        license: `dummy license ${salt}`,
+        licenses: [
+          {
+            type: `some license ${salt}`,
+            url: `https://acme.org/license/${salt}`
+          }
+        ]
+        // to be continued
+      },
+      new Models.Component(
+        Enums.ComponentType.Library,
+        'bar',
+        {
+          author: 'Jane Doe',
+          description: `dummy lib ${salt}`,
+          externalReferences: new Models.ExternalReferenceRepository([`FAKE REFERENCES ${salt}`]),
+          licenses: new Models.LicenseRepository([
+            { name: `FAKE LICENSE: dummy license ${salt}` },
+            { name: `FAKE DISJUNCTIVE LICENSE: some license ${salt}`, url: `https://acme.org/license/${salt}` }
+          ]),
+          group: '@foo',
+          version: `1.33.7-alpha.23.${salt}`
+        }
+      )
     ]
-    // to be continued
-  }
-  const expected = new Models.Component(
-    Enums.ComponentType.Library,
-    'bar',
-    {
-      author: 'Jane Doe',
-      description: `dummy lib ${salt}`,
-      externalReferences: new Models.ExternalReferenceRepository([`FAKE REFERENCES ${salt}`]),
-      licenses: new Models.LicenseRepository([
-        { name: `FAKE LICENSE: dummy license ${salt}` },
-        { name: `FAKE DISJUNCTIVE LICENSE: some license ${salt}`, url: `https://acme.org/license/${salt}` }
-      ]),
-      group: '@foo',
-      version: `1.33.7-alpha.23.${salt}`
-    }
-  )
-
-  test('makeComponent', () => {
-    const actual = sut.makeComponent(data)
-    assert.deepStrictEqual(actual, expected)
+  ].forEach(([purpose, data, expected]) => {
+    test(`makeComponent: ${purpose}`, () => {
+      const actual = sut.makeComponent(data)
+      assert.deepStrictEqual(actual, expected)
+    })
   })
 })

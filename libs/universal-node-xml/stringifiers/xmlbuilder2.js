@@ -22,6 +22,7 @@ const { getNS, makeIndent } = require('./helpers')
 
 module.exports = typeof create === 'function'
   ? stringify
+  /* c8 ignore next */
   : undefined
 
 /* eslint-disable jsdoc/valid-types */

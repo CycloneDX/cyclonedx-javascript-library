@@ -23,19 +23,23 @@ const possibleStringifiers = [
 ]
 
 module.exports.stringify = undefined
-let possibleStringifier
 for (const file of possibleStringifiers) {
   try {
-    possibleStringifier = require(`./stringifiers/${file}`)
+    const possibleStringifier = require(`./stringifiers/${file}`)
     if (typeof possibleStringifier === 'function') {
       module.exports.stringify = possibleStringifier
       break
     }
+    /* c8 ignore start */
   } catch {
     /* pass */
   }
+  /* c8 ignore end */
 }
 
-module.exports.stringifyFallback = module.exports.stringify ?? function () {
-  throw new Error('No stringifier available. Please install one of the optional xml libraries.')
-}
+module.exports.stringifyFallback = module.exports.stringify ??
+  /* c8 ignore start */
+  function () {
+    throw new Error('No stringifier available. Please install one of the optional xml libraries.')
+  }
+/* c8 ignore end */
