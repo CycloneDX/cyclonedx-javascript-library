@@ -73,7 +73,6 @@
   "devDependencies": {
     "@types/mocha": "^10.0.0",
     "@types/node": ">=14",
-    "@types/webpack": "^5.28.0",
     "c8": "^7.13.0",
     "deepmerge": "^4.2.2",
     "eslint": "^8.23.0",

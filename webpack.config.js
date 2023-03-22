@@ -20,7 +20,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const path = require('path')
 const deepmerge = require('deepmerge')
 
+/* eslint-disable jsdoc/valid-types */
+
 /**
+ * @type {import('webpack').Configuration}
  * @see {@link https://webpack.js.org/configuration/}
  */
 const configBase = {
@@ -43,6 +46,7 @@ const configBase = {
     extensions: ['.tsx', '.ts']
   },
   entry: path.resolve(__dirname, 'src/index.web.ts'),
+  devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, 'dist.web'),
     // filename: '',
@@ -52,7 +56,7 @@ const configBase = {
     }
   },
   externals: {
-    'packageurl-js': 'PackageURL'
+    'packageurl-js': 'packageurl-js'
   }
 }
 
@@ -65,7 +69,6 @@ module.exports = [
   }),
   deepmerge(configBase, {
     mode: 'development',
-    devtool: 'source-map',
     output: {
       filename: 'lib.dev.js'
     }
