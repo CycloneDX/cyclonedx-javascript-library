@@ -137,8 +137,8 @@ jobs:
         run: >
           npx c8 report 
           --reporter clover 
-          --reports-dir "$REPORTS_DIR/coverage/${{ matrix.os }}_${{ matrix.node-version }}"
-      - name: artifact build result
+          --reports-dir "$REPORTS_DIR/coverage/${{ matrix.os }}_node${{ matrix.node-version }}"
+      - name: artifact test reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@v3
