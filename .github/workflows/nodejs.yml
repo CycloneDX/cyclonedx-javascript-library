@@ -137,8 +137,8 @@ jobs:
         run: >
           npx c8 report 
           --reporter clover 
-          --reports-dir "$REPORTS_DIR/coverage/${{ matrix.os }}_${{ matrix.node-version }}"
-      - name: artifact build result
+          --reports-dir '${{ env.REPORTS_DIR }}/coverage/${{ matrix.os }}_node${{ matrix.node-version }}'
+      - name: artifact test reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@v3
@@ -160,10 +160,13 @@ jobs:
           name: ${{ env.TESTS_REPORTS_ARTIFACT }}
           path: ${{ env.REPORTS_DIR }}
       - name: Run codacy-coverage-reporter
+        env:
+          CODACY_PROJECT_TOKEN:  ${{ secrets.CODACY_PROJECT_TOKEN }}
+        if: ${{ env.CODACY_PROJECT_TOKEN != '' }} ## see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-secrets
         # see https://github.com/codacy/codacy-coverage-reporter-action
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          project-token: ${{ env.CODACY_PROJECT_TOKEN }}
           coverage-reports: ${{ env.REPORTS_DIR }}/coverage/*/*
   test-declaration:
     needs: [ 'build' ]
