@@ -17,9 +17,13 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+/* eslint-disable jsdoc/valid-types */
+
 /**
  * @typedef {import('../../../src/serialize/xml/types').SimpleXml.Element} Element
  */
+
+/* eslint-enable jsdoc/valid-types */
 
 /**
  * @param {Element} element
