@@ -3,6 +3,6 @@
   "extends": "./tsconfig.json",
   "files": ["src/index.web.ts"],
   "compilerOptions": {
-    "moduleSuffixes": [".web", ""],
+    "moduleSuffixes": [".web", ""]
   }
 }

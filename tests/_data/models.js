@@ -21,9 +21,13 @@ const { PackageURL } = require('packageurl-js')
 
 const { Enums, Models, Types } = require('../../')
 
+/* eslint-disable jsdoc/valid-types */
+
 /**
  * @typedef {import('../../src/models/bom').Bom} Bom
  */
+
+/* eslint-enable jsdoc/valid-types */
 
 /**
  * @returns {Bom}

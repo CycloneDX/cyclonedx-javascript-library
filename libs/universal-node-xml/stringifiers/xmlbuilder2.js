@@ -24,6 +24,8 @@ module.exports = typeof create === 'function'
   ? stringify
   : undefined
 
+/* eslint-disable jsdoc/valid-types */
+
 /**
  * @typedef {import('xmlbuilder2/lib/interfaces').XMLBuilder} XMLBuilder
  */
@@ -31,6 +33,8 @@ module.exports = typeof create === 'function'
 /**
  * @typedef {import('../../../src/serialize/xml/types').SimpleXml.Element} Element
  */
+
+/* eslint-enable jsdoc/valid-types */
 
 /**
  * @param {Element} element

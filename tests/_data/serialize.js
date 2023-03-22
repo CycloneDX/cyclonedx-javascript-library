@@ -20,6 +20,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const fs = require('fs')
 const path = require('path')
 
+/* eslint-disable jsdoc/valid-types */
+
 /**
  * @typedef {import('../../src/spec').Version} Version
  */
@@ -27,6 +29,8 @@ const path = require('path')
 /**
  * @typedef {import('@types/node').BufferEncoding} BufferEncoding
  */
+
+/* eslint-enable jsdoc/valid-types */
 
 /**
  * @param {string} purpose

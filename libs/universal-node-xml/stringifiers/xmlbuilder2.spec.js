@@ -55,6 +55,12 @@ suite('stringify with xmlbuilder2', () => {
             name: 'empty'
           }
         ]
+      },
+      {
+        type: 'not-an-element',
+        namespace: 'https://example.com/ns1',
+        name: 'not-element',
+        children: 'omit this thing, it is not an element.'
       }
     ]
   }

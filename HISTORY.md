@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Docs
+  * Development-docs are no longer packed with releases (via [#572])
+
+[#572]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/572
+
 ## 1.12.1 - 2023-03-13
 
 Maintenance release.

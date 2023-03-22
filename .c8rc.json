@@ -1,0 +1,14 @@
+{
+  "all": true,
+  "src": [
+    "./src",
+    "./lib"
+  ],
+  "reporter": ["text", "clover", "html"],
+  "reporterOptions": {
+    "clover": {"file": "coverage.clover.xml"},
+    "html": {"subdir": "coverage.html"}
+  },
+  "reports-dir": "./reports",
+  "temp-directory": "./.c8.cache"
+}
