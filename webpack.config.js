@@ -67,6 +67,7 @@ const configBase = {
 module.exports = [
   deepmerge(configBase, {
     mode: 'production',
+    devtool: 'source-map',
     output: {
       filename: 'lib.js'
     }
