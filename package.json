@@ -88,13 +88,16 @@
     "typedoc-plugin-missing-exports": "^1.0.0",
     "typescript": "4.9.5",
     "webpack": "5.76.3",
-    "webpack-cli": "5.0.1",
-    "xmlbuilder2": "^3.0.2"
+    "webpack-cli": "5.0.1"
   },
   "browser": "./dist.web/lib.js",
   "types": "./dist.d/index.node.d.ts",
   "main": "./dist.node/index.node.js",
-  "exports": "./dist.node/index.node.js",
+  "exports": {
+    "types": "./dist.d/index.node.d.ts",
+    "browser": "./dist.web/lib.js",
+    "default": "./dist.node/index.node.js"
+  },
   "directories": {
     "doc": "./docs",
     "src": "./src",

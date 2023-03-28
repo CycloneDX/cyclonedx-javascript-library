@@ -6,7 +6,8 @@
   * [`example.cjs`](node-javascript/example.cjs) targets JavaScript, "commonjs" style.
   * [`example.mjs`](node-javascript/example.mjs) targets JavaScript, "module" style.
 * `node-typescript` showcases the usage in Node.js TypeScript
-  * [`example.ts`](node-typescript/example.ts) targets TypeScript `^3.8 || ^4`.
+  * [`example.cjs`](node-typescript/example.cjs) targets JavaScript, "commonjs" style - from TypeScript `^3.8 || ^4 || ^5`.
+  * [`example.mjs`](node-typescript/example.cjs) targets JavaScript, "module" style   - from TypeScript `^3.8 || ^4 || ^5`.
 * `web` showcases the usage in web browser JavaScript
   * [`example.html`](web/example.html) targets any web-browser.
 
