@@ -22,4 +22,5 @@ export * as Models from './models'
 export * as SPDX from './spdx'
 export * as Spec from './spec'
 export * as Types from './types'
+export * as Utils from './utils'
 // do not export the _helpers, they are for internal use only

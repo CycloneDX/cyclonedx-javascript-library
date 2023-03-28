@@ -145,7 +145,9 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
       namespace: xmlNamespace.get(this._factory.spec.version),
       attributes: {
         version: data.version,
-        serialNumber: data.serialNumber
+        serialNumber: this.#isEligibleSerialNumber(data.serialNumber)
+          ? data.serialNumber
+          : undefined
       },
       children: [
         data.metadata
@@ -157,6 +159,12 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
           : undefined
       ].filter(isNotUndefined)
     }
+  }
+
+  #isEligibleSerialNumber(v: string | undefined ): boolean {
+    return v !== undefined
+      // see https://github.com/CycloneDX/specification/blob/ef71717ae0ecb564c0b4c9536d6e9e57e35f2e69/schema/bom-1.4.xsd#L699
+      && /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$|^\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}$/.test(v)
   }
 }
 

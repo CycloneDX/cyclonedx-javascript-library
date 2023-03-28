@@ -22,12 +22,17 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * {@link https://datatracker.ietf.org/doc/html/rfc4122 | RFC 4122}.
  *
  * @see {@link isUrnUuid}
+ *
+ * @deprecated
  */
 export type UrnUuid = string
 
-/* regular expression was taken from the CycloneDX schema definitions. */
+/* regular expression was taken from the CycloneDX schema definitions.
+ * see https://github.com/CycloneDX/specification/blob/ef71717ae0ecb564c0b4c9536d6e9e57e35f2e69/schema/bom-1.4.schema.json#L39
+ */
 const urnUuidPattern = /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 
+/** @deprecated */
 export function isUrnUuid (value: any): value is UrnUuid {
   return typeof value === 'string' &&
        urnUuidPattern.test(value)
