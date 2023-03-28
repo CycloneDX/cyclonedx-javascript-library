@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Docs
+  * Announce and annotate the generator for BOM's SerialNumber ([#588] via [#598])
+  
+[#598]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/598
+
 ## 1.13.0 - 2023-03-28
 
 * Fixed
@@ -14,7 +19,8 @@ All notable changes to this project will be documented in this file.
     Also, the setter no longer throws exceptions, since no string format is illegal.  
     This is considered a non-breaking behavior change, because the corresponding normalizers assure valid data results.
 * Added
-  * Bom serialNumber generator: `Utils.BomUtility.randomSerialNumber()` ([#588] via [#597])
+  * Published generator for BOM's SerialNumber: `Utils.BomUtility.randomSerialNumber()` ([#588] via [#597])  
+    The code was donated from [cyclonedx-node-npm](https://github.com/CycloneDX/cyclonedx-node-npm/).
 * Deprecation
   * Type alias `Types.UrnUuid = string` became deprecated (via [#597])  
     Use type `string` instead.
