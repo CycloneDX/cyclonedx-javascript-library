@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type * as Enums from '../../enums'
 import type { HashContent } from '../../models'
 import type { SpdxId } from '../../spdx'
-import type { CPE, Integer, UrnUuid } from '../../types'
+import type { CPE, Integer } from '../../types'
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace JsonSchema {
@@ -69,7 +69,7 @@ export namespace Normalized {
     bomFormat: 'CycloneDX'
     specVersion: string
     version: Integer
-    serialNumber?: UrnUuid
+    serialNumber?: string
     metadata?: Metadata
     components?: Component[]
     externalReferences?: ExternalReference[]

@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Fixed
+  * "Bom.serialNumber" data model can have values following the alternative format allowed in CycloneDX XML specification ([#588] via [#])
+  * `Serialize.{JSON,XML}.Normalize.BomNormalizer.normalize` now omits invalid/unsupported values for serialNumber ([#588] via [#])
+* Changed
+  * Property `Models.Bom.serialNumber` is of type `string`, was type-aliased `Types.UrnUuid = string` ([#588] via [#])  
+    Also the setter no longer throws exceptions, since no string format is illegal.  
+    This is considered a non-breaking behaviour change, because the corresponding normalizers assure valid data results.
+* Added
+  * Bom serialNumber generator: `Utils.BomUtility.randomSerialNumber()` ([#588] via [#])
+* Deprecation
+  * Type alias `Types.UrnUuid = string` became deprecated (via [#])  
+    Use type `string` instead.
+  * Function `Types.isUrnUuid` became deprecated (via [#])
+
+[#588]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/588
+
 ## 1.12.2 - 2023-03-28
 
 * Fixed

@@ -132,7 +132,9 @@ export class BomNormalizer extends BaseJsonNormalizer<Models.Bom> {
       bomFormat: 'CycloneDX',
       specVersion: this._factory.spec.version,
       version: data.version,
-      serialNumber: data.serialNumber,
+      serialNumber: this.#isEligibleSerialNumber(data.serialNumber)
+        ? data.serialNumber
+        : undefined,
       metadata: this._factory.makeForMetadata().normalize(data.metadata, options),
       components: data.components.size > 0
         ? this._factory.makeForComponent().normalizeIterable(data.components, options)
@@ -142,6 +144,12 @@ export class BomNormalizer extends BaseJsonNormalizer<Models.Bom> {
         ? this._factory.makeForDependencyGraph().normalize(data, options)
         : undefined
     }
+  }
+
+  #isEligibleSerialNumber (v: string | undefined): boolean {
+    return v !== undefined &&
+      // see https://github.com/CycloneDX/specification/blob/ef71717ae0ecb564c0b4c9536d6e9e57e35f2e69/schema/bom-1.4.schema.json#L39
+      /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(v)
   }
 }
 
