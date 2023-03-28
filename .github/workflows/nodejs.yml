@@ -220,7 +220,6 @@ jobs:
         include:
           ## some @types/node versions were incompatible or caused issues
           - typescript-version: '^3'
-            js-type: 'cjs'
             nodeTypes-version: '^16'
           - typescript-version: '3.8.2' # lowest reasonable number that works
             js-type: 'cjs'
