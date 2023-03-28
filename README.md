@@ -73,7 +73,7 @@ written in _TypeScript_ and compiled for the target.
     * `Source`
     * `Vulnerability`, `VulnerabilityRepository`
 * Utilities for the following use cases:
-  * generate valid random SerialNumbers for `Bom.serialNumber`
+  * Generate valid random SerialNumbers for `Bom.serialNumber`
 * Factories for the following use cases:
   * Create data models from any license descriptor string
   * Create `PackageURL` from `Component` data models
