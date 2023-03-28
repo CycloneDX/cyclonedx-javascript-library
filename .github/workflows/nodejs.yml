@@ -228,7 +228,7 @@ jobs:
           - typescript-version: '^3'
             js-type: 'mjs'
     env:
-      EXAMPLE_DIR: examples/node-typescript
+      EXAMPLE_DIR: examples/node-typescript/example.${{ matrix.js-type }}
     timeout-minutes: 10
     steps:
       - name: Checkout
@@ -258,13 +258,13 @@ jobs:
           npm i --no-save
           'typescript@${{ matrix.typescript-version }}'
           '@types/node@${{ matrix.nodeTypes-version || env.NODE_ACTIVE_LTS }}'
-        working-directory: ${{ env.EXAMPLE_DIR }}/example.${{ matrix.js-type }}
-      - name: TypeScript build
-        run: build example
-        working-directory: ${{ env.EXAMPLE_DIR }}/example.${{ matrix.js-type }}
+        working-directory: ${{ env.EXAMPLE_DIR }}
+      - name: build example
+        run: npm run build
+        working-directory: ${{ env.EXAMPLE_DIR }}
       - name: run example
         run: npm run example
-        working-directory: ${{ env.EXAMPLE_DIR }}/example.${{ matrix.js-type }}
+        working-directory: ${{ env.EXAMPLE_DIR }}
 
   api-doc:
     name: api-doc ${{ matrix.target }}
