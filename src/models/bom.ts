@@ -50,7 +50,6 @@ export class Bom {
 
   /**
    * @throws {@link TypeError} if `op.version` is neither {@link PositiveInteger} nor `undefined`
-   * @throws {@link TypeError} if `op.serialNumber` is neither {@link UrnUuid} nor `undefined`
    */
   constructor (op: OptionalBomProperties = {}) {
     this.metadata = op.metadata ?? new Metadata()
