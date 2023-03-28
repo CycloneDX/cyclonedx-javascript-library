@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.12.2 - 2023-03-28
+
 * Fixed
   * Digesting this library in TypeScript build with ECMA Script module results works as expected, now (via [#596])
 * Docs
