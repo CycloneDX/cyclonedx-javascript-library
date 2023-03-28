@@ -197,7 +197,7 @@ jobs:
           name: dist.node
           path: dist.node
       - name: setup library
-        run: npm i --ignore-scripts --omit=dev
+        run: npm i --ignore-scripts --omit=dev --include=optional
       - name: setup example project
         run: npm i --no-save
         working-directory: ${{ env.EXAMPLE_DIR }}
@@ -249,7 +249,7 @@ jobs:
           name: dist.node
           path: dist.node
       - name: setup library
-        run: npm i --ignore-scripts --omit=dev
+        run: npm i --ignore-scripts --omit=dev --include=optional
       - name: setup example project
         run: >
           npm i --no-save
