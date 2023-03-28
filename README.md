@@ -72,6 +72,8 @@ written in _TypeScript_ and compiled for the target.
     * `Reference`, `ReferenceRepository`
     * `Source`
     * `Vulnerability`, `VulnerabilityRepository`
+* Utilities for the following use cases:
+  * generate valid random SerialNumbers for `Bom.serialNumber`
 * Factories for the following use cases:
   * Create data models from any license descriptor string
   * Create `PackageURL` from `Component` data models
@@ -85,7 +87,7 @@ written in _TypeScript_ and compiled for the target.
 * Normalizers that convert data models to JSON structures
 * Normalizers that convert data models to XML structures
 * Universal serializer that converts `Bom` data models to JSON string
-* Serializer that converts `Bom` data models to XML string:
+* Specific  Serializer that converts `Bom` data models to XML string:
   * Specific to _WebBrowsers_: implementation utilizes browser-specific document generators and printers.
   * Specific to _Node.js_: implementation plugs/requires/utilizes one of the following _optional_ libraries
     * [xmlbuilder2](https://www.npmjs.com/package/xmlbuilder2)

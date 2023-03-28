@@ -16,6 +16,12 @@ limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
+
+/**
+ * Generate valid random SerialNumbers for {@link Models.Bom.serialNumber | Models.Bom.serialNumber}
+ *
+ * @since 1.13.0
+ */
 export function randomSerialNumber (): string {
   const b = [
     Math.round(Math.random() * 0xFFFF),
