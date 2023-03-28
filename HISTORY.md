@@ -11,8 +11,8 @@ All notable changes to this project will be documented in this file.
   * `Serialize.{JSON,XML}.Normalize.BomNormalizer.normalize` now omits invalid/unsupported values for serialNumber ([#588] via [#597])
 * Changed
   * Property `Models.Bom.serialNumber` is of type `string`, was type-aliased `Types.UrnUuid = string` ([#588] via [#597])  
-    Also the setter no longer throws exceptions, since no string format is illegal.  
-    This is considered a non-breaking behaviour change, because the corresponding normalizers assure valid data results.
+    Also, the setter no longer throws exceptions, since no string format is illegal.  
+    This is considered a non-breaking behavior change, because the corresponding normalizers assure valid data results.
 * Added
   * Bom serialNumber generator: `Utils.BomUtility.randomSerialNumber()` ([#588] via [#597])
 * Deprecation
