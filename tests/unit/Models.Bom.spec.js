@@ -96,4 +96,17 @@ suite('Models.Bom', () => {
       })
     )
   )
+
+  suite('can set serialNumber', () => {
+    test(`empty string`, () => {
+      const bom = new Bom()
+      bom.serialNumber = ''
+      assert.strictEqual(bom.serialNumber, undefined)
+    });
+    test(`something`, () => {
+      const bom = new Bom()
+      bom.serialNumber = 'something'
+      assert.strictEqual(bom.serialNumber, 'something')
+    });
+  })
 })
