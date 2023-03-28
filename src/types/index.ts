@@ -21,6 +21,4 @@ export * from './cpe'
 export * from './cwe'
 export * from './integer'
 export * from './mimeType'
-
-/** @deprecated */
 export * from './urn'
