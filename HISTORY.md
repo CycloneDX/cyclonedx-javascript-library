@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Docs
-  * Announce and annotate the generator for BOM's SerialNumber (via [#598])
+  * Announce and annotate the generator for BOM's SerialNumber ([#588] via [#598])
   
 [#598]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/598
 
