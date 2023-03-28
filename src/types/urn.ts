@@ -23,7 +23,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  *
  * @see {@link isUrnUuid}
  *
- * @deprecated
+ * @deprecated Use `string` instead.
  */
 export type UrnUuid = string
 
@@ -32,7 +32,9 @@ export type UrnUuid = string
  */
 const urnUuidPattern = /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 
-/** @deprecated */
+/**
+ * @deprecated This function will be removed during next mayor release.
+ */
 export function isUrnUuid (value: any): value is UrnUuid {
   return typeof value === 'string' &&
        urnUuidPattern.test(value)
