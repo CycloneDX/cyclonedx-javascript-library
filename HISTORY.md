@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Docs
-  * Announce and annotate generator for Bom's SerialNumber (via [#])
+  * Announce and annotate generator for BOM's SerialNumber (via [#])
   
 [#]:
 
