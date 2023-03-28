@@ -4,10 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Fixed
+  * Digesting this library in TypeScript build with ECMA Script module results works as expected, now (via [#596])
 * Docs
   * Development-docs are no longer packed with releases (via [#572])
+* Misc
+  * Added more integration tests in CI (via [#596])
 
 [#572]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/572
+[#596]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/596
 
 ## 1.12.1 - 2023-03-13
 

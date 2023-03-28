@@ -94,7 +94,11 @@
   "browser": "./dist.web/lib.js",
   "types": "./dist.d/index.node.d.ts",
   "main": "./dist.node/index.node.js",
-  "exports": "./dist.node/index.node.js",
+  "exports": {
+    "types": "./dist.d/index.node.d.ts",
+    "browser": "./dist.web/lib.js",
+    "default": "./dist.node/index.node.js"
+  },
   "directories": {
     "doc": "./docs",
     "src": "./src",
