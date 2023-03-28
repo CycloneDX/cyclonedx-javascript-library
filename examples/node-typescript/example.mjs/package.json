@@ -2,6 +2,9 @@
   "private": true,
   "description": "",
   "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
   "dependencies": {
     "@cyclonedx/cyclonedx-library": "file:../../..",
     "xmlbuilder2": "^3.0.2"

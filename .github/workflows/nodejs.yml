@@ -205,9 +205,9 @@ jobs:
         run: node -- 'example.${{ matrix.js-type }}'
         working-directory: ${{ env.EXAMPLE_DIR }}
 
-  digest-in-typescript:
+  example-typescript:
     needs: [ 'build' ]
-    name: digest in TS${{ matrix.typescript-version }} ${{ matrix.js-type }}
+    name: example TS${{ matrix.typescript-version }} ${{ matrix.js-type }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -215,15 +215,19 @@ jobs:
         typescript-version:
           - '^5'      # latest 5.X
           - '^4'      # latest 4.X
-          # - '~4.0'  # some 4.0.x
           - '^3'      # latest 3.X
         js-type: [ 'cjs', 'mjs' ]
         include:
           ## some @types/node versions were incompatible or caused issues
           - typescript-version: '^3'
+            js-type: 'cjs'
             nodeTypes-version: '^16'
           - typescript-version: '3.8.2' # lowest reasonable number that works
-            nodeTypes-version: '^16'
+            js-type: 'cjs'
+            nodeTypes-version: '^14'
+        exclude:
+          - typescript-version: '^3'
+            js-type: 'mjs'
     env:
       EXAMPLE_DIR: examples/node-typescript
     timeout-minutes: 10
