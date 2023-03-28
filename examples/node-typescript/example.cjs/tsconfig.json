@@ -7,7 +7,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "disableSourceOfProjectReferenceRedirect": false,
-    "rootDir": "src",
+    "rootDir": "src"
   },
   "files": [
     "./src/example.ts"
