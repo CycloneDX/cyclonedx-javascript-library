@@ -20,11 +20,17 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 /**
  * Split name and group from a package's name.
  * Returns a tuple: [name, ?group]
+ *
+ * Based on [PackageJson spec](https://nodejs.org/api/packages.html#name) there are no restrictions on it.
+ * Having multiple slashes(`/`) is basically no issue.
  */
 export function splitNameGroup (data: string): [string, string?] {
-  return data[0] === '@'
-    ? data.split('/', 2).reverse() as [string, string?]
-    : [data]
+  const delimGroup = data[0] === '@'
+    ? data.indexOf('/', 2)
+    : 0
+  return delimGroup > 0
+    ? [data.slice(delimGroup + 1), data.slice(0, delimGroup)]
+    : [data, undefined]
 }
 
 /**
