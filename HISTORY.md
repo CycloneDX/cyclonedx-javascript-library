@@ -4,8 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.13.2 - 2023-03-29
+
 * Fix: 
-  * `Builders.FromNodePackageJson.ComponentBuilder` no longer omits name parts after the second slash ([#599] via [#600])
+  * `Builders.FromNodePackageJson.ComponentBuilder` no longer cuts component's name after a slash(`/`) ([#599] via [#600])
 
 [#599]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/599
 [#600]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/600
