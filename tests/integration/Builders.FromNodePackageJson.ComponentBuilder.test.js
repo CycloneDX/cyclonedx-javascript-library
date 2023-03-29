@@ -79,6 +79,21 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
           version: `1.33.7-alpha.23.${salt}`
         }
       )
+    ],
+    [
+      // Even though https://npmjs.org does not allow it,
+      // there is nothing wrong with a package name that contains more than one slash(/).
+      // It is completely compliant to NodeJS rules and will be properly resolved.
+      'name with slashes',
+      { name: '@foo/bar/baz' },
+      new Models.Component(
+        Enums.ComponentType.Library,
+        'bar/baz',
+        {
+          group: '@foo',
+          externalReferences: new Models.ExternalReferenceRepository([`FAKE REFERENCES ${salt}`])
+        }
+      )
     ]
   ].forEach(([purpose, data, expected]) => {
     test(`makeComponent: ${purpose}`, () => {
