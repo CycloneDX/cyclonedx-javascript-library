@@ -164,7 +164,7 @@ Additionally, there is a prepared set of configs for [TypeDoc](https://typedoc.o
 
 ## Development & Contributing
 
-Feel free to open issues, bugreports or pull requests.  
+Feel free to open issues, bug reports or pull requests.  
 See the [CONTRIBUTING][contributing_file] file for details.
 
 ## License
@@ -172,7 +172,7 @@ See the [CONTRIBUTING][contributing_file] file for details.
 Permission to modify and redistribute is granted under the terms of the Apache 2.0 license.  
 See the [LICENSE][license_file] file for the full license.
 
-[CycloneDX-spec]: https://github.com/CycloneDX/specification/tree/main/schema
+[CycloneDX-spec]: https://github.com/CycloneDX/specification/#readme
 
 [license_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/main/LICENSE
 [contributing_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/main/CONTRIBUTING.md
