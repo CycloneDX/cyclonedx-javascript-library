@@ -19,6 +19,6 @@
     "clover": {"file": "coverage.clover.xml"},
     "html": {"subdir": "coverage.html"}
   },
-  "reports-dir": "./reports",
+  "reports-dir": "./reports/coverage",
   "temp-directory": "./.c8.cache"
 }
