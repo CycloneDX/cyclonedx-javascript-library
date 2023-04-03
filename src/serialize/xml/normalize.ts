@@ -436,9 +436,11 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
         return this.#normalizeSpdxLicense(data as Models.SpdxLicense, options)
       case data instanceof Models.LicenseExpression:
         return this.#normalizeLicenseExpression(data as Models.LicenseExpression)
+      /* c8 ignore start */
       default:
         // this case is not expected to happen - and therefore is undocumented
         throw new TypeError('Unexpected LicenseChoice')
+      /* c8 ignore end */
     }
   }
 
