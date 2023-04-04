@@ -17,12 +17,20 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+module.exports.stringify = function () {
+  /* c8 ignore start */
+  throw new Error(
+    'No stringifier available. Please install any of the optional xml libraries: ' +
+    possibleStringifiers.join(', ')
+  )
+  /* c8 ignore end */
+}
+
 const possibleStringifiers = [
   // prioritized list of possible implementations
   'xmlbuilder2'
 ]
 
-module.exports.stringify = undefined
 for (const file of possibleStringifiers) {
   try {
     const possibleStringifier = require(`./stringifiers/${file}`)
@@ -36,10 +44,3 @@ for (const file of possibleStringifiers) {
   }
   /* c8 ignore end */
 }
-
-module.exports.stringifyFallback = module.exports.stringify ??
-  /* c8 ignore start */
-  function () {
-    throw new Error('No stringifier available. Please install one of the optional xml libraries.')
-  }
-/* c8 ignore end */
