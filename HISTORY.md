@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.13.3 - 2023-04-05
+
 * Fixed
   * `Serialize.{JSON,XML}.Normalize.LicenseNormalizer.normalizeIterable()` now omits invalid license combinations ([#602] via [#623])  
     If there is any `Models.LicenseExpression`, then this is the only license normalized; otherwise all licenses are normalized. 
