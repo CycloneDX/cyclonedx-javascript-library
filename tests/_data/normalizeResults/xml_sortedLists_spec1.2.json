@@ -234,6 +234,127 @@
           "name": "component",
           "attributes": {
             "type": "library",
+            "bom-ref": "component-with-licenseExpression"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "component-with-licenseExpression"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": ""
+            },
+            {
+              "type": "element",
+              "name": "licenses",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "expression",
+                  "children": "(MIT OR Apache-2.0)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "component-with-licenses"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "component-with-licenses"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": ""
+            },
+            {
+              "type": "element",
+              "name": "licenses",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "license",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "something"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "license",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "id",
+                      "children": "Apache-2.0"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "license",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "id",
+                      "children": "MIT"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "component-with-licenses-and-expression"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "component-with-licenses-and-expression"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": ""
+            },
+            {
+              "type": "element",
+              "name": "licenses",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "expression",
+                  "children": "(MIT OR Apache-2.0)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
             "bom-ref": "ComponentWithProperties"
           },
           "children": [
@@ -371,11 +492,6 @@
               "type": "element",
               "name": "licenses",
               "children": [
-                {
-                  "type": "element",
-                  "name": "expression",
-                  "children": "(MIT or Apache-2.0)"
-                },
                 {
                   "type": "element",
                   "name": "license",
@@ -587,6 +703,30 @@
           "name": "dependency",
           "attributes": {
             "ref": "a-component"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "component-with-licenseExpression"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "component-with-licenses"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "component-with-licenses-and-expression"
           },
           "children": []
         },

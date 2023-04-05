@@ -53,6 +53,35 @@
             <name>a-component</name>
             <version/>
         </component>
+        <component type="library" bom-ref="component-with-licenseExpression">
+            <name>component-with-licenseExpression</name>
+            <version/>
+            <licenses>
+                <expression>(MIT OR Apache-2.0)</expression>
+            </licenses>
+        </component>
+        <component type="library" bom-ref="component-with-licenses">
+            <name>component-with-licenses</name>
+            <version/>
+            <licenses>
+                <license>
+                    <name>something</name>
+                </license>
+                <license>
+                    <id>Apache-2.0</id>
+                </license>
+                <license>
+                    <id>MIT</id>
+                </license>
+            </licenses>
+        </component>
+        <component type="library" bom-ref="component-with-licenses-and-expression">
+            <name>component-with-licenses-and-expression</name>
+            <version/>
+            <licenses>
+                <expression>(MIT OR Apache-2.0)</expression>
+            </licenses>
+        </component>
         <component type="library" bom-ref="ComponentWithProperties">
             <name>component-with-properties</name>
             <version/>
@@ -88,7 +117,6 @@
                 <hash alg="SHA-1">e6f36746ccba42c288acf906e636bb278eaeb7e8</hash>
             </hashes>
             <licenses>
-                <expression>(MIT or Apache-2.0)</expression>
                 <license>
                     <name>some other</name>
                     <text content-type="text/plain" encoding="base64">U29tZQpsaWNlbnNlCnRleHQu</text>
@@ -134,6 +162,9 @@
     </components>
     <dependencies>
         <dependency ref="a-component"/>
+        <dependency ref="component-with-licenseExpression"/>
+        <dependency ref="component-with-licenses"/>
+        <dependency ref="component-with-licenses-and-expression"/>
         <dependency ref="ComponentWithProperties"/>
         <dependency ref="dummy-component">
             <dependency ref="a-component"/>
