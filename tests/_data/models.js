@@ -23,14 +23,10 @@ const { Enums, Models } = require('../../')
 
 /* eslint-disable jsdoc/valid-types */
 
-/**
- * @typedef {import('../../src/models/bom').Bom} Bom
- */
-
 /* eslint-enable jsdoc/valid-types */
 
 /**
- * @returns {Bom}
+ * @returns {Models.Bom}
  */
 module.exports.createComplexStructure = function () {
   const bom = new Models.Bom({
@@ -127,7 +123,6 @@ module.exports.createComplexStructure = function () {
       license.url = new URL('https://spdx.org/licenses/MIT.html')
       return license
     })(new Models.SpdxLicense('MIT')))
-    component.licenses.add(new Models.LicenseExpression('(MIT or Apache-2.0)'))
     component.publisher = 'the publisher'
     component.purl = new PackageURL('npm', 'acme', 'dummy-component', '1337-beta', undefined, undefined)
     component.scope = Enums.ComponentScope.Required
@@ -200,6 +195,45 @@ module.exports.createComplexStructure = function () {
         new Models.Property('internal:testing:prop-A', 'value A')
       ])
     }))
+
+  bom.components.add(
+    new Models.Component(
+      Enums.ComponentType.Library, 'component-with-licenses', {
+        bomRef: 'component-with-licenses',
+        licenses: new Models.LicenseRepository([
+          new Models.NamedLicense('something'),
+          new Models.SpdxLicense('MIT'),
+          new Models.SpdxLicense('Apache-2.0')
+          // no expression
+        ])
+      }
+    )
+  )
+  bom.components.add(
+    new Models.Component(
+      Enums.ComponentType.Library, 'component-with-licenseExpression', {
+        bomRef: 'component-with-licenseExpression',
+        licenses: new Models.LicenseRepository([
+          new Models.LicenseExpression('(MIT OR Apache-2.0)')
+          // no named nor SPDX
+        ])
+      }
+    )
+  )
+  bom.components.add(
+    /* scenario: prefer any expression over other licenses */
+    new Models.Component(
+      Enums.ComponentType.Library, 'component-with-licenses-and-expression', {
+        bomRef: 'component-with-licenses-and-expression',
+        licenses: new Models.LicenseRepository([
+          new Models.NamedLicense('something'),
+          new Models.SpdxLicense('MIT'),
+          new Models.SpdxLicense('Apache-2.0'),
+          new Models.LicenseExpression('(MIT OR Apache-2.0)')
+        ])
+      }
+    )
+  )
 
   return bom
 }

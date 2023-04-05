@@ -378,13 +378,26 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
     }
   }
 
-  /** @since 1.5.1 */
+  /**
+   * If there is any {@link Models.LicenseExpression | LicenseExpression} in the set, then this is the only item that is normalized.
+   *
+   * @since 1.5.1
+   */
   normalizeIterable (data: SortableIterable<Models.License>, options: NormalizerOptions): Normalized.License[] {
-    return (
-      options.sortLists ?? false
-        ? data.sorted()
-        : Array.from(data)
-    ).map(c => this.normalize(c, options))
+    const licenses = options.sortLists ?? false
+      ? data.sorted()
+      : Array.from(data)
+
+    if (licenses.length > 1) {
+      const expressions = licenses.filter(l => l instanceof Models.LicenseExpression) as Models.LicenseExpression[]
+      if (expressions.length > 0) {
+        // could have thrown {@link RangeError} when there is more than one only {@link Models.LicenseExpression | LicenseExpression}.
+        // but let's be graceful and just normalize to the most relevant choice: any expression
+        return [this.#normalizeLicenseExpression(expressions[0])]
+      }
+    }
+
+    return licenses.map(l => this.normalize(l, options))
   }
 
   /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */

@@ -4,10 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Fixed
+  * `Serialize.{JSON,XML}.Normalize.LicenseNormalizer.normalizeIterable()` now omits invalid license combinations ([#602] via [#])  
+    If there is any `Models.LicenseExpression`, then this is the only license normalized; otherwise all licenses are normalized. 
 * Docs
   * Fixed link to CycloneDX-specification in README (via [#617])
 
+[#602]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/602
 [#617]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/617
+[#]: 
 
 ## 1.13.2 - 2023-03-29
 
