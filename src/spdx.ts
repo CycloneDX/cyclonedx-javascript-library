@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 /* @ts-expect-error: TS6059 -- this works as long as the file/path is available in dist-package. */
-import { enum as _spdxSpecEnum } from '../res/spdx.SNAPSHOT.schema.json' assert { type: 'json' }
+import { enum as _spdxSpecEnum } from '../res/schema/spdx.SNAPSHOT.schema.json' assert { type: 'json' }
 
 /**
  * One of the known SPDX licence identifiers.
