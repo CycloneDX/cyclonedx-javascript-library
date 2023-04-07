@@ -19,11 +19,12 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 'use strict'
 
-const { join } = require('path')
-const { promises: { writeFile } } = require('fs')
+import { writeFile } from 'node:fs/promises'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/master/schema/'
-const TARGET_ROOT = join(__dirname, '..', '..', 'res', 'schema')
+const TARGET_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'res', 'schema')
 
 const BomXsd = Object.freeze({
   versions: ['1.0', '1.1', '1.2', '1.3', '1.4'],
