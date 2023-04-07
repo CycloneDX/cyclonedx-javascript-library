@@ -19,4 +19,48 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 'use strict'
 
-// @TODO
+/**
+ *
+ * @see https://ajv.js.org/standalone.html#generating-using-the-js-library
+ */
+
+const { writeFileSync } = require('fs')
+const { join } = require('path')
+const Ajv = require('ajv')
+const standaloneCode = require('ajv/dist/standalone')
+const addFormats = require('ajv-formats')
+const addFormats2019 = require('ajv-formats-draft2019')
+
+function generate (file, specs) {
+  const ajv = new Ajv({
+    schemas: {
+      ...specs,
+      'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': require('../../res/schema/jsf-0.82.SNAPSHOT.schema.json'),
+      'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': require('../../res/schema/spdx.SNAPSHOT.schema.json')
+    },
+    strict: false,
+    strictSchema: false,
+    code: { source: true }
+  })
+  addFormats(ajv)
+  addFormats2019(ajv)
+
+  writeFileSync(
+    file,
+    standaloneCode(
+      ajv,
+      Object.fromEntries(Object.keys(specs).map(k => [k, k]))
+    )
+  )
+}
+
+generate(join(__dirname, 'validateLax.js'), {
+  spec1dot4: require('../../res/schema/bom-1.4.SNAPSHOT.schema.json'),
+  spec1dot3: require('../../res/schema/bom-1.3.SNAPSHOT.schema.json'),
+  spec1dot2: require('../../res/schema/bom-1.2.SNAPSHOT.schema.json')
+})
+generate(join(__dirname, 'validateStrict.js'), {
+  spec1dot4: require('../../res/schema/bom-1.4.SNAPSHOT.schema.json'),
+  spec1dot3: require('../../res/schema/bom-1.3-strict.SNAPSHOT.schema.json'),
+  spec1dot2: require('../../res/schema/bom-1.2-strict.SNAPSHOT.schema.json')
+})
