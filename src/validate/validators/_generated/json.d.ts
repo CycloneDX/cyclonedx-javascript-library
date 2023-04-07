@@ -17,7 +17,8 @@ export declare interface Validator {
   errors: ErrorObject | null
 }
 
-declare const validators: Record<string,Validator>;
+
+declare const validators: { readonly [key: string]: Validator | undefined };
 
 /** @internal */
 export default validators;

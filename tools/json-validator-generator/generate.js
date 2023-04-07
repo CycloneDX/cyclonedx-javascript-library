@@ -73,22 +73,22 @@ export declare interface Validator {
   errors: ErrorObject | null
 }
 
-declare const validators: Record<string,Validator>;
+declare const validators: { readonly [key: string]: Validator | undefined };
 
 /** @internal */
 export default validators;`
   )
 }
 
-const TARGET_DIR = join(__dirname, '..', '..', 'src','validate','validators','_generated')
+const TARGET_DIR = join(__dirname, '..', '..', 'src', 'validate', 'validators', '_generated')
 
 generate(join(TARGET_DIR, 'json'), {
-  '1.4': require('../../res/schema/bom-1.4.SNAPSHOT.schema.json'),
-  '1.3': require('../../res/schema/bom-1.3.SNAPSHOT.schema.json'),
-  '1.2': require('../../res/schema/bom-1.2.SNAPSHOT.schema.json')
+  1.4: require('../../res/schema/bom-1.4.SNAPSHOT.schema.json'),
+  1.3: require('../../res/schema/bom-1.3.SNAPSHOT.schema.json'),
+  1.2: require('../../res/schema/bom-1.2.SNAPSHOT.schema.json')
 })
 generate(join(TARGET_DIR, 'json-strict'), {
-  '1.4': require('../../res/schema/bom-1.4.SNAPSHOT.schema.json'),
-  '1.3': require('../../res/schema/bom-1.3-strict.SNAPSHOT.schema.json'),
-  '1.2': require('../../res/schema/bom-1.2-strict.SNAPSHOT.schema.json')
+  1.4: require('../../res/schema/bom-1.4.SNAPSHOT.schema.json'),
+  1.3: require('../../res/schema/bom-1.3-strict.SNAPSHOT.schema.json'),
+  1.2: require('../../res/schema/bom-1.2-strict.SNAPSHOT.schema.json')
 })
