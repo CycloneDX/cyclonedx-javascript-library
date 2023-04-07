@@ -10,4 +10,5 @@
 !/src/**
 !/libs/**
 
-!/tools/schema-downloader/**
+**/*.generated.*
+

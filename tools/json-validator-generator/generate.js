@@ -54,12 +54,14 @@ function generate (file, specs) {
   )
 }
 
-generate(join(__dirname, 'validateLax.js'), {
+const TARGET_DIR = join(__dirname, '..', '..', 'src','validate','validators','JSON')
+
+generate(join(TARGET_DIR, 'lax.generated.js'), {
   spec1dot4: require('../../res/schema/bom-1.4.SNAPSHOT.schema.json'),
   spec1dot3: require('../../res/schema/bom-1.3.SNAPSHOT.schema.json'),
   spec1dot2: require('../../res/schema/bom-1.2.SNAPSHOT.schema.json')
 })
-generate(join(__dirname, 'validateStrict.js'), {
+generate(join(TARGET_DIR, 'strict.generated.js'), {
   spec1dot4: require('../../res/schema/bom-1.4.SNAPSHOT.schema.json'),
   spec1dot3: require('../../res/schema/bom-1.3-strict.SNAPSHOT.schema.json'),
   spec1dot2: require('../../res/schema/bom-1.2-strict.SNAPSHOT.schema.json')
