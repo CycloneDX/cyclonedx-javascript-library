@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "name": "@cyclonedx/cyclonedx-library-schema-downloader",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "download.js",
+  "scripts": {
+    "download": "node download.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
