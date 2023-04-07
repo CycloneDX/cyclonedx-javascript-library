@@ -31,7 +31,7 @@ const standaloneCode = require('ajv/dist/standalone')
 const addFormats = require('ajv-formats')
 const addFormats2019 = require('ajv-formats-draft2019')
 
-function generate (file, specs) {
+function generate (fileBase, specs) {
   const ajv = new Ajv({
     schemas: {
       ...specs,
@@ -46,23 +46,49 @@ function generate (file, specs) {
   addFormats2019(ajv)
 
   writeFileSync(
-    file,
+    `${fileBase}.cjs`,
     standaloneCode(
       ajv,
       Object.fromEntries(Object.keys(specs).map(k => [k, k]))
     )
   )
+  writeFileSync(
+    `${fileBase}.d.ts`,
+    `
+/** @see {@link https://ajv.js.org/api.html#validation-errors} */
+export declare interface ErrorObject {
+  keyword: string
+  instancePath: string
+  schemaPath: string
+  params: object
+  propertyName?: string
+  message?: string
+  schema?: any
+  parentSchema?: object
+  data?: any
 }
 
-const TARGET_DIR = join(__dirname, '..', '..', 'src','validate','validators','JSON')
+export declare interface Validator {
+  (data:any): boolean
+  errors: ErrorObject | null
+}
 
-generate(join(TARGET_DIR, 'lax.generated.js'), {
-  spec1dot4: require('../../res/schema/bom-1.4.SNAPSHOT.schema.json'),
-  spec1dot3: require('../../res/schema/bom-1.3.SNAPSHOT.schema.json'),
-  spec1dot2: require('../../res/schema/bom-1.2.SNAPSHOT.schema.json')
+declare const validators: Record<string,Validator>;
+
+/** @internal */
+export default validators;`
+  )
+}
+
+const TARGET_DIR = join(__dirname, '..', '..', 'src','validate','validators','_generated')
+
+generate(join(TARGET_DIR, 'json'), {
+  '1.4': require('../../res/schema/bom-1.4.SNAPSHOT.schema.json'),
+  '1.3': require('../../res/schema/bom-1.3.SNAPSHOT.schema.json'),
+  '1.2': require('../../res/schema/bom-1.2.SNAPSHOT.schema.json')
 })
-generate(join(TARGET_DIR, 'strict.generated.js'), {
-  spec1dot4: require('../../res/schema/bom-1.4.SNAPSHOT.schema.json'),
-  spec1dot3: require('../../res/schema/bom-1.3-strict.SNAPSHOT.schema.json'),
-  spec1dot2: require('../../res/schema/bom-1.2-strict.SNAPSHOT.schema.json')
+generate(join(TARGET_DIR, 'json-strict'), {
+  '1.4': require('../../res/schema/bom-1.4.SNAPSHOT.schema.json'),
+  '1.3': require('../../res/schema/bom-1.3-strict.SNAPSHOT.schema.json'),
+  '1.2': require('../../res/schema/bom-1.2-strict.SNAPSHOT.schema.json')
 })

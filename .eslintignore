@@ -10,5 +10,5 @@
 !/src/**
 !/libs/**
 
-**/*.generated.*
+**/_generated/**
 
