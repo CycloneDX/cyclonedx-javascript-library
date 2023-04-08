@@ -24,6 +24,8 @@ export * from './index.common'
 export * as Builders from './builders/index.node'
 export * as Factories from './factories/index.node'
 export * as Serialize from './serialize/index.node'
+export * as Validation from './validate/index.node'
+
 
 /**
  * Internal, until the resources-module was finalized and shows any value
