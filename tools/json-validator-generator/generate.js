@@ -40,13 +40,18 @@ function generate (fileBase, specs) {
     },
     strict: false,
     strictSchema: false,
-    code: { source: true }
+    formats: {
+      'string': true
+    },
+    code: {
+      source: true
+    }
   })
   addFormats(ajv)
   addFormats2019(ajv)
 
   writeFileSync(
-    `${fileBase}.cjs`,
+    `${fileBase}.js`,
     standaloneCode(
       ajv,
       Object.fromEntries(Object.keys(specs).map(k => [k, k]))

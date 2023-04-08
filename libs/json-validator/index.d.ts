@@ -17,6 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+
 /** @see {@link https://ajv.js.org/api.html#validation-errors} */
 export declare interface ErrorObject {
   keyword: string
@@ -31,12 +32,18 @@ export declare interface ErrorObject {
 }
 
 export declare interface Validator {
+  /**
+   * If result is false, then `errors` is not null anymore.
+   * @param data - the already parsed JSON structure
+   */
   (data: any): boolean
 
   errors: ErrorObject | null
 }
 
-export type Validators = Readonly<Record<string, Validator | undefined>>
+export interface Validators {
+  readonly [key: string]: Validator
+}
 
-export const lax: Validators
-export const strict: Validators
+export const lax: Validators;
+export const strict: Validators;

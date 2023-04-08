@@ -43,7 +43,7 @@ const configBase = {
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts']
+    extensions: ['.ts', '.js', '.cjs', '.mjs']
   },
   entry: path.resolve(__dirname, 'src/index.web.ts'),
   devtool: 'source-map',
@@ -56,7 +56,10 @@ const configBase = {
     }
   },
   externals: {
-    'packageurl-js': 'packageurl-js'
+    'packageurl-js': 'packageurl-js',
+    'ajv': 'ajv',
+    'ajv-formats': 'ajv-formats',
+    'ajv-formats-draft2019': 'ajv-formats-draft2019'
   }
 }
 
