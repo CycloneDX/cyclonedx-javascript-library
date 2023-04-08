@@ -56,10 +56,10 @@ const configBase = {
     }
   },
   externals: {
-    'packageurl-js': 'packageurl-js',
     'ajv': 'ajv',
     'ajv-formats': 'ajv-formats',
-    'ajv-formats-draft2019': 'ajv-formats-draft2019'
+    'ajv-formats-draft2019': 'ajv-formats-draft2019',
+    'packageurl-js': 'packageurl-js'
   }
 }
 
