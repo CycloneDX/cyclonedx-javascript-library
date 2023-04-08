@@ -52,35 +52,9 @@ function generate (fileBase, specs) {
       Object.fromEntries(Object.keys(specs).map(k => [k, k]))
     )
   )
-  writeFileSync(
-    `${fileBase}.d.ts`,
-    `
-/** @see {@link https://ajv.js.org/api.html#validation-errors} */
-export declare interface ErrorObject {
-  keyword: string
-  instancePath: string
-  schemaPath: string
-  params: object
-  propertyName?: string
-  message?: string
-  schema?: any
-  parentSchema?: object
-  data?: any
 }
 
-export declare interface Validator {
-  (data:any): boolean
-  errors: ErrorObject | null
-}
-
-declare const validators: { readonly [key: string]: Validator | undefined };
-
-/** @internal */
-export default validators;`
-  )
-}
-
-const TARGET_DIR = join(__dirname, '..', '..', 'src', 'validate', 'validators', '_generated')
+const TARGET_DIR = join(__dirname, '..', '..', 'libs', 'json-validator', 'generated')
 
 generate(join(TARGET_DIR, 'json'), {
   1.4: require('../../res/schema/bom-1.4.SNAPSHOT.schema.json'),

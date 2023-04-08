@@ -16,29 +16,36 @@ limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
+import { lax, strict } from '../../../libs/json-validator'
 import type { Version } from '../../spec'
 import { ValidationError } from '../errors'
-import lax from './_generated/json'
-import strict from './_generated/json-strict'
 
 /**
  * @param data - the already parsed JSON structure
  * @throws {@link RangeError} if version is unknown
- * @throws {@link Validate.ValidationError | ValidationError} on validation error
+ * @throws {@link Validate.ValidationError | ValidationError} if data is invalid to the CycloneDX spec
  */
 export function validateLax (version: Version, data: any): void {
   const validate = lax[version]
-  if (validate == null) { throw new RangeError(`unknown version: ${version}`) }
-  if (!validate(data)) { throw new ValidationError('validation error', validate.errors) }
+  if (validate == null) {
+    throw new RangeError(`unknown version: ${version}`)
+  }
+  if (!validate(data)) {
+    throw new ValidationError('validation error', validate.errors)
+  }
 }
 
 /**
  * @param data - the already parsed JSON structure
  * @throws {@link RangeError} if version is unknown
- * @throws {@link Validate.ValidationError | ValidationError} on validation error
+ * @throws {@link Validate.ValidationError | ValidationError} if data is invalid to the CycloneDX strict spec
  */
 export function validateStrict (version: Version, data: any): void {
   const validate = strict[version]
-  if (validate == null) { throw new RangeError(`unknown version: ${version}`) }
-  if (!validate(data)) { throw new ValidationError('validation error', validate.errors) }
+  if (validate == null) {
+    throw new RangeError(`unknown version: ${version}`)
+  }
+  if (!validate(data)) {
+    throw new ValidationError('validation error', validate.errors)
+  }
 }

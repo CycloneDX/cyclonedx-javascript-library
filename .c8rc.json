@@ -5,7 +5,7 @@
     "libs/universal-node-xml"
   ],
   "exclude": [
-    "**/_generated/**",
+    "**/generated/**",
     "**/*.web.ts",
     "**/*.{spec,test}.{js,cjs,mjs}",
     "**/*.d.ts",
