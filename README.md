@@ -112,6 +112,14 @@ pnpm add github:CycloneDX/cyclonedx-javascript-library
 yarn add @cyclonedx/cyclonedx-library@github:CycloneDX/cyclonedx-javascript-library # only with yarn-2
 ```
 
+## Optional Dependencies
+
+Some dependencies are optional.
+See the shipped `package.json` for version constraints.
+
+* Serialization to XML on _Node.js_ requires any of:
+  * [`xmlbuilder2`](https://www.npmjs.com/package/xmlbuilder2)
+
 ## Usage
 
 See extended [examples].
