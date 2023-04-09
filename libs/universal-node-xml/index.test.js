@@ -28,6 +28,7 @@ suite('libs/universal-node-xml', () => {
       type: 'element',
       name: 'foo'
     })
+    const dummyElemStringifiedRE = /<foo(:?\/>|><\/foo>)/
 
     if (stringify.fails) {
       test('call should fail/throw', () => {
@@ -45,7 +46,7 @@ suite('libs/universal-node-xml', () => {
     } else {
       test('call should pass', () => {
         const stringified = stringify(dummyElem)
-        assert.match(stringified, /<foo(:?\/>|><\/foo>)/)
+        assert.match(stringified, dummyElemStringifiedRE)
       })
     }
   })
