@@ -2,15 +2,14 @@
   "all": true,
   "src": [
     "src",
-    "libs"
+    "libs/universal-node-xml"
   ],
   "exclude": [
-    "src/**/*.web.ts",
+    "**/*.web.ts",
     "**/*.{spec,test}.{js,cjs,mjs}",
     "**/*.d.ts",
     "**/*.cache/**",
-    "reports/**",
-    "CI_reports/**",
+    "{,CI_}reports/**",
     "test{,s}/**",
     "**/{ava,babel,nyc}.config.{js,cjs,mjs}",
     "**/jest.config.{js,cjs,mjs,ts}",
