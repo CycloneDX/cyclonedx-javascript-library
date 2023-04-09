@@ -20,7 +20,13 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const stringify = require('./xmlbuilder2')
+let stringify
+try {
+  stringify = require('./xmlbuilder2')
+} catch {
+  // skip all tests
+  return
+}
 
 suite('stringify with xmlbuilder2', () => {
   assert.strictEqual(typeof stringify, 'function')

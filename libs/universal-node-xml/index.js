@@ -22,14 +22,13 @@ const possibleStringifiers = [
   'xmlbuilder2'
 ]
 
-/* c8 ignore start */
 module.exports.stringify = function () {
   throw new Error(
     'No stringifier available. Please install any of the optional xml libraries: ' +
     possibleStringifiers.join(', ')
   )
 }
-/* c8 ignore end */
+module.exports.stringify.fails = true
 
 for (const file of possibleStringifiers) {
   try {
@@ -38,9 +37,7 @@ for (const file of possibleStringifiers) {
       module.exports.stringify = possibleStringifier
       break
     }
-    /* c8 ignore start */
   } catch {
     /* pass */
   }
-  /* c8 ignore end */
 }
