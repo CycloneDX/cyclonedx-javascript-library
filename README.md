@@ -119,6 +119,10 @@ See the shipped `package.json` for version constraints.
 
 * Serialization to XML on _Node.js_ requires any of:
   * [`xmlbuilder2`](https://www.npmjs.com/package/xmlbuilder2)
+* JSON validation requires all of:
+  * [`ajv`](https://www.npmjs.com/package/ajv)
+  * [`ajv-formats`](https://www.npmjs.com/package/ajv-formats)
+  * [`ajv-formats-draft2019`](https://www.npmjs.com/package/ajv-formats-draft2019)
 
 ## Usage
 
