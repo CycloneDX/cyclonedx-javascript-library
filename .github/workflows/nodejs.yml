@@ -152,6 +152,7 @@ jobs:
     # TODO via https://github.com/CycloneDX/cyclonedx-javascript-library/issues/51
 
   no-optional-deps_universal-node-xml:
+    needs: [ 'build' ]
     name: test universal-node-xml w/o optional dependencies
     runs-on: ubuntu-latest
     steps:
@@ -165,6 +166,12 @@ jobs:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: setup library
         run: npm ci --ignore-scripts --omit=optional
+      - name: fetch build artifact
+        # see https://github.com/actions/download-artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist.node
+          path: dist.node
       - name: test
         run: npm run test:node -- -f universal-node-xml
       - name: collect coverage
@@ -183,7 +190,9 @@ jobs:
 
   report-coverage:
     name: Publish test coverage
-    needs: [ "test-node" ]
+    needs:
+      - test-node
+      - no-optional-deps_universal-node-xml
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
