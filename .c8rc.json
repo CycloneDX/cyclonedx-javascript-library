@@ -1,13 +1,16 @@
 {
   "all": true,
   "src": [
-    "./libs"
+    "src",
+    "libs"
   ],
   "exclude": [
-    "**/*.spec.*", "**/*.test.*",
+    "src/**/*.web.ts",
+    "**/*.{spec,test}.{js,cjs,mjs}",
     "**/*.d.ts",
     "**/*.cache/**",
     "reports/**",
+    "CI_reports/**",
     "test{,s}/**",
     "**/{ava,babel,nyc}.config.{js,cjs,mjs}",
     "**/jest.config.{js,cjs,mjs,ts}",

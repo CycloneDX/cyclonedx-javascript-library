@@ -20,98 +20,110 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const stringify = require('./xmlbuilder2')
+let stringify
+try {
+  stringify = require('./xmlbuilder2')
+} catch {
+  stringify = undefined
+}
 
-suite('stringify with xmlbuilder2', () => {
-  assert.strictEqual(typeof stringify, 'function')
+suite('libs/universal-node-xml', () => {
+  suite('stringifiers: xmlbuilder2', () => {
+    if (stringify === undefined) {
+      test('SKIPPED', () => {})
+      return
+    }
 
-  const data = {
-    type: 'element',
-    name: 'some-children',
-    children: [
-      {
-        type: 'element',
-        name: 'some-attributes',
-        attributes: {
-          string: 'some-value',
-          number: 1,
-          'quote-encode': 'foo " bar'
-        }
-      },
-      {
-        type: 'element',
-        name: 'some-text',
-        children: 'testing... \n' +
-          'amp-encode? & \n' +
-          'tag-encode? <b>foo<b> \n'
-      },
-      {
-        type: 'element',
-        namespace: 'https://example.com/ns1',
-        name: 'some-namespaced',
-        children: [
-          {
-            type: 'element',
-            name: 'empty'
+    assert.strictEqual(typeof stringify, 'function')
+
+    const data = {
+      type: 'element',
+      name: 'some-children',
+      children: [
+        {
+          type: 'element',
+          name: 'some-attributes',
+          attributes: {
+            string: 'some-value',
+            number: 1,
+            'quote-encode': 'foo " bar'
           }
-        ]
-      },
-      {
-        type: 'not-an-element',
-        namespace: 'https://example.com/ns1',
-        name: 'not-element',
-        children: 'omit this thing, it is not an element.'
-      }
-    ]
-  }
+        },
+        {
+          type: 'element',
+          name: 'some-text',
+          children: 'testing... \n' +
+            'amp-encode? & \n' +
+            'tag-encode? <b>foo<b> \n'
+        },
+        {
+          type: 'element',
+          namespace: 'https://example.com/ns1',
+          name: 'some-namespaced',
+          children: [
+            {
+              type: 'element',
+              name: 'empty'
+            }
+          ]
+        },
+        {
+          type: 'not-an-element',
+          namespace: 'https://example.com/ns1',
+          name: 'not-element',
+          children: 'omit this thing, it is not an element.'
+        }
+      ]
+    }
 
-  test('data w/o spacing', () => {
-    const stringified = stringify(data)
-    assert.strictEqual(stringified,
-      '<?xml version="1.0" encoding="UTF-8"?>' +
-      '<some-children>' +
-      '<some-attributes string="some-value" number="1" quote-encode="foo &quot; bar"/>' +
-      '<some-text>testing... \n' +
-      'amp-encode? &amp; \n' +
-      'tag-encode? &lt;b&gt;foo&lt;b&gt; \n' +
-      '</some-text>' +
-      '<some-namespaced xmlns="https://example.com/ns1">' +
-      '<empty/>' +
-      '</some-namespaced>' +
-      '</some-children>'
-    )
-  })
+    test('data w/o spacing', () => {
+      const stringified = stringify(data)
+      assert.strictEqual(stringified,
+        '<?xml version="1.0" encoding="UTF-8"?>' +
+        '<some-children>' +
+        '<some-attributes string="some-value" number="1" quote-encode="foo &quot; bar"/>' +
+        '<some-text>testing... \n' +
+        'amp-encode? &amp; \n' +
+        'tag-encode? &lt;b&gt;foo&lt;b&gt; \n' +
+        '</some-text>' +
+        '<some-namespaced xmlns="https://example.com/ns1">' +
+        '<empty/>' +
+        '</some-namespaced>' +
+        '</some-children>'
+      )
+    })
 
-  test('data with space=4', () => {
-    const stringified = stringify(data, { space: 4 })
-    assert.strictEqual(stringified,
-      '<?xml version="1.0" encoding="UTF-8"?>\n' +
-      '<some-children>\n' +
-      '    <some-attributes string="some-value" number="1" quote-encode="foo &quot; bar"/>\n' +
-      '    <some-text>testing... \n' +
-      'amp-encode? &amp; \n' +
-      'tag-encode? &lt;b&gt;foo&lt;b&gt; \n' +
-      '</some-text>\n' +
-      '    <some-namespaced xmlns="https://example.com/ns1">\n' +
-      '        <empty/>\n' +
-      '    </some-namespaced>\n' +
-      '</some-children>'
-    )
-  })
+    test('data with space=4', () => {
+      const stringified = stringify(data, { space: 4 })
+      assert.strictEqual(stringified,
+        '<?xml version="1.0" encoding="UTF-8"?>\n' +
+        '<some-children>\n' +
+        '    <some-attributes string="some-value" number="1" quote-encode="foo &quot; bar"/>\n' +
+        '    <some-text>testing... \n' +
+        'amp-encode? &amp; \n' +
+        'tag-encode? &lt;b&gt;foo&lt;b&gt; \n' +
+        '</some-text>\n' +
+        '    <some-namespaced xmlns="https://example.com/ns1">\n' +
+        '        <empty/>\n' +
+        '    </some-namespaced>\n' +
+        '</some-children>'
+      )
+    })
 
-  test('data with space=TAB', () => {
-    const stringified = stringify(data, { space: '\t' })
-    assert.strictEqual(stringified,
-      '<?xml version="1.0" encoding="UTF-8"?>\n' +
-      '<some-children>\n' +
-      '\t<some-attributes string="some-value" number="1" quote-encode="foo &quot; bar"/>\n' +
-      '\t<some-text>testing... \n' +
-      'amp-encode? &amp; \n' +
-      'tag-encode? &lt;b&gt;foo&lt;b&gt; \n' +
-      '</some-text>\n' +
-      '\t<some-namespaced xmlns="https://example.com/ns1">\n' +
-      '\t\t<empty/>\n' +
-      '\t</some-namespaced>\n' +
-      '</some-children>')
+    test('data with space=TAB', () => {
+      const stringified = stringify(data, { space: '\t' })
+      assert.strictEqual(stringified,
+        '<?xml version="1.0" encoding="UTF-8"?>\n' +
+        '<some-children>\n' +
+        '\t<some-attributes string="some-value" number="1" quote-encode="foo &quot; bar"/>\n' +
+        '\t<some-text>testing... \n' +
+        'amp-encode? &amp; \n' +
+        'tag-encode? &lt;b&gt;foo&lt;b&gt; \n' +
+        '</some-text>\n' +
+        '\t<some-namespaced xmlns="https://example.com/ns1">\n' +
+        '\t\t<empty/>\n' +
+        '\t</some-namespaced>\n' +
+        '</some-children>')
+    })
   })
 })

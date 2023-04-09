@@ -21,7 +21,11 @@ import type { SerializerOptions } from '../../src/serialize/types'
 import type { SimpleXml } from '../../src/serialize/xml/types'
 
 /** @throws {@link Error} */
-declare type ThrowError = (..._: any[]) => never
+declare interface ThrowError {
+  /** @throws {@link Error} */
+  (..._: any[]): never
+  fails: true
+}
 
 declare type Stringify = (element: SimpleXml.Element, options?: SerializerOptions) => string
 export declare const stringify: Stringify | ThrowError
