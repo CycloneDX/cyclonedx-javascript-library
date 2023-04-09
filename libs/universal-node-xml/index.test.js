@@ -22,32 +22,33 @@ const { suite, test } = require('mocha')
 
 const { stringify } = require('./')
 
-suite('stringify', () => {
-  assert.strictEqual(typeof stringify, 'function')
+suite('libs/universal-node-xml', () => {
+  suite('stringify', () => {
+    assert.strictEqual(typeof stringify, 'function')
 
-  const dummyElem = Object.freeze({
-    type: 'element',
-    name: 'foo'
+    const dummyElem = Object.freeze({
+      type: 'element',
+      name: 'foo'
+    })
+
+    if (stringify.fails) {
+      test('call should fail/throw', () => {
+        assert.throws(
+          () => {
+            stringify(dummyElem)
+          },
+          (err) => {
+            assert.ok(err instanceof Error)
+            assert.match(err.message, /no stringifier available/i)
+            return true
+          }
+        )
+      })
+    } else {
+      test('call should pass', () => {
+        const stringified = stringify(dummyElem)
+        assert.match(stringified, /<foo(:?\/>|><\/foo>)/)
+      })
+    }
   })
-
-  if (stringify.fails) {
-    test('call should fail/throw', () => {
-      assert.throws(
-        () => {
-          stringify(dummyElem)
-        },
-        (err) => {
-          assert.ok(err instanceof Error)
-          assert.match(err.message, /no stringifier available/i)
-          return true
-        }
-      )
-    })
-  } else {
-    test('call should pass', () => {
-      const stringified = stringify(dummyElem)
-      assert.match(stringified, /<foo(:?\/>|><\/foo>)/)
-    })
-  }
-
 })

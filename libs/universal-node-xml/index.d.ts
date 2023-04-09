@@ -21,7 +21,7 @@ import type { SerializerOptions } from '../../src/serialize/types'
 import type { SimpleXml } from '../../src/serialize/xml/types'
 
 /** @throws {@link Error} */
-declare type ThrowError = {
+declare interface ThrowError {
   /** @throws {@link Error} */
   (..._: any[]): never
   fails: true
