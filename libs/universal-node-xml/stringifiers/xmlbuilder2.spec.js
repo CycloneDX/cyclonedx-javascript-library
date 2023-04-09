@@ -24,12 +24,16 @@ let stringify
 try {
   stringify = require('./xmlbuilder2')
 } catch {
-  // skip tests
-  return
+  stringify = undefined
 }
 
 suite('libs/universal-node-xml', () => {
   suite('stringifiers: xmlbuilder2', () => {
+    if (stringify === undefined) {
+      test('SKIPPED', () => {})
+      return
+    }
+
     assert.strictEqual(typeof stringify, 'function')
 
     const data = {

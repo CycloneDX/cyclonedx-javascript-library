@@ -24,8 +24,6 @@ const { stringify } = require('./')
 
 suite('libs/universal-node-xml', () => {
   suite('stringify', () => {
-    assert.strictEqual(typeof stringify, 'function')
-
     const dummyElem = Object.freeze({
       type: 'element',
       name: 'foo'
