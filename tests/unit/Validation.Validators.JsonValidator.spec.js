@@ -22,9 +22,11 @@ const { suite, test } = require('mocha')
 
 const {
   Spec: { Version },
-  Validation: { Validators: {
-    JsonValidator, JsonStrictValidator
-  } }
+  Validation: {
+    Validators: {
+      JsonValidator, JsonStrictValidator
+    }
+  }
 } = require('../../')
 
 suite('Validation.Validators.JsonValidator', () => {
@@ -46,26 +48,57 @@ suite('Validation.Validators.JsonValidator', () => {
     })
   })
 
-  test('1.2', () => {
+  test('1.2 invalid throws', () => {
+    assert.throws(() => {
+      (new JsonValidator(Version.v1dot2)).validate({})
+    }, (err) => {
+      assert.match(err.message, /invalid.* CycloneDX 1.2/i)
+      assert.notStrictEqual(err.details, undefined)
+      return true
+    })
+  })
+
+  test('1.2 valid', () => {
     (new JsonValidator(Version.v1dot2)).validate({
-      'bomFormat': 'CycloneDX',
-      'specVersion': '1.2',
+      bomFormat: 'CycloneDX',
+      specVersion: '1.2',
       'some additional': true
     })
   })
 
-  test('1.3', () => {
+  test('1.3 invalid throws', () => {
+    assert.throws(() => {
+      (new JsonValidator(Version.v1dot3)).validate({})
+    }, (err) => {
+      assert.match(err.message, /invalid.* CycloneDX 1.3/i)
+      assert.notStrictEqual(err.details, undefined)
+      return true
+    })
+  })
+
+  test('1.3 valid', () => {
     (new JsonValidator(Version.v1dot3)).validate({
-      'bomFormat': 'CycloneDX',
-      'specVersion': '1.3',
+      bomFormat: 'CycloneDX',
+      specVersion: '1.3',
       'some additional': true
     })
   })
 
-  test('1.4', () => {
+  test('1.4 invalid throws', () => {
+    assert.throws(() => {
+      (new JsonValidator(Version.v1dot4)).validate({})
+    }, (err) => {
+      assert.match(err.message, /invalid.* CycloneDX 1.4/i)
+      assert.notStrictEqual(err.details, undefined)
+      return true
+    })
+  })
+
+  test('1.4 valid', () => {
     (new JsonValidator(Version.v1dot4)).validate({
-      'bomFormat': 'CycloneDX',
-      'specVersion': '1.4'
+      bomFormat: 'CycloneDX',
+      specVersion: '1.4'
+      // already strict
     })
   })
 })
@@ -89,25 +122,54 @@ suite('Validation.Validators.JsonStrictValidator', () => {
     })
   })
 
-  test('1.2', () => {
+  test('1.2 invalid throws', () => {
+    assert.throws(() => {
+      (new JsonStrictValidator(Version.v1dot2)).validate({})
+    }, (err) => {
+      assert.match(err.message, /invalid.* CycloneDX 1.2/i)
+      assert.notStrictEqual(err.details, undefined)
+      return true
+    })
+  })
+
+  test('1.2 valid', () => {
     (new JsonStrictValidator(Version.v1dot2)).validate({
-      'bomFormat': 'CycloneDX',
-      'specVersion': '1.2'
+      bomFormat: 'CycloneDX',
+      specVersion: '1.2'
     })
   })
 
-  test('1.3', () => {
+  test('1.3 invalid throws', () => {
+    assert.throws(() => {
+      (new JsonStrictValidator(Version.v1dot3)).validate({})
+    }, (err) => {
+      assert.match(err.message, /invalid.* CycloneDX 1.3/i)
+      assert.notStrictEqual(err.details, undefined)
+      return true
+    })
+  })
+
+  test('1.3 valid', () => {
     (new JsonStrictValidator(Version.v1dot3)).validate({
-      'bomFormat': 'CycloneDX',
-      'specVersion': '1.3'
+      bomFormat: 'CycloneDX',
+      specVersion: '1.3'
     })
   })
 
-  test('1.4', () => {
+  test('1.4 invalid throws', () => {
+    assert.throws(() => {
+      (new JsonStrictValidator(Version.v1dot4)).validate({})
+    }, (err) => {
+      assert.match(err.message, /invalid.* CycloneDX 1.4/i)
+      assert.notStrictEqual(err.details, undefined)
+      return true
+    })
+  })
+
+  test('1.4 valid', () => {
     (new JsonStrictValidator(Version.v1dot4)).validate({
-      'bomFormat': 'CycloneDX',
-      'specVersion': '1.4'
+      bomFormat: 'CycloneDX',
+      specVersion: '1.4'
     })
   })
 })
-
