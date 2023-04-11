@@ -33,6 +33,7 @@ function getAjv(purpose: string): Ajv {
   // throw if missing @TODO
   if (ajvs[purpose] === undefined) {
     const ajv = new Ajv({
+      useDefaults: true,
       formats: {string: true},
       strict: false,
       strictSchema: false,

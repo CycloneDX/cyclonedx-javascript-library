@@ -22,7 +22,9 @@ const { suite, test } = require('mocha')
 
 const {
   Spec: { Version },
-  Validation: { Validators: { JsonValidator, JsonStrictValidator } }
+  Validation: { Validators: {
+    JsonValidator, JsonStrictValidator
+  } }
 } = require('../../')
 
 suite('Validation.Validators.JsonValidator', () => {
@@ -45,15 +47,26 @@ suite('Validation.Validators.JsonValidator', () => {
   })
 
   test('1.2', () => {
-    (new JsonValidator(Version.v1dot2)).validate({})
+    (new JsonValidator(Version.v1dot2)).validate({
+      'bomFormat': 'CycloneDX',
+      'specVersion': '1.2',
+      'some additional': true
+    })
   })
 
   test('1.3', () => {
-    (new JsonValidator(Version.v1dot3)).validate({})
+    (new JsonValidator(Version.v1dot3)).validate({
+      'bomFormat': 'CycloneDX',
+      'specVersion': '1.3',
+      'some additional': true
+    })
   })
 
   test('1.4', () => {
-    (new JsonValidator(Version.v1dot4)).validate({})
+    (new JsonValidator(Version.v1dot4)).validate({
+      'bomFormat': 'CycloneDX',
+      'specVersion': '1.4'
+    })
   })
 })
 
@@ -77,15 +90,24 @@ suite('Validation.Validators.JsonStrictValidator', () => {
   })
 
   test('1.2', () => {
-    (new JsonStrictValidator(Version.v1dot2)).validate({})
+    (new JsonStrictValidator(Version.v1dot2)).validate({
+      'bomFormat': 'CycloneDX',
+      'specVersion': '1.2'
+    })
   })
 
   test('1.3', () => {
-    (new JsonStrictValidator(Version.v1dot3)).validate({})
+    (new JsonStrictValidator(Version.v1dot3)).validate({
+      'bomFormat': 'CycloneDX',
+      'specVersion': '1.3'
+    })
   })
 
   test('1.4', () => {
-    (new JsonStrictValidator(Version.v1dot4)).validate({})
+    (new JsonStrictValidator(Version.v1dot4)).validate({
+      'bomFormat': 'CycloneDX',
+      'specVersion': '1.4'
+    })
   })
 })
 
