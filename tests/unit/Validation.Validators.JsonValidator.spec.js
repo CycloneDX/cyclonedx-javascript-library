@@ -22,33 +22,70 @@ const { suite, test } = require('mocha')
 
 const {
   Spec: { Version },
-  Validation: { Validators: { JsonValidator } }
+  Validation: { Validators: { JsonValidator, JsonStrictValidator } }
 } = require('../../')
 
 suite('Validation.Validators.JsonValidator', () => {
   test('1.0 throws', () => {
     assert.throws(() => {
-      JsonValidator(Version.v1dot0)
+      (new JsonValidator(Version.v1dot0)).validate({})
+    }, (err) => {
+      assert.match(err.message, /not implemented/i)
+      return true
     })
   })
 
   test('1.1 throws', () => {
     assert.throws(() => {
-      JsonValidator(Version.v1dot1)
+      (new JsonValidator(Version.v1dot1)).validate({})
+    }, (err) => {
+      assert.match(err.message, /not implemented/i)
+      return true
     })
   })
 
-  test('1.2 throws', () => {
+  test('1.2', () => {
     (new JsonValidator(Version.v1dot2)).validate({})
   })
 
-  test('1.3 throws', () => {
+  test('1.3', () => {
     (new JsonValidator(Version.v1dot3)).validate({})
   })
 
-  test('1.4 throws', () => {
+  test('1.4', () => {
     (new JsonValidator(Version.v1dot4)).validate({})
   })
 })
 
+suite('Validation.Validators.JsonStrictValidator', () => {
+  test('1.0 throws', () => {
+    assert.throws(() => {
+      (new JsonStrictValidator(Version.v1dot0)).validate({})
+    }, (err) => {
+      assert.match(err.message, /not implemented/i)
+      return true
+    })
+  })
+
+  test('1.1 throws', () => {
+    assert.throws(() => {
+      (new JsonStrictValidator(Version.v1dot0)).validate({})
+    }, (err) => {
+      assert.match(err.message, /not implemented/i)
+      return true
+    })
+  })
+
+  test('1.2', () => {
+    (new JsonStrictValidator(Version.v1dot2)).validate({})
+  })
+
+  test('1.3', () => {
+    (new JsonStrictValidator(Version.v1dot3)).validate({})
+  })
+
+  test('1.4', () => {
+    (new JsonStrictValidator(Version.v1dot4)).validate({})
+  })
+})
 
