@@ -19,11 +19,33 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import Ajv from 'ajv'
 import addFormats from 'ajv-formats'
+/* @ts-expect-error TS7016 */
+import * as addFormats2019 from 'ajv-formats-draft2019'
 import { readFileSync } from 'fs'
 
 import { FILES } from '../../resources.node'
 import { ValidationError } from '../errors'
 import { BaseValidator } from './_helpers'
+
+let ajv: Ajv | undefined
+function getAjv(): Ajv {
+  // throw if missing @TODO
+  if (ajv === undefined ) {
+    ajv = new Ajv({
+      formats: {string: true},
+      strict: false,
+      strictSchema: false,
+      schemas: {
+        'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': JSON.parse(readFileSync(FILES.SPDX.JSON_SCHEMA, 'utf-8')),
+        'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': JSON.parse(readFileSync(FILES.JSF.JSON_SCHEMA, 'utf-8')),
+      }
+    })
+    addFormats(ajv)
+    addFormats2019(ajv)
+  }
+  return ajv
+}
+
 
 export class JsonValidator extends BaseValidator {
   /**
@@ -34,9 +56,7 @@ export class JsonValidator extends BaseValidator {
     if (file === undefined) {
       throw new ValidationError(`not implemented for version: ${this.version}`)
     }
-    const ajv = new Ajv()
-    addFormats(ajv)
-    const validator = ajv.compile(JSON.parse(readFileSync(file, 'utf-8')))
+    const validator = getAjv().compile(JSON.parse(readFileSync(file, 'utf-8')))
     if (!validator(data)) {
       throw new ValidationError(`invalid to CycloneDX ${this.version}`, validator.errors)
     }
@@ -52,9 +72,7 @@ export class JsonStrictValidator extends BaseValidator {
     if (file === undefined) {
       throw new ValidationError(`not implemented for version: ${this.version}`)
     }
-    const ajv = new Ajv()
-    addFormats(ajv)
-    const validator = ajv.compile(JSON.parse(readFileSync(file, 'utf-8')))
+    const validator = getAjv().compile(JSON.parse(readFileSync(file, 'utf-8')))
     if (!validator(data)) {
       throw new ValidationError(`invalid to CycloneDX ${this.version}`, validator.errors)
     }
