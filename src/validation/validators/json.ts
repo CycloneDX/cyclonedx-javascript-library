@@ -17,6 +17,11 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import Ajv from 'ajv'
+import addFormats from 'ajv-formats'
+import { readFileSync } from 'fs'
+
+import { FILES } from '../../resources.node'
 import { ValidationError } from '../errors'
 import { BaseValidator } from './_helpers'
 
@@ -25,8 +30,16 @@ export class JsonValidator extends BaseValidator {
    * @throws {@link Validation.ValidationError | ValidationError} in case of validation errors
    */
   validate (data: any): void {
-    // TODO
-    throw new ValidationError('not implemented')
+    const file = FILES.CDX.JSON_SCHEMA[this.version]
+    if (file === undefined) {
+      throw new ValidationError(`not implemented for version: ${this.version}`)
+    }
+    const ajv = new Ajv()
+    addFormats(ajv)
+    const validator = ajv.compile(JSON.parse(readFileSync(file, 'utf-8')))
+    if (!validator(data)) {
+      throw new ValidationError(`invalid to CycloneDX ${this.version}`, validator.errors)
+    }
   }
 }
 
@@ -35,7 +48,15 @@ export class JsonStrictValidator extends BaseValidator {
    * @throws {@link Validation.ValidationError | ValidationError} in case of validation errors
    */
   validate (data: any): void {
-    // TODO
-    throw new ValidationError('not implemented')
+    const file = FILES.CDX.JSON_STRICT_SCHEMA[this.version]
+    if (file === undefined) {
+      throw new ValidationError(`not implemented for version: ${this.version}`)
+    }
+    const ajv = new Ajv()
+    addFormats(ajv)
+    const validator = ajv.compile(JSON.parse(readFileSync(file, 'utf-8')))
+    if (!validator(data)) {
+      throw new ValidationError(`invalid to CycloneDX ${this.version}`, validator.errors)
+    }
   }
 }

@@ -17,19 +17,19 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import {Version} from "../../spec";
-import {Validator} from "../validator";
+import type { Version } from '../../spec'
+import type { Validator } from '../validator'
 
 export abstract class BaseValidator implements Validator {
-  readonly #version: Version;
+  readonly #version: Version
 
-  constructor(version: Version) {
+  constructor (version: Version) {
     this.#version = version
   }
 
-  get version(): Version {
+  get version (): Version {
     return this.#version
   }
 
-  abstract validate(data: any): void
+  abstract validate (data: any): void
 }
