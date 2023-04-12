@@ -30,6 +30,7 @@ written in _TypeScript_ and compiled for the target.
   * Support the downstream implementation of custom XML-serializers tailored to specific environments  
     by providing an abstract base class that takes care of normalization and BomRef-discrimination.  
     This is done, because there is no universal XML support in _JavaScript_.
+* Validation according to [_CycloneDX_ Specification][CycloneDX-spec].
 
 ## Capabilities
 
@@ -92,6 +93,8 @@ written in _TypeScript_ and compiled for the target.
   * Specific to _Node.js_: implementation plugs/requires/utilizes one of the following _optional_ libraries
     * [xmlbuilder2](https://www.npmjs.com/package/xmlbuilder2)
     * ... to be continued ... (pull requests are welcome)
+* Validation
+  * TODO: write proper descriptions 
 
 ## Installation
 
