@@ -17,67 +17,78 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import Ajv from 'ajv'
-import addFormats from 'ajv-formats'
-/* @ts-expect-error TS7016 */
-import * as addFormats2019 from 'ajv-formats-draft2019'
+import type Ajv from 'ajv'
 import { readFileSync } from 'fs'
 
 import { FILES } from '../../resources.node'
 import { ValidationError } from '../errors'
 import { BaseValidator } from './_helpers'
 
-let _ajv: Ajv | undefined = undefined
+let _ajv: Ajv | undefined
 
-function getAjv (): Ajv {
-  if (_ajv === undefined) {
-    // throw if missing @TODO
-    const ajv = new Ajv({
-      useDefaults: true,
-      formats: { string: true },
-      strict: false,
-      strictSchema: false,
-      addUsedSchema: false,
-      schemas: {
-        'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': JSON.parse(readFileSync(FILES.SPDX.JSON_SCHEMA, 'utf-8')),
-        'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': JSON.parse(readFileSync(FILES.JSF.JSON_SCHEMA, 'utf-8'))
+async function getAjv (): Promise<Ajv> {
+  return await new Promise<Ajv>(async (resolve, reject) => {
+    if (_ajv === undefined) {
+      let Ajv, addFormats, addFormats2019
+      try {
+        [Ajv, addFormats, addFormats2019] = await Promise.all([
+          import('ajv').then((m) => m.default),
+          import('ajv-formats').then((m) => m.default),
+          /* @ts-expect-error TS7016 */
+          import('ajv-formats-draft2019')
+        ])
+      } catch {
+        return reject(new Error('No JSON validator available. Please install all of the optional libraries: ajv, ajv-formats, ajv-formats-draft2019'));
       }
+
+      const ajv = new Ajv({
+        useDefaults: true,
+        formats: { string: true },
+        strict: false,
+        strictSchema: false,
+        addUsedSchema: false,
+        schemas: {
+          'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': JSON.parse(readFileSync(FILES.SPDX.JSON_SCHEMA, 'utf-8')),
+          'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': JSON.parse(readFileSync(FILES.JSF.JSON_SCHEMA, 'utf-8'))
+        }
+      })
+      addFormats(ajv)
+      addFormats2019(ajv)
+      _ajv = ajv
+    }
+    return resolve(_ajv)
+  })
+}
+
+abstract class BaseJsonValidator extends BaseValidator {
+  /** @internal */
+  protected abstract _getSchemaFiles (): string | undefined
+
+  /**
+   * Promise rejects with {@link Validation.ValidationError | ValidationError}
+   */
+  validate (data: any): Promise<void> {
+    return new Promise<void>(async (resolve, reject) => {
+      const file = this._getSchemaFiles()
+      if (file === undefined) {
+        return reject(new ValidationError(`not implemented for version: ${this.version}`));
+      }
+      const validator = (await getAjv()).compile(JSON.parse(readFileSync(file, 'utf-8')))
+      return validator(data)
+        ? resolve()
+        : reject(new ValidationError(`invalid to CycloneDX ${this.version}`, validator.errors))
     })
-    addFormats(ajv)
-    addFormats2019(ajv)
-    _ajv = ajv
-  }
-  return _ajv as Ajv
-}
-
-export class JsonValidator extends BaseValidator {
-  /**
-   * @throws {@link Validation.ValidationError | ValidationError} in case of validation errors
-   */
-  validate (data: any): void {
-    const file = FILES.CDX.JSON_SCHEMA[this.version]
-    if (file === undefined) {
-      throw new ValidationError(`not implemented for version: ${this.version}`)
-    }
-    const validator = getAjv().compile(JSON.parse(readFileSync(file, 'utf-8')))
-    if (!validator(data)) {
-      throw new ValidationError(`invalid to CycloneDX ${this.version}`, validator.errors)
-    }
   }
 }
 
-export class JsonStrictValidator extends BaseValidator {
-  /**
-   * @throws {@link Validation.ValidationError | ValidationError} in case of validation errors
-   */
-  validate (data: any): void {
-    const file = FILES.CDX.JSON_STRICT_SCHEMA[this.version]
-    if (file === undefined) {
-      throw new ValidationError(`not implemented for version: ${this.version}`)
-    }
-    const validator = getAjv().compile(JSON.parse(readFileSync(file, 'utf-8')))
-    if (!validator(data)) {
-      throw new ValidationError(`invalid to CycloneDX ${this.version}`, validator.errors)
-    }
+export class JsonValidator extends BaseJsonValidator {
+  protected override _getSchemaFiles (): string | undefined {
+    return FILES.CDX.JSON_SCHEMA[this.version]
+  }
+}
+
+export class JsonStrictValidator extends BaseJsonValidator {
+  protected override _getSchemaFiles (): string | undefined {
+    return FILES.CDX.JSON_STRICT_SCHEMA[this.version]
   }
 }

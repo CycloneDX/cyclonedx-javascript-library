@@ -22,9 +22,9 @@ import { BaseValidator } from './_helpers'
 
 export class XmlValidator extends BaseValidator {
   /**
-   * @throws {@link Validation.ValidationError | ValidationError} in case of validation errors
+   * Promise rejects with {@link Validation.ValidationError | ValidationError}
    */
-  validate (data: any): void {
+  async validate (data: any): Promise<void> {
     // TODO
     throw new ValidationError('not implemented')
   }

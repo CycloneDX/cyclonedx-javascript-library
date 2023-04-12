@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 export interface Validator {
   /**
-   * @throws {@link Validation.ValidationError | ValidationError} in case of validation errors
+   * Promise rejects with {@link Validation.ValidationError | ValidationError}
    */
-  validate: (data: any) => void
+  validate: (data: any) => Promise<void>
 }

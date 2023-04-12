@@ -31,8 +31,8 @@ const {
 
 suite('Validation.Validators.JsonValidator', () => {
   test('1.0 throws', () => {
-    assert.throws(() => {
-      (new JsonValidator(Version.v1dot0)).validate({})
+    assert.rejects(async () => {
+      await (new JsonValidator(Version.v1dot0)).validate({})
     }, (err) => {
       assert.match(err.message, /not implemented/i)
       return true
@@ -40,8 +40,8 @@ suite('Validation.Validators.JsonValidator', () => {
   })
 
   test('1.1 throws', () => {
-    assert.throws(() => {
-      (new JsonValidator(Version.v1dot1)).validate({})
+    assert.rejects(async () => {
+      await (new JsonValidator(Version.v1dot1)).validate({})
     }, (err) => {
       assert.match(err.message, /not implemented/i)
       return true
@@ -49,8 +49,8 @@ suite('Validation.Validators.JsonValidator', () => {
   })
 
   test('1.2 invalid throws', () => {
-    assert.throws(() => {
-      (new JsonValidator(Version.v1dot2)).validate({})
+    assert.rejects(async () => {
+      await (new JsonValidator(Version.v1dot2)).validate({})
     }, (err) => {
       assert.match(err.message, /invalid.* CycloneDX 1.2/i)
       assert.notStrictEqual(err.details, undefined)
@@ -58,8 +58,8 @@ suite('Validation.Validators.JsonValidator', () => {
     })
   })
 
-  test('1.2 valid', () => {
-    (new JsonValidator(Version.v1dot2)).validate({
+  test('1.2 valid', async () => {
+    await (new JsonValidator(Version.v1dot2)).validate({
       bomFormat: 'CycloneDX',
       specVersion: '1.2',
       'some additional': true
@@ -67,8 +67,8 @@ suite('Validation.Validators.JsonValidator', () => {
   })
 
   test('1.3 invalid throws', () => {
-    assert.throws(() => {
-      (new JsonValidator(Version.v1dot3)).validate({})
+    assert.rejects(async () => {
+      await (new JsonValidator(Version.v1dot3)).validate({})
     }, (err) => {
       assert.match(err.message, /invalid.* CycloneDX 1.3/i)
       assert.notStrictEqual(err.details, undefined)
@@ -76,8 +76,8 @@ suite('Validation.Validators.JsonValidator', () => {
     })
   })
 
-  test('1.3 valid', () => {
-    (new JsonValidator(Version.v1dot3)).validate({
+  test('1.3 valid', async () => {
+    await (new JsonValidator(Version.v1dot3)).validate({
       bomFormat: 'CycloneDX',
       specVersion: '1.3',
       'some additional': true
@@ -85,8 +85,8 @@ suite('Validation.Validators.JsonValidator', () => {
   })
 
   test('1.4 invalid throws', () => {
-    assert.throws(() => {
-      (new JsonValidator(Version.v1dot4)).validate({})
+    assert.rejects(async () => {
+      await (new JsonValidator(Version.v1dot4)).validate({})
     }, (err) => {
       assert.match(err.message, /invalid.* CycloneDX 1.4/i)
       assert.notStrictEqual(err.details, undefined)
@@ -94,8 +94,8 @@ suite('Validation.Validators.JsonValidator', () => {
     })
   })
 
-  test('1.4 valid', () => {
-    (new JsonValidator(Version.v1dot4)).validate({
+  test('1.4 valid', async () => {
+    await (new JsonValidator(Version.v1dot4)).validate({
       bomFormat: 'CycloneDX',
       specVersion: '1.4'
       // already strict
@@ -105,8 +105,8 @@ suite('Validation.Validators.JsonValidator', () => {
 
 suite('Validation.Validators.JsonStrictValidator', () => {
   test('1.0 throws', () => {
-    assert.throws(() => {
-      (new JsonStrictValidator(Version.v1dot0)).validate({})
+    assert.rejects(async () => {
+      await (new JsonStrictValidator(Version.v1dot0)).validate({})
     }, (err) => {
       assert.match(err.message, /not implemented/i)
       return true
@@ -114,8 +114,8 @@ suite('Validation.Validators.JsonStrictValidator', () => {
   })
 
   test('1.1 throws', () => {
-    assert.throws(() => {
-      (new JsonStrictValidator(Version.v1dot0)).validate({})
+    assert.rejects(async () => {
+      await (new JsonStrictValidator(Version.v1dot0)).validate({})
     }, (err) => {
       assert.match(err.message, /not implemented/i)
       return true
@@ -123,8 +123,8 @@ suite('Validation.Validators.JsonStrictValidator', () => {
   })
 
   test('1.2 invalid throws', () => {
-    assert.throws(() => {
-      (new JsonStrictValidator(Version.v1dot2)).validate({})
+    assert.rejects(async () => {
+      await (new JsonStrictValidator(Version.v1dot2)).validate({})
     }, (err) => {
       assert.match(err.message, /invalid.* CycloneDX 1.2/i)
       assert.notStrictEqual(err.details, undefined)
@@ -132,16 +132,16 @@ suite('Validation.Validators.JsonStrictValidator', () => {
     })
   })
 
-  test('1.2 valid', () => {
-    (new JsonStrictValidator(Version.v1dot2)).validate({
+  test('1.2 valid', async () => {
+    await (new JsonStrictValidator(Version.v1dot2)).validate({
       bomFormat: 'CycloneDX',
       specVersion: '1.2'
     })
   })
 
   test('1.3 invalid throws', () => {
-    assert.throws(() => {
-      (new JsonStrictValidator(Version.v1dot3)).validate({})
+    assert.rejects(async () => {
+      await (new JsonStrictValidator(Version.v1dot3)).validate({})
     }, (err) => {
       assert.match(err.message, /invalid.* CycloneDX 1.3/i)
       assert.notStrictEqual(err.details, undefined)
@@ -149,16 +149,16 @@ suite('Validation.Validators.JsonStrictValidator', () => {
     })
   })
 
-  test('1.3 valid', () => {
-    (new JsonStrictValidator(Version.v1dot3)).validate({
+  test('1.3 valid', async () => {
+    await (new JsonStrictValidator(Version.v1dot3)).validate({
       bomFormat: 'CycloneDX',
       specVersion: '1.3'
     })
   })
 
   test('1.4 invalid throws', () => {
-    assert.throws(() => {
-      (new JsonStrictValidator(Version.v1dot4)).validate({})
+    assert.rejects(async () => {
+      await (new JsonStrictValidator(Version.v1dot4)).validate({})
     }, (err) => {
       assert.match(err.message, /invalid.* CycloneDX 1.4/i)
       assert.notStrictEqual(err.details, undefined)
@@ -166,8 +166,8 @@ suite('Validation.Validators.JsonStrictValidator', () => {
     })
   })
 
-  test('1.4 valid', () => {
-    (new JsonStrictValidator(Version.v1dot4)).validate({
+  test('1.4 valid', async () => {
+    await (new JsonStrictValidator(Version.v1dot4)).validate({
       bomFormat: 'CycloneDX',
       specVersion: '1.4'
     })

@@ -31,5 +31,8 @@ export abstract class BaseValidator implements Validator {
     return this.#version
   }
 
-  abstract validate (data: any): void
+  /**
+   * Promise rejects with {@link Validation.ValidationError | ValidationError}
+   */
+  abstract validate (data: any): Promise<void>
 }
