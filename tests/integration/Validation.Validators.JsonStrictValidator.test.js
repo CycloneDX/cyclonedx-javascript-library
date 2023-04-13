@@ -26,20 +26,20 @@ const {
   Spec: { Version },
   Validation: {
     ValidationError,
-    Validators: { JsonValidator }
+    Validators: { JsonStrictValidator }
   }
 } = require('../../')
 
 const missingOptionalDepsRE = /no JSON validator available/i
 
-describe('Validation.Validators.JsonValidator', () => {
+describe('Validation.Validators.JsonStrictValidator', () => {
   [
     Version.v1dot0,
     Version.v1dot1
   ].forEach((version) => {
     describe(version, () => {
       it('throws not implemented', async () => {
-        const validator = new JsonValidator(version)
+        const validator = new JsonStrictValidator(version)
         const input = {
           bomFormat: 'CycloneDX',
           specVersion: version
@@ -68,14 +68,14 @@ describe('Validation.Validators.JsonValidator', () => {
   ].forEach((version) => {
     describe(version, () => {
       it('invalid throws', async () => {
-        const validator = new JsonValidator(version)
+        const validator = new JsonStrictValidator(version)
         const input = {
           bomFormat: 'CycloneDX',
           specVersion: version,
           components: [{
             type: 'library',
             name: 'bar',
-            version: 23.42 // << invalid type, float given, expected string
+            unknown: 'undefined' // << undefined/additional property
           }]
         }
         return assert.rejects(
@@ -96,14 +96,14 @@ describe('Validation.Validators.JsonValidator', () => {
             components: [{
               type: 'library',
               name: 'bar',
-              version: 23.42
+              unknown: 'undefined'
             }]
           }, 'data was altered unexpectedly')
         })
       })
 
       it('valid passes', async () => {
-        const validator = new JsonValidator(version)
+        const validator = new JsonStrictValidator(version)
         const input = {
           bomFormat: 'CycloneDX',
           specVersion: version,
