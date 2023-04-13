@@ -81,14 +81,14 @@ suite('libs/universal-node-xml', () => {
       assert.strictEqual(stringified,
         '<?xml version="1.0" encoding="UTF-8"?>' +
         '<some-children>' +
-        '<some-attributes string="some-value" number="1" quote-encode="foo &quot; bar"/>' +
-        '<some-text>testing... \n' +
-        'amp-encode? &amp; \n' +
-        'tag-encode? &lt;b&gt;foo&lt;b&gt; \n' +
-        '</some-text>' +
-        '<some-namespaced xmlns="https://example.com/ns1">' +
-        '<empty/>' +
-        '</some-namespaced>' +
+          '<some-attributes string="some-value" number="1" quote-encode="foo &quot; bar"/>' +
+          '<some-text>testing... \n' +
+            'amp-encode? &amp; \n' +
+            'tag-encode? &lt;b&gt;foo&lt;b&gt; \n' +
+          '</some-text>' +
+          '<some-namespaced xmlns="https://example.com/ns1">' +
+            '<empty/>' +
+          '</some-namespaced>' +
         '</some-children>'
       )
     })
