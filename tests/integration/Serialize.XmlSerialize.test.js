@@ -53,11 +53,18 @@ describe('Serialize.XmlSerialize', function () {
     it('serialize', function () {
       const serializer = new XmlSerializer(normalizerFactory)
 
-      const serialized = serializer.serialize(
-        this.bom, {
-          sortLists: true,
-          space: 4
-        })
+      let serialized
+      try {
+        serialized = serializer.serialize(
+          this.bom, {
+            sortLists: true,
+            space: 4
+          })
+      } catch (err) {
+        assert.ok(err instanceof Error)
+        assert.match(err.message, /no stringifier available./i)
+        return
+      }
 
       if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
         writeSerializeResult(serialized, 'xml_complex', spec.version, 'xml')
@@ -114,7 +121,12 @@ describe('Serialize.XmlSerialize', function () {
       const normalizerFactory = { makeForBom: () => bomNormalizer, spec: Spec1dot4 }
       const serializer = new XmlSerializer(normalizerFactory)
 
-      serializer.serialize(bom)
+      try {
+        serializer.serialize(bom)
+      } catch (err) {
+        assert.ok(err instanceof Error)
+        assert.match(err.message, /no stringifier available./i)
+      }
 
       assert.strictEqual(normalizedBomRefs.has('testing'), true)
       assert.strictEqual(normalizedBomRefs.size, 4, 'not every value was unique')

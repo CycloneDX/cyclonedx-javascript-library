@@ -151,9 +151,9 @@ jobs:
     # test-web:
     # TODO via https://github.com/CycloneDX/cyclonedx-javascript-library/issues/51
 
-  no-optional-deps_universal-node-xml:
+  test-omit-optional-deps:
     needs: [ 'build' ]
-    name: test universal-node-xml w/o optional dependencies
+    name: test w/o optional dependencies
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -173,13 +173,13 @@ jobs:
           name: dist.node
           path: dist.node
       - name: test
-        run: npm run test:node -- -f universal-node-xml
+        run: npm run test:node
       - name: collect coverage
         if: ${{ failure() || success() }}
         run: >
           npx c8 report
           --reporter clover
-          --reports-dir '${{ env.REPORTS_DIR }}/coverage/no-optional-deps_universal-node-xml'
+          --reports-dir '${{ env.REPORTS_DIR }}/coverage/no-optional-deps'
       - name: artifact test reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
@@ -192,7 +192,7 @@ jobs:
     name: Publish test coverage
     needs:
       - test-node
-      - no-optional-deps_universal-node-xml
+      - test-omit-optional-deps
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
