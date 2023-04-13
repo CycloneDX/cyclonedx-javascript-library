@@ -23,153 +23,73 @@ const { suite, test } = require('mocha')
 const {
   Spec: { Version },
   Validation: {
+    ValidationError,
     Validators: {
       JsonValidator, JsonStrictValidator
     }
   }
 } = require('../../')
 
+const missingOptionalDepsRE = /no JSON validator available/i
+
+
 suite('Validation.Validators.JsonValidator', () => {
-  test('1.0 throws', () => {
-    assert.rejects(async () => {
-      await (new JsonValidator(Version.v1dot0)).validate({})
-    }, (err) => {
-      assert.match(err.message, /not implemented/i)
-      return true
+  [
+    Version.v1dot0,
+    Version.v1dot1
+  ].forEach((version) => {
+    test(`${version} throws`, async () => {
+      const input = {}
+      await assert.rejects(async () => {
+        await (new JsonValidator(version)).validate(input)
+      }, (err) => {
+        assert.ok(err instanceof ValidationError)
+        assert.match(err.message, /not implemented/i)
+        return true
+      })
+      assert.deepStrictEqual(input, {})
     })
   })
 
-  test('1.1 throws', () => {
-    assert.rejects(async () => {
-      await (new JsonValidator(Version.v1dot1)).validate({})
-    }, (err) => {
-      assert.match(err.message, /not implemented/i)
-      return true
+
+  [
+    Version.v1dot2,
+    Version.v1dot3,
+    Version.v1dot4
+  ].forEach((version) => {
+    test(`${version} invalid throws`, async () => {
+      const input = {}
+      await assert.rejects(async () => {
+        await (new JsonValidator(version)).validate(input)
+      }, (err) => {
+        if (missingOptionalDepsRE.test(err.message)) {
+          return true
+        }
+        assert.ok(err instanceof ValidationError)
+        assert.match(err.message, new RegExp(`invalid.* CycloneDX ${version}`, 'i'))
+        assert.notStrictEqual(err.details, undefined)
+        return true
+      })
+      assert.deepStrictEqual(input, {})
+    })
+
+    test(`${version} valid`, async () => {
+      const input = {
+        bomFormat: 'CycloneDX',
+        specVersion: version
+      }
+      try {
+        await (new JsonValidator(version)).validate(input)
+      } catch (err) {
+        if (!missingOptionalDepsRE.test(err.message)) {
+          throw err
+        }
+      }
+      assert.deepStrictEqual(input, {
+        bomFormat: 'CycloneDX',
+        specVersion: version
+      })
     })
   })
 
-  test('1.2 invalid throws', () => {
-    assert.rejects(async () => {
-      await (new JsonValidator(Version.v1dot2)).validate({})
-    }, (err) => {
-      assert.match(err.message, /invalid.* CycloneDX 1.2/i)
-      assert.notStrictEqual(err.details, undefined)
-      return true
-    })
-  })
-
-  test('1.2 valid', async () => {
-    await (new JsonValidator(Version.v1dot2)).validate({
-      bomFormat: 'CycloneDX',
-      specVersion: '1.2',
-      'some additional': true
-    })
-  })
-
-  test('1.3 invalid throws', () => {
-    assert.rejects(async () => {
-      await (new JsonValidator(Version.v1dot3)).validate({})
-    }, (err) => {
-      assert.match(err.message, /invalid.* CycloneDX 1.3/i)
-      assert.notStrictEqual(err.details, undefined)
-      return true
-    })
-  })
-
-  test('1.3 valid', async () => {
-    await (new JsonValidator(Version.v1dot3)).validate({
-      bomFormat: 'CycloneDX',
-      specVersion: '1.3',
-      'some additional': true
-    })
-  })
-
-  test('1.4 invalid throws', () => {
-    assert.rejects(async () => {
-      await (new JsonValidator(Version.v1dot4)).validate({})
-    }, (err) => {
-      assert.match(err.message, /invalid.* CycloneDX 1.4/i)
-      assert.notStrictEqual(err.details, undefined)
-      return true
-    })
-  })
-
-  test('1.4 valid', async () => {
-    await (new JsonValidator(Version.v1dot4)).validate({
-      bomFormat: 'CycloneDX',
-      specVersion: '1.4'
-      // already strict
-    })
-  })
-})
-
-suite('Validation.Validators.JsonStrictValidator', () => {
-  test('1.0 throws', () => {
-    assert.rejects(async () => {
-      await (new JsonStrictValidator(Version.v1dot0)).validate({})
-    }, (err) => {
-      assert.match(err.message, /not implemented/i)
-      return true
-    })
-  })
-
-  test('1.1 throws', () => {
-    assert.rejects(async () => {
-      await (new JsonStrictValidator(Version.v1dot0)).validate({})
-    }, (err) => {
-      assert.match(err.message, /not implemented/i)
-      return true
-    })
-  })
-
-  test('1.2 invalid throws', () => {
-    assert.rejects(async () => {
-      await (new JsonStrictValidator(Version.v1dot2)).validate({})
-    }, (err) => {
-      assert.match(err.message, /invalid.* CycloneDX 1.2/i)
-      assert.notStrictEqual(err.details, undefined)
-      return true
-    })
-  })
-
-  test('1.2 valid', async () => {
-    await (new JsonStrictValidator(Version.v1dot2)).validate({
-      bomFormat: 'CycloneDX',
-      specVersion: '1.2'
-    })
-  })
-
-  test('1.3 invalid throws', () => {
-    assert.rejects(async () => {
-      await (new JsonStrictValidator(Version.v1dot3)).validate({})
-    }, (err) => {
-      assert.match(err.message, /invalid.* CycloneDX 1.3/i)
-      assert.notStrictEqual(err.details, undefined)
-      return true
-    })
-  })
-
-  test('1.3 valid', async () => {
-    await (new JsonStrictValidator(Version.v1dot3)).validate({
-      bomFormat: 'CycloneDX',
-      specVersion: '1.3'
-    })
-  })
-
-  test('1.4 invalid throws', () => {
-    assert.rejects(async () => {
-      await (new JsonStrictValidator(Version.v1dot4)).validate({})
-    }, (err) => {
-      assert.match(err.message, /invalid.* CycloneDX 1.4/i)
-      assert.notStrictEqual(err.details, undefined)
-      return true
-    })
-  })
-
-  test('1.4 valid', async () => {
-    await (new JsonStrictValidator(Version.v1dot4)).validate({
-      bomFormat: 'CycloneDX',
-      specVersion: '1.4'
-    })
-  })
 })

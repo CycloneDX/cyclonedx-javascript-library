@@ -18,15 +18,15 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type Ajv from 'ajv'
-import { readFileSync } from 'fs'
+import {readFileSync} from 'fs'
 
-import { FILES } from '../../resources.node'
-import { ValidationError } from '../errors'
-import { BaseValidator } from './_helpers'
+import {FILES} from '../../resources.node'
+import {ValidationError} from '../errors'
+import {BaseValidator} from './_helpers'
 
 let _ajv: Ajv | undefined
 
-async function getAjv (): Promise<Ajv> {
+async function getAjv(): Promise<Ajv> {
   if (_ajv === undefined) {
     let Ajv, addFormats, addFormats2019
     try {
@@ -37,12 +37,16 @@ async function getAjv (): Promise<Ajv> {
         import('ajv-formats-draft2019')
       ])
     } catch {
-      throw new Error('No JSON validator available. Please install all of the optional libraries: ajv, ajv-formats, ajv-formats-draft2019')
+      throw new Error(
+        'No JSON validator available.'+
+        ' Please install all of the optional libraries:' +
+        ' ajv, ajv-formats, ajv-formats-draft2019'
+      )
     }
 
     const ajv = new Ajv({
       useDefaults: true,
-      formats: { string: true },
+      formats: {string: true},
       strict: false,
       strictSchema: false,
       addUsedSchema: false,
@@ -60,12 +64,12 @@ async function getAjv (): Promise<Ajv> {
 
 abstract class BaseJsonValidator extends BaseValidator {
   /** @internal */
-  protected abstract _getSchemaFiles (): string | undefined
+  protected abstract _getSchemaFiles(): string | undefined
 
   /**
    * Promise rejects with {@link Validation.ValidationError | ValidationError}
    */
-  async validate (data: any): Promise<void> {
+  async validate(data: any): Promise<void> {
     const file = this._getSchemaFiles()
     if (file === undefined) {
       throw new ValidationError(`not implemented for version: ${this.version}`)
@@ -78,13 +82,13 @@ abstract class BaseJsonValidator extends BaseValidator {
 }
 
 export class JsonValidator extends BaseJsonValidator {
-  protected override _getSchemaFiles (): string | undefined {
+  protected override _getSchemaFiles(): string | undefined {
     return FILES.CDX.JSON_SCHEMA[this.version]
   }
 }
 
 export class JsonStrictValidator extends BaseJsonValidator {
-  protected override _getSchemaFiles (): string | undefined {
+  protected override _getSchemaFiles(): string | undefined {
     return FILES.CDX.JSON_STRICT_SCHEMA[this.version]
   }
 }
