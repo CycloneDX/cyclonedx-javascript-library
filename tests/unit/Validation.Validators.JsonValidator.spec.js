@@ -32,14 +32,13 @@ const {
 
 const missingOptionalDepsRE = /no JSON validator available/i
 
-
 suite('Validation.Validators.JsonValidator', () => {
   [
     Version.v1dot0,
     Version.v1dot1
   ].forEach((version) => {
     test(`${version} throws`, async () => {
-      const input = {}
+      const input = { foo: 'bar' }
       await assert.rejects(async () => {
         await (new JsonValidator(version)).validate(input)
       }, (err) => {
@@ -47,10 +46,9 @@ suite('Validation.Validators.JsonValidator', () => {
         assert.match(err.message, /not implemented/i)
         return true
       })
-      assert.deepStrictEqual(input, {})
+      assert.deepStrictEqual(input, { foo: 'bar' })
     })
-  })
-
+  });
 
   [
     Version.v1dot2,
