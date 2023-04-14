@@ -17,20 +17,22 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index.common'
+import type { Version } from '../../spec'
+import type { Validator } from '../validator'
 
-// region node-specifics
+export abstract class BaseValidator implements Validator {
+  readonly #version: Version
 
-export * as Builders from './builders/index.node'
-export * as Factories from './factories/index.node'
-export * as Serialize from './serialize/index.node'
-export * as Validation from './validation/index.node'
+  constructor (version: Version) {
+    this.#version = version
+  }
 
-/**
- * Internal, until the resources-module was finalized and shows any value
- *
- * @internal
- */
-export * as _Resources from './resources.node'
+  get version (): Version {
+    return this.#version
+  }
 
-// endregion node-specifics
+  /**
+   * Promise rejects with {@link Validation.ValidationError | ValidationError}
+   */
+  abstract validate (data: any): Promise<void>
+}

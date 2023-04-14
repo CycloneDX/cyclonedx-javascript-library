@@ -62,8 +62,8 @@ describe('Serialize.XmlSerialize', function () {
           })
       } catch (err) {
         assert.ok(err instanceof Error)
-        assert.match(err.message, /no stringifier available./i)
-        return
+        assert.match(err.message, /no stringifier available\./i)
+        return // skipped
       }
 
       if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {

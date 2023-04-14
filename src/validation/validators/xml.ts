@@ -17,20 +17,15 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index.common'
+import { ValidationError } from '../errors'
+import { BaseValidator } from './_helpers'
 
-// region node-specifics
-
-export * as Builders from './builders/index.node'
-export * as Factories from './factories/index.node'
-export * as Serialize from './serialize/index.node'
-export * as Validation from './validation/index.node'
-
-/**
- * Internal, until the resources-module was finalized and shows any value
- *
- * @internal
- */
-export * as _Resources from './resources.node'
-
-// endregion node-specifics
+export class XmlValidator extends BaseValidator {
+  /**
+   * Promise rejects with {@link Validation.ValidationError | ValidationError}
+   */
+  async validate (data: any): Promise<void> {
+    // TODO
+    throw new ValidationError('not implemented')
+  }
+}
