@@ -17,20 +17,15 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index.common'
+export class ValidationError extends Error {
+  readonly details: any | undefined
 
-// region node-specifics
+  constructor (message?: string, details?: any) {
+    super(message)
+    this.details = details
+  }
+}
 
-export * as Builders from './builders/index.node'
-export * as Factories from './factories/index.node'
-export * as Serialize from './serialize/index.node'
-export * as Validation from './validation/index.node'
+export class NotImplementedError extends Error {}
 
-/**
- * Internal, until the resources-module was finalized and shows any value
- *
- * @internal
- */
-export * as _Resources from './resources.node'
-
-// endregion node-specifics
+export class MissingOptionalDependencyError extends Error {}
