@@ -83,7 +83,7 @@ suite('test helpers: stringFunctions', () => {
   })
 
   suite('escapeRegExp()', () => {
-    test('escapes all reserved', () => {
+    test('escapes only reserved', () => {
       assert.strictEqual(
         stringFunctions.escapeRegExp('^a([sd]*f? f+o{3}o.|ba\\r)$'),
         '\\^a\\(\\[sd\\]\\*f\\? f\\+o\\{3\\}o\\.\\|ba\\\\r\\)\\$'

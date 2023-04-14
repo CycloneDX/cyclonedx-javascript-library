@@ -21,11 +21,14 @@ import type Ajv from 'ajv'
 import { readFileSync } from 'fs'
 
 import { FILES } from '../../resources.node'
-import { ValidationError } from '../errors'
+import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from '../errors'
 import { BaseValidator } from './_helpers'
 
 let _ajv: Ajv | undefined
 
+/**
+ * @throws {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError}
+ */
 async function getAjv (): Promise<Ajv> {
   if (_ajv === undefined) {
     let Ajv, addFormats, addFormats2019
@@ -37,7 +40,7 @@ async function getAjv (): Promise<Ajv> {
         import('ajv-formats-draft2019')
       ])
     } catch {
-      throw new Error(
+      throw new MissingOptionalDependencyError(
         'No JSON validator available.' +
         ' Please install all of the optional libraries:' +
         ' ajv, ajv-formats, ajv-formats-draft2019'
@@ -68,12 +71,16 @@ abstract class BaseJsonValidator extends BaseValidator {
   protected abstract _getSchemaFiles (): string | undefined
 
   /**
-   * Promise rejects with {@link Validation.ValidationError | ValidationError}
+   *
+   * Promise rejects with one of the following
+   * - {@link Validation.NotImplementedError | NotImplementedError} when there is no validator available for `this.version`
+   * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
+   * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
    */
   async validate (data: any): Promise<void> {
     const file = this._getSchemaFiles()
     if (file === undefined) {
-      throw new ValidationError(`not implemented for version: ${this.version}`)
+      throw new NotImplementedError(`not implemented for version: ${this.version}`)
     }
     const validator = (await getAjv()).compile(JSON.parse(readFileSync(file, 'utf-8')))
     if (!validator(data)) {
@@ -83,13 +90,15 @@ abstract class BaseJsonValidator extends BaseValidator {
 }
 
 export class JsonValidator extends BaseJsonValidator {
-  protected override _getSchemaFiles (): string | undefined {
+  /** @internal */
+  protected _getSchemaFiles (): string | undefined {
     return FILES.CDX.JSON_SCHEMA[this.version]
   }
 }
 
 export class JsonStrictValidator extends BaseJsonValidator {
-  protected override _getSchemaFiles (): string | undefined {
+  /** @internal */
+  protected _getSchemaFiles (): string | undefined {
     return FILES.CDX.JSON_STRICT_SCHEMA[this.version]
   }
 }

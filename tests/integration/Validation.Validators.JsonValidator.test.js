@@ -25,12 +25,10 @@ const { escapeRegExp } = require('../_helpers/stringFunctions')
 const {
   Spec: { Version },
   Validation: {
-    ValidationError,
+    ValidationError, NotImplementedError, MissingOptionalDependencyError,
     Validators: { JsonValidator }
   }
 } = require('../../')
-
-const missingOptionalDepsRE = /no JSON validator available/i
 
 describe('Validation.Validators.JsonValidator', () => {
   [
@@ -46,11 +44,7 @@ describe('Validation.Validators.JsonValidator', () => {
         }
         return assert.rejects(
           () => validator.validate(input),
-          (err) => {
-            assert.ok(err instanceof ValidationError)
-            assert.match(err.message, /not implemented/i)
-            return true
-          }
+          (err) => err instanceof NotImplementedError
         ).finally(() => {
           assert.deepStrictEqual(input, {
             bomFormat: 'CycloneDX',
@@ -75,13 +69,13 @@ describe('Validation.Validators.JsonValidator', () => {
           components: [{
             type: 'library',
             name: 'bar',
-            version: 23.42 // << invalid type, float given, expected string
+            unknown: 'undefined' // << undefined/additional property
           }]
         }
         return assert.rejects(
           () => validator.validate(input),
           (err) => {
-            if (missingOptionalDepsRE.test(err.message)) {
+            if (err instanceof MissingOptionalDependencyError) {
               return true // skip
             }
             assert.ok(err instanceof ValidationError)
@@ -96,7 +90,7 @@ describe('Validation.Validators.JsonValidator', () => {
             components: [{
               type: 'library',
               name: 'bar',
-              version: 23.42
+              unknown: 'undefined'
             }]
           }, 'data was altered unexpectedly')
         })
@@ -116,7 +110,8 @@ describe('Validation.Validators.JsonValidator', () => {
         try {
           await validator.validate(input)
         } catch (err) {
-          if (!missingOptionalDepsRE.test(err.message)) {
+          if (!(err instanceof MissingOptionalDependencyError)) {
+            // forward unexpected
             throw err
           }
         } finally {

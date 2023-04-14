@@ -18,14 +18,14 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 export class ValidationError extends Error {
-  readonly #details: any | undefined
+  readonly details: any | undefined
 
   constructor (message?: string, details?: any) {
     super(message)
-    this.#details = details
-  }
-
-  get details (): any | undefined {
-    return this.#details
+    this.details = details
   }
 }
+
+export class NotImplementedError extends Error {}
+
+export class MissingOptionalDependencyError extends Error {}

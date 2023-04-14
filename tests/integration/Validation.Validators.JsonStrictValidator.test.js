@@ -25,12 +25,10 @@ const { escapeRegExp } = require('../_helpers/stringFunctions')
 const {
   Spec: { Version },
   Validation: {
-    ValidationError,
+    ValidationError, NotImplementedError, MissingOptionalDependencyError,
     Validators: { JsonStrictValidator }
   }
 } = require('../../')
-
-const missingOptionalDepsRE = /no JSON validator available/i
 
 describe('Validation.Validators.JsonStrictValidator', () => {
   [
@@ -46,11 +44,7 @@ describe('Validation.Validators.JsonStrictValidator', () => {
         }
         return assert.rejects(
           () => validator.validate(input),
-          (err) => {
-            assert.ok(err instanceof ValidationError)
-            assert.match(err.message, /not implemented/i)
-            return true
-          }
+          (err) => err instanceof NotImplementedError
         ).finally(() => {
           assert.deepStrictEqual(input, {
             bomFormat: 'CycloneDX',
@@ -81,7 +75,7 @@ describe('Validation.Validators.JsonStrictValidator', () => {
         return assert.rejects(
           () => validator.validate(input),
           (err) => {
-            if (missingOptionalDepsRE.test(err.message)) {
+            if (err instanceof MissingOptionalDependencyError) {
               return true // skip
             }
             assert.ok(err instanceof ValidationError)
@@ -116,7 +110,8 @@ describe('Validation.Validators.JsonStrictValidator', () => {
         try {
           await validator.validate(input)
         } catch (err) {
-          if (!missingOptionalDepsRE.test(err.message)) {
+          if (!(err instanceof MissingOptionalDependencyError)) {
+            // forward unexpected
             throw err
           }
         } finally {
