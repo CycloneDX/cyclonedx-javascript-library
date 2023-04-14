@@ -19,7 +19,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 export interface Validator {
   /**
-   * Promise rejects with {@link Validation.ValidationError | ValidationError}
+   * Promise rejects with one of the following
+   * - {@link Validation.NotImplementedError | NotImplementedError} when there is no validator available for `this.version`
+   * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
+   * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
    */
   validate: (data: any) => Promise<void>
 }

@@ -111,8 +111,7 @@ describe('Validation.Validators.JsonValidator', () => {
           await validator.validate(input)
         } catch (err) {
           if (!(err instanceof MissingOptionalDependencyError)) {
-            // forward unexpected
-            throw err
+            assert.fail(err)
           }
         } finally {
           assert.deepStrictEqual(input, {

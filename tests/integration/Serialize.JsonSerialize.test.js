@@ -65,14 +65,13 @@ describe('Serialize.JsonSerialize', function () {
 
       const validator = new JsonStrictValidator(spec.version)
       try {
-        await validator.validate(serialized)
+        await validator.validate(JSON.parse(serialized))
       } catch (err) {
         if (err instanceof ValidationError) {
-          assert.fail(`ValidationError: ${err.message}\n` + JSON.stringify(err.details))
+          assert.fail(`unexpected ValidationError: ${err.message}\n` + JSON.stringify(err.details))
         }
         if (!(err instanceof MissingOptionalDependencyError)) {
-          // forward unexpected
-          throw err
+          assert.fail(err)
         }
       }
 

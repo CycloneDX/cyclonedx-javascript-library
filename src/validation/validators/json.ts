@@ -71,7 +71,6 @@ abstract class BaseJsonValidator extends BaseValidator {
   protected abstract _getSchemaFiles (): string | undefined
 
   /**
-   *
    * Promise rejects with one of the following
    * - {@link Validation.NotImplementedError | NotImplementedError} when there is no validator available for `this.version`
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
@@ -88,7 +87,6 @@ abstract class BaseJsonValidator extends BaseValidator {
     }
   }
 }
-
 export class JsonValidator extends BaseJsonValidator {
   /** @internal */
   protected _getSchemaFiles (): string | undefined {
