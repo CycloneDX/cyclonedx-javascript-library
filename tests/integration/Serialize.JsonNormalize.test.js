@@ -54,16 +54,14 @@ describe('Serialize.JsonNormalize', function () {
       // do its just fair enough it did not crash
     })
 
-    it('can normalize with sorted lists', function () {
+    it('can normalize with sorted lists', async function () {
       const normalized = normalizerFactory.makeForBom()
         .normalize(this.bom, { sortLists: true })
 
       const json = JSON.stringify(normalized, null, 2)
-
       if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
         writeNormalizeResult(json, 'json_sortedLists', spec.version, 'json')
       }
-
       assert.deepStrictEqual(
         JSON.parse(json),
         JSON.parse(loadNormalizeResult('json_sortedLists', spec.version, 'json'))
