@@ -36,13 +36,26 @@ const BomXsd = Object.freeze({
   })
 })
 
+const bomRequired = `
+  "required": [
+    "bomFormat",
+    "specVersion",
+    "version"
+  ],`
+const bomRequiredReplace = `
+  "required": [
+    "bomFormat",
+    "specVersion"
+  ],`
+
 const BomJsonLax = Object.freeze({
   versions: ['1.2', '1.3', '1.4'],
   sourcePattern: `${SOURCE_ROOT}bom-%s.schema.json`,
   targetPattern: join(TARGET_ROOT, 'bom-%s.SNAPSHOT.schema.json'),
   replace: Object.freeze({
     'spdx.schema.json': 'spdx.SNAPSHOT.schema.json',
-    'jsf-0.82.schema.json': 'jsf-0.82.SNAPSHOT.schema.json'
+    'jsf-0.82.schema.json': 'jsf-0.82.SNAPSHOT.schema.json',
+    [bomRequired]: bomRequiredReplace
   })
 })
 
