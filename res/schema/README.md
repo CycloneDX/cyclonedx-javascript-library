@@ -1,6 +1,6 @@
 # Resources: Schema files
 
-some schema for offline use as download via [script](../../tools/schema-downloader/download.cjs).  
+some schema for offline use as download via [script](../../tools/schema-downloader/download.cjs). 
 original sources: <https://github.com/CycloneDX/specification/tree/master/schema>
 
 Currently using version
@@ -8,16 +8,23 @@ Currently using version
 
 | file | note |
 |------|------|
-| [`bom-1.0.SNAPSHOT.xsd`](bom-1.0.SNAPSHOT.xsd) | `http://cyclonedx.org/schema/spdx` was replaced with `spdx.SNAPSHOT.xsd` |
-| [`bom-1.1.SNAPSHOT.xsd`](bom-1.1.SNAPSHOT.xsd) | `http://cyclonedx.org/schema/spdx` was replaced with `spdx.SNAPSHOT.xsd` |
-| [`bom-1.2.SNAPSHOT.xsd`](bom-1.2.SNAPSHOT.xsd) | `http://cyclonedx.org/schema/spdx` was replaced with `spdx.SNAPSHOT.xsd` |
-| [`bom-1.3.SNAPSHOT.xsd`](bom-1.3.SNAPSHOT.xsd) | `http://cyclonedx.org/schema/spdx` was replaced with `spdx.SNAPSHOT.xsd` |
-| [`bom-1.4.SNAPSHOT.xsd`](bom-1.4.SNAPSHOT.xsd) | `http://cyclonedx.org/schema/spdx` was replaced with `spdx.SNAPSHOT.xsd` |
-| [`bom-1.2.SNAPSHOT.schema.json`](bom-1.2.SNAPSHOT.schema.json) | `spdx.schema.json` was replaced with `spdx.SNAPSHOT.schema.json` |
-| [`bom-1.3.SNAPSHOT.schema.json`](bom-1.3.SNAPSHOT.schema.json) | `spdx.schema.json` was replaced with `spdx.SNAPSHOT.schema.json` |
-| [`bom-1.4.SNAPSHOT.schema.json`](bom-1.4.SNAPSHOT.schema.json) | `spdx.schema.json` was replaced with `spdx.SNAPSHOT.schema.json` |
-| [`bom-1.2-strict.SNAPSHOT.schema.json`](bom-1.2-strict.SNAPSHOT.schema.json) | `spdx.schema.json` was replaced with `spdx.SNAPSHOT.schema.json` |
-| [`bom-1.3-strict.SNAPSHOT.schema.json`](bom-1.3-strict.SNAPSHOT.schema.json) | `spdx.schema.json` was replaced with `spdx.SNAPSHOT.schema.json` |
+| [`bom-1.0.SNAPSHOT.xsd`](bom-1.0.SNAPSHOT.xsd) | applied changes: 1 |
+| [`bom-1.1.SNAPSHOT.xsd`](bom-1.1.SNAPSHOT.xsd) | applied changes: 1 |
+| [`bom-1.2.SNAPSHOT.xsd`](bom-1.2.SNAPSHOT.xsd) | applied changes: 1 |
+| [`bom-1.3.SNAPSHOT.xsd`](bom-1.3.SNAPSHOT.xsd) | applied changes: 1 |
+| [`bom-1.4.SNAPSHOT.xsd`](bom-1.4.SNAPSHOT.xsd) | applied changes: 1 |
+| [`bom-1.2.SNAPSHOT.schema.json`](bom-1.2.SNAPSHOT.schema.json) | applied changes: 2,3,4,5 |
+| [`bom-1.3.SNAPSHOT.schema.json`](bom-1.3.SNAPSHOT.schema.json) | applied changes: 2,3,4,5 |
+| [`bom-1.4.SNAPSHOT.schema.json`](bom-1.4.SNAPSHOT.schema.json) | applied changes: 2,3,4,5 |
+| [`bom-1.2-strict.SNAPSHOT.schema.json`](bom-1.2-strict.SNAPSHOT.schema.json) | applied changes: 2,3,4,5 |
+| [`bom-1.3-strict.SNAPSHOT.schema.json`](bom-1.3-strict.SNAPSHOT.schema.json) | applied changes: 2,3,4,5 |
 | [`spdx.SNAPSHOT.xsd`](spdx.SNAPSHOT.xsd) | |
 | [`spdx.SNAPSHOT.schema.json`](spdx.SNAPSHOT.schema.json) | |
 | [`jsf-0.82.SNAPSHOT.schema.json`](jsf-0.82.SNAPSHOT.schema.json) | |
+
+changes: 
+1. `http://cyclonedx.org/schema/spdx` was replaced with `spdx.SNAPSHOT.xsd`
+2. `spdx.schema.json` was replaced with `spdx.SNAPSHOT.schema.json`
+3. `properties.$schema.enum` was fixed to match `$id`
+4. `required.version` removed, as it is actually optional with default value
+5. removed empty defaults that had a non-empty pattern matcher
