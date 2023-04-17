@@ -54,7 +54,7 @@ describe('Serialize.JsonNormalize', function () {
       // do its just fair enough it did not crash
     })
 
-    it('can normalize with sorted lists', async function () {
+    it('can normalize with sorted lists', function () {
       const normalized = normalizerFactory.makeForBom()
         .normalize(this.bom, { sortLists: true })
 
