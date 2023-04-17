@@ -23,6 +23,8 @@ import { writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+/* eslint-disable no-unused-vars */
+
 const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/master/schema/'
 const TARGET_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'res', 'schema')
 
@@ -31,7 +33,7 @@ const BomXsd = Object.freeze({
   sourcePattern: `${SOURCE_ROOT}bom-%s.xsd`,
   targetPattern: join(TARGET_ROOT, 'bom-%s.SNAPSHOT.xsd'),
   replace: Object.freeze([
-    [/schemaLocation="https?:\/\/cyclonedx.org\/schema\/spdx"/g, 'schemaLocation="spdx.SNAPSHOT.xsd"'],
+    [/schemaLocation="https?:\/\/cyclonedx.org\/schema\/spdx"/g, 'schemaLocation="spdx.SNAPSHOT.xsd"']
   ])
 })
 
@@ -61,8 +63,9 @@ const BomJsonLax = Object.freeze({
     Object.freeze(['spdx.schema.json', 'spdx.SNAPSHOT.schema.json']),
     Object.freeze(['jsf-0.82.schema.json', 'jsf-0.82.SNAPSHOT.schema.json']),
     Object.freeze([bomSchemaEnumMatch, bomSchemaEnumReplace]),
-    Object.freeze([bomRequired, bomRequiredReplace]),
-    Object.freeze([defaultWithPatternMatch, defaultWithPatternReplace])
+    Object.freeze([bomRequired, bomRequiredReplace])
+    // with current SchemaValidator this is no longer required: defaultWithPatternMatch -> defaultWithPatternReplace
+    // Object.freeze([defaultWithPatternMatch, defaultWithPatternReplace])
   ])
 })
 
