@@ -24,7 +24,7 @@ const { escapeRegExp } = require('../_helpers/stringFunctions')
 
 let hasLibXml = true
 try {
-  require('libxmljs')
+  require('libxmljs2')
 } catch {
   hasLibXml = false
 }
