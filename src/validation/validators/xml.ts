@@ -17,19 +17,21 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import {MissingOptionalDependencyError, NotImplementedError, ValidationError} from '../errors'
-import {BaseValidator} from './_helpers'
-import {parseXmlAsync, XMLDocument, XMLParseFlags, XMLParseOptions} from "libxmljs"
-import {FILES} from "../../resources.node";
-import {readFile} from "fs/promises";
+import { readFile } from 'fs/promises'
+import type { parseXmlAsync, XMLDocument, XMLParseOptions } from 'libxmljs'
+import { XMLParseFlags } from 'libxmljs'
 
+import { FILES } from '../../resources.node'
+import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from '../errors'
+import { BaseValidator } from './_helpers'
 
 let _parser: typeof parseXmlAsync | undefined
 
-async function getParser(): Promise<typeof parseXmlAsync> {
+async function getParser (): Promise<typeof parseXmlAsync> {
   if (_parser === undefined) {
+    let parser
     try {
-      _parser = await import('libxmljs').then(({parseXmlAsync}) => parseXmlAsync)
+      parser = await import('libxmljs').then(({ parseXmlAsync }) => parseXmlAsync)
     } catch {
       throw new MissingOptionalDependencyError(
         'No XML validator available.' +
@@ -37,8 +39,9 @@ async function getParser(): Promise<typeof parseXmlAsync> {
         ' libxmljs'
       )
     }
+    _parser = parser
   }
-  return _parser!
+  return _parser
 }
 
 const xmlParseOptions: XMLParseOptions = {
@@ -49,24 +52,23 @@ const xmlParseOptions: XMLParseOptions = {
 }
 
 export class XmlValidator extends BaseValidator {
-
   #schema: XMLDocument | undefined
 
-  #getSchemaFile(): string | undefined {
+  #getSchemaFile (): string | undefined {
     return FILES.CDX.XML_SCHEMA[this.version]
   }
 
-  async #getSchema(): Promise<XMLDocument> {
+  async #getSchema (): Promise<XMLDocument> {
     if (undefined === this.#schema) {
       const file = this.#getSchemaFile()
       if (file === undefined) {
         throw new NotImplementedError(`not implemented for version: ${this.version}`)
       }
-      const [parse, schema]  = await Promise.all([
+      const [parse, schema] = await Promise.all([
         getParser(),
         readFile(file)
       ])
-      this.#schema = await parse(schema, {...xmlParseOptions, url: `file://${file}`})
+      this.#schema = await parse(schema, { ...xmlParseOptions, url: `file://${file}` })
     }
     return this.#schema
   }
@@ -77,12 +79,12 @@ export class XmlValidator extends BaseValidator {
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
    * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
    */
-  async validate(data: string): Promise<void> {
+  async validate (data: string): Promise<void> {
     const [doc, schema] = await Promise.all([
-      getParser().then(parse => parse(data, xmlParseOptions)),
+      getParser().then(async parse => await parse(data, xmlParseOptions)),
       this.#getSchema()
     ])
-    if (!doc.validate(schema)) {
+    if (doc.validate(schema) !== true) {
       throw new ValidationError(`invalid to CycloneDX ${this.version}`, doc.validationErrors)
     }
   }

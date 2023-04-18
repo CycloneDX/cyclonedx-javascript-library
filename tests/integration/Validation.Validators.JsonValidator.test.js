@@ -58,7 +58,7 @@ describe('Validation.Validators.JsonValidator', () => {
     describe(version, () => {
       it('invalid throws', async () => {
         const validator = new JsonValidator(version)
-        const input = JOSN.stringify({
+        const input = JSON.stringify({
           bomFormat: 'CycloneDX',
           specVersion: version,
           components: [{
