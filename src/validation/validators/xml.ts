@@ -18,70 +18,55 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { readFile } from 'fs/promises'
-import type LibXml from 'libxmljs'
-import type { parseXmlAsync, XMLDocument, XMLParseOptions } from 'libxmljs'
+import type { Document, ParserOptions, parseXml } from 'libxmljs2'
 import { pathToFileURL } from 'url'
 
 import { FILES } from '../../resources.node'
 import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from '../errors'
 import { BaseValidator } from './_helpers'
 
-let _parser: typeof parseXmlAsync | undefined
+let _parser: typeof parseXml | undefined
 
-async function importLibXml (): Promise<typeof LibXml> {
-  try {
-    return await import('libxmljs')
-  } catch {
-    throw new MissingOptionalDependencyError(
-      'No XML validator available.' +
+async function getParser (): Promise<typeof parseXml> {
+  if (_parser === undefined) {
+    let libxml
+    try {
+      libxml = await import('libxmljs2')
+    } catch {
+      throw new MissingOptionalDependencyError(
+        'No XML validator available.' +
         ' Please install the optional libraries "libxmljs".' +
         ' Please make sure you have met the requirements for node-gyp. https://github.com/TooTallNate/node-gyp#installation'
-    )
-  }
-}
-
-async function getParser (): Promise<typeof parseXmlAsync> {
-  if (_parser === undefined) {
-    const parser = await importLibXml().then(({ parseXmlAsync }) => parseXmlAsync)
-    _parser = parser
+      )
+    }
+    _parser = libxml.parseXml
   }
   return _parser
 }
 
-let _xmlParseOptions: XMLParseOptions | undefined
-
-async function getXmlParseOptions (): Promise<XMLParseOptions> {
-  if (_xmlParseOptions === undefined) {
-    const XMLParseFlags = await importLibXml().then(({ XMLParseFlags }) => XMLParseFlags)
-    _xmlParseOptions = {
-      flags: [
-        XMLParseFlags.XML_PARSE_NONET,
-        XMLParseFlags.XML_PARSE_COMPACT
-      ]
-    }
-  }
-  return _xmlParseOptions
-}
+const xmlParseOptions: Readonly<ParserOptions> = Object.freeze({
+  nonet: true,
+  compact: true
+})
 
 export class XmlValidator extends BaseValidator {
-  #schema: XMLDocument | undefined
+  #schema: Document | undefined
 
   #getSchemaFile (): string | undefined {
     return FILES.CDX.XML_SCHEMA[this.version]
   }
 
-  async #getSchema (): Promise<XMLDocument> {
+  async #getSchema (): Promise<Document> {
     if (undefined === this.#schema) {
       const file = this.#getSchemaFile()
       if (file === undefined) {
         throw new NotImplementedError(`not implemented for version: ${this.version}`)
       }
-      const [parse, schema, xmlParseOptions] = await Promise.all([
+      const [parse, schema] = await Promise.all([
         getParser(),
-        readFile(file),
-        getXmlParseOptions()
+        readFile(file, 'utf-8')
       ])
-      this.#schema = await parse(schema, { ...xmlParseOptions, url: pathToFileURL(file).toString() })
+      this.#schema = parse(schema, { ...xmlParseOptions, baseUrl: pathToFileURL(file).toString() })
     }
     return this.#schema
   }
@@ -93,13 +78,12 @@ export class XmlValidator extends BaseValidator {
    * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
    */
   async validate (data: string): Promise<void> {
-    const [parse, xmlParseOptions, schema] = await Promise.all([
+    const [parse, schema] = await Promise.all([
       getParser(),
-      getXmlParseOptions(),
       this.#getSchema()
     ])
-    const doc = await parse(data, xmlParseOptions)
-    if (doc.validate(schema) !== true) {
+    const doc = parse(data, xmlParseOptions)
+    if (!doc.validate(schema)) {
       throw new ValidationError(`invalid to CycloneDX ${this.version}`, doc.validationErrors)
     }
   }
