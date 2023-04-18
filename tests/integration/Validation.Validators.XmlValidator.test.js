@@ -37,12 +37,8 @@ describe('Validation.Validators.XmlValidator', () => {
     describe(version, () => {
       it('throws not implemented', async () => {
         const validator = new XmlValidator(version)
-        const input = `<?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/${version}">
-  <components />
-</bom>`
         return assert.rejects(
-          () => validator.validate(input),
+          () => validator.validate('<bom/>'),
           (err) => err instanceof NotImplementedError
         )
       })
@@ -56,7 +52,20 @@ describe('Validation.Validators.XmlValidator', () => {
     Version.v1dot3,
     Version.v1dot4
   ].forEach((version) => {
-    describe(version, () => {
+    describe(version, async () => {
+      try {
+        await import('libxmljs')
+      } catch {
+        it('throws MissingOptionalDependencyError', async () => {
+          const validator = new XmlValidator(version)
+          await assert.rejects(
+            () => validator.validate('<bom/>'),
+            (err) => err instanceof MissingOptionalDependencyError
+          )
+        })
+        return
+      }
+
       it('invalid throws', async () => {
         const validator = new XmlValidator(version)
         const input = `<?xml version="1.0" encoding="UTF-8"?>
@@ -72,9 +81,6 @@ describe('Validation.Validators.XmlValidator', () => {
         return assert.rejects(
           () => validator.validate(input),
           (err) => {
-            if (err instanceof MissingOptionalDependencyError) {
-              return true // skip
-            }
             assert.ok(err instanceof ValidationError)
             assert.match(err.message, new RegExp(`invalid.* CycloneDX ${escapeRegExp(version)}`, 'i'))
             assert.notStrictEqual(err.details, undefined)
@@ -95,13 +101,7 @@ describe('Validation.Validators.XmlValidator', () => {
     </component>
   </components>
 </bom>`
-        try {
-          await validator.validate(input)
-        } catch (err) {
-          if (!(err instanceof MissingOptionalDependencyError)) {
-            assert.fail(err)
-          }
-        }
+        await validator.validate(input)
       })
     })
   })
