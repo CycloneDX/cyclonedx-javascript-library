@@ -22,6 +22,13 @@ const { describe, it } = require('mocha')
 
 const { escapeRegExp } = require('../_helpers/stringFunctions')
 
+let hasLibXml = true
+try {
+  require('libxmljs')
+} catch {
+  hasLibXml = false
+}
+
 const {
   Spec: { Version },
   Validation: {
@@ -33,17 +40,15 @@ const {
 describe('Validation.Validators.XmlValidator', () => {
   [
     // none so far
-  ].forEach((version) => {
-    describe(version, () => {
-      it('throws not implemented', async () => {
-        const validator = new XmlValidator(version)
-        return assert.rejects(
-          () => validator.validate('<bom/>'),
-          (err) => err instanceof NotImplementedError
-        )
-      })
+  ].forEach((version) => describe(version, () => {
+    it('throws not implemented', async () => {
+      const validator = new XmlValidator(version)
+      return assert.rejects(
+        () => validator.validate('<bom/>'),
+        (err) => err instanceof NotImplementedError
+      )
     })
-  });
+  }));
 
   [
     Version.v1dot0,
@@ -51,58 +56,54 @@ describe('Validation.Validators.XmlValidator', () => {
     Version.v1dot2,
     Version.v1dot3,
     Version.v1dot4
-  ].forEach((version) => {
-    describe(version, async () => {
-      try {
-        await import('libxmljs')
-      } catch {
-        it('throws MissingOptionalDependencyError', async () => {
-          const validator = new XmlValidator(version)
-          await assert.rejects(
-            () => validator.validate('<bom/>'),
-            (err) => err instanceof MissingOptionalDependencyError
-          )
-        })
-        return
-      }
-
-      it('invalid throws', async () => {
+  ].forEach((version) => describe(version, () => {
+    if (!hasLibXml) {
+      it('throws MissingOptionalDependencyError', async () => {
         const validator = new XmlValidator(version)
-        const input = `<?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/${version}">
-  <components>
-    <component type="library">
-      <name>bar</name>
-      <version>1.337</version>
-      <unknown>undefined</unknown><!-- << undefined/additional property -->
-    </component>
-  </components>
-</bom>`
-        return assert.rejects(
-          () => validator.validate(input),
-          (err) => {
-            assert.ok(err instanceof ValidationError)
-            assert.match(err.message, new RegExp(`invalid.* CycloneDX ${escapeRegExp(version)}`, 'i'))
-            assert.notStrictEqual(err.details, undefined)
-            return true
-          }
+        await assert.rejects(
+          () => validator.validate('<bom/>'),
+          (err) => err instanceof MissingOptionalDependencyError
         )
       })
+      return // skip other tests
+    }
 
-      it('valid passes', async () => {
-        const validator = new XmlValidator(version)
-        const input = `<?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/${version}">
-  <components>
-    <component type="library">
-      <name>bar</name>
-      <version>1.337</version>
-      ${version === '1.0' ? '<modified>false</modified>' : ''}
-    </component>
-  </components>
-</bom>`
-        await validator.validate(input)
-      })
+    it('invalid throws', async () => {
+      const validator = new XmlValidator(version)
+      const input = `<?xml version="1.0" encoding="UTF-8"?>
+        <bom xmlns="http://cyclonedx.org/schema/bom/${version}">
+          <components>
+            <component type="library">
+              <name>bar</name>
+              <version>1.337</version>
+              <unknown>undefined</unknown><!-- << undefined/additional property -->
+            </component>
+          </components>
+        </bom>`
+      return assert.rejects(
+        () => validator.validate(input),
+        (err) => {
+          assert.ok(err instanceof ValidationError)
+          assert.match(err.message, new RegExp(`invalid.* CycloneDX ${escapeRegExp(version)}`, 'i'))
+          assert.notStrictEqual(err.details, undefined)
+          return true
+        }
+      )
     })
-  })
+
+    it('valid passes', async () => {
+      const validator = new XmlValidator(version)
+      const input = `<?xml version="1.0" encoding="UTF-8"?>
+        <bom xmlns="http://cyclonedx.org/schema/bom/${version}">
+          <components>
+            <component type="library">
+              <name>bar</name>
+              <version>1.337</version>
+              ${version === '1.0' ? '<modified>false</modified>' : ''}
+            </component>
+          </components>
+        </bom>`
+      await validator.validate(input)
+    })
+  }))
 })

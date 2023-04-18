@@ -22,6 +22,13 @@ const { describe, it } = require('mocha')
 
 const { escapeRegExp } = require('../_helpers/stringFunctions')
 
+let hasAjv = true
+try {
+  require('ajv')
+} catch {
+  hasAjv = false
+}
+
 const {
   Spec: { Version },
   Validation: {
@@ -34,72 +41,66 @@ describe('Validation.Validators.JsonStrictValidator', () => {
   [
     Version.v1dot0,
     Version.v1dot1
-  ].forEach((version) => {
-    describe(version, () => {
-      it('throws not implemented', async () => {
-        const validator = new JsonStrictValidator(version)
-        return assert.rejects(
-          () => validator.validate('{}'),
-          (err) => err instanceof NotImplementedError
-        )
-      })
+  ].forEach((version) => describe(version, () => {
+    it('throws not implemented', async () => {
+      const validator = new JsonStrictValidator(version)
+      return assert.rejects(
+        () => validator.validate('{}'),
+        (err) => err instanceof NotImplementedError
+      )
     })
-  });
+  }));
 
   [
     Version.v1dot2,
     Version.v1dot3,
     Version.v1dot4
-  ].forEach((version) => {
-    describe(version, async () => {
-      try {
-        await import('ajv')
-      } catch {
-        it('throws MissingOptionalDependencyError', async () => {
-          const validator = new JsonStrictValidator(version)
-          await assert.rejects(
-            () => validator.validate('{}'),
-            (err) => err instanceof MissingOptionalDependencyError
-          )
-        })
-        return
-      }
-
-      it('invalid throws', async () => {
+  ].forEach((version) => describe(version, () => {
+    if (!hasAjv) {
+      it('throws MissingOptionalDependencyError', async () => {
         const validator = new JsonStrictValidator(version)
-        const input = JSON.stringify({
-          bomFormat: 'CycloneDX',
-          specVersion: version,
-          components: [{
-            type: 'library',
-            name: 'bar',
-            unknown: 'undefined' // << undefined/additional property
-          }]
-        })
-        return assert.rejects(
-          () => validator.validate(input),
-          (err) => {
-            assert.ok(err instanceof ValidationError)
-            assert.match(err.message, new RegExp(`invalid.* CycloneDX ${escapeRegExp(version)}`, 'i'))
-            assert.notStrictEqual(err.details, undefined)
-            return true
-          }
+        await assert.rejects(
+          () => validator.validate('{}'),
+          (err) => err instanceof MissingOptionalDependencyError
         )
       })
+      return // skip other tests
+    }
 
-      it('valid passes', async () => {
-        const validator = new JsonStrictValidator(version)
-        const input = JSON.stringify({
-          bomFormat: 'CycloneDX',
-          specVersion: version,
-          components: [{
-            type: 'library',
-            name: 'foo',
-            version: '1.337'
-          }]
-        })
-        await validator.validate(input)
+    it('invalid throws', async () => {
+      const validator = new JsonStrictValidator(version)
+      const input = JSON.stringify({
+        bomFormat: 'CycloneDX',
+        specVersion: version,
+        components: [{
+          type: 'library',
+          name: 'bar',
+          unknown: 'undefined' // << undefined/additional property
+        }]
       })
+      return assert.rejects(
+        () => validator.validate(input),
+        (err) => {
+          assert.ok(err instanceof ValidationError)
+          assert.match(err.message, new RegExp(`invalid.* CycloneDX ${escapeRegExp(version)}`, 'i'))
+          assert.notStrictEqual(err.details, undefined)
+          return true
+        }
+      )
     })
-  })
+
+    it('valid passes', async () => {
+      const validator = new JsonStrictValidator(version)
+      const input = JSON.stringify({
+        bomFormat: 'CycloneDX',
+        specVersion: version,
+        components: [{
+          type: 'library',
+          name: 'foo',
+          version: '1.337'
+        }]
+      })
+      await validator.validate(input)
+    })
+  }))
 })
