@@ -18,6 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { readFile } from 'fs/promises'
+import type LibXml from 'libxmljs'
 import type { parseXmlAsync, XMLDocument, XMLParseOptions } from 'libxmljs'
 import { pathToFileURL } from 'url'
 
@@ -27,18 +28,21 @@ import { BaseValidator } from './_helpers'
 
 let _parser: typeof parseXmlAsync | undefined
 
+async function importLibXml (): Promise<typeof LibXml> {
+  try {
+    return await import('libxmljs')
+  } catch {
+    throw new MissingOptionalDependencyError(
+      'No XML validator available.' +
+        ' Please install the optional libraries "libxmljs".' +
+        ' Please make sure you have met the requirements for node-gyp. https://github.com/TooTallNate/node-gyp#installation'
+    )
+  }
+}
+
 async function getParser (): Promise<typeof parseXmlAsync> {
   if (_parser === undefined) {
-    let parser
-    try {
-      parser = await import('libxmljs').then(({ parseXmlAsync }) => parseXmlAsync)
-    } catch {
-      throw new MissingOptionalDependencyError(
-        'No XML validator available.' +
-        ' Please install all of the optional libraries:' +
-        ' libxmljs'
-      )
-    }
+    const parser = await importLibXml().then(({ parseXmlAsync }) => parseXmlAsync)
     _parser = parser
   }
   return _parser
@@ -48,16 +52,7 @@ let _xmlParseOptions: XMLParseOptions | undefined
 
 async function getXmlParseOptions (): Promise<XMLParseOptions> {
   if (_xmlParseOptions === undefined) {
-    let XMLParseFlags
-    try {
-      XMLParseFlags = await import('libxmljs').then(({ XMLParseFlags }) => XMLParseFlags)
-    } catch {
-      throw new MissingOptionalDependencyError(
-        'No XML validator available.' +
-        ' Please install all of the optional libraries:' +
-        ' libxmljs'
-      )
-    }
+    const XMLParseFlags = await importLibXml().then(({ XMLParseFlags }) => XMLParseFlags)
     _xmlParseOptions = {
       flags: [
         XMLParseFlags.XML_PARSE_NONET,
