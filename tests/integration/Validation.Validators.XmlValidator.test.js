@@ -91,7 +91,7 @@ describe('Validation.Validators.XmlValidator', () => {
     <component type="library">
       <name>bar</name>
       <version>1.337</version>
-      ${version=='1.0'?'<modified>false</modified>':''}
+      ${version === '1.0' ? '<modified>false</modified>' : ''}
     </component>
   </components>
 </bom>`
