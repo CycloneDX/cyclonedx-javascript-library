@@ -18,7 +18,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type Ajv from 'ajv'
-import { readFileSync } from 'fs'
+import { type ValidateFunction } from 'ajv'
+import { readFile } from 'fs/promises'
 
 import { FILES } from '../../resources.node'
 import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from '../errors'
@@ -47,6 +48,10 @@ async function getAjv (): Promise<Ajv> {
       )
     }
 
+    const [spdxSchema, jsfSchema] = await Promise.all([
+      readFile(FILES.SPDX.JSON_SCHEMA, 'utf-8').then(JSON.parse),
+      readFile(FILES.JSF.JSON_SCHEMA, 'utf-8').then(JSON.parse)
+    ])
     const ajv = new Ajv({
       // no defaults => no data alteration
       useDefaults: false,
@@ -55,8 +60,8 @@ async function getAjv (): Promise<Ajv> {
       strictSchema: false,
       addUsedSchema: false,
       schemas: {
-        'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': JSON.parse(readFileSync(FILES.SPDX.JSON_SCHEMA, 'utf-8')),
-        'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': JSON.parse(readFileSync(FILES.JSF.JSON_SCHEMA, 'utf-8'))
+        'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': spdxSchema,
+        'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': jsfSchema
       }
     })
     addFormats(ajv)
@@ -67,8 +72,25 @@ async function getAjv (): Promise<Ajv> {
 }
 
 abstract class BaseJsonValidator extends BaseValidator {
+  #validator: ValidateFunction | undefined
+
   /** @internal */
-  protected abstract _getSchemaFiles (): string | undefined
+  protected abstract _getSchemaFile (): string | undefined
+
+  async #getValidator (): Promise<ValidateFunction> {
+    if (this.#validator === undefined) {
+      const schemaFile = this._getSchemaFile()
+      if (schemaFile === undefined) {
+        throw new NotImplementedError(`not implemented for version: ${this.version}`)
+      }
+      const [ajv, schema] = await Promise.all([
+        getAjv(),
+        readFile(schemaFile, 'utf-8').then(JSON.parse)
+      ])
+      this.#validator = ajv.compile(schema)
+    }
+    return this.#validator
+  }
 
   /**
    * Promise rejects with one of the following
@@ -77,11 +99,7 @@ abstract class BaseJsonValidator extends BaseValidator {
    * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
    */
   async validate (data: any): Promise<void> {
-    const file = this._getSchemaFiles()
-    if (file === undefined) {
-      throw new NotImplementedError(`not implemented for version: ${this.version}`)
-    }
-    const validator = (await getAjv()).compile(JSON.parse(readFileSync(file, 'utf-8')))
+    const validator = await this.#getValidator()
     if (!validator(data)) {
       throw new ValidationError(`invalid to CycloneDX ${this.version}`, validator.errors)
     }
@@ -89,14 +107,14 @@ abstract class BaseJsonValidator extends BaseValidator {
 }
 export class JsonValidator extends BaseJsonValidator {
   /** @internal */
-  protected _getSchemaFiles (): string | undefined {
+  protected _getSchemaFile (): string | undefined {
     return FILES.CDX.JSON_SCHEMA[this.version]
   }
 }
 
 export class JsonStrictValidator extends BaseJsonValidator {
   /** @internal */
-  protected _getSchemaFiles (): string | undefined {
+  protected _getSchemaFile (): string | undefined {
     return FILES.CDX.JSON_STRICT_SCHEMA[this.version]
   }
 }
