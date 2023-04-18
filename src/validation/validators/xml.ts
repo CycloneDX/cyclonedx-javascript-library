@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import {MissingOptionalDependencyError, NotImplementedError, ValidationError} from '../errors'
 import {BaseValidator} from './_helpers'
-import {parseXmlAsync, XMLDocument} from "libxmljs"
+import {parseXmlAsync, XMLDocument, XMLParseFlags, XMLParseOptions} from "libxmljs"
 import {FILES} from "../../resources.node";
 import {readFile} from "fs/promises";
 
@@ -41,6 +41,12 @@ async function getParser(): Promise<typeof parseXmlAsync> {
   return _parser!
 }
 
+const xmlParseOptions: XMLParseOptions = {
+  flags: [
+    XMLParseFlags.XML_PARSE_NONET,
+    XMLParseFlags.XML_PARSE_COMPACT
+  ]
+}
 
 export class XmlValidator extends BaseValidator {
 
@@ -60,7 +66,7 @@ export class XmlValidator extends BaseValidator {
         getParser(),
         readFile(file)
       ])
-      this.#schema = await parse(schema)
+      this.#schema = await parse(schema, {...xmlParseOptions, url: `file://${file}`})
     }
     return this.#schema
   }
@@ -70,7 +76,7 @@ export class XmlValidator extends BaseValidator {
    */
   async validate(data: string): Promise<void> {
     const [doc, schema] = await Promise.all([
-      getParser().then(parse => parse(data)),
+      getParser().then(parse => parse(data, xmlParseOptions)),
       this.#getSchema()
     ])
     if (!doc.validate(schema)) {
