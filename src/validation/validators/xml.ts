@@ -20,6 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import { readFile } from 'fs/promises'
 import type { parseXmlAsync, XMLDocument, XMLParseOptions } from 'libxmljs'
 import { XMLParseFlags } from 'libxmljs'
+import { pathToFileURL } from 'url'
 
 import { FILES } from '../../resources.node'
 import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from '../errors'
@@ -68,7 +69,7 @@ export class XmlValidator extends BaseValidator {
         getParser(),
         readFile(file)
       ])
-      this.#schema = await parse(schema, { ...xmlParseOptions, url: `file://${file}` })
+      this.#schema = await parse(schema, { ...xmlParseOptions, url: pathToFileURL(file).toString() })
     }
     return this.#schema
   }
