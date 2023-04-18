@@ -38,19 +38,14 @@ describe('Validation.Validators.JsonValidator', () => {
     describe(version, () => {
       it('throws not implemented', async () => {
         const validator = new JsonValidator(version)
-        const input = {
+        const input = JSON.stringify({
           bomFormat: 'CycloneDX',
           specVersion: version
-        }
+        })
         return assert.rejects(
           () => validator.validate(input),
           (err) => err instanceof NotImplementedError
-        ).finally(() => {
-          assert.deepStrictEqual(input, {
-            bomFormat: 'CycloneDX',
-            specVersion: version
-          }, 'data was altered unexpectedly')
-        })
+        )
       })
     })
   });
@@ -63,7 +58,7 @@ describe('Validation.Validators.JsonValidator', () => {
     describe(version, () => {
       it('invalid throws', async () => {
         const validator = new JsonValidator(version)
-        const input = {
+        const input = JOSN.stringify({
           bomFormat: 'CycloneDX',
           specVersion: version,
           components: [{
@@ -71,7 +66,7 @@ describe('Validation.Validators.JsonValidator', () => {
             name: 'bar',
             unknown: 'undefined' // << undefined/additional property
           }]
-        }
+        })
         return assert.rejects(
           () => validator.validate(input),
           (err) => {
@@ -83,22 +78,12 @@ describe('Validation.Validators.JsonValidator', () => {
             assert.notStrictEqual(err.details, undefined)
             return true
           }
-        ).finally(() => {
-          assert.deepStrictEqual(input, {
-            bomFormat: 'CycloneDX',
-            specVersion: version,
-            components: [{
-              type: 'library',
-              name: 'bar',
-              unknown: 'undefined'
-            }]
-          }, 'data was altered unexpectedly')
-        })
+        )
       })
 
       it('valid passes', async () => {
         const validator = new JsonValidator(version)
-        const input = {
+        const input = JSON.stringify({
           bomFormat: 'CycloneDX',
           specVersion: version,
           components: [{
@@ -106,23 +91,13 @@ describe('Validation.Validators.JsonValidator', () => {
             name: 'foo',
             version: '1.337'
           }]
-        }
+        })
         try {
           await validator.validate(input)
         } catch (err) {
           if (!(err instanceof MissingOptionalDependencyError)) {
             assert.fail(err)
           }
-        } finally {
-          assert.deepStrictEqual(input, {
-            bomFormat: 'CycloneDX',
-            specVersion: version,
-            components: [{
-              type: 'library',
-              name: 'foo',
-              version: '1.337'
-            }]
-          }, 'data was altered unexpectedly')
         }
       })
     })
