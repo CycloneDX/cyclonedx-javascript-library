@@ -17,15 +17,64 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { ValidationError } from '../errors'
-import { BaseValidator } from './_helpers'
+import {MissingOptionalDependencyError, NotImplementedError, ValidationError} from '../errors'
+import {BaseValidator} from './_helpers'
+import {parseXmlAsync, XMLDocument} from "libxmljs"
+import {FILES} from "../../resources.node";
+import {readFile} from "fs/promises";
+
+
+let _parser: typeof parseXmlAsync | undefined
+
+async function getParser(): Promise<typeof parseXmlAsync> {
+  if (_parser === undefined) {
+    try {
+      _parser = await import('libxmljs').then(({parseXmlAsync}) => parseXmlAsync)
+    } catch {
+      throw new MissingOptionalDependencyError(
+        'No XML validator available.' +
+        ' Please install all of the optional libraries:' +
+        ' libxmljs'
+      )
+    }
+  }
+  return _parser!
+}
+
 
 export class XmlValidator extends BaseValidator {
+
+  #schema: XMLDocument | undefined
+
+  #getSchemaFile(): string | undefined {
+    return FILES.CDX.XML_SCHEMA[this.version]
+  }
+
+  async #getSchema(): Promise<XMLDocument> {
+    if (undefined === this.#schema) {
+      const file = this.#getSchemaFile()
+      if (file === undefined) {
+        throw new NotImplementedError(`not implemented for version: ${this.version}`)
+      }
+      const [parse, schema]  = await Promise.all([
+        getParser(),
+        readFile(file)
+      ])
+      this.#schema = await parse(schema)
+    }
+    return this.#schema
+  }
+
   /**
    * Promise rejects with {@link Validation.ValidationError | ValidationError}
    */
-  async validate (data: any): Promise<void> {
-    // TODO
-    throw new ValidationError('not implemented')
+  async validate(data: string): Promise<void> {
+    const [doc, schema] = await Promise.all([
+      getParser().then(parse => parse(data)),
+      this.#getSchema()
+    ])
+    if (!doc.validate(schema)) {
+      throw new ValidationError(`invalid to CycloneDX ${this.version}`, doc.validationErrors)
+    }
   }
 }
