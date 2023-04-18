@@ -26,22 +26,21 @@ const {
   Spec: { Version },
   Validation: {
     ValidationError, NotImplementedError, MissingOptionalDependencyError,
-    Validators: { JsonStrictValidator }
+    Validators: { XmlValidator }
   }
 } = require('../../')
 
-describe('Validation.Validators.JsonStrictValidator', () => {
+describe('Validation.Validators.XmlValidator', () => {
   [
-    Version.v1dot0,
-    Version.v1dot1
+    // none so far
   ].forEach((version) => {
     describe(version, () => {
       it('throws not implemented', async () => {
-        const validator = new JsonStrictValidator(version)
-        const input = JSON.stringify({
-          bomFormat: 'CycloneDX',
-          specVersion: version
-        })
+        const validator = new XmlValidator(version)
+        const input = `<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/${version}">
+  <components />
+</bom>`
         return assert.rejects(
           () => validator.validate(input),
           (err) => err instanceof NotImplementedError
@@ -51,22 +50,25 @@ describe('Validation.Validators.JsonStrictValidator', () => {
   });
 
   [
+    Version.v1dot0,
+    Version.v1dot1,
     Version.v1dot2,
     Version.v1dot3,
     Version.v1dot4
   ].forEach((version) => {
     describe(version, () => {
       it('invalid throws', async () => {
-        const validator = new JsonStrictValidator(version)
-        const input = JSON.stringify({
-          bomFormat: 'CycloneDX',
-          specVersion: version,
-          components: [{
-            type: 'library',
-            name: 'bar',
-            unknown: 'undefined' // << undefined/additional property
-          }]
-        })
+        const validator = new XmlValidator(version)
+        const input = `<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/${version}">
+  <components>
+    <component type="library">
+      <name>bar</name>
+      <version>1.337</version>
+      <unknown>undefined</unknown><!-- << undefined/additional property -->
+    </component>
+  </components>
+</bom>`
         return assert.rejects(
           () => validator.validate(input),
           (err) => {
@@ -82,16 +84,16 @@ describe('Validation.Validators.JsonStrictValidator', () => {
       })
 
       it('valid passes', async () => {
-        const validator = new JsonStrictValidator(version)
-        const input = JSON.stringify({
-          bomFormat: 'CycloneDX',
-          specVersion: version,
-          components: [{
-            type: 'library',
-            name: 'foo',
-            version: '1.337'
-          }]
-        })
+        const validator = new XmlValidator(version)
+        const input = `<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/${version}">
+  <components>
+    <component type="library">
+      <name>bar</name>
+      <version>1.337</version>
+    </component>
+  </components>
+</bom>`
         try {
           await validator.validate(input)
         } catch (err) {
