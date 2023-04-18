@@ -100,7 +100,7 @@ abstract class BaseJsonValidator extends BaseValidator {
    */
   async validate (data: string): Promise<void> {
     const [doc, validator] = await Promise.all([
-      () => JSON.parse(data),
+      (async () => JSON.parse(data))(),
       this.#getValidator()
     ])
     if (!validator(doc)) {
