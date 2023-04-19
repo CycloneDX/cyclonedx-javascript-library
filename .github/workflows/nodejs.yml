@@ -70,7 +70,7 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm ci --ignore-scripts --loglevel=silly
+        run: npm ci --ignore-scripts --include=optional  --loglevel=silly
       - name: make reports dir
         run: mkdir -p "$REPORTS_DIR"
       - name: test
@@ -126,7 +126,10 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm ci --ignore-scripts --loglevel=silly
+        run: |
+          npm ci --ignore-scripts --include=optional --loglevel=silly
+          ## rebuild deps for which scripts were ignored, but are critical
+          npm rebuild --loglevel=silly libxmljs2
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@v3
