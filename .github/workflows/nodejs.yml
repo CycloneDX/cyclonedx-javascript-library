@@ -247,7 +247,7 @@ jobs:
       - name: setup library
         run: npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
       - name: setup example project
-        run: npm i --no-save
+        run: npm i --no-save --loglevel=silly
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: run example
         run: node -- 'example.${{ matrix.js-type }}'
@@ -266,12 +266,10 @@ jobs:
           - '^3'      # latest 3.X
         js-type: [ 'cjs', 'mjs' ]
         include:
-          ## some @types/node versions were incompatible or caused issues
-          - typescript-version: '^3'
-            nodeTypes-version: '^16'
-          - typescript-version: '3.8.2' # lowest reasonable number that works
-            js-type: 'cjs'
+          - # lowest reasonable number that works
+            typescript-version: '3.8.2'
             nodeTypes-version: '^14'
+            js-type: 'cjs'
         exclude:
           - typescript-version: '^3'
             js-type: 'mjs'
@@ -302,10 +300,12 @@ jobs:
       - name: setup library
         run: npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
       - name: setup example project
-        run: >
-          npm i --no-save
-          'typescript@${{ matrix.typescript-version }}'
-          '@types/node@${{ matrix.nodeTypes-version || env.NODE_ACTIVE_LTS }}'
+        run: npm i --no-save --loglevel=silly 'typescript@${{ matrix.typescript-version }}'
+      - name: get TS-version
+        id: ts_version
+        run: node -p '`v=${require("typescript").version.split(".",2).join(".")}`' >> "$GITHUB_OUTPUT"
+      - name: adjust @types/node version
+        run: npm i --no-save --loglevel=silly '@types/node@ts${{ matrix.nodeTypes-version || steps.ts_version.outputs.v}}'
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: build example
         run: npm run build
