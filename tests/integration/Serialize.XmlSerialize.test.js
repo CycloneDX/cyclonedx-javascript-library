@@ -29,7 +29,11 @@ const {
     XML: { Normalize: { Factory: XmlNormalizeFactory } },
     XmlSerializer
   },
-  Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
+  Spec: { Spec1dot2, Spec1dot3, Spec1dot4 },
+  Validation: {
+    ValidationError, MissingOptionalDependencyError,
+    Validators: { XmlValidator }
+  }
 } = require('../../')
 
 describe('Serialize.XmlSerialize', function () {
@@ -50,7 +54,7 @@ describe('Serialize.XmlSerialize', function () {
       delete this.bom
     })
 
-    it('serialize', function () {
+    it('serialize', async function () {
       const serializer = new XmlSerializer(normalizerFactory)
 
       let serialized
@@ -66,10 +70,21 @@ describe('Serialize.XmlSerialize', function () {
         return // skipped
       }
 
+      const validator = new XmlValidator(spec.version)
+      try {
+        await validator.validate(serialized)
+      } catch (err) {
+        if (err instanceof ValidationError) {
+          assert.fail(`unexpected ValidationError: ${err.message}\n` + JSON.stringify(err.details))
+        }
+        if (!(err instanceof MissingOptionalDependencyError)) {
+          assert.fail(err)
+        }
+      }
+
       if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
         writeSerializeResult(serialized, 'xml_complex', spec.version, 'xml')
       }
-
       assert.strictEqual(
         serialized,
         loadSerializeResult('xml_complex', spec.version, 'xml'))

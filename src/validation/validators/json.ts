@@ -98,9 +98,12 @@ abstract class BaseJsonValidator extends BaseValidator {
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
    * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
    */
-  async validate (data: any): Promise<void> {
-    const validator = await this.#getValidator()
-    if (!validator(data)) {
+  async validate (data: string): Promise<void> {
+    const [doc, validator] = await Promise.all([
+      (async () => JSON.parse(data))(),
+      this.#getValidator()
+    ])
+    if (!validator(doc)) {
       throw new ValidationError(`invalid to CycloneDX ${this.version}`, validator.errors)
     }
   }

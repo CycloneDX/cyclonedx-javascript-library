@@ -65,7 +65,7 @@ describe('Serialize.JsonSerialize', function () {
 
       const validator = new JsonStrictValidator(spec.version)
       try {
-        await validator.validate(JSON.parse(serialized))
+        await validator.validate(serialized)
       } catch (err) {
         if (err instanceof ValidationError) {
           assert.fail(`unexpected ValidationError: ${err.message}\n` + JSON.stringify(err.details))
