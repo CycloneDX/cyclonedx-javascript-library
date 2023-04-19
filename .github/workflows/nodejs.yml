@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_ACTIVE_LTS: "18" # see https://nodejs.org/en/about/releases/
+  NODE_ACTIVE_LTS: "20" # see https://nodejs.org/en/about/releases/
   REPORTS_DIR: "CI_reports"
   TESTS_REPORTS_ARTIFACT: tests-reports
   STANDARD_REPORTS_ARTIFACT: cs-reports
@@ -43,7 +43,7 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm ci --ignore-scripts
+        run: npm ci --ignore-scripts --include=optional --loglevel=silly
       - name: build ${{ matrix.target }}
         run: npm run build:${{ matrix.target }}
       - name: artifact build result
@@ -70,7 +70,7 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm ci --ignore-scripts
+        run: npm ci --ignore-scripts --include=optional  --loglevel=silly
       - name: make reports dir
         run: mkdir -p "$REPORTS_DIR"
       - name: test
@@ -104,7 +104,7 @@ jobs:
         node-version:
           # action based on https://github.com/actions/node-versions/releases
           # see also: https://nodejs.org/en/about/releases/
-          - "19"      # current
+          - "20"      # Current
           - "18"      # active LTS
           - "16"
           - "14"
@@ -126,7 +126,10 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm ci --ignore-scripts
+        run: |
+          npm ci --ignore-scripts --include=optional --loglevel=silly
+          ## rebuild deps for which scripts were ignored, but are critical
+          npm rebuild --loglevel=silly libxmljs2
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@v3
@@ -166,7 +169,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: setup library
-        run: npm ci --ignore-scripts --omit=optional
+        run: npm ci --ignore-scripts --omit=optional --loglevel=silly
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@v3
@@ -246,9 +249,9 @@ jobs:
           name: dist.node
           path: dist.node
       - name: setup library
-        run: npm ci --ignore-scripts --omit=dev --include=optional
+        run: npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
       - name: setup example project
-        run: npm i --no-save
+        run: npm i --no-save --loglevel=silly
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: run example
         run: node -- 'example.${{ matrix.js-type }}'
@@ -264,18 +267,12 @@ jobs:
         typescript-version:
           - '^5'      # latest 5.X
           - '^4'      # latest 4.X
-          - '^3'      # latest 3.X
         js-type: [ 'cjs', 'mjs' ]
         include:
-          ## some @types/node versions were incompatible or caused issues
-          - typescript-version: '^3'
-            nodeTypes-version: '^16'
-          - typescript-version: '3.8.2' # lowest reasonable number that works
-            js-type: 'cjs'
+          - # lowest reasonable number that works
+            typescript-version: '^3'
             nodeTypes-version: '^14'
-        exclude:
-          - typescript-version: '^3'
-            js-type: 'mjs'
+            js-type: 'cjs'
     env:
       EXAMPLE_DIR: examples/node-typescript/example.${{ matrix.js-type }}
     timeout-minutes: 10
@@ -301,12 +298,14 @@ jobs:
           name: dist.node
           path: dist.node
       - name: setup library
-        run: npm ci --ignore-scripts --omit=dev --include=optional
+        run: npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
       - name: setup example project
-        run: >
-          npm i --no-save
-          'typescript@${{ matrix.typescript-version }}'
-          '@types/node@${{ matrix.nodeTypes-version || env.NODE_ACTIVE_LTS }}'
+        run: npm i --no-save --loglevel=silly 'typescript@${{ matrix.typescript-version }}'
+      - name: get TS-version
+        id: ts_version
+        run: node -p '`v=ts${require("typescript").version.split(".",2).join(".")}`' >> "$GITHUB_OUTPUT"
+      - name: adjust @types/node version
+        run: npm i --no-save --loglevel=silly '@types/node@${{ matrix.nodeTypes-version || steps.ts_version.outputs.v}}'
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: build example
         run: npm run build
@@ -337,6 +336,6 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm ci --ignore-scripts
+        run: npm ci --ignore-scripts --loglevel=silly
       - name: api-doc ${{ matrix.target }}
         run: npm run api-doc:${{ matrix.target }}
