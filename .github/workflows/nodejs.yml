@@ -43,7 +43,7 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm ci --ignore-scripts
+        run: npm ci --ignore-scripts --include=optional --loglevel=silly
       - name: build ${{ matrix.target }}
         run: npm run build:${{ matrix.target }}
       - name: artifact build result
@@ -70,7 +70,7 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm ci --ignore-scripts
+        run: npm ci --ignore-scripts --loglevel=silly
       - name: make reports dir
         run: mkdir -p "$REPORTS_DIR"
       - name: test
@@ -126,7 +126,7 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm ci --ignore-scripts
+        run: npm ci --ignore-scripts --loglevel=silly
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@v3
@@ -165,7 +165,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: setup library
-        run: npm ci --ignore-scripts --omit=optional
+        run: npm ci --ignore-scripts --omit=optional --loglevel=silly
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@v3
@@ -245,7 +245,7 @@ jobs:
           name: dist.node
           path: dist.node
       - name: setup library
-        run: npm ci --ignore-scripts --omit=dev --include=optional
+        run: npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
       - name: setup example project
         run: npm i --no-save
         working-directory: ${{ env.EXAMPLE_DIR }}
@@ -300,7 +300,7 @@ jobs:
           name: dist.node
           path: dist.node
       - name: setup library
-        run: npm ci --ignore-scripts --omit=dev --include=optional
+        run: npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
       - name: setup example project
         run: >
           npm i --no-save
@@ -336,6 +336,6 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm ci --ignore-scripts
+        run: npm ci --ignore-scripts --loglevel=silly
       - name: api-doc ${{ matrix.target }}
         run: npm run api-doc:${{ matrix.target }}
