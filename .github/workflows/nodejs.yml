@@ -263,16 +263,12 @@ jobs:
         typescript-version:
           - '^5'      # latest 5.X
           - '^4'      # latest 4.X
-          - '^3'      # latest 3.X
         js-type: [ 'cjs', 'mjs' ]
         include:
           - # lowest reasonable number that works
-            typescript-version: '3.8.2'
+            typescript-version: '^3'
             nodeTypes-version: '^14'
             js-type: 'cjs'
-        exclude:
-          - typescript-version: '^3'
-            js-type: 'mjs'
     env:
       EXAMPLE_DIR: examples/node-typescript/example.${{ matrix.js-type }}
     timeout-minutes: 10
@@ -303,9 +299,9 @@ jobs:
         run: npm i --no-save --loglevel=silly 'typescript@${{ matrix.typescript-version }}'
       - name: get TS-version
         id: ts_version
-        run: node -p '`v=${require("typescript").version.split(".",2).join(".")}`' >> "$GITHUB_OUTPUT"
+        run: node -p '`v=ts${require("typescript").version.split(".",2).join(".")}`' >> "$GITHUB_OUTPUT"
       - name: adjust @types/node version
-        run: npm i --no-save --loglevel=silly '@types/node@ts${{ matrix.nodeTypes-version || steps.ts_version.outputs.v}}'
+        run: npm i --no-save --loglevel=silly '@types/node@${{ matrix.nodeTypes-version || steps.ts_version.outputs.v}}'
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: build example
         run: npm run build
