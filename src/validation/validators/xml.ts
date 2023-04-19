@@ -23,7 +23,7 @@ import { pathToFileURL } from 'url'
 
 import { FILES } from '../../resources.node'
 import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from '../errors'
-import { BaseValidator } from './_helpers'
+import { BaseValidator } from '../validator'
 
 let _parser: typeof parseXml | undefined
 

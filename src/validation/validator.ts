@@ -17,6 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import type { Version } from '../spec'
+
 export interface Validator {
   /**
    * Promise rejects with one of the following
@@ -24,5 +26,19 @@ export interface Validator {
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
    * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
    */
-  validate: (data: any) => Promise<void>
+  validate: (data: string) => Promise<void>
+}
+
+export abstract class BaseValidator implements Validator {
+  readonly #version: Version
+
+  constructor (version: Version) {
+    this.#version = version
+  }
+
+  get version (): Version {
+    return this.#version
+  }
+
+  abstract validate (data: string): Promise<void>
 }
