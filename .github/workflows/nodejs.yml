@@ -104,8 +104,8 @@ jobs:
         node-version:
           # action based on https://github.com/actions/node-versions/releases
           # see also: https://nodejs.org/en/about/releases/
-          - "20"      # active LTS
-          - "18"
+          - "20"      # Current
+          - "18"      # active LTS
           - "16"
           - "14"
           - "14.0.0"  # lowest supported
