@@ -18,5 +18,5 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 export * from './errors'
-export * from './validator'
+export type { Validator } from './validator'
 export * as Validators from './validators'

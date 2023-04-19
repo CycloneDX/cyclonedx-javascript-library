@@ -23,7 +23,7 @@ import { readFile } from 'fs/promises'
 
 import { FILES } from '../../resources.node'
 import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from '../errors'
-import { BaseValidator } from './_helpers'
+import { BaseValidator } from '../validator'
 
 let _ajv: Ajv | undefined
 
