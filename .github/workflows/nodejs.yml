@@ -270,7 +270,7 @@ jobs:
         js-type: [ 'cjs', 'mjs' ]
         include:
           - # lowest reasonable number that works
-            typescript-version: '^3'
+            typescript-version: '^3.8'
             nodeTypes-version: '^14'
             js-type: 'cjs'
     env:
