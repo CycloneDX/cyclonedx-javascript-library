@@ -90,10 +90,10 @@ written in _TypeScript_ and compiled for the target.
 * Universal serializer that converts `Bom` data models to JSON string
 * Specific  Serializer that converts `Bom` data models to XML string:
   * Specific to _WebBrowsers_: implementation utilizes browser-specific document generators and printers.
-  * Specific to _Node.js_: implementation plugs/requires/utilizes one of the following _optional_ libraries
-    * [xmlbuilder2](https://www.npmjs.com/package/xmlbuilder2)
-    * ... to be continued ... (pull requests are welcome)
-* Formal validators for JSON string and XML string (currently for _Node.js_ only)
+  * Specific to _Node.js_: implementation plugs/requires/utilizes one of the following _optional_ libraries  
+    Requires [optional dependencies](#optional-dependencies) as described below
+* Formal validators for JSON string and XML string (currently for _Node.js_ only)  
+  Requires [optional dependencies](#optional-dependencies) as described below
 
 ## Installation
 
@@ -125,9 +125,9 @@ See the shipped `package.json` for version constraints.
   * [`ajv`](https://www.npmjs.com/package/ajv)
   * [`ajv-formats`](https://www.npmjs.com/package/ajv-formats)
   * [`ajv-formats-draft2019`](https://www.npmjs.com/package/ajv-formats-draft2019)
-* XML validation requires all of:
-  * [`libxmljs2`](https://www.npmjs.com/package/libxmljs2)
-    * System must meet the requirements for [`node-gyp`](https://github.com/TooTallNate/node-gyp#installation)
+* XML validation  on _Node.js_ requires all of:
+  * [`libxmljs2`](https://www.npmjs.com/package/libxmljs2)  
+    and the system must meet the requirements for [`node-gyp`](https://github.com/TooTallNate/node-gyp#installation)
 
 ## Usage
 
