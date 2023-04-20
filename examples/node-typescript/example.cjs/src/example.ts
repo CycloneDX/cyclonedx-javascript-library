@@ -40,24 +40,20 @@ const jsonSerializer = new CDX.Serialize.JsonSerializer(
   new CDX.Serialize.JSON.Normalize.Factory(serializeSpec))
 const serializedJson = jsonSerializer.serialize(bom)
 console.log(serializedJson)
-try {
-  const jsonValidator = new CDX.Validation.JsonStrictValidator(serializeSpec.version)
-  jsonValidator.validate(serializedJson)
-} catch (err) {
+const jsonValidator = new CDX.Validation.JsonStrictValidator(serializeSpec.version)
+jsonValidator.validate(serializedJson).catch(err => {
   if (!(err instanceof CDX.Validation.MissingOptionalDependencyError)) {
-    console.error('invalid SBOM', err)
+    console.error('invalid SBOM;', err)
   }
-}
+})
 
 const xmlSerializer = new CDX.Serialize.XmlSerializer(
   new CDX.Serialize.XML.Normalize.Factory(serializeSpec))
 const serializedXML = xmlSerializer.serialize(bom)
 console.log(serializedXML)
-try {
-  const xmlValidator = new CDX.Validation.XmlValidator(serializeSpec.version)
-  xmlValidator.validate(serializedXML)
-} catch (err) {
+const xmlValidator = new CDX.Validation.XmlValidator(serializeSpec.version)
+xmlValidator.validate(serializedXML).catch(err => {
   if (!(err instanceof CDX.Validation.MissingOptionalDependencyError)) {
-    console.error('invalid SBOM', err)
+    console.error('invalid SBOM;', err)
   }
-}
+})
