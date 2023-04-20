@@ -17,12 +17,5 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index.common'
-
-// region web-specifics
-
-export * as Factories from './factories/index.web'
-export * as Serialize from './serialize/index.web'
-export * as Validation from './validation/index.web'
-
-// endregion web-specifics
+export * from './errors'
+export * from './types'

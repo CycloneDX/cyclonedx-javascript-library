@@ -32,7 +32,7 @@ const {
   Spec: { Spec1dot2, Spec1dot3, Spec1dot4 },
   Validation: {
     ValidationError, MissingOptionalDependencyError,
-    Validators: { JsonStrictValidator }
+    JsonStrictValidator
   }
 } = require('../../')
 

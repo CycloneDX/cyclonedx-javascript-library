@@ -21,9 +21,9 @@ import { readFile } from 'fs/promises'
 import type { Document, ParserOptions, parseXml } from 'libxmljs2'
 import { pathToFileURL } from 'url'
 
-import { FILES } from '../../resources.node'
-import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from '../errors'
-import { BaseValidator } from '../validator'
+import { FILES } from '../resources.node'
+import { BaseValidator } from './baseValidator'
+import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from './errors'
 
 let _parser: typeof parseXml | undefined
 

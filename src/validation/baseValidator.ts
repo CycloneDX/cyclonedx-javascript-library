@@ -29,7 +29,7 @@ export interface Validator {
   validate: (data: string) => Promise<void>
 }
 
-export abstract class BaseValidator implements Validator {
+export abstract class BaseValidator implements BaseValidator {
   readonly #version: Version
 
   constructor (version: Version) {

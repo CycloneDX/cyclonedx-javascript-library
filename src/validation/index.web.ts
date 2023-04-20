@@ -21,8 +21,9 @@ export * from './index.common'
 
 // region web-specifics
 
-export * as Factories from './factories/index.web'
-export * as Serialize from './serialize/index.web'
-export * as Validation from './validation/index.web'
+// json validator is experimental, and not public to web, yet
+// export * from './jsonValidator'
+
+// there is no XML validator for the web, yet
 
 // endregion web-specifics
