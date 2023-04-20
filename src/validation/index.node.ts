@@ -17,6 +17,11 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './errors'
-export type { Validator } from './validator'
-export * as Validators from './validators'
+export * from './index.common'
+
+// region node-specifics
+
+export * from './jsonValidator'
+export * from './xmlValidator.node'
+
+// endregion node-specifics

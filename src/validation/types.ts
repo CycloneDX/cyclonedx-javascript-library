@@ -17,5 +17,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './json'
-export * from './xml'
+export interface Validator {
+  /**
+   * Promise rejects with one of the following
+   * - {@link Validation.NotImplementedError | NotImplementedError} when there is no validator available for `this.version`
+   * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
+   * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
+   */
+  validate: (data: string) => Promise<void>
+}

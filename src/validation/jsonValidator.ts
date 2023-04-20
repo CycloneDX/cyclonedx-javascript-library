@@ -21,9 +21,9 @@ import type Ajv from 'ajv'
 import { type ValidateFunction } from 'ajv'
 import { readFile } from 'fs/promises'
 
-import { FILES } from '../../resources.node'
-import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from '../errors'
-import { BaseValidator } from '../validator'
+import { FILES } from '../resources.node'
+import { BaseValidator } from './baseValidator'
+import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from './errors'
 
 let _ajv: Ajv | undefined
 

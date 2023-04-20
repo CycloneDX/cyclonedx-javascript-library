@@ -33,11 +33,11 @@ const {
   Spec: { Version },
   Validation: {
     ValidationError, NotImplementedError, MissingOptionalDependencyError,
-    Validators: { JsonValidator }
+    JsonValidator
   }
 } = require('../../')
 
-describe('Validation.Validators.JsonValidator', () => {
+describe('Validation.JsonValidator', () => {
   [
     Version.v1dot0,
     Version.v1dot1
