@@ -22,8 +22,8 @@ import type { Document, ParserOptions, parseXml } from 'libxmljs2'
 import { pathToFileURL } from 'url'
 
 import { FILES } from '../resources.node'
-import { BaseValidator } from './baseValidator'
 import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from './errors'
+import { BaseValidator } from './baseValidator'
 
 let _parser: typeof parseXml | undefined
 
@@ -35,8 +35,8 @@ async function getParser (): Promise<typeof parseXml> {
     } catch {
       throw new MissingOptionalDependencyError(
         'No XML validator available.' +
-        ' Please install the optional libraries "libxmljs".' +
-        ' Please make sure you have met the requirements for node-gyp. https://github.com/TooTallNate/node-gyp#installation'
+        ' Please install the optional libraries "libxmljs2".' +
+        ' Please make sure the system meets the requirements for node-gyp. https://github.com/TooTallNate/node-gyp#installation'
       )
     }
     _parser = libxml.parseXml
