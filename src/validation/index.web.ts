@@ -21,7 +21,7 @@ export * from './index.common'
 
 // region web-specifics
 
-// json validator is experimental, and not public to web, yet
+// json validator is notentirely tested fr WEB, yet
 // export * from './jsonValidator'
 
 // there is no XML validator for the web, yet
