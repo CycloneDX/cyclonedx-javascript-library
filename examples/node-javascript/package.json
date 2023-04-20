@@ -1,5 +1,6 @@
 {
   "private": true,
+  "name": "example",
   "description": "",
   "dependencies": {
     "@cyclonedx/cyclonedx-library": "file:../..",
