@@ -34,14 +34,30 @@ const componentA = new CDX.Models.Component(
 bom.components.add(componentA)
 bom.metadata.component.dependencies.add(componentA.bomRef)
 
+const serializeSpec = CDX.Spec.Spec1dot4
+
 const jsonSerializer = new CDX.Serialize.JsonSerializer(
-  new CDX.Serialize.JSON.Normalize.Factory(
-    CDX.Spec.Spec1dot4))
-const serialized = jsonSerializer.serialize(bom)
-console.log(serialized)
+  new CDX.Serialize.JSON.Normalize.Factory(serializeSpec))
+const serializedJson = jsonSerializer.serialize(bom)
+console.log(serializedJson)
+try {
+  const jsonValidator = new CDX.Validation.JsonStrictValidator(serializeSpec.version)
+  jsonValidator.validate(serializedJson)
+} catch (err) {
+  if (!(err instanceof CDX.Validation.MissingOptionalDependencyError)) {
+    console.error('invalid SBOM', err)
+  }
+}
 
 const xmlSerializer = new CDX.Serialize.XmlSerializer(
-  new CDX.Serialize.XML.Normalize.Factory(
-    CDX.Spec.Spec1dot4))
+  new CDX.Serialize.XML.Normalize.Factory(serializeSpec))
 const serializedXML = xmlSerializer.serialize(bom)
 console.log(serializedXML)
+try {
+  const xmlValidator = new CDX.Validation.XmlValidator(serializeSpec.version)
+  xmlValidator.validate(serializedXML)
+} catch (err) {
+  if (!(err instanceof CDX.Validation.MissingOptionalDependencyError)) {
+    console.error('invalid SBOM', err)
+  }
+}
