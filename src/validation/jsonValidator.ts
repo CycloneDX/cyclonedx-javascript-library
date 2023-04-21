@@ -40,11 +40,12 @@ async function getAjv (): Promise<Ajv> {
         /* @ts-expect-error TS7016 */
         import('ajv-formats-draft2019')
       ])
-    } catch {
+    } catch (err) {
       throw new MissingOptionalDependencyError(
         'No JSON validator available.' +
         ' Please install all of the optional libraries:' +
-        ' ajv, ajv-formats, ajv-formats-draft2019'
+        ' ajv, ajv-formats, ajv-formats-draft2019',
+        err
       )
     }
 
@@ -81,7 +82,7 @@ abstract class BaseJsonValidator extends BaseValidator {
     if (this.#validator === undefined) {
       const schemaFile = this._getSchemaFile()
       if (schemaFile === undefined) {
-        throw new NotImplementedError(`not implemented for version: ${this.version}`)
+        throw new NotImplementedError(this.version)
       }
       const [ajv, schema] = await Promise.all([
         getAjv(),
