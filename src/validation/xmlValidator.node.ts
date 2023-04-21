@@ -32,11 +32,12 @@ async function getParser (): Promise<typeof parseXml> {
     let libxml
     try {
       libxml = await import('libxmljs2')
-    } catch {
+    } catch (err) {
       throw new MissingOptionalDependencyError(
         'No XML validator available.' +
         ' Please install the optional libraries "libxmljs2".' +
-        ' Please make sure the system meets the requirements for node-gyp. https://github.com/TooTallNate/node-gyp#installation'
+        ' Please make sure the system meets the requirements for node-gyp. https://github.com/TooTallNate/node-gyp#installation',
+        err
       )
     }
     _parser = libxml.parseXml
@@ -60,7 +61,7 @@ export class XmlValidator extends BaseValidator {
     if (undefined === this.#schema) {
       const file = this.#getSchemaFile()
       if (file === undefined) {
-        throw new NotImplementedError(`not implemented for version: ${this.version}`)
+        throw new NotImplementedError(this.version)
       }
       const [parse, schema] = await Promise.all([
         getParser(),
