@@ -43,7 +43,7 @@ async function getAjv (): Promise<Ajv> {
     } catch (err) {
       throw new MissingOptionalDependencyError(
         'No JSON validator available.' +
-        ' Please install all of the optional libraries:' +
+        ' Please install all of the optional dependencies:' +
         ' ajv, ajv-formats, ajv-formats-draft2019',
         err
       )

@@ -22,11 +22,11 @@ const { describe, it } = require('mocha')
 
 const { escapeRegExp } = require('../_helpers/stringFunctions')
 
-let hasAjv = true
+let hasDep = true
 try {
   require('ajv')
 } catch {
-  hasAjv = false
+  hasDep = false
 }
 
 const {
@@ -56,7 +56,7 @@ describe('Validation.JsonStrictValidator', () => {
     Version.v1dot3,
     Version.v1dot4
   ].forEach((version) => describe(version, () => {
-    if (!hasAjv) {
+    if (!hasDep) {
       it('throws MissingOptionalDependencyError', async () => {
         const validator = new JsonStrictValidator(version)
         await assert.rejects(

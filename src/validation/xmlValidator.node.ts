@@ -35,8 +35,8 @@ async function getParser (): Promise<typeof parseXml> {
     } catch (err) {
       throw new MissingOptionalDependencyError(
         'No XML validator available.' +
-        ' Please install the optional libraries "libxmljs2".' +
-        ' Please make sure the system meets the requirements for node-gyp. https://github.com/TooTallNate/node-gyp#installation',
+        ' Please install the optional dependency "libxmljs2".' +
+        ' Please make sure the system meets the requirements for "node-gyp", see https://github.com/TooTallNate/node-gyp#installation',
         err
       )
     }
