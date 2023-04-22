@@ -206,6 +206,10 @@
           "type": "support"
         },
         {
+          "url": "git+https://localhost/acme.git",
+          "type": "vcs"
+        },
+        {
           "url": "https://localhost/acme",
           "type": "website",
           "comment": "testing"
