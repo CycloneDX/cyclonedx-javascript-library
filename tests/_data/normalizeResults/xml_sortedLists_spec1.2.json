@@ -607,6 +607,20 @@
                   "type": "element",
                   "name": "reference",
                   "attributes": {
+                    "type": "vcs"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "git+https://localhost/acme.git"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
                     "type": "website"
                   },
                   "children": [

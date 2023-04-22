@@ -56,7 +56,10 @@ async function getAjv (): Promise<Ajv> {
     const ajv = new Ajv({
       // no defaults => no data alteration
       useDefaults: false,
-      formats: { string: true },
+      formats: {
+        // "string" was mistakenly set as format in CycloneDX1.2
+        string: true
+      },
       strict: false,
       strictSchema: false,
       addUsedSchema: false,
@@ -66,7 +69,9 @@ async function getAjv (): Promise<Ajv> {
       }
     })
     addFormats(ajv)
-    addFormats2019(ajv)
+    addFormats2019(ajv, { formats: ['idn-email'] })
+    // there is just no working iri implementation: see https://github.com/luzlab/ajv-formats-draft2019/issues/22
+    ajv.addFormat('iri-reference', true)
     _ajv = ajv
   }
   return _ajv
