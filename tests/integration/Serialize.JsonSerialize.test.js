@@ -71,6 +71,7 @@ describe('Serialize.JsonSerialize', function () {
           assert.fail(`unexpected ValidationError: ${err.message}\n` + JSON.stringify(err.details))
         }
         if (!(err instanceof MissingOptionalDependencyError)) {
+          // unexpected error
           assert.fail(err)
         }
       }

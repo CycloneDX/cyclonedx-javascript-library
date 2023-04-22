@@ -24,7 +24,8 @@ const possibleStringifiers = [
 
 module.exports.stringify = function () {
   throw new Error(
-    'No stringifier available. Please install any of the optional xml libraries: ' +
+    'No stringifier available.' +
+    ' Please install any of the optional dependencies: ' +
     possibleStringifiers.join(', ')
   )
 }

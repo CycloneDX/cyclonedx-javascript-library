@@ -22,11 +22,11 @@ const { describe, it } = require('mocha')
 
 const { escapeRegExp } = require('../_helpers/stringFunctions')
 
-let hasLibXml = true
+let hasDep = true
 try {
   require('libxmljs2')
 } catch {
-  hasLibXml = false
+  hasDep = false
 }
 
 const {
@@ -57,7 +57,7 @@ describe('Validation.XmlValidator', () => {
     Version.v1dot3,
     Version.v1dot4
   ].forEach((version) => describe(version, () => {
-    if (!hasLibXml) {
+    if (!hasDep) {
       it('throws MissingOptionalDependencyError', async () => {
         const validator = new XmlValidator(version)
         await assert.rejects(
