@@ -32,10 +32,12 @@ export namespace JsonSchema {
   /**
    * Test whether format is JSON::iri-reference - best-effort.
    *
-   * @TODO add more validation according to spec
    * @see {@link https://datatracker.ietf.org/doc/html/rfc3987 | RFC 3987}
+   *
+   * @TODO add more validation according to spec
    */
   export function isIriReference (value: IriReference | any): value is IriReference {
+    // There is just no working implementation for format "iri-reference": see https://github.com/luzlab/ajv-formats-draft2019/issues/22
     return typeof value === 'string' &&
       value.length > 0
   }
@@ -47,8 +49,9 @@ export namespace JsonSchema {
   /**
    * Test whether format is JSON::idn-email - best-effort.
    *
-   * @TODO add more validation according to spec
    * @see {@link https://datatracker.ietf.org/doc/html/rfc6531 | RFC 6531}
+   *
+   * @TODO add more validation according to spec
    */
   export function isIdnEmail (value: IdnEmail | any): value is IdnEmail {
     return typeof value === 'string' &&

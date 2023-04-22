@@ -70,7 +70,7 @@ async function getAjv (): Promise<Ajv> {
     })
     addFormats(ajv)
     addFormats2019(ajv, { formats: ['idn-email'] })
-    // there is just no working iri implementation: see https://github.com/luzlab/ajv-formats-draft2019/issues/22
+    // there is just no working implementation for format "iri-reference": see https://github.com/luzlab/ajv-formats-draft2019/issues/22
     ajv.addFormat('iri-reference', true)
     _ajv = ajv
   }
