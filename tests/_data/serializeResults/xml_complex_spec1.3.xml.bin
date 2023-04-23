@@ -139,6 +139,9 @@
                 <reference type="support">
                     <url>https://localhost/acme/support</url>
                 </reference>
+                <reference type="vcs">
+                    <url>git+https://localhost/acme.git</url>
+                </reference>
                 <reference type="website">
                     <url>https://localhost/acme</url>
                     <comment>testing</comment>

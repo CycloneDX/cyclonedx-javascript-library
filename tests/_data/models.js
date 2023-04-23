@@ -102,6 +102,10 @@ module.exports.createComplexStructure = function () {
       Enums.ExternalReferenceType.Support
     ))
     component.externalReferences.add(new Models.ExternalReference(
+      'git+https://localhost/acme.git',
+      Enums.ExternalReferenceType.VCS
+    ))
+    component.externalReferences.add(new Models.ExternalReference(
       './other/file',
       Enums.ExternalReferenceType.ReleaseNotes // available since spec 1.4
     ))

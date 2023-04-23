@@ -17,20 +17,28 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index.common'
+import { type Version } from '../spec'
 
-// region node-specifics
+export class ValidationError extends Error {
+  readonly details: any | undefined
 
-export * as Builders from './builders/index.node'
-export * as Factories from './factories/index.node'
-export * as Serialize from './serialize/index.node'
-export * as Validation from './validation/index.node'
+  constructor (message: string, details?: any) {
+    super(message)
+    this.details = details
+  }
+}
 
-/**
- * Internal, until the resources-module was finalized and shows any value
- *
- * @internal
- */
-export * as _Resources from './resources.node'
+export class NotImplementedError extends Error {
+  constructor (version: Version) {
+    super(`not implemented for CycloneDX version: ${version}`)
+  }
+}
 
-// endregion node-specifics
+export class MissingOptionalDependencyError extends Error {
+  readonly cause: any | undefined
+
+  constructor (message: string, cause?: any) {
+    super(message)
+    this.cause = cause
+  }
+}

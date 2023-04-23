@@ -39,17 +39,22 @@ export const FILES = Object.freeze({
     }),
     JSON_SCHEMA: Object.freeze({
       // v1.0 is not defined in JSON
+      [Version.v1dot0]: undefined,
       // v1.1 is not defined in JSON
+      [Version.v1dot1]: undefined,
       [Version.v1dot2]: path.resolve(SCHEMA_ROOT, 'bom-1.2.SNAPSHOT.schema.json'),
       [Version.v1dot3]: path.resolve(SCHEMA_ROOT, 'bom-1.3.SNAPSHOT.schema.json'),
       [Version.v1dot4]: path.resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.schema.json')
     }),
     JSON_STRICT_SCHEMA: Object.freeze({
       // v1.0 is not defined in JSON
+      [Version.v1dot0]: undefined,
       // v1.1 is not defined in JSON
+      [Version.v1dot1]: undefined,
       [Version.v1dot2]: path.resolve(SCHEMA_ROOT, 'bom-1.2-strict.SNAPSHOT.schema.json'),
-      [Version.v1dot3]: path.resolve(SCHEMA_ROOT, 'bom-1.3-strict.SNAPSHOT.schema.json')
+      [Version.v1dot3]: path.resolve(SCHEMA_ROOT, 'bom-1.3-strict.SNAPSHOT.schema.json'),
       // v1.4 is already strict - no special file here
+      [Version.v1dot4]: path.resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.schema.json')
     })
   }),
   SPDX: Object.freeze({

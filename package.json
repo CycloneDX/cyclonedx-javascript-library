@@ -1,6 +1,6 @@
 {
   "name": "@cyclonedx/cyclonedx-library",
-  "version": "1.13.3",
+  "version": "1.14.0-rc.1",
   "description": "Core functionality of CycloneDX for JavaScript (Node.js or WebBrowser).",
   "license": "Apache-2.0",
   "keywords": [
@@ -68,6 +68,10 @@
     "packageurl-js": ">=0.0.6 <0.0.8 || ^1"
   },
   "optionalDependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1",
+    "ajv-formats-draft2019": "^1.6.1",
+    "libxmljs2": "^0.31.0",
     "xmlbuilder2": "^3.0.2"
   },
   "devDependencies": {

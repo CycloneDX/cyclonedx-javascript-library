@@ -30,6 +30,7 @@ written in _TypeScript_ and compiled for the target.
   * Support the downstream implementation of custom XML-serializers tailored to specific environments  
     by providing an abstract base class that takes care of normalization and BomRef-discrimination.  
     This is done, because there is no universal XML support in _JavaScript_.
+* Validation according to [_CycloneDX_ Specification][CycloneDX-spec]. (currently for _Node.js_ only)
 
 ## Capabilities
 
@@ -89,9 +90,10 @@ written in _TypeScript_ and compiled for the target.
 * Universal serializer that converts `Bom` data models to JSON string
 * Specific  Serializer that converts `Bom` data models to XML string:
   * Specific to _WebBrowsers_: implementation utilizes browser-specific document generators and printers.
-  * Specific to _Node.js_: implementation plugs/requires/utilizes one of the following _optional_ libraries
-    * [xmlbuilder2](https://www.npmjs.com/package/xmlbuilder2)
-    * ... to be continued ... (pull requests are welcome)
+  * Specific to _Node.js_: implementation plugs/requires/utilizes one of the following _optional_ libraries  
+    Requires [optional dependencies](#optional-dependencies) as described below
+* Formal validators for JSON string and XML string (currently for _Node.js_ only)  
+  Requires [optional dependencies](#optional-dependencies) as described below
 
 ## Installation
 
@@ -119,6 +121,13 @@ See the shipped `package.json` for version constraints.
 
 * Serialization to XML on _Node.js_ requires any of:
   * [`xmlbuilder2`](https://www.npmjs.com/package/xmlbuilder2)
+* Validation of JSON on _Node.js_ requires all of:
+  * [`ajv`](https://www.npmjs.com/package/ajv)
+  * [`ajv-formats`](https://www.npmjs.com/package/ajv-formats)
+  * [`ajv-formats-draft2019`](https://www.npmjs.com/package/ajv-formats-draft2019)
+* Validation of XML on _Node.js_ requires all of:
+  * [`libxmljs2`](https://www.npmjs.com/package/libxmljs2)  
+  * the system must meet the requirements for [`node-gyp`](https://github.com/TooTallNate/node-gyp#installation)
 
 ## Usage
 

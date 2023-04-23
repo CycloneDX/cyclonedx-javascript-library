@@ -23,6 +23,8 @@ import { writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+/* eslint-disable no-unused-vars */
+
 const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/master/schema/'
 const TARGET_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'res', 'schema')
 
@@ -30,20 +32,41 @@ const BomXsd = Object.freeze({
   versions: ['1.0', '1.1', '1.2', '1.3', '1.4'],
   sourcePattern: `${SOURCE_ROOT}bom-%s.xsd`,
   targetPattern: join(TARGET_ROOT, 'bom-%s.SNAPSHOT.xsd'),
-  replace: Object.freeze({
-    'schemaLocation="http://cyclonedx.org/schema/spdx"': 'schemaLocation="spdx.SNAPSHOT.xsd"',
-    'schemaLocation="https://cyclonedx.org/schema/spdx"': 'schemaLocation="spdx.SNAPSHOT.xsd"'
-  })
+  replace: Object.freeze([
+    [/schemaLocation="https?:\/\/cyclonedx.org\/schema\/spdx"/g, 'schemaLocation="spdx.SNAPSHOT.xsd"']
+  ])
 })
+
+const bomSchemaEnumMatch = /("\$id": "(http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json)".*"enum": \[\s+")http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json"/sg
+const bomSchemaEnumReplace = '$1$2"'
+
+const bomRequired = `
+  "required": [
+    "bomFormat",
+    "specVersion",
+    "version"
+  ],`
+const bomRequiredReplace = `
+  "required": [
+    "bomFormat",
+    "specVersion"
+  ],`
+
+const defaultWithPatternMatch = /\s+"default": "",(?![^}]*?"pattern": "\^\(\.\*\)\$")/gm
+const defaultWithPatternReplace = ''
 
 const BomJsonLax = Object.freeze({
   versions: ['1.2', '1.3', '1.4'],
   sourcePattern: `${SOURCE_ROOT}bom-%s.schema.json`,
   targetPattern: join(TARGET_ROOT, 'bom-%s.SNAPSHOT.schema.json'),
-  replace: Object.freeze({
-    'spdx.schema.json': 'spdx.SNAPSHOT.schema.json',
-    'jsf-0.82.schema.json': 'jsf-0.82.SNAPSHOT.schema.json'
-  })
+  replace: Object.freeze([
+    Object.freeze(['spdx.schema.json', 'spdx.SNAPSHOT.schema.json']),
+    Object.freeze(['jsf-0.82.schema.json', 'jsf-0.82.SNAPSHOT.schema.json']),
+    Object.freeze([bomSchemaEnumMatch, bomSchemaEnumReplace]),
+    Object.freeze([bomRequired, bomRequiredReplace])
+    // with current SchemaValidator this is no longer required: defaultWithPatternMatch -> defaultWithPatternReplace
+    // Object.freeze([defaultWithPatternMatch, defaultWithPatternReplace])
+  ])
 })
 
 const BomJsonStrict = Object.freeze({
@@ -68,7 +91,7 @@ for (const dSpec of [BomXsd, BomJsonLax, BomJsonStrict]) {
     fetch(source, FetchOptions).then(res => res.text()).then(
       /** @param {string} text */
       text => new Promise((resolve, reject) => {
-        for (const [searchValue, replaceValue] of Object.entries(dSpec.replace)) {
+        for (const [searchValue, replaceValue] of dSpec.replace) {
           text = text.replaceAll(searchValue, replaceValue)
         }
         resolve(text)

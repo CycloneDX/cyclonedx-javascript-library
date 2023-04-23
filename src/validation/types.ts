@@ -17,20 +17,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index.common'
-
-// region node-specifics
-
-export * as Builders from './builders/index.node'
-export * as Factories from './factories/index.node'
-export * as Serialize from './serialize/index.node'
-export * as Validation from './validation/index.node'
-
-/**
- * Internal, until the resources-module was finalized and shows any value
- *
- * @internal
- */
-export * as _Resources from './resources.node'
-
-// endregion node-specifics
+export interface Validator {
+  /**
+   * Promise rejects with one of the following
+   * - {@link Validation.NotImplementedError | NotImplementedError} when there is no validator available for `this.version`
+   * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
+   * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
+   */
+  validate: (data: string) => Promise<void>
+}

@@ -19,18 +19,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 export * from './index.common'
 
-// region node-specifics
+// region web-specifics
 
-export * as Builders from './builders/index.node'
-export * as Factories from './factories/index.node'
-export * as Serialize from './serialize/index.node'
-export * as Validation from './validation/index.node'
+// there is no JSON validator for the web, yet
+// there is no XML  validator for the web, yet
 
-/**
- * Internal, until the resources-module was finalized and shows any value
- *
- * @internal
- */
-export * as _Resources from './resources.node'
-
-// endregion node-specifics
+// endregion web-specifics
