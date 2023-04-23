@@ -43,7 +43,7 @@ describe('Validation.XmlValidator', () => {
   ].forEach((version) => describe(version, () => {
     it('throws not implemented', async () => {
       const validator = new XmlValidator(version)
-      return assert.rejects(
+      await assert.rejects(
         () => validator.validate('<bom/>'),
         (err) => err instanceof NotImplementedError
       )
@@ -80,7 +80,7 @@ describe('Validation.XmlValidator', () => {
             </component>
           </components>
         </bom>`
-      return assert.rejects(
+      await assert.rejects(
         () => validator.validate(input),
         (err) => {
           assert.ok(err instanceof ValidationError)

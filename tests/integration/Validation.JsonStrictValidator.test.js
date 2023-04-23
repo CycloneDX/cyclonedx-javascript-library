@@ -44,7 +44,7 @@ describe('Validation.JsonStrictValidator', () => {
   ].forEach((version) => describe(version, () => {
     it('throws not implemented', async () => {
       const validator = new JsonStrictValidator(version)
-      return assert.rejects(
+      await assert.rejects(
         () => validator.validate('{}'),
         (err) => err instanceof NotImplementedError
       )
@@ -78,7 +78,7 @@ describe('Validation.JsonStrictValidator', () => {
           unknown: 'undefined' // << undefined/additional property
         }]
       })
-      return assert.rejects(
+      await assert.rejects(
         () => validator.validate(input),
         (err) => {
           assert.ok(err instanceof ValidationError)
