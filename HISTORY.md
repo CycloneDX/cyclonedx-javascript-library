@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Added
-  * Formal validators for JSON string and XML string ([#520] via [#652])  
+  * Formal validators for JSON string and XML string ([#620] via [#652])  
     Currently available only for _Node.js_. Requires [optional dependencies](README.md#optional-dependencies).
     * Related new validator classes:
       * `Validation.JsonValidator`
@@ -18,7 +18,7 @@ All notable changes to this project will be documented in this file.
 * Build
   * Use _Webpack_ `v5.80.0` now, was `5.79.0`. (via [#686])
 
-[#520]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/520
+[#520]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/620
 [#652]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/652
 [#686]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/686
 
