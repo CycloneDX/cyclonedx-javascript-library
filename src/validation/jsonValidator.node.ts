@@ -99,7 +99,9 @@ abstract class BaseJsonValidator extends BaseValidator {
   }
 
   /**
-   * Promise rejects with one of the following
+   * Validate the data against CycloneDX spec of `this.version`.
+   *
+   * Promise may reject with one of the following:
    * - {@link Validation.NotImplementedError | NotImplementedError} when there is no validator available for `this.version`
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
    * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
