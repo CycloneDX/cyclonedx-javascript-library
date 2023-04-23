@@ -21,7 +21,9 @@ import type { Version } from '../spec'
 
 export interface Validator {
   /**
-   * Promise rejects with one of the following
+   * validate the data.
+   *
+   * Promise may reject with one of the following:
    * - {@link Validation.NotImplementedError | NotImplementedError} when there is no validator available for `this.version`
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
    * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
@@ -29,7 +31,7 @@ export interface Validator {
   validate: (data: string) => Promise<void>
 }
 
-export abstract class BaseValidator implements BaseValidator {
+export abstract class BaseValidator implements Validator {
   readonly #version: Version
 
   constructor (version: Version) {
@@ -40,5 +42,6 @@ export abstract class BaseValidator implements BaseValidator {
     return this.#version
   }
 
+  /** {@inheritDoc Validator.validate} */
   abstract validate (data: string): Promise<void>
 }
