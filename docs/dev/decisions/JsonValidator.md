@@ -19,4 +19,6 @@ Researched tools:
 
 ## Decision
 
-... T B D ...
+Decided to go with `ajv` for the moment,
+as it was more popular/used and had a more active user base.
+
