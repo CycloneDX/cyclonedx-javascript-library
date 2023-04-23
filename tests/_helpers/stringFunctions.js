@@ -21,7 +21,6 @@ module.exports = {
 
   /**
    * Capitalise the first letter of a string
-   *
    * @param {string} s
    * @returns {string}
    */
@@ -29,7 +28,6 @@ module.exports = {
 
   /**
    * UpperCamelCase a string
-   *
    * @param {string} s
    * @returns {string}
    */
@@ -43,7 +41,6 @@ module.exports = {
 
   /**
    * Generate a random string of length.
-   *
    * @param {number} length
    * @returns {string}
    */
@@ -51,7 +48,6 @@ module.exports = {
 
   /**
    * source: https://stackoverflow.com/a/6969486
-   *
    * @param {string} s
    * @return {string}
    */
