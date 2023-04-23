@@ -15,9 +15,12 @@ All notable changes to this project will be documented in this file.
       * `Validation.ValidationError`
       * `Validation.NotImplementedError`
       * `Validation.MissingOptionalDependencyError`
+* Build
+  * Use _Webpack_ `v5.80.0` now, was `5.79.0`. (via [#686])
 
 [#520]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/520
 [#652]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/652
+[#686]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/686
 
 ## 1.13.3 - 2023-04-05
 
