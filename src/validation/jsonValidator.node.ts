@@ -23,7 +23,8 @@ import { readFile } from 'fs/promises'
 
 import { FILES } from '../resources.node'
 import { BaseValidator } from './baseValidator'
-import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from './errors'
+import { MissingOptionalDependencyError, NotImplementedError } from './errors'
+import type { ValidationError } from './types'
 
 let _ajv: Ajv | undefined
 
@@ -104,16 +105,15 @@ abstract class BaseJsonValidator extends BaseValidator {
    * Promise may reject with one of the following:
    * - {@link Validation.NotImplementedError | NotImplementedError} when there is no validator available for `this.version`
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
-   * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
    */
-  async validate (data: string): Promise<void> {
+  async validate (data: string): Promise<null | ValidationError> {
     const [doc, validator] = await Promise.all([
       (async () => JSON.parse(data))(),
       this.#getValidator()
     ])
-    if (!validator(doc)) {
-      throw new ValidationError(`invalid to CycloneDX ${this.version}`, validator.errors)
-    }
+    return validator(doc)
+      ? null
+      : validator.errors
   }
 }
 export class JsonValidator extends BaseJsonValidator {

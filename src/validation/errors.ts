@@ -19,15 +19,6 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { type Version } from '../spec'
 
-export class ValidationError extends Error {
-  readonly details: any | undefined
-
-  constructor (message: string, details?: any) {
-    super(message)
-    this.details = details
-  }
-}
-
 export class NotImplementedError extends Error {
   constructor (version: Version) {
     super(`not implemented for CycloneDX version: ${version}`)

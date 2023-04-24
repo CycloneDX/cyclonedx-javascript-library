@@ -31,7 +31,7 @@ const {
   },
   Spec: { Spec1dot2, Spec1dot3, Spec1dot4 },
   Validation: {
-    ValidationError, MissingOptionalDependencyError,
+    MissingOptionalDependencyError,
     XmlValidator
   }
 } = require('../../')
@@ -72,11 +72,9 @@ describe('Serialize.XmlSerialize', function () {
 
       const validator = new XmlValidator(spec.version)
       try {
-        await validator.validate(serialized)
+        const validationError = await validator.validate(serialized)
+        assert.strictEqual(validationError, null)
       } catch (err) {
-        if (err instanceof ValidationError) {
-          assert.fail(`unexpected ValidationError: ${err.message}\n` + JSON.stringify(err.details))
-        }
         if (!(err instanceof MissingOptionalDependencyError)) {
           // unexpected error
           assert.fail(err)

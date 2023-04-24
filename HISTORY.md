@@ -12,7 +12,6 @@ All notable changes to this project will be documented in this file.
       * `Validation.JsonStrictValidator`
       * `Validation.XmlValidator`
     * Related new error classes:
-      * `Validation.ValidationError`
       * `Validation.NotImplementedError`
       * `Validation.MissingOptionalDependencyError`
 * Build

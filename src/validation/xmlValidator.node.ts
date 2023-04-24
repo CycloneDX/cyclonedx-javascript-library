@@ -23,7 +23,8 @@ import { pathToFileURL } from 'url'
 
 import { FILES } from '../resources.node'
 import { BaseValidator } from './baseValidator'
-import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from './errors'
+import { MissingOptionalDependencyError, NotImplementedError } from './errors'
+import type { ValidationError } from './types'
 
 let _parser: typeof parseXml | undefined
 
@@ -78,16 +79,15 @@ export class XmlValidator extends BaseValidator {
    * Promise may reject with one of the following:
    * - {@link Validation.NotImplementedError | NotImplementedError} when there is no validator available for `this.version`
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
-   * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
    */
-  async validate (data: string): Promise<void> {
+  async validate (data: string): Promise<null | ValidationError> {
     const [parse, schema] = await Promise.all([
       getParser(),
       this.#getSchema()
     ])
     const doc = parse(data, xmlParseOptions)
-    if (!doc.validate(schema)) {
-      throw new ValidationError(`invalid to CycloneDX ${this.version}`, doc.validationErrors)
-    }
+    return doc.validate(schema)
+      ? null
+      : doc.validationErrors
   }
 }
