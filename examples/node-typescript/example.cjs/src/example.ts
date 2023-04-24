@@ -41,19 +41,31 @@ const jsonSerializer = new CDX.Serialize.JsonSerializer(
 const serializedJson = jsonSerializer.serialize(bom)
 console.log(serializedJson)
 const jsonValidator = new CDX.Validation.JsonStrictValidator(serializeSpec.version)
-jsonValidator.validate(serializedJson).catch(err => {
-  if (!(err instanceof CDX.Validation.MissingOptionalDependencyError)) {
-    console.error('invalid SBOM;', err)
-  }
-})
+jsonValidator.validate(serializedJson)
+  .then(validationErrors => {
+    if (validationErrors !== null) {
+      throw new Error('JSON ValidationError:\n' + JSON.stringify(validationErrors))
+    }
+  })
+  .catch(err => {
+    if (!(err instanceof CDX.Validation.MissingOptionalDependencyError)) {
+      throw err
+    }
+  })
 
 const xmlSerializer = new CDX.Serialize.XmlSerializer(
   new CDX.Serialize.XML.Normalize.Factory(serializeSpec))
 const serializedXML = xmlSerializer.serialize(bom)
 console.log(serializedXML)
 const xmlValidator = new CDX.Validation.XmlValidator(serializeSpec.version)
-xmlValidator.validate(serializedXML).catch(err => {
-  if (!(err instanceof CDX.Validation.MissingOptionalDependencyError)) {
-    console.error('invalid SBOM;', err)
-  }
-})
+xmlValidator.validate(serializedXML)
+  .then(validationErrors => {
+    if (validationErrors !== null) {
+      throw new Error('XML ValidationError:\n' + JSON.stringify(validationErrors))
+    }
+  })
+  .catch(err => {
+    if (!(err instanceof CDX.Validation.MissingOptionalDependencyError)) {
+      throw err
+    }
+  })
