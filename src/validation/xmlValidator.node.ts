@@ -76,12 +76,13 @@ export class XmlValidator extends BaseValidator {
   /**
    * Validate the data against CycloneDX spec of `this.version`.
    *
-   * Promise completes with null, if no errors occurred.
-   * Promise completes with non-null, representing the error details.
+   * Promise completes with one of the following:
+   * - `null`, when data was valid
+   * - {@link Validation.Types.ValidationError | something} representing the error details, when data was invalid representing the error details, when data was invalid
    *
    * Promise rejects with one of the following:
-   * - {@link Validation.NotImplementedError | NotImplementedError} when there is no validator available for `this.version`
-   * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
+   * - {@link Validation.NotImplementedError | NotImplementedError}, when there is no validator available for `this.version`
+   * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError}, when a required dependency was not installed
    */
   async validate (data: string): Promise<null | ValidationError> {
     const [parse, schema] = await Promise.all([

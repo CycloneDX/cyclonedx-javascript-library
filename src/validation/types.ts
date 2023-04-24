@@ -24,12 +24,13 @@ export type ValidationError = NonNullable<any>
 
 export interface Validator {
   /**
-   * Promis completes with null, if no errors occurred.
-   * Promis completes with non-null, representing the error details.
+   * Promise completes with one of the following:
+   * - `null`, when data was valid
+   * - {@link ValidationError | something} representing the error details, when data was invalid
    *
-   * Promise rejects with one of the following
-   * - {@link Validation.NotImplementedError | NotImplementedError} when there is no validator available for `this.version`
-   * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
+   * Promise rejects with one of the following:
+   * - {@link Validation.NotImplementedError | NotImplementedError}, when there is no validator available
+   * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError}, when a required dependency was not installed
    */
   validate: (data: string) => Promise<null | ValidationError>
 }
