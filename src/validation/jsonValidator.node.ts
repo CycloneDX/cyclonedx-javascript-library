@@ -23,7 +23,8 @@ import { readFile } from 'fs/promises'
 
 import { FILES } from '../resources.node'
 import { BaseValidator } from './baseValidator'
-import { MissingOptionalDependencyError, NotImplementedError, ValidationError } from './errors'
+import { MissingOptionalDependencyError, NotImplementedError } from './errors'
+import type { ValidationError } from './types'
 
 let _ajv: Ajv | undefined
 
@@ -101,19 +102,22 @@ abstract class BaseJsonValidator extends BaseValidator {
   /**
    * Validate the data against CycloneDX spec of `this.version`.
    *
-   * Promise may reject with one of the following:
-   * - {@link Validation.NotImplementedError | NotImplementedError} when there is no validator available for `this.version`
-   * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
-   * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
+   * Promise completes with one of the following:
+   * - `null`, when data was valid
+   * - {@link Validation.Types.ValidationError | something} representing the error details, when data was invalid representing the error details, when data was invalid
+   *
+   * Promise rejects with one of the following:
+   * - {@link Validation.NotImplementedError | NotImplementedError}, when there is no validator available for `this.version`
+   * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError}, when a required dependency was not installed
    */
-  async validate (data: string): Promise<void> {
+  async validate (data: string): Promise<null | ValidationError> {
     const [doc, validator] = await Promise.all([
       (async () => JSON.parse(data))(),
       this.#getValidator()
     ])
-    if (!validator(doc)) {
-      throw new ValidationError(`invalid to CycloneDX ${this.version}`, validator.errors)
-    }
+    return validator(doc)
+      ? null
+      : validator.errors
   }
 }
 export class JsonValidator extends BaseJsonValidator {

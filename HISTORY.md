@@ -5,14 +5,13 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Added
-  * Formal validators for JSON string and XML string ([#620] via [#652])  
+  * Formal validators for JSON string and XML string ([#620] via [#652], [#691])  
     Currently available only for _Node.js_. Requires [optional dependencies](README.md#optional-dependencies).
     * Related new validator classes:
       * `Validation.JsonValidator`
       * `Validation.JsonStrictValidator`
       * `Validation.XmlValidator`
     * Related new error classes:
-      * `Validation.ValidationError`
       * `Validation.NotImplementedError`
       * `Validation.MissingOptionalDependencyError`
 * Build
@@ -24,6 +23,7 @@ All notable changes to this project will be documented in this file.
 [#644]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/644
 [#652]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/652
 [#686]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/686
+[#691]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/691
 
 ## 1.13.3 - 2023-04-05
 

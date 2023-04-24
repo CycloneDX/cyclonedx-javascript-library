@@ -18,4 +18,4 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 export * from './errors'
-export * from './types'
+export * as Types from './types'

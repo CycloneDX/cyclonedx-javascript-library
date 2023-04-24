@@ -20,8 +20,6 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { describe, it } = require('mocha')
 
-const { escapeRegExp } = require('../_helpers/stringFunctions')
-
 let hasDep = true
 try {
   require('ajv')
@@ -32,7 +30,7 @@ try {
 const {
   Spec: { Version },
   Validation: {
-    ValidationError, NotImplementedError, MissingOptionalDependencyError,
+    NotImplementedError, MissingOptionalDependencyError,
     JsonValidator
   }
 } = require('../../')
@@ -45,7 +43,7 @@ describe('Validation.JsonValidator', () => {
     it('throws not implemented', async () => {
       const validator = new JsonValidator(version)
       await assert.rejects(
-        () => validator.validate('{}'),
+        validator.validate('{}'),
         (err) => err instanceof NotImplementedError
       )
     })
@@ -60,7 +58,7 @@ describe('Validation.JsonValidator', () => {
       it('throws MissingOptionalDependencyError', async () => {
         const validator = new JsonValidator(version)
         await assert.rejects(
-          () => validator.validate('{}'),
+          validator.validate('{}'),
           (err) => err instanceof MissingOptionalDependencyError
         )
       })
@@ -78,15 +76,8 @@ describe('Validation.JsonValidator', () => {
           unknown: 'undefined' // << undefined/additional property
         }]
       })
-      await assert.rejects(
-        () => validator.validate(input),
-        (err) => {
-          assert.ok(err instanceof ValidationError)
-          assert.match(err.message, new RegExp(`invalid.* CycloneDX ${escapeRegExp(version)}`, 'i'))
-          assert.notStrictEqual(err.details, undefined)
-          return true
-        }
-      )
+      const validationError = await validator.validate(input)
+      assert.notStrictEqual(validationError, null)
     })
 
     it('valid passes', async () => {
@@ -100,8 +91,8 @@ describe('Validation.JsonValidator', () => {
           version: '1.337'
         }]
       })
-
-      await validator.validate(input)
+      const validationError = await validator.validate(input)
+      assert.strictEqual(validationError, null)
     })
   }))
 })

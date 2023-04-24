@@ -17,12 +17,20 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+/**
+ * Details and information describing a validation error.
+ */
+export type ValidationError = NonNullable<any>
+
 export interface Validator {
   /**
-   * Promise rejects with one of the following
-   * - {@link Validation.NotImplementedError | NotImplementedError} when there is no validator available for `this.version`
-   * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError} when a required dependency was not installed
-   * - {@link Validation.ValidationError | ValidationError} when `data` was invalid to the schema
+   * Promise completes with one of the following:
+   * - `null`, when data was valid
+   * - {@link ValidationError | something} representing the error details, when data was invalid
+   *
+   * Promise rejects with one of the following:
+   * - {@link Validation.NotImplementedError | NotImplementedError}, when there is no validator available
+   * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError}, when a required dependency was not installed
    */
-  validate: (data: string) => Promise<void>
+  validate: (data: string) => Promise<null | ValidationError>
 }
