@@ -214,7 +214,7 @@ jobs:
         if: ${{ env.CODACY_PROJECT_TOKEN != '' }} ## see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-secrets
         # see https://github.com/codacy/codacy-coverage-reporter-action/blob/8a27d704d4ea6890aee42477b231c4fbbebac2ae/action.yml#L59
         run: |
-          set -eux
+          set -ex
           auth="--project-token '$CODACY_PROJECT_TOKEN'"
           reports=''
           for report in $REPORTS_DIR/coverage/*/*
