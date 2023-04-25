@@ -43,11 +43,15 @@ console.log(serializedJson)
 const jsonValidator = new CDX.Validation.JsonStrictValidator(serializeSpec.version)
 try {
   const validationErrors = await jsonValidator.validate(serializedJson)
-  if (validationErrors !== null) {
-    throw new Error('ValidationError:\n' + JSON.stringify(validationErrors))
+  if (validationErrors === null) {
+    console.info('JSON valid')
+  } else {
+    throw new Error('JSON ValidationError:\n' + JSON.stringify(validationErrors))
   }
 } catch (err) {
-  if (!(err instanceof CDX.Validation.MissingOptionalDependencyError)) {
+  if (err instanceof CDX.Validation.MissingOptionalDependencyError) {
+    console.info('JSON validation skipped:', err)
+  } else {
     throw err
   }
 }
@@ -59,11 +63,15 @@ console.log(serializedXML)
 const xmlValidator = new CDX.Validation.XmlValidator(serializeSpec.version)
 try {
   const validationErrors = await xmlValidator.validate(serializedXML)
-  if (validationErrors !== null) {
-    throw new Error('ValidationError:\n' + JSON.stringify(validationErrors))
+  if (validationErrors === null) {
+    console.info('XML valid')
+  } else {
+    throw new Error('XML ValidationError:\n' + JSON.stringify(validationErrors))
   }
 } catch (err) {
-  if (!(err instanceof CDX.Validation.MissingOptionalDependencyError)) {
+  if (err instanceof CDX.Validation.MissingOptionalDependencyError) {
+    console.info('XML validation skipped:', err)
+  } else {
     throw err
   }
 }

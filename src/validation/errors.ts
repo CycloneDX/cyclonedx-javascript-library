@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { type Version } from '../spec'
+import type { Version } from '../spec'
 
 export class NotImplementedError extends Error {
   constructor (version: Version) {

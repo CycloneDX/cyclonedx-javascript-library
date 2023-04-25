@@ -251,7 +251,11 @@ jobs:
           name: dist.node
           path: dist.node
       - name: setup library
-        run: npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
+        run: |
+          set -ex
+          npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
+          ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
+          npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
       - name: setup example project
         run: npm i --no-save --loglevel=silly
         working-directory: ${{ env.EXAMPLE_DIR }}
@@ -300,12 +304,18 @@ jobs:
           name: dist.node
           path: dist.node
       - name: setup library
-        run: npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
+        run: |
+          set -ex
+          npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
+          ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
+          npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
       - name: setup example project
         run: npm i --no-save --loglevel=silly 'typescript@${{ matrix.typescript-version }}'
+        working-directory: ${{ env.EXAMPLE_DIR }}
       - name: get TS-version
         id: ts_version
         run: node -p '`v=ts${require("typescript").version.split(".",2).join(".")}`' >> "$GITHUB_OUTPUT"
+        working-directory: ${{ env.EXAMPLE_DIR }}
       - name: adjust @types/node version
         run: npm i --no-save --loglevel=silly '@types/node@${{ matrix.nodeTypes-version || steps.ts_version.outputs.v}}'
         working-directory: ${{ env.EXAMPLE_DIR }}
