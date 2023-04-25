@@ -19,7 +19,7 @@ written in _TypeScript_ and compiled for the target.
 * Provide a general purpose _JavaScript_-implementation of [_CycloneDX_][link_website] for _Node.js_ and _WebBrowsers_.
 * Provide typing for said implementation, so developers and dev-tools can rely on it.
 * Provide data models to work with _CycloneDX_.
-* Provide a JSON- and an XML-normalizer, that...
+* Provide JSON- and XML-normalizers, that...
   * supports all shipped data models.
   * respects any injected [_CycloneDX_ Specification][CycloneDX-spec] and generates valid output according to it.
   * can be configured to generate reproducible/deterministic output.
@@ -30,7 +30,7 @@ written in _TypeScript_ and compiled for the target.
   * Support the downstream implementation of custom XML-serializers tailored to specific environments  
     by providing an abstract base class that takes care of normalization and BomRef-discrimination.  
     This is done, because there is no universal XML support in _JavaScript_.
-* Validation according to [_CycloneDX_ Specification][CycloneDX-spec]. (currently for _Node.js_ only)
+* Provide formal JSON- and XML-validators according to [_CycloneDX_ Specification][CycloneDX-spec]. (currently for _Node.js_ only)
 
 ## Capabilities
 
