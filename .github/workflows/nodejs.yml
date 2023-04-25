@@ -251,7 +251,11 @@ jobs:
           name: dist.node
           path: dist.node
       - name: setup library
-        run: npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
+        run: |
+          set -ex
+          npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
+          ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
+          npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
       - name: setup example project
         run: npm i --no-save --loglevel=silly
         working-directory: ${{ env.EXAMPLE_DIR }}
@@ -300,7 +304,11 @@ jobs:
           name: dist.node
           path: dist.node
       - name: setup library
-        run: npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
+        run: |
+          set -ex
+          npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
+          ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
+          npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
       - name: setup example project
         run: npm i --no-save --loglevel=silly 'typescript@${{ matrix.typescript-version }}'
       - name: get TS-version
