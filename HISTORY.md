@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.14.0 -- 2023-04-25
+
 * Added
   * Formal validators for JSON string and XML string ([#620] via [#652], [#691])  
     Currently available only for _Node.js_. Requires [optional dependencies](README.md#optional-dependencies).
