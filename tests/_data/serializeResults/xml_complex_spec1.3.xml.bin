@@ -29,7 +29,7 @@
         </authors>
         <component type="library" bom-ref="dummy.metadata.component">
             <name>Root Component</name>
-            <version/>
+            <version>1.33.7</version>
         </component>
         <manufacture>
             <name>meta manufacture</name>
@@ -81,6 +81,10 @@
             <licenses>
                 <expression>(MIT OR Apache-2.0)</expression>
             </licenses>
+        </component>
+        <component type="library" bom-ref="component-with-vulnerabilities">
+            <name>component-with-vulnerabilities</name>
+            <version>1.0</version>
         </component>
         <component type="library" bom-ref="ComponentWithProperties">
             <name>component-with-properties</name>
@@ -168,6 +172,7 @@
         <dependency ref="component-with-licenseExpression"/>
         <dependency ref="component-with-licenses"/>
         <dependency ref="component-with-licenses-and-expression"/>
+        <dependency ref="component-with-vulnerabilities"/>
         <dependency ref="ComponentWithProperties"/>
         <dependency ref="dummy-component">
             <dependency ref="a-component"/>

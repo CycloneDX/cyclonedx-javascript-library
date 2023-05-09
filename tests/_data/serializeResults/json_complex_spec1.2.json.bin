@@ -40,7 +40,7 @@
         "component": {
             "type": "library",
             "name": "Root Component",
-            "version": "",
+            "version": "1.33.7",
             "bom-ref": "dummy.metadata.component"
         },
         "manufacture": {
@@ -117,6 +117,12 @@
                     "expression": "(MIT OR Apache-2.0)"
                 }
             ]
+        },
+        {
+            "type": "library",
+            "name": "component-with-vulnerabilities",
+            "version": "1.0",
+            "bom-ref": "component-with-vulnerabilities"
         },
         {
             "type": "library",
@@ -249,6 +255,9 @@
         },
         {
             "ref": "component-with-licenses-and-expression"
+        },
+        {
+            "ref": "component-with-vulnerabilities"
         },
         {
             "ref": "ComponentWithProperties"

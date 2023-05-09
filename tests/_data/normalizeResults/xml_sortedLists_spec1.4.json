@@ -156,6 +156,11 @@
               "type": "element",
               "name": "name",
               "children": "Root Component"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": "1.33.7"
             }
           ]
         },
@@ -347,6 +352,26 @@
                   "children": "(MIT OR Apache-2.0)"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "component-with-vulnerabilities"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "component-with-vulnerabilities"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": "1.0"
             }
           ]
         },
@@ -765,6 +790,14 @@
           "name": "dependency",
           "attributes": {
             "ref": "component-with-licenses-and-expression"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "component-with-vulnerabilities"
           },
           "children": []
         },

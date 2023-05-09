@@ -262,7 +262,7 @@ module.exports.createComplexStructure = function () {
       }),
       ratings: new Models.Vulnerability.RatingRepository([
         new Models.Vulnerability.Rating({
-          source: Models.Vulnerability.Source({
+          source: new Models.Vulnerability.Source({
             name: 'NVD',
             url: 'https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H&version=3.0'
           }),
@@ -294,7 +294,7 @@ module.exports.createComplexStructure = function () {
       analysis: new Models.Vulnerability.Analysis({
         state: Enums.Vulnerability.AnalysisState.NotAffected,
         justification: Enums.Vulnerability.AnalysisJustification.CodeNotReachable,
-        response: new Models.Vulnerability.AnalysisResponseRepository([
+        response: new Enums.Vulnerability.AnalysisResponseRepository([
           Enums.Vulnerability.AnalysisResponse.WillNotFix,
           Enums.Vulnerability.AnalysisResponse.Update
         ]),
