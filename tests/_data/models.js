@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 const { PackageURL } = require('packageurl-js')
 
-const { Enums, Models } = require('../../')
+const { Enums, Models, Types } = require('../../')
 
 /* eslint-disable jsdoc/valid-types */
 
@@ -238,6 +238,157 @@ module.exports.createComplexStructure = function () {
       }
     )
   )
+
+  bom.vulnerabilities.add(new Models.Vulnerability.Vulnerability({
+    bomRef: 'dummy.vulnerability.1',
+    id: '1',
+    source: new Models.Vulnerability.Source({ name: 'manual' }),
+    references: new Models.Vulnerability.ReferenceRepository([
+      new Models.Vulnerability.Reference('CVE-2042-42421', new Models.Vulnerability.Source()),
+      new Models.Vulnerability.Reference('CVE-2042-42420', new Models.Vulnerability.Source())
+    ]),
+    ratings: new Models.Vulnerability.RatingRepository([
+      new Models.Vulnerability.Rating({
+        score: 10,
+        method: Enums.Vulnerability.RatingMethod.Other,
+        severity: Enums.Vulnerability.Severity.Critical,
+        justification: 'this is crazy'
+      })
+    ]),
+    cwes: new Types.CweRepository([142, 42]),
+    advisories: new Models.Vulnerability.AdvisoryRepository([
+      new Models.Vulnerability.Advisory('https://www.advisories.com/', { title: 'vulnerability 1 discovered' })
+    ]),
+    description: 'description of 1',
+    detail: 'detail of 1',
+    recommendation: 'recommendation of 1',
+    created: new Date('2023-03-03T00:00:40.000Z'),
+    published: new Date('2023-03-03T00:00:41.000Z'),
+    updated: new Date('2023-03-03T00:00:42.000Z'),
+    credits: new Models.Vulnerability.Credits({
+      organizations: new Models.OrganizationalEntityRepository([
+        new Models.OrganizationalEntity({
+          name: 'vulnerability researchers inc.',
+          url: new Set([new URL('https://vulnerabilities-researchers.com')])
+        })
+      ]),
+      individuals: new Models.OrganizationalContactRepository([
+        new Models.OrganizationalContact({ name: 'John "pentester" Doe' })
+      ])
+    }),
+    tools: new Models.ToolRepository([
+      new Models.Tool({
+        vendor: 'v the vendor',
+        name: 'tool name'
+      })
+    ]),
+    analysis: new Models.Vulnerability.Analysis({
+      state: Enums.Vulnerability.AnalysisState.FalsePositive,
+      justification: Enums.Vulnerability.AnalysisJustification.ProtectedAtRuntime,
+      response: new Enums.Vulnerability.AnalysisResponseRepository([
+        Enums.Vulnerability.AnalysisResponse.CanNotFix,
+        Enums.Vulnerability.AnalysisResponse.WillNotFix
+      ]),
+      detail: 'analysis details'
+    }),
+    affects: new Models.Vulnerability.AffectRepository([
+      new Models.Vulnerability.Affect(new Models.BomRef('dummy.library.affected'), {
+        versions: new Models.Vulnerability.AffectedVersionRepository([
+          new Models.Vulnerability.AffectedSingleVersion('1.0.0', {
+            status: Enums.Vulnerability.AffectStatus.Affected
+          }),
+          new Models.Vulnerability.AffectedVersionRange('> 1.0', {
+            status: Enums.Vulnerability.AffectStatus.Unknown
+          })
+        ])
+      }),
+      new Models.Vulnerability.Affect(new Models.BomRef('another.dummy.library.affected'), {
+        versions: new Models.Vulnerability.AffectedVersionRepository([
+          new Models.Vulnerability.AffectedSingleVersion('1.0.0', {
+            status: Enums.Vulnerability.AffectStatus.Affected
+          })
+        ])
+      })
+    ]),
+    properties: new Models.PropertyRepository([
+      new Models.Property('a name', 'a value')
+    ])
+  }))
+
+  bom.vulnerabilities.add(new Models.Vulnerability.Vulnerability({
+    bomRef: 'dummy.vulnerability.2',
+    id: '2',
+    source: new Models.Vulnerability.Source({ name: 'manual' }),
+    references: new Models.Vulnerability.ReferenceRepository([
+      new Models.Vulnerability.Reference('CVE-2042-42422', new Models.Vulnerability.Source())
+    ]),
+    ratings: new Models.Vulnerability.RatingRepository([
+      new Models.Vulnerability.Rating({
+        score: 10,
+        method: Enums.Vulnerability.RatingMethod.Other,
+        severity: Enums.Vulnerability.Severity.Critical,
+        justification: 'this is crazy'
+      })
+    ]),
+    cwes: new Types.CweRepository([242]),
+    advisories: new Models.Vulnerability.AdvisoryRepository([
+      new Models.Vulnerability.Advisory('https://www.advisories.com/', { title: 'vulnerability 2 discovered' })
+    ]),
+    description: 'description of 2',
+    detail: 'detail of 2',
+    recommendation: 'recommendation of 2',
+    created: new Date('2023-03-03T00:00:40.000Z'),
+    published: new Date('2023-03-03T00:00:41.000Z'),
+    updated: new Date('2023-03-03T00:00:42.000Z'),
+    credits: new Models.Vulnerability.Credits({
+      organizations: new Models.OrganizationalEntityRepository([
+        new Models.OrganizationalEntity({
+          name: 'vulnerability researchers inc.',
+          url: new Set([new URL('https://vulnerabilities-researchers.com')])
+        })
+      ]),
+      individuals: new Models.OrganizationalContactRepository([
+        new Models.OrganizationalContact({ name: 'John "pentester" Doe' })
+      ])
+    }),
+    tools: new Models.ToolRepository([
+      new Models.Tool({
+        vendor: 'v the vendor',
+        name: 'tool name'
+      })
+    ]),
+    analysis: new Models.Vulnerability.Analysis({
+      state: Enums.Vulnerability.AnalysisState.FalsePositive,
+      justification: Enums.Vulnerability.AnalysisJustification.ProtectedAtRuntime,
+      response: new Enums.Vulnerability.AnalysisResponseRepository([
+        Enums.Vulnerability.AnalysisResponse.CanNotFix,
+        Enums.Vulnerability.AnalysisResponse.WillNotFix
+      ]),
+      detail: 'analysis details'
+    }),
+    affects: new Models.Vulnerability.AffectRepository([
+      new Models.Vulnerability.Affect(new Models.BomRef('dummy.library.affected'), {
+        versions: new Models.Vulnerability.AffectedVersionRepository([
+          new Models.Vulnerability.AffectedSingleVersion('1.0.0', {
+            status: Enums.Vulnerability.AffectStatus.Affected
+          }),
+          new Models.Vulnerability.AffectedVersionRange('> 1.0', {
+            status: Enums.Vulnerability.AffectStatus.Unknown
+          })
+        ])
+      }),
+      new Models.Vulnerability.Affect(new Models.BomRef('another.dummy.library.affected'), {
+        versions: new Models.Vulnerability.AffectedVersionRepository([
+          new Models.Vulnerability.AffectedSingleVersion('1.0.0', {
+            status: Enums.Vulnerability.AffectStatus.Affected
+          })
+        ])
+      })
+    ]),
+    properties: new Models.PropertyRepository([
+      new Models.Property('a name', 'a value')
+    ])
+  }))
 
   return bom
 }

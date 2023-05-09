@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type * as Enums from '../../enums'
 import type { HashContent } from '../../models'
 import type { SpdxId } from '../../spdx'
-import type { CPE, Integer } from '../../types'
+import type { CPE, CWE, Integer } from '../../types'
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace JsonSchema {
@@ -77,6 +77,7 @@ export namespace Normalized {
     components?: Component[]
     externalReferences?: ExternalReference[]
     dependencies?: Dependency[]
+    vulnerabilities?: Vulnerability[]
   }
 
   export interface Metadata {
@@ -193,4 +194,80 @@ export namespace Normalized {
     dependsOn?: RefType[]
   }
 
+  export interface Vulnerability {
+    'bom-ref'?: RefType
+    id?: string
+    source?: Vulnerability.Source
+    references?: Vulnerability.Reference[]
+    ratings?: Vulnerability.Rating[]
+    cwes?: CWE[]
+    description?: string
+    detail?: string
+    recommendation?: string
+    advisories?: Vulnerability.Advisory[]
+    created?: JsonSchema.DateTime
+    published?: JsonSchema.DateTime
+    updated?: JsonSchema.DateTime
+    credits?: Vulnerability.Credits
+    tools?: Tool[]
+    analysis?: Vulnerability.Analysis
+    affects?: Vulnerability.Affect[]
+    properties?: Property[]
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  export namespace Vulnerability {
+    export interface Source {
+      name?: string
+      url?: string
+    }
+
+    export interface Reference {
+      id: string
+      source: Source
+    }
+
+    export interface Rating {
+      source?: Source
+      score?: number
+      severity?: Enums.Vulnerability.Severity
+      method?: Enums.Vulnerability.RatingMethod
+      vector?: string
+      justification?: string
+    }
+
+    export interface Advisory {
+      title?: string
+      url: string
+    }
+
+    export interface Credits {
+      organizations?: OrganizationalEntity[]
+      individuals?: OrganizationalContact[]
+    }
+
+    export interface Analysis {
+      state?: Enums.Vulnerability.AnalysisState
+      justification?: Enums.Vulnerability.AnalysisJustification
+      response?: Enums.Vulnerability.AnalysisResponse[]
+      detail?: string
+    }
+
+    export interface Affect {
+      'ref': RefType
+      versions?: AffectedVersion[]
+    }
+
+    export interface AffectedSingleVersion {
+      version: string
+      status?: Enums.Vulnerability.AffectStatus
+    }
+
+    export interface AffectedVersionRange {
+      range: string
+      status?: Enums.Vulnerability.AffectStatus
+    }
+
+    export type AffectedVersion = AffectedSingleVersion | AffectedVersionRange
+  }
 }

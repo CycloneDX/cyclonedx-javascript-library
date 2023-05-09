@@ -21,9 +21,11 @@ import { isNotUndefined } from '../../_helpers/notUndefined'
 import type { SortableIterable } from '../../_helpers/sortable'
 import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
+import type * as Enums from '../../enums'
 import * as Models from '../../models'
 import type { Protocol as Spec } from '../../spec'
 import { Version as SpecVersion } from '../../spec'
+import type { CWE } from '../../types'
 import type { NormalizerOptions } from '../types'
 import type { Normalized } from './types'
 import { JsonSchema } from './types'
@@ -90,6 +92,42 @@ export class Factory {
   makeForDependencyGraph (): DependencyGraphNormalizer {
     return new DependencyGraphNormalizer(this)
   }
+
+  makeForVulnerability (): VulnerabilityNormalizer {
+    return new VulnerabilityNormalizer(this)
+  }
+
+  makeForVulnerabilitySource (): VulnerabilitySourceNormalizer {
+    return new VulnerabilitySourceNormalizer(this)
+  }
+
+  makeForVulnerabilityReference (): VulnerabilityReferenceNormalizer {
+    return new VulnerabilityReferenceNormalizer(this)
+  }
+
+  makeForVulnerabilityRating (): VulnerabilityRatingNormalizer {
+    return new VulnerabilityRatingNormalizer(this)
+  }
+
+  makeForVulnerabilityAdvisory (): VulnerabilityAdvisoryNormalizer {
+    return new VulnerabilityAdvisoryNormalizer(this)
+  }
+
+  makeForVulnerabilityCredit (): VulnerabilityCreditNormalizer {
+    return new VulnerabilityCreditNormalizer(this)
+  }
+
+  makeForVulnerabilityAffect (): VulnerabilityAffectNormalizer {
+    return new VulnerabilityAffectNormalizer(this)
+  }
+
+  makeForVulnerabilityAffectedVersion (): VulnerabilityAffectedVersionNormalizer {
+    return new VulnerabilityAffectedVersionNormalizer(this)
+  }
+
+  makeForVulnerabilityAnalysis (): VulnerabilityAnalysisNormalizer {
+    return new VulnerabilityAnalysisNormalizer(this)
+  }
 }
 
 const schemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
@@ -142,6 +180,9 @@ export class BomNormalizer extends BaseJsonNormalizer<Models.Bom> {
         : [],
       dependencies: this._factory.spec.supportsDependencyGraph
         ? this._factory.makeForDependencyGraph().normalize(data, options)
+        : undefined,
+      vulnerabilities: this._factory.spec.supportsVulnerabilities && data.vulnerabilities.size > 0
+        ? this._factory.makeForVulnerability().normalizeIterable(data.vulnerabilities, options)
         : undefined
     }
   }
@@ -268,6 +309,16 @@ export class OrganizationalEntityNormalizer extends BaseJsonNormalizer<Models.Or
         ? this._factory.makeForOrganizationalContact().normalizeIterable(data.contact, options)
         : undefined
     }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.OrganizationalEntity>, options: NormalizerOptions): Normalized.OrganizationalEntity[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      c => this.normalize(c, options)
+    )
   }
 }
 
@@ -534,12 +585,253 @@ export class DependencyGraphNormalizer extends BaseJsonNormalizer<Models.Bom> {
   }
 }
 
+export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Vulnerability> {
+  normalize (data: Models.Vulnerability.Vulnerability, options: NormalizerOptions): Normalized.Vulnerability {
+    const source = data.source === undefined
+      ? undefined
+      : this._factory.makeForVulnerabilitySource().normalize(data.source, options)
+    const references = data.references.size > 0
+      ? this._factory.makeForVulnerabilityReference().normalizeIterable(data.references, options)
+      : undefined
+    const ratings = data.ratings.size > 0
+      ? this._factory.makeForVulnerabilityRating().normalizeIterable(data.ratings, options)
+      : undefined
+    const cwes = data.cwes.size > 0
+      ? normalizeCweIter(data.cwes, options)
+      : undefined
+    const advisories = data.advisories.size > 0
+      ? this._factory.makeForVulnerabilityAdvisory().normalizeIterable(data.advisories, options)
+      : undefined
+    const credits = data.credits === undefined
+      ? undefined
+      : this._factory.makeForVulnerabilityCredit().normalize(data.credits, options)
+    const tools = data.tools.size > 0
+      ? this._factory.makeForTool().normalizeIterable(data.tools, options)
+      : undefined
+    const analysis = data.analysis === undefined
+      ? undefined
+      : this._factory.makeForVulnerabilityAnalysis().normalize(data.analysis, options)
+    const affects = data.affects.size > 0
+      ? this._factory.makeForVulnerabilityAffect().normalizeIterable(data.affects, options)
+      : undefined
+    const properties = data.properties.size > 0
+      ? this._factory.makeForProperty().normalizeIterable(data.properties, options)
+      : undefined
+
+    return {
+      'bom-ref': data.bomRef.value || undefined,
+      id: data.id,
+      source,
+      references,
+      ratings,
+      cwes,
+      description: data.description,
+      detail: data.detail,
+      recommendation: data.recommendation,
+      advisories,
+      created: data.created?.toISOString(),
+      published: data.published?.toISOString(),
+      updated: data.updated?.toISOString(),
+      credits,
+      tools,
+      analysis,
+      affects,
+      properties
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Vulnerability>, options: NormalizerOptions): Normalized.Vulnerability[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      c => this.normalize(c, options)
+    )
+  }
+}
+
+export class VulnerabilitySourceNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Source> {
+  normalize (data: Models.Vulnerability.Source, options: NormalizerOptions): Normalized.Vulnerability.Source {
+    return {
+      name: data.name,
+      url: data.url?.toString()
+    }
+  }
+}
+
+export class VulnerabilityReferenceNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Reference> {
+  normalize (data: Models.Vulnerability.Reference, options: NormalizerOptions): Normalized.Vulnerability.Reference {
+    return {
+      id: data.id,
+      source: this._factory.makeForVulnerabilitySource().normalize(data.source, options)
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Reference>, options: NormalizerOptions): Normalized.Vulnerability.Reference[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      c => this.normalize(c, options)
+    )
+  }
+}
+
+export class VulnerabilityRatingNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Rating> {
+  normalize (data: Models.Vulnerability.Rating, options: NormalizerOptions): Normalized.Vulnerability.Rating {
+    return {
+      source: data.source === undefined
+        ? undefined
+        : this._factory.makeForVulnerabilitySource().normalize(data.source, options),
+      score: data.score,
+      severity: data.severity,
+      method: data.method,
+      vector: data.vector,
+      justification: data.justification
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Rating>, options: NormalizerOptions): Normalized.Vulnerability.Rating[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      c => this.normalize(c, options)
+    )
+  }
+}
+
+export class VulnerabilityAdvisoryNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Advisory> {
+  normalize (data: Models.Vulnerability.Advisory, options: NormalizerOptions): Normalized.Vulnerability.Advisory {
+    return {
+      title: data.title === undefined
+        ? undefined
+        : data.title,
+      url: data.url.toString()
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Advisory>, options: NormalizerOptions): Normalized.Vulnerability.Advisory[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      c => this.normalize(c, options)
+    )
+  }
+}
+
+export class VulnerabilityCreditNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Credits> {
+  normalize (data: Models.Vulnerability.Credits, options: NormalizerOptions): Normalized.Vulnerability.Credits {
+    const organizations = data.organizations === undefined || data.organizations.size === 0
+      ? undefined
+      : this._factory.makeForOrganizationalEntity().normalizeIterable(data.organizations, options)
+    const individuals = data.individuals === undefined || data.individuals.size === 0
+      ? undefined
+      : this._factory.makeForOrganizationalContact().normalizeIterable(data.individuals, options)
+    return { organizations, individuals }
+  }
+}
+
+export class VulnerabilityAffectNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Affect> {
+  normalize (data: Models.Vulnerability.Affect, options: NormalizerOptions): Normalized.Vulnerability.Affect {
+    return {
+      ref: data.ref.toString(),
+      versions: data.versions.size > 0
+        ? this._factory.makeForVulnerabilityAffectedVersion().normalizeIterable(data.versions, options)
+        : undefined
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Affect>, options: NormalizerOptions): Normalized.Vulnerability.Affect[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      c => this.normalize(c, options)
+    )
+  }
+}
+
+export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<Models.Vulnerability.AffectedVersion> {
+  normalize (data: Models.Vulnerability.AffectedVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersion {
+    switch (true) {
+      case data instanceof Models.Vulnerability.AffectedSingleVersion:
+        return this.#normalizeAffectedSingleVersion(data as Models.Vulnerability.AffectedSingleVersion, options)
+      case data instanceof Models.Vulnerability.AffectedVersionRange:
+        return this.#normalizeAffectedVersionRange(data as Models.Vulnerability.AffectedVersionRange, options)
+      default:
+        // this case is not expected to happen - and therefore is undocumented
+        throw new TypeError('Unexpected Vulnerability Affect')
+    }
+  }
+
+  #normalizeAffectedSingleVersion (data: Models.Vulnerability.AffectedSingleVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedSingleVersion {
+    return {
+      version: data.version,
+      status: data.status
+    }
+  }
+
+  #normalizeAffectedVersionRange (data: Models.Vulnerability.AffectedVersionRange, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersionRange {
+    return {
+      range: data.range,
+      status: data.status
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.AffectedVersion>, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersion[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      c => this.normalize(c, options)
+    )
+  }
+}
+
+export class VulnerabilityAnalysisNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Analysis> {
+  normalize (data: Models.Vulnerability.Analysis, options: NormalizerOptions): Normalized.Vulnerability.Analysis {
+    const response = data.response.size > 0
+      ? normalizeAnalysisResponseIter(data.response, options)
+      : undefined
+    return {
+      state: data.state,
+      justification: data.justification,
+      response,
+      detail: data.detail
+    }
+  }
+}
+
 /* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */
 
 function normalizeStringableIter (data: Iterable<Stringable>, options: NormalizerOptions): string[] {
   const r: string[] = Array.from(data, d => d.toString())
   if (options.sortLists ?? false) {
     r.sort((a, b) => a.localeCompare(b))
+  }
+  return r
+}
+
+function normalizeCweIter (data: Iterable<CWE>, options: NormalizerOptions): CWE[] {
+  const r: CWE[] = Array.from(data)
+  if (options.sortLists ?? false) {
+    r.sort((a, b) => (b.toString().localeCompare(a.toString())))
+  }
+  return r
+}
+
+function normalizeAnalysisResponseIter (data: Iterable<Enums.Vulnerability.AnalysisResponse>, options: NormalizerOptions): Enums.Vulnerability.AnalysisResponse[] {
+  const r: Enums.Vulnerability.AnalysisResponse[] = Array.from(data)
+  if (options.sortLists ?? false) {
+    r.sort((a, b) => (a.localeCompare(b)))
   }
   return r
 }
