@@ -238,7 +238,7 @@ module.exports.createComplexStructure = function () {
       }
     )
   )
-  
+
   bom.vulnerabilities.add(new Models.Vulnerability.Vulnerability({
     bomRef: 'dummy.vulnerability.1',
     id: '1',

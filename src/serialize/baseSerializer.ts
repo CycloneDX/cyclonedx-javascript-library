@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { treeIteratorSymbol } from '../_helpers/tree'
-import type { Bom, BomRef, Component, Vulnerability } from '../models'
+import type { Bom, BomRef } from '../models'
 import { BomRefDiscriminator } from './bomRefDiscriminator'
 import type { NormalizerOptions, Serializer, SerializerOptions } from './types'
 
