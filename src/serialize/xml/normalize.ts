@@ -145,7 +145,9 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
       namespace: xmlNamespace.get(this._factory.spec.version),
       attributes: {
         version: data.version,
-        serialNumber: data.serialNumber
+        serialNumber: this.#isEligibleSerialNumber(data.serialNumber)
+          ? data.serialNumber
+          : undefined
       },
       children: [
         data.metadata
@@ -157,6 +159,12 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
           : undefined
       ].filter(isNotUndefined)
     }
+  }
+
+  #isEligibleSerialNumber (v: string | undefined): boolean {
+    return v !== undefined &&
+      // see https://github.com/CycloneDX/specification/blob/ef71717ae0ecb564c0b4c9536d6e9e57e35f2e69/schema/bom-1.4.xsd#L699
+      /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$|^\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}$/.test(v)
   }
 }
 
@@ -428,9 +436,11 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
         return this.#normalizeSpdxLicense(data as Models.SpdxLicense, options)
       case data instanceof Models.LicenseExpression:
         return this.#normalizeLicenseExpression(data as Models.LicenseExpression)
+      /* c8 ignore start */
       default:
         // this case is not expected to happen - and therefore is undocumented
         throw new TypeError('Unexpected LicenseChoice')
+      /* c8 ignore end */
     }
   }
 
@@ -472,13 +482,26 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
     return makeTextElement(data.expression, 'expression')
   }
 
-  /** @since 1.5.1 */
+  /**
+   * If there is any {@link Models.LicenseExpression | LicenseExpression} in the set, then this is the only item that is normalized.
+   *
+   * @since 1.5.1
+   */
   normalizeIterable (data: SortableIterable<Models.License>, options: NormalizerOptions): SimpleXml.Element[] {
-    return (
-      options.sortLists ?? false
-        ? data.sorted()
-        : Array.from(data)
-    ).map(c => this.normalize(c, options))
+    const licenses = options.sortLists ?? false
+      ? data.sorted()
+      : Array.from(data)
+
+    if (licenses.length > 1) {
+      const expressions = licenses.filter(l => l instanceof Models.LicenseExpression) as Models.LicenseExpression[]
+      if (expressions.length > 0) {
+        // could have thrown {@link RangeError} when there is more than one only {@link Models.LicenseExpression | LicenseExpression}.
+        // but let's be graceful and just normalize to the most relevant choice: any expression
+        return [this.#normalizeLicenseExpression(expressions[0])]
+      }
+    }
+
+    return licenses.map(l => this.normalize(l, options))
   }
 
   /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */

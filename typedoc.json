@@ -1,6 +1,9 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "tsconfig": "tsconfig.d.json",
+  "plugin": [
+    "typedoc-plugin-missing-exports"
+  ],
   "commentStyle": "jsdoc",
   "includeVersion": true,
   "hideGenerator": true,

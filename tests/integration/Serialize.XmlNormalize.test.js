@@ -64,7 +64,6 @@ describe('Serialize.XmlNormalize', function () {
       if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
         writeNormalizeResult(json, 'xml_sortedLists', spec.version, 'json')
       }
-
       assert.deepStrictEqual(
         JSON.parse(json),
         JSON.parse(loadNormalizeResult('xml_sortedLists', spec.version, 'json'))

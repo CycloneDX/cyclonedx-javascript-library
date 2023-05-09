@@ -21,7 +21,6 @@ module.exports = {
 
   /**
    * Capitalise the first letter of a string
-   *
    * @param {string} s
    * @returns {string}
    */
@@ -29,7 +28,6 @@ module.exports = {
 
   /**
    * UpperCamelCase a string
-   *
    * @param {string} s
    * @returns {string}
    */
@@ -43,9 +41,15 @@ module.exports = {
 
   /**
    * Generate a random string of length.
-   *
    * @param {number} length
    * @returns {string}
    */
-  randomString: length => Math.random().toString(32).substring(2, 2 + length).padEnd(length, 'x')
+  randomString: length => Math.random().toString(32).substring(2, 2 + length).padEnd(length, 'x'),
+
+  /**
+   * source: https://stackoverflow.com/a/6969486
+   * @param {string} s
+   * @return {string}
+   */
+  escapeRegExp: s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
 }

@@ -29,7 +29,11 @@ const {
     XML: { Normalize: { Factory: XmlNormalizeFactory } },
     XmlSerializer
   },
-  Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
+  Spec: { Spec1dot2, Spec1dot3, Spec1dot4 },
+  Validation: {
+    MissingOptionalDependencyError,
+    XmlValidator
+  }
 } = require('../../')
 
 describe('Serialize.XmlSerialize', function () {
@@ -50,19 +54,36 @@ describe('Serialize.XmlSerialize', function () {
       delete this.bom
     })
 
-    it('serialize', function () {
+    it('serialize', async function () {
       const serializer = new XmlSerializer(normalizerFactory)
 
-      const serialized = serializer.serialize(
-        this.bom, {
-          sortLists: true,
-          space: 4
-        })
+      let serialized
+      try {
+        serialized = serializer.serialize(
+          this.bom, {
+            sortLists: true,
+            space: 4
+          })
+      } catch (err) {
+        assert.ok(err instanceof Error)
+        assert.match(err.message, /no stringifier available\./i)
+        return // skipped
+      }
+
+      const validator = new XmlValidator(spec.version)
+      try {
+        const validationError = await validator.validate(serialized)
+        assert.strictEqual(validationError, null)
+      } catch (err) {
+        if (!(err instanceof MissingOptionalDependencyError)) {
+          // unexpected error
+          assert.fail(err)
+        }
+      }
 
       if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
         writeSerializeResult(serialized, 'xml_complex', spec.version, 'xml')
       }
-
       assert.strictEqual(
         serialized,
         loadSerializeResult('xml_complex', spec.version, 'xml'))
@@ -114,7 +135,12 @@ describe('Serialize.XmlSerialize', function () {
       const normalizerFactory = { makeForBom: () => bomNormalizer, spec: Spec1dot4 }
       const serializer = new XmlSerializer(normalizerFactory)
 
-      serializer.serialize(bom)
+      try {
+        serializer.serialize(bom)
+      } catch (err) {
+        assert.ok(err instanceof Error)
+        assert.match(err.message, /no stringifier available./i)
+      }
 
       assert.strictEqual(normalizedBomRefs.has('testing'), true)
       assert.strictEqual(normalizedBomRefs.size, 4, 'not every value was unique')

@@ -1,7 +1,9 @@
 {
   "private": true,
+  "name": "example",
   "description": "",
   "dependencies": {
-    "@cyclonedx/cyclonedx-library": "file:../.."
+    "@cyclonedx/cyclonedx-library": "file:../..",
+    "xmlbuilder2": "^3.0.2"
   }
 }

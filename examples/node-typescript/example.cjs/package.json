@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "example",
+  "description": "",
+  "type": "commonjs",
+  "dependencies": {
+    "@cyclonedx/cyclonedx-library": "file:../../..",
+    "xmlbuilder2": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "*",
+    "typescript": "^3.8 || ^4 || ^5"
+  },
+  "scripts": {
+    "prebuild": "tsc -b --clean",
+    "build": "tsc -b",
+    "example": "node dist/example.js"
+  }
+}

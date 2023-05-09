@@ -29,7 +29,11 @@ const {
     JSON: { Normalize: { Factory: JsonNormalizeFactory } },
     JsonSerializer
   },
-  Spec: { Spec1dot2, Spec1dot3, Spec1dot4 }
+  Spec: { Spec1dot2, Spec1dot3, Spec1dot4 },
+  Validation: {
+    MissingOptionalDependencyError,
+    JsonStrictValidator
+  }
 } = require('../../')
 
 describe('Serialize.JsonSerialize', function () {
@@ -50,7 +54,7 @@ describe('Serialize.JsonSerialize', function () {
       delete this.bom
     })
 
-    it('serialize', function () {
+    it('serialize', async function () {
       const serializer = new JsonSerializer(normalizerFactory)
 
       const serialized = serializer.serialize(
@@ -59,10 +63,20 @@ describe('Serialize.JsonSerialize', function () {
           space: 4
         })
 
+      const validator = new JsonStrictValidator(spec.version)
+      try {
+        const validationError = await validator.validate(serialized)
+        assert.strictEqual(validationError, null)
+      } catch (err) {
+        if (!(err instanceof MissingOptionalDependencyError)) {
+          // unexpected error
+          assert.fail(err)
+        }
+      }
+
       if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
         writeSerializeResult(serialized, 'json_complex', spec.version, 'json')
       }
-
       assert.strictEqual(
         serialized,
         loadSerializeResult('json_complex', spec.version, 'json'))

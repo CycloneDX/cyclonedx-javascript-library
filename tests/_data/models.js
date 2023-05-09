@@ -23,14 +23,10 @@ const { Enums, Models, Types } = require('../../')
 
 /* eslint-disable jsdoc/valid-types */
 
-/**
- * @typedef {import('../../src/models/bom').Bom} Bom
- */
-
 /* eslint-enable jsdoc/valid-types */
 
 /**
- * @returns {Bom}
+ * @returns {Models.Bom}
  */
 module.exports.createComplexStructure = function () {
   const bom = new Models.Bom({
@@ -106,6 +102,10 @@ module.exports.createComplexStructure = function () {
       Enums.ExternalReferenceType.Support
     ))
     component.externalReferences.add(new Models.ExternalReference(
+      'git+https://localhost/acme.git',
+      Enums.ExternalReferenceType.VCS
+    ))
+    component.externalReferences.add(new Models.ExternalReference(
       './other/file',
       Enums.ExternalReferenceType.ReleaseNotes // available since spec 1.4
     ))
@@ -127,7 +127,6 @@ module.exports.createComplexStructure = function () {
       license.url = new URL('https://spdx.org/licenses/MIT.html')
       return license
     })(new Models.SpdxLicense('MIT')))
-    component.licenses.add(new Models.LicenseExpression('(MIT or Apache-2.0)'))
     component.publisher = 'the publisher'
     component.purl = new PackageURL('npm', 'acme', 'dummy-component', '1337-beta', undefined, undefined)
     component.scope = Enums.ComponentScope.Required
@@ -201,6 +200,45 @@ module.exports.createComplexStructure = function () {
       ])
     }))
 
+  bom.components.add(
+    new Models.Component(
+      Enums.ComponentType.Library, 'component-with-licenses', {
+        bomRef: 'component-with-licenses',
+        licenses: new Models.LicenseRepository([
+          new Models.NamedLicense('something'),
+          new Models.SpdxLicense('MIT'),
+          new Models.SpdxLicense('Apache-2.0')
+          // no expression
+        ])
+      }
+    )
+  )
+  bom.components.add(
+    new Models.Component(
+      Enums.ComponentType.Library, 'component-with-licenseExpression', {
+        bomRef: 'component-with-licenseExpression',
+        licenses: new Models.LicenseRepository([
+          new Models.LicenseExpression('(MIT OR Apache-2.0)')
+          // no named nor SPDX
+        ])
+      }
+    )
+  )
+  bom.components.add(
+    /* scenario: prefer any expression over other licenses */
+    new Models.Component(
+      Enums.ComponentType.Library, 'component-with-licenses-and-expression', {
+        bomRef: 'component-with-licenses-and-expression',
+        licenses: new Models.LicenseRepository([
+          new Models.NamedLicense('something'),
+          new Models.SpdxLicense('MIT'),
+          new Models.SpdxLicense('Apache-2.0'),
+          new Models.LicenseExpression('(MIT OR Apache-2.0)')
+        ])
+      }
+    )
+  )
+  
   bom.vulnerabilities.add(new Models.Vulnerability.Vulnerability({
     bomRef: 'dummy.vulnerability.1',
     id: '1',

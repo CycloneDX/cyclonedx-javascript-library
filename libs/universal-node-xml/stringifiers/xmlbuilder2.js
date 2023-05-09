@@ -18,10 +18,11 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 const { create } = require('xmlbuilder2')
-const { getNS, makeIndent } = require('./helpers')
+const { getNS, makeIndent } = require('./_helpers')
 
 module.exports = typeof create === 'function'
   ? stringify
+  /* c8 ignore next */
   : undefined
 
 /* eslint-disable jsdoc/valid-types */

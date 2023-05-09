@@ -20,14 +20,17 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { SerializerOptions } from '../../src/serialize/types'
 import type { SimpleXml } from '../../src/serialize/xml/types'
 
-declare type ThrowError = (..._: any[]) => never
+/** @throws {@link Error} */
+declare interface ThrowError {
+  /** @throws {@link Error} */
+  (..._: any[]): never
+  fails: true
+}
 
 declare type Stringify = (element: SimpleXml.Element, options?: SerializerOptions) => string
-export declare const stringify: Stringify | undefined
-export declare const stringifyFallback: Stringify | ThrowError
+export declare const stringify: Stringify | ThrowError
 
 /*
 declare type Parse = (xml: string) => SimpleXml.Element
-export declare const parse: Parse | undefined
-export declare const parseFallback: Parse | ThrowError
+export declare const parse: Parse | ThrowError
 */

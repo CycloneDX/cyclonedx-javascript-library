@@ -4,10 +4,87 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.14.0 -- 2023-04-25
+
+* Added
+  * Formal validators for JSON string and XML string ([#620] via [#652], [#691])  
+    Currently available only for _Node.js_. Requires [optional dependencies](README.md#optional-dependencies).
+    * Related new validator classes:
+      * `Validation.JsonValidator`
+      * `Validation.JsonStrictValidator`
+      * `Validation.XmlValidator`
+    * Related new error classes:
+      * `Validation.NotImplementedError`
+      * `Validation.MissingOptionalDependencyError`
+* Build
+  * Use _TypeScript_ `v5.0.4` now, was `v4.9.5`. ([#549] via [#644])
+  * Use _Webpack_ `v5.80.0` now, was `5.79.0`. (via [#686])
+
+[#549]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/549
+[#620]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/620
+[#644]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/644
+[#652]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/652
+[#686]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/686
+[#691]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/691
+
+## 1.13.3 - 2023-04-05
+
+* Fixed
+  * `Serialize.{JSON,XML}.Normalize.LicenseNormalizer.normalizeIterable()` now omits invalid license combinations ([#602] via [#623])  
+    If there is any `Models.LicenseExpression`, then this is the only license normalized; otherwise all licenses are normalized. 
+* Docs
+  * Fixed link to CycloneDX-specification in README (via [#617])
+
+[#602]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/602
+[#617]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/617
+[#623]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/623
+
+## 1.13.2 - 2023-03-29
+
+* Fixed
+  * `Builders.FromNodePackageJson.ComponentBuilder` no longer cuts component's name after a slash(`/`) ([#599] via [#600])
+
+[#599]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/599
+[#600]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/600
+
+## 1.13.1 - 2023-03-28
+
+* Docs
+  * Announce and annotate the generator for BOM's SerialNumber ([#588] via [#598])
+  
+[#598]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/598
+
+## 1.13.0 - 2023-03-28
+
+* Fixed
+  * "Bom.serialNumber" data model can have values following the alternative format allowed in CycloneDX XML specification ([#588] via [#597])
+  * `Serialize.{JSON,XML}.Normalize.BomNormalizer.normalize` now omits invalid/unsupported values for serialNumber ([#588] via [#597])
+* Changed
+  * Property `Models.Bom.serialNumber` is of type `string`, was type-aliased `Types.UrnUuid = string` ([#588] via [#597])  
+    Also, the setter no longer throws exceptions, since no string format is illegal.  
+    This is considered a non-breaking behavior change, because the corresponding normalizers assure valid data results.
+* Added
+  * Published generator for BOM's SerialNumber: `Utils.BomUtility.randomSerialNumber()` ([#588] via [#597])  
+    The code was donated from [cyclonedx-node-npm](https://github.com/CycloneDX/cyclonedx-node-npm/).
+* Deprecation
+  * Type alias `Types.UrnUuid = string` became deprecated (via [#597])  
+    Use type `string` instead.
+  * Function `Types.isUrnUuid` became deprecated (via [#597])
+
+[#588]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/588
+[#597]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/597
+
+## 1.12.2 - 2023-03-28
+
+* Fixed
+  * Digesting this library in TypeScript build with ECMA Script module results works as expected, now (via [#596])
 * Docs
   * Development-docs are no longer packed with releases (via [#572])
+* Misc
+  * Added more integration tests in CI (via [#596])
 
 [#572]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/572
+[#596]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/596
 
 ## 1.12.1 - 2023-03-13
 

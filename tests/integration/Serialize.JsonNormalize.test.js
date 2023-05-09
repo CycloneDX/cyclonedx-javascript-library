@@ -59,11 +59,9 @@ describe('Serialize.JsonNormalize', function () {
         .normalize(this.bom, { sortLists: true })
 
       const json = JSON.stringify(normalized, null, 2)
-
       if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
         writeNormalizeResult(json, 'json_sortedLists', spec.version, 'json')
       }
-
       assert.deepStrictEqual(
         JSON.parse(json),
         JSON.parse(loadNormalizeResult('json_sortedLists', spec.version, 'json'))

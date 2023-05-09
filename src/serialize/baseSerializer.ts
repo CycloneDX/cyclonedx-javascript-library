@@ -17,36 +17,30 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { treeIteratorSymbol } from '../_helpers/tree'
 import type { Bom, BomRef, Component, Vulnerability } from '../models'
 import { BomRefDiscriminator } from './bomRefDiscriminator'
 import type { NormalizerOptions, Serializer, SerializerOptions } from './types'
 
 export abstract class BaseSerializer<NormalizedBom> implements Serializer {
-  #getAllBomRefs (bom: Bom): Iterable<BomRef> {
-    const bomRefs = new Set<BomRef>()
-    function iterComponents (cs: Iterable<Component>): void {
-      for (const { bomRef, components } of cs) {
-        bomRefs.add(bomRef)
-        iterComponents(components)
-      }
-    }
-    function iterVulnerabilities (vs: Iterable<Vulnerability.Vulnerability>): void {
-      for (const { bomRef } of vs) {
-        bomRefs.add(bomRef)
-      }
-    }
-
+  * #getAllBomRefs (bom: Bom): Generator<BomRef> {
+    // region from components
     if (bom.metadata.component !== undefined) {
-      bomRefs.add(bom.metadata.component.bomRef)
-      iterComponents(bom.metadata.component.components)
+      yield bom.metadata.component.bomRef
+      for (const { bomRef } of bom.metadata.component.components[treeIteratorSymbol]()) {
+        yield bomRef
+      }
     }
-    iterComponents(bom.components)
-
-    if (bom.vulnerabilities !== undefined) {
-      iterVulnerabilities(bom.vulnerabilities)
+    for (const { bomRef } of bom.components[treeIteratorSymbol]()) {
+      yield bomRef
     }
+    // endregion from components
 
-    return bomRefs.values()
+    // region from vulnerabilities
+    for (const { bomRef } of bom.vulnerabilities) {
+      yield bomRef
+    }
+    // endregion from vulnerabilities
   }
 
   /**

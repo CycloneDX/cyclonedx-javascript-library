@@ -19,7 +19,7 @@ written in _TypeScript_ and compiled for the target.
 * Provide a general purpose _JavaScript_-implementation of [_CycloneDX_][link_website] for _Node.js_ and _WebBrowsers_.
 * Provide typing for said implementation, so developers and dev-tools can rely on it.
 * Provide data models to work with _CycloneDX_.
-* Provide a JSON- and an XML-normalizer, that...
+* Provide JSON- and XML-normalizers, that...
   * supports all shipped data models.
   * respects any injected [_CycloneDX_ Specification][CycloneDX-spec] and generates valid output according to it.
   * can be configured to generate reproducible/deterministic output.
@@ -30,6 +30,7 @@ written in _TypeScript_ and compiled for the target.
   * Support the downstream implementation of custom XML-serializers tailored to specific environments  
     by providing an abstract base class that takes care of normalization and BomRef-discrimination.  
     This is done, because there is no universal XML support in _JavaScript_.
+* Provide formal JSON- and XML-validators according to [_CycloneDX_ Specification][CycloneDX-spec]. (currently for _Node.js_ only)
 
 ## Capabilities
 
@@ -72,6 +73,8 @@ written in _TypeScript_ and compiled for the target.
     * `Reference`, `ReferenceRepository`
     * `Source`
     * `Vulnerability`, `VulnerabilityRepository`
+* Utilities for the following use cases:
+  * Generate valid random SerialNumbers for `Bom.serialNumber`
 * Factories for the following use cases:
   * Create data models from any license descriptor string
   * Create `PackageURL` from `Component` data models
@@ -85,11 +88,12 @@ written in _TypeScript_ and compiled for the target.
 * Normalizers that convert data models to JSON structures
 * Normalizers that convert data models to XML structures
 * Universal serializer that converts `Bom` data models to JSON string
-* Serializer that converts `Bom` data models to XML string:
+* Specific  Serializer that converts `Bom` data models to XML string:
   * Specific to _WebBrowsers_: implementation utilizes browser-specific document generators and printers.
-  * Specific to _Node.js_: implementation plugs/requires/utilizes one of the following _optional_ libraries
-    * [xmlbuilder2](https://www.npmjs.com/package/xmlbuilder2)
-    * ... to be continued ... (pull requests are welcome)
+  * Specific to _Node.js_: implementation plugs/requires/utilizes one of the following _optional_ libraries  
+    Requires [optional dependencies](#optional-dependencies) as described below
+* Formal validators for JSON string and XML string (currently for _Node.js_ only)  
+  Requires [optional dependencies](#optional-dependencies) as described below
 
 ## Installation
 
@@ -109,6 +113,21 @@ npm i -S github:CycloneDX/cyclonedx-javascript-library
 pnpm add github:CycloneDX/cyclonedx-javascript-library
 yarn add @cyclonedx/cyclonedx-library@github:CycloneDX/cyclonedx-javascript-library # only with yarn-2
 ```
+
+## Optional Dependencies
+
+Some dependencies are optional.
+See the shipped `package.json` for version constraints.
+
+* Serialization to XML on _Node.js_ requires any of:
+  * [`xmlbuilder2`](https://www.npmjs.com/package/xmlbuilder2)
+* Validation of JSON on _Node.js_ requires all of:
+  * [`ajv`](https://www.npmjs.com/package/ajv)
+  * [`ajv-formats`](https://www.npmjs.com/package/ajv-formats)
+  * [`ajv-formats-draft2019`](https://www.npmjs.com/package/ajv-formats-draft2019)
+* Validation of XML on _Node.js_ requires all of:
+  * [`libxmljs2`](https://www.npmjs.com/package/libxmljs2)  
+  * the system must meet the requirements for [`node-gyp`](https://github.com/TooTallNate/node-gyp#installation)
 
 ## Usage
 
@@ -162,7 +181,7 @@ Additionally, there is a prepared set of configs for [TypeDoc](https://typedoc.o
 
 ## Development & Contributing
 
-Feel free to open issues, bugreports or pull requests.  
+Feel free to open issues, bug reports or pull requests.  
 See the [CONTRIBUTING][contributing_file] file for details.
 
 ## License
@@ -170,7 +189,7 @@ See the [CONTRIBUTING][contributing_file] file for details.
 Permission to modify and redistribute is granted under the terms of the Apache 2.0 license.  
 See the [LICENSE][license_file] file for the full license.
 
-[CycloneDX-spec]: https://github.com/CycloneDX/specification/tree/main/schema
+[CycloneDX-spec]: https://github.com/CycloneDX/specification/#readme
 
 [license_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/main/LICENSE
 [contributing_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/main/CONTRIBUTING.md
@@ -178,7 +197,7 @@ See the [LICENSE][license_file] file for the full license.
 
 [shield_npm-version]: https://img.shields.io/npm/v/@cyclonedx/cyclonedx-library?logo=npm&logoColor=white "npm"
 [shield_gh-workflow-test]: https://img.shields.io/github/actions/workflow/status/CycloneDX/cyclonedx-javascript-library/nodejs.yml?branch=main&logo=GitHub&logoColor=white "tests"
-[shield_coverage]: https://img.shields.io/codacy/coverage/ae6c086b53d54653ad5077b12ec22264 "test coverage"
+[shield_coverage]: https://img.shields.io/codacy/coverage/ae6c086b53d54653ad5077b12ec22264?logo=Codacy&logoColor=white "test coverage"
 [shield_license]: https://img.shields.io/github/license/CycloneDX/cyclonedx-javascript-library?logo=open%20source%20initiative&logoColor=white "license"
 [shield_website]: https://img.shields.io/badge/https://-cyclonedx.org-blue.svg "homepage"
 [shield_slack]: https://img.shields.io/badge/slack-join-blue?logo=Slack&logoColor=white "slack join"

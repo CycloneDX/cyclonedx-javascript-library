@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const fs = require('fs')
 const path = require('path')
 
-const resPath = path.resolve(__dirname, '..', '..', 'res')
+const resPath = path.resolve(__dirname, '..', '..', 'res', 'schema')
 
 /**
  * @param {string} resourceFile

@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { stringifyFallback } from '../../libs/universal-node-xml'
+import { stringify } from '../../libs/universal-node-xml'
 import type { SerializerOptions } from './types'
 import type { SimpleXml } from './xml/types'
 import { XmlBaseSerializer } from './xmlBaseSerializer'
@@ -30,6 +30,6 @@ export class XmlSerializer extends XmlBaseSerializer {
     normalizedBom: SimpleXml.Element,
     options: SerializerOptions = {}
   ): string {
-    return stringifyFallback(normalizedBom, options)
+    return stringify(normalizedBom, options)
   }
 }

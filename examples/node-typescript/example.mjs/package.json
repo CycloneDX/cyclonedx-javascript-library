@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "name": "example",
+  "description": "",
+  "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {
+    "@cyclonedx/cyclonedx-library": "file:../../..",
+    "xmlbuilder2": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "*",
+    "typescript": "^4 || ^5"
+  },
+  "scripts": {
+    "prebuild": "tsc -b --clean",
+    "build": "tsc -b",
+    "example": "node dist/example.js"
+  }
+}

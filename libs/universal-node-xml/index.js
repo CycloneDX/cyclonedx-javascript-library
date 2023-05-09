@@ -22,11 +22,18 @@ const possibleStringifiers = [
   'xmlbuilder2'
 ]
 
-module.exports.stringify = undefined
-let possibleStringifier
+module.exports.stringify = function () {
+  throw new Error(
+    'No stringifier available.' +
+    ' Please install any of the optional dependencies: ' +
+    possibleStringifiers.join(', ')
+  )
+}
+module.exports.stringify.fails = true
+
 for (const file of possibleStringifiers) {
   try {
-    possibleStringifier = require(`./stringifiers/${file}`)
+    const possibleStringifier = require(`./stringifiers/${file}`)
     if (typeof possibleStringifier === 'function') {
       module.exports.stringify = possibleStringifier
       break
@@ -34,8 +41,4 @@ for (const file of possibleStringifiers) {
   } catch {
     /* pass */
   }
-}
-
-module.exports.stringifyFallback = module.exports.stringify ?? function () {
-  throw new Error('No stringifier available. Please install one of the optional xml libraries.')
 }

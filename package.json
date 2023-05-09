@@ -1,6 +1,6 @@
 {
   "name": "@cyclonedx/cyclonedx-library",
-  "version": "1.12.1",
+  "version": "1.14.0",
   "description": "Core functionality of CycloneDX for JavaScript (Node.js or WebBrowser).",
   "license": "Apache-2.0",
   "keywords": [
@@ -68,34 +68,40 @@
     "packageurl-js": ">=0.0.6 <0.0.8 || ^1"
   },
   "optionalDependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1",
+    "ajv-formats-draft2019": "^1.6.1",
+    "libxmljs2": "^0.31.0 || ^0.32.0",
     "xmlbuilder2": "^3.0.2"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.0",
-    "@types/node": ">=14",
-    "@types/webpack": "^5.28.0",
+    "@types/node": "ts5.0",
     "c8": "^7.13.0",
     "deepmerge": "^4.2.2",
     "eslint": "^8.23.0",
     "eslint-config-standard-with-typescript": "^34.0.0",
     "eslint-plugin-header": "^3.1.1",
-    "eslint-plugin-jsdoc": "^40.0.0",
+    "eslint-plugin-jsdoc": "^43.0.7",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-tsdoc": "^0.2.17",
     "mocha": "10.2.0",
     "npm-run-all": "^4.1.5",
     "ts-loader": "9.4.2",
-    "typedoc": "^0.23.24",
-    "typedoc-plugin-missing-exports": "^1.0.0",
-    "typescript": "4.9.5",
-    "webpack": "5.76.2",
-    "webpack-cli": "5.0.1",
-    "xmlbuilder2": "^3.0.2"
+    "typedoc": "^0.24.4",
+    "typedoc-plugin-missing-exports": "^2.0.0",
+    "typescript": "5.0.4",
+    "webpack": "5.81.0",
+    "webpack-cli": "5.0.2"
   },
   "browser": "./dist.web/lib.js",
   "types": "./dist.d/index.node.d.ts",
   "main": "./dist.node/index.node.js",
-  "exports": "./dist.node/index.node.js",
+  "exports": {
+    "types": "./dist.d/index.node.d.ts",
+    "browser": "./dist.web/lib.js",
+    "default": "./dist.node/index.node.js"
+  },
   "directories": {
     "doc": "./docs",
     "src": "./src",

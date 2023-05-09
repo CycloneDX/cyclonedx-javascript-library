@@ -17,8 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type { PositiveInteger, UrnUuid } from '../types'
-import { isPositiveInteger, isUrnUuid } from '../types'
+import type { PositiveInteger } from '../types'
+import { isPositiveInteger } from '../types'
 import { ComponentRepository } from './component'
 import { Metadata } from './metadata'
 import { VulnerabilityRepository } from './vulnerability'
@@ -40,7 +40,7 @@ export class Bom {
   #version: PositiveInteger = 1
 
   /** @see {@link serialNumber} */
-  #serialNumber?: UrnUuid
+  #serialNumber?: string
 
   // Property `bomFormat` is not part of model, it is runtime information.
   // Property `specVersion` is not part of model, it is runtime information.
@@ -50,7 +50,6 @@ export class Bom {
 
   /**
    * @throws {@link TypeError} if `op.version` is neither {@link PositiveInteger} nor `undefined`
-   * @throws {@link TypeError} if `op.serialNumber` is neither {@link UrnUuid} nor `undefined`
    */
   constructor (op: OptionalBomProperties = {}) {
     this.metadata = op.metadata ?? new Metadata()
@@ -74,17 +73,13 @@ export class Bom {
     this.#version = value
   }
 
-  get serialNumber (): UrnUuid | undefined {
+  get serialNumber (): string | undefined {
     return this.#serialNumber
   }
 
-  /**
-   * @throws {@link TypeError} if value is neither {@link UrnUuid} nor `undefined`
-   */
-  set serialNumber (value: UrnUuid | undefined) {
-    if (value !== undefined && !isUrnUuid(value)) {
-      throw new TypeError('Not UrnUuid nor undefined')
-    }
-    this.#serialNumber = value
+  set serialNumber (value: string | undefined) {
+    this.#serialNumber = value === ''
+      ? undefined
+      : value
   }
 }

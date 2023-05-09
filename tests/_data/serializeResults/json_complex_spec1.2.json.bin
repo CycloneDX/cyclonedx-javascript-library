@@ -75,6 +75,51 @@
         },
         {
             "type": "library",
+            "name": "component-with-licenseExpression",
+            "version": "",
+            "bom-ref": "component-with-licenseExpression",
+            "licenses": [
+                {
+                    "expression": "(MIT OR Apache-2.0)"
+                }
+            ]
+        },
+        {
+            "type": "library",
+            "name": "component-with-licenses",
+            "version": "",
+            "bom-ref": "component-with-licenses",
+            "licenses": [
+                {
+                    "license": {
+                        "name": "something"
+                    }
+                },
+                {
+                    "license": {
+                        "id": "Apache-2.0"
+                    }
+                },
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "library",
+            "name": "component-with-licenses-and-expression",
+            "version": "",
+            "bom-ref": "component-with-licenses-and-expression",
+            "licenses": [
+                {
+                    "expression": "(MIT OR Apache-2.0)"
+                }
+            ]
+        },
+        {
+            "type": "library",
             "name": "component-with-properties",
             "version": "",
             "bom-ref": "ComponentWithProperties"
@@ -117,9 +162,6 @@
                 }
             ],
             "licenses": [
-                {
-                    "expression": "(MIT or Apache-2.0)"
-                },
                 {
                     "license": {
                         "name": "some other",
@@ -164,6 +206,10 @@
                     "type": "support"
                 },
                 {
+                    "url": "git+https://localhost/acme.git",
+                    "type": "vcs"
+                },
+                {
                     "url": "https://localhost/acme",
                     "type": "website",
                     "comment": "testing"
@@ -194,6 +240,15 @@
     "dependencies": [
         {
             "ref": "a-component"
+        },
+        {
+            "ref": "component-with-licenseExpression"
+        },
+        {
+            "ref": "component-with-licenses"
+        },
+        {
+            "ref": "component-with-licenses-and-expression"
         },
         {
             "ref": "ComponentWithProperties"
