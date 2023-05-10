@@ -3,9 +3,9 @@
     "bomFormat": "CycloneDX",
     "specVersion": "1.4",
     "version": 7,
-    "serialNumber": "urn:uuid:12345678-1234-1234-1234-123456789012",
+    "serialNumber": "urn:uuid:ac35b126-ef3a-11ed-a05b-0242ac120003",
     "metadata": {
-        "timestamp": "2001-05-23T13:37:42.000Z",
+        "timestamp": "2032-05-23T13:37:42.000Z",
         "tools": [
             {
                 "vendor": "tool vendor",
@@ -391,7 +391,7 @@
                     ]
                 },
                 {
-                    "ref": "urn:cdx:12345678-1234-1234-1234-123456789012/7#component-with-vulnerabilities",
+                    "ref": "urn:cdx:ac35b126-ef3a-11ed-a05b-0242ac120003/7#component-with-vulnerabilities",
                     "versions": [
                         {
                             "version": "1.0.0",
@@ -487,7 +487,7 @@
                     ]
                 },
                 {
-                    "ref": "urn:cdx:12345678-1234-1234-1234-123456789012/7#dummy.metadata.component",
+                    "ref": "urn:cdx:ac35b126-ef3a-11ed-a05b-0242ac120003/7#dummy.metadata.component",
                     "versions": [
                         {
                             "version": "1.0.0",
@@ -542,7 +542,7 @@
                     "url": "https://github.com/FasterXML/jackson-databind/issues/1931"
                 }
             ],
-            "created": "2021-08-15T21:42:00.000Z",
+            "created": "2021-08-15T23:42:00.000Z",
             "published": "2022-01-01T00:00:00.000Z",
             "updated": "2023-01-01T00:00:00.000Z",
             "analysis": {

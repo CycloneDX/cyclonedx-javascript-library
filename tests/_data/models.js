@@ -29,12 +29,12 @@ const { Enums, Models, Types } = require('../../')
  * @returns {Models.Bom}
  */
 module.exports.createComplexStructure = function () {
-  const bomSerialNumberRaw = '12345678-1234-1234-1234-123456789012'
+  const bomSerialNumberRaw = 'ac35b126-ef3a-11ed-a05b-0242ac120003'
   const bom = new Models.Bom({
     version: 7,
     serialNumber: `urn:uuid:${bomSerialNumberRaw}`,
     metadata: new Models.Metadata({
-      timestamp: new Date('2001-05-23T13:37:42.000Z'),
+      timestamp: new Date('2032-05-23T13:37:42Z'),
       tools: new Models.ToolRepository([
         new Models.Tool({
           vendor: 'tool vendor',
@@ -288,7 +288,7 @@ module.exports.createComplexStructure = function () {
           { title: 'GitHub Issue' }
         )
       ]),
-      created: new Date('2021-08-15T23:42:00'),
+      created: new Date('2021-08-15T23:42:00Z'),
       published: new Date('2022-01-01T00:00:00Z'),
       updated: new Date('2023-01-01T00:00:00Z'),
       analysis: new Models.Vulnerability.Analysis({
