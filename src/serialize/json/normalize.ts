@@ -391,7 +391,7 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
         return this.#normalizeLicenseExpression(data as Models.LicenseExpression)
       /* c8 ignore start */
       default:
-        // this case is not expected to happen - and therefore is undocumented
+        // this case is expected to never happen - and therefore is undocumented
         throw new TypeError('Unexpected LicenseChoice')
       /* c8 ignore end */
     }
@@ -755,9 +755,11 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
         return this.#normalizeAffectedSingleVersion(data as Models.Vulnerability.AffectedSingleVersion, options)
       case data instanceof Models.Vulnerability.AffectedVersionRange:
         return this.#normalizeAffectedVersionRange(data as Models.Vulnerability.AffectedVersionRange, options)
+      /* c8 ignore start */
       default:
         // this case is expected to never happen - and therefore is undocumented
-        throw new TypeError('Unexpected Vulnerability Affect')
+        throw new TypeError('Unexpected Vulnerability AffectedVersion')
+      /* c8 ignore end */
     }
   }
 

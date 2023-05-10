@@ -315,8 +315,12 @@ module.exports.createComplexStructure = function () {
       id: '1',
       source: new Models.Vulnerability.Source({ name: 'manual' }),
       references: new Models.Vulnerability.ReferenceRepository([
-        new Models.Vulnerability.Reference('CVE-2042-42421', new Models.Vulnerability.Source()),
-        new Models.Vulnerability.Reference('CVE-2042-42420', new Models.Vulnerability.Source())
+        new Models.Vulnerability.Reference(
+          'CVE-2042-42421',
+          new Models.Vulnerability.Source({ url: 'https://nvd.nist.gov/vuln/detail/CVE-2022-42421' })),
+        new Models.Vulnerability.Reference(
+          'CVE-2042-42420',
+          new Models.Vulnerability.Source({ url: 'https://nvd.nist.gov/vuln/detail/CVE-2022-42420' }))
       ]),
       ratings: new Models.Vulnerability.RatingRepository([
         new Models.Vulnerability.Rating({
@@ -396,7 +400,11 @@ module.exports.createComplexStructure = function () {
       id: '2',
       source: new Models.Vulnerability.Source({ name: 'manual' }),
       references: new Models.Vulnerability.ReferenceRepository([
-        new Models.Vulnerability.Reference('CVE-2042-42422', new Models.Vulnerability.Source())
+        new Models.Vulnerability.Reference(
+          'CVE-2042-42422',
+          new Models.Vulnerability.Source({
+            url: 'https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-42422'
+          }))
       ]),
       ratings: new Models.Vulnerability.RatingRepository([
         new Models.Vulnerability.Rating({
