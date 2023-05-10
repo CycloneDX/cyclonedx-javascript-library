@@ -763,6 +763,7 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
 
   #normalizeAffectedSingleVersion (data: Models.Vulnerability.AffectedSingleVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedSingleVersion | undefined {
     return data.version.length < 1
+      // invalid value -> cannot render
       ? undefined
       : {
           version: data.version.substring(0, 1024),
@@ -772,6 +773,7 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
 
   #normalizeAffectedVersionRange (data: Models.Vulnerability.AffectedVersionRange, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersionRange | undefined {
     return data.range.length < 1
+      // invalid value -> cannot render
       ? undefined
       : {
           range: data.range.substring(0, 1024),
