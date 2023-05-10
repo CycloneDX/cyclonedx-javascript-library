@@ -25,7 +25,6 @@ import type * as Enums from '../../enums'
 import * as Models from '../../models'
 import type { Protocol as Spec } from '../../spec'
 import { Version as SpecVersion } from '../../spec'
-import type { CWE } from '../../types'
 import type { NormalizerOptions } from '../types'
 import type { Normalized } from './types'
 import { JsonSchema } from './types'
@@ -597,7 +596,7 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
       ? this._factory.makeForVulnerabilityRating().normalizeIterable(data.ratings, options)
       : undefined
     const cwes = data.cwes.size > 0
-      ? normalizeCweIter(data.cwes, options)
+      ? normalizeNumberIter(data.cwes, options)
       : undefined
     const advisories = data.advisories.size > 0
       ? this._factory.makeForVulnerabilityAdvisory().normalizeIterable(data.advisories, options)
@@ -799,7 +798,7 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
 export class VulnerabilityAnalysisNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Analysis> {
   normalize (data: Models.Vulnerability.Analysis, options: NormalizerOptions): Normalized.Vulnerability.Analysis {
     const response = data.response.size > 0
-      ? normalizeAnalysisResponseIter(data.response, options)
+      ? normalizeStringableIter<Enums.Vulnerability.AnalysisResponse>(data.response, options)
       : undefined
     return {
       state: data.state,
@@ -812,26 +811,18 @@ export class VulnerabilityAnalysisNormalizer extends BaseJsonNormalizer<Models.V
 
 /* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */
 
-function normalizeStringableIter (data: Iterable<Stringable>, options: NormalizerOptions): string[] {
-  const r: string[] = Array.from(data, d => d.toString())
+function normalizeStringableIter <R extends string = string> (data: Iterable<Stringable>, options: NormalizerOptions): R[] {
+  const r = Array.from(data, d => d.toString())
   if (options.sortLists ?? false) {
     r.sort((a, b) => a.localeCompare(b))
   }
-  return r
+  return r as R[]
 }
 
-function normalizeCweIter (data: Iterable<CWE>, options: NormalizerOptions): CWE[] {
-  const r: CWE[] = Array.from(data)
+function normalizeNumberIter <R extends number = number> (data: Iterable<number>, options: NormalizerOptions): R[] {
+  const r = Array.from(data)
   if (options.sortLists ?? false) {
-    r.sort((a, b) => (b.toString().localeCompare(a.toString())))
+    r.sort((a, b) => a - b)
   }
-  return r
-}
-
-function normalizeAnalysisResponseIter (data: Iterable<Enums.Vulnerability.AnalysisResponse>, options: NormalizerOptions): Enums.Vulnerability.AnalysisResponse[] {
-  const r: Enums.Vulnerability.AnalysisResponse[] = Array.from(data)
-  if (options.sortLists ?? false) {
-    r.sort((a, b) => (a.localeCompare(b)))
-  }
-  return r
+  return r as R[]
 }
