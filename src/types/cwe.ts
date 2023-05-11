@@ -29,14 +29,11 @@ import { isPositiveInteger } from './integer'
  *
  * @see {@link isCWE}
  *
- * @beta
  */
 export type CWE = PositiveInteger
 
-/** @beta */
 export function isCWE (value: any): value is CWE {
   return isPositiveInteger(value)
 }
 
-/** @beta */
 export class CweRepository extends SortableNumbers<CWE> {}
