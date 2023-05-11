@@ -41,7 +41,7 @@ export class BomRefDiscriminator {
   }
 
   discriminate (): void {
-    const knownRefValues = new Set<string>()
+    const knownRefValues = new Set<string>([''])
     for (const [bomRef] of this.#originalValues) {
       let value = bomRef.value
       if (value === undefined || knownRefValues.has(value)) {

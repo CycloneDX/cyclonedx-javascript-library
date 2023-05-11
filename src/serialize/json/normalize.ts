@@ -111,8 +111,8 @@ export class Factory {
     return new VulnerabilityAdvisoryNormalizer(this)
   }
 
-  makeForVulnerabilityCredit (): VulnerabilityCreditNormalizer {
-    return new VulnerabilityCreditNormalizer(this)
+  makeForVulnerabilityCredits (): VulnerabilityCreditsNormalizer {
+    return new VulnerabilityCreditsNormalizer(this)
   }
 
   makeForVulnerabilityAffect (): VulnerabilityAffectNormalizer {
@@ -618,7 +618,7 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
       updated: data.updated?.toISOString(),
       credits: data.credits === undefined
         ? undefined
-        : this._factory.makeForVulnerabilityCredit().normalize(data.credits, options),
+        : this._factory.makeForVulnerabilityCredits().normalize(data.credits, options),
       tools: data.tools.size > 0
         ? this._factory.makeForTool().normalizeIterable(data.tools, options)
         : undefined,
@@ -716,7 +716,7 @@ export class VulnerabilityAdvisoryNormalizer extends BaseJsonNormalizer<Models.V
   }
 }
 
-export class VulnerabilityCreditNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Credits> {
+export class VulnerabilityCreditsNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Credits> {
   normalize (data: Models.Vulnerability.Credits, options: NormalizerOptions): Normalized.Vulnerability.Credits {
     return {
       organizations: data.organizations.size > 0
