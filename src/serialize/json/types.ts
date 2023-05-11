@@ -254,7 +254,7 @@ export namespace Normalized {
     }
 
     export interface Affect {
-      'ref': RefType
+      ref: RefType
       versions?: AffectedVersion[]
     }
 

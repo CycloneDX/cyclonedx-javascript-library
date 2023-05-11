@@ -21,11 +21,9 @@ import { isNotUndefined } from '../../_helpers/notUndefined'
 import type { SortableIterable } from '../../_helpers/sortable'
 import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
-import type * as Enums from '../../enums'
 import * as Models from '../../models'
 import type { Protocol as Spec } from '../../spec'
 import { Version as SpecVersion } from '../../spec'
-import type { CWE } from '../../types'
 import type { NormalizerOptions } from '../types'
 import type { Normalized } from './types'
 import { JsonSchema } from './types'
@@ -145,7 +143,7 @@ interface JsonNormalizer<TModel, TNormalized> {
   normalizeRepository?: ['normalizeIterable']
 }
 
-abstract class BaseJsonNormalizer<TModel, TNormalized=object> implements JsonNormalizer<TModel, TNormalized> {
+abstract class BaseJsonNormalizer<TModel, TNormalized = object> implements JsonNormalizer<TModel, TNormalized> {
   protected readonly _factory: Factory
 
   constructor (factory: Factory) {
@@ -393,20 +391,23 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
         return this.#normalizeLicenseExpression(data as Models.LicenseExpression)
       /* c8 ignore start */
       default:
-        // this case is not expected to happen - and therefore is undocumented
+        // this case is expected to never happen - and therefore is undocumented
         throw new TypeError('Unexpected LicenseChoice')
       /* c8 ignore end */
     }
   }
 
   #normalizeNamedLicense (data: Models.NamedLicense, options: NormalizerOptions): Normalized.NamedLicense {
+    const url = data.url?.toString()
     return {
       license: {
         name: data.name,
         text: data.text === undefined
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options),
-        url: data.url?.toString()
+        url: JsonSchema.isIriReference(url)
+          ? url
+          : undefined
       }
     }
   }
@@ -587,56 +588,49 @@ export class DependencyGraphNormalizer extends BaseJsonNormalizer<Models.Bom> {
 
 export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Vulnerability> {
   normalize (data: Models.Vulnerability.Vulnerability, options: NormalizerOptions): Normalized.Vulnerability {
-    const source = data.source === undefined
-      ? undefined
-      : this._factory.makeForVulnerabilitySource().normalize(data.source, options)
-    const references = data.references.size > 0
-      ? this._factory.makeForVulnerabilityReference().normalizeIterable(data.references, options)
-      : undefined
-    const ratings = data.ratings.size > 0
-      ? this._factory.makeForVulnerabilityRating().normalizeIterable(data.ratings, options)
-      : undefined
-    const cwes = data.cwes.size > 0
-      ? normalizeCweIter(data.cwes, options)
-      : undefined
-    const advisories = data.advisories.size > 0
-      ? this._factory.makeForVulnerabilityAdvisory().normalizeIterable(data.advisories, options)
-      : undefined
-    const credits = data.credits === undefined
-      ? undefined
-      : this._factory.makeForVulnerabilityCredit().normalize(data.credits, options)
-    const tools = data.tools.size > 0
-      ? this._factory.makeForTool().normalizeIterable(data.tools, options)
-      : undefined
-    const analysis = data.analysis === undefined
-      ? undefined
-      : this._factory.makeForVulnerabilityAnalysis().normalize(data.analysis, options)
-    const affects = data.affects.size > 0
-      ? this._factory.makeForVulnerabilityAffect().normalizeIterable(data.affects, options)
-      : undefined
-    const properties = data.properties.size > 0
-      ? this._factory.makeForProperty().normalizeIterable(data.properties, options)
-      : undefined
-
     return {
       'bom-ref': data.bomRef.value || undefined,
-      id: data.id,
-      source,
-      references,
-      ratings,
-      cwes,
+      id: data.id || undefined,
+      source: data.source === undefined
+        ? undefined
+        : this._factory.makeForVulnerabilitySource().normalize(data.source, options),
+      references: data.references.size > 0
+        ? this._factory.makeForVulnerabilityReference().normalizeIterable(data.references, options)
+        : undefined,
+      ratings: data.ratings.size > 0
+        ? this._factory.makeForVulnerabilityRating().normalizeIterable(data.ratings, options)
+        : undefined,
+      cwes: data.cwes.size > 0
+        ? (
+            options.sortLists ?? false
+              ? data.cwes.sorted()
+              : Array.from(data.cwes)
+          )
+        : undefined,
       description: data.description,
       detail: data.detail,
       recommendation: data.recommendation,
-      advisories,
+      advisories: data.advisories.size > 0
+        ? this._factory.makeForVulnerabilityAdvisory().normalizeIterable(data.advisories, options)
+        : undefined,
       created: data.created?.toISOString(),
       published: data.published?.toISOString(),
       updated: data.updated?.toISOString(),
-      credits,
-      tools,
-      analysis,
-      affects,
-      properties
+      credits: data.credits === undefined
+        ? undefined
+        : this._factory.makeForVulnerabilityCredit().normalize(data.credits, options),
+      tools: data.tools.size > 0
+        ? this._factory.makeForTool().normalizeIterable(data.tools, options)
+        : undefined,
+      analysis: data.analysis === undefined
+        ? undefined
+        : this._factory.makeForVulnerabilityAnalysis().normalize(data.analysis, options),
+      affects: data.affects.size > 0
+        ? this._factory.makeForVulnerabilityAffect().normalizeIterable(data.affects, options)
+        : undefined,
+      properties: data.properties.size > 0
+        ? this._factory.makeForProperty().normalizeIterable(data.properties, options)
+        : undefined
     }
   }
 
@@ -645,9 +639,7 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
-    ).map(
-      c => this.normalize(c, options)
-    )
+    ).map(v => this.normalize(v, options))
   }
 }
 
@@ -673,9 +665,7 @@ export class VulnerabilityReferenceNormalizer extends BaseJsonNormalizer<Models.
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
-    ).map(
-      c => this.normalize(c, options)
-    )
+    ).map(r => this.normalize(r, options))
   }
 }
 
@@ -698,19 +688,20 @@ export class VulnerabilityRatingNormalizer extends BaseJsonNormalizer<Models.Vul
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
-    ).map(
-      c => this.normalize(c, options)
-    )
+    ).map(r => this.normalize(r, options))
   }
 }
 
 export class VulnerabilityAdvisoryNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Advisory> {
-  normalize (data: Models.Vulnerability.Advisory, options: NormalizerOptions): Normalized.Vulnerability.Advisory {
+  normalize (data: Models.Vulnerability.Advisory, options: NormalizerOptions): Normalized.Vulnerability.Advisory | undefined {
+    const url = data.url.toString()
+    if (JsonSchema.isIriReference(url)) {
+      // invalid value -> cannot render
+      return undefined
+    }
     return {
-      title: data.title === undefined
-        ? undefined
-        : data.title,
-      url: data.url.toString()
+      title: data.title,
+      url
     }
   }
 
@@ -720,20 +711,21 @@ export class VulnerabilityAdvisoryNormalizer extends BaseJsonNormalizer<Models.V
         ? data.sorted()
         : Array.from(data)
     ).map(
-      c => this.normalize(c, options)
-    )
+      a => this.normalize(a, options)
+    ).filter(isNotUndefined)
   }
 }
 
 export class VulnerabilityCreditNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Credits> {
   normalize (data: Models.Vulnerability.Credits, options: NormalizerOptions): Normalized.Vulnerability.Credits {
-    const organizations = data.organizations === undefined || data.organizations.size === 0
-      ? undefined
-      : this._factory.makeForOrganizationalEntity().normalizeIterable(data.organizations, options)
-    const individuals = data.individuals === undefined || data.individuals.size === 0
-      ? undefined
-      : this._factory.makeForOrganizationalContact().normalizeIterable(data.individuals, options)
-    return { organizations, individuals }
+    return {
+      organizations: data.organizations.size > 0
+        ? this._factory.makeForOrganizationalEntity().normalizeIterable(data.organizations, options)
+        : undefined,
+      individuals: data.individuals.size > 0
+        ? this._factory.makeForOrganizationalContact().normalizeIterable(data.individuals, options)
+        : undefined
+    }
   }
 }
 
@@ -752,37 +744,43 @@ export class VulnerabilityAffectNormalizer extends BaseJsonNormalizer<Models.Vul
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
-    ).map(
-      c => this.normalize(c, options)
-    )
+    ).map(a => this.normalize(a, options))
   }
 }
 
 export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<Models.Vulnerability.AffectedVersion> {
-  normalize (data: Models.Vulnerability.AffectedVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersion {
+  normalize (data: Models.Vulnerability.AffectedVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersion | undefined {
     switch (true) {
       case data instanceof Models.Vulnerability.AffectedSingleVersion:
         return this.#normalizeAffectedSingleVersion(data as Models.Vulnerability.AffectedSingleVersion, options)
       case data instanceof Models.Vulnerability.AffectedVersionRange:
         return this.#normalizeAffectedVersionRange(data as Models.Vulnerability.AffectedVersionRange, options)
+      /* c8 ignore start */
       default:
-        // this case is not expected to happen - and therefore is undocumented
-        throw new TypeError('Unexpected Vulnerability Affect')
+        // this case is expected to never happen - and therefore is undocumented
+        throw new TypeError('Unexpected Vulnerability AffectedVersion')
+      /* c8 ignore end */
     }
   }
 
-  #normalizeAffectedSingleVersion (data: Models.Vulnerability.AffectedSingleVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedSingleVersion {
-    return {
-      version: data.version,
-      status: data.status
-    }
+  #normalizeAffectedSingleVersion (data: Models.Vulnerability.AffectedSingleVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedSingleVersion | undefined {
+    return data.version.length < 1
+      // invalid value -> cannot render
+      ? undefined
+      : {
+          version: data.version.substring(0, 1024),
+          status: data.status
+        }
   }
 
-  #normalizeAffectedVersionRange (data: Models.Vulnerability.AffectedVersionRange, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersionRange {
-    return {
-      range: data.range,
-      status: data.status
-    }
+  #normalizeAffectedVersionRange (data: Models.Vulnerability.AffectedVersionRange, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersionRange | undefined {
+    return data.range.length < 1
+      // invalid value -> cannot render
+      ? undefined
+      : {
+          range: data.range.substring(0, 1024),
+          status: data.status
+        }
   }
 
   normalizeIterable (data: SortableIterable<Models.Vulnerability.AffectedVersion>, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersion[] {
@@ -791,20 +789,23 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
         ? data.sorted()
         : Array.from(data)
     ).map(
-      c => this.normalize(c, options)
-    )
+      av => this.normalize(av, options)
+    ).filter(isNotUndefined)
   }
 }
 
 export class VulnerabilityAnalysisNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Analysis> {
   normalize (data: Models.Vulnerability.Analysis, options: NormalizerOptions): Normalized.Vulnerability.Analysis {
-    const response = data.response.size > 0
-      ? normalizeAnalysisResponseIter(data.response, options)
-      : undefined
     return {
       state: data.state,
       justification: data.justification,
-      response,
+      response: data.response.size > 0
+        ? (
+            options.sortLists ?? false
+              ? data.response.sorted()
+              : Array.from(data.response)
+          )
+        : undefined,
       detail: data.detail
     }
   }
@@ -813,25 +814,9 @@ export class VulnerabilityAnalysisNormalizer extends BaseJsonNormalizer<Models.V
 /* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */
 
 function normalizeStringableIter (data: Iterable<Stringable>, options: NormalizerOptions): string[] {
-  const r: string[] = Array.from(data, d => d.toString())
+  const r = Array.from(data, d => d.toString())
   if (options.sortLists ?? false) {
     r.sort((a, b) => a.localeCompare(b))
-  }
-  return r
-}
-
-function normalizeCweIter (data: Iterable<CWE>, options: NormalizerOptions): CWE[] {
-  const r: CWE[] = Array.from(data)
-  if (options.sortLists ?? false) {
-    r.sort((a, b) => (b.toString().localeCompare(a.toString())))
-  }
-  return r
-}
-
-function normalizeAnalysisResponseIter (data: Iterable<Enums.Vulnerability.AnalysisResponse>, options: NormalizerOptions): Enums.Vulnerability.AnalysisResponse[] {
-  const r: Enums.Vulnerability.AnalysisResponse[] = Array.from(data)
-  if (options.sortLists ?? false) {
-    r.sort((a, b) => (a.localeCompare(b)))
   }
   return r
 }
