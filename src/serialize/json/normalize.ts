@@ -695,7 +695,7 @@ export class VulnerabilityRatingNormalizer extends BaseJsonNormalizer<Models.Vul
 export class VulnerabilityAdvisoryNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Advisory> {
   normalize (data: Models.Vulnerability.Advisory, options: NormalizerOptions): Normalized.Vulnerability.Advisory | undefined {
     const url = data.url.toString()
-    if (JsonSchema.isIriReference(url)) {
+    if (!JsonSchema.isIriReference(url)) {
       // invalid value -> cannot render
       return undefined
     }

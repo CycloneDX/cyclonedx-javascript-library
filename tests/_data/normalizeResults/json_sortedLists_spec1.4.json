@@ -345,7 +345,12 @@
       "description": "description of 1",
       "detail": "detail of 1",
       "recommendation": "recommendation of 1",
-      "advisories": [],
+      "advisories": [
+        {
+          "title": "vulnerability 1 discovered",
+          "url": "https://www.advisories.com/"
+        }
+      ],
       "created": "2023-03-03T00:00:40.000Z",
       "published": "2023-03-03T00:00:41.000Z",
       "updated": "2023-03-03T00:00:42.000Z",
@@ -438,7 +443,12 @@
       "description": "description of 2",
       "detail": "detail of 2",
       "recommendation": "recommendation of 2",
-      "advisories": [],
+      "advisories": [
+        {
+          "title": "vulnerability 2 discovered",
+          "url": "https://www.advisories.com/"
+        }
+      ],
       "created": "2023-03-03T00:00:40.000Z",
       "published": "2023-03-03T00:00:41.000Z",
       "updated": "2023-03-03T00:00:42.000Z",
@@ -528,7 +538,16 @@
       ],
       "description": "FasterXML jackson-databind before 2.7.9.3, 2.8.x before 2.8.11.1 and 2.9.x before 2.9.5 allows unauthenticated remote code execution because of an incomplete fix for the CVE-2017-7525 deserialization flaw. This is exploitable by sending maliciously crafted JSON input to the readValue method of the ObjectMapper, bypassing a blacklist that is ineffective if the c3p0 libraries are available in the classpath.",
       "recommendation": "Upgrade com.fasterxml.jackson.core:jackson-databind to version 2.6.7.5, 2.8.11.1, 2.9.5 or higher.",
-      "advisories": [],
+      "advisories": [
+        {
+          "title": "GitHub Commit",
+          "url": "https://github.com/FasterXML/jackson-databind/commit/6799f8f10cc78e9af6d443ed6982d00a13f2e7d2"
+        },
+        {
+          "title": "GitHub Issue",
+          "url": "https://github.com/FasterXML/jackson-databind/issues/1931"
+        }
+      ],
       "created": "2021-08-15T23:42:00.000Z",
       "published": "2022-01-01T00:00:00.000Z",
       "updated": "2023-01-01T00:00:00.000Z",
