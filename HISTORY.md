@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Breaking Changes:
+  * Public interface `Spec.Protocol` now defines a new mandatory property `supportsVulnerabilities:boolean`
+    which all derived implementations must provide.
+* Added
+  * Capabilities to normalize `Models.Vulnerability.*`
+    * !!! TODO write details: list new interfaces/classes/functions
+* Changed
+  * Removed beta state from `{Enums,Models}.Vulnerability.*`.  
+    The structures are defied as stable, and will not have undocumented changes in the future.
+
 ## 1.14.0 -- 2023-04-25
 
 * Added
