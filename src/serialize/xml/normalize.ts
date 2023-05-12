@@ -264,8 +264,7 @@ export class ToolNormalizer extends BaseXmlNormalizer<Models.Tool> {
         ? {
             type: 'element',
             name: 'externalReferences',
-            children: this._factory.makeForExternalReference()
-              .normalizeIterable(data.externalReferences, options, 'reference')
+            children: this._factory.makeForExternalReference().normalizeIterable(data.externalReferences, options, 'reference')
           }
         : undefined
     return {
@@ -409,8 +408,7 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
       ? {
           type: 'element',
           name: 'externalReferences',
-          children: this._factory.makeForExternalReference()
-            .normalizeIterable(data.externalReferences, options, 'reference')
+          children: this._factory.makeForExternalReference().normalizeIterable(data.externalReferences, options, 'reference')
         }
       : undefined
     const properties: SimpleXml.Element | undefined = spec.supportsProperties(data) && data.properties.size > 0
@@ -834,11 +832,9 @@ class VulnerabilityReferenceNormalizer extends BaseXmlNormalizer<Models.Vulnerab
       type: 'element',
       name: elementName,
       children: [
-        makeOptionalTextElement(data.id, 'id'),
-        data.source === undefined
-          ? undefined
-          : this._factory.makeForVulnerabilitySource().normalize(data.source, options, 'source')
-      ].filter(isNotUndefined)
+        makeTextElement(data.id, 'id'),
+        this._factory.makeForVulnerabilitySource().normalize(data.source, options, 'source')
+      ]
     }
   }
 
