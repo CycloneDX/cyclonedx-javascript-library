@@ -287,7 +287,7 @@ export class OrganizationalContactNormalizer extends BaseJsonNormalizer<Models.O
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
-    ).map(c => this.normalize(c, options))
+    ).map(oc => this.normalize(oc, options))
   }
 
   /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
@@ -314,9 +314,7 @@ export class OrganizationalEntityNormalizer extends BaseJsonNormalizer<Models.Or
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
-    ).map(
-      c => this.normalize(c, options)
-    )
+    ).map(oe => this.normalize(oe, options))
   }
 }
 
@@ -752,9 +750,9 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
   normalize (data: Models.Vulnerability.AffectedVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersion | undefined {
     switch (true) {
       case data instanceof Models.Vulnerability.AffectedSingleVersion:
-        return this.#normalizeAffectedSingleVersion(data as Models.Vulnerability.AffectedSingleVersion, options)
+        return this.#normalizeAffectedSingleVersion(data as Models.Vulnerability.AffectedSingleVersion)
       case data instanceof Models.Vulnerability.AffectedVersionRange:
-        return this.#normalizeAffectedVersionRange(data as Models.Vulnerability.AffectedVersionRange, options)
+        return this.#normalizeAffectedVersionRange(data as Models.Vulnerability.AffectedVersionRange)
       /* c8 ignore start */
       default:
         // this case is expected to never happen - and therefore is undocumented
@@ -763,7 +761,7 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
     }
   }
 
-  #normalizeAffectedSingleVersion (data: Models.Vulnerability.AffectedSingleVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedSingleVersion | undefined {
+  #normalizeAffectedSingleVersion (data: Models.Vulnerability.AffectedSingleVersion): Normalized.Vulnerability.AffectedSingleVersion | undefined {
     return data.version.length < 1
       // invalid value -> cannot render
       ? undefined
@@ -773,7 +771,7 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
         }
   }
 
-  #normalizeAffectedVersionRange (data: Models.Vulnerability.AffectedVersionRange, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersionRange | undefined {
+  #normalizeAffectedVersionRange (data: Models.Vulnerability.AffectedVersionRange): Normalized.Vulnerability.AffectedVersionRange | undefined {
     return data.range.length < 1
       // invalid value -> cannot render
       ? undefined
