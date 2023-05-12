@@ -191,4 +191,249 @@
         </dependency>
         <dependency ref="SomeFrameworkBundle#SubComponentB"/>
     </dependencies>
+    <vulnerabilities>
+        <vulnerability bom-ref="dummy.vulnerability.1">
+            <id>1</id>
+            <source>
+                <name>manual</name>
+            </source>
+            <references>
+                <reference>
+                    <id>CVE-2042-42420</id>
+                    <source>
+                        <url>https://nvd.nist.gov/vuln/detail/CVE-2022-42420</url>
+                    </source>
+                </reference>
+                <reference>
+                    <id>CVE-2042-42421</id>
+                    <source>
+                        <url>https://nvd.nist.gov/vuln/detail/CVE-2022-42421</url>
+                    </source>
+                </reference>
+            </references>
+            <ratings>
+                <rating>
+                    <score>10</score>
+                    <severity>critical</severity>
+                    <method>other</method>
+                    <justification>this is crazy</justification>
+                </rating>
+            </ratings>
+            <cwes>
+                <cwe>42</cwe>
+                <cwe>142</cwe>
+            </cwes>
+            <description>description of 1</description>
+            <detail>detail of 1</detail>
+            <recommendation>recommendation of 1</recommendation>
+            <advisories>
+                <advisory>
+                    <title>vulnerability 1 discovered</title>
+                    <url>https://www.advisories.com/</url>
+                </advisory>
+            </advisories>
+            <created>2023-03-03T00:00:40.000Z</created>
+            <published>2023-03-03T00:00:40.000Z</published>
+            <updated>2023-03-03T00:00:40.000Z</updated>
+            <credits>
+                <organizations>
+                    <organization>
+                        <name>vulnerability researchers inc.</name>
+                        <url>https://vulnerabilities-researchers.com/</url>
+                    </organization>
+                </organizations>
+                <individuals>
+                    <individual>
+                        <name>John "pentester" Doe</name>
+                    </individual>
+                </individuals>
+            </credits>
+            <tools>
+                <tool>
+                    <vendor>v the vendor</vendor>
+                    <name>tool name</name>
+                </tool>
+            </tools>
+            <analysis>
+                <state>false_positive</state>
+                <justification>protected_at_runtime</justification>
+                <responses>
+                    <response>can_not_fix</response>
+                    <response>will_not_fix</response>
+                </responses>
+                <detail>analysis details</detail>
+            </analysis>
+            <affects>
+                <target>
+                    <ref>component-with-vulnerabilities</ref>
+                    <versions>
+                        <version>
+                            <version>1.0.0</version>
+                            <status>affected</status>
+                        </version>
+                    </versions>
+                </target>
+                <target>
+                    <ref>urn:cdx:ac35b126-ef3a-11ed-a05b-0242ac120003/7#component-with-vulnerabilities</ref>
+                    <versions>
+                        <version>
+                            <version>1.0.0</version>
+                            <status>affected</status>
+                        </version>
+                        <version>
+                            <range>&gt; 1.0</range>
+                            <status>unknown</status>
+                        </version>
+                    </versions>
+                </target>
+            </affects>
+            <properties>
+                <property name="a name">a value</property>
+            </properties>
+        </vulnerability>
+        <vulnerability bom-ref="dummy.vulnerability.2">
+            <id>2</id>
+            <source>
+                <name>manual</name>
+            </source>
+            <references>
+                <reference>
+                    <id>CVE-2042-42422</id>
+                    <source>
+                        <url>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-42422</url>
+                    </source>
+                </reference>
+            </references>
+            <ratings>
+                <rating>
+                    <score>10</score>
+                    <severity>critical</severity>
+                    <method>other</method>
+                    <justification>this is crazy</justification>
+                </rating>
+            </ratings>
+            <cwes>
+                <cwe>242</cwe>
+            </cwes>
+            <description>description of 2</description>
+            <detail>detail of 2</detail>
+            <recommendation>recommendation of 2</recommendation>
+            <advisories>
+                <advisory>
+                    <title>vulnerability 2 discovered</title>
+                    <url>https://www.advisories.com/</url>
+                </advisory>
+            </advisories>
+            <created>2023-03-03T00:00:40.000Z</created>
+            <published>2023-03-03T00:00:40.000Z</published>
+            <updated>2023-03-03T00:00:40.000Z</updated>
+            <credits>
+                <organizations>
+                    <organization>
+                        <name>vulnerability researchers inc.</name>
+                        <url>https://vulnerabilities-researchers.com/</url>
+                    </organization>
+                </organizations>
+                <individuals>
+                    <individual>
+                        <name>John "pentester" Doe</name>
+                    </individual>
+                </individuals>
+            </credits>
+            <tools>
+                <tool>
+                    <vendor>v the vendor</vendor>
+                    <name>tool name</name>
+                </tool>
+            </tools>
+            <analysis>
+                <state>false_positive</state>
+                <justification>protected_at_runtime</justification>
+                <responses>
+                    <response>can_not_fix</response>
+                    <response>will_not_fix</response>
+                </responses>
+                <detail>analysis details</detail>
+            </analysis>
+            <affects>
+                <target>
+                    <ref>dummy.metadata.component</ref>
+                    <versions>
+                        <version>
+                            <version>1.0.0</version>
+                            <status>affected</status>
+                        </version>
+                    </versions>
+                </target>
+                <target>
+                    <ref>urn:cdx:ac35b126-ef3a-11ed-a05b-0242ac120003/7#dummy.metadata.component</ref>
+                    <versions>
+                        <version>
+                            <version>1.0.0</version>
+                            <status>affected</status>
+                        </version>
+                        <version>
+                            <range>&gt; 1.0</range>
+                            <status>unknown</status>
+                        </version>
+                    </versions>
+                </target>
+            </affects>
+            <properties>
+                <property name="a name">a value</property>
+            </properties>
+        </vulnerability>
+        <vulnerability bom-ref="vulnerability-1">
+            <id>CVE-2018-7489</id>
+            <source>
+                <name>NVD</name>
+                <url>https://nvd.nist.gov/vuln/detail/CVE-2019-9997</url>
+            </source>
+            <ratings>
+                <rating>
+                    <source>
+                        <name>NVD</name>
+                        <url>https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H&amp;version=3.0</url>
+                    </source>
+                    <score>9.8</score>
+                    <severity>critical</severity>
+                    <method>CVSSv3</method>
+                    <vector>AN/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H</vector>
+                </rating>
+            </ratings>
+            <cwes>
+                <cwe>184</cwe>
+                <cwe>502</cwe>
+            </cwes>
+            <description>FasterXML jackson-databind before 2.7.9.3, 2.8.x before 2.8.11.1 and 2.9.x before 2.9.5 allows unauthenticated remote code execution because of an incomplete fix for the CVE-2017-7525 deserialization flaw. This is exploitable by sending maliciously crafted JSON input to the readValue method of the ObjectMapper, bypassing a blacklist that is ineffective if the c3p0 libraries are available in the classpath.</description>
+            <recommendation>Upgrade com.fasterxml.jackson.core:jackson-databind to version 2.6.7.5, 2.8.11.1, 2.9.5 or higher.</recommendation>
+            <advisories>
+                <advisory>
+                    <title>GitHub Commit</title>
+                    <url>https://github.com/FasterXML/jackson-databind/commit/6799f8f10cc78e9af6d443ed6982d00a13f2e7d2</url>
+                </advisory>
+                <advisory>
+                    <title>GitHub Issue</title>
+                    <url>https://github.com/FasterXML/jackson-databind/issues/1931</url>
+                </advisory>
+            </advisories>
+            <created>2021-08-15T23:42:00.000Z</created>
+            <published>2021-08-15T23:42:00.000Z</published>
+            <updated>2021-08-15T23:42:00.000Z</updated>
+            <analysis>
+                <state>not_affected</state>
+                <justification>code_not_reachable</justification>
+                <responses>
+                    <response>update</response>
+                    <response>will_not_fix</response>
+                </responses>
+                <detail>An optional explanation of why the application is not affected by the vulnerable component.</detail>
+            </analysis>
+            <affects>
+                <target>
+                    <ref>urn:cdx:3e671687-395b-41f5-a30f-a58921a69b79/1#jackson-databind-2.8.0</ref>
+                </target>
+            </affects>
+        </vulnerability>
+    </vulnerabilities>
 </bom>

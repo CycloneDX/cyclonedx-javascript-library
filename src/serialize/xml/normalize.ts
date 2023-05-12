@@ -90,6 +90,42 @@ export class Factory {
   makeForDependencyGraph (): DependencyGraphNormalizer {
     return new DependencyGraphNormalizer(this)
   }
+
+  makeForVulnerability (): VulnerabilityNormalizer {
+    return new VulnerabilityNormalizer(this)
+  }
+
+  makeForVulnerabilitySource (): VulnerabilitySourceNormalizer {
+    return new VulnerabilitySourceNormalizer(this)
+  }
+
+  makeForVulnerabilityReference (): VulnerabilityReferenceNormalizer {
+    return new VulnerabilityReferenceNormalizer(this)
+  }
+
+  makeForVulnerabilityRating (): VulnerabilityRatingNormalizer {
+    return new VulnerabilityRatingNormalizer(this)
+  }
+
+  makeForVulnerabilityAdvisory (): VulnerabilityAdvisoryNormalizer {
+    return new VulnerabilityAdvisoryNormalizer(this)
+  }
+
+  makeForVulnerabilityCredits (): VulnerabilityCreditsNormalizer {
+    return new VulnerabilityCreditsNormalizer(this)
+  }
+
+  makeForVulnerabilityAffect (): VulnerabilityAffectNormalizer {
+    return new VulnerabilityAffectNormalizer(this)
+  }
+
+  makeForVulnerabilityAffectedVersion (): VulnerabilityAffectedVersionNormalizer {
+    return new VulnerabilityAffectedVersionNormalizer(this)
+  }
+
+  makeForVulnerabilityAnalysis (): VulnerabilityAnalysisNormalizer {
+    return new VulnerabilityAnalysisNormalizer(this)
+  }
 }
 
 const xmlNamespace: ReadonlyMap<SpecVersion, string> = new Map([
@@ -107,7 +143,7 @@ interface XmlNormalizer<TModel, TNormalized> {
   normalizeRepository?: ['normalizeIterable']
 }
 
-abstract class BaseXmlNormalizer<TModel, TNormalized=SimpleXml.Element> implements XmlNormalizer<TModel, TNormalized> {
+abstract class BaseXmlNormalizer<TModel, TNormalized = SimpleXml.Element> implements XmlNormalizer<TModel, TNormalized> {
   protected readonly _factory: Factory
 
   constructor (factory: Factory) {
@@ -138,6 +174,13 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
         ? this._factory.makeForComponent().normalizeIterable(data.components, options, 'component')
         : undefined
     }
+    const vulnerabilities: SimpleXml.Element | undefined = this._factory.spec.supportsVulnerabilities && data.vulnerabilities.size > 0
+      ? {
+          type: 'element',
+          name: 'vulnerabilities',
+          children: this._factory.makeForVulnerability().normalizeIterable(data.vulnerabilities, options, 'vulnerability')
+        }
+      : undefined
     return {
       type: 'element',
       // the element's name is hardcoded in the XSD
@@ -156,7 +199,8 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
         components,
         this._factory.spec.supportsDependencyGraph
           ? this._factory.makeForDependencyGraph().normalize(data, options, 'dependencies')
-          : undefined
+          : undefined,
+        vulnerabilities
       ].filter(isNotUndefined)
     }
   }
@@ -171,13 +215,6 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
 export class MetadataNormalizer extends BaseXmlNormalizer<Models.Metadata> {
   normalize (data: Models.Metadata, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const orgEntityNormalizer = this._factory.makeForOrganizationalEntity()
-    const timestamp: SimpleXml.Element | undefined = data.timestamp === undefined
-      ? undefined
-      : {
-          type: 'element',
-          name: 'timestamp',
-          children: data.timestamp.toISOString()
-        }
     const tools: SimpleXml.Element | undefined = data.tools.size > 0
       ? {
           type: 'element',
@@ -189,15 +226,14 @@ export class MetadataNormalizer extends BaseXmlNormalizer<Models.Metadata> {
       ? {
           type: 'element',
           name: 'authors',
-          children: this._factory.makeForOrganizationalContact()
-            .normalizeIterable(data.authors, options, 'author')
+          children: this._factory.makeForOrganizationalContact().normalizeIterable(data.authors, options, 'author')
         }
       : undefined
     return {
       type: 'element',
       name: elementName,
       children: [
-        timestamp,
+        makeOptionalDateTimeElement(data.timestamp, 'timestamp'),
         tools,
         authors,
         data.component === undefined
@@ -305,7 +341,7 @@ export class OrganizationalContactNormalizer extends BaseXmlNormalizer<Models.Or
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
-    ).map(c => this.normalize(c, options, elementName))
+    ).map(oc => this.normalize(oc, options, elementName))
   }
 
   /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
@@ -324,6 +360,14 @@ export class OrganizationalEntityNormalizer extends BaseXmlNormalizer<Models.Org
         ...this._factory.makeForOrganizationalContact().normalizeIterable(data.contact, options, 'contact')
       ].filter(isNotUndefined)
     }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.OrganizationalEntity>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(oe => this.normalize(oe, options, elementName))
   }
 }
 
@@ -438,7 +482,7 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
         return this.#normalizeLicenseExpression(data as Models.LicenseExpression)
       /* c8 ignore start */
       default:
-        // this case is not expected to happen - and therefore is undocumented
+        // this case is expected to never happen - and therefore is undocumented
         throw new TypeError('Unexpected LicenseChoice')
       /* c8 ignore end */
     }
@@ -672,6 +716,323 @@ export class DependencyGraphNormalizer extends BaseXmlNormalizer<Models.Bom> {
   }
 }
 
+class VulnerabilityNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Vulnerability> {
+  normalize (data: Models.Vulnerability.Vulnerability, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    const references: SimpleXml.Element | undefined = data.references.size > 0
+      ? {
+          type: 'element',
+          name: 'references',
+          children: this._factory.makeForVulnerabilityReference().normalizeIterable(data.references, options, 'reference')
+        }
+      : undefined
+    const ratings: SimpleXml.Element | undefined = data.ratings.size > 0
+      ? {
+          type: 'element',
+          name: 'ratings',
+          children: this._factory.makeForVulnerabilityRating().normalizeIterable(data.ratings, options, 'rating')
+        }
+      : undefined
+    const cwes: SimpleXml.Element | undefined = data.cwes.size > 0
+      ? {
+          type: 'element',
+          name: 'cwes',
+          children: (
+            options.sortLists
+              ? data.cwes.sorted()
+              : Array.from(data.cwes)
+          ).map(cwe => makeTextElement(cwe, 'cwe'))
+        }
+      : undefined
+    const advisories: SimpleXml.Element | undefined = data.advisories.size > 0
+      ? {
+          type: 'element',
+          name: 'advisories',
+          children: this._factory.makeForVulnerabilityAdvisory().normalizeIterable(data.advisories, options, 'advisory')
+        }
+      : undefined
+    const tools: SimpleXml.Element | undefined = data.tools.size > 0
+      ? {
+          type: 'element',
+          name: 'tools',
+          children: this._factory.makeForTool().normalizeIterable(data.tools, options, 'tool')
+        }
+      : undefined
+    const affects: SimpleXml.Element | undefined = data.affects.size > 0
+      ? {
+          type: 'element',
+          name: 'affects',
+          children: this._factory.makeForVulnerabilityAffect().normalizeIterable(data.affects, options, 'target')
+        }
+      : undefined
+    const properties: SimpleXml.Element | undefined = data.properties.size > 0
+      ? {
+          type: 'element',
+          name: 'properties',
+          children: this._factory.makeForProperty().normalizeIterable(data.properties, options, 'property')
+        }
+      : undefined
+    return {
+      type: 'element',
+      name: elementName,
+      attributes: { 'bom-ref': data.bomRef.value || undefined },
+      children: [
+        makeOptionalTextElement(data.id, 'id'),
+        data.source === undefined
+          ? undefined
+          : this._factory.makeForVulnerabilitySource().normalize(data.source, options, 'source'),
+        references,
+        ratings,
+        cwes,
+        makeOptionalTextElement(data.description, 'description'),
+        makeOptionalTextElement(data.detail, 'detail'),
+        makeOptionalTextElement(data.recommendation, 'recommendation'),
+        advisories,
+        makeOptionalDateTimeElement(data.created, 'created'),
+        makeOptionalDateTimeElement(data.created, 'published'),
+        makeOptionalDateTimeElement(data.created, 'updated'),
+        data.credits === undefined
+          ? undefined
+          : this._factory.makeForVulnerabilityCredits().normalize(data.credits, options, 'credits'),
+        tools,
+        data.analysis === undefined
+          ? undefined
+          : this._factory.makeForVulnerabilityAnalysis().normalize(data.analysis, options, 'analysis'),
+        affects,
+        properties
+      ].filter(isNotUndefined)
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Vulnerability>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(v => this.normalize(v, options, elementName))
+  }
+}
+
+class VulnerabilitySourceNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Source> {
+  normalize (data: Models.Vulnerability.Source, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    const url = data.url?.toString()
+    return {
+      type: 'element',
+      name: elementName,
+      children: [
+        makeOptionalTextElement(data.name, 'name'),
+        XmlSchema.isAnyURI(url)
+          ? makeTextElement(url, 'url')
+          : undefined
+      ].filter(isNotUndefined)
+    }
+  }
+}
+
+class VulnerabilityReferenceNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Reference> {
+  normalize (data: Models.Vulnerability.Reference, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    return {
+      type: 'element',
+      name: elementName,
+      children: [
+        makeOptionalTextElement(data.id, 'id'),
+        data.source === undefined
+          ? undefined
+          : this._factory.makeForVulnerabilitySource().normalize(data.source, options, 'source')
+      ].filter(isNotUndefined)
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Reference>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(r => this.normalize(r, options, elementName))
+  }
+}
+
+class VulnerabilityRatingNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Rating> {
+  normalize (data: Models.Vulnerability.Rating, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    return {
+      type: 'element',
+      name: elementName,
+      children: [
+        data.source === undefined
+          ? undefined
+          : this._factory.makeForVulnerabilitySource().normalize(data.source, options, 'source'),
+        makeOptionalTextElement(data.score, 'score'),
+        makeOptionalTextElement(data.severity, 'severity'),
+        makeOptionalTextElement(data.method, 'method'),
+        makeOptionalTextElement(data.vector, 'vector'),
+        makeOptionalTextElement(data.justification, 'justification')
+      ].filter(isNotUndefined)
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Rating>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(r => this.normalize(r, options, elementName))
+  }
+}
+
+class VulnerabilityAdvisoryNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Advisory> {
+  normalize (data: Models.Vulnerability.Advisory, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
+    const url = data.url.toString()
+    if (!XmlSchema.isAnyURI(url)) {
+      // invalid value -> cannot render
+      return undefined
+    }
+    return {
+      type: 'element',
+      name: elementName,
+      children: [
+        makeOptionalTextElement(data.title, 'title'),
+        makeTextElement(url, 'url')
+      ].filter(isNotUndefined)
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Advisory>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      a => this.normalize(a, options, elementName)
+    ).filter(isNotUndefined)
+  }
+}
+
+class VulnerabilityCreditsNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Credits> {
+  normalize (data: Models.Vulnerability.Credits, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    const organizations: SimpleXml.Element | undefined = data.organizations.size > 0
+      ? {
+          type: 'element',
+          name: 'organizations',
+          children: this._factory.makeForOrganizationalEntity().normalizeIterable(data.organizations, options, 'organization')
+        }
+      : undefined
+    const individuals: SimpleXml.Element | undefined = data.individuals.size > 0
+      ? {
+          type: 'element',
+          name: 'individuals',
+          children: this._factory.makeForOrganizationalContact().normalizeIterable(data.individuals, options, 'individual')
+        }
+      : undefined
+    return {
+      type: 'element',
+      name: elementName,
+      children: [
+        organizations,
+        individuals
+      ].filter(isNotUndefined)
+    }
+  }
+}
+
+class VulnerabilityAnalysisNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Analysis> {
+  normalize (data: Models.Vulnerability.Analysis, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    const responses: SimpleXml.Element | undefined = data.response.size > 0
+      ? {
+          type: 'element',
+          name: 'responses',
+          children: (
+            options.sortLists ?? false
+              ? data.response.sorted()
+              : Array.from(data.response)
+          ).map(ar => makeTextElement(ar, 'response'))
+        }
+      : undefined
+    return {
+      type: 'element',
+      name: elementName,
+      children: [
+        makeOptionalTextElement(data.state, 'state'),
+        makeOptionalTextElement(data.justification, 'justification'),
+        responses,
+        makeOptionalTextElement(data.detail, 'detail')
+      ].filter(isNotUndefined)
+    }
+  }
+}
+
+class VulnerabilityAffectNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Affect> {
+  normalize (data: Models.Vulnerability.Affect, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    const versions: SimpleXml.Element | undefined = data.versions.size > 0
+      ? {
+          type: 'element',
+          name: 'versions',
+          children: this._factory.makeForVulnerabilityAffectedVersion().normalizeIterable(data.versions, options, 'version')
+        }
+      : undefined
+    return {
+      type: 'element',
+      name: elementName,
+      children: [
+        makeTextElement(data.ref, 'ref'),
+        versions
+      ].filter(isNotUndefined)
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.Affect>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(a => this.normalize(a, options, elementName))
+  }
+}
+
+class VulnerabilityAffectedVersionNormalizer extends BaseXmlNormalizer<Models.Vulnerability.AffectedVersion> {
+  normalize (data: Models.Vulnerability.AffectedVersion, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    switch (true) {
+      case data instanceof Models.Vulnerability.AffectedSingleVersion:
+        return this.#normalizeAffectedSingleVersion(data as Models.Vulnerability.AffectedSingleVersion, elementName)
+      case data instanceof Models.Vulnerability.AffectedVersionRange:
+        return this.#normalizeAffectedVersionRange(data as Models.Vulnerability.AffectedVersionRange, elementName)
+      /* c8 ignore start */
+      default:
+        // this case is expected to never happen - and therefore is undocumented
+        throw new TypeError('Unexpected Vulnerability AffectedVersion')
+      /* c8 ignore end */
+    }
+  }
+
+  #normalizeAffectedSingleVersion (data: Models.Vulnerability.AffectedSingleVersion, elementName: string): SimpleXml.Element {
+    return {
+      type: 'element',
+      name: elementName,
+      children: [
+        makeTextElement(data.version, 'version'),
+        makeOptionalTextElement(data.status, 'status')
+      ].filter(isNotUndefined)
+    }
+  }
+
+  #normalizeAffectedVersionRange (data: Models.Vulnerability.AffectedVersionRange, elementName: string): SimpleXml.Element {
+    return {
+      type: 'element',
+      name: elementName,
+      children: [
+        makeTextElement(data.range, 'range'),
+        makeOptionalTextElement(data.status, 'status')
+      ].filter(isNotUndefined)
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Vulnerability.AffectedVersion>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(av => this.normalize(av, options, elementName))
+  }
+}
+
 /* eslint-enable @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions */
 
 type StrictTextElement = SimpleXml.TextElement & { children: string }
@@ -697,4 +1058,11 @@ function makeTextElementIter (data: Iterable<Stringable>, options: NormalizerOpt
     r.sort(({ children: a }, { children: b }) => a.localeCompare(b))
   }
   return r
+}
+
+function makeOptionalDateTimeElement (data: null | undefined | Date, elementName: string): undefined | StrictTextElement {
+  const d = data?.toISOString()
+  return d === undefined
+    ? undefined
+    : makeTextElement(d, elementName)
 }
