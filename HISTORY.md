@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
     * !!! TODO write details: list new interfaces/classes/functions
 * Changed
   * Removed beta state from `{Enums,Models}.Vulnerability.*`.  
-    The structures are defied as stable, and will not have undocumented changes in the future.
+    The structures are defined as stable, and will not have undocumented changes in the future.
 
 ## 1.14.0 -- 2023-04-25
 
