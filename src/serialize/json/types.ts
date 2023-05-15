@@ -136,7 +136,17 @@ export namespace Normalized {
     modified?: boolean
     externalReferences?: ExternalReference[]
     components?: Component[]
+    evidence?: ComponentEvidence
     properties?: Property[]
+  }
+
+  export interface ComponentEvidence {
+    licenses?: License[]
+    copyright?: Copyright[]
+  }
+
+  export interface Copyright {
+    text: string
   }
 
   export interface NamedLicense {

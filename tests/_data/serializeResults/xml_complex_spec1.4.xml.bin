@@ -137,7 +137,7 @@
                     <url>https://spdx.org/licenses/MIT.html</url>
                 </license>
             </licenses>
-            <copyright>(c) acme</copyright>
+            <copyright>ACME corp</copyright>
             <cpe>cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*</cpe>
             <purl>pkg:npm/acme/dummy-component@1337-beta</purl>
             <swid tagId="some-tag" name="dummy-component" version="1337-beta" patch="true">
@@ -159,6 +159,17 @@
                     <comment>testing</comment>
                 </reference>
             </externalReferences>
+            <evidence>
+                <licenses>
+                    <license>
+                        <name>License.txt</name>
+                        <text content-type="text/plain" encoding="base64">VEhFIFNPRlRXQVJFIElTIFBST1ZJREVEIOKAnEFTIElT4oCdLCBXSVRIT1VUIFdBUlJBTlRZIE9GIEFOWSBLSU5ELCBFWFBSRVNTIE9SIElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLCBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiBJTiBOTyBFVkVOVCBTSEFMTCBUSEUgQVVUSE9SUyBPUiBDT1BZUklHSFQgSE9MREVSUyBCRSBMSUFCTEUgRk9SIEFOWSBDTEFJTSwgREFNQUdFUyBPUiBPVEhFUiBMSUFCSUxJVFksIFdIRVRIRVIgSU4gQU4gQUNUSU9OIE9GIENPTlRSQUNULCBUT1JUIE9SIE9USEVSV0lTRSwgQVJJU0lORyBGUk9NLCBPVVQgT0YgT1IgSU4gQ09OTkVDVElPTiBXSVRIIFRIRSBTT0ZUV0FSRSBPUiBUSEUgVVNFIE9SIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4=</text>
+                    </license>
+                </licenses>
+                <copyright>
+                    <text>Copyright © 2023 ACME corp</text>
+                </copyright>
+            </evidence>
         </component>
         <component type="framework" bom-ref="SomeFrameworkBundle">
             <name>SomeFrameworkBundle</name>

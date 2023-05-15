@@ -20,7 +20,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { PackageURL } from 'packageurl-js'
 
 import type { Comparable } from '../_helpers/sortable'
-import { SortableComparables } from '../_helpers/sortable'
+import { SortableComparables, SortableStringables } from '../_helpers/sortable'
+import type { Stringable } from '../_helpers/stringable'
 import { treeIteratorSymbol } from '../_helpers/tree'
 import type { ComponentScope, ComponentType } from '../enums'
 import type { CPE } from '../types'
@@ -52,13 +53,14 @@ export interface OptionalComponentProperties {
   components?: Component['components']
   cpe?: Component['cpe']
   properties?: Component['properties']
+  evidence?: Component['evidence']
 }
 
 export class Component implements Comparable<Component> {
   type: ComponentType
   name: string
   author?: string
-  copyright?: string
+  copyright?: Stringable
   description?: string
   externalReferences: ExternalReferenceRepository
   group?: string
@@ -73,6 +75,7 @@ export class Component implements Comparable<Component> {
   dependencies: BomRefRepository
   components: ComponentRepository
   properties: PropertyRepository
+  evidence?: ComponentEvidence
 
   /** @see {@link bomRef} */
   readonly #bomRef: BomRef
@@ -104,6 +107,7 @@ export class Component implements Comparable<Component> {
     this.components = op.components ?? new ComponentRepository()
     this.cpe = op.cpe
     this.properties = op.properties ?? new PropertyRepository()
+    this.evidence = op.evidence
   }
 
   get bomRef (): BomRef {
@@ -150,5 +154,20 @@ export class ComponentRepository extends SortableComparables<Component> {
       yield component
       yield * component.components[treeIteratorSymbol]()
     }
+  }
+}
+
+export interface OptionalComponentEvidenceProperties {
+  licenses?: ComponentEvidence['licenses']
+  copyright?: ComponentEvidence['copyright']
+}
+
+export class ComponentEvidence {
+  licenses: LicenseRepository
+  copyright: SortableStringables
+
+  constructor (op: OptionalComponentEvidenceProperties = {}) {
+    this.licenses = op.licenses ?? new LicenseRepository()
+    this.copyright = op.copyright ?? new SortableStringables()
   }
 }

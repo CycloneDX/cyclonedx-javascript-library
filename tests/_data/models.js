@@ -95,7 +95,7 @@ module.exports.createComplexStructure = function () {
     component.bomRef.value = 'dummy-component'
     component.author = 'component\'s author'
     component.cpe = 'cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*'
-    component.copyright = '(c) acme'
+    component.copyright = 'ACME corp'
     component.description = 'this is a test component'
     component.externalReferences.add(
       new Models.ExternalReference(new URL('https://localhost/acme'), Enums.ExternalReferenceType.Website, { comment: 'testing' }))
@@ -152,6 +152,17 @@ module.exports.createComplexStructure = function () {
     component.swid.url = new URL('https://localhost/swid')
 
     bom.metadata.component.dependencies.add(component.bomRef)
+
+    component.evidence = new Models.ComponentEvidence()
+    component.evidence.licenses.add((function (license) {
+      license.text = new Models.Attachment(
+        'VEhFIFNPRlRXQVJFIElTIFBST1ZJREVEIOKAnEFTIElT4oCdLCBXSVRIT1VUIFdBUlJBTlRZIE9GIEFOWSBLSU5ELCBFWFBSRVNTIE9SIElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLCBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiBJTiBOTyBFVkVOVCBTSEFMTCBUSEUgQVVUSE9SUyBPUiBDT1BZUklHSFQgSE9MREVSUyBCRSBMSUFCTEUgRk9SIEFOWSBDTEFJTSwgREFNQUdFUyBPUiBPVEhFUiBMSUFCSUxJVFksIFdIRVRIRVIgSU4gQU4gQUNUSU9OIE9GIENPTlRSQUNULCBUT1JUIE9SIE9USEVSV0lTRSwgQVJJU0lORyBGUk9NLCBPVVQgT0YgT1IgSU4gQ09OTkVDVElPTiBXSVRIIFRIRSBTT0ZUV0FSRSBPUiBUSEUgVVNFIE9SIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4='
+      )
+      license.text.contentType = 'text/plain'
+      license.text.encoding = Enums.AttachmentEncoding.Base64
+      return license
+    })(new Models.NamedLicense('License.txt')))
+    component.evidence.copyright.add('Copyright © 2023 ACME corp')
 
     return component
   })(new Models.Component(Enums.ComponentType.Library, 'dummy-component', { version: '1337-beta' })))

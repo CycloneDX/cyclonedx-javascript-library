@@ -52,6 +52,10 @@ export class Factory {
     return new ComponentNormalizer(this)
   }
 
+  makeForComponentEvidence (): ComponentEvidenceNormalizer {
+    return new ComponentEvidenceNormalizer(this)
+  }
+
   makeForTool (): ToolNormalizer {
     return new ToolNormalizer(this)
   }
@@ -411,6 +415,9 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
           children: this.normalizeIterable(data.components, options, 'component')
         }
       : undefined
+    const evidence: SimpleXml.Element | undefined = spec.supportsComponentEvidence && data.evidence !== undefined
+      ? this._factory.makeForComponentEvidence().normalize(data.evidence, options, 'evidence')
+      : undefined
     return {
       type: 'element',
       name: elementName,
@@ -435,7 +442,8 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
         swid,
         extRefs,
         properties,
-        components
+        components,
+        evidence
       ].filter(isNotUndefined)
     }
   }
@@ -448,6 +456,33 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
     ).map(
       c => this.normalize(c, options, elementName)
     ).filter(isNotUndefined)
+  }
+}
+
+export class ComponentEvidenceNormalizer extends BaseXmlNormalizer<Models.ComponentEvidence> {
+  normalize (data: Models.ComponentEvidence, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    const licenses: SimpleXml.Element | undefined = data.licenses.size > 0
+      ? {
+          type: 'element',
+          name: 'licenses',
+          children: this._factory.makeForLicense().normalizeIterable(data.licenses, options)
+        }
+      : undefined
+    const copyright: SimpleXml.Element | undefined = data.copyright.size > 0
+      ? {
+          type: 'element',
+          name: 'copyright',
+          children: makeTextElementIter(data.copyright, options, 'text')
+        }
+      : undefined
+    return {
+      type: 'element',
+      name: elementName,
+      children: [
+        licenses,
+        copyright
+      ].filter(isNotUndefined)
+    }
   }
 }
 
@@ -599,7 +634,7 @@ export class AttachmentNormalizer extends BaseXmlNormalizer<Models.Attachment> {
         'content-type': data.contentType || undefined,
         encoding: data.encoding || undefined
       },
-      children: data.content
+      children: data.content.toString()
     }
   }
 }

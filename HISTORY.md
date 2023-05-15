@@ -22,7 +22,8 @@ All notable changes to this project will be documented in this file.
   * Class `Models.SpdxLicense` was modified
     * Constructor no longer throws, when value is not eligible ([#530] via [#547])
     * Property `id` setter no longer throws, when value is not eligible ([#530] via [#547])
-  * Interface `Spec.Protocol` now defines a new mandatory property `supportsVulnerabilities:boolean` (via [#722])  
+  * Interface `Spec.Protocol` now defines a new mandatory property `supportsComponentEvidence:boolean` (via [#753])
+  * Interface `Spec.Protocol` now defines a new mandatory property `supportsVulnerabilities:boolean` (via [#722])
   * Removed deprecated symbols ([#747] via [#752])
     * Namespace `{Builders,Factories}.FromPackageJson` -> use `{Builders,Factories}.FromNodePackageJson` instead
     * Class `Models.HashRepository` -> use `Models.HashDictionary` instead
@@ -32,50 +33,64 @@ All notable changes to this project will be documented in this file.
 * Changed
   * Removed beta state from symbols `{Enums,Models}.Vulnerability.*` ([#164] via [#722])  
     The structures are defined as stable now.
-  * Class `Models.Vulnerability.Credits`
+  * Class `Models.Attachment` was modified
+    * Property `content` was widened to be any stringable, was `string` ([#516] via [#753])  
+      This enables the use of `Buffer` and other data-saving mechanisms.
+  * Class `Models.Component` was modified
+    * Property `copyright` was widened to be any stringable, was `string` ([#516] via [#753])  
+      This enables the use of `Buffer` and other data-saving mechanisms.
+  * Class `Models.Vulnerability.Credits` was modified
     * Property `organizations` is no longer optional (via [#722])  
-      This collection(`Set`) will always exist, but might be empty.
+      This collection(`Set`) will always exist, but might be empty.  
+      This is considered a non-breaking change, as the class was in _beta_ state.
     * Property `individuals` is no longer optional (via [#722])  
-      This collection(`Set`) will always exist, but might be empty.
+      This collection(`Set`) will always exist, but might be empty.  
+      This is considered a non-breaking change, as the class was in _beta_ state.
 * Added
   * Serializers and `Bom`-Normalizers will take `Bom.vulnerabilities` into account ([#164] via [#722])
-  * Namespace`Models.Vulnerability` was enhanced
-    * Class `Advisory` was enhanced
-      * New method `compare()` (via [#722])
-    * Class `AdvisoryRepository` was enhanced
-      * New method `sorted()` (via [#722])
-      * New method `compare()` (via [#722])
-    * Class `Affect` was enhanced
-      * New method `compare()` (via [#722])
-    * Class `AffectRepository` was enhanced
-      * New method `sorted()` (via [#722])
-      * New method `compare()` (via [#722])
-    * Class `AffectedSingleVersion` was enhanced
-      * New method `compare()` (via [#722])
-    * Class `AffectedVersionRange` was enhanced
-      * New method `compare()` (via [#722])
-    * Class `AffectedVersionRepository` was enhanced
-      * New method `sorted()` (via [#722])
-      * New method `compare()` (via [#722])
-    * Class `Rating` was enhanced
-      * New method `compare()` (via [#722])
-    * Class `RatingRepository` was enhanced
-      * New method `sorted()` (via [#722])
-      * New method `compare()` (via [#722])
-    * class `Reference` was enhanced
-      * New method `compare()` (via [#722])
-    * Class `ReferenceRepository` was enhanced
-      * New method `sorted()` (via [#722])
-      * New method `compare()` (via [#722])
-    * class `Source` was enhanced
-      * New method `compare()` (via [#722])
-    * class `Vulnerability` was enhanced
-      * New method `compare()` (via [#722])
-    * Class `VulnerabilityRepository` was enhanced
-      * New method `sorted()` (via [#722])
-      * New method `compare()` (via [#722])
-  * Namespace `Serialize.{Json,Xml}.Normalize` was enhanced
+  * Serializers and `Component`-Normalizers will take `Component.evidence` into account ([#516] via [#753])
+  * Namespace `Models` was enhanced
+    * Class `Component` was enhanced
+      * New optional property `evidence` of type `Models.ComponentEvidence` ([#516] via [#753])
+    * New Classes `ComponentEvidence` ([#516] via [#753])
+    * Namespace`Vulnerability` was enhanced
+      * Class `Advisory` was enhanced
+        * New method `compare()` (via [#722])
+      * Class `AdvisoryRepository` was enhanced
+        * New method `sorted()` (via [#722])
+        * New method `compare()` (via [#722])
+      * Class `Affect` was enhanced
+        * New method `compare()` (via [#722])
+      * Class `AffectRepository` was enhanced
+        * New method `sorted()` (via [#722])
+        * New method `compare()` (via [#722])
+      * Class `AffectedSingleVersion` was enhanced
+        * New method `compare()` (via [#722])
+      * Class `AffectedVersionRange` was enhanced
+        * New method `compare()` (via [#722])
+      * Class `AffectedVersionRepository` was enhanced
+        * New method `sorted()` (via [#722])
+        * New method `compare()` (via [#722])
+      * Class `Rating` was enhanced
+        * New method `compare()` (via [#722])
+      * Class `RatingRepository` was enhanced
+        * New method `sorted()` (via [#722])
+        * New method `compare()` (via [#722])
+      * class `Reference` was enhanced
+        * New method `compare()` (via [#722])
+      * Class `ReferenceRepository` was enhanced
+        * New method `sorted()` (via [#722])
+        * New method `compare()` (via [#722])
+      * class `Source` was enhanced
+        * New method `compare()` (via [#722])
+      * class `Vulnerability` was enhanced
+        * New method `compare()` (via [#722])
+      * Class `VulnerabilityRepository` was enhanced
+        * New method `sorted()` (via [#722])
+        * New method `compare()` (via [#722])
+  * Namespace `Serialize.{Json,Xml}.Normalize` was enhanced 
     * Class `Factory` was enhanced
+      * New Method `makeForComponentEvidence()` ([#516] via [#753])
       * New method `makeForVulnerability()` ([#164] via [#722])
       * New method `makeForVulnerabilitySource()` ([#164] via [#722])
       * New method `makeForVulnerabilityReference()` ([#164] via [#722])
@@ -85,19 +100,21 @@ All notable changes to this project will be documented in this file.
       * New method `makeForVulnerabilityAffect` ([#164] via [#722])
       * New method `makeForVulnerabilityAffectedVersion` ([#164] via [#722])
       * New method `makeForVulnerabilityAnalysis` ([#164] via [#722])
+    * New class `ComponentEvidenceNormalizer` ([#516] via [#753])
     * Class `OrganizationalEntityNormalizer` was enhanced
       *  New method `normalizeIterable()` (via [#722])
-    * Class `VulnerabilityNormalizer` was added ([#164] via [#722])
-    * Class `VulnerabilityAdvisoryNormalizer` was added ([#164] via [#722])
-    * Class `VulnerabilityAffectNormalizer` was added ([#164] via [#722])
-    * Class `VulnerabilityAffectedVersionNormalizer` was added ([#164] via [#722])
-    * Class `VulnerabilityAnalysisNormalizer` was added ([#164] via [#722])
-    * Class `VulnerabilityCreditsNormalizer` was added ([#164] via [#722])
-    * Class `VulnerabilityRatingNormalizer` was added ([#164] via [#722])
-    * Class `VulnerabilityReferenceNormalizer` was added ([#164] via [#722])
-    * Class `VulnerabilitySourceNormalizer` was added ([#164] via [#722])
+    * New class `VulnerabilityNormalizer` ([#164] via [#722])
+    * New class `VulnerabilityAdvisoryNormalizer` ([#164] via [#722])
+    * New class `VulnerabilityAffectNormalizer` ([#164] via [#722])
+    * New class `VulnerabilityAffectedVersionNormalizer` ([#164] via [#722])
+    * New class `VulnerabilityAnalysisNormalizer` ([#164] via [#722])
+    * New class `VulnerabilityCreditsNormalizer` ([#164] via [#722])
+    * New class `VulnerabilityRatingNormalizer` ([#164] via [#722])
+    * New class `VulnerabilityReferenceNormalizer` ([#164] via [#722])
+    * New class `VulnerabilitySourceNormalizer` ([#164] via [#722])
   * Namespace `Spec`
     * Const `Spec1dot{2,3,4}`
+      * New Property `supportsComponentEvidence:boolean` (via [#753])
       * New Property `supportsVulnerabilities:boolean` (via [#722])
   * Namespace `Spdx`
     * New function `isValidSpdxLicenseExpression()` ([#271] via [#547])
@@ -106,11 +123,13 @@ All notable changes to this project will be documented in this file.
 
 [#164]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/164
 [#271]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/271
+[#516]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/516
 [#530]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/530
 [#547]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/547
 [#722]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/722
 [#747]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/747
 [#752]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/752
+[#753]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/753
 
 ## 1.14.0 -- 2023-04-25
 

@@ -52,6 +52,10 @@ export class Factory {
     return new ComponentNormalizer(this)
   }
 
+  makeForComponentEvidence (): ComponentEvidenceNormalizer {
+    return new ComponentEvidenceNormalizer(this)
+  }
+
   makeForTool (): ToolNormalizer {
     return new ToolNormalizer(this)
   }
@@ -308,46 +312,50 @@ export class OrganizationalEntityNormalizer extends BaseJsonNormalizer<Models.Or
 export class ComponentNormalizer extends BaseJsonNormalizer<Models.Component> {
   normalize (data: Models.Component, options: NormalizerOptions): Normalized.Component | undefined {
     const spec = this._factory.spec
+    if (!spec.supportsComponentType(data.type)) {
+      return undefined
+    }
     const version: string = data.version ?? ''
-    return spec.supportsComponentType(data.type)
-      ? {
-          type: data.type,
-          name: data.name,
-          group: data.group || undefined,
-          version: version.length > 0 || spec.requiresComponentVersion
-            ? version
-            : undefined,
-          'bom-ref': data.bomRef.value || undefined,
-          supplier: data.supplier === undefined
-            ? undefined
-            : this._factory.makeForOrganizationalEntity().normalize(data.supplier, options),
-          author: data.author || undefined,
-          publisher: data.publisher || undefined,
-          description: data.description || undefined,
-          scope: data.scope,
-          hashes: data.hashes.size > 0
-            ? this._factory.makeForHash().normalizeIterable(data.hashes, options)
-            : undefined,
-          licenses: data.licenses.size > 0
-            ? this._factory.makeForLicense().normalizeIterable(data.licenses, options)
-            : undefined,
-          copyright: data.copyright || undefined,
-          cpe: data.cpe || undefined,
-          purl: data.purl?.toString(),
-          swid: data.swid === undefined
-            ? undefined
-            : this._factory.makeForSWID().normalize(data.swid, options),
-          externalReferences: data.externalReferences.size > 0
-            ? this._factory.makeForExternalReference().normalizeIterable(data.externalReferences, options)
-            : undefined,
-          properties: spec.supportsProperties(data) && data.properties.size > 0
-            ? this._factory.makeForProperty().normalizeIterable(data.properties, options)
-            : undefined,
-          components: data.components.size > 0
-            ? this.normalizeIterable(data.components, options)
-            : undefined
-        }
-      : undefined
+    return {
+      type: data.type,
+      name: data.name,
+      group: data.group || undefined,
+      version: version.length > 0 || spec.requiresComponentVersion
+        ? version
+        : undefined,
+      'bom-ref': data.bomRef.value || undefined,
+      supplier: data.supplier === undefined
+        ? undefined
+        : this._factory.makeForOrganizationalEntity().normalize(data.supplier, options),
+      author: data.author || undefined,
+      publisher: data.publisher || undefined,
+      description: data.description || undefined,
+      scope: data.scope,
+      hashes: data.hashes.size > 0
+        ? this._factory.makeForHash().normalizeIterable(data.hashes, options)
+        : undefined,
+      licenses: data.licenses.size > 0
+        ? this._factory.makeForLicense().normalizeIterable(data.licenses, options)
+        : undefined,
+      copyright: data.copyright?.toString() || undefined,
+      cpe: data.cpe || undefined,
+      purl: data.purl?.toString(),
+      swid: data.swid === undefined
+        ? undefined
+        : this._factory.makeForSWID().normalize(data.swid, options),
+      externalReferences: data.externalReferences.size > 0
+        ? this._factory.makeForExternalReference().normalizeIterable(data.externalReferences, options)
+        : undefined,
+      properties: spec.supportsProperties(data) && data.properties.size > 0
+        ? this._factory.makeForProperty().normalizeIterable(data.properties, options)
+        : undefined,
+      components: data.components.size > 0
+        ? this.normalizeIterable(data.components, options)
+        : undefined,
+      evidence: spec.supportsComponentEvidence && data.evidence !== undefined
+        ? this._factory.makeForComponentEvidence().normalize(data.evidence, options)
+        : undefined
+    }
   }
 
   normalizeIterable (data: SortableIterable<Models.Component>, options: NormalizerOptions): Normalized.Component[] {
@@ -358,6 +366,27 @@ export class ComponentNormalizer extends BaseJsonNormalizer<Models.Component> {
     ).map(
       c => this.normalize(c, options)
     ).filter(isNotUndefined)
+  }
+}
+
+export class ComponentEvidenceNormalizer extends BaseJsonNormalizer<Models.ComponentEvidence> {
+  normalize (data: Models.ComponentEvidence, options: NormalizerOptions): Normalized.ComponentEvidence {
+    return {
+      licenses: data.licenses.size > 0
+        ? this._factory.makeForLicense().normalizeIterable(data.licenses, options)
+        : undefined,
+      copyright: data.copyright.size > 0
+        ? (
+            options.sortLists
+              ? data.copyright.sorted().map(this.#normalizeCopyright)
+              : Array.from(data.copyright, this.#normalizeCopyright)
+          )
+        : undefined
+    }
+  }
+
+  #normalizeCopyright (c: Stringable): Normalized.Copyright {
+    return { text: c.toString() }
   }
 }
 
@@ -482,7 +511,7 @@ export class ExternalReferenceNormalizer extends BaseJsonNormalizer<Models.Exter
 export class AttachmentNormalizer extends BaseJsonNormalizer<Models.Attachment> {
   normalize (data: Models.Attachment, options: NormalizerOptions): Normalized.Attachment {
     return {
-      content: data.content,
+      content: data.content.toString(),
       contentType: data.contentType || undefined,
       encoding: data.encoding
     }

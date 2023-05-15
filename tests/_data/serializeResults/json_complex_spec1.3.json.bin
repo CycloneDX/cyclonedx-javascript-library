@@ -211,7 +211,7 @@
                     }
                 }
             ],
-            "copyright": "(c) acme",
+            "copyright": "ACME corp",
             "cpe": "cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*",
             "purl": "pkg:npm/acme/dummy-component@1337-beta",
             "swid": {
@@ -240,7 +240,26 @@
                     "type": "website",
                     "comment": "testing"
                 }
-            ]
+            ],
+            "evidence": {
+                "licenses": [
+                    {
+                        "license": {
+                            "name": "License.txt",
+                            "text": {
+                                "content": "VEhFIFNPRlRXQVJFIElTIFBST1ZJREVEIOKAnEFTIElT4oCdLCBXSVRIT1VUIFdBUlJBTlRZIE9GIEFOWSBLSU5ELCBFWFBSRVNTIE9SIElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLCBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiBJTiBOTyBFVkVOVCBTSEFMTCBUSEUgQVVUSE9SUyBPUiBDT1BZUklHSFQgSE9MREVSUyBCRSBMSUFCTEUgRk9SIEFOWSBDTEFJTSwgREFNQUdFUyBPUiBPVEhFUiBMSUFCSUxJVFksIFdIRVRIRVIgSU4gQU4gQUNUSU9OIE9GIENPTlRSQUNULCBUT1JUIE9SIE9USEVSV0lTRSwgQVJJU0lORyBGUk9NLCBPVVQgT0YgT1IgSU4gQ09OTkVDVElPTiBXSVRIIFRIRSBTT0ZUV0FSRSBPUiBUSEUgVVNFIE9SIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4=",
+                                "contentType": "text/plain",
+                                "encoding": "base64"
+                            }
+                        }
+                    }
+                ],
+                "copyright": [
+                    {
+                        "text": "Copyright © 2023 ACME corp"
+                    }
+                ]
+            }
         },
         {
             "type": "framework",
