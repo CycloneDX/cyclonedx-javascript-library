@@ -24,6 +24,12 @@ All notable changes to this project will be documented in this file.
     * Property `id` setter no longer throws, when value is not eligible ([#530] via [#547])
   * Interface `Spec.Protocol` now defines a new mandatory property `supportsVulnerabilities:boolean` (via [#722])  
     Because this is an interface, all derived (downstream) implementations and objects must provide this property.
+  * Removed deprecated symbols ([#747] via [#752])
+    * Namespace `{Builders,Factories}.FromPackageJson` -> use `{Builders,Factories}.FromNodePackageJson` instead
+    * Class `Models.HashRepository` -> use `Models.HashDictionary` instead
+    * Function `Serialize.{Json,Xml}.Normalize.*.normalizeRepository()` -> use `Serialize.{Json,Xml}.Normalize.*.normalizeIterable()` instead
+    * Type alias `Types.UrnUuid` - use `string` instead
+      Type predicate `Types.isUrnUuid()` no longer exists
 * Changed
   * Removed beta state from symbols `{Enums,Models}.Vulnerability.*` ([#164] via [#722])  
     The structures are defined as stable now.
@@ -127,6 +133,8 @@ All notable changes to this project will be documented in this file.
 [#652]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/652
 [#686]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/686
 [#691]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/691
+[#747]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/747
+[#752]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/752
 
 ## 1.13.3 - 2023-04-05
 
