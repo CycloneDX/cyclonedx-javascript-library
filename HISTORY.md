@@ -6,24 +6,23 @@ All notable changes to this project will be documented in this file.
 
 * Breaking Changes:
   * Class `Factories.LicenseFactory` was modified
-    * Function `makeFromString()` was changed in its behaviour ([#271], [#530] via [#547])
+    * Function `makeFromString()` was changed in its behaviour ([#271], [#530] via [#547])  
       Will try to create `Models.SpdxLicense` if value is eligible,
-      else try to create `Models.LicenseExpression` if value is eligible, 
+      else try to create `Models.LicenseExpression` if value is eligible,
       else fall back to `Models.NamedLicense`.
     * Renamed function `makeDisjunctiveWithId()` -> `makeSpdxLicense()` ([#530] via [#547])
     * Renamed function `makeDisjunctiveWithName()` -> `makeNamedLicense()` ([#530] via [#547])
   * Class `Models.LicenseExpression` was modified
     * Removed static function `isEligibleExpression()` (via [#547])  
       Use `Spdx.isValidSpdxLicenseExpression()` instead.
-    * Constructor no longer throws, when value is not eligible ([#530] via [#547])
+    * Constructor no longer throws, when value is not eligible ([#530] via [#547])  
       You may utilize `Factories.LicenseFactory` to mimic the previous behaviour.
-    * Property `expression` setter no longer throws, when value is not eligible ([#530] via [#547])
+    * Property `expression` setter no longer throws, when value is not eligible ([#530] via [#547])  
       You may utilize `Factories.LicenseFactory` to mimic the previous behaviour.
   * Class `Models.SpdxLicense` was modified
     * Constructor no longer throws, when value is not eligible ([#530] via [#547])
     * Property `id` setter no longer throws, when value is not eligible ([#530] via [#547])
   * Interface `Spec.Protocol` now defines a new mandatory property `supportsVulnerabilities:boolean` (via [#722])  
-    Because this is an interface, all derived (downstream) implementations and objects must provide this property.
   * Removed deprecated symbols ([#747] via [#752])
     * Namespace `{Builders,Factories}.FromPackageJson` -> use `{Builders,Factories}.FromNodePackageJson` instead
     * Class `Models.HashRepository` -> use `Models.HashDictionary` instead
@@ -34,9 +33,9 @@ All notable changes to this project will be documented in this file.
   * Removed beta state from symbols `{Enums,Models}.Vulnerability.*` ([#164] via [#722])  
     The structures are defined as stable now.
   * Class `Models.Vulnerability.Credits`
-    * Property `organizations` is no longer optional (via [#722])
+    * Property `organizations` is no longer optional (via [#722])  
       This collection(`Set`) will always exist, but might be empty.
-    * Property `individuals` is no longer optional (via [#722])
+    * Property `individuals` is no longer optional (via [#722])  
       This collection(`Set`) will always exist, but might be empty.
 * Added
   * Serializers and `Bom`-Normalizers will take `Bom.vulnerabilities` into account ([#164] via [#722])
@@ -76,7 +75,7 @@ All notable changes to this project will be documented in this file.
       * New method `sorted()` (via [#722])
       * New method `compare()` (via [#722])
   * Namespace `Serialize.{Json,Xml}.Normalize` was enhanced
-    * Class `Factory` was enhanced 
+    * Class `Factory` was enhanced
       * New method `makeForVulnerability()` ([#164] via [#722])
       * New method `makeForVulnerabilitySource()` ([#164] via [#722])
       * New method `makeForVulnerabilityReference()` ([#164] via [#722])
@@ -110,6 +109,8 @@ All notable changes to this project will be documented in this file.
 [#530]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/530
 [#547]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/547
 [#722]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/722
+[#747]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/747
+[#752]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/752
 
 ## 1.14.0 -- 2023-04-25
 
@@ -133,8 +134,6 @@ All notable changes to this project will be documented in this file.
 [#652]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/652
 [#686]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/686
 [#691]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/691
-[#747]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/747
-[#752]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/752
 
 ## 1.13.3 - 2023-04-05
 
