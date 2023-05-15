@@ -25,13 +25,13 @@ All notable changes to this project will be documented in this file.
   * Interface `Spec.Protocol` now defines a new mandatory property `supportsComponentEvidence:boolean` (via [#753])
   * Interface `Spec.Protocol` now defines a new mandatory property `supportsVulnerabilities:boolean` (via [#722])
   * Removed deprecated symbols ([#747] via [#752])
-    * Namespace `{Builders,Factories}.FromPackageJson` -> use `{Builders,Factories}.FromNodePackageJson` instead
+    * Namespaces `{Builders,Factories}.FromPackageJson` -> use `{Builders,Factories}.FromNodePackageJson` instead
     * Class `Models.HashRepository` -> use `Models.HashDictionary` instead
-    * Function `Serialize.{Json,Xml}.Normalize.*.normalizeRepository()` -> use `Serialize.{Json,Xml}.Normalize.*.normalizeIterable()` instead
+    * Functions `Serialize.{Json,Xml}.Normalize.*.normalizeRepository()` -> use `Serialize.{Json,Xml}.Normalize.*.normalizeIterable()` instead
     * Type alias `Types.UrnUuid` - use `string` instead
       Type predicate `Types.isUrnUuid()` no longer exists
 * Changed
-  * Removed beta state from symbols `{Enums,Models}.Vulnerability.*` ([#164] via [#722])  
+  * Removed _beta_ state from symbols `{Enums,Models}.Vulnerability.*` ([#164] via [#722])  
     The structures are defined as stable now.
   * Class `Models.Attachment` was modified
     * Property `content` was widened to be any stringable, was `string` ([#516] via [#753])  
@@ -88,7 +88,7 @@ All notable changes to this project will be documented in this file.
       * Class `VulnerabilityRepository` was enhanced
         * New method `sorted()` (via [#722])
         * New method `compare()` (via [#722])
-  * Namespace `Serialize.{Json,Xml}.Normalize` was enhanced 
+  * Namespaces `Serialize.{Json,Xml}.Normalize` were enhanced 
     * Class `Factory` was enhanced
       * New Method `makeForComponentEvidence()` ([#516] via [#753])
       * New method `makeForVulnerability()` ([#164] via [#722])
@@ -113,10 +113,10 @@ All notable changes to this project will be documented in this file.
     * New class `VulnerabilityReferenceNormalizer` ([#164] via [#722])
     * New class `VulnerabilitySourceNormalizer` ([#164] via [#722])
   * Namespace `Spec`
-    * Const `Spec1dot{2,3,4}`
-      * New Property `supportsComponentEvidence:boolean` (via [#753])
-      * New Property `supportsVulnerabilities:boolean` (via [#722])
-  * Namespace `Spdx`
+    * Constants `Spec1dot{2,3,4}` were enhanced
+      * New property `supportsComponentEvidence:boolean` (via [#753])
+      * New property `supportsVulnerabilities:boolean` (via [#722])
+  * Namespace `Spdx` was enhanced
     * New function `isValidSpdxLicenseExpression()` ([#271] via [#547])
 * Misc
   * New dependency `spdx-expression-parse` (via [#547])
