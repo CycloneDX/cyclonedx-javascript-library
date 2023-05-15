@@ -31,7 +31,6 @@ export type Hash = readonly [
   // cannot use named tuple syntax ala `[a: T1, b: T2]` as it causes errors when downstream-projects compile with older versions of TypeScript
 ]
 
-/** @since 1.5.0 */
 export class HashDictionary extends Map<Hash[0], Hash[1]> implements Sortable<Hash> {
   #compareItems ([a1, c1]: Hash, [a2, c2]: Hash): number {
     /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
@@ -44,6 +43,3 @@ export class HashDictionary extends Map<Hash[0], Hash[1]> implements Sortable<Ha
     return Array.from(this.entries()).sort(this.#compareItems)
   }
 }
-
-/** @deprecated use {@link HashDictionary} instead of {@link HashRepository} */
-export class HashRepository extends HashDictionary {}

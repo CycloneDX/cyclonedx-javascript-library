@@ -138,10 +138,8 @@ const schemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
 interface JsonNormalizer<TModel, TNormalized> {
   normalize: (data: TModel, options: NormalizerOptions) => TNormalized | undefined
 
-  /** @since 1.5.1 */
   normalizeIterable?: (data: SortableIterable<TModel>, options: NormalizerOptions) => TNormalized[]
-  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
-  normalizeRepository?: ['normalizeIterable']
+
 }
 
 abstract class BaseJsonNormalizer<TModel, TNormalized = object> implements JsonNormalizer<TModel, TNormalized> {
@@ -232,7 +230,6 @@ export class ToolNormalizer extends BaseJsonNormalizer<Models.Tool> {
     }
   }
 
-  /** @since 1.5.1 */
   normalizeIterable (data: SortableIterable<Models.Tool>, options: NormalizerOptions): Normalized.Tool[] {
     return (
       options.sortLists ?? false
@@ -240,9 +237,6 @@ export class ToolNormalizer extends BaseJsonNormalizer<Models.Tool> {
         : Array.from(data)
     ).map(t => this.normalize(t, options))
   }
-
-  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
-  normalizeRepository = this.normalizeIterable
 }
 
 export class HashNormalizer extends BaseJsonNormalizer<Models.Hash> {
@@ -256,7 +250,6 @@ export class HashNormalizer extends BaseJsonNormalizer<Models.Hash> {
       : undefined
   }
 
-  /** @since 1.5.1 */
   normalizeIterable (data: SortableIterable<Models.Hash>, options: NormalizerOptions): Normalized.Hash[] {
     return (
       options.sortLists ?? false
@@ -266,9 +259,6 @@ export class HashNormalizer extends BaseJsonNormalizer<Models.Hash> {
       h => this.normalize(h, options)
     ).filter(isNotUndefined)
   }
-
-  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
-  normalizeRepository = this.normalizeIterable
 }
 
 export class OrganizationalContactNormalizer extends BaseJsonNormalizer<Models.OrganizationalContact> {
@@ -282,7 +272,6 @@ export class OrganizationalContactNormalizer extends BaseJsonNormalizer<Models.O
     }
   }
 
-  /** @since 1.5.1 */
   normalizeIterable (data: SortableIterable<Models.OrganizationalContact>, options: NormalizerOptions): Normalized.OrganizationalContact[] {
     return (
       options.sortLists ?? false
@@ -290,9 +279,6 @@ export class OrganizationalContactNormalizer extends BaseJsonNormalizer<Models.O
         : Array.from(data)
     ).map(oc => this.normalize(oc, options))
   }
-
-  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
-  normalizeRepository = this.normalizeIterable
 }
 
 export class OrganizationalEntityNormalizer extends BaseJsonNormalizer<Models.OrganizationalEntity> {
@@ -364,7 +350,6 @@ export class ComponentNormalizer extends BaseJsonNormalizer<Models.Component> {
       : undefined
   }
 
-  /** @since 1.5.1 */
   normalizeIterable (data: SortableIterable<Models.Component>, options: NormalizerOptions): Normalized.Component[] {
     return (
       options.sortLists ?? false
@@ -374,9 +359,6 @@ export class ComponentNormalizer extends BaseJsonNormalizer<Models.Component> {
       c => this.normalize(c, options)
     ).filter(isNotUndefined)
   }
-
-  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
-  normalizeRepository = this.normalizeIterable
 }
 
 export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
@@ -437,8 +419,6 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
 
   /**
    * If there is any {@link Models.LicenseExpression | LicenseExpression} in the set, then this is the only item that is normalized.
-   *
-   * @since 1.5.1
    */
   normalizeIterable (data: SortableIterable<Models.License>, options: NormalizerOptions): Normalized.License[] {
     const licenses = options.sortLists ?? false
@@ -456,9 +436,6 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
 
     return licenses.map(l => this.normalize(l, options))
   }
-
-  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
-  normalizeRepository = this.normalizeIterable
 }
 
 export class SWIDNormalizer extends BaseJsonNormalizer<Models.SWID> {
@@ -491,7 +468,6 @@ export class ExternalReferenceNormalizer extends BaseJsonNormalizer<Models.Exter
       : undefined
   }
 
-  /** @since 1.5.1 */
   normalizeIterable (data: SortableIterable<Models.ExternalReference>, options: NormalizerOptions): Normalized.ExternalReference[] {
     return (
       options.sortLists ?? false
@@ -501,9 +477,6 @@ export class ExternalReferenceNormalizer extends BaseJsonNormalizer<Models.Exter
       r => this.normalize(r, options)
     ).filter(isNotUndefined)
   }
-
-  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
-  normalizeRepository = this.normalizeIterable
 }
 
 export class AttachmentNormalizer extends BaseJsonNormalizer<Models.Attachment> {
@@ -524,7 +497,6 @@ export class PropertyNormalizer extends BaseJsonNormalizer<Models.Property> {
     }
   }
 
-  /** @since 1.5.1 */
   normalizeIterable (data: SortableIterable<Models.Property>, options: NormalizerOptions): Normalized.Property[] {
     return (
       options.sortLists ?? false
@@ -532,9 +504,6 @@ export class PropertyNormalizer extends BaseJsonNormalizer<Models.Property> {
         : Array.from(data)
     ).map(p => this.normalize(p, options))
   }
-
-  /** @deprecated use {@link normalizeIterable} instead of {@link normalizeRepository} */
-  normalizeRepository = this.normalizeIterable
 }
 
 export class DependencyGraphNormalizer extends BaseJsonNormalizer<Models.Bom> {
