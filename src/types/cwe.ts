@@ -28,7 +28,6 @@ import { isPositiveInteger } from './integer'
  * value `399` might represent `https://cwe.mitre.org/data/definitions/399.html`.
  *
  * @see {@link isCWE}
- *
  */
 export type CWE = PositiveInteger
 
