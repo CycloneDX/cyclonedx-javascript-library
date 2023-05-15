@@ -32,7 +32,7 @@ suite('Factories.LicenseFactory', () => {
 
     const license = sut.makeFromString(expression)
 
-    assert.ok(license instanceof LicenseExpression)
+    assert.ok(license instanceof LicenseExpression, license.constructor.name)
     assert.strictEqual(license.expression, expression)
   })
 
@@ -41,7 +41,7 @@ suite('Factories.LicenseFactory', () => {
 
     const license = sut.makeFromString('(c) foo bar')
 
-    assert.ok(license instanceof NamedLicense)
+    assert.ok(license instanceof NamedLicense, license.constructor.name)
     assert.strictEqual(license.name, '(c) foo bar')
     assert.strictEqual(license.text, undefined)
     assert.strictEqual(license.url, undefined)
@@ -52,7 +52,7 @@ suite('Factories.LicenseFactory', () => {
 
     const license = sut.makeFromString('MIT')
 
-    assert.ok(license instanceof SpdxLicense)
+    assert.ok(license instanceof SpdxLicense, license.constructor.name)
     assert.strictEqual(license.id, 'MIT')
     assert.strictEqual(license.text, undefined)
     assert.strictEqual(license.url, undefined)

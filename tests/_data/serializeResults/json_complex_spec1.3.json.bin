@@ -104,6 +104,12 @@
                     "license": {
                         "id": "MIT"
                     }
+                },
+                {
+                    "license": {
+                        "name": "unknown SPDX license",
+                        "url": "https://acme.com/license"
+                    }
                 }
             ]
         },

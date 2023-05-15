@@ -42,9 +42,9 @@ export class LicenseFactory {
    * @throws {@link RangeError} if expression is not eligible
    */
   makeExpression (value: string | any): LicenseExpression {
-    value = String(value)
-    if (isValidSpdxLicenseExpression(value)) {
-      return new LicenseExpression(value)
+    const expression = String(value)
+    if (isValidSpdxLicenseExpression(expression)) {
+      return new LicenseExpression(expression)
     }
     throw new RangeError('Invalid SPDX license expression')
   }
@@ -61,12 +61,12 @@ export class LicenseFactory {
    * @throws {@link RangeError} if value is not supported SPDX id
    */
   makeSpdxLicense (value: string | any): SpdxLicense {
-    value = fixupSpdxId(String(value))
-    if (undefined === value) {
+    const fixed = fixupSpdxId(String(value))
+    if (undefined === fixed) {
       throw new RangeError('Unsupported SPDX license ID')
     }
 
-    return new SpdxLicense(value)
+    return new SpdxLicense(fixed)
   }
 
   makeNamedLicense (value: string | any): NamedLicense {

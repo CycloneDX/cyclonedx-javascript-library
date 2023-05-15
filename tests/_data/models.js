@@ -209,7 +209,8 @@ module.exports.createComplexStructure = function () {
         licenses: new Models.LicenseRepository([
           new Models.NamedLicense('something'),
           new Models.SpdxLicense('MIT'),
-          new Models.SpdxLicense('Apache-2.0')
+          new Models.SpdxLicense('Apache-2.0'),
+          new Models.SpdxLicense('unknown SPDX license', { url: 'https://acme.com/license' })
           // no expression
         ])
       }

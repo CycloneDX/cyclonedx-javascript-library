@@ -73,6 +73,10 @@
                 <license>
                     <id>MIT</id>
                 </license>
+                <license>
+                    <name>unknown SPDX license</name>
+                    <url>https://acme.com/license</url>
+                </license>
             </licenses>
         </component>
         <component type="library" bom-ref="component-with-licenses-and-expression">

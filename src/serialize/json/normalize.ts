@@ -22,6 +22,7 @@ import type { SortableIterable } from '../../_helpers/sortable'
 import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
 import * as Models from '../../models'
+import { isSupportedSpdxId } from '../../spdx'
 import type { Protocol as Spec } from '../../spec'
 import { Version as SpecVersion } from '../../spec'
 import type { NormalizerOptions } from '../types'
@@ -384,7 +385,13 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
       case data instanceof Models.NamedLicense:
         return this.#normalizeNamedLicense(data as Models.NamedLicense, options)
       case data instanceof Models.SpdxLicense:
-        return this.#normalizeSpdxLicense(data as Models.SpdxLicense, options)
+        return isSupportedSpdxId((data as Models.SpdxLicense).id)
+          ? this.#normalizeSpdxLicense(data as Models.SpdxLicense, options)
+          : this.#normalizeNamedLicense(new Models.NamedLicense(
+            // prevent information loss -> convert to broader type
+            (data as Models.SpdxLicense).id,
+            { url: (data as Models.SpdxLicense).url }
+          ), options)
       case data instanceof Models.LicenseExpression:
         return this.#normalizeLicenseExpression(data as Models.LicenseExpression)
       /* c8 ignore start */
