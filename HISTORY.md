@@ -5,78 +5,78 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Breaking Changes:
-  * Interface `Spec.Protocol` now defines a new mandatory property `supportsVulnerabilities:boolean` (via [#177])  
+  * Interface `Spec.Protocol` now defines a new mandatory property `supportsVulnerabilities:boolean` (via [#722])  
     Because this is an interface, all derived (downstream) implementations and objects must provide this property.
 * Changed
-  * Removed beta state from symbols `{Enums,Models}.Vulnerability.*` ([#164] via [#177])  
+  * Removed beta state from symbols `{Enums,Models}.Vulnerability.*` ([#164] via [#722])  
     The structures are defined as stable now.
   * Class `Models.Vulnerability.Credits`
-    * Property `organizations` is no longer optional (via [#177])
+    * Property `organizations` is no longer optional (via [#722])
       This collection(`Set`) will always exist, but might be empty.
-    * Property `individuals` is no longer optional (via [#177])
+    * Property `individuals` is no longer optional (via [#722])
       This collection(`Set`) will always exist, but might be empty.
 * Added
-  * Serializers and `Bom`-Normalizers will take `Bom.vulnerabilities` into account ([#164] via [#177])
+  * Serializers and `Bom`-Normalizers will take `Bom.vulnerabilities` into account ([#164] via [#722])
   * Namespace`Models.Vulnerability` was enhanced
     * Class `Advisory` was enhanced
-      * New method `compare()` (via [#177])
+      * New method `compare()` (via [#722])
     * Class `AdvisoryRepository` was enhanced
-      * New method `sorted()` (via [#177])
-      * New method `compare()` (via [#177])
+      * New method `sorted()` (via [#722])
+      * New method `compare()` (via [#722])
     * Class `Affect` was enhanced
-      * New method `compare()` (via [#177])
+      * New method `compare()` (via [#722])
     * Class `AffectRepository` was enhanced
-      * New method `sorted()` (via [#177])
-      * New method `compare()` (via [#177])
+      * New method `sorted()` (via [#722])
+      * New method `compare()` (via [#722])
     * Class `AffectedSingleVersion` was enhanced
-      * New method `compare()` (via [#177])
+      * New method `compare()` (via [#722])
     * Class `AffectedVersionRange` was enhanced
-      * New method `compare()` (via [#177])
+      * New method `compare()` (via [#722])
     * Class `AffectedVersionRepository` was enhanced
-      * New method `sorted()` (via [#177])
-      * New method `compare()` (via [#177])
+      * New method `sorted()` (via [#722])
+      * New method `compare()` (via [#722])
     * Class `Rating` was enhanced
-      * New method `compare()` (via [#177])
+      * New method `compare()` (via [#722])
     * Class `RatingRepository` was enhanced
-      * New method `sorted()` (via [#177])
-      * New method `compare()` (via [#177])
+      * New method `sorted()` (via [#722])
+      * New method `compare()` (via [#722])
     * class `Reference` was enhanced
-      * New method `compare()` (via [#177])
+      * New method `compare()` (via [#722])
     * Class `ReferenceRepository` was enhanced
-      * New method `sorted()` (via [#177])
-      * New method `compare()` (via [#177])
+      * New method `sorted()` (via [#722])
+      * New method `compare()` (via [#722])
     * class `Source` was enhanced
-      * New method `compare()` (via [#177])
+      * New method `compare()` (via [#722])
     * class `Vulnerability` was enhanced
-      * New method `compare()` (via [#177])
+      * New method `compare()` (via [#722])
     * Class `VulnerabilityRepository` was enhanced
-      * New method `sorted()` (via [#177])
-      * New method `compare()` (via [#177])
+      * New method `sorted()` (via [#722])
+      * New method `compare()` (via [#722])
   * Namespace `Serialize.{Json,Xml}.Normalize` was enhanced
     * Class `Factory` was enhanced 
-      * New method `makeForVulnerability()` ([#164] via [#177])
-      * New method `makeForVulnerabilitySource()` ([#164] via [#177])
-      * New method `makeForVulnerabilityReference()` ([#164] via [#177])
-      * New method `makeForVulnerabilityRating` ([#164] via [#177])
-      * New method `makeForVulnerabilityAdvisory` ([#164] via [#177])
-      * New method `makeForVulnerabilityCredits` ([#164] via [#177])
-      * New method `makeForVulnerabilityAffect` ([#164] via [#177])
-      * New method `makeForVulnerabilityAffectedVersion` ([#164] via [#177])
-      * New method `makeForVulnerabilityAnalysis` ([#164] via [#177])
+      * New method `makeForVulnerability()` ([#164] via [#722])
+      * New method `makeForVulnerabilitySource()` ([#164] via [#722])
+      * New method `makeForVulnerabilityReference()` ([#164] via [#722])
+      * New method `makeForVulnerabilityRating` ([#164] via [#722])
+      * New method `makeForVulnerabilityAdvisory` ([#164] via [#722])
+      * New method `makeForVulnerabilityCredits` ([#164] via [#722])
+      * New method `makeForVulnerabilityAffect` ([#164] via [#722])
+      * New method `makeForVulnerabilityAffectedVersion` ([#164] via [#722])
+      * New method `makeForVulnerabilityAnalysis` ([#164] via [#722])
     * Class `OrganizationalEntityNormalizer` was enhanced
-      *  New method `normalizeIterable()` (via [#177])
-    * Class `VulnerabilityNormalizer` was added ([#164] via [#177])
-    * Class `VulnerabilityAdvisoryNormalizer` was added ([#164] via [#177])
-    * Class `VulnerabilityAffectNormalizer` was added ([#164] via [#177])
-    * Class `VulnerabilityAffectedVersionNormalizer` was added ([#164] via [#177])
-    * Class `VulnerabilityAnalysisNormalizer` was added ([#164] via [#177])
-    * Class `VulnerabilityCreditsNormalizer` was added ([#164] via [#177])
-    * Class `VulnerabilityRatingNormalizer` was added ([#164] via [#177])
-    * Class `VulnerabilityReferenceNormalizer` was added ([#164] via [#177])
-    * Class `VulnerabilitySourceNormalizer` was added ([#164] via [#177])
+      *  New method `normalizeIterable()` (via [#722])
+    * Class `VulnerabilityNormalizer` was added ([#164] via [#722])
+    * Class `VulnerabilityAdvisoryNormalizer` was added ([#164] via [#722])
+    * Class `VulnerabilityAffectNormalizer` was added ([#164] via [#722])
+    * Class `VulnerabilityAffectedVersionNormalizer` was added ([#164] via [#722])
+    * Class `VulnerabilityAnalysisNormalizer` was added ([#164] via [#722])
+    * Class `VulnerabilityCreditsNormalizer` was added ([#164] via [#722])
+    * Class `VulnerabilityRatingNormalizer` was added ([#164] via [#722])
+    * Class `VulnerabilityReferenceNormalizer` was added ([#164] via [#722])
+    * Class `VulnerabilitySourceNormalizer` was added ([#164] via [#722])
   * Namespace `Spec`
     * Const `Spec1dot{2,3,4}`
-      * New Property `supportsVulnerabilities:boolean` (via [#177])
+      * New Property `supportsVulnerabilities:boolean` (via [#722])
 
 [#164]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/164
 [#722]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/722
