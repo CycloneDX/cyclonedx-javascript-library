@@ -51,7 +51,7 @@ written in _TypeScript_ and compiled for the target.
   * `Attachment`
   * `Bom`
   * `BomRef`, `BomRefRepository`
-  * `Component`, `ComponentRepository`
+  * `Component`, `ComponentRepository`, `ComponentEvidence`
   * `ExternalReference`, `ExternalReferenceRepository`
   * `Hash`, `HashContent`,  `HashDictionary`
   * `LicenseExpression`, `NamedLicense`, `SpdxLicense`, `LicenseRepository`
