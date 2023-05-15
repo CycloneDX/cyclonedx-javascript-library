@@ -314,6 +314,22 @@
                       "children": "MIT"
                     }
                   ]
+                },
+                {
+                  "type": "element",
+                  "name": "license",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "unknown SPDX license"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://acme.com/license"
+                    }
+                  ]
                 }
               ]
             }

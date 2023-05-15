@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Breaking Changes:
+  * Class `Factories.LicenseFactory` was modified
+    * Function `makeFromString()` was changed in its behaviour ([#271], [#530] via [#547])
+      Will try to create `Models.SpdxLicense` if value is eligible,
+      else try to create `Models.LicenseExpression` if value is eligible, 
+      else fall back to `Models.NamedLicense`.
+    * Renamed function `makeDisjunctiveWithId()` -> `makeSpdxLicense()` ([#530] via [#547])
+    * Renamed function `makeDisjunctiveWithName()` -> `makeNamedLicense()` ([#530] via [#547])
+  * Class `Models.LicenseExpression` was modified
+    * Removed static function `isEligibleExpression()` (via [#547])  
+      Use `Spdx.isValidSpdxLicenseExpression()` instead.
+    * Constructor no longer throws, when value is not eligible ([#530] via [#547])
+      You may utilize `Factories.LicenseFactory` to mimic the previous behaviour.
+    * Property `expression` setter no longer throws, when value is not eligible ([#530] via [#547])
+      You may utilize `Factories.LicenseFactory` to mimic the previous behaviour.
+  * Class `Models.SpdxLicense` was modified
+    * Constructor no longer throws, when value is not eligible ([#530] via [#547])
+    * Property `id` setter no longer throws, when value is not eligible ([#530] via [#547])
   * Interface `Spec.Protocol` now defines a new mandatory property `supportsVulnerabilities:boolean` (via [#722])  
     Because this is an interface, all derived (downstream) implementations and objects must provide this property.
 * Changed
@@ -77,8 +94,15 @@ All notable changes to this project will be documented in this file.
   * Namespace `Spec`
     * Const `Spec1dot{2,3,4}`
       * New Property `supportsVulnerabilities:boolean` (via [#722])
+  * Namespace `Spdx`
+    * New function `isValidSpdxLicenseExpression()` ([#271] via [#547])
+* Misc
+  * New dependency `spdx-expression-parse` (via [#547])
 
 [#164]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/164
+[#271]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/271
+[#530]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/530
+[#547]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/547
 [#722]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/722
 
 ## 1.14.0 -- 2023-04-25

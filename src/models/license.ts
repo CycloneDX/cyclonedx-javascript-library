@@ -19,27 +19,21 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { Sortable } from '../_helpers/sortable'
 import type { SpdxId } from '../spdx'
-import { isSupportedSpdxId } from '../spdx'
 import type { Attachment } from './attachment'
 
+/**
+ * (SPDX) License Expression.
+ *
+ * No validation is done internally.
+ * You may validate with {@link SPDX.isValidSpdxLicenseExpression | SPDX.isValidSpdxLicenseExpression()}.
+ * You may assert valid objects with {@link Factories.LicenseFactory.makeExpression | Factories.LicenseFactory.makeExpression()}.
+ */
 export class LicenseExpression {
-  static isEligibleExpression (expression: string | any): boolean {
-    // smallest known: (A or B)
-    /* TODO: use a better detection.
-     * maybe validate via https://www.npmjs.com/package/spdx-expression-parse
-     * see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/271
-     */
-    return typeof expression === 'string' &&
-      expression.length >= 8 &&
-      expression[0] === '(' &&
-      expression[expression.length - 1] === ')'
-  }
-
   /** @see {@link expression} */
   #expression!: string
 
   /**
-   * @throws {@link RangeError} if `expression` is not {@link LicenseExpression.isEligibleExpression | eligible}
+   * @throws {@link RangeError} if `expression` is empty string
    */
   constructor (expression: LicenseExpression['expression']) {
     this.expression = expression
@@ -50,11 +44,11 @@ export class LicenseExpression {
   }
 
   /**
-   * @throws {@link RangeError} if value is not {@link LicenseExpression.isEligibleExpression | eligible}
+   * @throws {@link RangeError} if `value` is empty string
    */
   set expression (value: string) {
-    if (!LicenseExpression.isEligibleExpression(value)) {
-      throw new RangeError('Not eligible expression')
+    if (value === '') {
+      throw new RangeError('value is empty string')
     }
     this.#expression = value
   }
@@ -64,20 +58,39 @@ export class LicenseExpression {
   }
 }
 
-export interface OptionalNamedLicenseProperties {
-  text?: NamedLicense['text']
-  url?: NamedLicense['url']
-}
-
-export class NamedLicense {
-  name: string
+class DisjunctiveLicenseBase {
   text?: Attachment
-  url?: URL | string
+  #url?: URL | string
 
-  constructor (name: NamedLicense['name'], op: OptionalNamedLicenseProperties = {}) {
-    this.name = name
+  constructor (op: OptionalDisjunctiveLicenseProperties = {}) {
     this.text = op.text
     this.url = op.url
+  }
+
+  get url (): URL | string | undefined {
+    return this.#url
+  }
+
+  set url (value: URL | string | undefined) {
+    this.#url = value === ''
+      ? undefined
+      : value
+  }
+}
+
+interface OptionalDisjunctiveLicenseProperties {
+  text?: DisjunctiveLicenseBase['text']
+  url?: DisjunctiveLicenseBase['url']
+}
+
+export interface OptionalNamedLicenseProperties extends OptionalDisjunctiveLicenseProperties {}
+
+export class NamedLicense extends DisjunctiveLicenseBase {
+  name: string
+
+  constructor (name: string, op: OptionalNamedLicenseProperties = {}) {
+    super(op)
+    this.name = name
   }
 
   compare (other: NamedLicense): number {
@@ -85,25 +98,25 @@ export class NamedLicense {
   }
 }
 
-export interface OptionalSpdxLicenseProperties {
-  text?: SpdxLicense['text']
-  url?: SpdxLicense['url']
-}
+export interface OptionalSpdxLicenseProperties extends OptionalDisjunctiveLicenseProperties {}
 
-export class SpdxLicense {
-  text?: Attachment
-  url?: URL | string
-
+/**
+ * Disjunctive license with (SPDX-)ID - aka SpdxLicense.
+ *
+ * No validation is done internally.
+ * You may validate with {@link SPDX.isSupportedSpdxId | SPDX.isSupportedSpdxId()}.
+ * You may assert valid objects with {@link Factories.LicenseFactory.makeSpdxLicense | Factories.LicenseFactory.makeSpdxLicense()}.
+ */
+export class SpdxLicense extends DisjunctiveLicenseBase {
   /** @see {@link id} */
   #id!: SpdxId
 
   /**
-   * @throws {@link RangeError} if `id` is not {@link isSupportedSpdxId | supported}
+   * @throws {@link RangeError} if `id` is empy string
    */
-  constructor (id: SpdxLicense['id'], op: OptionalSpdxLicenseProperties = {}) {
+  constructor (id: SpdxId, op: OptionalSpdxLicenseProperties = {}) {
+    super(op)
     this.id = id
-    this.text = op.text
-    this.url = op.url
   }
 
   get id (): SpdxId {
@@ -111,11 +124,11 @@ export class SpdxLicense {
   }
 
   /**
-   * @throws {@link RangeError} if value is not {@link isSupportedSpdxId | supported}
+   * @throws {@link RangeError} if `value` is empy string
    */
   set id (value: SpdxId) {
-    if (!isSupportedSpdxId(value)) {
-      throw new RangeError('Unknown SPDX id')
+    if (value === '') {
+      throw new RangeError('value is empty string')
     }
     this.#id = value
   }
