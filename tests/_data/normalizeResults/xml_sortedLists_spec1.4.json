@@ -4,7 +4,7 @@
   "namespace": "http://cyclonedx.org/schema/bom/1.4",
   "attributes": {
     "version": 7,
-    "serialNumber": "urn:uuid:12345678-1234-1234-1234-123456789012"
+    "serialNumber": "urn:uuid:ac35b126-ef3a-11ed-a05b-0242ac120003"
   },
   "children": [
     {
@@ -14,7 +14,7 @@
         {
           "type": "element",
           "name": "timestamp",
-          "children": "2001-05-23T13:37:42.000Z"
+          "children": "2032-05-23T13:37:42.000Z"
         },
         {
           "type": "element",
@@ -156,6 +156,11 @@
               "type": "element",
               "name": "name",
               "children": "Root Component"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": "1.33.7"
             }
           ]
         },
@@ -347,6 +352,26 @@
                   "children": "(MIT OR Apache-2.0)"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "component-with-vulnerabilities"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "component-with-vulnerabilities"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": "1.0"
             }
           ]
         },
@@ -772,6 +797,14 @@
           "type": "element",
           "name": "dependency",
           "attributes": {
+            "ref": "component-with-vulnerabilities"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
             "ref": "ComponentWithProperties"
           },
           "children": []
@@ -861,6 +894,958 @@
             "ref": "SomeFrameworkBundle#SubComponentB"
           },
           "children": []
+        }
+      ]
+    },
+    {
+      "type": "element",
+      "name": "vulnerabilities",
+      "children": [
+        {
+          "type": "element",
+          "name": "vulnerability",
+          "attributes": {
+            "bom-ref": "dummy.vulnerability.1"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "id",
+              "children": "1"
+            },
+            {
+              "type": "element",
+              "name": "source",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "manual"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "references",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "id",
+                      "children": "CVE-2042-42420"
+                    },
+                    {
+                      "type": "element",
+                      "name": "source",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "url",
+                          "children": "https://nvd.nist.gov/vuln/detail/CVE-2022-42420"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "id",
+                      "children": "CVE-2042-42421"
+                    },
+                    {
+                      "type": "element",
+                      "name": "source",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "url",
+                          "children": "https://nvd.nist.gov/vuln/detail/CVE-2022-42421"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "ratings",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "rating",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "score",
+                      "children": "10"
+                    },
+                    {
+                      "type": "element",
+                      "name": "severity",
+                      "children": "critical"
+                    },
+                    {
+                      "type": "element",
+                      "name": "method",
+                      "children": "other"
+                    },
+                    {
+                      "type": "element",
+                      "name": "justification",
+                      "children": "this is crazy"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "cwes",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "cwe",
+                  "children": "42"
+                },
+                {
+                  "type": "element",
+                  "name": "cwe",
+                  "children": "142"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "description",
+              "children": "description of 1"
+            },
+            {
+              "type": "element",
+              "name": "detail",
+              "children": "detail of 1"
+            },
+            {
+              "type": "element",
+              "name": "recommendation",
+              "children": "recommendation of 1"
+            },
+            {
+              "type": "element",
+              "name": "advisories",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "advisory",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "title",
+                      "children": "vulnerability 1 discovered"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://www.advisories.com/"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "created",
+              "children": "2023-03-03T00:00:40.000Z"
+            },
+            {
+              "type": "element",
+              "name": "published",
+              "children": "2023-03-03T00:00:40.000Z"
+            },
+            {
+              "type": "element",
+              "name": "updated",
+              "children": "2023-03-03T00:00:40.000Z"
+            },
+            {
+              "type": "element",
+              "name": "credits",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "organizations",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "organization",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "name",
+                          "children": "vulnerability researchers inc."
+                        },
+                        {
+                          "type": "element",
+                          "name": "url",
+                          "children": "https://vulnerabilities-researchers.com/"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "individuals",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "individual",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "name",
+                          "children": "John \"pentester\" Doe"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "tools",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "tool",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "vendor",
+                      "children": "v the vendor"
+                    },
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "tool name"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "analysis",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "state",
+                  "children": "false_positive"
+                },
+                {
+                  "type": "element",
+                  "name": "justification",
+                  "children": "protected_at_runtime"
+                },
+                {
+                  "type": "element",
+                  "name": "responses",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "response",
+                      "children": "can_not_fix"
+                    },
+                    {
+                      "type": "element",
+                      "name": "response",
+                      "children": "will_not_fix"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "detail",
+                  "children": "analysis details"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "affects",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "target",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "ref",
+                      "children": "component-with-vulnerabilities"
+                    },
+                    {
+                      "type": "element",
+                      "name": "versions",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "version",
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "version",
+                              "children": "1.0.0"
+                            },
+                            {
+                              "type": "element",
+                              "name": "status",
+                              "children": "affected"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "target",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "ref",
+                      "children": "urn:cdx:ac35b126-ef3a-11ed-a05b-0242ac120003/7#component-with-vulnerabilities"
+                    },
+                    {
+                      "type": "element",
+                      "name": "versions",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "version",
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "version",
+                              "children": "1.0.0"
+                            },
+                            {
+                              "type": "element",
+                              "name": "status",
+                              "children": "affected"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "element",
+                          "name": "version",
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "range",
+                              "children": "> 1.0"
+                            },
+                            {
+                              "type": "element",
+                              "name": "status",
+                              "children": "unknown"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "properties",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "property",
+                  "attributes": {
+                    "name": "a name"
+                  },
+                  "children": "a value"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "vulnerability",
+          "attributes": {
+            "bom-ref": "dummy.vulnerability.2"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "id",
+              "children": "2"
+            },
+            {
+              "type": "element",
+              "name": "source",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "manual"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "references",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "id",
+                      "children": "CVE-2042-42422"
+                    },
+                    {
+                      "type": "element",
+                      "name": "source",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "url",
+                          "children": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-42422"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "ratings",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "rating",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "score",
+                      "children": "10"
+                    },
+                    {
+                      "type": "element",
+                      "name": "severity",
+                      "children": "critical"
+                    },
+                    {
+                      "type": "element",
+                      "name": "method",
+                      "children": "other"
+                    },
+                    {
+                      "type": "element",
+                      "name": "justification",
+                      "children": "this is crazy"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "cwes",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "cwe",
+                  "children": "242"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "description",
+              "children": "description of 2"
+            },
+            {
+              "type": "element",
+              "name": "detail",
+              "children": "detail of 2"
+            },
+            {
+              "type": "element",
+              "name": "recommendation",
+              "children": "recommendation of 2"
+            },
+            {
+              "type": "element",
+              "name": "advisories",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "advisory",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "title",
+                      "children": "vulnerability 2 discovered"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://www.advisories.com/"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "created",
+              "children": "2023-03-03T00:00:40.000Z"
+            },
+            {
+              "type": "element",
+              "name": "published",
+              "children": "2023-03-03T00:00:40.000Z"
+            },
+            {
+              "type": "element",
+              "name": "updated",
+              "children": "2023-03-03T00:00:40.000Z"
+            },
+            {
+              "type": "element",
+              "name": "credits",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "organizations",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "organization",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "name",
+                          "children": "vulnerability researchers inc."
+                        },
+                        {
+                          "type": "element",
+                          "name": "url",
+                          "children": "https://vulnerabilities-researchers.com/"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "individuals",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "individual",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "name",
+                          "children": "John \"pentester\" Doe"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "tools",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "tool",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "vendor",
+                      "children": "v the vendor"
+                    },
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "tool name"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "analysis",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "state",
+                  "children": "false_positive"
+                },
+                {
+                  "type": "element",
+                  "name": "justification",
+                  "children": "protected_at_runtime"
+                },
+                {
+                  "type": "element",
+                  "name": "responses",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "response",
+                      "children": "can_not_fix"
+                    },
+                    {
+                      "type": "element",
+                      "name": "response",
+                      "children": "will_not_fix"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "detail",
+                  "children": "analysis details"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "affects",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "target",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "ref",
+                      "children": "dummy.metadata.component"
+                    },
+                    {
+                      "type": "element",
+                      "name": "versions",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "version",
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "version",
+                              "children": "1.0.0"
+                            },
+                            {
+                              "type": "element",
+                              "name": "status",
+                              "children": "affected"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "target",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "ref",
+                      "children": "urn:cdx:ac35b126-ef3a-11ed-a05b-0242ac120003/7#dummy.metadata.component"
+                    },
+                    {
+                      "type": "element",
+                      "name": "versions",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "version",
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "version",
+                              "children": "1.0.0"
+                            },
+                            {
+                              "type": "element",
+                              "name": "status",
+                              "children": "affected"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "element",
+                          "name": "version",
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "range",
+                              "children": "> 1.0"
+                            },
+                            {
+                              "type": "element",
+                              "name": "status",
+                              "children": "unknown"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "properties",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "property",
+                  "attributes": {
+                    "name": "a name"
+                  },
+                  "children": "a value"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "vulnerability",
+          "attributes": {
+            "bom-ref": "vulnerability-1"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "id",
+              "children": "CVE-2018-7489"
+            },
+            {
+              "type": "element",
+              "name": "source",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "NVD"
+                },
+                {
+                  "type": "element",
+                  "name": "url",
+                  "children": "https://nvd.nist.gov/vuln/detail/CVE-2019-9997"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "ratings",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "rating",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "source",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "name",
+                          "children": "NVD"
+                        },
+                        {
+                          "type": "element",
+                          "name": "url",
+                          "children": "https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H&version=3.0"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "element",
+                      "name": "score",
+                      "children": "9.8"
+                    },
+                    {
+                      "type": "element",
+                      "name": "severity",
+                      "children": "critical"
+                    },
+                    {
+                      "type": "element",
+                      "name": "method",
+                      "children": "CVSSv3"
+                    },
+                    {
+                      "type": "element",
+                      "name": "vector",
+                      "children": "AN/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "cwes",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "cwe",
+                  "children": "184"
+                },
+                {
+                  "type": "element",
+                  "name": "cwe",
+                  "children": "502"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "description",
+              "children": "FasterXML jackson-databind before 2.7.9.3, 2.8.x before 2.8.11.1 and 2.9.x before 2.9.5 allows unauthenticated remote code execution because of an incomplete fix for the CVE-2017-7525 deserialization flaw. This is exploitable by sending maliciously crafted JSON input to the readValue method of the ObjectMapper, bypassing a blacklist that is ineffective if the c3p0 libraries are available in the classpath."
+            },
+            {
+              "type": "element",
+              "name": "recommendation",
+              "children": "Upgrade com.fasterxml.jackson.core:jackson-databind to version 2.6.7.5, 2.8.11.1, 2.9.5 or higher."
+            },
+            {
+              "type": "element",
+              "name": "advisories",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "advisory",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "title",
+                      "children": "GitHub Commit"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://github.com/FasterXML/jackson-databind/commit/6799f8f10cc78e9af6d443ed6982d00a13f2e7d2"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "advisory",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "title",
+                      "children": "GitHub Issue"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://github.com/FasterXML/jackson-databind/issues/1931"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "created",
+              "children": "2021-08-15T23:42:00.000Z"
+            },
+            {
+              "type": "element",
+              "name": "published",
+              "children": "2021-08-15T23:42:00.000Z"
+            },
+            {
+              "type": "element",
+              "name": "updated",
+              "children": "2021-08-15T23:42:00.000Z"
+            },
+            {
+              "type": "element",
+              "name": "analysis",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "state",
+                  "children": "not_affected"
+                },
+                {
+                  "type": "element",
+                  "name": "justification",
+                  "children": "code_not_reachable"
+                },
+                {
+                  "type": "element",
+                  "name": "responses",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "response",
+                      "children": "update"
+                    },
+                    {
+                      "type": "element",
+                      "name": "response",
+                      "children": "will_not_fix"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "detail",
+                  "children": "An optional explanation of why the application is not affected by the vulnerable component."
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "affects",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "target",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "ref",
+                      "children": "urn:cdx:3e671687-395b-41f5-a30f-a58921a69b79/1#jackson-databind-2.8.0"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     }

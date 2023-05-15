@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 const { PackageURL } = require('packageurl-js')
 
-const { Enums, Models } = require('../../')
+const { Enums, Models, Types } = require('../../')
 
 /* eslint-disable jsdoc/valid-types */
 
@@ -29,11 +29,12 @@ const { Enums, Models } = require('../../')
  * @returns {Models.Bom}
  */
 module.exports.createComplexStructure = function () {
+  const bomSerialNumberRaw = 'ac35b126-ef3a-11ed-a05b-0242ac120003'
   const bom = new Models.Bom({
     version: 7,
-    serialNumber: 'urn:uuid:12345678-1234-1234-1234-123456789012',
+    serialNumber: `urn:uuid:${bomSerialNumberRaw}`,
     metadata: new Models.Metadata({
-      timestamp: new Date('2001-05-23T13:37:42.000Z'),
+      timestamp: new Date('2032-05-23T13:37:42Z'),
       tools: new Models.ToolRepository([
         new Models.Tool({
           vendor: 'tool vendor',
@@ -66,7 +67,8 @@ module.exports.createComplexStructure = function () {
         })
       ]),
       component: new Models.Component(Enums.ComponentType.Library, 'Root Component', {
-        bomRef: 'dummy.metadata.component'
+        bomRef: 'dummy.metadata.component',
+        version: '1.33.7'
       }),
       manufacture: new Models.OrganizationalEntity({
         name: 'meta manufacture',
@@ -238,6 +240,243 @@ module.exports.createComplexStructure = function () {
       }
     )
   )
+
+  const someVulnerableComponent = new Models.Component(
+    Enums.ComponentType.Library,
+    'component-with-vulnerabilities',
+    {
+      bomRef: 'component-with-vulnerabilities',
+      version: '1.0'
+    }
+  )
+  bom.components.add(someVulnerableComponent)
+
+  bom.vulnerabilities.add(
+    /* scenario: https://cyclonedx.org/use-cases/#known-vulnerabilities */
+    new Models.Vulnerability.Vulnerability({
+      bomRef: 'vulnerability-1',
+      id: 'CVE-2018-7489',
+      source: new Models.Vulnerability.Source({
+        name: 'NVD',
+        url: 'https://nvd.nist.gov/vuln/detail/CVE-2019-9997'
+      }),
+      ratings: new Models.Vulnerability.RatingRepository([
+        new Models.Vulnerability.Rating({
+          source: new Models.Vulnerability.Source({
+            name: 'NVD',
+            url: 'https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H&version=3.0'
+          }),
+          score: 9.8,
+          severity: Enums.Vulnerability.Severity.Critical,
+          method: 'CVSSv3',
+          vector: 'AN/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H'
+        })
+      ]),
+      cwes: new Types.CweRepository([
+        502,
+        184
+      ]),
+      description: 'FasterXML jackson-databind before 2.7.9.3, 2.8.x before 2.8.11.1 and 2.9.x before 2.9.5 allows unauthenticated remote code execution because of an incomplete fix for the CVE-2017-7525 deserialization flaw. This is exploitable by sending maliciously crafted JSON input to the readValue method of the ObjectMapper, bypassing a blacklist that is ineffective if the c3p0 libraries are available in the classpath.',
+      recommendation: 'Upgrade com.fasterxml.jackson.core:jackson-databind to version 2.6.7.5, 2.8.11.1, 2.9.5 or higher.',
+      advisories: new Models.Vulnerability.AdvisoryRepository([
+        new Models.Vulnerability.Advisory(
+          'https://github.com/FasterXML/jackson-databind/commit/6799f8f10cc78e9af6d443ed6982d00a13f2e7d2',
+          { title: 'GitHub Commit' }
+        ),
+        new Models.Vulnerability.Advisory(
+          new URL('https://github.com/FasterXML/jackson-databind/issues/1931'),
+          { title: 'GitHub Issue' }
+        )
+      ]),
+      created: new Date('2021-08-15T23:42:00Z'),
+      published: new Date('2022-01-01T00:00:00Z'),
+      updated: new Date('2023-01-01T00:00:00Z'),
+      analysis: new Models.Vulnerability.Analysis({
+        state: Enums.Vulnerability.AnalysisState.NotAffected,
+        justification: Enums.Vulnerability.AnalysisJustification.CodeNotReachable,
+        response: new Enums.Vulnerability.AnalysisResponseRepository([
+          Enums.Vulnerability.AnalysisResponse.WillNotFix,
+          Enums.Vulnerability.AnalysisResponse.Update
+        ]),
+        detail: 'An optional explanation of why the application is not affected by the vulnerable component.'
+      }),
+      affects: new Models.Vulnerability.AffectRepository([
+        new Models.Vulnerability.Affect(
+          new Models.BomRef('urn:cdx:3e671687-395b-41f5-a30f-a58921a69b79/1#jackson-databind-2.8.0')
+        )
+      ])
+    })
+  )
+
+  bom.vulnerabilities.add(
+    /* scenario: complete model affecting some component */
+    new Models.Vulnerability.Vulnerability({
+      bomRef: 'dummy.vulnerability.1',
+      id: '1',
+      source: new Models.Vulnerability.Source({ name: 'manual' }),
+      references: new Models.Vulnerability.ReferenceRepository([
+        new Models.Vulnerability.Reference(
+          'CVE-2042-42421',
+          new Models.Vulnerability.Source({ url: 'https://nvd.nist.gov/vuln/detail/CVE-2022-42421' })),
+        new Models.Vulnerability.Reference(
+          'CVE-2042-42420',
+          new Models.Vulnerability.Source({ url: 'https://nvd.nist.gov/vuln/detail/CVE-2022-42420' }))
+      ]),
+      ratings: new Models.Vulnerability.RatingRepository([
+        new Models.Vulnerability.Rating({
+          score: 10,
+          method: Enums.Vulnerability.RatingMethod.Other,
+          severity: Enums.Vulnerability.Severity.Critical,
+          justification: 'this is crazy'
+        })
+      ]),
+      cwes: new Types.CweRepository([142, 42]),
+      advisories: new Models.Vulnerability.AdvisoryRepository([
+        new Models.Vulnerability.Advisory('https://www.advisories.com/', { title: 'vulnerability 1 discovered' })
+      ]),
+      description: 'description of 1',
+      detail: 'detail of 1',
+      recommendation: 'recommendation of 1',
+      created: new Date('2023-03-03T00:00:40.000Z'),
+      published: new Date('2023-03-03T00:00:41.000Z'),
+      updated: new Date('2023-03-03T00:00:42.000Z'),
+      credits: new Models.Vulnerability.Credits({
+        organizations: new Models.OrganizationalEntityRepository([
+          new Models.OrganizationalEntity({
+            name: 'vulnerability researchers inc.',
+            url: new Set([new URL('https://vulnerabilities-researchers.com')])
+          })
+        ]),
+        individuals: new Models.OrganizationalContactRepository([
+          new Models.OrganizationalContact({ name: 'John "pentester" Doe' })
+        ])
+      }),
+      tools: new Models.ToolRepository([
+        new Models.Tool({
+          vendor: 'v the vendor',
+          name: 'tool name'
+        })
+      ]),
+      analysis: new Models.Vulnerability.Analysis({
+        state: Enums.Vulnerability.AnalysisState.FalsePositive,
+        justification: Enums.Vulnerability.AnalysisJustification.ProtectedAtRuntime,
+        response: new Enums.Vulnerability.AnalysisResponseRepository([
+          Enums.Vulnerability.AnalysisResponse.CanNotFix,
+          Enums.Vulnerability.AnalysisResponse.WillNotFix
+        ]),
+        detail: 'analysis details'
+      }),
+      affects: new Models.Vulnerability.AffectRepository([
+        new Models.Vulnerability.Affect(
+          new Models.BomRef(`urn:cdx:${bomSerialNumberRaw}/${bom.version}#${someVulnerableComponent.bomRef.value}`),
+          {
+            versions: new Models.Vulnerability.AffectedVersionRepository([
+              new Models.Vulnerability.AffectedSingleVersion('1.0.0', {
+                status: Enums.Vulnerability.AffectStatus.Affected
+              }),
+              new Models.Vulnerability.AffectedVersionRange('> 1.0', {
+                status: Enums.Vulnerability.AffectStatus.Unknown
+              })
+            ])
+          }),
+        new Models.Vulnerability.Affect(
+          someVulnerableComponent.bomRef,
+          {
+            versions: new Models.Vulnerability.AffectedVersionRepository([
+              new Models.Vulnerability.AffectedSingleVersion('1.0.0', {
+                status: Enums.Vulnerability.AffectStatus.Affected
+              })
+            ])
+          })
+      ]),
+      properties: new Models.PropertyRepository([
+        new Models.Property('a name', 'a value')
+      ])
+    }))
+  bom.vulnerabilities.add(
+    /* scenario: complete model affecting own rootComponent */
+    new Models.Vulnerability.Vulnerability({
+      bomRef: 'dummy.vulnerability.2',
+      id: '2',
+      source: new Models.Vulnerability.Source({ name: 'manual' }),
+      references: new Models.Vulnerability.ReferenceRepository([
+        new Models.Vulnerability.Reference(
+          'CVE-2042-42422',
+          new Models.Vulnerability.Source({
+            url: 'https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-42422'
+          }))
+      ]),
+      ratings: new Models.Vulnerability.RatingRepository([
+        new Models.Vulnerability.Rating({
+          score: 10,
+          method: Enums.Vulnerability.RatingMethod.Other,
+          severity: Enums.Vulnerability.Severity.Critical,
+          justification: 'this is crazy'
+        })
+      ]),
+      cwes: new Types.CweRepository([242]),
+      advisories: new Models.Vulnerability.AdvisoryRepository([
+        new Models.Vulnerability.Advisory('https://www.advisories.com/', { title: 'vulnerability 2 discovered' })
+      ]),
+      description: 'description of 2',
+      detail: 'detail of 2',
+      recommendation: 'recommendation of 2',
+      created: new Date('2023-03-03T00:00:40.000Z'),
+      published: new Date('2023-03-03T00:00:41.000Z'),
+      updated: new Date('2023-03-03T00:00:42.000Z'),
+      credits: new Models.Vulnerability.Credits({
+        organizations: new Models.OrganizationalEntityRepository([
+          new Models.OrganizationalEntity({
+            name: 'vulnerability researchers inc.',
+            url: new Set([new URL('https://vulnerabilities-researchers.com')])
+          })
+        ]),
+        individuals: new Models.OrganizationalContactRepository([
+          new Models.OrganizationalContact({ name: 'John "pentester" Doe' })
+        ])
+      }),
+      tools: new Models.ToolRepository([
+        new Models.Tool({
+          vendor: 'v the vendor',
+          name: 'tool name'
+        })
+      ]),
+      analysis: new Models.Vulnerability.Analysis({
+        state: Enums.Vulnerability.AnalysisState.FalsePositive,
+        justification: Enums.Vulnerability.AnalysisJustification.ProtectedAtRuntime,
+        response: new Enums.Vulnerability.AnalysisResponseRepository([
+          Enums.Vulnerability.AnalysisResponse.CanNotFix,
+          Enums.Vulnerability.AnalysisResponse.WillNotFix
+        ]),
+        detail: 'analysis details'
+      }),
+      affects: new Models.Vulnerability.AffectRepository([
+        new Models.Vulnerability.Affect(
+          new Models.BomRef(`urn:cdx:${bomSerialNumberRaw}/${bom.version}#${bom.metadata.component.bomRef.value}`),
+          {
+            versions: new Models.Vulnerability.AffectedVersionRepository([
+              new Models.Vulnerability.AffectedSingleVersion('1.0.0', {
+                status: Enums.Vulnerability.AffectStatus.Affected
+              }),
+              new Models.Vulnerability.AffectedVersionRange('> 1.0', {
+                status: Enums.Vulnerability.AffectStatus.Unknown
+              })
+            ])
+          }),
+        new Models.Vulnerability.Affect(
+          bom.metadata.component.bomRef,
+          {
+            versions: new Models.Vulnerability.AffectedVersionRepository([
+              new Models.Vulnerability.AffectedSingleVersion('1.0.0', {
+                status: Enums.Vulnerability.AffectStatus.Affected
+              })
+            ])
+          })
+      ]),
+      properties: new Models.PropertyRepository([
+        new Models.Property('a name', 'a value')
+      ])
+    }))
 
   return bom
 }

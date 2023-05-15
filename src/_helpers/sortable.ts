@@ -33,11 +33,11 @@ export interface Comparable<TOther> {
   compare: (other: TOther) => number
 }
 
-const compareObjectsSymbol = Symbol('internal compare function')
+export const compareObjectsSymbol = Symbol('internal compare function')
 
 export type SortableIterable<TItem> = Iterable<TItem> & Sortable<TItem>
 
-abstract class SortableSet<TItem> extends Set<TItem> implements SortableIterable<TItem>, Comparable<Sortable<TItem>> {
+export abstract class SortableSet<TItem> extends Set<TItem> implements SortableIterable<TItem>, Comparable<Sortable<TItem>> {
   /**
    * Comparator function to apply to two items.
    */
@@ -73,9 +73,12 @@ abstract class SortableSet<TItem> extends Set<TItem> implements SortableIterable
   }
 }
 
-export class SortableComparables<TItem extends Comparable<TItem>> extends SortableSet<TItem> {
+export class SortableComparables<TItem extends Comparable<any>> extends SortableSet<TItem> {
   protected [compareObjectsSymbol] (a: TItem, b: TItem): number {
-    return a.compare(b)
+    if (a.constructor === b.constructor) {
+      return a.compare(b)
+    }
+    return a.constructor.name.localeCompare(b.constructor.name)
   }
 }
 
