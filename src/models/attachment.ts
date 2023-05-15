@@ -17,6 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import type { Stringable } from '../_helpers/stringable'
 import type { AttachmentEncoding } from '../enums'
 
 export interface OptionalAttachmentProperties {
@@ -26,7 +27,7 @@ export interface OptionalAttachmentProperties {
 
 export class Attachment {
   contentType?: string
-  content: string
+  content: Stringable
   encoding?: AttachmentEncoding
 
   constructor (content: Attachment['content'], op: OptionalAttachmentProperties = {}) {

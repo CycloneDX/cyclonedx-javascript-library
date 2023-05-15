@@ -583,7 +583,7 @@
             {
               "type": "element",
               "name": "copyright",
-              "children": "(c) acme"
+              "children": "ACME corp"
             },
             {
               "type": "element",

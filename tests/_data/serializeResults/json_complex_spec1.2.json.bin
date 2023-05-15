@@ -197,7 +197,7 @@
                     }
                 }
             ],
-            "copyright": "(c) acme",
+            "copyright": "ACME corp",
             "cpe": "cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*",
             "purl": "pkg:npm/acme/dummy-component@1337-beta",
             "swid": {

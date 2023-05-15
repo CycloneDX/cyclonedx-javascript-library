@@ -613,7 +613,7 @@
             {
               "type": "element",
               "name": "copyright",
-              "children": "(c) acme"
+              "children": "ACME corp"
             },
             {
               "type": "element",
@@ -699,6 +699,49 @@
                       "type": "element",
                       "name": "comment",
                       "children": "testing"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "evidence",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "licenses",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "license",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "name",
+                          "children": "License.txt"
+                        },
+                        {
+                          "type": "element",
+                          "name": "text",
+                          "attributes": {
+                            "content-type": "text/plain",
+                            "encoding": "base64"
+                          },
+                          "children": "VEhFIFNPRlRXQVJFIElTIFBST1ZJREVEIOKAnEFTIElT4oCdLCBXSVRIT1VUIFdBUlJBTlRZIE9GIEFOWSBLSU5ELCBFWFBSRVNTIE9SIElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLCBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiBJTiBOTyBFVkVOVCBTSEFMTCBUSEUgQVVUSE9SUyBPUiBDT1BZUklHSFQgSE9MREVSUyBCRSBMSUFCTEUgRk9SIEFOWSBDTEFJTSwgREFNQUdFUyBPUiBPVEhFUiBMSUFCSUxJVFksIFdIRVRIRVIgSU4gQU4gQUNUSU9OIE9GIENPTlRSQUNULCBUT1JUIE9SIE9USEVSV0lTRSwgQVJJU0lORyBGUk9NLCBPVVQgT0YgT1IgSU4gQ09OTkVDVElPTiBXSVRIIFRIRSBTT0ZUV0FSRSBPUiBUSEUgVVNFIE9SIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4="
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "copyright",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "text",
+                      "children": "Copyright © 2023 ACME corp"
                     }
                   ]
                 }

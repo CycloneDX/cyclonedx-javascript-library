@@ -20,7 +20,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { PackageURL } from 'packageurl-js'
 
 import type { Comparable } from '../_helpers/sortable'
-import {SortableComparables, SortableStringables} from '../_helpers/sortable'
+import { SortableComparables, SortableStringables } from '../_helpers/sortable'
+import type { Stringable } from '../_helpers/stringable'
 import { treeIteratorSymbol } from '../_helpers/tree'
 import type { ComponentScope, ComponentType } from '../enums'
 import type { CPE } from '../types'
@@ -59,7 +60,7 @@ export class Component implements Comparable<Component> {
   type: ComponentType
   name: string
   author?: string
-  copyright?: string
+  copyright?: Stringable
   description?: string
   externalReferences: ExternalReferenceRepository
   group?: string
@@ -156,7 +157,6 @@ export class ComponentRepository extends SortableComparables<Component> {
   }
 }
 
-
 export interface OptionalComponentEvidenceProperties {
   licenses?: ComponentEvidence['licenses']
   copyright?: ComponentEvidence['copyright']
@@ -166,9 +166,8 @@ export class ComponentEvidence {
   licenses: LicenseRepository
   copyright: SortableStringables
 
-  constructor(op: OptionalComponentEvidenceProperties = {}) {
+  constructor (op: OptionalComponentEvidenceProperties = {}) {
     this.licenses = op.licenses ?? new LicenseRepository()
     this.copyright = op.copyright ?? new SortableStringables()
   }
 }
-

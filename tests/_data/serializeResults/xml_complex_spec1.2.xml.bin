@@ -131,7 +131,7 @@
                     <url>https://spdx.org/licenses/MIT.html</url>
                 </license>
             </licenses>
-            <copyright>(c) acme</copyright>
+            <copyright>ACME corp</copyright>
             <cpe>cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*</cpe>
             <purl>pkg:npm/acme/dummy-component@1337-beta</purl>
             <swid tagId="some-tag" name="dummy-component" version="1337-beta" patch="true">
