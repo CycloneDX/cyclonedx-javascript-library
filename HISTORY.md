@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 * Breaking Changes:
   * Class `Factories.LicenseFactory` was modified
-    * Function `makeFromString()` was changed in its behaviour ([#271], [#530] via [#547])  
+    * Function `makeFromString()` was changed in its behavior ([#271], [#530] via [#547])  
       Will try to create `Models.SpdxLicense` if value is eligible,
       else try to create `Models.LicenseExpression` if value is eligible,
       else fall back to `Models.NamedLicense`.
@@ -16,28 +16,28 @@ All notable changes to this project will be documented in this file.
     * Removed static function `isEligibleExpression()` (via [#547])  
       Use `Spdx.isValidSpdxLicenseExpression()` instead.
     * Constructor no longer throws, when value is not eligible ([#530] via [#547])  
-      You may use `Factories.LicenseFactory.makeExpression()` to mimic the previous behaviour.
+      You may use `Factories.LicenseFactory.makeExpression()` to mimic the previous behavior.
     * Property `expression` setter no longer throws, when value is not eligible ([#530] via [#547])  
-      You may use `Factories.LicenseFactory.makeExpression()` to mimic the previous behaviour.
+      You may use `Factories.LicenseFactory.makeExpression()` to mimic the previous behavior.
   * Class `Models.SpdxLicense` was modified
     * Constructor no longer throws, when value is not eligible ([#530] via [#547])  
-      You may use `Factories.LicenseFactory.makeSpdxLicense()` to mimic the previous behaviour.
+      You may use `Factories.LicenseFactory.makeSpdxLicense()` to mimic the previous behavior.
     * Property `id` setter no longer throws, when value is not eligible ([#530] via [#547])  
-      You may use `Factories.LicenseFactory.makeSpdxLicense()` to mimic the previous behaviour.
+      You may use `Factories.LicenseFactory.makeSpdxLicense()` to mimic the previous behavior.
   * Interface `Spec.Protocol` now defines a new mandatory property `supportsComponentEvidence:boolean` (via [#753])
   * Interface `Spec.Protocol` now defines a new mandatory property `supportsVulnerabilities:boolean` (via [#722])
   * Removed deprecated symbols ([#747] via [#752])
-    * Namespaces `{Builders,Factories}.FromPackageJson`was removed.  
+    * Namespaces `{Builders,Factories}.FromPackageJson` were removed.  
       You may use `{Builders,Factories}.FromNodePackageJson` instead.
     * Class `Models.HashRepository` was removed.  
       You may use `Models.HashDictionary` instead.
-    * Functions `Serialize.{Json,Xml}.Normalize.*.normalizeRepository()` was removed.  
+    * Functions `Serialize.{Json,Xml}.Normalize.*.normalizeRepository()` were removed.  
       You may use `Serialize.{Json,Xml}.Normalize.*.normalizeIterable()` instead
     * Type alias `Types.UrnUuid` was removed.  
       You may use `string` instead.
     * Type predicate `Types.isUrnUuid()` was removed.
-  * Some `Models.*.compare()` may return different numbers than before.
-  * Some `Models.*.sorted()` may return different orders than before.
+  * Functions `Models.*.compare()` may return different numbers than before.
+  * Functions `Models.*.sorted()` may return different orders than before.
 * Changed
   * Removed _beta_ state from symbols `{Enums,Models}.Vulnerability.*` ([#164] via [#722])  
     The structures are defined as stable now.
@@ -55,13 +55,13 @@ All notable changes to this project will be documented in this file.
       This collection(`Set`) will always exist, but might be empty.  
       This is considered a non-breaking change, as the class was in _beta_ state.
 * Added
-  * Serializers and `Bom`-Normalizers will take `Bom.vulnerabilities` into account ([#164] via [#722])
-  * Serializers and `Component`-Normalizers will take `Component.evidence` into account ([#516] via [#753])
+  * Serializers and `Bom`-Normalizers will take `Models.Bom.vulnerabilities` into account ([#164] via [#722])
+  * Serializers and `Component`-Normalizers will take `Models.Component.evidence` into account ([#516] via [#753])
   * Namespace `Models` was enhanced
     * Class `Component` was enhanced
       * New optional property `evidence` of type `Models.ComponentEvidence` ([#516] via [#753])
-    * New Classes `ComponentEvidence` ([#516] via [#753])
-    * Namespace`Vulnerability` was enhanced
+    * New Class `ComponentEvidence` ([#516] via [#753])
+    * Namespace `Vulnerability` was enhanced
       * Class `Advisory` was enhanced
         * New method `compare()` (via [#722])
       * Class `AdvisoryRepository` was enhanced
@@ -96,7 +96,7 @@ All notable changes to this project will be documented in this file.
       * Class `VulnerabilityRepository` was enhanced
         * New method `sorted()` (via [#722])
         * New method `compare()` (via [#722])
-  * Namespaces `Serialize.{Json,Xml}.Normalize` were enhanced 
+  * Namespaces `Serialize.{Json,Xml}.Normalize` were enhanced
     * Class `Factory` was enhanced
       * New Method `makeForComponentEvidence()` ([#516] via [#753])
       * New method `makeForVulnerability()` ([#164] via [#722])
@@ -110,7 +110,7 @@ All notable changes to this project will be documented in this file.
       * New method `makeForVulnerabilityAnalysis` ([#164] via [#722])
     * New class `ComponentEvidenceNormalizer` ([#516] via [#753])
     * Class `OrganizationalEntityNormalizer` was enhanced
-      *  New method `normalizeIterable()` (via [#722])
+      * New method `normalizeIterable()` (via [#722])
     * New class `VulnerabilityNormalizer` ([#164] via [#722])
     * New class `VulnerabilityAdvisoryNormalizer` ([#164] via [#722])
     * New class `VulnerabilityAffectNormalizer` ([#164] via [#722])
