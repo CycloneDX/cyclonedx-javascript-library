@@ -30,6 +30,8 @@ All notable changes to this project will be documented in this file.
     * Functions `Serialize.{Json,Xml}.Normalize.*.normalizeRepository()` -> use `Serialize.{Json,Xml}.Normalize.*.normalizeIterable()` instead
     * Type alias `Types.UrnUuid` - use `string` instead
       Type predicate `Types.isUrnUuid()` no longer exists
+  * Some `Models.*.compare()` may return different numbers than before.
+  * Some `Models.*.sorted()` may return different orders than before.
 * Changed
   * Removed _beta_ state from symbols `{Enums,Models}.Vulnerability.*` ([#164] via [#722])  
     The structures are defined as stable now.
