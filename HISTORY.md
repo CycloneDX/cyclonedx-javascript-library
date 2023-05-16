@@ -16,20 +16,26 @@ All notable changes to this project will be documented in this file.
     * Removed static function `isEligibleExpression()` (via [#547])  
       Use `Spdx.isValidSpdxLicenseExpression()` instead.
     * Constructor no longer throws, when value is not eligible ([#530] via [#547])  
-      You may utilize `Factories.LicenseFactory` to mimic the previous behaviour.
+      You may use `Factories.LicenseFactory.makeExpression()` to mimic the previous behaviour.
     * Property `expression` setter no longer throws, when value is not eligible ([#530] via [#547])  
-      You may utilize `Factories.LicenseFactory` to mimic the previous behaviour.
+      You may use `Factories.LicenseFactory.makeExpression()` to mimic the previous behaviour.
   * Class `Models.SpdxLicense` was modified
-    * Constructor no longer throws, when value is not eligible ([#530] via [#547])
-    * Property `id` setter no longer throws, when value is not eligible ([#530] via [#547])
+    * Constructor no longer throws, when value is not eligible ([#530] via [#547])  
+      You may use `Factories.LicenseFactory.makeSpdxLicense()` to mimic the previous behaviour.
+    * Property `id` setter no longer throws, when value is not eligible ([#530] via [#547])  
+      You may use `Factories.LicenseFactory.makeSpdxLicense()` to mimic the previous behaviour.
   * Interface `Spec.Protocol` now defines a new mandatory property `supportsComponentEvidence:boolean` (via [#753])
   * Interface `Spec.Protocol` now defines a new mandatory property `supportsVulnerabilities:boolean` (via [#722])
   * Removed deprecated symbols ([#747] via [#752])
-    * Namespaces `{Builders,Factories}.FromPackageJson` -> use `{Builders,Factories}.FromNodePackageJson` instead
-    * Class `Models.HashRepository` -> use `Models.HashDictionary` instead
-    * Functions `Serialize.{Json,Xml}.Normalize.*.normalizeRepository()` -> use `Serialize.{Json,Xml}.Normalize.*.normalizeIterable()` instead
-    * Type alias `Types.UrnUuid` - use `string` instead
-      Type predicate `Types.isUrnUuid()` no longer exists
+    * Namespaces `{Builders,Factories}.FromPackageJson`was removed.  
+      You may use `{Builders,Factories}.FromNodePackageJson` instead.
+    * Class `Models.HashRepository` was removed.  
+      You may use `Models.HashDictionary` instead.
+    * Functions `Serialize.{Json,Xml}.Normalize.*.normalizeRepository()` was removed.  
+      You may use `Serialize.{Json,Xml}.Normalize.*.normalizeIterable()` instead
+    * Type alias `Types.UrnUuid` was removed.  
+      You may use `string` instead.
+    * Type predicate `Types.isUrnUuid()` was removed.
   * Some `Models.*.compare()` may return different numbers than before.
   * Some `Models.*.sorted()` may return different orders than before.
 * Changed
