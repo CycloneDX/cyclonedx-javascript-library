@@ -185,7 +185,7 @@ Added `ComponentEvidence` capabilities.
 
 * Fixed
   * `Serialize.{JSON,XML}.Normalize.LicenseNormalizer.normalizeIterable()` now omits invalid license combinations ([#602] via [#623])  
-    If there is any `Models.LicenseExpression`, then this is the only license normalized; otherwise all licenses are normalized. 
+    If there is any `Models.LicenseExpression`, then this is the only license normalized; otherwise all licenses are normalized.
 * Docs
   * Fixed link to CycloneDX-specification in README (via [#617])
 
