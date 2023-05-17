@@ -4,12 +4,32 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
-* Breaking Changes:
+## 2.0.0 -- 2023-05-17
+
+Improved license detection.  
+Finalized `Vulnerability` capabilities.  
+Added `ComponentEvidence` capabilities.  
+
+* BREAKING
+  * Function `Factories.LicenseFactory.makeFromString()` was changed in its behavior ([#271], [#530] via [#547])  
+    It will try to create `Models.SpdxLicense` if value is eligible,
+    else try to create `Models.LicenseExpression` if value is eligible,
+    else fall back to `Models.NamedLicense`.
+  * Removed deprecated symbols ([#747] via [#752])
+* Changed
+  * Removed _beta_ state from symbols `{Enums,Models}.Vulnerability.*` ([#164] via [#722])  
+    The structures are defined as stable now.
+* Added
+  * New data models and serialization/normalization for `Models.ComponentEvidence` ([#516] via [#753])
+  * Serializers and `Component`-Normalizers will take `Models.Component.evidence` into account ([#516] via [#753])
+  * Serializers and `Bom`-Normalizers will take `Models.Bom.vulnerabilities` into account ([#164] via [#722])
+* Misc
+  Internal rework, modernization, refactoring.
+
+### API changes v2 - the details
+
+* BREAKING
   * Class `Factories.LicenseFactory` was modified
-    * Function `makeFromString()` was changed in its behavior ([#271], [#530] via [#547])  
-      Will try to create `Models.SpdxLicense` if value is eligible,
-      else try to create `Models.LicenseExpression` if value is eligible,
-      else fall back to `Models.NamedLicense`.
     * Renamed function `makeDisjunctiveWithId()` -> `makeSpdxLicense()` ([#530] via [#547])
     * Renamed function `makeDisjunctiveWithName()` -> `makeNamedLicense()` ([#530] via [#547])
   * Class `Models.LicenseExpression` was modified
@@ -39,8 +59,6 @@ All notable changes to this project will be documented in this file.
   * Functions `Models.*.compare()` may return different numbers than before.
   * Functions `Models.*.sorted()` may return different orders than before.
 * Changed
-  * Removed _beta_ state from symbols `{Enums,Models}.Vulnerability.*` ([#164] via [#722])  
-    The structures are defined as stable now.
   * Class `Models.Attachment` was modified
     * Property `content` was widened to be any stringable, was `string` ([#516] via [#753])  
       This enables the use of `Buffer` and other data-saving mechanisms.
@@ -55,8 +73,6 @@ All notable changes to this project will be documented in this file.
       This collection(`Set`) will always exist, but might be empty.  
       This is considered a non-breaking change, as the class was in _beta_ state.
 * Added
-  * Serializers and `Bom`-Normalizers will take `Models.Bom.vulnerabilities` into account ([#164] via [#722])
-  * Serializers and `Component`-Normalizers will take `Models.Component.evidence` into account ([#516] via [#753])
   * Namespace `Models` was enhanced
     * Class `Component` was enhanced
       * New optional property `evidence` of type `Models.ComponentEvidence` ([#516] via [#753])
@@ -127,7 +143,7 @@ All notable changes to this project will be documented in this file.
   * Namespace `Spdx` was enhanced
     * New function `isValidSpdxLicenseExpression()` ([#271] via [#547])
 * Misc
-  * New dependency `spdx-expression-parse` (via [#547])
+  * Added dependency `spdx-expression-parse@^3.0.1` (via [#547])
 
 [#164]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/164
 [#271]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/271
