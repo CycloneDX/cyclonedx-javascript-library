@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 ## 2.0.0 -- 2023-05-17
 
 Improved license detection.  
-Finalized `Vulnerability` capabilities.  
+Finished `Vulnerability` capabilities.  
 Added `ComponentEvidence` capabilities.  
 
 * BREAKING
