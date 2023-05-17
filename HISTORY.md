@@ -11,10 +11,13 @@ Finalized `Vulnerability` capabilities.
 Added `ComponentEvidence` capabilities.  
 
 * BREAKING
-  * Function `Factories.LicenseFactory.makeFromString()` was changed in its behavior ([#271], [#530] via [#547])  
+  * Method `Factories.LicenseFactory.makeFromString()` was changed in its behavior ([#271], [#530] via [#547])  
     It will try to create `Models.SpdxLicense` if value is eligible,
     else try to create `Models.LicenseExpression` if value is eligible,
     else fall back to `Models.NamedLicense`.
+  * revisited sort and compare:
+    * Methods `Models.*.compare()` may return different numbers than before.
+    * Methods `Models.*.sorted()` may return different orders than before.
   * Removed deprecated symbols ([#747] via [#752])
 * Changed
   * Removed _beta_ state from symbols `{Enums,Models}.Vulnerability.*` ([#164] via [#722])  
@@ -30,8 +33,8 @@ Added `ComponentEvidence` capabilities.
 
 * BREAKING
   * Class `Factories.LicenseFactory` was modified
-    * Renamed function `makeDisjunctiveWithId()` -> `makeSpdxLicense()` ([#530] via [#547])
-    * Renamed function `makeDisjunctiveWithName()` -> `makeNamedLicense()` ([#530] via [#547])
+    * Renamed method `makeDisjunctiveWithId()` -> `makeSpdxLicense()` ([#530] via [#547])
+    * Renamed method `makeDisjunctiveWithName()` -> `makeNamedLicense()` ([#530] via [#547])
   * Class `Models.LicenseExpression` was modified
     * Removed static function `isEligibleExpression()` (via [#547])  
       Use `Spdx.isValidSpdxLicenseExpression()` instead.
@@ -51,13 +54,11 @@ Added `ComponentEvidence` capabilities.
       You may use `{Builders,Factories}.FromNodePackageJson` instead.
     * Class `Models.HashRepository` was removed.  
       You may use `Models.HashDictionary` instead.
-    * Functions `Serialize.{Json,Xml}.Normalize.*.normalizeRepository()` were removed.  
+    * Methods `Serialize.{Json,Xml}.Normalize.*.normalizeRepository()` were removed.  
       You may use `Serialize.{Json,Xml}.Normalize.*.normalizeIterable()` instead
     * Type alias `Types.UrnUuid` was removed.  
       You may use `string` instead.
     * Type predicate `Types.isUrnUuid()` was removed.
-  * Functions `Models.*.compare()` may return different numbers than before.
-  * Functions `Models.*.sorted()` may return different orders than before.
 * Changed
   * Class `Models.Attachment` was modified
     * Property `content` was widened to be any stringable, was `string` ([#516] via [#753])  
