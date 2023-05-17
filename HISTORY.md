@@ -22,6 +22,7 @@ Added `ComponentEvidence` capabilities.
 * Changed
   * Removed _beta_ state from symbols `{Enums,Models}.Vulnerability.*` ([#164] via [#722])  
     The structures are defined as stable now.
+  * Some property/parameter types were widened, enabling the use of `Buffer` and other data-saving mechanisms ([#406], [#516] via [#753])  
 * Added
   * New data models and serialization/normalization for `Models.ComponentEvidence` ([#516] via [#753])
   * Serializers and `Component`-Normalizers will take `Models.Component.evidence` into account ([#516] via [#753])
@@ -61,10 +62,10 @@ Added `ComponentEvidence` capabilities.
     * Type predicate `Types.isUrnUuid()` was removed.
 * Changed
   * Class `Models.Attachment` was modified
-    * Property `content` was widened to be any stringable, was `string` ([#516] via [#753])  
+    * Property `content` was widened to be any stringable, was `string` ([#406], [#516] via [#753])  
       This enables the use of `Buffer` and other data-saving mechanisms.
   * Class `Models.Component` was modified
-    * Property `copyright` was widened to be any stringable, was `string` ([#516] via [#753])  
+    * Property `copyright` was widened to be any stringable, was `string` ([#406], [#516] via [#753])  
       This enables the use of `Buffer` and other data-saving mechanisms.
   * Class `Models.Vulnerability.Credits` was modified
     * Property `organizations` is no longer optional (via [#722])  
@@ -148,6 +149,7 @@ Added `ComponentEvidence` capabilities.
 
 [#164]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/164
 [#271]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/271
+[#406]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/406
 [#516]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/516
 [#530]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/530
 [#547]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/547
