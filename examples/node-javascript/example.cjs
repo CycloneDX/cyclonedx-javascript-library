@@ -22,15 +22,21 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const CDX = require('@cyclonedx/cyclonedx-library')
 // full Library is available as `CDX`, now
 
+const lFac = new CDX.Factories.LicenseFactory()
+
 const bom = new CDX.Models.Bom()
 bom.metadata.component = new CDX.Models.Component(
   CDX.Enums.ComponentType.Application,
   'MyProject'
 )
+bom.metadata.component.licenses.add(lFac.makeFromString('MIT OR Apache-2.0'))
+
 const componentA = new CDX.Models.Component(
   CDX.Enums.ComponentType.Library,
   'myComponentA'
 )
+componentA.licenses.add(lFac.makeFromString('Apache-2.0'))
+
 bom.components.add(componentA)
 bom.metadata.component.dependencies.add(componentA.bomRef)
 
