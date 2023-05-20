@@ -94,7 +94,7 @@
     "typedoc": "^0.24.4",
     "typedoc-plugin-missing-exports": "^2.0.0",
     "typescript": "5.0.4",
-    "webpack": "5.82.1",
+    "webpack": "5.83.1",
     "webpack-cli": "5.1.1"
   },
   "browser": "./dist.web/lib.js",
