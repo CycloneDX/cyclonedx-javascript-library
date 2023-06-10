@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Changed
-  * Classes `Serialize.Xml.Normalize.Vulnerability*Normalizer` are now public available (via [#])  
+  * Classes `Serialize.Xml.Normalize.Vulnerability*Normalizer` are now public available (via [#816])  
     Previously, they were only available via `Serialize.Xml.Normalize.Factory.makeForVulnerability*()`.
 * Build
   * Use _TypeScript_ `v5.1.3` now, was `v5.0.4`. (via [#790])
@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
 
 [#790]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/790
 [#802]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/802
-[#]:
+[#816]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/816
 
 ## 2.0.0 -- 2023-05-17
 
