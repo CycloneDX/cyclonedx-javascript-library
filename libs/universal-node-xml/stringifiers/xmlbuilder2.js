@@ -57,7 +57,7 @@ function stringify (element, { space } = {}) {
 /**
  * @param {XMLBuilder} parent
  * @param {Element} element
- * @param {string|null} [parentNS=null]
+ * @param {?string} [parentNS]
  */
 function addEle (parent, element, parentNS = null) {
   if (element.type !== 'element') { return }
