@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 2.1.0 -- 2023-06-10
+
 * Changed
   * Classes `Serialize.Xml.Normalize.Vulnerability*Normalizer` are now public available (via [#816])  
-    Previously, they were only available via `Serialize.Xml.Normalize.Factory.makeForVulnerability*()`.
+    Previously, only instances were available via `Serialize.Xml.Normalize.Factory.makeForVulnerability*()`.
 * Build
   * Use _TypeScript_ `v5.1.3` now, was `v5.0.4`. (via [#790])
   * Use _Webpack_ `v5.82.1` now, was `v5.80.0`. (via [#802])
