@@ -87,8 +87,7 @@ written in _TypeScript_ and compiled for the target.
 * Universal serializer that converts `Bom` data models to JSON string
 * Specific  Serializer that converts `Bom` data models to XML string:
   * Specific to _WebBrowsers_: implementation utilizes browser-specific document generators and printers.
-  * Specific to _Node.js_: implementation plugs/requires/utilizes one of the following _optional_ libraries  
-    Requires [optional dependencies](#optional-dependencies) as described below
+  * Specific to _Node.js_: implementation utilizes [optional dependencies](#optional-dependencies) as described below
 * Formal validators for JSON string and XML string (currently for _Node.js_ only)  
   Requires [optional dependencies](#optional-dependencies) as described below
 
