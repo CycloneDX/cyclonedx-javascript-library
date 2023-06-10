@@ -724,7 +724,7 @@ export class DependencyGraphNormalizer extends BaseXmlNormalizer<Models.Bom> {
   }
 }
 
-class VulnerabilityNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Vulnerability> {
+export class VulnerabilityNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Vulnerability> {
   normalize (data: Models.Vulnerability.Vulnerability, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const references: SimpleXml.Element | undefined = data.references.size > 0
       ? {
@@ -820,7 +820,7 @@ class VulnerabilityNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Vul
   }
 }
 
-class VulnerabilitySourceNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Source> {
+export class VulnerabilitySourceNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Source> {
   normalize (data: Models.Vulnerability.Source, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const url = data.url?.toString()
     return {
@@ -836,7 +836,7 @@ class VulnerabilitySourceNormalizer extends BaseXmlNormalizer<Models.Vulnerabili
   }
 }
 
-class VulnerabilityReferenceNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Reference> {
+export class VulnerabilityReferenceNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Reference> {
   normalize (data: Models.Vulnerability.Reference, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     return {
       type: 'element',
@@ -857,7 +857,7 @@ class VulnerabilityReferenceNormalizer extends BaseXmlNormalizer<Models.Vulnerab
   }
 }
 
-class VulnerabilityRatingNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Rating> {
+export class VulnerabilityRatingNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Rating> {
   normalize (data: Models.Vulnerability.Rating, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     return {
       type: 'element',
@@ -884,7 +884,7 @@ class VulnerabilityRatingNormalizer extends BaseXmlNormalizer<Models.Vulnerabili
   }
 }
 
-class VulnerabilityAdvisoryNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Advisory> {
+export class VulnerabilityAdvisoryNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Advisory> {
   normalize (data: Models.Vulnerability.Advisory, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
     const url = data.url.toString()
     if (!XmlSchema.isAnyURI(url)) {
@@ -912,7 +912,7 @@ class VulnerabilityAdvisoryNormalizer extends BaseXmlNormalizer<Models.Vulnerabi
   }
 }
 
-class VulnerabilityCreditsNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Credits> {
+export class VulnerabilityCreditsNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Credits> {
   normalize (data: Models.Vulnerability.Credits, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const organizations: SimpleXml.Element | undefined = data.organizations.size > 0
       ? {
@@ -939,7 +939,7 @@ class VulnerabilityCreditsNormalizer extends BaseXmlNormalizer<Models.Vulnerabil
   }
 }
 
-class VulnerabilityAnalysisNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Analysis> {
+export class VulnerabilityAnalysisNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Analysis> {
   normalize (data: Models.Vulnerability.Analysis, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const responses: SimpleXml.Element | undefined = data.response.size > 0
       ? {
@@ -965,7 +965,7 @@ class VulnerabilityAnalysisNormalizer extends BaseXmlNormalizer<Models.Vulnerabi
   }
 }
 
-class VulnerabilityAffectNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Affect> {
+export class VulnerabilityAffectNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Affect> {
   normalize (data: Models.Vulnerability.Affect, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const versions: SimpleXml.Element | undefined = data.versions.size > 0
       ? {
@@ -993,7 +993,7 @@ class VulnerabilityAffectNormalizer extends BaseXmlNormalizer<Models.Vulnerabili
   }
 }
 
-class VulnerabilityAffectedVersionNormalizer extends BaseXmlNormalizer<Models.Vulnerability.AffectedVersion> {
+export class VulnerabilityAffectedVersionNormalizer extends BaseXmlNormalizer<Models.Vulnerability.AffectedVersion> {
   normalize (data: Models.Vulnerability.AffectedVersion, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     switch (true) {
       case data instanceof Models.Vulnerability.AffectedSingleVersion:
