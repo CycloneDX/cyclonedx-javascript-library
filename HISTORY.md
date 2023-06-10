@@ -6,8 +6,10 @@ All notable changes to this project will be documented in this file.
 
 * Build
   * Use _TypeScript_ `v5.1.3` now, was `v5.0.4`. (via [#790])
+  * Use _Webpack_ `v5.82.1` now, was `v5.80.0`. (via [#802])
 
 [#790]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/790
+[#802]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/802
 
 ## 2.0.0 -- 2023-05-17
 
@@ -177,7 +179,7 @@ Added `ComponentEvidence` capabilities.
       * `Validation.MissingOptionalDependencyError`
 * Build
   * Use _TypeScript_ `v5.0.4` now, was `v4.9.5`. ([#549] via [#644])
-  * Use _Webpack_ `v5.80.0` now, was `5.79.0`. (via [#686])
+  * Use _Webpack_ `v5.80.0` now, was `v5.79.0`. (via [#686])
 
 [#549]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/549
 [#620]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/620
@@ -492,7 +494,7 @@ Maintenance release.
   * JSON- and XML-Normalizer for `Models.Property`, `Models.PropertyRepository`. (via [#151])
   * New property `Models.Component.properties`. (via [#151])
 * Build
-  * Use _Webpack_ `v5.74.0.` now, was `5.73.0`. (via [#141])
+  * Use _Webpack_ `v5.74.0.` now, was `v5.73.0`. (via [#141])
 
 [#141]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/141
 [#150]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/150
