@@ -10,8 +10,8 @@ All notable changes to this project will be documented in this file.
   * Classes `Serialize.Xml.Normalize.Vulnerability*Normalizer` are now public available (via [#816])  
     Previously, only instances were available via `Serialize.Xml.Normalize.Factory.makeForVulnerability*()`.
 * Build
-  * Use _TypeScript_ `v5.1.3` now, was `v5.0.4`. (via [#790])
-  * Use _Webpack_ `v5.82.1` now, was `v5.80.0`. (via [#802])
+  * Use _TypeScript_ `v5.1.3` now, was `v5.0.4` (via [#790])
+  * Use _Webpack_ `v5.82.1` now, was `v5.80.0` (via [#802])
 
 [#790]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/790
 [#802]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/802
@@ -184,8 +184,8 @@ Added `ComponentEvidence` capabilities.
       * `Validation.NotImplementedError`
       * `Validation.MissingOptionalDependencyError`
 * Build
-  * Use _TypeScript_ `v5.0.4` now, was `v4.9.5`. ([#549] via [#644])
-  * Use _Webpack_ `v5.80.0` now, was `v5.79.0`. (via [#686])
+  * Use _TypeScript_ `v5.0.4` now, was `v4.9.5` ([#549] via [#644])
+  * Use _Webpack_ `v5.80.0` now, was `v5.79.0` (via [#686])
 
 [#549]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/549
 [#620]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/620
@@ -260,7 +260,7 @@ Maintenance release.
 ## 1.12.0 - 2023-03-02
 
 * Docs
-  * Made it clear, that `{Builders,Factories}.{FromNodePackageJson,FromPackageJson}.*` functionality is to be run on already normalized structures. ([#517] via [#518])  
+  * Made it clear, that `{Builders,Factories}.{FromNodePackageJson,FromPackageJson}.*` functionality is to be run on already normalized structures ([#517] via [#518])  
     Normalization should be done downstream, for example via [`normalize-package-data`](https://www.npmjs.com/package/normalize-package-data).
 
 [#517]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/517
@@ -298,7 +298,7 @@ Maintenance release.
 * Docs
   * Use [TSDoc](https://tsdoc.org/) syntax in TypeScript files, instead of [JSDoc](https://jsdoc.app/) (via [#318], [#453])
 * Build
-  * Use _TypeScript_ `v4.9.5` now, was `v4.9.4`. (via [#463])
+  * Use _TypeScript_ `v4.9.5` now, was `v4.9.4` (via [#463])
 * Misc
   * Added tests for internal helpers (via [#454])
   * Use `eslint-config-standard-with-typescript@34.0.0` now, was `33.0.0` (via [#460])
@@ -355,7 +355,7 @@ Maintenance release.
 Maintenance release.
 
 * Build
-  * Use _TypeScript_ `v4.9.4` now, was `v4.9.3`. (via [#360])
+  * Use _TypeScript_ `v4.9.4` now, was `v4.9.3` (via [#360])
 
 [#360]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/360
 
@@ -364,7 +364,7 @@ Maintenance release.
 * Changed
   * Widened the accepted types for first parameter of all `normalizeIterable` methods (via [#317])
 * Build
-  * Use _TypeScript_ `v4.9.3` now, was `v4.8.4`. (via [#335])
+  * Use _TypeScript_ `v4.9.3` now, was `v4.8.4` (via [#335])
 
 [#317]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/317
 [#335]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/335
@@ -380,7 +380,7 @@ Maintenance release.
 ## 1.7.0 - 2022-10-25
 
 * Changed
-  * Shipped TypeScript declarations are usable by TypeScript v3.8 and above now. ([#291] via [#292])
+  * Shipped TypeScript declarations are usable by TypeScript v3.8 and above now ([#291] via [#292])
     Previously the source code was abused as type declarations, so they required a certain version of TypeScript 4.
 
 [#291]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/291
@@ -389,15 +389,15 @@ Maintenance release.
 ## 1.6.0 - 2022-09-31
 
 * Changed
-  * Removed synthetic default imports im TypeScript sources. (via [#243])  
+  * Removed synthetic default imports im TypeScript sources (via [#243])  
     The resulting _JavaScript_ did not change in functionality.  
     Downstream users of the _TypeScript_ sources/definitions might consider this a feature,
     as they are no longer required to compile with `allowSyntheticDefaultImports` enabled.
 * Added
-  * Documentation and example regarding dependency tree modelling were added in multiple places. (via [#250])  
+  * Documentation and example regarding dependency tree modelling were added in multiple places (via [#250])  
 * Build
-  * No longer enable _TypeScript_ config `esModuleInterop` & `allowSyntheticDefaultImports`. (via [#243])
-  * Use _TypeScript_ `v4.8.4` now, was `v4.8.3`. (via [#246])
+  * No longer enable _TypeScript_ config `esModuleInterop` & `allowSyntheticDefaultImports` (via [#243])
+  * Use _TypeScript_ `v4.8.4` now, was `v4.8.3` (via [#246])
 
 [#243]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/243
 [#246]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/246
@@ -406,14 +406,14 @@ Maintenance release.
 ## 1.5.1 - 2022-09-17
 
 * Deprecated
-  * The normalizer methods `normalizeRepository` will be known as `normalizeIterable`. (via [#230])
+  * The normalizer methods `normalizeRepository` will be known as `normalizeIterable` (via [#230])
 
 [#230]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/230
 
 ## 1.5.0 - 2022-09-17
 
 * Deprecated
-  * The class `HashRepository` will be known as `HashDictionary`. (via [#229])
+  * The class `HashRepository` will be known as `HashDictionary` (via [#229])
 
 [#229]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/229
 
@@ -422,7 +422,7 @@ Maintenance release.
 Maintenance release.
 
 * Build
-  * Use _TypeScript_ `v4.8.3` now, was `v4.8.2`. (via [#212])
+  * Use _TypeScript_ `v4.8.3` now, was `v4.8.2` (via [#212])
 
 [#212]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/212
 
@@ -431,9 +431,9 @@ Maintenance release.
 Maintenance release.
 
 * Misc
-  * Style: imports are sorted, now. (via [#208])
+  * Style: imports are sorted, now (via [#208])
 * Dependencies
-  * Widened the range of requirement `packageurl-js` to `>=0.0.6 <0.0.8 || ^1`, was `>=0.0.6 <0.0.8`. (via [#210])
+  * Widened the range of requirement `packageurl-js` to `>=0.0.6 <0.0.8 || ^1`, was `>=0.0.6 <0.0.8` (via [#210])
 
 [#208]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/208
 [#210]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/210
@@ -442,9 +442,9 @@ Maintenance release.
 
 * Added
   * New class `Factories.FromNodePackageJson.PackageUrlFactory` that acts like `Factories.PackageUrlFactory`, but
-    omits PackageUrl's npm-specific "default derived" qualifier values for `download_url` & `vcs_url`. ([#204] via [#207])
+    omits PackageUrl's npm-specific "default derived" qualifier values for `download_url` & `vcs_url` ([#204] via [#207])
 * Build
-  * Use _TypeScript_ `v4.8.2` now, was `v4.7.4`. (via [#190])
+  * Use _TypeScript_ `v4.8.2` now, was `v4.7.4` (via [#190])
 
 [#204]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/178
 [#207]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/207
@@ -453,14 +453,14 @@ Maintenance release.
 ## 1.3.4 - 2022-08-16
 
 * Fixed
-  * `Factories.PackageUrlFactory` omits empty-string URLs for PackageUrl's qualifiers `download_url` & `vcs_url`. (via [#180])
+  * `Factories.PackageUrlFactory` omits empty-string URLs for PackageUrl's qualifiers `download_url` & `vcs_url` (via [#180])
 
 [#180]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/180
 
 ## 1.3.3 - 2022-08-16
 
 * Fixed
-  * Improved omission of invalid `anyURI` when it comes to XML-normalization. ([#178] via [#179])
+  * Improved omission of invalid `anyURI` when it comes to XML-normalization ([#178] via [#179])
 
 [#178]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/178
 [#179]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/179
@@ -468,9 +468,9 @@ Maintenance release.
 ## 1.3.2 - 2022-08-15
 
 * Fixed
-  * Serializers render `bom-ref` values of nested components as unique values, as expected. ([#175] via [#176])
+  * Serializers render `bom-ref` values of nested components as unique values, as expected ([#175] via [#176])
 * Misc
-  * Style: improved readability of constructor parameter types. (via [#166])
+  * Style: improved readability of constructor parameter types (via [#166])
 
 [#166]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/166
 [#175]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/175
@@ -479,10 +479,8 @@ Maintenance release.
 ## 1.3.1 - 2022-08-04
 
 * Fixed
-  * JSON- and XML-Normalizer no longer render `Models.Component.properties`
-    with [_CycloneDX_ Specification][CycloneDX-specification]-1.2.
-    ([#152] via [#153])
-  * XML-Normalizer now has the correct order/position of rendered `Models.Component.properties`. (via [#153])
+  * JSON- and XML-Normalizer no longer render `Models.Component.properties` with [_CycloneDX_ Specification][CycloneDX-specification]-1.2 ([#152] via [#153])
+  * XML-Normalizer now has the correct order/position of rendered `Models.Component.properties` (via [#153])
 
 [#152]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/152
 [#153]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/153
@@ -491,16 +489,16 @@ Maintenance release.
 
 * Changed
   * Use [version 9b04a94 of CycloneDX specification][CDX-specification#9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb]
-    for XML and JSON schema validation. (via [#150])
+    for XML and JSON schema validation (via [#150])
   * Use SPDX license enumeration from
     [version 9b04a94 of CycloneDX specification][CDX-specification#9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb].
     (via [#150])
 * Added
-  * Models for `Property` and `PropertyRepository`. (via [#151])
-  * JSON- and XML-Normalizer for `Models.Property`, `Models.PropertyRepository`. (via [#151])
-  * New property `Models.Component.properties`. (via [#151])
+  * Models for `Property` and `PropertyRepository` (via [#151])
+  * JSON- and XML-Normalizer for `Models.Property`, `Models.PropertyRepository` (via [#151])
+  * New property `Models.Component.properties` (via [#151])
 * Build
-  * Use _Webpack_ `v5.74.0.` now, was `v5.73.0`. (via [#141])
+  * Use _Webpack_ `v5.74.0.` now, was `v5.73.0` (via [#141])
 
 [#141]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/141
 [#150]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/150
@@ -510,7 +508,7 @@ Maintenance release.
 ## 1.2.0 - 2022-08-01
 
 * Added
-  * New getters/properties that represent the corresponding parameters of class constructor. (via [#145])
+  * New getters/properties that represent the corresponding parameters of class constructor (via [#145])
     * `Builders.FromPackageJson.ComponentBuilder.extRefFactory`,  
       `Builders.FromPackageJson.ComponentBuilder.licenseFactory`
     * `Builders.FromPackageJson.ToolBuilder.extRefFactory`
@@ -519,14 +517,14 @@ Maintenance release.
     * `Serialize.JsonSerializer.normalizerFactory`
     * `Serialize.XmlBaseSerializer.normalizerFactory`,  
       `Serialize.XmlSerializer.normalizerFactory`
-  * Factory for `PackageURL` from `Models.Component` can handle additional data sources, now. (via [#146])
+  * Factory for `PackageURL` from `Models.Component` can handle additional data sources, now (via [#146])
     * `Models.Component.hashes` map -> `PackageURL.qualifiers.checksum` list
     * `Models.Component.externalReferences[distribution].url` -> `PackageURL.qualifiers.download_url`
     * Method `Factories.PackageUrlFactory.makeFromComponent()` got a new optional parameter `sort`,
       to indicate whether to go the extra mile and bring hashes and qualifiers in alphabetical order.  
       This feature switch is related to reproducible builds.
 * Deprecated
-  * The sub-namespace `FromPackageJson` will be known as `FromNodePackageJson`. (via [#148])
+  * The sub-namespace `FromPackageJson` will be known as `FromNodePackageJson` (via [#148])
     * `Factories.FromPackageJson` -> `Factories.FromNodePackageJson`
     * `Builders.FromPackageJson` -> `Builders.FromNodePackageJson`
 
@@ -538,10 +536,10 @@ Maintenance release.
 
 * Added
   * Support for nested/bundled (sub-)components via `Models.Component.components` was added, including
-    serialization/normalization of models and impact on dependency graphs rendering. ([#132] via [#136])
+    serialization/normalization of models and impact on dependency graphs rendering ([#132] via [#136])
   * [_CycloneDX_ Specification][CycloneDX-specification]-1.4 made element `Models.Component.version` optional.
     Therefore, serialization/normalization with this specification version will no longer render this element
-    if its value is empty. (via [#137], [#138])
+    if its value is empty (via [#137], [#138])
 
 [#132]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/132
 [#136]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/136
@@ -551,7 +549,7 @@ Maintenance release.
 ## 1.0.3 - 2022-07-28
 
 * Fixed
-  * `Types.isCPE()` for CPE2.3 allows escaped(`\`) chars `&"><`, as expected. (via [#134])
+  * `Types.isCPE()` for CPE2.3 allows escaped(`\`) chars `&"><`, as expected (via [#134])
 
 [#134]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/134
 
@@ -560,7 +558,7 @@ Maintenance release.
 Maintenance release.
 
 * Dependencies
-  * Widened the range of requirement `packageurl-js` to `>=0.0.6 <0.0.8`, was `^0.0.7`. ([#130] via [#131])
+  * Widened the range of requirement `packageurl-js` to `>=0.0.6 <0.0.8`, was `^0.0.7` ([#130] via [#131])
 
 [#130]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/130
 [#131]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/131
@@ -570,9 +568,9 @@ Maintenance release.
 Maintenance release.
 
 * Build
-  * Use _TypeScript_ `v4.7.4` now, was `v4.6.4`. (via [#55])
+  * Use _TypeScript_ `v4.7.4` now, was `v4.6.4` (via [#55])
 * Dependencies
-  * Raised the requirement of `packageurl-js` to `^0.0.7`, was `^0.0.6`. (via [#123])
+  * Raised the requirement of `packageurl-js` to `^0.0.7`, was `^0.0.6` (via [#123])
 
 [#55]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/55
 [#123]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/123
