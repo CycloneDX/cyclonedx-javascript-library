@@ -1,6 +1,6 @@
 # Resources: Schema files
 
-some schema for offline use as download via [script](../../tools/schema-downloader/download.cjs). 
+some schema for offline use as download via [script](../../tools/schema-downloader/download.js). 
 original sources: <https://github.com/CycloneDX/specification/tree/master/schema>
 
 Currently using version
