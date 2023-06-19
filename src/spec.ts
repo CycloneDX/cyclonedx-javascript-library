@@ -18,6 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { ComponentType, ExternalReferenceType, HashAlgorithm } from './enums'
+import { RatingMethod } from './enums/vulnerability'
 import type { HashContent } from './models'
 
 export enum Version {
@@ -49,6 +50,7 @@ export interface Protocol {
   requiresComponentVersion: boolean
   supportsProperties: (model: any) => boolean
   supportsVulnerabilities: boolean
+  supportsVulnerabilityRatingMethod: (rm: RatingMethod | any) => boolean
   supportsComponentEvidence: boolean
 }
 
@@ -63,6 +65,7 @@ class Spec implements Protocol {
   readonly #hashAlgorithms: ReadonlySet<HashAlgorithm>
   readonly #hashValuePattern: RegExp
   readonly #externalReferenceTypes: ReadonlySet<ExternalReferenceType>
+  readonly #vulnerabilityRatingMethods: ReadonlySet<RatingMethod>
   readonly #supportsDependencyGraph: boolean
   readonly #supportsToolReferences: boolean
   readonly #requiresComponentVersion: boolean
@@ -82,6 +85,7 @@ class Spec implements Protocol {
     requiresComponentVersion: boolean,
     supportsProperties: boolean,
     supportsVulnerabilities: boolean,
+    vulnerabilityRatingMethods: Iterable<RatingMethod>,
     supportsComponentEvidence: boolean
   ) {
     this.#version = version
@@ -95,6 +99,7 @@ class Spec implements Protocol {
     this.#requiresComponentVersion = requiresComponentVersion
     this.#supportsProperties = supportsProperties
     this.#supportsVulnerabilities = supportsVulnerabilities
+    this.#vulnerabilityRatingMethods = new Set(vulnerabilityRatingMethods)
     this.#supportsComponentEvidence = supportsComponentEvidence
   }
 
@@ -142,6 +147,10 @@ class Spec implements Protocol {
 
   get supportsVulnerabilities (): boolean {
     return this.#supportsVulnerabilities
+  }
+
+  supportsVulnerabilityRatingMethod (rm: RatingMethod | any): boolean {
+    return this.#vulnerabilityRatingMethods.has(rm)
   }
 
   get supportsComponentEvidence (): boolean {
@@ -203,6 +212,7 @@ export const Spec1dot2: Readonly<Protocol> = Object.freeze(new Spec(
   true,
   false,
   false,
+  [],
   false
 ))
 
@@ -260,6 +270,7 @@ export const Spec1dot3: Readonly<Protocol> = Object.freeze(new Spec(
   true,
   true,
   false,
+  [],
   true
 ))
 
@@ -318,6 +329,13 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
   false,
   true,
   true,
+  [
+    RatingMethod.CVSSv2,
+    RatingMethod.CVSSv3,
+    RatingMethod.CVSSv31,
+    RatingMethod.OWASP,
+    RatingMethod.Other
+  ],
   true
 ))
 
@@ -403,6 +421,15 @@ export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
   false,
   true,
   true,
+  [
+    RatingMethod.CVSSv2,
+    RatingMethod.CVSSv3,
+    RatingMethod.CVSSv31,
+    RatingMethod.CVSSv4,
+    RatingMethod.OWASP,
+    RatingMethod.SSVC,
+    RatingMethod.Other
+  ],
   true
 ))
 
