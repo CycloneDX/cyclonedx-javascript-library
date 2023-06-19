@@ -321,7 +321,6 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
   true
 ))
 
-
 /** @TODO  Specification v1.5 */
 export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
   Version.v1dot5,
@@ -384,6 +383,6 @@ export const SpecVersionDict: Readonly<Partial<Record<Version, Readonly<Protocol
   [Version.v1dot5]: Spec1dot5,
   [Version.v1dot4]: Spec1dot4,
   [Version.v1dot3]: Spec1dot3,
-  [Version.v1dot2]: Spec1dot2,
+  [Version.v1dot2]: Spec1dot2
   // <= v1.1 is not implemented
 })

@@ -54,7 +54,7 @@ describe('Validation.XmlValidator', () => {
     Version.v1dot3,
     Version.v1dot2,
     Version.v1dot1,
-    Version.v1dot0,
+    Version.v1dot0
   ].forEach((version) => describe(version, () => {
     if (!hasDep) {
       it('throws MissingOptionalDependencyError', async () => {

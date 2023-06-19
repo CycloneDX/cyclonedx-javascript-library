@@ -139,7 +139,7 @@ const xmlNamespace: ReadonlyMap<SpecVersion, string> = new Map([
   [SpecVersion.v1dot3, 'http://cyclonedx.org/schema/bom/1.3'],
   [SpecVersion.v1dot2, 'http://cyclonedx.org/schema/bom/1.2'],
   [SpecVersion.v1dot1, 'http://cyclonedx.org/schema/bom/1.1'],
-  [SpecVersion.v1dot0, 'http://cyclonedx.org/schema/bom/1.0'],
+  [SpecVersion.v1dot0, 'http://cyclonedx.org/schema/bom/1.0']
 ])
 
 interface XmlNormalizer<TModel, TNormalized> {
