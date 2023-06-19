@@ -47,6 +47,7 @@ suite('ExternalReferenceType enum', () => {
         switch (enumValue) {
           case 'vcs':
           case 'bom':
+          case 'poam':
             expectedName = enumValue.toUpperCase()
             break
         }

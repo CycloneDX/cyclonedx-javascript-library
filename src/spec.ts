@@ -17,8 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import {ComponentType, ExternalReferenceType, HashAlgorithm} from './enums'
-import type {HashContent} from './models'
+import { ComponentType, ExternalReferenceType, HashAlgorithm } from './enums'
+import type { HashContent } from './models'
 
 export enum Version {
   v1dot5 = '1.5',
@@ -340,7 +340,7 @@ export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
     ComponentType.Firmware,
     ComponentType.File,
     ComponentType.MachineLearningModel,
-    ComponentType.Data,
+    ComponentType.Data
   ],
   [
     HashAlgorithm.MD5,
@@ -369,10 +369,33 @@ export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
     ExternalReferenceType.Documentation,
     ExternalReferenceType.Support,
     ExternalReferenceType.Distribution,
+    ExternalReferenceType.DistributionIntake,
     ExternalReferenceType.License,
     ExternalReferenceType.BuildMeta,
     ExternalReferenceType.BuildSystem,
     ExternalReferenceType.ReleaseNotes,
+    ExternalReferenceType.SecurityContact,
+    ExternalReferenceType.ModelCard,
+    ExternalReferenceType.Log,
+    ExternalReferenceType.Configuration,
+    ExternalReferenceType.Evidence,
+    ExternalReferenceType.Formulation,
+    ExternalReferenceType.Attestation,
+    ExternalReferenceType.ThreatModel,
+    ExternalReferenceType.AdversaryModel,
+    ExternalReferenceType.RiskAssessment,
+    ExternalReferenceType.VulnerabilityAssertion,
+    ExternalReferenceType.ExploitabilityStatement,
+    ExternalReferenceType.PentestReport,
+    ExternalReferenceType.StaticAnalysisReport,
+    ExternalReferenceType.DynamicAnalysisReport,
+    ExternalReferenceType.RuntimeAnalysisReport,
+    ExternalReferenceType.ComponentAnalysisReport,
+    ExternalReferenceType.MaturityReport,
+    ExternalReferenceType.CertificationReport,
+    ExternalReferenceType.CodifiedInfrastructure,
+    ExternalReferenceType.QualityMetrics,
+    ExternalReferenceType.POAM,
     ExternalReferenceType.Other
   ],
   true,
