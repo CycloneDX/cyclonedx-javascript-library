@@ -20,6 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { Sortable } from '../_helpers/sortable'
 import type { SpdxId } from '../spdx'
 import type { Attachment } from './attachment'
+import { BomRef } from './bomRef'
 
 /**
  * (SPDX) License Expression.
@@ -59,10 +60,12 @@ export class LicenseExpression {
 }
 
 class DisjunctiveLicenseBase {
+  bomRef: BomRef
   text?: Attachment
   #url?: URL | string
 
   constructor (op: OptionalDisjunctiveLicenseProperties = {}) {
+    this.bomRef = new BomRef(op.bomRef)
     this.text = op.text
     this.url = op.url
   }
@@ -79,6 +82,7 @@ class DisjunctiveLicenseBase {
 }
 
 interface OptionalDisjunctiveLicenseProperties {
+  bomRef?: BomRef['value']
   text?: DisjunctiveLicenseBase['text']
   url?: DisjunctiveLicenseBase['url']
 }
@@ -94,7 +98,10 @@ export class NamedLicense extends DisjunctiveLicenseBase {
   }
 
   compare (other: NamedLicense): number {
-    return this.name.localeCompare(other.name)
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
+    return this.name.localeCompare(other.name) ||
+      this.bomRef.compare(other.bomRef)
+    /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
 }
 
@@ -134,7 +141,10 @@ export class SpdxLicense extends DisjunctiveLicenseBase {
   }
 
   compare (other: SpdxLicense): number {
-    return this.#id.localeCompare(other.#id)
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
+    return this.#id.localeCompare(other.#id) ||
+      this.bomRef.compare(other.bomRef)
+    /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
 }
 

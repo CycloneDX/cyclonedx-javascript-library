@@ -134,9 +134,10 @@ export class Factory {
 }
 
 const schemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
-  [SpecVersion.v1dot2, 'http://cyclonedx.org/schema/bom-1.2b.schema.json'],
+  [SpecVersion.v1dot5, 'http://cyclonedx.org/schema/bom-1.5.schema.json'],
+  [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom-1.4.schema.json'],
   [SpecVersion.v1dot3, 'http://cyclonedx.org/schema/bom-1.3a.schema.json'],
-  [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom-1.4.schema.json']
+  [SpecVersion.v1dot2, 'http://cyclonedx.org/schema/bom-1.2b.schema.json']
 ])
 
 interface JsonNormalizer<TModel, TNormalized> {

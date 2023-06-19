@@ -31,9 +31,10 @@ const {
 
 suite('ComponentType enum', () => {
   const specVersions = new Set([
-    Version.v1dot2,
+    Version.v1dot5,
+    Version.v1dot4,
     Version.v1dot3,
-    Version.v1dot4
+    Version.v1dot2
   ])
 
   specVersions.forEach(specVersion =>
@@ -47,13 +48,13 @@ suite('ComponentType enum', () => {
           assert.strictEqual(ComponentType[expectedName], enumValue)
         )
         test(`is supported: ${enumValue}`, () =>
-          assert.ok(SpecVersionDict[specVersion]?.supportsComponentType(enumValue))
+          assert.strictEqual(SpecVersionDict[specVersion]?.supportsComponentType(enumValue), true)
         )
       })
       const unknownValues = Object.values(ComponentType).filter(enumValue => !knownValues.includes(enumValue))
       unknownValues.forEach(enumValue =>
         test(`not supported: ${enumValue}`, () =>
-          assert.ok(!SpecVersionDict[specVersion]?.supportsHashAlgorithm(enumValue))
+          assert.strictEqual(SpecVersionDict[specVersion]?.supportsHashAlgorithm(enumValue), false)
         )
       )
     })
