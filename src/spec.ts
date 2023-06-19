@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { ComponentType, ExternalReferenceType, HashAlgorithm } from './enums'
+import { ComponentType, ExternalReferenceType, HashAlgorithm, Vulnerability } from './enums'
 import type { HashContent } from './models'
 
 export enum Version {
@@ -49,6 +49,7 @@ export interface Protocol {
   requiresComponentVersion: boolean
   supportsProperties: (model: any) => boolean
   supportsVulnerabilities: boolean
+  supportsVulnerabilityRatingMethod: (rm: Vulnerability.RatingMethod | any) => boolean
   supportsComponentEvidence: boolean
 }
 
@@ -63,6 +64,7 @@ class Spec implements Protocol {
   readonly #hashAlgorithms: ReadonlySet<HashAlgorithm>
   readonly #hashValuePattern: RegExp
   readonly #externalReferenceTypes: ReadonlySet<ExternalReferenceType>
+  readonly #vulnerabilityRatingMethods: ReadonlySet<Vulnerability.RatingMethod>
   readonly #supportsDependencyGraph: boolean
   readonly #supportsToolReferences: boolean
   readonly #requiresComponentVersion: boolean
@@ -82,6 +84,7 @@ class Spec implements Protocol {
     requiresComponentVersion: boolean,
     supportsProperties: boolean,
     supportsVulnerabilities: boolean,
+    vulnerabilityRatingMethods: Iterable<Vulnerability.RatingMethod>,
     supportsComponentEvidence: boolean
   ) {
     this.#version = version
@@ -95,6 +98,7 @@ class Spec implements Protocol {
     this.#requiresComponentVersion = requiresComponentVersion
     this.#supportsProperties = supportsProperties
     this.#supportsVulnerabilities = supportsVulnerabilities
+    this.#vulnerabilityRatingMethods = new Set(vulnerabilityRatingMethods)
     this.#supportsComponentEvidence = supportsComponentEvidence
   }
 
@@ -142,6 +146,10 @@ class Spec implements Protocol {
 
   get supportsVulnerabilities (): boolean {
     return this.#supportsVulnerabilities
+  }
+
+  supportsVulnerabilityRatingMethod (rm: Vulnerability.RatingMethod | any): boolean {
+    return this.#vulnerabilityRatingMethods.has(rm)
   }
 
   get supportsComponentEvidence (): boolean {
@@ -203,6 +211,7 @@ export const Spec1dot2: Readonly<Protocol> = Object.freeze(new Spec(
   true,
   false,
   false,
+  [],
   false
 ))
 
@@ -260,6 +269,7 @@ export const Spec1dot3: Readonly<Protocol> = Object.freeze(new Spec(
   true,
   true,
   false,
+  [],
   true
 ))
 
@@ -318,6 +328,13 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
   false,
   true,
   true,
+  [
+    Vulnerability.RatingMethod.CVSSv2,
+    Vulnerability.RatingMethod.CVSSv3,
+    Vulnerability.RatingMethod.CVSSv31,
+    Vulnerability.RatingMethod.OWASP,
+    Vulnerability.RatingMethod.Other
+  ],
   true
 ))
 
@@ -333,10 +350,14 @@ export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
     ComponentType.Framework,
     ComponentType.Library,
     ComponentType.Container,
+    ComponentType.Platform,
     ComponentType.OperatingSystem,
     ComponentType.Device,
+    ComponentType.DeviceDriver,
     ComponentType.Firmware,
-    ComponentType.File
+    ComponentType.File,
+    ComponentType.MachineLearningModel,
+    ComponentType.Data
   ],
   [
     HashAlgorithm.MD5,
@@ -365,10 +386,33 @@ export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
     ExternalReferenceType.Documentation,
     ExternalReferenceType.Support,
     ExternalReferenceType.Distribution,
+    ExternalReferenceType.DistributionIntake,
     ExternalReferenceType.License,
     ExternalReferenceType.BuildMeta,
     ExternalReferenceType.BuildSystem,
     ExternalReferenceType.ReleaseNotes,
+    ExternalReferenceType.SecurityContact,
+    ExternalReferenceType.ModelCard,
+    ExternalReferenceType.Log,
+    ExternalReferenceType.Configuration,
+    ExternalReferenceType.Evidence,
+    ExternalReferenceType.Formulation,
+    ExternalReferenceType.Attestation,
+    ExternalReferenceType.ThreatModel,
+    ExternalReferenceType.AdversaryModel,
+    ExternalReferenceType.RiskAssessment,
+    ExternalReferenceType.VulnerabilityAssertion,
+    ExternalReferenceType.ExploitabilityStatement,
+    ExternalReferenceType.PentestReport,
+    ExternalReferenceType.StaticAnalysisReport,
+    ExternalReferenceType.DynamicAnalysisReport,
+    ExternalReferenceType.RuntimeAnalysisReport,
+    ExternalReferenceType.ComponentAnalysisReport,
+    ExternalReferenceType.MaturityReport,
+    ExternalReferenceType.CertificationReport,
+    ExternalReferenceType.CodifiedInfrastructure,
+    ExternalReferenceType.QualityMetrics,
+    ExternalReferenceType.POAM,
     ExternalReferenceType.Other
   ],
   true,
@@ -376,6 +420,15 @@ export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
   false,
   true,
   true,
+  [
+    Vulnerability.RatingMethod.CVSSv2,
+    Vulnerability.RatingMethod.CVSSv3,
+    Vulnerability.RatingMethod.CVSSv31,
+    Vulnerability.RatingMethod.CVSSv4,
+    Vulnerability.RatingMethod.OWASP,
+    Vulnerability.RatingMethod.SSVC,
+    Vulnerability.RatingMethod.Other
+  ],
   true
 ))
 

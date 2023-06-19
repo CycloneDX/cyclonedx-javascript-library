@@ -47,6 +47,7 @@ suite('ExternalReferenceType enum', () => {
         switch (enumValue) {
           case 'vcs':
           case 'bom':
+          case 'poam':
             expectedName = enumValue.toUpperCase()
             break
         }
@@ -54,13 +55,13 @@ suite('ExternalReferenceType enum', () => {
           assert.strictEqual(ExternalReferenceType[expectedName], enumValue)
         )
         test(`is supported: ${enumValue}`, () =>
-          assert.ok(SpecVersionDict[specVersion]?.supportsExternalReferenceType(enumValue))
+          assert.strictEqual(SpecVersionDict[specVersion]?.supportsExternalReferenceType(enumValue), true)
         )
       })
       const unknownValues = Object.values(ExternalReferenceType).filter(enumValue => !knownValues.includes(enumValue))
       unknownValues.forEach(enumValue =>
         test(`not supported: ${enumValue}`, () =>
-          assert.ok(!SpecVersionDict[specVersion]?.supportsHashAlgorithm(enumValue))
+          assert.strictEqual(SpecVersionDict[specVersion]?.supportsHashAlgorithm(enumValue), false)
         )
       )
     })

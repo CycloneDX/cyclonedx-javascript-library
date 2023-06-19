@@ -48,13 +48,13 @@ suite('HashAlgorithm enum', () => {
           assert.strictEqual(HashAlgorithm[expectedName], enumValue)
         )
         test(`is supported: ${enumValue}`, () =>
-          assert.ok(SpecVersionDict[specVersion]?.supportsHashAlgorithm(enumValue))
+          assert.strictEqual(SpecVersionDict[specVersion]?.supportsHashAlgorithm(enumValue), true)
         )
       })
       const unknownValues = Object.values(HashAlgorithm).filter(enumValue => !knownValues.includes(enumValue))
       unknownValues.forEach(enumValue =>
         test(`not supported: ${enumValue}`, () =>
-          assert.ok(!SpecVersionDict[specVersion]?.supportsHashAlgorithm(enumValue))
+          assert.strictEqual(SpecVersionDict[specVersion]?.supportsHashAlgorithm(enumValue), false)
         )
       )
     })
