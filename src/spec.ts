@@ -17,8 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { ComponentType, ExternalReferenceType, HashAlgorithm } from './enums'
-import type { HashContent } from './models'
+import {ComponentType, ExternalReferenceType, HashAlgorithm} from './enums'
+import type {HashContent} from './models'
 
 export enum Version {
   v1dot5 = '1.5',
@@ -333,10 +333,14 @@ export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
     ComponentType.Framework,
     ComponentType.Library,
     ComponentType.Container,
+    ComponentType.Platform,
     ComponentType.OperatingSystem,
     ComponentType.Device,
+    ComponentType.DeviceDriver,
     ComponentType.Firmware,
-    ComponentType.File
+    ComponentType.File,
+    ComponentType.MachineLearningModel,
+    ComponentType.Data,
   ],
   [
     HashAlgorithm.MD5,

@@ -22,8 +22,12 @@ export enum ComponentType {
   Framework = 'framework',
   Library = 'library',
   Container = 'container',
+  Platform = 'platform',
   OperatingSystem = 'operating-system',
   Device = 'device',
+  DeviceDriver = 'device-driver',
   Firmware = 'firmware',
   File = 'file',
+  MachineLearningModel = 'machine-learning-model',
+  Data = 'data',
 }
