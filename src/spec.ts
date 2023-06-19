@@ -21,11 +21,12 @@ import { ComponentType, ExternalReferenceType, HashAlgorithm } from './enums'
 import type { HashContent } from './models'
 
 export enum Version {
-  v1dot0 = '1.0',
-  v1dot1 = '1.1',
-  v1dot2 = '1.2',
-  v1dot3 = '1.3',
+  v1dot5 = '1.5',
   v1dot4 = '1.4',
+  v1dot3 = '1.3',
+  v1dot2 = '1.2',
+  v1dot1 = '1.1',
+  v1dot0 = '1.0',
 }
 
 export enum Format {
@@ -320,8 +321,69 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
   true
 ))
 
+
+/** @TODO  Specification v1.5 */
+export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
+  Version.v1dot5,
+  [
+    Format.XML,
+    Format.JSON
+  ],
+  [
+    ComponentType.Application,
+    ComponentType.Framework,
+    ComponentType.Library,
+    ComponentType.Container,
+    ComponentType.OperatingSystem,
+    ComponentType.Device,
+    ComponentType.Firmware,
+    ComponentType.File
+  ],
+  [
+    HashAlgorithm.MD5,
+    HashAlgorithm['SHA-1'],
+    HashAlgorithm['SHA-256'],
+    HashAlgorithm['SHA-384'],
+    HashAlgorithm['SHA-512'],
+    HashAlgorithm['SHA3-256'],
+    HashAlgorithm['SHA3-384'],
+    HashAlgorithm['SHA3-512'],
+    HashAlgorithm['BLAKE2b-256'],
+    HashAlgorithm['BLAKE2b-384'],
+    HashAlgorithm['BLAKE2b-512'],
+    HashAlgorithm.BLAKE3
+  ],
+  /^([a-fA-F0-9]{32})$|^([a-fA-F0-9]{40})$|^([a-fA-F0-9]{64})$|^([a-fA-F0-9]{96})$|^([a-fA-F0-9]{128})$/,
+  [
+    ExternalReferenceType.VCS,
+    ExternalReferenceType.IssueTracker,
+    ExternalReferenceType.Website,
+    ExternalReferenceType.Advisories,
+    ExternalReferenceType.BOM,
+    ExternalReferenceType.MailingList,
+    ExternalReferenceType.Social,
+    ExternalReferenceType.Chat,
+    ExternalReferenceType.Documentation,
+    ExternalReferenceType.Support,
+    ExternalReferenceType.Distribution,
+    ExternalReferenceType.License,
+    ExternalReferenceType.BuildMeta,
+    ExternalReferenceType.BuildSystem,
+    ExternalReferenceType.ReleaseNotes,
+    ExternalReferenceType.Other
+  ],
+  true,
+  true,
+  false,
+  true,
+  true,
+  true
+))
+
 export const SpecVersionDict: Readonly<Partial<Record<Version, Readonly<Protocol>>>> = Object.freeze({
-  [Version.v1dot2]: Spec1dot2,
+  [Version.v1dot5]: Spec1dot5,
+  [Version.v1dot4]: Spec1dot4,
   [Version.v1dot3]: Spec1dot3,
-  [Version.v1dot4]: Spec1dot4
+  [Version.v1dot2]: Spec1dot2,
+  // <= v1.1 is not implemented
 })
