@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { Sortable } from '../_helpers/sortable'
 import type { SpdxId } from '../spdx'
 import type { Attachment } from './attachment'
-import {BomRef} from "./bomRef";
+import { BomRef } from './bomRef'
 
 /**
  * (SPDX) License Expression.
@@ -98,8 +98,10 @@ export class NamedLicense extends DisjunctiveLicenseBase {
   }
 
   compare (other: NamedLicense): number {
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return this.name.localeCompare(other.name) ||
       this.bomRef.compare(other.bomRef)
+    /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
 }
 
@@ -139,8 +141,10 @@ export class SpdxLicense extends DisjunctiveLicenseBase {
   }
 
   compare (other: SpdxLicense): number {
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return this.#id.localeCompare(other.#id) ||
       this.bomRef.compare(other.bomRef)
+    /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
 }
 

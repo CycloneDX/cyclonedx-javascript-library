@@ -19,8 +19,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { Comparable } from '../_helpers/sortable'
 import { SortableComparables, SortableStringables } from '../_helpers/sortable'
+import { BomRef } from './bomRef'
 import { OrganizationalContactRepository } from './organizationalContact'
-import {BomRef} from "./bomRef";
 
 export interface OptionalOrganizationalEntityProperties {
   bomRef?: BomRef['value']

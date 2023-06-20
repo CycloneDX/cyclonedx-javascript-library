@@ -28,12 +28,12 @@ export type BomLink = BomLinkDocument | BomLinkElement
 const bomLinkDocumentPattern = /urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*/
 const bomLinkElementPattern = /urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*#.+/
 
-export function isBomLinkDocument(value: any): value is BomLinkDocument {
+export function isBomLinkDocument (value: any): value is BomLinkDocument {
   return typeof value === 'string' &&
     bomLinkDocumentPattern.test(value)
 }
 
-export function isBomLinkElement(value: any): value is BomLinkElement {
+export function isBomLinkElement (value: any): value is BomLinkElement {
   return typeof value === 'string' &&
     bomLinkElementPattern.test(value)
 }
