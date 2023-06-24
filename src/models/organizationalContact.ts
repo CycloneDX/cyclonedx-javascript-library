@@ -19,19 +19,23 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { Comparable } from '../_helpers/sortable'
 import { SortableComparables } from '../_helpers/sortable'
+import { BomRef } from './bomRef'
 
 export interface OptionalOrganizationalContactProperties {
+  bomRef?: BomRef['value']
   name?: OrganizationalContact['name']
   email?: OrganizationalContact['email']
   phone?: OrganizationalContact['phone']
 }
 
 export class OrganizationalContact implements Comparable<OrganizationalContact> {
+  bomRef: BomRef
   name?: string
   email?: string
   phone?: string
 
   constructor (op: OptionalOrganizationalContactProperties = {}) {
+    this.bomRef = new BomRef(op.bomRef)
     this.name = op.name
     this.email = op.email
     this.phone = op.phone
@@ -41,7 +45,8 @@ export class OrganizationalContact implements Comparable<OrganizationalContact> 
     /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return (this.name ?? '').localeCompare(other.name ?? '') ||
       (this.email ?? '').localeCompare(other.email ?? '') ||
-      (this.phone ?? '').localeCompare(other.phone ?? '')
+      (this.phone ?? '').localeCompare(other.phone ?? '') ||
+      this.bomRef.compare(other.bomRef)
     /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
 }
