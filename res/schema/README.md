@@ -1,10 +1,10 @@
 # Resources: Schema files
 
 some schema for offline use as download via [script](../../tools/schema-downloader/download.js). 
-original sources: <https://github.com/CycloneDX/specification/blob/v1.5-dev>
+original sources: <https://github.com/CycloneDX/specification/blob/1.5>
 
 Currently using version
-[4159deec24ce6380b580a1a79a4bc2a107ec32aa](https://github.com/CycloneDX/specification/commit/4159deec24ce6380b580a1a79a4bc2a107ec32aa)
+[c320fc0f0b46873864927d9d5684eea7ba439728](https://github.com/CycloneDX/specification/commit/c320fc0f0b46873864927d9d5684eea7ba439728)
 
 | file | note |
 |------|------|
