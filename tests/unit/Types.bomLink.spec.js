@@ -31,8 +31,20 @@ suite('Types.bomLink', () => {
       const actual = isBomLinkDocument('urn:cdx:f08a6ccd-4dce-4759-bd84-c626675d60a7/1')
       assert.strictEqual(actual, true)
     })
-    test('invalid', () => {
-      const actual = isBomLinkDocument('something')
+    test('invalid: is element', () => {
+      const actual = isBomLinkDocument('urn:cdx:f08a6ccd-4dce-4759-bd84-c626675d60a7/1#componentA')
+      assert.strictEqual(actual, false)
+    })
+    test('invalid: missing version', () => {
+      const actual = isBomLinkDocument('urn:cdx:f08a6ccd-4dce-4759-bd84-c626675d60a7/')
+      assert.strictEqual(actual, false)
+    })
+    test('invalid: prefixed', () => {
+      const actual = isBomLinkDocument('see urn:cdx:f08a6ccd-4dce-4759-bd84-c626675d60a7/1')
+      assert.strictEqual(actual, false)
+    })
+    test('invalid: missing leadin', () => {
+      const actual = isBomLinkDocument('f08a6ccd-4dce-4759-bd84-c626675d60a7/1')
       assert.strictEqual(actual, false)
     })
   })
@@ -43,8 +55,20 @@ suite('Types.bomLink', () => {
       const actual = isBomLinkElement('urn:cdx:f08a6ccd-4dce-4759-bd84-c626675d60a7/1#componentA')
       assert.strictEqual(actual, true)
     })
-    test('invalid', () => {
-      const actual = isBomLinkElement('componentA')
+    test('invalid: is document', () => {
+      const actual = isBomLinkElement('urn:cdx:f08a6ccd-4dce-4759-bd84-c626675d60a7/1')
+      assert.strictEqual(actual, false)
+    })
+    test('invalid: missing element', () => {
+      const actual = isBomLinkElement('urn:cdx:f08a6ccd-4dce-4759-bd84-c626675d60a7#')
+      assert.strictEqual(actual, false)
+    })
+    test('invalid: prefixed', () => {
+      const actual = isBomLinkElement('see urn:cdx:f08a6ccd-4dce-4759-bd84-c626675d60a7/1#componentA')
+      assert.strictEqual(actual, false)
+    })
+    test('invalid: missing leadin', () => {
+      const actual = isBomLinkElement('f08a6ccd-4dce-4759-bd84-c626675d60a7/1#componentA')
       assert.strictEqual(actual, false)
     })
   })
@@ -61,7 +85,7 @@ suite('Types.bomLink', () => {
       assert.strictEqual(actual, true)
     })
     test('invalid', () => {
-      const actual = isBomLink('something')
+      const actual = isBomLink('')
       assert.strictEqual(actual, false)
     })
   })
