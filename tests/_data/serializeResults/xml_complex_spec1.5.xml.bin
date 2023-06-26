@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" version="7" serialNumber="urn:uuid:ac35b126-ef3a-11ed-a05b-0242ac120003">
+    <metadata>
+        <timestamp>2032-05-23T13:37:42.000Z</timestamp>
+        <tools>
+            <tool>
+                <vendor>tool vendor</vendor>
+                <name>other tool</name>
+                <externalReferences>
+                    <reference type="website">
+                        <url>https://cyclonedx.org/tool-center/</url>
+                        <comment>the tools that made this</comment>
+                    </reference>
+                </externalReferences>
+            </tool>
+            <tool>
+                <vendor>tool vendor</vendor>
+                <name>tool name</name>
+                <version>0.8.15</version>
+                <hashes>
+                    <hash alg="MD5">f32a26e2a3a8aa338cd77b6e1263c535</hash>
+                    <hash alg="SHA-1">829c3804401b0727f70f73d4415e162400cbe57b</hash>
+                </hashes>
+            </tool>
+        </tools>
+        <authors>
+            <author>
+                <name>Jane "the-author" Doe</name>
+                <email>cdx-authors@mailinator.com</email>
+                <phone>555-1234567890</phone>
+            </author>
+            <author>
+                <name>John "the-co-author" Doe</name>
+            </author>
+        </authors>
+        <component type="library" bom-ref="dummy.metadata.component">
+            <name>Root Component</name>
+            <version>1.33.7</version>
+        </component>
+        <manufacture>
+            <name>meta manufacture</name>
+            <url>https://meta-manufacture.xmpl/</url>
+        </manufacture>
+        <supplier>
+            <name>meta supplier</name>
+            <url>https://meta-supplier.xmpl/</url>
+            <contact>
+                <name>Jane "the-other-supplier" Doe</name>
+            </contact>
+            <contact>
+                <name>John "the-supplier" Doe</name>
+                <email>cdx-suppliers@mailinator.com</email>
+                <phone>555-0123456789</phone>
+            </contact>
+        </supplier>
+    </metadata>
+    <components>
+        <component type="library" bom-ref="a-component">
+            <name>a-component</name>
+        </component>
+        <component type="library" bom-ref="component-with-licenseExpression">
+            <name>component-with-licenseExpression</name>
+            <licenses>
+                <expression>(MIT OR Apache-2.0)</expression>
+            </licenses>
+        </component>
+        <component type="library" bom-ref="component-with-licenses">
+            <name>component-with-licenses</name>
+            <licenses>
+                <license>
+                    <name>something</name>
+                </license>
+                <license>
+                    <id>Apache-2.0</id>
+                </license>
+                <license>
+                    <id>MIT</id>
+                </license>
+                <license>
+                    <name>unknown SPDX license</name>
+                    <url>https://acme.com/license</url>
+                </license>
+            </licenses>
+        </component>
+        <component type="library" bom-ref="component-with-licenses-and-expression">
+            <name>component-with-licenses-and-expression</name>
+            <licenses>
+                <expression>(MIT OR Apache-2.0)</expression>
+            </licenses>
+        </component>
+        <component type="library" bom-ref="component-with-vulnerabilities">
+            <name>component-with-vulnerabilities</name>
+            <version>1.0</version>
+        </component>
+        <component type="library" bom-ref="ComponentWithProperties">
+            <name>component-with-properties</name>
+            <properties>
+                <property name="internal:testing:prop-A">value A</property>
+                <property name="internal:testing:prop-Z">value B</property>
+                <property name="internal:testing:prop-Z">value Z</property>
+            </properties>
+        </component>
+        <component type="library" bom-ref="dummy-component">
+            <supplier>
+                <name>Component Supplier</name>
+                <url>https://localhost/componentSupplier-A</url>
+                <url>https://localhost/componentSupplier-B</url>
+                <contact>
+                    <name>Franz</name>
+                    <email>franz-aus-bayern@komplett.verwahrlosten.taxi</email>
+                    <phone>555-732378879</phone>
+                </contact>
+                <contact>
+                    <name>The quick brown fox</name>
+                </contact>
+            </supplier>
+            <author>component's author</author>
+            <publisher>the publisher</publisher>
+            <group>acme</group>
+            <name>dummy-component</name>
+            <version>1337-beta</version>
+            <description>this is a test component</description>
+            <scope>required</scope>
+            <hashes>
+                <hash alg="MD5">6bd3ac6fb35bb07c3f74d7f72451af57</hash>
+                <hash alg="SHA-1">e6f36746ccba42c288acf906e636bb278eaeb7e8</hash>
+            </hashes>
+            <licenses>
+                <license>
+                    <name>some other</name>
+                    <text content-type="text/plain" encoding="base64">U29tZQpsaWNlbnNlCnRleHQu</text>
+                    <url>https://localhost/license</url>
+                </license>
+                <license>
+                    <id>MIT</id>
+                    <text content-type="text/plain" encoding="base64">TUlUIExpY2Vuc2UKLi4uClRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLi4u</text>
+                    <url>https://spdx.org/licenses/MIT.html</url>
+                </license>
+            </licenses>
+            <copyright>ACME corp</copyright>
+            <cpe>cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*</cpe>
+            <purl>pkg:npm/acme/dummy-component@1337-beta</purl>
+            <swid tagId="some-tag" name="dummy-component" version="1337-beta" patch="true">
+                <text content-type="some context type" encoding="base64">some context</text>
+                <url>https://localhost/swid</url>
+            </swid>
+            <externalReferences>
+                <reference type="release-notes">
+                    <url>./other/file</url>
+                </reference>
+                <reference type="support">
+                    <url>https://localhost/acme/support</url>
+                </reference>
+                <reference type="vcs">
+                    <url>git+https://localhost/acme.git</url>
+                </reference>
+                <reference type="website">
+                    <url>https://localhost/acme</url>
+                    <comment>testing</comment>
+                </reference>
+            </externalReferences>
+            <evidence>
+                <licenses>
+                    <license>
+                        <name>License.txt</name>
+                        <text content-type="text/plain" encoding="base64">VEhFIFNPRlRXQVJFIElTIFBST1ZJREVEIOKAnEFTIElT4oCdLCBXSVRIT1VUIFdBUlJBTlRZIE9GIEFOWSBLSU5ELCBFWFBSRVNTIE9SIElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLCBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiBJTiBOTyBFVkVOVCBTSEFMTCBUSEUgQVVUSE9SUyBPUiBDT1BZUklHSFQgSE9MREVSUyBCRSBMSUFCTEUgRk9SIEFOWSBDTEFJTSwgREFNQUdFUyBPUiBPVEhFUiBMSUFCSUxJVFksIFdIRVRIRVIgSU4gQU4gQUNUSU9OIE9GIENPTlRSQUNULCBUT1JUIE9SIE9USEVSV0lTRSwgQVJJU0lORyBGUk9NLCBPVVQgT0YgT1IgSU4gQ09OTkVDVElPTiBXSVRIIFRIRSBTT0ZUV0FSRSBPUiBUSEUgVVNFIE9SIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4=</text>
+                    </license>
+                </licenses>
+                <copyright>
+                    <text>Copyright © 2023 ACME corp</text>
+                </copyright>
+            </evidence>
+        </component>
+        <component type="framework" bom-ref="SomeFrameworkBundle">
+            <name>SomeFrameworkBundle</name>
+            <components>
+                <component type="library" bom-ref="SomeFrameworkBundle#SubComponentA">
+                    <name>SubComponentA</name>
+                </component>
+                <component type="library" bom-ref="SomeFrameworkBundle#SubComponentB">
+                    <name>SubComponentB</name>
+                </component>
+            </components>
+        </component>
+    </components>
+    <dependencies>
+        <dependency ref="a-component"/>
+        <dependency ref="component-with-licenseExpression"/>
+        <dependency ref="component-with-licenses"/>
+        <dependency ref="component-with-licenses-and-expression"/>
+        <dependency ref="component-with-vulnerabilities"/>
+        <dependency ref="ComponentWithProperties"/>
+        <dependency ref="dummy-component">
+            <dependency ref="a-component"/>
+        </dependency>
+        <dependency ref="dummy.metadata.component">
+            <dependency ref="a-component"/>
+            <dependency ref="dummy-component"/>
+            <dependency ref="SomeFrameworkBundle"/>
+        </dependency>
+        <dependency ref="SomeFrameworkBundle">
+            <dependency ref="SomeFrameworkBundle#SubComponentA"/>
+        </dependency>
+        <dependency ref="SomeFrameworkBundle#SubComponentA">
+            <dependency ref="SomeFrameworkBundle#SubComponentB"/>
+        </dependency>
+        <dependency ref="SomeFrameworkBundle#SubComponentB"/>
+    </dependencies>
+    <vulnerabilities>
+        <vulnerability bom-ref="dummy.vulnerability.1">
+            <id>1</id>
+            <source>
+                <name>manual</name>
+            </source>
+            <references>
+                <reference>
+                    <id>CVE-2042-42420</id>
+                    <source>
+                        <url>https://nvd.nist.gov/vuln/detail/CVE-2022-42420</url>
+                    </source>
+                </reference>
+                <reference>
+                    <id>CVE-2042-42421</id>
+                    <source>
+                        <url>https://nvd.nist.gov/vuln/detail/CVE-2022-42421</url>
+                    </source>
+                </reference>
+            </references>
+            <ratings>
+                <rating>
+                    <score>10</score>
+                    <severity>critical</severity>
+                    <method>other</method>
+                    <justification>this is crazy</justification>
+                </rating>
+            </ratings>
+            <cwes>
+                <cwe>42</cwe>
+                <cwe>142</cwe>
+            </cwes>
+            <description>description of 1</description>
+            <detail>detail of 1</detail>
+            <recommendation>recommendation of 1</recommendation>
+            <advisories>
+                <advisory>
+                    <title>vulnerability 1 discovered</title>
+                    <url>https://www.advisories.com/</url>
+                </advisory>
+            </advisories>
+            <created>2023-03-03T00:00:40.000Z</created>
+            <published>2023-03-03T00:00:40.000Z</published>
+            <updated>2023-03-03T00:00:40.000Z</updated>
+            <credits>
+                <organizations>
+                    <organization>
+                        <name>vulnerability researchers inc.</name>
+                        <url>https://vulnerabilities-researchers.com/</url>
+                    </organization>
+                </organizations>
+                <individuals>
+                    <individual>
+                        <name>John "pentester" Doe</name>
+                    </individual>
+                </individuals>
+            </credits>
+            <tools>
+                <tool>
+                    <vendor>v the vendor</vendor>
+                    <name>tool name</name>
+                </tool>
+            </tools>
+            <analysis>
+                <state>false_positive</state>
+                <justification>protected_at_runtime</justification>
+                <responses>
+                    <response>can_not_fix</response>
+                    <response>will_not_fix</response>
+                </responses>
+                <detail>analysis details</detail>
+            </analysis>
+            <affects>
+                <target>
+                    <ref>component-with-vulnerabilities</ref>
+                    <versions>
+                        <version>
+                            <version>1.0.0</version>
+                            <status>affected</status>
+                        </version>
+                    </versions>
+                </target>
+                <target>
+                    <ref>urn:cdx:ac35b126-ef3a-11ed-a05b-0242ac120003/7#component-with-vulnerabilities</ref>
+                    <versions>
+                        <version>
+                            <version>1.0.0</version>
+                            <status>affected</status>
+                        </version>
+                        <version>
+                            <range>&gt; 1.0</range>
+                            <status>unknown</status>
+                        </version>
+                    </versions>
+                </target>
+            </affects>
+            <properties>
+                <property name="a name">a value</property>
+            </properties>
+        </vulnerability>
+        <vulnerability bom-ref="dummy.vulnerability.2">
+            <id>2</id>
+            <source>
+                <name>manual</name>
+            </source>
+            <references>
+                <reference>
+                    <id>CVE-2042-42422</id>
+                    <source>
+                        <url>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-42422</url>
+                    </source>
+                </reference>
+            </references>
+            <ratings>
+                <rating>
+                    <score>10</score>
+                    <severity>critical</severity>
+                    <method>other</method>
+                    <justification>this is crazy</justification>
+                </rating>
+            </ratings>
+            <cwes>
+                <cwe>242</cwe>
+            </cwes>
+            <description>description of 2</description>
+            <detail>detail of 2</detail>
+            <recommendation>recommendation of 2</recommendation>
+            <advisories>
+                <advisory>
+                    <title>vulnerability 2 discovered</title>
+                    <url>https://www.advisories.com/</url>
+                </advisory>
+            </advisories>
+            <created>2023-03-03T00:00:40.000Z</created>
+            <published>2023-03-03T00:00:40.000Z</published>
+            <updated>2023-03-03T00:00:40.000Z</updated>
+            <credits>
+                <organizations>
+                    <organization>
+                        <name>vulnerability researchers inc.</name>
+                        <url>https://vulnerabilities-researchers.com/</url>
+                    </organization>
+                </organizations>
+                <individuals>
+                    <individual>
+                        <name>John "pentester" Doe</name>
+                    </individual>
+                </individuals>
+            </credits>
+            <tools>
+                <tool>
+                    <vendor>v the vendor</vendor>
+                    <name>tool name</name>
+                </tool>
+            </tools>
+            <analysis>
+                <state>false_positive</state>
+                <justification>protected_at_runtime</justification>
+                <responses>
+                    <response>can_not_fix</response>
+                    <response>will_not_fix</response>
+                </responses>
+                <detail>analysis details</detail>
+            </analysis>
+            <affects>
+                <target>
+                    <ref>dummy.metadata.component</ref>
+                    <versions>
+                        <version>
+                            <version>1.0.0</version>
+                            <status>affected</status>
+                        </version>
+                    </versions>
+                </target>
+                <target>
+                    <ref>urn:cdx:ac35b126-ef3a-11ed-a05b-0242ac120003/7#dummy.metadata.component</ref>
+                    <versions>
+                        <version>
+                            <version>1.0.0</version>
+                            <status>affected</status>
+                        </version>
+                        <version>
+                            <range>&gt; 1.0</range>
+                            <status>unknown</status>
+                        </version>
+                    </versions>
+                </target>
+            </affects>
+            <properties>
+                <property name="a name">a value</property>
+            </properties>
+        </vulnerability>
+        <vulnerability bom-ref="vulnerability-1">
+            <id>CVE-2018-7489</id>
+            <source>
+                <name>NVD</name>
+                <url>https://nvd.nist.gov/vuln/detail/CVE-2019-9997</url>
+            </source>
+            <ratings>
+                <rating>
+                    <source>
+                        <name>NVD</name>
+                        <url>https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H&amp;version=3.0</url>
+                    </source>
+                    <score>9.8</score>
+                    <severity>critical</severity>
+                    <method>CVSSv3</method>
+                    <vector>AN/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H</vector>
+                </rating>
+            </ratings>
+            <cwes>
+                <cwe>184</cwe>
+                <cwe>502</cwe>
+            </cwes>
+            <description>FasterXML jackson-databind before 2.7.9.3, 2.8.x before 2.8.11.1 and 2.9.x before 2.9.5 allows unauthenticated remote code execution because of an incomplete fix for the CVE-2017-7525 deserialization flaw. This is exploitable by sending maliciously crafted JSON input to the readValue method of the ObjectMapper, bypassing a blacklist that is ineffective if the c3p0 libraries are available in the classpath.</description>
+            <recommendation>Upgrade com.fasterxml.jackson.core:jackson-databind to version 2.6.7.5, 2.8.11.1, 2.9.5 or higher.</recommendation>
+            <advisories>
+                <advisory>
+                    <title>GitHub Commit</title>
+                    <url>https://github.com/FasterXML/jackson-databind/commit/6799f8f10cc78e9af6d443ed6982d00a13f2e7d2</url>
+                </advisory>
+                <advisory>
+                    <title>GitHub Issue</title>
+                    <url>https://github.com/FasterXML/jackson-databind/issues/1931</url>
+                </advisory>
+            </advisories>
+            <created>2021-08-15T23:42:00.000Z</created>
+            <published>2021-08-15T23:42:00.000Z</published>
+            <updated>2021-08-15T23:42:00.000Z</updated>
+            <analysis>
+                <state>not_affected</state>
+                <justification>code_not_reachable</justification>
+                <responses>
+                    <response>update</response>
+                    <response>will_not_fix</response>
+                </responses>
+                <detail>An optional explanation of why the application is not affected by the vulnerable component.</detail>
+            </analysis>
+            <affects>
+                <target>
+                    <ref>urn:cdx:3e671687-395b-41f5-a30f-a58921a69b79/1#jackson-databind-2.8.0</ref>
+                </target>
+            </affects>
+        </vulnerability>
+    </vulnerabilities>
+</bom>
