@@ -4,13 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased: 3.0.0 --
 
-* Added basic support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5)
-  This affects
-  * Specification in namespace `Spec`
-  * Existing enums in namespace `Enums`
-  * Normalizations and Serialization 
-  * Validation of JSON and XML
-* Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capabilities/bomlink/)
+Added support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5)
+Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capabilities/bomlink/)
 
 ### API changes v3 - the details
 
@@ -21,23 +16,28 @@ All notable changes to this project will be documented in this file.
   * `Serialize.{JSON,Xml}.Normalize.VulnerabilityRatingNormalizer.normalize()` will omit unsupported values for `Models.Vulnerability.Rating.method` (via [#843])  
     This utilizes the new `Spec.Protocol.supportsVulnerabilityRatingMethod()`
 * Added
-  * Enum `Enums.ComponentType` got new members ([#505] via [#843])  
-    New: `Data`, `DeviceDriver`, `MachineLearningModel`, `Platform`
-  * Enum `Enums.ExternalReferenceType` got new members ([#505] via [#843])
-    New: `AdversaryModel`, `Attestation`, `CertificationReport`, `CodifiedInfrastructure`, `ComponentAnalysisReport`,
-    `Configuration`, `DistributionIntake`, `DynamicAnalysisReport`, `Evidence`, `ExploitabilityStatement`, `Formulation`,
-    `Log`, `MaturityReport`, `ModelCard`, `POAM`, `PentestReport`, `QualityMetrics`, `RiskAssessment`, `RuntimeAnalysisReport`,
-    `SecurityContact`, `StaticAnalysisReport`, `ThreatModel`, `VulnerabilityAssertion`,
-  * Enum `Enums.Vulnerability.RatingMethod` got new members ([#505] via [#843])
-    New: `CVSSv4`, `SSVC`
+  * Namespace `Enums` 
+    * Enum `ComponentType` got new members ([#505] via [#843])  
+      New: `Data`, `DeviceDriver`, `MachineLearningModel`, `Platform`
+    * Enum `ExternalReferenceType` got new members ([#505] via [#843])
+      New: `AdversaryModel`, `Attestation`, `CertificationReport`, `CodifiedInfrastructure`, `ComponentAnalysisReport`,
+      `Configuration`, `DistributionIntake`, `DynamicAnalysisReport`, `Evidence`, `ExploitabilityStatement`, `Formulation`,
+      `Log`, `MaturityReport`, `ModelCard`, `POAM`, `PentestReport`, `QualityMetrics`, `RiskAssessment`, `RuntimeAnalysisReport`,
+      `SecurityContact`, `StaticAnalysisReport`, `ThreatModel`, `VulnerabilityAssertion`,
+    * Enum `Vulnerability.RatingMethod` got new members ([#505] via [#843])
+      New: `CVSSv4`, `SSVC`
   * Namespace `Spec`
-    * Enum `Version` got new member `v1dot5` ([#505] via [#843])
-    * New constant `Spec1dot5` ([#505] via [#843])
-    * Constant `SpecVersionDict` got new entry `1.5` ([#505] via [#843])
+    * Enum `Version` got new member `v1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
+    * New constant `Spec1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
+    * Constant `SpecVersionDict` got new entry to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
   * Namespace `Types`
     * New types and predicates to reflect _CycloneDX_ BOM-Link (via [#843])  
       Type definitions: `BomLink`, `BomLinkDocument`, `BomLinkElement`
       Predicates: `isBomLink()`, `isBomLinkDocument()`, `isBomLinkElement()`
+  * Namespace `Validation` 
+    * Class `JsonValidator` supports _CycloneDX_ Specification-1.5 now ([#505] via [#843])
+    * Class `JsonStrictValidator` supports _CycloneDX_ Specification-1.5 now ([#505] via [#843])
+    * Class `XmlValidator` supports _CycloneDX_ Specification-1.5 now ([#505] via [#843])
 
 [#505]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/505
 [#843]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/843
@@ -79,7 +79,7 @@ Added `ComponentEvidence` capabilities.
   * Serializers and `Component`-Normalizers will take `Models.Component.evidence` into account ([#516] via [#753])
   * Serializers and `Bom`-Normalizers will take `Models.Bom.vulnerabilities` into account ([#164] via [#722])
 * Misc
-  Internal rework, modernization, refactoring.
+  * Internal rework, modernization, refactoring
 
 ### API changes v2 - the details
 
