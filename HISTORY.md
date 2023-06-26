@@ -28,8 +28,10 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
       New: `CVSSv4`, `SSVC`
   * Namespace `Spec`
     * Enum `Version` got new member `v1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
-    * New constant `Spec1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
     * Constant `SpecVersionDict` got new entry to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
+    * New constant `Spec1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
+    * Constants `Spec1dot{2,3,4}` got a new method `supportsVulnerabilityRatingMethod()` (via [#843])
+    * Interface `Protocol` has a new method `supportsVulnerabilityRatingMethod()` (via [#843])
   * Namespace `Types`
     * New types and predicates to reflect _CycloneDX_ BOM-Link (via [#843])  
       Type definitions: `BomLink`, `BomLinkDocument`, `BomLinkElement`
