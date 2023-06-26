@@ -17,23 +17,46 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-/** @see {@link isBomLinkDocument} */
+/**
+ * See [the docs](https://cyclonedx.org/capabilities/bomlink/)
+ * @see {@link isBomLinkDocument}
+ */
 export type BomLinkDocument = string
-/** @see {@link isBomLinkElement} */
+/**
+ * See [the docs](https://cyclonedx.org/capabilities/bomlink/)
+ * @see {@link isBomLinkElement}
+ */
 export type BomLinkElement = string
-/** @see {@link https://cyclonedx.org/capabilities/bomlink/} */
+/**
+ * See [the docs](https://cyclonedx.org/capabilities/bomlink/)
+ * @see {@link isBomLink}
+ */
 export type BomLink = BomLinkDocument | BomLinkElement
 
 /* regular expressions were taken from the CycloneDX schema definitions. */
-const bomLinkDocumentPattern = /urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*/
-const bomLinkElementPattern = /urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*#.+/
+const bomLinkDocumentPattern = /^urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*$/
+const bomLinkElementPattern = /^urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*#.+$/
 
+/**
+ * See [the docs](https://cyclonedx.org/capabilities/bomlink/)
+ */
 export function isBomLinkDocument (value: any): value is BomLinkDocument {
   return typeof value === 'string' &&
     bomLinkDocumentPattern.test(value)
 }
 
+/**
+ * See [the docs](https://cyclonedx.org/capabilities/bomlink/)
+ */
 export function isBomLinkElement (value: any): value is BomLinkElement {
   return typeof value === 'string' &&
     bomLinkElementPattern.test(value)
+}
+
+/**
+ * See [the docs](https://cyclonedx.org/capabilities/bomlink/)
+ */
+export function isBomLink (value: any): value is BomLink {
+  return isBomLinkDocument(value) ||
+    isBomLinkElement(value)
 }

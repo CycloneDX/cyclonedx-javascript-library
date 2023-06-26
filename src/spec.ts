@@ -338,7 +338,7 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
   true
 ))
 
-/** @TODO  Specification v1.5 */
+/** Specification v1.5 */
 export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
   Version.v1dot5,
   [
