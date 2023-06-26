@@ -41,7 +41,8 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
     * Class `JsonStrictValidator` supports _CycloneDX_ Specification-1.5 now ([#505] via [#843])
     * Class `XmlValidator` supports _CycloneDX_ Specification-1.5 now ([#505] via [#843])
 * Misc
-  * Added functional and integration tests for _CycloneDX_ Specification-1.5 ([#505] via [#843]) 
+  * Added functional and integration tests for _CycloneDX_ Specification-1.5 ([#505] via [#843])
+  * Fetched latest stable schema definition files for offline usage (via [#843])
 
 [#505]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/505
 [#843]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/843
