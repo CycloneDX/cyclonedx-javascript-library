@@ -2,10 +2,45 @@
 
 All notable changes to this project will be documented in this file.
 
-## unreleased
+## unreleased: 3.0.0 --
 
+* Added basic support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5)
+  This affects
+  * Specification in namespace `Spec`
+  * Existing enums in namespace `Enums`
+  * Normalizations and Serialization 
+  * Validation of JSON and XML
+* Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capabilities/bomlink/)
+
+### API changes v3 - the details
+
+* BREAKING
+  * Interface `Spec.Protocol` now defines a new mandatory method `supportsVulnerabilityRatingMethod()` (via [#843])  
+    This is only a breaking change, if you custom-implemented this interface downstream; internal usage is non-breaking.
+* Changed
+  * `Serialize.{JSON,Xml}.Normalize.VulnerabilityRatingNormalizer.normalize()` will omit unsupported values for `Models.Vulnerability.Rating.method` (via [#843])  
+    This utilizes the new `Spec.Protocol.supportsVulnerabilityRatingMethod()`
 * Added
-  * Support [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5)
+  * Enum `Enums.ComponentType` got new members ([#505] via [#843])  
+    New: `Data`, `DeviceDriver`, `MachineLearningModel`, `Platform`
+  * Enum `Enums.ExternalReferenceType` got new members ([#505] via [#843])
+    New: `AdversaryModel`, `Attestation`, `CertificationReport`, `CodifiedInfrastructure`, `ComponentAnalysisReport`,
+    `Configuration`, `DistributionIntake`, `DynamicAnalysisReport`, `Evidence`, `ExploitabilityStatement`, `Formulation`,
+    `Log`, `MaturityReport`, `ModelCard`, `POAM`, `PentestReport`, `QualityMetrics`, `RiskAssessment`, `RuntimeAnalysisReport`,
+    `SecurityContact`, `StaticAnalysisReport`, `ThreatModel`, `VulnerabilityAssertion`,
+  * Enum `Enums.Vulnerability.RatingMethod` got new members ([#505] via [#843])
+    New: `CVSSv4`, `SSVC`
+  * Namespace `Spec`
+    * Enum `Version` got new member `v1dot5` ([#505] via [#843])
+    * New constant `Spec1dot5` ([#505] via [#843])
+    * Constant `SpecVersionDict` got new entry `1.5` ([#505] via [#843])
+  * Namespace `Types`
+    * New types and predicates to reflect _CycloneDX_ BOM-Link (via [#843])  
+      Type definitions: `BomLink`, `BomLinkDocument`, `BomLinkElement`
+      Predicates: `isBomLink()`, `isBomLinkDocument()`, `isBomLinkElement()`
+
+[#505]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/505
+[#843]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/843
 
 ## 2.1.0 -- 2023-06-10
 
