@@ -861,7 +861,7 @@ export class VulnerabilityReferenceNormalizer extends BaseXmlNormalizer<Models.V
 }
 
 export class VulnerabilityRatingNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Rating> {
-  normalize (data: Models.Vulnerability.Rating, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
+  normalize (data: Models.Vulnerability.Rating, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     return {
       type: 'element',
       name: elementName,
@@ -885,9 +885,7 @@ export class VulnerabilityRatingNormalizer extends BaseXmlNormalizer<Models.Vuln
       options.sortLists ?? false
         ? data.sorted()
         : Array.from(data)
-    ).map(
-      r => this.normalize(r, options, elementName)
-    ).filter(isNotUndefined)
+    ).map(r => this.normalize(r, options, elementName))
   }
 }
 
