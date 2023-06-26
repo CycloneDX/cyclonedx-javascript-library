@@ -681,7 +681,9 @@ export class VulnerabilityRatingNormalizer extends BaseJsonNormalizer<Models.Vul
         : this._factory.makeForVulnerabilitySource().normalize(data.source, options),
       score: data.score,
       severity: data.severity,
-      method: data.method,
+      method: this._factory.spec.supportsVulnerabilityRatingMethod(data.method)
+        ? data.method
+        : undefined,
       vector: data.vector,
       justification: data.justification
     }
