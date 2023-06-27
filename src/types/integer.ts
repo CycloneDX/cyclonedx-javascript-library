@@ -29,7 +29,7 @@ export function isInteger (value: any): value is Integer {
 }
 
 /**
- * Integer greater than 0
+ * Integer greater than or equal to `0`
  *
  * @see {@link isNonNegativeInteger}
  */
@@ -41,7 +41,7 @@ export function isNonNegativeInteger (value: any): value is NonNegativeInteger {
 }
 
 /**
- * Integer greater 0
+ * Integer greater `0`
  *
  * @see {@link isPositiveInteger}
  */
