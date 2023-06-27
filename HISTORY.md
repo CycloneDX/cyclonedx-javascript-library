@@ -14,16 +14,13 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
     This is only a breaking change, if you custom-implemented this interface downstream; internal usage is non-breaking.
 * Changed
   * `Serialize.{JSON,Xml}.Normalize.VulnerabilityRatingNormalizer.normalize()` will omit unsupported values for `Models.Vulnerability.Rating.method` (via [#843])  
-    This utilizes the new `Spec.Protocol.supportsVulnerabilityRatingMethod()`
+    This utilizes the new `Spec.Protocol.supportsVulnerabilityRatingMethod()`.
 * Added
   * Namespace `Enums` 
     * Enum `ComponentType` got new members ([#505] via [#843])  
       New: `Data`, `DeviceDriver`, `MachineLearningModel`, `Platform`
     * Enum `ExternalReferenceType` got new members ([#505] via [#843])
-      New: `AdversaryModel`, `Attestation`, `CertificationReport`, `CodifiedInfrastructure`, `ComponentAnalysisReport`,
-      `Configuration`, `DistributionIntake`, `DynamicAnalysisReport`, `Evidence`, `ExploitabilityStatement`, `Formulation`,
-      `Log`, `MaturityReport`, `ModelCard`, `POAM`, `PentestReport`, `QualityMetrics`, `RiskAssessment`, `RuntimeAnalysisReport`,
-      `SecurityContact`, `StaticAnalysisReport`, `ThreatModel`, `VulnerabilityAssertion`,
+      New: `AdversaryModel`, `Attestation`, `CertificationReport`, `CodifiedInfrastructure`, `ComponentAnalysisReport`, `Configuration`, `DistributionIntake`, `DynamicAnalysisReport`, `Evidence`, `ExploitabilityStatement`, `Formulation`, `Log`, `MaturityReport`, `ModelCard`, `POAM`, `PentestReport`, `QualityMetrics`, `RiskAssessment`, `RuntimeAnalysisReport`, `SecurityContact`, `StaticAnalysisReport`, `ThreatModel`, `VulnerabilityAssertion`
     * Enum `Vulnerability.RatingMethod` got new members ([#505] via [#843])
       New: `CVSSv4`, `SSVC`
   * Namespace `Spec`
