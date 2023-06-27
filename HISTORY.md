@@ -13,10 +13,16 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
   * Interface `Spec.Protocol` now defines a new mandatory method `supportsVulnerabilityRatingMethod()` (via [#843])  
     This is only a breaking change if you custom-implemented this interface downstream; internal usage is non-breaking.
 * Changed
-  * Classes `Serialize.{JSON,XML}.Normalize.*` support _CycloneDX_ Specification-1.5 now ([#505] via [#843])
-  * Functions `Serialize.{JSON,Xml}.Normalize.VulnerabilityRatingNormalizer.normalize()` omit unsupported values for `Models.Vulnerability.Rating.method` (via [#843])  
-    This utilizes the new method `Spec.Protocol.supportsVulnerabilityRatingMethod()`.
-  * Classes `Validation\{Json,JsonStrict,Xml}Validator` support _CycloneDX_ Specification-1.5 now ([#505] via [#843])
+  * Namespace `Models`
+    * Method `BomRef.compare()` accepts every stringable now, was `Models.BomRef` only (via [#856])
+    * Class `ExternalReference`'s property `url` also accepts `BomLink` now, was `URL|string` only (via [#856])
+    * Class `Vulnerability.Affect`'s property `ref` also accepts `BomLinkElement` now, was `BomRef` only (via [#856])
+  * Namespace `Serialize.{JSON,XML}.Normalize`
+    * All classes support _CycloneDX_ Specification-1.5 now ([#505] via [#843])
+    * Methods `VulnerabilityRatingNormalizer.normalize()` omit unsupported values for `Models.Vulnerability.Rating.method` (via [#843])  
+      This utilizes the new method `Spec.Protocol.supportsVulnerabilityRatingMethod()`.
+  * Namespace `Validation`
+    * Classes `{Json,JsonStrict,Xml}Validator` support _CycloneDX_ Specification-1.5 now ([#505] via [#843])
 * Added
   * Namespace `Enums` 
     * Enum `ComponentType` got new members ([#505] via [#843])  
@@ -26,7 +32,8 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
     * Enum `Vulnerability.RatingMethod` got new members ([#505] via [#843])  
       New: `CVSSv4`, `SSVC`
   * Namespace `Models`
-    * New classes `BomLinkDocument` and `BomLinkDocument` to represent _CycloneDX_ BOM-Link (via [#843], [#]) 
+    * New classes `BomLinkDocument` and `BomLinkDocument` to represent _CycloneDX_ BOM-Link (via [#843], [#856]) 
+    * New TypeAlias `BomLink` to represent _CycloneDX_ BOM-Link (via [#843], [#856])
   * Namespace `Spec`
     * Enum `Version` got new member `v1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
     * Constant `SpecVersionDict` got new entry to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
@@ -35,14 +42,16 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
     * Interface `Protocol` has a new method `supportsVulnerabilityRatingMethod()` (via [#843])
 * Misc
   * Added functional and integration tests for _CycloneDX_ Specification-1.5 ([#505] via [#843])
+  * Added unit tests for _CycloneDX_ BOM-Link (via [#843], [#856])
   * Fetched latest stable schema definition files for offline usage (via [#843])
+  * Improved internal documentation (via [#856])
 * Build
   * Use _Webpack_ `v5.88.0` now, was `v5.86.0` (via [#841])
 
 [#505]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/505
 [#841]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/841
 [#843]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/843
-[#]: 
+[#856]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/856
 
 ## 2.1.0 -- 2023-06-10
 

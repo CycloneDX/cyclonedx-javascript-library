@@ -66,7 +66,7 @@ export namespace JsonSchema {
 export namespace Normalized {
 
   export type RefType = string
-  export type RefLinkType = string
+  export type RefLinkType = RefType
 
   export type BomLinkDocumentType = string
   export type BomLinkElementType = string
