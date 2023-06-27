@@ -2,7 +2,47 @@
 
 All notable changes to this project will be documented in this file.
 
-## unreleased
+## unreleased: 3.0.0 --
+
+Added support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5).
+Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capabilities/bomlink/).
+
+### API changes v3 - the details
+
+* BREAKING
+  * Interface `Spec.Protocol` now defines a new mandatory method `supportsVulnerabilityRatingMethod()` (via [#843])  
+    This is only a breaking change, if you custom-implemented this interface downstream; internal usage is non-breaking.
+* Changed
+  * `Serialize.{JSON,Xml}.Normalize.VulnerabilityRatingNormalizer.normalize()` will omit unsupported values for `Models.Vulnerability.Rating.method` (via [#843])  
+    This utilizes the new `Spec.Protocol.supportsVulnerabilityRatingMethod()`.
+* Added
+  * Namespace `Enums` 
+    * Enum `ComponentType` got new members ([#505] via [#843])  
+      New: `Data`, `DeviceDriver`, `MachineLearningModel`, `Platform`
+    * Enum `ExternalReferenceType` got new members ([#505] via [#843])  
+      New: `AdversaryModel`, `Attestation`, `CertificationReport`, `CodifiedInfrastructure`, `ComponentAnalysisReport`, `Configuration`, `DistributionIntake`, `DynamicAnalysisReport`, `Evidence`, `ExploitabilityStatement`, `Formulation`, `Log`, `MaturityReport`, `ModelCard`, `POAM`, `PentestReport`, `QualityMetrics`, `RiskAssessment`, `RuntimeAnalysisReport`, `SecurityContact`, `StaticAnalysisReport`, `ThreatModel`, `VulnerabilityAssertion`
+    * Enum `Vulnerability.RatingMethod` got new members ([#505] via [#843])  
+      New: `CVSSv4`, `SSVC`
+  * Namespace `Spec`
+    * Enum `Version` got new member `v1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
+    * Constant `SpecVersionDict` got new entry to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
+    * New constant `Spec1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
+    * Constants `Spec1dot{2,3,4}` got a new method `supportsVulnerabilityRatingMethod()` (via [#843])
+    * Interface `Protocol` has a new method `supportsVulnerabilityRatingMethod()` (via [#843])
+  * Namespace `Types`
+    * New types and predicates to reflect _CycloneDX_ BOM-Link (via [#843])  
+      Type definitions: `BomLink`, `BomLinkDocument`, `BomLinkElement`  
+      Predicates: `isBomLink()`, `isBomLinkDocument()`, `isBomLinkElement()`
+  * Namespace `Validation` 
+    * Class `JsonValidator` supports _CycloneDX_ Specification-1.5 now ([#505] via [#843])
+    * Class `JsonStrictValidator` supports _CycloneDX_ Specification-1.5 now ([#505] via [#843])
+    * Class `XmlValidator` supports _CycloneDX_ Specification-1.5 now ([#505] via [#843])
+* Misc
+  * Added functional and integration tests for _CycloneDX_ Specification-1.5 ([#505] via [#843])
+  * Fetched latest stable schema definition files for offline usage (via [#843])
+
+[#505]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/505
+[#843]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/843
 
 ## 2.1.0 -- 2023-06-10
 
@@ -41,7 +81,7 @@ Added `ComponentEvidence` capabilities.
   * Serializers and `Component`-Normalizers will take `Models.Component.evidence` into account ([#516] via [#753])
   * Serializers and `Bom`-Normalizers will take `Models.Bom.vulnerabilities` into account ([#164] via [#722])
 * Misc
-  Internal rework, modernization, refactoring.
+  * Internal rework, modernization, refactoring
 
 ### API changes v2 - the details
 
