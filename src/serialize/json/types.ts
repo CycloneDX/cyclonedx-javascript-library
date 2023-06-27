@@ -66,6 +66,11 @@ export namespace JsonSchema {
 export namespace Normalized {
 
   export type RefType = string
+  export type RefLinkType = string
+
+  export type BomLinkDocumentType = string
+  export type BomLinkElementType = string
+  export type BomLink = BomLinkDocumentType | BomLinkElementType
 
   export interface Bom {
     $schema?: string
@@ -183,7 +188,7 @@ export namespace Normalized {
   }
 
   export interface ExternalReference {
-    url: string
+    url: JsonSchema.IriReference | BomLink
     type: Enums.ExternalReferenceType
     comment?: string
   }
@@ -200,8 +205,8 @@ export namespace Normalized {
   }
 
   export interface Dependency {
-    ref: RefType
-    dependsOn?: RefType[]
+    ref: RefLinkType
+    dependsOn?: RefLinkType[]
   }
 
   export interface Vulnerability {
@@ -248,7 +253,7 @@ export namespace Normalized {
 
     export interface Advisory {
       title?: string
-      url: string
+      url: JsonSchema.IriReference
     }
 
     export interface Credits {
@@ -264,7 +269,7 @@ export namespace Normalized {
     }
 
     export interface Affect {
-      ref: RefType
+      ref: RefLinkType | BomLinkElementType
       versions?: AffectedVersion[]
     }
 

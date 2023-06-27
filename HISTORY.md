@@ -25,16 +25,14 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
       New: `AdversaryModel`, `Attestation`, `CertificationReport`, `CodifiedInfrastructure`, `ComponentAnalysisReport`, `Configuration`, `DistributionIntake`, `DynamicAnalysisReport`, `Evidence`, `ExploitabilityStatement`, `Formulation`, `Log`, `MaturityReport`, `ModelCard`, `POAM`, `PentestReport`, `QualityMetrics`, `RiskAssessment`, `RuntimeAnalysisReport`, `SecurityContact`, `StaticAnalysisReport`, `ThreatModel`, `VulnerabilityAssertion`
     * Enum `Vulnerability.RatingMethod` got new members ([#505] via [#843])  
       New: `CVSSv4`, `SSVC`
+  * Namespace `Models`
+    * New classes `BomLinkDocument` and `BomLinkDocument` to represent _CycloneDX_ BOM-Link (via [#843], [#]) 
   * Namespace `Spec`
     * Enum `Version` got new member `v1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
     * Constant `SpecVersionDict` got new entry to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
     * New constant `Spec1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
     * Constants `Spec1dot{2,3,4}` got a new method `supportsVulnerabilityRatingMethod()` (via [#843])
     * Interface `Protocol` has a new method `supportsVulnerabilityRatingMethod()` (via [#843])
-  * Namespace `Types`
-    * New types and predicates to reflect _CycloneDX_ BOM-Link (via [#843])  
-      Type definitions: `BomLink`, `BomLinkDocument`, `BomLinkElement`  
-      Predicates: `isBomLink()`, `isBomLinkDocument()`, `isBomLinkElement()`
 * Misc
   * Added functional and integration tests for _CycloneDX_ Specification-1.5 ([#505] via [#843])
   * Fetched latest stable schema definition files for offline usage (via [#843])
@@ -44,6 +42,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
 [#505]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/505
 [#841]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/841
 [#843]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/843
+[#]: 
 
 ## 2.1.0 -- 2023-06-10
 
