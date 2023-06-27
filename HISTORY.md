@@ -33,7 +33,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
       New: `CVSSv4`, `SSVC`
   * Namespace `Models`
     * New classes `BomLinkDocument` and `BomLinkDocument` to represent _CycloneDX_ BOM-Link (via [#843], [#856]) 
-    * New TypeAlias `BomLink` to represent _CycloneDX_ BOM-Link (via [#843], [#856])
+    * New type `BomLink` to represent _CycloneDX_ BOM-Link (via [#843], [#856])
   * Namespace `Spec`
     * Enum `Version` got new member `v1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
     * Constant `SpecVersionDict` got new entry to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
