@@ -40,8 +40,11 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
 * Misc
   * Added functional and integration tests for _CycloneDX_ Specification-1.5 ([#505] via [#843])
   * Fetched latest stable schema definition files for offline usage (via [#843])
+* Build
+  * Use _Webpack_ `v5.88.0` now, was `v5.86.0` (via [#841])
 
 [#505]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/505
+[#841]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/841
 [#843]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/843
 
 ## 2.1.0 -- 2023-06-10
@@ -51,7 +54,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
     Previously, only instances were available via `Serialize.Xml.Normalize.Factory.makeForVulnerability*()`.
 * Build
   * Use _TypeScript_ `v5.1.3` now, was `v5.0.4` (via [#790])
-  * Use _Webpack_ `v5.82.1` now, was `v5.80.0` (via [#802])
+  * Use _Webpack_ `v5.86.0` now, was `v5.82.1` (via [#802])
 
 [#790]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/790
 [#802]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/802
