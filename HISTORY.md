@@ -32,7 +32,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
     * Enum `Vulnerability.RatingMethod` got new members ([#505] via [#843])  
       New: `CVSSv4`, `SSVC`
   * Namespace `Models`
-    * New classes `BomLinkDocument` and `BomLinkDocument` to represent _CycloneDX_ BOM-Link (via [#843], [#856]) 
+    * New classes `BomLinkDocument` and `BomLinkDocument` to represent _CycloneDX_ BOM-Link (via [#843], [#856], [#857])
     * New type `BomLink` to represent _CycloneDX_ BOM-Link (via [#843], [#856])
   * Namespace `Spec`
     * Enum `Version` got new member `v1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
@@ -52,6 +52,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
 [#841]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/841
 [#843]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/843
 [#856]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/856
+[#857]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/857
 
 ## 2.1.0 -- 2023-06-10
 
