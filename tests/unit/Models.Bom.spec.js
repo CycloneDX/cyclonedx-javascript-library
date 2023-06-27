@@ -42,7 +42,7 @@ suite('Models.Bom', () => {
   })
 
   test('construct with preset properties', () => {
-    const version = Math.round(Math.random() * 1000)
+    const version = Math.max(1, Math.round(Math.random() * Number.MAX_SAFE_INTEGER))
     const serialNumber = 'urn:uuid:12345678-4321-0987-6547-abcdef123456'
     const metadata = new Metadata()
     const components = new ComponentRepository()
