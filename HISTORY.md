@@ -19,9 +19,9 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
   * Namespace `Enums` 
     * Enum `ComponentType` got new members ([#505] via [#843])  
       New: `Data`, `DeviceDriver`, `MachineLearningModel`, `Platform`
-    * Enum `ExternalReferenceType` got new members ([#505] via [#843])
+    * Enum `ExternalReferenceType` got new members ([#505] via [#843])  
       New: `AdversaryModel`, `Attestation`, `CertificationReport`, `CodifiedInfrastructure`, `ComponentAnalysisReport`, `Configuration`, `DistributionIntake`, `DynamicAnalysisReport`, `Evidence`, `ExploitabilityStatement`, `Formulation`, `Log`, `MaturityReport`, `ModelCard`, `POAM`, `PentestReport`, `QualityMetrics`, `RiskAssessment`, `RuntimeAnalysisReport`, `SecurityContact`, `StaticAnalysisReport`, `ThreatModel`, `VulnerabilityAssertion`
-    * Enum `Vulnerability.RatingMethod` got new members ([#505] via [#843])
+    * Enum `Vulnerability.RatingMethod` got new members ([#505] via [#843])  
       New: `CVSSv4`, `SSVC`
   * Namespace `Spec`
     * Enum `Version` got new member `v1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
@@ -31,7 +31,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
     * Interface `Protocol` has a new method `supportsVulnerabilityRatingMethod()` (via [#843])
   * Namespace `Types`
     * New types and predicates to reflect _CycloneDX_ BOM-Link (via [#843])  
-      Type definitions: `BomLink`, `BomLinkDocument`, `BomLinkElement`
+      Type definitions: `BomLink`, `BomLinkDocument`, `BomLinkElement`  
       Predicates: `isBomLink()`, `isBomLinkDocument()`, `isBomLinkElement()`
   * Namespace `Validation` 
     * Class `JsonValidator` supports _CycloneDX_ Specification-1.5 now ([#505] via [#843])
