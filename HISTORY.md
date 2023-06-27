@@ -4,8 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased: 3.0.0 --
 
-Added support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5)
-Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capabilities/bomlink/)
+Added support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5).
+Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capabilities/bomlink/).
 
 ### API changes v3 - the details
 
