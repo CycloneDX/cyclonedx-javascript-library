@@ -24,7 +24,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
     * Enum `Vulnerability.RatingMethod` got new members ([#505] via [#843])  
       New: `CVSSv4`, `SSVC`
   * Namespace `Serialize`
-    * Classes `{JSON,XML}.Normalize.*` supports _CycloneDX_ Specification-1.5 now ([#505] via [#843])
+    * Classes `{JSON,XML}.Normalize.*` support _CycloneDX_ Specification-1.5 now ([#505] via [#843])
   * Namespace `Spec`
     * Enum `Version` got new member `v1dot5` to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
     * Constant `SpecVersionDict` got new entry to reflect _CycloneDX_ Specification-1.5 ([#505] via [#843])
