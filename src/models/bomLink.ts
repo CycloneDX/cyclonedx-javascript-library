@@ -24,12 +24,19 @@ abstract class BomLinkBase implements Stringable, Comparable<Stringable> {
   /* @ts-expect-error TS2564 */
   #value: string
 
+  /** @internal */
   protected abstract _isValid (value: any): boolean
 
+  /**
+   * @throws {@link RangeError} if value is invalid
+   */
   constructor (value: string) {
     this.value = value
   }
 
+  /**
+   * @throws {@link RangeError} if value is invalid
+   */
   set value (value: string) {
     if (!this._isValid(value)) {
       throw new RangeError('invalid value')
@@ -51,41 +58,54 @@ abstract class BomLinkBase implements Stringable, Comparable<Stringable> {
 }
 
 /**
+ * Descriptor for another BOM document.
+ *
  * See [the docs](https://cyclonedx.org/capabilities/bomlink/)
  */
 export class BomLinkDocument extends BomLinkBase {
   /* regular expressions were taken from the CycloneDX schema definitions. */
   static #pattern = /^urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*$/
 
+  /**
+   * Whether the `value` is a valid descriptor for another BOM document.
+   */
   static isValid (value: any): boolean {
     return typeof value === 'string' &&
-      BomLinkDocument.#pattern.test(value)
+      this.#pattern.test(value)
   }
 
+  /** @internal */
   protected _isValid (value: any): boolean {
     return BomLinkDocument.isValid(value)
   }
 }
 
 /**
+ * Descriptor for an element in a BOM document.
+ *
  * See [the docs](https://cyclonedx.org/capabilities/bomlink/)
  */
 export class BomLinkElement extends BomLinkBase {
   /* regular expressions were taken from the CycloneDX schema definitions. */
   static #pattern = /^urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*#.+$/
 
+  /**
+   * Whether the `value` is a valid descriptor for an element in a BOM document.
+   */
   static isValid (value: any): boolean {
     return typeof value === 'string' &&
-      BomLinkElement.#pattern.test(value)
+      this.#pattern.test(value)
   }
 
+  /** @internal */
   protected _isValid (value: any): boolean {
     return BomLinkElement.isValid(value)
   }
 }
 
 /**
+ * Either {@link BomLinkDocument} or {@link BomLinkElement}.
+ *
  * See [the docs](https://cyclonedx.org/capabilities/bomlink/)
- * @see {@link isBomLink}
  */
 export type BomLink = BomLinkDocument | BomLinkElement
