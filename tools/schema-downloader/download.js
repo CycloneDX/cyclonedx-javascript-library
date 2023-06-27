@@ -29,7 +29,7 @@ const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/1
 const TARGET_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'res', 'schema')
 
 const BomXsd = Object.freeze({
-  versions: ['1.5', '1.4', '1.0', '1.1', '1.2', '1.3'],
+  versions: ['1.5', '1.4', '1.3', '1.2', '1.1', '1.0'],
   sourcePattern: `${SOURCE_ROOT}bom-%s.xsd`,
   targetPattern: join(TARGET_ROOT, 'bom-%s.SNAPSHOT.xsd'),
   replace: Object.freeze([
@@ -70,7 +70,7 @@ const BomJsonLax = Object.freeze({
 })
 
 const BomJsonStrict = Object.freeze({
-  versions: ['1.2', '1.3'],
+  versions: ['1.3', '1.2'],
   sourcePattern: `${SOURCE_ROOT}bom-%s-strict.schema.json`,
   targetPattern: join(TARGET_ROOT, 'bom-%s-strict.SNAPSHOT.schema.json'),
   replace: BomJsonLax.replace
