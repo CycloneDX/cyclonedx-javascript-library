@@ -50,6 +50,7 @@ written in _TypeScript_ and compiled for the target.
 * Data models for the following use cases:
   * `Attachment`
   * `Bom`
+  * `BomLink`, `BomLinkDocument`, `BomLinkElement`
   * `BomRef`, `BomRefRepository`
   * `Component`, `ComponentRepository`, `ComponentEvidence`
   * `ExternalReference`, `ExternalReferenceRepository`
