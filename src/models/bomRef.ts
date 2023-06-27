@@ -17,18 +17,21 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import type { Comparable } from '../_helpers/sortable'
+import type { Stringable } from '../_helpers/stringable'
+
 /**
  * Proxy for the BomRef.
  * This way a `BomRef` gets unique by the in-memory-address of the object.
  */
-export class BomRef {
+export class BomRef implements Stringable, Comparable<Stringable> {
   value?: string
 
   constructor (value?: BomRef['value']) {
     this.value = value
   }
 
-  compare (other: BomRef): number {
+  compare (other: Stringable): number {
     return this.toString().localeCompare(other.toString())
   }
 

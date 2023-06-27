@@ -19,6 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 export * from './attachment'
 export * from './bom'
+export * from './bomLink'
 export * from './bomRef'
 export * from './component'
 export * from './externalReference'

@@ -20,13 +20,14 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { Comparable } from '../_helpers/sortable'
 import { SortableComparables } from '../_helpers/sortable'
 import type { ExternalReferenceType } from '../enums'
+import type { BomLink } from './bomLink'
 
 export interface OptionalExternalReferenceProperties {
   comment?: ExternalReference['comment']
 }
 
 export class ExternalReference implements Comparable<ExternalReference> {
-  url: URL | string
+  url: URL | BomLink | string
   type: ExternalReferenceType
   comment?: string
 
