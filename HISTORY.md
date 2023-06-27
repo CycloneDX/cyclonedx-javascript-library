@@ -11,7 +11,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
 
 * BREAKING
   * Interface `Spec.Protocol` now defines a new mandatory method `supportsVulnerabilityRatingMethod()` (via [#843])  
-    This is only a breaking change, if you custom-implemented this interface downstream; internal usage is non-breaking.
+    This is only a breaking change if you custom-implemented this interface downstream; internal usage is non-breaking.
 * Changed
   * `Serialize.{JSON,Xml}.Normalize.VulnerabilityRatingNormalizer.normalize()` will omit unsupported values for `Models.Vulnerability.Rating.method` (via [#843])  
     This utilizes the new `Spec.Protocol.supportsVulnerabilityRatingMethod()`.
