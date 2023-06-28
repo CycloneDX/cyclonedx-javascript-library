@@ -7,6 +7,18 @@ All notable changes to this project will be documented in this file.
 Added support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5).  
 Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capabilities/bomlink/).  
 
+* BREAKING
+  * Interface `Spec.Protocol` now defines new mandatory methods (via [#843])  
+    This is only a breaking change if you custom-implemented this interface downstream; internal usage is non-breaking.
+* Changed
+  * Normalizers support _CycloneDX_ Specification-1.5 ([#505] via [#843])
+  * Validators support _CycloneDX_ Specification-1.5 ([#505] via [#843])
+  * Some models' properties were widened to support _CycloneDX_ BOM-Link (via [#856])
+* Added
+  * Existing `Enums` got the new members and values for _CycloneDX_ Specification-1.5 ([#505] via [#843])
+  * Namespace `Spec` was enhanced for _CycloneDX_ Specification-1.5 ([#505] via [#843])
+  * Dedicated classes and types for _CycloneDX_ BOM-Link (via [#843], [#856], [#857])
+
 ### API changes v3 - the details
 
 * BREAKING
