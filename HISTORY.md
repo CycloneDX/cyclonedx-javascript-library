@@ -46,6 +46,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
   * Fetched latest stable schema definition files for offline usage (via [#843])
   * Improved internal documentation (via [#856])
 * Build
+  * Use _TypeScript_ `v5.1.5` now, was `v5.1.3` (via [#860])
   * Use _Webpack_ `v5.88.0` now, was `v5.86.0` (via [#841])
 
 [#505]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/505
@@ -53,6 +54,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
 [#843]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/843
 [#856]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/856
 [#857]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/857
+[#860]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/860
 
 ## 2.1.0 -- 2023-06-10
 
