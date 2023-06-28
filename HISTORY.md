@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## unreleased: 3.0.0 --
+## 3.0.0 -- 2023-06-28
 
 Added support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5).  
 Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capabilities/bomlink/).  
@@ -80,7 +80,7 @@ Added `ComponentEvidence` capabilities.
     It will try to create `Models.SpdxLicense` if value is eligible,
     else try to create `Models.LicenseExpression` if value is eligible,
     else fall back to `Models.NamedLicense`.
-  * revisited sort and compare:
+  * Revisited sort and compare:
     * Methods `Models.*.compare()` may return different numbers than before.
     * Methods `Models.*.sorted()` may return different orders than before.
   * Removed deprecated symbols ([#747] via [#752])
