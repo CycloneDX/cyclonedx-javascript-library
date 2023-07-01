@@ -25,32 +25,34 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 module.exports = {
   root: true,
-  extends: [
-    /* see https://github.com/standard/ts-standard */
-    'standard-with-typescript'
-  ],
-  parserOptions: {
-    project: './tsconfig.json'
-  },
   plugins: [
     /* see https://github.com/lydell/eslint-plugin-simple-import-sort#readme */
     'simple-import-sort',
     /* see https://github.com/Stuk/eslint-plugin-header#readme */
-    'header',
-    /* see https://github.com/microsoft/tsdoc */
-    'eslint-plugin-tsdoc'
+    'header'
   ],
   env: {
     commonjs: true,
     browser: true,
     node: true
   },
+  rules: {
+    // region sort imports/exports
+    /* disable other sorters in favour of `simple-import-sort` */
+    'import/order': 0,
+    'sort-imports': 0,
+    /* see https://github.com/lydell/eslint-plugin-simple-import-sort/ */
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+    // endregion sort imports/exports
+    // region license-header
+    /* see https://github.com/Stuk/eslint-plugin-header#readme */
+    'header/header': ['error', './.license-header.js']
+    // endregion license-header
+  },
   overrides: [
     {
-      files: [
-        '*.spec.*',
-        '*.test.*'
-      ],
+      files: ['*.spec.*', '*.test.*'],
       env: {
         mocha: true,
         commonjs: true,
@@ -59,18 +61,47 @@ module.exports = {
       }
     },
     {
+      files: ['*.ts'],
+      extends: [
+        /* see https://github.com/standard/ts-standard */
+        'standard-with-typescript'
+      ],
+      plugins: [
+        /* see https://github.com/microsoft/tsdoc */
+        'eslint-plugin-tsdoc'
+      ],
+      parserOptions: {
+        project: './tsconfig.json'
+      },
+      rules: {
+        // region override rules from plugin 'standard-with-typescript'
+        /* @see https://typescript-eslint.io/rules/consistent-type-imports/ */
+        '@typescript-eslint/consistent-type-imports': ['error', {
+          /* we need our generated declaration files backward compatible to TS3.8
+           * see https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-8.html
+           */
+          fixStyle: 'separate-type-imports'
+        }],
+        // endregion override rules from plugin 'standard-with-typescript'
+        // region docs
+        /* see https://github.com/microsoft/tsdoc */
+        'tsdoc/syntax': 'error'
+        // endregion docs
+      }
+    },
+    {
       files: ['*.js', '*.mjs', '*.cjs'],
+      extends: [
+        /* see https://www.npmjs.com/package/eslint-config-standard */
+        'standard',
+        /* see https://github.com/gajus/eslint-plugin-jsdoc */
+        'plugin:jsdoc/recommended'
+      ],
       plugins: [
         /* see https://github.com/gajus/eslint-plugin-jsdoc/ */
         'jsdoc'
       ],
-      extends: [
-        /* see https://github.com/gajus/eslint-plugin-jsdoc */
-        'plugin:jsdoc/recommended'
-      ],
       rules: {
-        // region docs
-        'tsdoc/syntax': 0,
         /* see https://github.com/gajus/eslint-plugin-jsdoc */
         'jsdoc/no-undefined-types': 'error',
         'jsdoc/check-tag-names': 0,
@@ -102,32 +133,5 @@ module.exports = {
         }
       }
     }
-  ],
-  rules: {
-    // region override rules from plugin 'standard-with-typescript'
-    /* @see https://typescript-eslint.io/rules/consistent-type-imports/ */
-    '@typescript-eslint/consistent-type-imports': ['error', {
-      /* we need our generated declaration files backward compatible to TS3.8
-       * see https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-8.html
-       */
-      fixStyle: 'separate-type-imports'
-    }],
-    // endregion override rules from plugin 'standard-with-typescript'
-    // region sort imports/exports
-    /* disable other sorters in favour of `simple-import-sort` */
-    'import/order': 0,
-    'sort-imports': 0,
-    /* see https://github.com/lydell/eslint-plugin-simple-import-sort/ */
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
-    // endregion sort imports/exports
-    // region docs
-    /* see https://github.com/microsoft/tsdoc */
-    'tsdoc/syntax': 'error',
-    // endregion docs
-    // region license-header
-    /* see https://github.com/Stuk/eslint-plugin-header#readme */
-    'header/header': ['error', '.license-header.js']
-    // endregion license-header
-  }
+  ]
 }
