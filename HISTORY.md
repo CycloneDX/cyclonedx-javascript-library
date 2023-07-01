@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## unreleased
+
+* Build
+  * Use _TypeScript_ `v5.1.6` now, was `v5.1.5` (via [#866])
+  * Use _Webpack_ `v5.88.1` now, was `v5.88.0` (via [#870])
+
+[#866]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/866
+[#870]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/870
+
 ## 3.0.0 -- 2023-06-28
 
 Added support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5).  
