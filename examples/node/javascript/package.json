@@ -3,7 +3,7 @@
   "name": "example",
   "license": "Apache-2.0",
   "dependencies": {
-    "@cyclonedx/cyclonedx-library": "file:../..",
+    "@cyclonedx/cyclonedx-library": "file:../../..",
     "xmlbuilder2": "^3.0.2"
   }
 }

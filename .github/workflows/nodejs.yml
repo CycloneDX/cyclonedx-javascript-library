@@ -234,7 +234,7 @@ jobs:
       matrix:
         js-type: [ 'cjs', 'mjs' ]
     env:
-      EXAMPLE_DIR: examples/node-javascript
+      EXAMPLE_DIR: examples/node/javascript
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -280,7 +280,7 @@ jobs:
             nodeTypes-version: '^14'
             js-type: 'cjs'
     env:
-      EXAMPLE_DIR: examples/node-typescript/example.${{ matrix.js-type }}
+      EXAMPLE_DIR: examples/node/typescript/example.${{ matrix.js-type }}
     timeout-minutes: 10
     steps:
       - name: Checkout

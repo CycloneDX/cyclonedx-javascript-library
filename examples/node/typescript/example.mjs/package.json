@@ -2,14 +2,17 @@
   "private": true,
   "name": "example",
   "license": "Apache-2.0",
-  "type": "commonjs",
+  "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
   "dependencies": {
-    "@cyclonedx/cyclonedx-library": "file:../../..",
+    "@cyclonedx/cyclonedx-library": "file:../../../..",
     "xmlbuilder2": "^3.0.2"
   },
   "devDependencies": {
     "@types/node": "*",
-    "typescript": "^3.8 || ^4 || ^5"
+    "typescript": "^4 || ^5"
   },
   "scripts": {
     "prebuild": "tsc -b --clean",
