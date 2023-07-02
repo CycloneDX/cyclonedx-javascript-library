@@ -328,10 +328,16 @@ jobs:
 
   examples-Web:
     needs: [ 'build' ]
-    name: example Web
+    name: example Web ${{ matrix.packer }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        packer:
+          - parcel
+          - webpack
     env:
-      EXAMPLE_DIR: examples/web
+      EXAMPLE_DIR: examples/web-${{ matrix.packer }}
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -348,9 +354,7 @@ jobs:
           name: dist.web
           path: dist.web
       - name: setup library
-        run: |
-          set -ex
-          npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
+        run: npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
       - name: setup example project
         run: npm i --no-save --loglevel=silly
         working-directory: ${{ env.EXAMPLE_DIR }}
