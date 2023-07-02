@@ -1,11 +1,12 @@
 **/node_modules/**
 
-
 # generated files: dist and docs
+/reports/**
 /dist/**
 /dist.*/**
 /docs/api/**
-/examples/node-typescript/dist/**
+/examples/**/dist/**
+
 
 !/src/**
 !/libs/**
