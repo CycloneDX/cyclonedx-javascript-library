@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "example",
+  "license": "Apache-2.0",
+  "source": "src/index.html",
+  "dependencies": {
+    "@cyclonedx/cyclonedx-library": "file:../.."
+  },
+  "devDependencies": {
+    "parcel": "^2"
+  },
+  "scripts": {
+    "build": "parcel build",
+    "example": "parcel"
+  }
+}

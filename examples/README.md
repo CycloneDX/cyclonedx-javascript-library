@@ -8,9 +8,12 @@
 * `node-typescript` showcases the usage in Node.js TypeScript
   * [`example.cjs`](node-typescript/example.cjs) targets JavaScript, "commonjs" style - from TypeScript `^3.8 || ^4 || ^5`.
   * [`example.mjs`](node-typescript/example.cjs) targets JavaScript, "module" style   - from TypeScript `^3.8 || ^4 || ^5`.
-* `web` showcases the usage in web browser JavaScript
+* `web-parcel` showcases the usage in web browser when compiled by [_Parcel_](https://parceljs.org/):  
+  * [`src/index.html`](web/src/index.js) will be compiled to  
+    [`dist/index.html`](web/dist/index.html) and runs in any web browser.
+* `web-webpack` showcases the usage in web browser when compiled by [_Webpack_](https://webpack.js.org/):  
   * [`src/index.js`](web/src/index.js) will be compiled, to that it can be embedded by  
-    [`dist/index.html`](web/dist/index.html) and run in any web browser.
+    [`dist/index.html`](web/dist/index.html) and runs in any web browser.
 
 ## Data models
 
