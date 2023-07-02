@@ -5,8 +5,7 @@
 /dist/**
 /dist.*/**
 /docs/api/**
-/examples/node-typescript/dist/**
-/examples/web/dist/**
+/examples/**/dist/**
 
 
 !/src/**

@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file.
 * Fixed
   * Properly exclude external packages when preparing this library for web browsers ([#883] via [#880])
 * Examples
-  * Adjusted example for usage in web browsers ([#883] via [#880])
+  * Adjusted and extended examples for usage in web browsers ([#883] via [#880])
   * Added examples for usage of `CDX.Factories.PackageUrlFactory` (via [#882])
 * Build
   * Use _TypeScript_ `v5.1.6` now, was `v5.1.5` (via [#866])
