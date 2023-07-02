@@ -337,7 +337,7 @@ jobs:
           - parcel
           - webpack
     env:
-      EXAMPLE_DIR: examples/web-${{ matrix.packer }}
+      EXAMPLE_DIR: examples/web/${{ matrix.packer }}
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout

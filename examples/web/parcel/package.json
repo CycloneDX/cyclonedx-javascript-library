@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "source": "src/index.html",
   "dependencies": {
-    "@cyclonedx/cyclonedx-library": "file:../.."
+    "@cyclonedx/cyclonedx-library": "file:../../.."
   },
   "devDependencies": {
     "parcel": "^2"

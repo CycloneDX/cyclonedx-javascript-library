@@ -2,7 +2,7 @@
 !/.gitignore
 !/package.json
 !/webpack.json
-!/src
+!/src/
 !/src/**
-!/dist
+!/dist/
 !/dist/index.html
