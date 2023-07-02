@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "example",
-  "description": "",
+  "license": "Apache-2.0",
   "type": "commonjs",
   "dependencies": {
     "@cyclonedx/cyclonedx-library": "file:../../..",
