@@ -2,12 +2,12 @@
 
 ## Usage
 
-* `node-javascript` showcases the usage in Node.js JavaScript
-  * [`example.cjs`](node-javascript/example.cjs) targets JavaScript, "commonjs" style.
-  * [`example.mjs`](node-javascript/example.mjs) targets JavaScript, "module"   style.
-* `node-typescript` showcases the usage in Node.js TypeScript
-  * [`example.cjs`](node-typescript/example.cjs) targets JavaScript, "commonjs" style - from TypeScript `^3.8 || ^4 || ^5`.
-  * [`example.mjs`](node-typescript/example.mjs) targets JavaScript, "module"   style - from TypeScript `^4 || ^5`.
+* `node/javascript` showcases the usage in Node.js JavaScript
+  * [`example.cjs`](node/javascript/example.cjs) targets JavaScript, "commonjs" style.
+  * [`example.mjs`](node/javascript/example.mjs) targets JavaScript, "module"   style.
+* `node/typescript` showcases the usage in Node.js TypeScript
+  * [`example.cjs`](node/typescript/example.cjs) targets JavaScript, "commonjs" style - from TypeScript `^3.8 || ^4 || ^5`.
+  * [`example.mjs`](node/typescript/example.mjs) targets JavaScript, "module"   style - from TypeScript `^4 || ^5`.
 * `web/parcel` showcases the usage in web browser when compiled by [_Parcel_](https://parceljs.org/):
   * [`src/index.html`](web/parcel/src/index.html) will be compiled to  
     [`dist/index.html`](web/parcel/dist/index.html) and runs in any web browser.
