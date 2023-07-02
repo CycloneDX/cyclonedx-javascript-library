@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "example",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@cyclonedx/cyclonedx-library": "file:../.."
+  },
+  "devDependencies": {
+    "webpack": "^5",
+    "webpack-cli": "^5"
+  },
+  "scripts": {
+    "build": "webpack build",
+    "example": "www-browser dist/index.html"
+  }
+}
