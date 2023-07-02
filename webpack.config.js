@@ -19,6 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 const path = require('path')
 const deepmerge = require('deepmerge')
+const nodeExternals = require('webpack-node-externals')
 
 /* eslint-disable jsdoc/valid-types */
 
@@ -55,13 +56,8 @@ const configBase = {
       type: 'umd'
     }
   },
-  externals: {
-    ajv: 'ajv',
-    'ajv-formats': 'ajv-formats',
-    'ajv-formats-draft2019': 'ajv-formats-draft2019',
-    'packageurl-js': 'packageurl-js',
-    'spdx-expression-parse': 'spdx-expression-parse'
-  }
+  externalsPresets: { node: true },
+  externals: [nodeExternals()]
 }
 
 module.exports = [

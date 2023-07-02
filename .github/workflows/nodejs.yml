@@ -263,7 +263,7 @@ jobs:
         run: node -- 'example.${{ matrix.js-type }}'
         working-directory: ${{ env.EXAMPLE_DIR }}
 
-  example-typescript:
+  example-TS:
     needs: [ 'build' ]
     name: example TS${{ matrix.typescript-version }} ${{ matrix.js-type }}
     runs-on: ubuntu-latest
@@ -324,6 +324,38 @@ jobs:
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: run example
         run: npm run example
+        working-directory: ${{ env.EXAMPLE_DIR }}
+
+  examples-Web:
+    needs: [ 'build' ]
+    name: example Web
+    runs-on: ubuntu-latest
+    env:
+      EXAMPLE_DIR: examples/web
+    steps:
+      - name: Checkout
+        # see https://github.com/actions/checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
+        # see https://github.com/actions/setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_ACTIVE_LTS }}
+      - name: fetch build artifact 'node'
+        # see https://github.com/actions/download-artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist.web
+          path: dist.web
+      - name: setup library
+        run: |
+          set -ex
+          npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
+      - name: setup example project
+        run: npm i --no-save --loglevel=silly
+        working-directory: ${{ env.EXAMPLE_DIR }}
+      - name: build example
+        run: npm run build
         working-directory: ${{ env.EXAMPLE_DIR }}
 
   api-doc:

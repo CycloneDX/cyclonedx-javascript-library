@@ -1,0 +1,8 @@
+*
+!/.gitignore
+!/package.json
+!/webpack.json
+!/src
+!/src/**
+!/dist
+!/dist/index.html

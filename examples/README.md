@@ -9,7 +9,8 @@
   * [`example.cjs`](node-typescript/example.cjs) targets JavaScript, "commonjs" style - from TypeScript `^3.8 || ^4 || ^5`.
   * [`example.mjs`](node-typescript/example.mjs) targets JavaScript, "module"   style - from TypeScript `^4 || ^5`.
 * `web` showcases the usage in web browser JavaScript
-  * [`example.html`](web/example.html) targets any web-browser.
+  * [`src/index.js`](web/src/index.js) will be compiled, to that it can be embedded by  
+    [`dist/index.html`](web/dist/index.html) and run in any web browser.
 
 ## Data models
 
