@@ -23,6 +23,7 @@ import * as CDX from '@cyclonedx/cyclonedx-library'
 // full Library is available as `CDX`, now
 
 const lFac = new CDX.Factories.LicenseFactory()
+const purlFac = new CDX.Factories.PackageUrlFactory('npm')
 
 const bom = new CDX.Models.Bom()
 bom.metadata.component = new CDX.Models.Component(
@@ -33,9 +34,14 @@ bom.metadata.component.licenses.add(lFac.makeFromString('MIT OR Apache-2.0'))
 
 const componentA = new CDX.Models.Component(
   CDX.Enums.ComponentType.Library,
-  'myComponentA'
+  'myComponentA',
+  {
+    group: 'acme',
+    version: '1.33.7'
+  }
 )
 componentA.licenses.add(lFac.makeFromString('Apache-2.0'))
+componentA.purl = purlFac.makeFromComponent(componentA)
 
 bom.components.add(componentA)
 bom.metadata.component.dependencies.add(componentA.bomRef)
