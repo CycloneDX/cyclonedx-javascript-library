@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
 * Examples
   * Adjusted and extended examples for usage in web browsers ([#883] via [#880])  
     Removed `examples/web`, added `examples/web-parcel` & `examples/web-webpack`.
-  * Added examples for usage of `CDX.Factories.PackageUrlFactory` (via [#882])
+  * Added examples for usage of `CDX.Factories.PackageUrlFactory` (via [#882], [#886])
 * Build
   * Use _TypeScript_ `v5.1.6` now, was `v5.1.5` (via [#866])
   * Use _Webpack_ `v5.88.1` now, was `v5.88.0` (via [#870])
@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file.
 [#880]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/880
 [#882]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/882
 [#883]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/883
+[#886]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/886
 
 ## 3.0.0 -- 2023-06-28
 

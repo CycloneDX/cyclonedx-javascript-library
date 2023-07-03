@@ -23,7 +23,7 @@ import * as CDX from '@cyclonedx/cyclonedx-library'
 // full Library is available as `CDX`, now
 
 const lFac = new CDX.Factories.LicenseFactory()
-const purlFac = new CDX.Factories.PackageUrlFactory('npm')
+const purlFac = new CDX.Factories.PackageUrlFactory('generic')
 
 const bom = new CDX.Models.Bom()
 bom.metadata.component = new CDX.Models.Component(
