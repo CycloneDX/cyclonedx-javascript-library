@@ -4,8 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 4.0.0 -- 2023-07-05
+
 * BREAKING
-  * Usage this library in web browsers might no longer work out of the box (via [#880])  
+  * Usage of this library in web browsers might no longer work out of the box (via [#880])  
     It might require a bundler/packer for web; see the `examples/web-*`.  
     This is only a breaking change if you used this library in a web browser.
 * Fixed
