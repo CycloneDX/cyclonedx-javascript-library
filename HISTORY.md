@@ -8,13 +8,13 @@ All notable changes to this project will be documented in this file.
 
 * BREAKING
   * Usage of this library in web browsers might no longer work out of the box (via [#880])  
-    It might require a bundler/packer for web; see the `examples/web-*`.  
+    It might require a bundler/packer for web; see the `examples/web/`.  
     This is only a breaking change if you used this library in a web browser.
 * Fixed
   * Properly exclude external packages when preparing this library for web browsers ([#883] via [#880])
 * Examples
   * Adjusted and extended examples for usage in web browsers ([#883] via [#880])  
-    Removed `examples/web`, added `examples/web-parcel` & `examples/web-webpack`.
+    Removed outdated `examples/web/*`, added `examples/web/parcel` & `examples/web/webpack`.
   * Added examples for usage of `CDX.Factories.PackageUrlFactory` (via [#882], [#886])
 * Build
   * Use _TypeScript_ `v5.1.6` now, was `v5.1.5` (via [#866])
