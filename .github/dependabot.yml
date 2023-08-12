@@ -16,6 +16,15 @@ updates:
       include: 'scope'
     open-pull-requests-limit: 999
     groups:
+      eslint:
+        patterns:
+          - 'eslint'
+          - '@eslint/*'
+          - '@types/eslint'
+          - 'eslint-*'
+          - '@types/eslint-*'
+          - '@eslint-community/*'
+          - '@typescript-eslint/*'
       spdx:
         patterns:
           - 'spdx-*'
@@ -47,15 +56,6 @@ updates:
         patterns:
           - 'mocha'
           - '@types/mocha'
-      eslint:
-        patterns:
-          - 'eslint'
-          - '@eslint/*'
-          - '@types/eslint'
-          - 'eslint-*'
-          - '@types/eslint-*'
-          - '@eslint-community/*'
-          - '@typescript-eslint/*'
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
