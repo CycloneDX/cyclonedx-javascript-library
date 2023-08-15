@@ -35,6 +35,10 @@ module.exports.createComplexStructure = function () {
     serialNumber: `urn:uuid:${bomSerialNumberRaw}`,
     metadata: new Models.Metadata({
       timestamp: new Date('2032-05-23T13:37:42Z'),
+      lifecycles: new Models.LifecycleRepository([
+        Enums.LifecyclePhase.Design,
+        new Models.NamedLifecycle('testing', { description: 'my testing stage' })
+      ]),
       tools: new Models.ToolRepository([
         new Models.Tool({
           vendor: 'tool vendor',

@@ -18,12 +18,14 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { Component } from './component'
+import { LifecycleRepository } from './lifecycle'
 import { OrganizationalContactRepository } from './organizationalContact'
 import type { OrganizationalEntity } from './organizationalEntity'
 import { ToolRepository } from './tool'
 
 export interface OptionalMetadataProperties {
   timestamp?: Metadata['timestamp']
+  lifecycles?: Metadata['lifecycles']
   tools?: Metadata['tools']
   authors?: Metadata['authors']
   component?: Metadata['component']
@@ -33,6 +35,7 @@ export interface OptionalMetadataProperties {
 
 export class Metadata {
   timestamp?: Date
+  lifecycles: LifecycleRepository
   tools: ToolRepository
   authors: OrganizationalContactRepository
   component?: Component
@@ -41,6 +44,7 @@ export class Metadata {
 
   constructor (op: OptionalMetadataProperties = {}) {
     this.timestamp = op.timestamp
+    this.lifecycles = op.lifecycles ?? new LifecycleRepository()
     this.tools = op.tools ?? new ToolRepository()
     this.authors = op.authors ?? new OrganizationalContactRepository()
     this.component = op.component
