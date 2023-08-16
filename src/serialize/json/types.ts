@@ -87,6 +87,7 @@ export namespace Normalized {
 
   export interface Metadata {
     timestamp?: JsonSchema.DateTime
+    lifecycles?: Lifecycle[]
     tools?: Tool[]
     authors?: OrganizationalContact[]
     component?: Component
@@ -94,6 +95,17 @@ export namespace Normalized {
     supplier?: OrganizationalEntity
     licenses?: License[]
   }
+
+  export interface LifecyclePhase {
+    phase: Enums.LifecyclePhase
+  }
+
+  export interface NamedLifecycle {
+    name: string
+    description?: string
+  }
+
+  export type Lifecycle = LifecyclePhase | NamedLifecycle
 
   export interface Tool {
     vendor?: string
