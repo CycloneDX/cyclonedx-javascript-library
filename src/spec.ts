@@ -51,6 +51,7 @@ export interface Protocol {
   supportsVulnerabilities: boolean
   supportsVulnerabilityRatingMethod: (rm: Vulnerability.RatingMethod | any) => boolean
   supportsComponentEvidence: boolean
+  supportsMetadataLifecycles: boolean
 }
 
 /**
@@ -71,6 +72,7 @@ class Spec implements Protocol {
   readonly #supportsProperties: boolean
   readonly #supportsVulnerabilities: boolean
   readonly #supportsComponentEvidence: boolean
+  readonly #supportsMetadataLifecycles: boolean
 
   constructor (
     version: Version,
@@ -85,7 +87,8 @@ class Spec implements Protocol {
     supportsProperties: boolean,
     supportsVulnerabilities: boolean,
     vulnerabilityRatingMethods: Iterable<Vulnerability.RatingMethod>,
-    supportsComponentEvidence: boolean
+    supportsComponentEvidence: boolean,
+    supportsMetadataLifecycles: boolean
   ) {
     this.#version = version
     this.#formats = new Set(formats)
@@ -100,6 +103,7 @@ class Spec implements Protocol {
     this.#supportsVulnerabilities = supportsVulnerabilities
     this.#vulnerabilityRatingMethods = new Set(vulnerabilityRatingMethods)
     this.#supportsComponentEvidence = supportsComponentEvidence
+    this.#supportsMetadataLifecycles = supportsMetadataLifecycles
   }
 
   get version (): Version {
@@ -154,6 +158,10 @@ class Spec implements Protocol {
 
   get supportsComponentEvidence (): boolean {
     return this.#supportsComponentEvidence
+  }
+
+  get supportsMetadataLifecycles (): boolean {
+    return this.#supportsMetadataLifecycles
   }
 }
 
@@ -212,6 +220,7 @@ export const Spec1dot2: Readonly<Protocol> = Object.freeze(new Spec(
   false,
   false,
   [],
+  false,
   false
 ))
 
@@ -270,7 +279,8 @@ export const Spec1dot3: Readonly<Protocol> = Object.freeze(new Spec(
   true,
   false,
   [],
-  true
+  true,
+  false
 ))
 
 /** Specification v1.4 */
@@ -335,7 +345,8 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
     Vulnerability.RatingMethod.OWASP,
     Vulnerability.RatingMethod.Other
   ],
-  true
+  true,
+  false
 ))
 
 /** Specification v1.5 */
@@ -429,6 +440,7 @@ export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
     Vulnerability.RatingMethod.SSVC,
     Vulnerability.RatingMethod.Other
   ],
+  true,
   true
 ))
 
