@@ -13,7 +13,10 @@ All notable changes to this project will be documented in this file.
   * New class `Models.LifecycleRepository` ([#937] via [#946])
   * Class `Models.Metadata` got a new property `lifecycles` ([#937] via [#946])
   * Serializers and `Metadata`-Normalizers will take `Models.Metadata.lifecycles` into account ([#937] via [#946])
+* Build
+  * Use _Webpack_ `v5.88.2` now, was `v5.88.1` (via [#933])
 
+[#933]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/933
 [#937]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/937
 [#946]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/946
 
