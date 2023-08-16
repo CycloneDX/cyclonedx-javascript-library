@@ -48,6 +48,10 @@ export class Factory {
     return new MetadataNormalizer(this)
   }
 
+  makeForLifecycle (): LifecycleNormalizer {
+    return new LifecycleNormalizer(this)
+  }
+
   makeForComponent (): ComponentNormalizer {
     return new ComponentNormalizer(this)
   }
@@ -220,6 +224,13 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
 export class MetadataNormalizer extends BaseXmlNormalizer<Models.Metadata> {
   normalize (data: Models.Metadata, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const orgEntityNormalizer = this._factory.makeForOrganizationalEntity()
+    const lifecycles: SimpleXml.Element | undefined = this._factory.spec.supportsMetadataLifecycles && data.lifecycles.size > 0
+      ? {
+          type: 'element',
+          name: 'lifecycles',
+          children: this._factory.makeForLifecycle().normalizeIterable(data.lifecycles, options, 'lifecycle')
+        }
+      : undefined
     const tools: SimpleXml.Element | undefined = data.tools.size > 0
       ? {
           type: 'element',
@@ -239,6 +250,7 @@ export class MetadataNormalizer extends BaseXmlNormalizer<Models.Metadata> {
       name: elementName,
       children: [
         makeOptionalDateTimeElement(data.timestamp, 'timestamp'),
+        lifecycles,
         tools,
         authors,
         data.component === undefined
@@ -252,6 +264,35 @@ export class MetadataNormalizer extends BaseXmlNormalizer<Models.Metadata> {
           : orgEntityNormalizer.normalize(data.supplier, options, 'supplier')
       ].filter(isNotUndefined)
     }
+  }
+}
+
+export class LifecycleNormalizer extends BaseXmlNormalizer<Models.Lifecycle> {
+  normalize (data: Models.Lifecycle, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    return data instanceof Models.NamedLifecycle
+      ? {
+          type: 'element',
+          name: elementName,
+          children: [
+            makeTextElement(data.name, 'name'),
+            makeOptionalTextElement(data.description, 'description')
+          ].filter(isNotUndefined)
+        }
+      : {
+          type: 'element',
+          name: elementName,
+          children: [
+            makeTextElement(data, 'phase')
+          ]
+        }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Lifecycle>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(t => this.normalize(t, options, elementName))
   }
 }
 

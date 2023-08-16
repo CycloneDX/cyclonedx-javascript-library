@@ -2,6 +2,15 @@
 <bom xmlns="http://cyclonedx.org/schema/bom/1.5" version="7" serialNumber="urn:uuid:ac35b126-ef3a-11ed-a05b-0242ac120003">
     <metadata>
         <timestamp>2032-05-23T13:37:42.000Z</timestamp>
+        <lifecycles>
+            <lifecycle>
+                <name>testing</name>
+                <description>my testing stage</description>
+            </lifecycle>
+            <lifecycle>
+                <phase>design</phase>
+            </lifecycle>
+        </lifecycles>
         <tools>
             <tool>
                 <vendor>tool vendor</vendor>
