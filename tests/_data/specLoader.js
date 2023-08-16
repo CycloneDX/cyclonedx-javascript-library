@@ -37,7 +37,7 @@ function loadSpec (resourceFile) {
 
 /**
  * @param {string} resourceFile
- * @param {string} path
+ * @param {string|number} path
  * @returns {*}
  * @throws {TypeError} if resolving the `path` failed
  * @throws {Error} if parsing the `resourceFile` failed somehow
@@ -55,7 +55,7 @@ function getSpecElement (resourceFile, ...path) {
 
 /**
  * @param {string} resourceFile
- * @param {string} path
+ * @param {string|number} path
  * @returns {Array<number|string>}
  * @throws {TypeError} if resolved `path` is not non-empty-list
  * @throws {TypeError} if resolving the `path` failed

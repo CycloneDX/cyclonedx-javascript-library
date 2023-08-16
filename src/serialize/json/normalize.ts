@@ -56,6 +56,10 @@ export class Factory {
     return new ComponentEvidenceNormalizer(this)
   }
 
+  makeForLifecycle (): LifecycleNormalizer {
+    return new LifecycleNormalizer(this)
+  }
+
   makeForTool (): ToolNormalizer {
     return new ToolNormalizer(this)
   }
@@ -201,6 +205,9 @@ export class MetadataNormalizer extends BaseJsonNormalizer<Models.Metadata> {
     const orgEntityNormalizer = this._factory.makeForOrganizationalEntity()
     return {
       timestamp: data.timestamp?.toISOString(),
+      lifecycles: this._factory.spec.supportsMetadataLifecycles && data.lifecycles.size > 0
+        ? this._factory.makeForLifecycle().normalizeIterable(data.lifecycles, options)
+        : undefined,
       tools: data.tools.size > 0
         ? this._factory.makeForTool().normalizeIterable(data.tools, options)
         : undefined,
@@ -217,6 +224,22 @@ export class MetadataNormalizer extends BaseJsonNormalizer<Models.Metadata> {
         ? undefined
         : orgEntityNormalizer.normalize(data.supplier, options)
     }
+  }
+}
+
+export class LifecycleNormalizer extends BaseJsonNormalizer<Models.Lifecycle> {
+  normalize (data: Models.Lifecycle, options: NormalizerOptions): Normalized.Lifecycle {
+    return data instanceof Models.NamedLifecycle
+      ? { name: data.name, description: data.description }
+      : { phase: data }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Lifecycle>, options: NormalizerOptions): Normalized.Lifecycle[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(lc => this.normalize(lc, options))
   }
 }
 

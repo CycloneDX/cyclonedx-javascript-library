@@ -6,6 +6,15 @@
     "serialNumber": "urn:uuid:ac35b126-ef3a-11ed-a05b-0242ac120003",
     "metadata": {
         "timestamp": "2032-05-23T13:37:42.000Z",
+        "lifecycles": [
+            {
+                "name": "testing",
+                "description": "my testing stage"
+            },
+            {
+                "phase": "design"
+            }
+        ],
         "tools": [
             {
                 "vendor": "tool vendor",

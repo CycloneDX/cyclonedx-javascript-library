@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* BREAKING
+  * Interface `Spec.Protocol` now defines new mandatory methods (via [#946])  
+    This is only a breaking change if you custom-implemented this interface downstream; internal usage is non-breaking.
+* Added
+  * New enum `Enums.Lifecycle` with corresponding values from _CycloneDX_ Specification-1.5 ([#937] via [#946])
+  * New class `Models.NamedLifecycle` ([#937] via [#946])
+  * New class `Models.LifecycleRepository` ([#937] via [#946])
+  * Class `Models.Metadata` got a new property `lifecycles` ([#937] via [#946])
+  * Serializers and `Metadata`-Normalizers will take `Models.Metadata.lifecycles` into account ([#937] via [#946])
+
+[#937]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/937
+[#946]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/946
+
 ## 4.0.0 -- 2023-07-05
 
 * BREAKING

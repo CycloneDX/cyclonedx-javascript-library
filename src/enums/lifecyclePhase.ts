@@ -17,25 +17,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-/**
- * mocha config
- * @see {@link https://mochajs.org/#configuring-mocha-nodejs}
- * @see {@link https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.js example}
- * @type {import('@types/mocha').Mocha.MochaOptions}
- */
-module.exports = {
-  timeout: 10000,
-  spec: [
-    'tests',
-    'libs'
-  ],
-  recursive: true,
-  parallel: false, // if true, then some IDEs cannot run it
-  global: [],
-  extension: [
-    'spec.js', 'test.js',
-    'spec.cjs', 'test.cjs',
-    'spec.mjs', 'test.mjs',
-  ],
-  ui: 'tdd',
+export enum LifecyclePhase {
+  Design = 'design',
+  PreBuild = 'pre-build',
+  Build = 'build',
+  PostBuild = 'post-build',
+  Operations = 'operations',
+  Discovery = 'discovery',
+  Decommission = 'decommission',
 }

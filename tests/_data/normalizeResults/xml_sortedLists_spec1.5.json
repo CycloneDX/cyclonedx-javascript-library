@@ -18,6 +18,39 @@
         },
         {
           "type": "element",
+          "name": "lifecycles",
+          "children": [
+            {
+              "type": "element",
+              "name": "lifecycle",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "testing"
+                },
+                {
+                  "type": "element",
+                  "name": "description",
+                  "children": "my testing stage"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "lifecycle",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "phase",
+                  "children": "design"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
           "name": "tools",
           "children": [
             {
