@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 5.0.0 -- 2023-08-16
+
 * BREAKING
   * Interface `Spec.Protocol` now defines new mandatory methods (via [#946])  
     This is only a breaking change if you custom-implemented this interface downstream; internal usage is non-breaking.
