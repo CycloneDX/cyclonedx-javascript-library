@@ -94,7 +94,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: install build tools
-        run: npm ci --ignore-scripts --include=optional --loglevel=silly
+        run: npm i --ignore-scripts --include=optional --loglevel=silly
       # no explicit npm build. if a build is required, it should be configured as prepublish/prepublishOnly script of npm.
       - name: login to NPMJS
         run: npm config set "//registry.npmjs.org/:_authToken=$NPMJS_AUTH_TOKEN"
