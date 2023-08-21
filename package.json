@@ -116,7 +116,7 @@
   },
   "scripts": {
     "prepublish": "npm run build",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "run-s -lc build test",
     "lint": "tsc --noEmit",
     "build": "run-p --aggregate-output -l build:*",
     "prebuild:node": "node -r fs -e 'fs.rmSync(\"dist.node\",{recursive:true,force:true})'",
