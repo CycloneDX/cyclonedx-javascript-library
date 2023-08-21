@@ -133,9 +133,12 @@ jobs:
         shell: bash
         run: |
           set -ex
-          npm i --ignore-scripts --include=optional --loglevel=silly
+          ## dont install all the dev-packages, especially since some are not runnable on node 14.0.0
+          npm i --ignore-scripts --include=optional --omit=dev --only=prod --loglevel=silly
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
           npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
+          ## install the needed dev-deps
+          npm i --no-save mocha c8 npm-run-all
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@v3
@@ -175,7 +178,12 @@ jobs:
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: setup library
-        run: npm i --ignore-scripts --omit=optional --loglevel=silly
+        run: |
+          set -ex
+          ## dont install all the dev-packages, especially since some are not runnable on node 14.0.0
+          npm i --ignore-scripts --omit=optional --omit=dev --loglevel=silly
+          ## install the needed dev-deps
+          npm i --no-save mocha c8 npm-run-all
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@v3
