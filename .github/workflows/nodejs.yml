@@ -44,8 +44,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          # cache: "npm"
+          # cache-dependency-path: "**/package-lock.json"
       - name: setup project
         run: npm i --ignore-scripts --include=optional --loglevel=silly
       - name: build ${{ matrix.target }}
@@ -71,8 +71,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          # cache: "npm"
+          # cache-dependency-path: "**/package-lock.json"
       - name: setup project
         run: npm i --ignore-scripts --include=optional  --loglevel=silly
       - name: make reports dir
@@ -127,8 +127,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          # cache: "npm"
+          # cache-dependency-path: "**/package-lock.json"
       - name: setup project
         shell: bash
         run: |
@@ -393,8 +393,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          # cache: "npm"
+          # cache-dependency-path: "**/package-lock.json"
       - name: setup project
         run: npm i --ignore-scripts --loglevel=silly
       - name: api-doc ${{ matrix.target }}
