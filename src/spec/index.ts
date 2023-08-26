@@ -17,8 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { ComponentType, ExternalReferenceType, HashAlgorithm, Vulnerability } from './enums'
-import type { HashContent } from './models'
+import { ComponentType, ExternalReferenceType, HashAlgorithm, Vulnerability } from '../enums'
+import type { HashContent } from '../models'
+import type { _SpecProtocol } from './_protocol'
 
 export enum Version {
   v1dot5 = '1.5',
@@ -37,28 +38,17 @@ export enum Format {
 export class UnsupportedFormatError extends Error {
 }
 
-export interface Protocol {
-  version: Version
-  supportsFormat: (f: Format | any) => boolean
-  supportsComponentType: (ct: ComponentType | any) => boolean
-  supportsHashAlgorithm: (ha: HashAlgorithm | any) => boolean
-  supportsHashValue: (hv: HashContent | any) => boolean
-  supportsExternalReferenceType: (ert: ExternalReferenceType | any) => boolean
-  supportsDependencyGraph: boolean
-  supportsToolReferences: boolean
-  requiresComponentVersion: boolean
-  supportsProperties: (model: any) => boolean
-  supportsVulnerabilities: boolean
-  supportsVulnerabilityRatingMethod: (rm: Vulnerability.RatingMethod | any) => boolean
-  supportsComponentEvidence: boolean
-  supportsMetadataLifecycles: boolean
-}
-
 /**
- * This class was never intended to be public, but
- * it is a helper to get the exact spec-versions implemented according to {@link Protocol}.
+ * This class was never intended to be public API, but
+ * it is a helper to get the exact spec-versions implemented according to {@link _SpecProtocol}.
+ *
+ * See the ready-made constants that represent implementations of this class:
+ * - {@link Spec1dot2}
+ * - {@link Spec1dot3}
+ * - {@link Spec1dot4}
+ * - {@link Spec1dot5}
  */
-class Spec implements Protocol {
+class _Spec implements _SpecProtocol {
   readonly #version: Version
   readonly #formats: ReadonlySet<Format>
   readonly #componentTypes: ReadonlySet<ComponentType>
@@ -166,7 +156,7 @@ class Spec implements Protocol {
 }
 
 /** Specification v1.2 */
-export const Spec1dot2: Readonly<Protocol> = Object.freeze(new Spec(
+export const Spec1dot2: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   Version.v1dot2,
   [
     Format.XML,
@@ -225,7 +215,7 @@ export const Spec1dot2: Readonly<Protocol> = Object.freeze(new Spec(
 ))
 
 /** Specification v1.3 */
-export const Spec1dot3: Readonly<Protocol> = Object.freeze(new Spec(
+export const Spec1dot3: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   Version.v1dot3,
   [
     Format.XML,
@@ -284,7 +274,7 @@ export const Spec1dot3: Readonly<Protocol> = Object.freeze(new Spec(
 ))
 
 /** Specification v1.4 */
-export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
+export const Spec1dot4: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   Version.v1dot4,
   [
     Format.XML,
@@ -350,7 +340,7 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
 ))
 
 /** Specification v1.5 */
-export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
+export const Spec1dot5: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   Version.v1dot5,
   [
     Format.XML,
@@ -444,7 +434,7 @@ export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
   true
 ))
 
-export const SpecVersionDict: Readonly<Partial<Record<Version, Readonly<Protocol>>>> = Object.freeze({
+export const SpecVersionDict: Readonly<Partial<Record<Version, Readonly<_SpecProtocol>>>> = Object.freeze({
   [Version.v1dot5]: Spec1dot5,
   [Version.v1dot4]: Spec1dot4,
   [Version.v1dot3]: Spec1dot3,
