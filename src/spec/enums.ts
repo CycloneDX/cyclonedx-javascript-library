@@ -17,8 +17,16 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './consts'
-export * from './enums'
+export enum Version {
+  v1dot5 = '1.5',
+  v1dot4 = '1.4',
+  v1dot3 = '1.3',
+  v1dot2 = '1.2',
+  v1dot1 = '1.1',
+  v1dot0 = '1.0',
+}
 
-export class UnsupportedFormatError extends Error {
+export enum Format {
+  XML = 'xml',
+  JSON = 'json',
 }

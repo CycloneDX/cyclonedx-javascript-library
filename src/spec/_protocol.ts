@@ -19,11 +19,11 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { ComponentType, ExternalReferenceType, HashAlgorithm, Vulnerability } from '../enums'
 import type { HashContent } from '../models'
-import type { Format, Version } from './'
+import type { Format, Version } from './enums'
 
 /**
  * This interface is not intended to be public API.
- * Changes to this interface are treated as non-breaking, because this interface is not public loadable.
+ * This interface may be affected by breaking changes without notice
  */
 export interface _SpecProtocol {
   version: Version
@@ -40,4 +40,118 @@ export interface _SpecProtocol {
   supportsVulnerabilityRatingMethod: (rm: Vulnerability.RatingMethod | any) => boolean
   supportsComponentEvidence: boolean
   supportsMetadataLifecycles: boolean
+}
+
+/**
+ * This class was never intended to be public API,
+ *
+ * This is a helper to get the exact spec-versions implemented according to {@link _SpecProtocol}
+ *
+ * @internal as this class may be affected by breaking changes without notice
+ */
+export class _Spec implements _SpecProtocol {
+  readonly #version: Version
+  readonly #formats: ReadonlySet<Format>
+  readonly #componentTypes: ReadonlySet<ComponentType>
+  readonly #hashAlgorithms: ReadonlySet<HashAlgorithm>
+  readonly #hashValuePattern: RegExp
+  readonly #externalReferenceTypes: ReadonlySet<ExternalReferenceType>
+  readonly #vulnerabilityRatingMethods: ReadonlySet<Vulnerability.RatingMethod>
+  readonly #supportsDependencyGraph: boolean
+  readonly #supportsToolReferences: boolean
+  readonly #requiresComponentVersion: boolean
+  readonly #supportsProperties: boolean
+  readonly #supportsVulnerabilities: boolean
+  readonly #supportsComponentEvidence: boolean
+  readonly #supportsMetadataLifecycles: boolean
+
+  constructor (
+    version: Version,
+    formats: Iterable<Format>,
+    componentTypes: Iterable<ComponentType>,
+    hashAlgorithms: Iterable<HashAlgorithm>,
+    hashValuePattern: RegExp,
+    externalReferenceTypes: Iterable<ExternalReferenceType>,
+    supportsDependencyGraph: boolean,
+    supportsToolReferences: boolean,
+    requiresComponentVersion: boolean,
+    supportsProperties: boolean,
+    supportsVulnerabilities: boolean,
+    vulnerabilityRatingMethods: Iterable<Vulnerability.RatingMethod>,
+    supportsComponentEvidence: boolean,
+    supportsMetadataLifecycles: boolean
+  ) {
+    this.#version = version
+    this.#formats = new Set(formats)
+    this.#componentTypes = new Set(componentTypes)
+    this.#hashAlgorithms = new Set(hashAlgorithms)
+    this.#hashValuePattern = hashValuePattern
+    this.#externalReferenceTypes = new Set(externalReferenceTypes)
+    this.#supportsDependencyGraph = supportsDependencyGraph
+    this.#supportsToolReferences = supportsToolReferences
+    this.#requiresComponentVersion = requiresComponentVersion
+    this.#supportsProperties = supportsProperties
+    this.#supportsVulnerabilities = supportsVulnerabilities
+    this.#vulnerabilityRatingMethods = new Set(vulnerabilityRatingMethods)
+    this.#supportsComponentEvidence = supportsComponentEvidence
+    this.#supportsMetadataLifecycles = supportsMetadataLifecycles
+  }
+
+  get version (): Version {
+    return this.#version
+  }
+
+  supportsFormat (f: Format | any): boolean {
+    return this.#formats.has(f)
+  }
+
+  supportsComponentType (ct: ComponentType | any): boolean {
+    return this.#componentTypes.has(ct)
+  }
+
+  supportsHashAlgorithm (ha: HashAlgorithm | any): boolean {
+    return this.#hashAlgorithms.has(ha)
+  }
+
+  supportsHashValue (hv: HashContent | any): boolean {
+    return typeof hv === 'string' &&
+        this.#hashValuePattern.test(hv)
+  }
+
+  supportsExternalReferenceType (ert: ExternalReferenceType | any): boolean {
+    return this.#externalReferenceTypes.has(ert)
+  }
+
+  get supportsDependencyGraph (): boolean {
+    return this.#supportsDependencyGraph
+  }
+
+  get supportsToolReferences (): boolean {
+    return this.#supportsToolReferences
+  }
+
+  get requiresComponentVersion (): boolean {
+    return this.#requiresComponentVersion
+  }
+
+  supportsProperties (): boolean {
+    // currently a global allow/deny -- might work based on input, in the future
+    return this.#supportsProperties
+  }
+
+  get supportsVulnerabilities (): boolean {
+    return this.#supportsVulnerabilities
+  }
+
+  supportsVulnerabilityRatingMethod (rm: Vulnerability.RatingMethod | any): boolean {
+    return this.#vulnerabilityRatingMethods.has(rm)
+  }
+
+  get supportsComponentEvidence (): boolean {
+    return this.#supportsComponentEvidence
+  }
+
+  get supportsMetadataLifecycles (): boolean {
+    return this.#supportsMetadataLifecycles
+  }
 }
