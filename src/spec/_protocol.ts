@@ -23,7 +23,9 @@ import type { Format, Version } from './enums'
 
 /**
  * This interface is not intended to be public API.
- * This interface may be affected by breaking changes without notice
+ * This interface may be affected by breaking changes without notice.
+ *
+ * See the public exported constants that provide objects implementing this interface.
  */
 export interface _SpecProtocol {
   version: Version
@@ -45,7 +47,7 @@ export interface _SpecProtocol {
 /**
  * This class was never intended to be public API,
  *
- * This is a helper to get the exact spec-versions implemented according to {@link _SpecProtocol}
+ * This is a helper to get the exact spec-versions implemented according to {@link _SpecProtocol}.
  *
  * @internal as this class may be affected by breaking changes without notice
  */
