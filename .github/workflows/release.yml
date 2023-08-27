@@ -23,7 +23,7 @@ on:
         default: rc
         required: false
       prerelease:
-        description: "This a pre-release"
+        description: "This is a pre-release"
         type: boolean
         default: false
         required: false
