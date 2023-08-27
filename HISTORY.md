@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 6.0.0 -- 2023-08-26
+
 * BREAKING
   * Interface `Spec.Protocol` was removed from public API ([#957] via [#958])  
     This is only a breaking change if you custom-implemented this TypeScript interface downstream; internal usage is non-breaking.  
