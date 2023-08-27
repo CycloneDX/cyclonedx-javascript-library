@@ -2,6 +2,8 @@
 
 /reports/
 /CI_reports/
+/packed/
+/CI_packed/
 
 /dist/
 /dist.*/
