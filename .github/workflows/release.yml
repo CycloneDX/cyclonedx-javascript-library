@@ -85,7 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      NPMJS_RELEASE_TAG: ${{ github.event.inputs.prerelease != 'true' && 'latest' || 'unstable-prerelease' }}
+      NPMJS_RELEASE_TAG: ${{ github.event.inputs.prerelease == 'true' && 'unstable-prerelease' || 'latest' }}
     steps:
       - name: Checkout code
         # see https://github.com/actions/checkout
