@@ -5,9 +5,9 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * BREAKING
-  * Interface `Spec.Protocol` was removed from public access ([#957] via [#958])  
-    This is only a breaking change if you custom-implemented this interface downstream; internal usage is non-breaking.  
-    This change will cause less breaking changes in the future, when more spec-features are implemented.
+  * Interface `Spec.Protocol` was removed from public API ([#957] via [#958])  
+    This is only a breaking change if you custom-implemented this TypeScript interface downstream; internal usage is non-breaking.  
+    This change was necessary, so that implementing more spec-features cause no breaking changes.
 
 [#957]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/957
 [#958]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/958
@@ -16,7 +16,7 @@ All notable changes to this project will be documented in this file.
 
 * BREAKING
   * Interface `Spec.Protocol` now defines new mandatory methods (via [#946])  
-    This is only a breaking change if you custom-implemented this interface downstream; internal usage is non-breaking.
+    This is only a breaking change if you custom-implemented this TypeScript interface downstream; internal usage is non-breaking.
 * Added
   * New enum `Enums.Lifecycle` with corresponding values from _CycloneDX_ Specification-1.5 ([#937] via [#946])
   * New class `Models.NamedLifecycle` ([#937] via [#946])
@@ -61,7 +61,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
 
 * BREAKING
   * Interface `Spec.Protocol` now defines new mandatory methods (via [#843])  
-    This is only a breaking change if you custom-implemented this interface downstream; internal usage is non-breaking.
+    This is only a breaking change if you custom-implemented this TypeScript interface downstream; internal usage is non-breaking.
 * Changed
   * Normalizers support _CycloneDX_ Specification-1.5 ([#505] via [#843])
   * Validators support _CycloneDX_ Specification-1.5 ([#505] via [#843])
@@ -75,7 +75,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
 
 * BREAKING
   * Interface `Spec.Protocol` now defines a new mandatory method `supportsVulnerabilityRatingMethod()` (via [#843])  
-    This is only a breaking change if you custom-implemented this interface downstream; internal usage is non-breaking.
+    This is only a breaking change if you custom-implemented this TypeScript interface downstream; internal usage is non-breaking.
 * Changed
   * Namespace `Models`
     * Method `BomRef.compare()` accepts every stringable now, was `Models.BomRef` only (via [#856])
