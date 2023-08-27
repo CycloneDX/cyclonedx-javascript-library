@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* BREAKING
+  * Interface `Spec.Protocol` was removed from public access ([#957] via [#958])  
+    This is only a breaking change if you custom-implemented this interface downstream; internal usage is non-breaking.  
+    This change will cause less breaking changes in the future, when more spec-features are implemented.
+
+[#957]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/957
+[#958]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/958
+
 ## 5.0.0 -- 2023-08-16
 
 * BREAKING
