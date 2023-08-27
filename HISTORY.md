@@ -8,9 +8,12 @@ All notable changes to this project will be documented in this file.
   * Interface `Spec.Protocol` was removed from public API ([#957] via [#958])  
     This is only a breaking change if you custom-implemented this TypeScript interface downstream; internal usage is non-breaking.  
     This change was necessary, so that implementing more spec-features cause no breaking changes.
+* Build
+  * Use _TypeScript_ `v5.2.2` now, was `v5.1.6` (via [#966])
 
 [#957]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/957
 [#958]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/958
+[#966]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/966
 
 ## 5.0.0 -- 2023-08-16
 
