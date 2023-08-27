@@ -17,156 +17,13 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { ComponentType, ExternalReferenceType, HashAlgorithm, Vulnerability } from './enums'
-import type { HashContent } from './models'
-
-export enum Version {
-  v1dot5 = '1.5',
-  v1dot4 = '1.4',
-  v1dot3 = '1.3',
-  v1dot2 = '1.2',
-  v1dot1 = '1.1',
-  v1dot0 = '1.0',
-}
-
-export enum Format {
-  XML = 'xml',
-  JSON = 'json',
-}
-
-export class UnsupportedFormatError extends Error {
-}
-
-export interface Protocol {
-  version: Version
-  supportsFormat: (f: Format | any) => boolean
-  supportsComponentType: (ct: ComponentType | any) => boolean
-  supportsHashAlgorithm: (ha: HashAlgorithm | any) => boolean
-  supportsHashValue: (hv: HashContent | any) => boolean
-  supportsExternalReferenceType: (ert: ExternalReferenceType | any) => boolean
-  supportsDependencyGraph: boolean
-  supportsToolReferences: boolean
-  requiresComponentVersion: boolean
-  supportsProperties: (model: any) => boolean
-  supportsVulnerabilities: boolean
-  supportsVulnerabilityRatingMethod: (rm: Vulnerability.RatingMethod | any) => boolean
-  supportsComponentEvidence: boolean
-  supportsMetadataLifecycles: boolean
-}
-
-/**
- * This class was never intended to be public, but
- * it is a helper to get the exact spec-versions implemented according to {@link Protocol}.
- */
-class Spec implements Protocol {
-  readonly #version: Version
-  readonly #formats: ReadonlySet<Format>
-  readonly #componentTypes: ReadonlySet<ComponentType>
-  readonly #hashAlgorithms: ReadonlySet<HashAlgorithm>
-  readonly #hashValuePattern: RegExp
-  readonly #externalReferenceTypes: ReadonlySet<ExternalReferenceType>
-  readonly #vulnerabilityRatingMethods: ReadonlySet<Vulnerability.RatingMethod>
-  readonly #supportsDependencyGraph: boolean
-  readonly #supportsToolReferences: boolean
-  readonly #requiresComponentVersion: boolean
-  readonly #supportsProperties: boolean
-  readonly #supportsVulnerabilities: boolean
-  readonly #supportsComponentEvidence: boolean
-  readonly #supportsMetadataLifecycles: boolean
-
-  constructor (
-    version: Version,
-    formats: Iterable<Format>,
-    componentTypes: Iterable<ComponentType>,
-    hashAlgorithms: Iterable<HashAlgorithm>,
-    hashValuePattern: RegExp,
-    externalReferenceTypes: Iterable<ExternalReferenceType>,
-    supportsDependencyGraph: boolean,
-    supportsToolReferences: boolean,
-    requiresComponentVersion: boolean,
-    supportsProperties: boolean,
-    supportsVulnerabilities: boolean,
-    vulnerabilityRatingMethods: Iterable<Vulnerability.RatingMethod>,
-    supportsComponentEvidence: boolean,
-    supportsMetadataLifecycles: boolean
-  ) {
-    this.#version = version
-    this.#formats = new Set(formats)
-    this.#componentTypes = new Set(componentTypes)
-    this.#hashAlgorithms = new Set(hashAlgorithms)
-    this.#hashValuePattern = hashValuePattern
-    this.#externalReferenceTypes = new Set(externalReferenceTypes)
-    this.#supportsDependencyGraph = supportsDependencyGraph
-    this.#supportsToolReferences = supportsToolReferences
-    this.#requiresComponentVersion = requiresComponentVersion
-    this.#supportsProperties = supportsProperties
-    this.#supportsVulnerabilities = supportsVulnerabilities
-    this.#vulnerabilityRatingMethods = new Set(vulnerabilityRatingMethods)
-    this.#supportsComponentEvidence = supportsComponentEvidence
-    this.#supportsMetadataLifecycles = supportsMetadataLifecycles
-  }
-
-  get version (): Version {
-    return this.#version
-  }
-
-  supportsFormat (f: Format | any): boolean {
-    return this.#formats.has(f)
-  }
-
-  supportsComponentType (ct: ComponentType | any): boolean {
-    return this.#componentTypes.has(ct)
-  }
-
-  supportsHashAlgorithm (ha: HashAlgorithm | any): boolean {
-    return this.#hashAlgorithms.has(ha)
-  }
-
-  supportsHashValue (hv: HashContent | any): boolean {
-    return typeof hv === 'string' &&
-      this.#hashValuePattern.test(hv)
-  }
-
-  supportsExternalReferenceType (ert: ExternalReferenceType | any): boolean {
-    return this.#externalReferenceTypes.has(ert)
-  }
-
-  get supportsDependencyGraph (): boolean {
-    return this.#supportsDependencyGraph
-  }
-
-  get supportsToolReferences (): boolean {
-    return this.#supportsToolReferences
-  }
-
-  get requiresComponentVersion (): boolean {
-    return this.#requiresComponentVersion
-  }
-
-  supportsProperties (): boolean {
-    // currently a global allow/deny -- might work based on input, in the future
-    return this.#supportsProperties
-  }
-
-  get supportsVulnerabilities (): boolean {
-    return this.#supportsVulnerabilities
-  }
-
-  supportsVulnerabilityRatingMethod (rm: Vulnerability.RatingMethod | any): boolean {
-    return this.#vulnerabilityRatingMethods.has(rm)
-  }
-
-  get supportsComponentEvidence (): boolean {
-    return this.#supportsComponentEvidence
-  }
-
-  get supportsMetadataLifecycles (): boolean {
-    return this.#supportsMetadataLifecycles
-  }
-}
+import { ComponentType, ExternalReferenceType, HashAlgorithm, Vulnerability } from '../enums'
+import type { _SpecProtocol } from './_protocol'
+import { _Spec } from './_protocol'
+import { Format, Version } from './enums'
 
 /** Specification v1.2 */
-export const Spec1dot2: Readonly<Protocol> = Object.freeze(new Spec(
+export const Spec1dot2: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   Version.v1dot2,
   [
     Format.XML,
@@ -225,7 +82,7 @@ export const Spec1dot2: Readonly<Protocol> = Object.freeze(new Spec(
 ))
 
 /** Specification v1.3 */
-export const Spec1dot3: Readonly<Protocol> = Object.freeze(new Spec(
+export const Spec1dot3: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   Version.v1dot3,
   [
     Format.XML,
@@ -284,7 +141,7 @@ export const Spec1dot3: Readonly<Protocol> = Object.freeze(new Spec(
 ))
 
 /** Specification v1.4 */
-export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
+export const Spec1dot4: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   Version.v1dot4,
   [
     Format.XML,
@@ -350,7 +207,7 @@ export const Spec1dot4: Readonly<Protocol> = Object.freeze(new Spec(
 ))
 
 /** Specification v1.5 */
-export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
+export const Spec1dot5: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   Version.v1dot5,
   [
     Format.XML,
@@ -444,7 +301,7 @@ export const Spec1dot5: Readonly<Protocol> = Object.freeze(new Spec(
   true
 ))
 
-export const SpecVersionDict: Readonly<Partial<Record<Version, Readonly<Protocol>>>> = Object.freeze({
+export const SpecVersionDict: Readonly<Partial<Record<Version, Readonly<_SpecProtocol>>>> = Object.freeze({
   [Version.v1dot5]: Spec1dot5,
   [Version.v1dot4]: Spec1dot4,
   [Version.v1dot3]: Spec1dot3,
