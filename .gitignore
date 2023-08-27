@@ -2,9 +2,14 @@
 
 /reports/
 /CI_reports/
+/packed/
+/CI_packed/
 
 /dist/
 /dist.*/
+
+## no lock. pinning of direct dependencies should be enough for a library
+/package-lock.json
 
 ### https://github.com/github/gitignore/blob/main/Node.gitignore
 

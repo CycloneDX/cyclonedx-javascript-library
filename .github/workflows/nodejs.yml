@@ -8,6 +8,10 @@ on:
     tags: [ "v*" ]  # have tools scan this stable version
   pull_request:
   workflow_dispatch:
+  schedule:
+    # schedule weekly tests, since dependencies are not intended to be locked
+    # this means: at 23:42 on Fridays
+    - cron: '42 23 * * 5'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -40,10 +44,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          # cache: "npm"
+          # cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm ci --ignore-scripts --include=optional --loglevel=silly
+        run: npm i --ignore-scripts --include=optional --loglevel=silly
       - name: build ${{ matrix.target }}
         run: npm run build:${{ matrix.target }}
       - name: artifact build result
@@ -67,10 +71,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          # cache: "npm"
+          # cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm ci --ignore-scripts --include=optional  --loglevel=silly
+        run: npm i --ignore-scripts --include=optional  --loglevel=silly
       - name: make reports dir
         run: mkdir -p "$REPORTS_DIR"
       - name: test
@@ -123,15 +127,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          # cache: "npm"
+          # cache-dependency-path: "**/package-lock.json"
       - name: setup project
         shell: bash
         run: |
           set -ex
-          npm ci --ignore-scripts --include=optional --loglevel=silly
+          ## dont install all the dev-packages, especially since some are not runnable on node 14.0.0
+          npm i --ignore-scripts --include=optional --omit=dev --only=prod --loglevel=silly
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
           npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
+          ## install the needed dev-deps
+          npm i --no-save mocha c8 npm-run-all
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@v3
@@ -171,7 +178,12 @@ jobs:
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: setup library
-        run: npm ci --ignore-scripts --omit=optional --loglevel=silly
+        run: |
+          set -ex
+          ## dont install all the dev-packages, especially since some are not runnable on node 14.0.0
+          npm i --ignore-scripts --omit=optional --omit=dev --loglevel=silly
+          ## install the needed dev-deps
+          npm i --no-save mocha c8 npm-run-all
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@v3
@@ -253,7 +265,7 @@ jobs:
       - name: setup library
         run: |
           set -ex
-          npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
+          npm i --ignore-scripts --omit=dev --include=optional --loglevel=silly
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
           npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
       - name: setup example project
@@ -306,7 +318,7 @@ jobs:
       - name: setup library
         run: |
           set -ex
-          npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
+          npm i --ignore-scripts --omit=dev --include=optional --loglevel=silly
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
           npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
       - name: setup example project
@@ -354,7 +366,7 @@ jobs:
           name: dist.web
           path: dist.web
       - name: setup library
-        run: npm ci --ignore-scripts --omit=dev --include=optional --loglevel=silly
+        run: npm i --ignore-scripts --omit=dev --include=optional --loglevel=silly
       - name: setup example project
         run: npm i --no-save --loglevel=silly
         working-directory: ${{ env.EXAMPLE_DIR }}
@@ -381,9 +393,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          # cache: "npm"
+          # cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm ci --ignore-scripts --loglevel=silly
+        run: npm i --ignore-scripts --loglevel=silly
       - name: api-doc ${{ matrix.target }}
         run: npm run api-doc:${{ matrix.target }}
