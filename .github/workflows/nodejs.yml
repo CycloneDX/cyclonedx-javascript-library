@@ -183,7 +183,7 @@ jobs:
           ## dont install all the dev-packages, especially since some are not runnable on node 14.0.0
           npm i --ignore-scripts --omit=optional --omit=dev --loglevel=silly
           ## install the needed dev-deps
-          npm i --no-save mocha c8 npm-run-all glob
+          npm i --no-save mocha c8 npm-run-all fast-glob
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@v3
