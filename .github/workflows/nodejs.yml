@@ -138,7 +138,7 @@ jobs:
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
           npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
           ## install the needed dev-deps
-          npm i --no-save mocha c8 npm-run-all glob
+          npm i --no-save mocha c8 npm-run-all fast-glob
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@v3

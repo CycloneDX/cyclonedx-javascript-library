@@ -21,7 +21,7 @@ const fs = require('fs')
 const path = require('path')
 const assert = require('assert')
 const { suite, it } = require('mocha')
-const { globSync } = require('glob')
+const { globSync } = require('fast-glob')
 
 const {
   Validation: { XmlValidator },
