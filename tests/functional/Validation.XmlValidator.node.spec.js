@@ -20,13 +20,22 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const fs = require('fs')
 const path = require('path')
 const assert = require('assert')
-const { suite, it } = require('mocha')
+const { suite, it, xit } = require('mocha')
 const { globSync } = require('fast-glob')
 
 const {
   Validation: { XmlValidator },
   Spec: { Version }
 } = require('../../')
+
+let hasDep = true
+try {
+  require('libxmljs2')
+} catch {
+  hasDep = false
+}
+
+const test = hasDep ? it : xit
 
 suite('Validation.XmlValidator functional', function () {
   this.timeout(60000);
@@ -42,23 +51,19 @@ suite('Validation.XmlValidator functional', function () {
     suite(version, () => {
       const validator = new XmlValidator(version)
 
-      suite('valid', () => {
-        for (const file of globSync(path.resolve(__dirname, '..', '_data', 'schemaTestData', version, 'valid-*.xml'))) {
-          it(`${version} ${path.basename(file, '.xml')}`, async () => {
-            const error = await validator.validate(fs.readFileSync(file))
-            assert.strictEqual(error, null)
-          })
-        }
-      })
+      for (const file of globSync(path.resolve(__dirname, '..', '_data', 'schemaTestData', version, 'valid-*.xml'))) {
+        test(path.basename(file, '.xml'), async () => {
+          const error = await validator.validate(fs.readFileSync(file))
+          assert.strictEqual(error, null)
+        })
+      }
 
-      suite('invalid', () => {
-        for (const file of globSync(path.resolve(__dirname, '..', '_data', 'schemaTestData', version, 'invalid-*.xml'))) {
-          it(`${version} ${path.basename(file, '.xml')}`, async () => {
-            const error = await validator.validate(fs.readFileSync(file))
-            assert.notEqual(error, null)
-          })
-        }
-      })
+      for (const file of globSync(path.resolve(__dirname, '..', '_data', 'schemaTestData', version, 'invalid-*.xml'))) {
+        test(path.basename(file, '.xml'), async () => {
+          const error = await validator.validate(fs.readFileSync(file))
+          assert.notEqual(error, null)
+        })
+      }
     })
   })
 })

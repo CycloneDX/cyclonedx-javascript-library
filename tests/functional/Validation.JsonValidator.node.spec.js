@@ -47,23 +47,19 @@ suite('Validation.JsonValidator functional', () => {
     suite(version, () => {
       const validator = new JsonValidator(version)
 
-      suite('valid', () => {
-        for (const file of globSync(path.resolve(__dirname, '..', '_data', 'schemaTestData', version, 'valid-*.json'))) {
-          test(`${version} ${path.basename(file, '.json')}`, async () => {
-            const error = await validator.validate(fs.readFileSync(file))
-            assert.strictEqual(error, null)
-          })
-        }
-      })
+      for (const file of globSync(path.resolve(__dirname, '..', '_data', 'schemaTestData', version, 'valid-*.json'))) {
+        test(path.basename(file, '.json'), async () => {
+          const error = await validator.validate(fs.readFileSync(file))
+          assert.strictEqual(error, null)
+        })
+      }
 
-      suite('invalid', () => {
-        for (const file of globSync(path.resolve(__dirname, '..', '_data', 'schemaTestData', version, 'invalid-*.json'))) {
-          test(`${version} ${path.basename(file, '.json')}`, async () => {
-            const error = await validator.validate(fs.readFileSync(file))
-            assert.notEqual(error, null)
-          })
-        }
-      })
+      for (const file of globSync(path.resolve(__dirname, '..', '_data', 'schemaTestData', version, 'invalid-*.json'))) {
+        test(path.basename(file, '.json'), async () => {
+          const error = await validator.validate(fs.readFileSync(file))
+          assert.notEqual(error, null)
+        })
+      }
     })
   })
 })
@@ -78,23 +74,19 @@ suite('Validation.JsonStrictValidator functional', () => {
     suite(version, () => {
       const validator = new JsonStrictValidator(version)
 
-      suite('valid', () => {
-        for (const file of globSync(path.resolve(__dirname, '..', '_data', 'schemaTestData', version, 'valid-*.json'))) {
-          test(`${version} ${path.basename(file, '.json')}`, async () => {
-            const error = await validator.validate(fs.readFileSync(file))
-            assert.strictEqual(error, null)
-          })
-        }
-      })
+      for (const file of globSync(path.resolve(__dirname, '..', '_data', 'schemaTestData', version, 'valid-*.json'))) {
+        test(path.basename(file, '.json'), async () => {
+          const error = await validator.validate(fs.readFileSync(file))
+          assert.strictEqual(error, null)
+        })
+      }
 
-      suite('invalid', () => {
-        for (const file of globSync(path.resolve(__dirname, '..', '_data', 'schemaTestData', version, 'invalid-*.json'))) {
-          test(`${version} ${path.basename(file, '.json')}`, async () => {
-            const error = await validator.validate(fs.readFileSync(file))
-            assert.notEqual(error, null)
-          })
-        }
-      })
+      for (const file of globSync(path.resolve(__dirname, '..', '_data', 'schemaTestData', version, 'invalid-*.json'))) {
+        test(path.basename(file, '.json'), async () => {
+          const error = await validator.validate(fs.readFileSync(file))
+          assert.notEqual(error, null)
+        })
+      }
     })
   })
 })
