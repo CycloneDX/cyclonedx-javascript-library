@@ -37,23 +37,19 @@ const BomXsd = Object.freeze({
   ])
 })
 
-const bomSchemaEnumMatch = /("\$id": "(http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json)".*"enum": \[\s+")http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json"/sg
-const bomSchemaEnumReplace = '$1$2"'
-
-const bomRequired = `
+/* "version" is not required but optional with a default value!
+    this is wrong in schema<1.5 */
+const _bomRequired = `
   "required": [
     "bomFormat",
     "specVersion",
     "version"
   ],`
-const bomRequiredReplace = `
+const _bomRequiredReplace = `
   "required": [
     "bomFormat",
     "specVersion"
   ],`
-
-const defaultWithPatternMatch = /\s+"default": "",(?![^}]*?"pattern": "\^\(\.\*\)\$")/gm
-const defaultWithPatternReplace = ''
 
 const BomJsonLax = Object.freeze({
   versions: ['1.5', '1.4', '1.3', '1.2'],
@@ -62,10 +58,13 @@ const BomJsonLax = Object.freeze({
   replace: Object.freeze([
     Object.freeze(['spdx.schema.json', 'spdx.SNAPSHOT.schema.json']),
     Object.freeze(['jsf-0.82.schema.json', 'jsf-0.82.SNAPSHOT.schema.json']),
-    Object.freeze([bomSchemaEnumMatch, bomSchemaEnumReplace]),
-    Object.freeze([bomRequired, bomRequiredReplace])
-    // with current SchemaValidator this is no longer required: defaultWithPatternMatch -> defaultWithPatternReplace
-    // Object.freeze([defaultWithPatternMatch, defaultWithPatternReplace])
+    /* fix "$schema" property to match $id */
+    Object.freeze([/("\$id": "(http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json)".*"enum": \[\s+")http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json"/sg, '$1$2"']),
+    Object.freeze([_bomRequired, _bomRequiredReplace])
+    /* there was a case where the default value did not match the own pattern ...
+        this is wrong in schema<1.5
+        with current SchemaValidator this is no longer required, as defaults are not applied */
+    // Object.freeze([/\s+"default": "",(?![^}]*?"pattern": "\^\(\.\*\)\$")/gm, ''])
   ])
 })
 
@@ -91,8 +90,8 @@ for (const dSpec of [BomXsd, BomJsonLax, BomJsonStrict]) {
     fetch(source, FetchOptions).then(res => res.text()).then(
       /** @param {string} text */
       text => new Promise((resolve, reject) => {
-        for (const [searchValue, replaceValue] of dSpec.replace) {
-          text = text.replaceAll(searchValue, replaceValue)
+        for (const [search, replace] of dSpec.replace) {
+          text = text.replaceAll(search, replace)
         }
         resolve(text)
       })).then(text => writeFile(target, text))
