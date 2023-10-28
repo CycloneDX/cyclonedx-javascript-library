@@ -64,7 +64,7 @@ abstract class BomLinkBase implements Stringable, Comparable<Stringable> {
  */
 export class BomLinkDocument extends BomLinkBase {
   /* regular expressions were taken from the CycloneDX schema definitions. */
-  static #pattern = /^urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*$/
+  static readonly #pattern = /^urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*$/
 
   /**
    * Whether the `value` is a valid descriptor for another BOM document.
@@ -87,7 +87,7 @@ export class BomLinkDocument extends BomLinkBase {
  */
 export class BomLinkElement extends BomLinkBase {
   /* regular expressions were taken from the CycloneDX schema definitions. */
-  static #pattern = /^urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*#.+$/
+  static readonly #pattern = /^urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*#.+$/
 
   /**
    * Whether the `value` is a valid descriptor for an element in a BOM document.
