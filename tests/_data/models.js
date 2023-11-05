@@ -108,6 +108,17 @@ module.exports.createComplexStructure = function () {
       Enums.ExternalReferenceType.Support
     ))
     component.externalReferences.add(new Models.ExternalReference(
+      'https://localhost/download/acme.tar.gz',
+      Enums.ExternalReferenceType.Distribution,
+      {
+        hashes: new Models.HashDictionary([
+          [Enums.HashAlgorithm.MD5, '327b6f07435811239bc47e1544353273'],
+          [Enums.HashAlgorithm['SHA-1'], 'd53a205a336e07cf9eac45471b3870f9489288ec'],
+          [Enums.HashAlgorithm['SHA-256'], '1f2ec52b774368781bed1d1fb140a92e0eb6348090619c9291f9a5a3c8e8d151']
+        ])
+      }
+    ))
+    component.externalReferences.add(new Models.ExternalReference(
       'git+https://localhost/acme.git',
       Enums.ExternalReferenceType.VCS
     ))

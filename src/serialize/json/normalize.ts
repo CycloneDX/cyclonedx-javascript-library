@@ -516,6 +516,9 @@ export class ExternalReferenceNormalizer extends BaseJsonNormalizer<Models.Exter
       ? {
           url: data.url.toString(),
           type: data.type,
+          hashes: this._factory.spec.supportsExternalReferenceHashes && data.hashes.size > 0
+            ? this._factory.makeForHash().normalizeIterable(data.hashes, options)
+            : undefined,
           comment: data.comment || undefined
         }
       : undefined

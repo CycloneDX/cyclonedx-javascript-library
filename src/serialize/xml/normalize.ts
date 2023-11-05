@@ -642,6 +642,13 @@ export class SWIDNormalizer extends BaseXmlNormalizer<Models.SWID> {
 export class ExternalReferenceNormalizer extends BaseXmlNormalizer<Models.ExternalReference> {
   normalize (data: Models.ExternalReference, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
     const url = data.url.toString()
+    const hashes: SimpleXml.Element | undefined = this._factory.spec.supportsExternalReferenceHashes && data.hashes.size > 0
+      ? {
+          type: 'element',
+          name: 'hashes',
+          children: this._factory.makeForHash().normalizeIterable(data.hashes, options, 'hash')
+        }
+      : undefined
     return this._factory.spec.supportsExternalReferenceType(data.type) &&
     XmlSchema.isAnyURI(url)
       ? {
@@ -652,7 +659,8 @@ export class ExternalReferenceNormalizer extends BaseXmlNormalizer<Models.Extern
           },
           children: [
             makeTextElement(url, 'url'),
-            makeOptionalTextElement(data.comment, 'comment')
+            makeOptionalTextElement(data.comment, 'comment'),
+            hashes
           ].filter(isNotUndefined)
         }
       : undefined

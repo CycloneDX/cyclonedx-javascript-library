@@ -21,19 +21,23 @@ import type { Comparable } from '../_helpers/sortable'
 import { SortableComparables } from '../_helpers/sortable'
 import type { ExternalReferenceType } from '../enums'
 import type { BomLink } from './bomLink'
+import { HashDictionary } from './hash'
 
 export interface OptionalExternalReferenceProperties {
+  hashes?: ExternalReference['hashes']
   comment?: ExternalReference['comment']
 }
 
 export class ExternalReference implements Comparable<ExternalReference> {
   url: URL | BomLink | string
   type: ExternalReferenceType
+  hashes: HashDictionary
   comment?: string
 
   constructor (url: ExternalReference['url'], type: ExternalReference['type'], op: OptionalExternalReferenceProperties = {}) {
     this.url = url
     this.type = type
+    this.hashes = op.hashes ?? new HashDictionary()
     this.comment = op.comment
   }
 

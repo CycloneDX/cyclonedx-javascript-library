@@ -692,6 +692,50 @@
                   "type": "element",
                   "name": "reference",
                   "attributes": {
+                    "type": "distribution"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://localhost/download/acme.tar.gz"
+                    },
+                    {
+                      "type": "element",
+                      "name": "hashes",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "hash",
+                          "attributes": {
+                            "alg": "MD5"
+                          },
+                          "children": "327b6f07435811239bc47e1544353273"
+                        },
+                        {
+                          "type": "element",
+                          "name": "hash",
+                          "attributes": {
+                            "alg": "SHA-1"
+                          },
+                          "children": "d53a205a336e07cf9eac45471b3870f9489288ec"
+                        },
+                        {
+                          "type": "element",
+                          "name": "hash",
+                          "attributes": {
+                            "alg": "SHA-256"
+                          },
+                          "children": "1f2ec52b774368781bed1d1fb140a92e0eb6348090619c9291f9a5a3c8e8d151"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
                     "type": "release-notes"
                   },
                   "children": [

@@ -139,6 +139,9 @@
                 <url>https://localhost/swid</url>
             </swid>
             <externalReferences>
+                <reference type="distribution">
+                    <url>https://localhost/download/acme.tar.gz</url>
+                </reference>
                 <reference type="support">
                     <url>https://localhost/acme/support</url>
                 </reference>

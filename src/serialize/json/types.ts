@@ -202,6 +202,7 @@ export namespace Normalized {
   export interface ExternalReference {
     url: JsonSchema.IriReference | BomLink
     type: Enums.ExternalReferenceType
+    hashes?: Hash[]
     comment?: string
   }
 
