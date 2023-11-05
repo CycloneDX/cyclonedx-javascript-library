@@ -692,6 +692,20 @@
                   "type": "element",
                   "name": "reference",
                   "attributes": {
+                    "type": "distribution"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://localhost/download/acme.tar.gz"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
                     "type": "release-notes"
                   },
                   "children": [

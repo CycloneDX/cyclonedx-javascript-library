@@ -214,6 +214,10 @@
             },
             "externalReferences": [
                 {
+                    "url": "https://localhost/download/acme.tar.gz",
+                    "type": "distribution"
+                },
+                {
                     "url": "https://localhost/acme/support",
                     "type": "support"
                 },

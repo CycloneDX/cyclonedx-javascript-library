@@ -230,6 +230,10 @@
       },
       "externalReferences": [
         {
+          "url": "https://localhost/download/acme.tar.gz",
+          "type": "distribution"
+        },
+        {
           "url": "./other/file",
           "type": "release-notes"
         },
