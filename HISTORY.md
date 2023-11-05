@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 6.1.0 -- 2023-11-05
+
 * Added
   * Class `Models.ExternalReference` got a new property `hashes` ([#984] via [#985])
   * Serializers and `ExternalReference`-Normalizers will take `Models.ExternalReference.hashes` into account ([#984] via [#985])
-
 * Build
   * Use _Webpack_ `v5.89.0` now, was `v5.88.2` (via [#979])
   * Use _ts-loader_ `v9.5.0` now, was `v9.4.4` (via [#977])
