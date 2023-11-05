@@ -5,8 +5,8 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Added
-  * Class `Models.ExternalReference` got a new property `hashes` ([#984] via [#])
-  * Serializers and `ExternalReference`-Normalizers will take `Models.ExternalReference.hashes` into account ([#984] via [#])
+  * Class `Models.ExternalReference` got a new property `hashes` ([#984] via [#985])
+  * Serializers and `ExternalReference`-Normalizers will take `Models.ExternalReference.hashes` into account ([#984] via [#985])
 
 * Build
   * Use _Webpack_ `v5.89.0` now, was `v5.88.2` (via [#979])
@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 [#977]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/977
 [#979]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/979 
 [#984]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/984
+[#985]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/985
 
 ## 6.0.0 -- 2023-08-26
 
