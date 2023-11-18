@@ -402,14 +402,14 @@ export class ComponentEvidenceNormalizer extends BaseJsonNormalizer<Models.Compo
       copyright: data.copyright.size > 0
         ? (
             options.sortLists
-              ? data.copyright.sorted().map(this.#normalizeCopyright)
-              : Array.from(data.copyright, this.#normalizeCopyright)
+              ? data.copyright.sorted().map(ComponentEvidenceNormalizer.#normalizeCopyright)
+              : Array.from(data.copyright, ComponentEvidenceNormalizer.#normalizeCopyright)
           )
         : undefined
     }
   }
 
-  #normalizeCopyright (c: Stringable): Normalized.Copyright {
+  static #normalizeCopyright (c: Stringable): Normalized.Copyright {
     return { text: c.toString() }
   }
 }
