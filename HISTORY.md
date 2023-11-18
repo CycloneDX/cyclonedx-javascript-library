@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Style
+  * Apply latest code style guide (via [#988])
+
+[#988]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/988
+
 ## 6.1.0 -- 2023-11-05
 
 * Added

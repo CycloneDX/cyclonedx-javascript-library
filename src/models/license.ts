@@ -142,7 +142,7 @@ export type DisjunctiveLicense = NamedLicense | SpdxLicense
 export type License = DisjunctiveLicense | LicenseExpression
 
 export class LicenseRepository extends Set<License> implements Sortable<License> {
-  #compareItems (a: License, b: License): number {
+  static #compareItems (a: License, b: License): number {
     if (a.constructor === b.constructor) {
       // @ts-expect-error -- classes are from same type -> they are comparable
       return a.compare(b)
@@ -151,6 +151,6 @@ export class LicenseRepository extends Set<License> implements Sortable<License>
   }
 
   sorted (): License[] {
-    return Array.from(this).sort(this.#compareItems)
+    return Array.from(this).sort(LicenseRepository.#compareItems)
   }
 }
