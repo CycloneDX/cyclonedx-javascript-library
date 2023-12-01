@@ -418,17 +418,17 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
   normalize (data: Models.License, options: NormalizerOptions): Normalized.License {
     switch (true) {
       case data instanceof Models.NamedLicense:
-        return this.#normalizeNamedLicense(data as Models.NamedLicense, options)
+        return this.#normalizeNamedLicense(data, options)
       case data instanceof Models.SpdxLicense:
-        return isSupportedSpdxId((data as Models.SpdxLicense).id)
-          ? this.#normalizeSpdxLicense(data as Models.SpdxLicense, options)
+        return isSupportedSpdxId(data.id)
+          ? this.#normalizeSpdxLicense(data, options)
           : this.#normalizeNamedLicense(new Models.NamedLicense(
             // prevent information loss -> convert to broader type
-            (data as Models.SpdxLicense).id,
-            { url: (data as Models.SpdxLicense).url }
+            data.id,
+            { url: data.url }
           ), options)
       case data instanceof Models.LicenseExpression:
-        return this.#normalizeLicenseExpression(data as Models.LicenseExpression)
+        return this.#normalizeLicenseExpression(data)
       /* c8 ignore start */
       default:
         // this case is expected to never happen - and therefore is undocumented
@@ -784,9 +784,9 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
   normalize (data: Models.Vulnerability.AffectedVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersion | undefined {
     switch (true) {
       case data instanceof Models.Vulnerability.AffectedSingleVersion:
-        return this.#normalizeAffectedSingleVersion(data as Models.Vulnerability.AffectedSingleVersion)
+        return this.#normalizeAffectedSingleVersion(data)
       case data instanceof Models.Vulnerability.AffectedVersionRange:
-        return this.#normalizeAffectedVersionRange(data as Models.Vulnerability.AffectedVersionRange)
+        return this.#normalizeAffectedVersionRange(data)
       /* c8 ignore start */
       default:
         // this case is expected to never happen - and therefore is undocumented

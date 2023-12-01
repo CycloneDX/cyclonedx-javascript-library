@@ -534,17 +534,17 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
   normalize (data: Models.License, options: NormalizerOptions): SimpleXml.Element {
     switch (true) {
       case data instanceof Models.NamedLicense:
-        return this.#normalizeNamedLicense(data as Models.NamedLicense, options)
+        return this.#normalizeNamedLicense(data, options)
       case data instanceof Models.SpdxLicense:
-        return isSupportedSpdxId((data as Models.SpdxLicense).id)
-          ? this.#normalizeSpdxLicense(data as Models.SpdxLicense, options)
+        return isSupportedSpdxId(data.id)
+          ? this.#normalizeSpdxLicense(data, options)
           : this.#normalizeNamedLicense(new Models.NamedLicense(
             // prevent information loss -> convert to broader type
-            (data as Models.SpdxLicense).id,
-            { url: (data as Models.SpdxLicense).url }
+            data.id,
+            { url: data.url }
           ), options)
       case data instanceof Models.LicenseExpression:
-        return this.#normalizeLicenseExpression(data as Models.LicenseExpression)
+        return this.#normalizeLicenseExpression(data)
       /* c8 ignore start */
       default:
         // this case is expected to never happen - and therefore is undocumented
@@ -1051,9 +1051,9 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseXmlNormalizer<Mo
   normalize (data: Models.Vulnerability.AffectedVersion, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     switch (true) {
       case data instanceof Models.Vulnerability.AffectedSingleVersion:
-        return this.#normalizeAffectedSingleVersion(data as Models.Vulnerability.AffectedSingleVersion, elementName)
+        return this.#normalizeAffectedSingleVersion(data, elementName)
       case data instanceof Models.Vulnerability.AffectedVersionRange:
-        return this.#normalizeAffectedVersionRange(data as Models.Vulnerability.AffectedVersionRange, elementName)
+        return this.#normalizeAffectedVersionRange(data, elementName)
       /* c8 ignore start */
       default:
         // this case is expected to never happen - and therefore is undocumented
