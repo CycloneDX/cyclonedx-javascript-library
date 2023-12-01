@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 6.1.1 -- 2023-12-01
+
+Maintenance release.
+
 * Style
   * Apply latest code style guide (via [#988], [#990])
 * Build
