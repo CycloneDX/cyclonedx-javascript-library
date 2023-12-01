@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 * Style
   * Apply latest code style guide (via [#988])
+* Build
+  * Use _TypeScript_ `v5.3.2` now, was `v5.2.2` (via [#990])
+  * Use _ts-loader_ `v9.5.1` now, was `v9.5.0` (via [#990])
+
+[#990]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/990
 
 [#988]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/988
 
