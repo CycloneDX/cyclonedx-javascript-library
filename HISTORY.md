@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 6.1.2 -- 2023-12-02
+
+Maintenance release.
+
 * Misc
   * Widened dependency `spdx-expression-parse@^3.0.1||^4`, was `@^3.0.1` (via [#993])
  
