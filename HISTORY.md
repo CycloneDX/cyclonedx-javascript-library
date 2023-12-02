@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Misc
+  * Widened dependency `spdx-expression-parse@^3.0.1||^4`, was `@^3.0.1` (via [#993])
+ 
+[#993]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/993
+
 ## 6.1.1 -- 2023-12-01
 
 Maintenance release.
