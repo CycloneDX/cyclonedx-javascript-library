@@ -10,8 +10,10 @@ Maintenance release.
 
 * Misc
   * Widened dependency `spdx-expression-parse@^3.0.1||^4`, was `@^3.0.1` (via [#993])
+  * CI/CT: test also with _Node.js_ v21 (via [#995])  
  
 [#993]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/993
+[#995]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/995
 
 ## 6.1.1 -- 2023-12-01
 
