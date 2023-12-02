@@ -67,7 +67,7 @@
   },
   "dependencies": {
     "packageurl-js": ">=0.0.6 <0.0.8 || ^1",
-    "spdx-expression-parse": "^4.0.0"
+    "spdx-expression-parse": "^3.0.1 || ^4"
   },
   "optionalDependencies": {
     "ajv": "^8.12.0",
