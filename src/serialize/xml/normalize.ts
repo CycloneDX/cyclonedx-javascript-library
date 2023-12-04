@@ -564,7 +564,7 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options, 'text'),
         XmlSchema.isAnyURI(url)
-          ? makeTextElement(url, 'url')
+          ? makeTextElement(encodeURI(url), 'url')
           : undefined
       ].filter(isNotUndefined)
     }
@@ -641,7 +641,7 @@ export class SWIDNormalizer extends BaseXmlNormalizer<Models.SWID> {
 
 export class ExternalReferenceNormalizer extends BaseXmlNormalizer<Models.ExternalReference> {
   normalize (data: Models.ExternalReference, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
-    const url = data.url.toString()
+    const url = encodeURI(data.url.toString())
     const hashes: SimpleXml.Element | undefined = this._factory.spec.supportsExternalReferenceHashes && data.hashes.size > 0
       ? {
           type: 'element',

@@ -446,20 +446,26 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options),
         url: JsonSchema.isIriReference(url)
-          ? url
+          ? encodeURI(url)
           : undefined
       }
     }
   }
 
   #normalizeSpdxLicense (data: Models.SpdxLicense, options: NormalizerOptions): Normalized.SpdxLicense {
+    let encodedUrl: string | undefined
+    if (typeof data.url === 'undefined') {
+      encodedUrl = undefined
+    } else {
+      encodedUrl = encodeURI(data.url.toString())
+    }
     return {
       license: {
         id: data.id,
         text: data.text === undefined
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options),
-        url: data.url?.toString()
+        url: encodedUrl
       }
     }
   }
@@ -504,7 +510,7 @@ export class SWIDNormalizer extends BaseJsonNormalizer<Models.SWID> {
         ? undefined
         : this._factory.makeForAttachment().normalize(data.text, options),
       url: JsonSchema.isIriReference(url)
-        ? url
+        ? encodeURI(url)
         : undefined
     }
   }
@@ -514,7 +520,7 @@ export class ExternalReferenceNormalizer extends BaseJsonNormalizer<Models.Exter
   normalize (data: Models.ExternalReference, options: NormalizerOptions): Normalized.ExternalReference | undefined {
     return this._factory.spec.supportsExternalReferenceType(data.type)
       ? {
-          url: data.url.toString(),
+          url: encodeURI(data.url.toString()),
           type: data.type,
           hashes: this._factory.spec.supportsExternalReferenceHashes && data.hashes.size > 0
             ? this._factory.makeForHash().normalizeIterable(data.hashes, options)
