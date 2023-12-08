@@ -33,7 +33,7 @@ export class BomRefDiscriminator {
     return this.#prefix
   }
 
-  /** Iterate over the BomRefs. */
+  /** Iterate over the {@link BomRef}s. */
   * [Symbol.iterator] (): IterableIterator<BomRef> {
     for (const [bomRef] of this.#originalValues) {
       yield bomRef
