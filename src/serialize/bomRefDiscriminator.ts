@@ -20,14 +20,12 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { BomRef } from '../models'
 
 export class BomRefDiscriminator {
-  readonly #originalValues: ReadonlyMap<BomRef, string | undefined>
+  readonly #originalValues: ReadonlyArray<readonly [BomRef, string | undefined]>
 
   readonly #prefix: string
 
   constructor (bomRefs: Iterable<BomRef>, prefix: string = 'BomRef') {
-    this.#originalValues = new Map(
-      Array.from(bomRefs, r => [r, r.value])
-    )
+    this.#originalValues = Array.from(bomRefs, r => [r, r.value])
     this.#prefix = prefix
   }
 
@@ -36,8 +34,10 @@ export class BomRefDiscriminator {
   }
 
   /** Iterate over the bomRefs. */
-  [Symbol.iterator] (): IterableIterator<BomRef> {
-    return this.#originalValues.keys()
+  * [Symbol.iterator] (): IterableIterator<BomRef> {
+    for (const [bomRef] of this.#originalValues) {
+      yield bomRef
+    }
   }
 
   discriminate (): void {
