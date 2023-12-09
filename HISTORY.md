@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Build
+  * Use _TypeScript_ `v5.3.3` now, was `v5.3.2` (via [#999])
+
+[#999]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/999
+
 ## 6.1.2 -- 2023-12-02
 
 Maintenance release.
