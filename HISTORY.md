@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 6.1.3 -- 2023-12-09
+
 * Fixed
   * Possible bug in XML serialization of undefined children (via [#1000]) 
 * Build
