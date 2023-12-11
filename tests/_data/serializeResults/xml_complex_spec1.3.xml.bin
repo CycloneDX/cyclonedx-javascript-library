@@ -86,6 +86,52 @@
                 <expression>(MIT OR Apache-2.0)</expression>
             </licenses>
         </component>
+        <component type="library" bom-ref="component-with-unescaped-urls">
+            <name>component-with-unescaped-urls</name>
+            <version/>
+            <externalReferences>
+                <reference type="other">
+                    <url>../foo/bar</url>
+                    <comment>encode anyUri: relative path</comment>
+                </reference>
+                <reference type="other">
+                    <url>https://example.org/?bar%5Btest%5D=baz</url>
+                    <comment>encode anyUri: []</comment>
+                </reference>
+                <reference type="other">
+                    <url>https://example.org/?bar%5Btest%5D=baz</url>
+                    <comment>encode anyUri: partially encoded</comment>
+                </reference>
+                <reference type="other">
+                    <url>https://example.org/#%7Btest%7D</url>
+                    <comment>encode anyUri: {}</comment>
+                </reference>
+                <reference type="other">
+                    <url>https://example.org/#%3Ctest%3E</url>
+                    <comment>encode anyUri: &lt;&gt;</comment>
+                </reference>
+                <reference type="other">
+                    <url>https://example.org/édition</url>
+                    <comment>encode anyUri: non-ASCII</comment>
+                </reference>
+                <reference type="other">
+                    <url>https://example.org/foo%20bar</url>
+                    <comment>encode anyUri: space</comment>
+                </reference>
+                <reference type="other">
+                    <url>https://example.org/p?k=v#f</url>
+                    <comment>encode anyUri: https</comment>
+                </reference>
+                <reference type="other">
+                    <url>mailto:info@example.org</url>
+                    <comment>encode anyUri: mailto</comment>
+                </reference>
+                <reference type="other">
+                    <url>urn:example:org</url>
+                    <comment>encode anyUri: urn</comment>
+                </reference>
+            </externalReferences>
+        </component>
         <component type="library" bom-ref="component-with-vulnerabilities">
             <name>component-with-vulnerabilities</name>
             <version>1.0</version>
@@ -195,6 +241,7 @@
         <dependency ref="component-with-licenseExpression"/>
         <dependency ref="component-with-licenses"/>
         <dependency ref="component-with-licenses-and-expression"/>
+        <dependency ref="component-with-unescaped-urls"/>
         <dependency ref="component-with-vulnerabilities"/>
         <dependency ref="ComponentWithProperties"/>
         <dependency ref="dummy-component">

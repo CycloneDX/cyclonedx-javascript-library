@@ -376,6 +376,217 @@
           "name": "component",
           "attributes": {
             "type": "library",
+            "bom-ref": "component-with-unescaped-urls"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "component-with-unescaped-urls"
+            },
+            {
+              "type": "element",
+              "name": "externalReferences",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "../foo/bar"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: relative path"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/?bar%5Btest%5D=baz"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: []"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/?bar%5Btest%5D=baz"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: partially encoded"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/#%7Btest%7D"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: {}"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/#%3Ctest%3E"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: <>"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/édition"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: non-ASCII"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/foo%20bar"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: space"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/p?k=v#f"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: https"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "mailto:info@example.org"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: mailto"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "urn:example:org"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: urn"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
             "bom-ref": "component-with-vulnerabilities"
           },
           "children": [
@@ -893,6 +1104,14 @@
           "name": "dependency",
           "attributes": {
             "ref": "component-with-licenses-and-expression"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "component-with-unescaped-urls"
           },
           "children": []
         },

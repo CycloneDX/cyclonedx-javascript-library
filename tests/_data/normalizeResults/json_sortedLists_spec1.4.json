@@ -129,6 +129,63 @@
     },
     {
       "type": "library",
+      "name": "component-with-unescaped-urls",
+      "bom-ref": "component-with-unescaped-urls",
+      "externalReferences": [
+        {
+          "url": "../foo/bar",
+          "type": "other",
+          "comment": "encode anyUri: relative path"
+        },
+        {
+          "url": "https://example.org/?bar%5Btest%5D=baz",
+          "type": "other",
+          "comment": "encode anyUri: []"
+        },
+        {
+          "url": "https://example.org/?bar%5Btest%5D=baz",
+          "type": "other",
+          "comment": "encode anyUri: partially encoded"
+        },
+        {
+          "url": "https://example.org/#%7Btest%7D",
+          "type": "other",
+          "comment": "encode anyUri: {}"
+        },
+        {
+          "url": "https://example.org/#%3Ctest%3E",
+          "type": "other",
+          "comment": "encode anyUri: <>"
+        },
+        {
+          "url": "https://example.org/édition",
+          "type": "other",
+          "comment": "encode anyUri: non-ASCII"
+        },
+        {
+          "url": "https://example.org/foo%20bar",
+          "type": "other",
+          "comment": "encode anyUri: space"
+        },
+        {
+          "url": "https://example.org/p?k=v#f",
+          "type": "other",
+          "comment": "encode anyUri: https"
+        },
+        {
+          "url": "mailto:info@example.org",
+          "type": "other",
+          "comment": "encode anyUri: mailto"
+        },
+        {
+          "url": "urn:example:org",
+          "type": "other",
+          "comment": "encode anyUri: urn"
+        }
+      ]
+    },
+    {
+      "type": "library",
       "name": "component-with-vulnerabilities",
       "version": "1.0",
       "bom-ref": "component-with-vulnerabilities"
@@ -315,6 +372,9 @@
     },
     {
       "ref": "component-with-licenses-and-expression"
+    },
+    {
+      "ref": "component-with-unescaped-urls"
     },
     {
       "ref": "component-with-vulnerabilities"

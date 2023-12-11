@@ -18,10 +18,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { isNotUndefined } from '../../_helpers/notUndefined'
-import { percentEncodeUrl } from '../../_helpers/percentEncodedUrl'
 import type { SortableIterable } from '../../_helpers/sortable'
 import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
+import { escapeUri } from '../../_helpers/uri'
 import * as Models from '../../models'
 import { isSupportedSpdxId } from '../../spdx'
 import { Version as SpecVersion } from '../../spec'
@@ -312,8 +312,10 @@ export class OrganizationalContactNormalizer extends BaseJsonNormalizer<Models.O
 
 export class OrganizationalEntityNormalizer extends BaseJsonNormalizer<Models.OrganizationalEntity> {
   normalize (data: Models.OrganizationalEntity, options: NormalizerOptions): Normalized.OrganizationalEntity {
-    const urls = normalizeStringableIter(data.url, options)
-      .filter(JsonSchema.isIriReference)
+    const urls = normalizeStringableIter(
+      Array.from(data.url, (s) => escapeUri(s.toString())),
+      options
+    ).filter(JsonSchema.isIriReference)
     return {
       name: data.name || undefined,
       url: urls.length > 0
@@ -439,7 +441,7 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
   }
 
   #normalizeNamedLicense (data: Models.NamedLicense, options: NormalizerOptions): Normalized.NamedLicense {
-    const url = data.url?.toString()
+    const url = escapeUri(data.url?.toString())
     return {
       license: {
         name: data.name,
@@ -447,22 +449,23 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options),
         url: JsonSchema.isIriReference(url)
-          ? percentEncodeUrl(url)
+          ? url
           : undefined
       }
     }
   }
 
   #normalizeSpdxLicense (data: Models.SpdxLicense, options: NormalizerOptions): Normalized.SpdxLicense {
+    const url = escapeUri(data.url?.toString())
     return {
       license: {
         id: data.id,
         text: data.text === undefined
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options),
-        url: data.url === undefined
-          ? undefined
-          : percentEncodeUrl(data.url.toString())
+        url: JsonSchema.isIriReference(url)
+          ? url
+          : undefined
       }
     }
   }
@@ -496,7 +499,7 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
 
 export class SWIDNormalizer extends BaseJsonNormalizer<Models.SWID> {
   normalize (data: Models.SWID, options: NormalizerOptions): Normalized.SWID {
-    const url = data.url?.toString()
+    const url = escapeUri(data.url?.toString())
     return {
       tagId: data.tagId,
       name: data.name,
@@ -507,7 +510,7 @@ export class SWIDNormalizer extends BaseJsonNormalizer<Models.SWID> {
         ? undefined
         : this._factory.makeForAttachment().normalize(data.text, options),
       url: JsonSchema.isIriReference(url)
-        ? percentEncodeUrl(url)
+        ? url
         : undefined
     }
   }
@@ -517,7 +520,7 @@ export class ExternalReferenceNormalizer extends BaseJsonNormalizer<Models.Exter
   normalize (data: Models.ExternalReference, options: NormalizerOptions): Normalized.ExternalReference | undefined {
     return this._factory.spec.supportsExternalReferenceType(data.type)
       ? {
-          url: percentEncodeUrl(data.url.toString()),
+          url: escapeUri(data.url.toString()),
           type: data.type,
           hashes: this._factory.spec.supportsExternalReferenceHashes && data.hashes.size > 0
             ? this._factory.makeForHash().normalizeIterable(data.hashes, options)
@@ -729,7 +732,7 @@ export class VulnerabilityRatingNormalizer extends BaseJsonNormalizer<Models.Vul
 
 export class VulnerabilityAdvisoryNormalizer extends BaseJsonNormalizer<Models.Vulnerability.Advisory> {
   normalize (data: Models.Vulnerability.Advisory, options: NormalizerOptions): Normalized.Vulnerability.Advisory | undefined {
-    const url = data.url.toString()
+    const url = escapeUri(data.url.toString())
     if (!JsonSchema.isIriReference(url)) {
       // invalid value -> cannot render
       return undefined
