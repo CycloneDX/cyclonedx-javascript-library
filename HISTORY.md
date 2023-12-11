@@ -4,8 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 6.2.0 -- 2023-12-11
+
 * Changed
-  * Serialization/normalization guarantees valid URI values according to JSON/XML specification ([#992] via [#996])
+  * Serialization/normalization guarantees valid URI values ([#992] via [#996])
 
 [#992]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/992
 [#996]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/996
