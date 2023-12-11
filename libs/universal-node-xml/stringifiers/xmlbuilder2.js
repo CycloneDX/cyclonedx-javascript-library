@@ -38,14 +38,14 @@ module.exports = typeof create === 'function'
 /* eslint-enable jsdoc/valid-types */
 
 /**
- * @param {Element} element
+ * @param {Element} rootElement
  * @param {string|number|undefined} [space]
  * @return {string}
  */
-function stringify (element, { space } = {}) {
+function stringify (rootElement, { space } = {}) {
   const indent = makeIndent(space)
   const doc = create({ encoding: 'UTF-8' })
-  addEle(doc, element)
+  addEle(doc, rootElement)
   return doc.end({
     format: 'xml',
     newline: '\n',
@@ -63,9 +63,11 @@ function addEle (parent, element, parentNS = null) {
   if (element.type !== 'element') { return }
   const ns = getNS(element) ?? parentNS
   const ele = parent.ele(ns, element.name, element.attributes)
-  if (typeof element.children === 'string' || typeof element.children === 'number') {
+  if (element.children === undefined) {
+    /* pass */
+  } else if (typeof element.children === 'string' || typeof element.children === 'number') {
     ele.txt(element.children.toString())
-  } else if (Array.isArray(element.children)) {
+  } else {
     for (const child of element.children) {
       addEle(ele, child, ns)
     }

@@ -36,11 +36,11 @@ export class XmlSerializer extends XmlBaseSerializer {
   }
 
   #buildXmlDocument (
-    normalizedBom: SimpleXml.Element
+    rootElement: SimpleXml.Element
   ): XMLDocument {
     const namespace = null
     const doc = document.implementation.createDocument(namespace, null)
-    doc.appendChild(this.#buildElement(normalizedBom, doc, namespace))
+    doc.appendChild(this.#buildElement(rootElement, doc, namespace))
     return doc
   }
 
@@ -58,7 +58,7 @@ export class XmlSerializer extends XmlBaseSerializer {
       this.#setAttributes(node, element.attributes)
     }
     if (isNotUndefined(element.children)) {
-      this.#setChildren(node, element.children, ns)
+      this.#addChildren(node, element.children, ns)
     }
     return node
   }
@@ -72,14 +72,18 @@ export class XmlSerializer extends XmlBaseSerializer {
     }
   }
 
-  #setChildren (node: Element, children: SimpleXml.ElementChildren, parentNS: string | null = null): void {
+  #addChildren (node: Element, children: SimpleXml.ElementChildren, parentNS: string | null = null): void {
+    if (children === undefined) {
+      return
+    }
+
     if (typeof children === 'string' || typeof children === 'number') {
       node.textContent = children.toString()
       return
     }
 
     const doc = node.ownerDocument
-    for (const child of (children as Iterable<SimpleXml.Comment | SimpleXml.Element>)) {
+    for (const child of children) {
       if (child.type === 'element') {
         node.appendChild(this.#buildElement(child, doc, parentNS))
       }

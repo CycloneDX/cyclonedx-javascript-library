@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import * as spdxExpressionParse from 'spdx-expression-parse'
 
 /* @ts-expect-error: TS6059 -- this works as long as the file/path is available in dist-package. */
-import { enum as _spdxSpecEnum } from '../res/schema/spdx.SNAPSHOT.schema.json' assert { type: 'json' }
+import { enum as _spdxSpecEnum } from '../res/schema/spdx.SNAPSHOT.schema.json' with { type: 'json' }
 
 /**
  * One of the known SPDX licence identifiers.
@@ -33,18 +33,19 @@ export type SpdxId = string
 
 const spdxIds: ReadonlySet<SpdxId> = new Set(_spdxSpecEnum)
 
-const spdxLowerToActual: ReadonlyMap<string, SpdxId> = new Map(
+const spdxLowerToActual: Readonly<Record<string, SpdxId>> = Object.freeze(Object.fromEntries(
   _spdxSpecEnum.map(spdxId => [spdxId.toLowerCase(), spdxId])
-)
+))
 
 export function isSupportedSpdxId (value: SpdxId | any): value is SpdxId {
+  /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */
   return spdxIds.has(value)
 }
 
 /** Try to convert a `string`-like to a valid/known {@link SpdxId}. */
 export function fixupSpdxId (value: string | any): SpdxId | undefined {
   return typeof value === 'string' && value.length > 0
-    ? spdxLowerToActual.get(value.toLowerCase())
+    ? spdxLowerToActual[value.toLowerCase()]
     : undefined
 }
 
