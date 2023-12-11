@@ -21,6 +21,7 @@ import { isNotUndefined } from '../../_helpers/notUndefined'
 import type { SortableIterable } from '../../_helpers/sortable'
 import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
+import { escapeUri } from '../../_helpers/uri'
 import * as Models from '../../models'
 import { isSupportedSpdxId } from '../../spdx'
 import { Version as SpecVersion } from '../../spec'
@@ -388,8 +389,10 @@ export class OrganizationalEntityNormalizer extends BaseXmlNormalizer<Models.Org
       name: elementName,
       children: [
         makeOptionalTextElement(data.name, 'name'),
-        ...makeTextElementIter(data.url, options, 'url')
-          .filter(({ children: u }) => XmlSchema.isAnyURI(u)),
+        ...makeTextElementIter(Array.from(
+          data.url, (s): string => escapeUri(s.toString())
+        ), options, 'url'
+        ).filter(({ children: u }) => XmlSchema.isAnyURI(u)),
         ...this._factory.makeForOrganizationalContact().normalizeIterable(data.contact, options, 'contact')
       ].filter(isNotUndefined)
     }
@@ -554,7 +557,7 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
   }
 
   #normalizeNamedLicense (data: Models.NamedLicense, options: NormalizerOptions): SimpleXml.Element {
-    const url = data.url?.toString()
+    const url = escapeUri(data.url?.toString())
     return {
       type: 'element',
       name: 'license',
@@ -571,7 +574,7 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
   }
 
   #normalizeSpdxLicense (data: Models.SpdxLicense, options: NormalizerOptions): SimpleXml.Element {
-    const url = data.url?.toString()
+    const url = escapeUri(data.url?.toString())
     return {
       type: 'element',
       name: 'license',
@@ -614,7 +617,7 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
 
 export class SWIDNormalizer extends BaseXmlNormalizer<Models.SWID> {
   normalize (data: Models.SWID, options: NormalizerOptions, elementName: string): SimpleXml.Element {
-    const url = data.url?.toString()
+    const url = escapeUri(data.url?.toString())
     return {
       type: 'element',
       name: elementName,
@@ -641,7 +644,7 @@ export class SWIDNormalizer extends BaseXmlNormalizer<Models.SWID> {
 
 export class ExternalReferenceNormalizer extends BaseXmlNormalizer<Models.ExternalReference> {
   normalize (data: Models.ExternalReference, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
-    const url = data.url.toString()
+    const url = escapeUri(data.url.toString())
     const hashes: SimpleXml.Element | undefined = this._factory.spec.supportsExternalReferenceHashes && data.hashes.size > 0
       ? {
           type: 'element',
@@ -874,7 +877,7 @@ export class VulnerabilityNormalizer extends BaseXmlNormalizer<Models.Vulnerabil
 
 export class VulnerabilitySourceNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Source> {
   normalize (data: Models.Vulnerability.Source, options: NormalizerOptions, elementName: string): SimpleXml.Element {
-    const url = data.url?.toString()
+    const url = escapeUri(data.url?.toString())
     return {
       type: 'element',
       name: elementName,
@@ -940,7 +943,7 @@ export class VulnerabilityRatingNormalizer extends BaseXmlNormalizer<Models.Vuln
 
 export class VulnerabilityAdvisoryNormalizer extends BaseXmlNormalizer<Models.Vulnerability.Advisory> {
   normalize (data: Models.Vulnerability.Advisory, options: NormalizerOptions, elementName: string): SimpleXml.Element | undefined {
-    const url = data.url.toString()
+    const url = escapeUri(data.url.toString())
     if (!XmlSchema.isAnyURI(url)) {
       // invalid value -> cannot render
       return undefined

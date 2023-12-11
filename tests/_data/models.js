@@ -21,10 +21,6 @@ const { PackageURL } = require('packageurl-js')
 
 const { Enums, Models, Types } = require('../../')
 
-/* eslint-disable jsdoc/valid-types */
-
-/* eslint-enable jsdoc/valid-types */
-
 /**
  * @returns {Models.Bom}
  */
@@ -264,6 +260,34 @@ module.exports.createComplexStructure = function () {
           new Models.SpdxLicense('Apache-2.0'),
           new Models.LicenseExpression('(MIT OR Apache-2.0)')
         ])
+      }
+    )
+  )
+
+  bom.components.add(
+    new Models.Component(
+      Enums.ComponentType.Library, 'component-with-unescaped-urls', {
+        bomRef: 'component-with-unescaped-urls',
+        externalReferences: new Models.ExternalReferenceRepository(
+          [
+            ['encode anyUri: urn', 'urn:example:org'],
+            ['encode anyUri: https', 'https://example.org/p?k=v#f'],
+            ['encode anyUri: mailto', 'mailto:info@example.org'],
+            ['encode anyUri: relative path', '../foo/bar'],
+            ['encode anyUri: space', 'https://example.org/foo bar'],
+            ['encode anyUri: []', 'https://example.org/?bar[test]=baz'],
+            ['encode anyUri: <>', 'https://example.org/#<test>'],
+            ['encode anyUri: {}', 'https://example.org/#{test}'],
+            ['encode anyUri: non-ASCII', 'https://example.org/édition'],
+            ['encode anyUri: partially encoded', 'https://example.org/?bar[test%5D=baz']
+          ].map(
+            ([desc, uri]) => new Models.ExternalReference(
+              uri, Enums.ExternalReferenceType.Other, {
+                comment: desc
+              }
+            )
+          )
+        )
       }
     )
   )
