@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Dependencies
+  * Widened optional dependency `libxmljs2@^0.31||^0.32||^0.33`, was `@^0.31||^0.32` (via [#])
+
+[#]:
+
 ## 6.2.0 -- 2023-12-11
 
 * Changed
