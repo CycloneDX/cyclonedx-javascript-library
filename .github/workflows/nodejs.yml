@@ -154,7 +154,7 @@ jobs:
           npm i --ignore-scripts --loglevel=silly --no-save $dev_requirements
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist.node
           path: dist.node
@@ -199,7 +199,7 @@ jobs:
           npm i --no-save mocha c8 npm-run-all fast-glob
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist.node
           path: dist.node
@@ -229,7 +229,7 @@ jobs:
     steps:
       - name: fetch test artifacts
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ env.TESTS_REPORTS_ARTIFACT }}
           path: ${{ env.REPORTS_DIR }}
@@ -271,7 +271,7 @@ jobs:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: fetch build artifact 'node'
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist.node
           path: dist.node
@@ -318,13 +318,13 @@ jobs:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: fetch build artifact 'd'
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist.d
           path: dist.d
       - name: fetch build artifact 'node'
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist.node
           path: dist.node
@@ -374,7 +374,7 @@ jobs:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: fetch build artifact 'node'
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist.web
           path: dist.web
