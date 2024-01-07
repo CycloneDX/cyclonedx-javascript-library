@@ -76,7 +76,7 @@
     "@types/mocha": "^10",
     "@types/node": "ts5.3",
     "@types/spdx-expression-parse": "^3",
-    "c8": "8.0.1",
+    "c8": "^8||^9",
     "deepmerge": "^4.2.2",
     "eslint": "8.56.0",
     "eslint-config-standard": "17.1.0",
