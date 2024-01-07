@@ -137,7 +137,7 @@ jobs:
           # some node ship with broken/insufficient version of NPM
           case '${{ matrix.node-version }}' in
             '16')
-              npm -g install npm@^8
+              npm -g install npm@^9
               ;;
           esac
       - name: setup project
