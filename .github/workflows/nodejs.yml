@@ -129,17 +129,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           # do not use caching, use fresh version always, since some deps are not pinned -- since this is a library.
-      - name: update npm
-        shell: bash
-        run: |
-          set -ex
-          npm --version  # show current version
-          # some node ship with broken/insufficient version of NPM
-          case '${{ matrix.node-version }}' in
-            '16')
-              npm -g install npm@^9
-              ;;
-          esac
       - name: setup project
         shell: bash
         run: |
