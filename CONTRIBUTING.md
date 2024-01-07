@@ -5,12 +5,15 @@ But please read the
 [CycloneDX contributing guidelines](https://github.com/CycloneDX/.github/blob/master/CONTRIBUTING.md)
 first.
 
+Be aware: even though this project supports node>=14 on runtime,
+it requires node>=18 on dev-time.
+
 ## Set up the project
 
 Install dependencies:
 
 ```shell
-npm ci
+npm install
 ```
 
 The setup will also build the project.
