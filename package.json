@@ -92,7 +92,7 @@
     "typedoc": "^0.25.0",
     "typedoc-plugin-missing-exports": "^2.0.1",
     "typescript": "5.3.3",
-    "webpack": "5.90.1",
+    "webpack": "5.90.2",
     "webpack-cli": "5.1.4",
     "webpack-node-externals": "3.0.0"
   },
