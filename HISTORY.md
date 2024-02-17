@@ -4,7 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
-## 6.3.0 -- 2023-12-12
+* Build
+  * Use _Webpack_ `v5.90.2` now, was `v5.89.0` (via [#1008], [#1013])
+
+[#1008]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1008
+[#1013]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1013
+
+## 6.3.1 -- 2023-12-11
+
+Maintenance release
+
+## 6.3.0 -- 2023-12-11
 
 * Dependencies
   * Widened optional dependency `libxmljs2@^0.31||^0.32||^0.33`, was `@^0.31||^0.32` (via [#1001])
