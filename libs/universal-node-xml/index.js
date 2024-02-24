@@ -17,9 +17,6 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-/**
- * @type {[string, Function][]}
- */
 const possibleStringifiers = [
   // prioritized list of possible implementations
   ['xmlbuilder2', () => require(`./stringifiers/xmlbuilder2`)]
