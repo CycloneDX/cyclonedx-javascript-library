@@ -5,10 +5,11 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Build
-  * Use _Webpack_ `v5.90.2` now, was `v5.89.0` (via [#1008], [#1013])
+  * Use _webpack_ `v5.90.3` now, was `v5.89.0` (via [#1008], [#1013], [#1015])
 
 [#1008]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1008
 [#1013]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1013
+[#1015]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1015
 
 ## 6.3.1 -- 2023-12-11
 
@@ -69,7 +70,7 @@ Maintenance release.
   * Class `Models.ExternalReference` got a new property `hashes` ([#984] via [#985])
   * Serializers and `ExternalReference`-Normalizers will take `Models.ExternalReference.hashes` into account ([#984] via [#985])
 * Build
-  * Use _Webpack_ `v5.89.0` now, was `v5.88.2` (via [#979])
+  * Use _webpack_ `v5.89.0` now, was `v5.88.2` (via [#979])
   * Use _ts-loader_ `v9.5.0` now, was `v9.4.4` (via [#977])
 
 [#977]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/977
@@ -102,7 +103,7 @@ Maintenance release.
   * Class `Models.Metadata` got a new property `lifecycles` ([#937] via [#946])
   * Serializers and `Metadata`-Normalizers will take `Models.Metadata.lifecycles` into account ([#937] via [#946])
 * Build
-  * Use _Webpack_ `v5.88.2` now, was `v5.88.1` (via [#933])
+  * Use _webpack_ `v5.88.2` now, was `v5.88.1` (via [#933])
 
 [#933]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/933
 [#937]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/937
@@ -122,8 +123,8 @@ Maintenance release.
   * Added examples for usage of `CDX.Factories.PackageUrlFactory` (via [#882], [#886])
 * Build
   * Use _TypeScript_ `v5.1.6` now, was `v5.1.5` (via [#866])
-  * Use _Webpack_ `v5.88.1` now, was `v5.88.0` (via [#870])
-  * Apply wider rules for `externals` for in _Webpack_ build ([#883] via [#880])
+  * Use _webpack_ `v5.88.1` now, was `v5.88.0` (via [#870])
+  * Apply wider rules for `externals` in _webpack_ build ([#883] via [#880])
 
 [#866]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/866
 [#870]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/870
@@ -189,7 +190,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
   * Improved internal documentation (via [#856])
 * Build
   * Use _TypeScript_ `v5.1.5` now, was `v5.1.3` (via [#860])
-  * Use _Webpack_ `v5.88.0` now, was `v5.86.0` (via [#841])
+  * Use _webpack_ `v5.88.0` now, was `v5.86.0` (via [#841])
 
 [#505]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/505
 [#841]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/841
@@ -205,7 +206,7 @@ Added functionality regarding [_CycloneDX_ BOM-Link](https://cyclonedx.org/capab
     Previously, only instances were available via `Serialize.Xml.Normalize.Factory.makeForVulnerability*()`.
 * Build
   * Use _TypeScript_ `v5.1.3` now, was `v5.0.4` (via [#790])
-  * Use _Webpack_ `v5.86.0` now, was `v5.82.1` (via [#802])
+  * Use _webpack_ `v5.86.0` now, was `v5.82.1` (via [#802])
 
 [#790]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/790
 [#802]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/802
@@ -379,7 +380,7 @@ Added `ComponentEvidence` capabilities.
       * `Validation.MissingOptionalDependencyError`
 * Build
   * Use _TypeScript_ `v5.0.4` now, was `v4.9.5` ([#549] via [#644])
-  * Use _Webpack_ `v5.80.0` now, was `v5.79.0` (via [#686])
+  * Use _webpack_ `v5.80.0` now, was `v5.79.0` (via [#686])
 
 [#549]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/549
 [#620]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/620
@@ -692,7 +693,7 @@ Maintenance release.
   * JSON- and XML-Normalizer for `Models.Property`, `Models.PropertyRepository` (via [#151])
   * New property `Models.Component.properties` (via [#151])
 * Build
-  * Use _Webpack_ `v5.74.0.` now, was `v5.73.0` (via [#141])
+  * Use _webpack_ `v5.74.0.` now, was `v5.73.0` (via [#141])
 
 [#141]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/141
 [#150]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/150
