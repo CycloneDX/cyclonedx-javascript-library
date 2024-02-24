@@ -18,9 +18,11 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { Component } from './component'
+import { LicenseRepository } from './license'
 import { LifecycleRepository } from './lifecycle'
 import { OrganizationalContactRepository } from './organizationalContact'
 import type { OrganizationalEntity } from './organizationalEntity'
+import { PropertyRepository } from './property'
 import { ToolRepository } from './tool'
 
 export interface OptionalMetadataProperties {
@@ -31,6 +33,8 @@ export interface OptionalMetadataProperties {
   component?: Metadata['component']
   manufacture?: Metadata['manufacture']
   supplier?: Metadata['supplier']
+  licenses?: Metadata['licenses']
+  properties?: Metadata['properties']
 }
 
 export class Metadata {
@@ -41,6 +45,8 @@ export class Metadata {
   component?: Component
   manufacture?: OrganizationalEntity
   supplier?: OrganizationalEntity
+  licenses: LicenseRepository
+  properties: PropertyRepository
 
   constructor (op: OptionalMetadataProperties = {}) {
     this.timestamp = op.timestamp
@@ -50,5 +56,7 @@ export class Metadata {
     this.component = op.component
     this.manufacture = op.manufacture
     this.supplier = op.supplier
+    this.licenses = op.licenses ?? new LicenseRepository()
+    this.properties = op.properties ?? new PropertyRepository()
   }
 }

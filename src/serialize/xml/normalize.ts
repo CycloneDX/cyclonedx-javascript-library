@@ -246,6 +246,20 @@ export class MetadataNormalizer extends BaseXmlNormalizer<Models.Metadata> {
           children: this._factory.makeForOrganizationalContact().normalizeIterable(data.authors, options, 'author')
         }
       : undefined
+    const licenses: SimpleXml.Element | undefined = data.licenses.size > 0
+      ? {
+          type: 'element',
+          name: 'licenses',
+          children: this._factory.makeForLicense().normalizeIterable(data.licenses, options)
+        }
+      : undefined
+    const properties: SimpleXml.Element | undefined = this._factory.spec.supportsProperties(data) && data.properties.size > 0
+      ? {
+          type: 'element',
+          name: 'properties',
+          children: this._factory.makeForProperty().normalizeIterable(data.properties, options, 'property')
+        }
+      : undefined
     return {
       type: 'element',
       name: elementName,
@@ -262,7 +276,9 @@ export class MetadataNormalizer extends BaseXmlNormalizer<Models.Metadata> {
           : orgEntityNormalizer.normalize(data.manufacture, options, 'manufacture'),
         data.supplier === undefined
           ? undefined
-          : orgEntityNormalizer.normalize(data.supplier, options, 'supplier')
+          : orgEntityNormalizer.normalize(data.supplier, options, 'supplier'),
+        licenses,
+        properties
       ].filter(isNotUndefined)
     }
   }

@@ -94,6 +94,7 @@ export namespace Normalized {
     manufacture?: OrganizationalEntity
     supplier?: OrganizationalEntity
     licenses?: License[]
+    properties?: Property[]
   }
 
   export interface LifecyclePhase {

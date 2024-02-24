@@ -223,7 +223,13 @@ export class MetadataNormalizer extends BaseJsonNormalizer<Models.Metadata> {
         : orgEntityNormalizer.normalize(data.manufacture, options),
       supplier: data.supplier === undefined
         ? undefined
-        : orgEntityNormalizer.normalize(data.supplier, options)
+        : orgEntityNormalizer.normalize(data.supplier, options),
+      licenses: data.licenses.size > 0
+        ? this._factory.makeForLicense().normalizeIterable(data.licenses, options)
+        : undefined,
+      properties: this._factory.spec.supportsProperties(data) && data.properties.size > 0
+        ? this._factory.makeForProperty().normalizeIterable(data.properties, options)
+        : undefined,
     }
   }
 }
