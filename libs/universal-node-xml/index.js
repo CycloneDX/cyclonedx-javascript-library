@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 /**
- * @type [string, Function][]
+ * @type {[string, Function][]}
  */
 const possibleStringifiers = [
   // prioritized list of possible implementations
