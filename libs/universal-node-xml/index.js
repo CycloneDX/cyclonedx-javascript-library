@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 const possibleStringifiers = [
   // prioritized list of possible implementations
-  ['xmlbuilder2', () => require(`./stringifiers/xmlbuilder2`)]
+  ['xmlbuilder2', () => require('./stringifiers/xmlbuilder2')]
 ]
 
 module.exports.stringify = function () {
@@ -31,9 +31,9 @@ module.exports.stringify = function () {
 }
 module.exports.stringify.fails = true
 
-for (const stringifier of possibleStringifiers) {
+for (const [, getStringifier] of possibleStringifiers) {
   try {
-    const possibleStringifier = stringifier.loaderFunc()
+    const possibleStringifier = getStringifier()
     if (typeof possibleStringifier === 'function') {
       module.exports.stringify = possibleStringifier
       break
