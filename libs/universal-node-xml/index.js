@@ -17,10 +17,17 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+/* eslint-disable jsdoc/valid-types --
+   JSDoc is still missing support for tuples - https://github.com/jsdoc/jsdoc/issues/1703
+*/
+/**
+ * Prioritized list of possible implementations.
+ * @type {[string, function():(Function|*)][]}
+ */
 const possibleStringifiers = [
-  // prioritized list of possible implementations
   ['xmlbuilder2', () => require('./stringifiers/xmlbuilder2')]
 ]
+/* eslint-enable jsdoc/valid-types */
 
 module.exports.stringify = function () {
   throw new Error(
