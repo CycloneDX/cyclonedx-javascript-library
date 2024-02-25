@@ -62,6 +62,18 @@
                 <phone>555-0123456789</phone>
             </contact>
         </supplier>
+        <licenses>
+            <license>
+                <name>Some license name</name>
+            </license>
+            <license>
+                <id>0BSD</id>
+            </license>
+        </licenses>
+        <properties>
+            <property name="a">b</property>
+            <property name="cdx:reproducible">true</property>
+        </properties>
     </metadata>
     <components>
         <component type="library" bom-ref="a-component">

@@ -260,6 +260,56 @@
               ]
             }
           ]
+        },
+        {
+          "type": "element",
+          "name": "licenses",
+          "children": [
+            {
+              "type": "element",
+              "name": "license",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "Some license name"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "license",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "id",
+                  "children": "0BSD"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "properties",
+          "children": [
+            {
+              "type": "element",
+              "name": "property",
+              "attributes": {
+                "name": "a"
+              },
+              "children": "b"
+            },
+            {
+              "type": "element",
+              "name": "property",
+              "attributes": {
+                "name": "cdx:reproducible"
+              },
+              "children": "true"
+            }
+          ]
         }
       ]
     },

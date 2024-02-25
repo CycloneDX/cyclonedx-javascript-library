@@ -12,7 +12,12 @@ to be picked up.
 ## Snapshots
 
 Some tests check against snapshots.  
-To update these, set the env var `CJL_TEST_UPDATE_SNAPSHOTS` to a non-falsy value.
+To update these, build and set the env var `CJL_TEST_UPDATE_SNAPSHOTS` to a non-falsy value.
+
+```shell
+npm run build
+CJL_TEST_UPDATE_SNAPSHOTS=true npm test
+```
 
 ## Run node tests
 

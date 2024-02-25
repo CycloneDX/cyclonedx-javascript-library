@@ -246,14 +246,14 @@ export class MetadataNormalizer extends BaseXmlNormalizer<Models.Metadata> {
           children: this._factory.makeForOrganizationalContact().normalizeIterable(data.authors, options, 'author')
         }
       : undefined
-    const licenses: SimpleXml.Element | undefined = data.licenses.size > 0
+    const licenses: SimpleXml.Element | undefined = this._factory.spec.supportsMetadataLicenses && data.licenses.size > 0
       ? {
           type: 'element',
           name: 'licenses',
           children: this._factory.makeForLicense().normalizeIterable(data.licenses, options)
         }
       : undefined
-    const properties: SimpleXml.Element | undefined = this._factory.spec.supportsProperties(data) && data.properties.size > 0
+    const properties: SimpleXml.Element | undefined = this._factory.spec.supportsMetadataProperties && data.properties.size > 0
       ? {
           type: 'element',
           name: 'properties',
