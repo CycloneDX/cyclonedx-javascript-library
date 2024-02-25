@@ -4,12 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Refactor
+  * Removed dynamic imports in _Node.js_-specific XML serializer lookup ([#1017] via [#1018])  
+    This should improve compatibility with linkers and bundlers.
 * Build
   * Use _webpack_ `v5.90.3` now, was `v5.89.0` (via [#1008], [#1013], [#1015])
 
 [#1008]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1008
 [#1013]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1013
 [#1015]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1015
+[#1017]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1017
+[#1018]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1018
+
 
 ## 6.3.1 -- 2023-12-11
 
