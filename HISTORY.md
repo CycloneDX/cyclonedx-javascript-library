@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Refactor
-  * Removed dynamic imports in node-specific XML serializer lookup ([#1017] via [#1018])  
+  * Removed dynamic imports in _Node.js_-specific XML serializer lookup ([#1017] via [#1018])  
     This should improve compatibility with linkers and bundlers.
 * Build
   * Use _webpack_ `v5.90.3` now, was `v5.89.0` (via [#1008], [#1013], [#1015])
