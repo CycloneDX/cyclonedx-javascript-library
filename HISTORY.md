@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 6.4.0 -- 2024-02-26
+
 * Added
   * Class `Models.Metadata` got a new property `licenses` ([#1019] via [#1020])
   * Class `Models.Metadata` got a new property `properties` ([#1019] via [#1020])
