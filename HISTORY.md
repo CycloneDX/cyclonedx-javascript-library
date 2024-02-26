@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Added
+  * Class `Models.Metadata` got a new property `licenses` ([#1019] via [#1020])
+  * Class `Models.Metadata` got a new property `properties` ([#1019] via [#1020])
+
+[#1019]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1019
+[#1020]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1020
+
 ## 6.3.2 -- 2024-02-25
 
 * Refactor
