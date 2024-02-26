@@ -43,6 +43,8 @@ export interface _SpecProtocol {
   supportsVulnerabilityRatingMethod: (rm: Vulnerability.RatingMethod | any) => boolean
   supportsComponentEvidence: boolean
   supportsMetadataLifecycles: boolean
+  supportsMetadataLicenses: boolean
+  supportsMetadataProperties: boolean
   supportsExternalReferenceHashes: boolean
 }
 
@@ -68,6 +70,8 @@ export class _Spec implements _SpecProtocol {
   readonly #supportsVulnerabilities: boolean
   readonly #supportsComponentEvidence: boolean
   readonly #supportsMetadataLifecycles: boolean
+  readonly #supportsMetadataLicenses: boolean
+  readonly #supportsMetadataProperties: boolean
   readonly #supportsExternalReferenceHashes: boolean
 
   constructor (
@@ -85,6 +89,8 @@ export class _Spec implements _SpecProtocol {
     vulnerabilityRatingMethods: Iterable<Vulnerability.RatingMethod>,
     supportsComponentEvidence: boolean,
     supportsMetadataLifecycles: boolean,
+    supportsMetadataLicenses: boolean,
+    supportsMetadataProperties: boolean,
     supportsExternalReferenceHashes: boolean
   ) {
     this.#version = version
@@ -101,6 +107,8 @@ export class _Spec implements _SpecProtocol {
     this.#vulnerabilityRatingMethods = new Set(vulnerabilityRatingMethods)
     this.#supportsComponentEvidence = supportsComponentEvidence
     this.#supportsMetadataLifecycles = supportsMetadataLifecycles
+    this.#supportsMetadataLicenses = supportsMetadataLicenses
+    this.#supportsMetadataProperties = supportsMetadataProperties
     this.#supportsExternalReferenceHashes = supportsExternalReferenceHashes
   }
 
@@ -165,6 +173,14 @@ export class _Spec implements _SpecProtocol {
 
   get supportsMetadataLifecycles (): boolean {
     return this.#supportsMetadataLifecycles
+  }
+
+  get supportsMetadataLicenses (): boolean {
+    return this.#supportsMetadataLicenses
+  }
+
+  get supportsMetadataProperties (): boolean {
+    return this.#supportsMetadataProperties
   }
 
   get supportsExternalReferenceHashes (): boolean {

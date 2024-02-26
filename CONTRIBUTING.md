@@ -34,6 +34,8 @@ Run the tests:
 npm test
 ```
 
+See the [dedicated test docs](tests/README.md) for details and advanced instructions. 
+
 ## Coding standards
 
 Apply coding standards via:

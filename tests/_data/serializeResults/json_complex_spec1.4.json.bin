@@ -71,7 +71,29 @@
                     "phone": "555-0123456789"
                 }
             ]
-        }
+        },
+        "licenses": [
+            {
+                "license": {
+                    "name": "Some license name"
+                }
+            },
+            {
+                "license": {
+                    "id": "0BSD"
+                }
+            }
+        ],
+        "properties": [
+            {
+                "name": "a",
+                "value": "b"
+            },
+            {
+                "name": "cdx:reproducible",
+                "value": "true"
+            }
+        ]
     },
     "components": [
         {

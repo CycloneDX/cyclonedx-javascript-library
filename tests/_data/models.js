@@ -87,7 +87,15 @@ module.exports.createComplexStructure = function () {
             name: 'Jane "the-other-supplier" Doe'
           })
         ])
-      })
+      }),
+      licenses: new Models.LicenseRepository([
+        new Models.SpdxLicense('0BSD'),
+        new Models.NamedLicense('Some license name')
+      ]),
+      properties: new Models.PropertyRepository([
+        new Models.Property('a', 'b'),
+        new Models.Property('cdx:reproducible', 'true')
+      ])
     })
   })
 
