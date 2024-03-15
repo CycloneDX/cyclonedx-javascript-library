@@ -173,8 +173,11 @@ bom.metadata.component.dependencies.add(componentA.bomRef)
 
 ## API documentation
 
-There is no pre-rendered documentation at the time.  
-Instead, there are annotated type definitions, so that your IDE and tools may pick up the documentation when you use this library downstream.
+We ship annotated type definitions, so that your IDE and tools may pick up the documentation when you use this library downstream.
+
+<!--
+There are also pre-rendered documentation hosted on [readthedocs](https://cyclonedx-javascript-library.readthedocs.io).
+-->
 
 Additionally, there is a prepared set of configs for [TypeDoc](https://typedoc.org), so that you can build the API documentation from source via `npm run api-doc`.
 
