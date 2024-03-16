@@ -1,0 +1,32 @@
+# Read the Docs configuration file for Sphinx projects
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+# Required
+version: 2
+
+# Set the OS, Python version and other tools you might need
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.12"
+    nodejs: "20"
+    # You can also specify other tool versions:
+    # rust: "1.70"
+    # golang: "1.20"
+  jobs:
+    pre_build:
+      - npm i --ignore-scripts --include=optional
+      - npm run api-doc
+
+# Build documentation in the docs/ directory with Sphinx
+sphinx:
+  configuration: docs/conf.py
+
+# Formats
+formats:
+  - htmlzip
+
+# Optionally declare the Python requirements required to build your docs
+python:
+  install:
+    - requirements: docs/requirements.txt

@@ -1,6 +1,7 @@
 # CycloneDX JavaScript Library
 
 [![shield_npm-version]][link_npm]
+[![shield_rtfd]][link_rtfd]
 [![shield_gh-workflow-test]][link_gh-workflow-test]
 [![shield_coverage]][link_codacy]
 [![shield_ossf-best-practices]][link_ossf-best-practices]
@@ -173,8 +174,9 @@ bom.metadata.component.dependencies.add(componentA.bomRef)
 
 ## API documentation
 
-There is no pre-rendered documentation at the time.  
-Instead, there are annotated type definitions, so that your IDE and tools may pick up the documentation when you use this library downstream.
+We ship annotated type definitions, so that your IDE and tools may pick up the documentation when you use this library downstream.
+
+There are also pre-rendered documentations hosted on [readthedocs][link_rtfd].
 
 Additionally, there is a prepared set of configs for [TypeDoc](https://typedoc.org), so that you can build the API documentation from source via `npm run api-doc`.
 
@@ -193,8 +195,10 @@ See the [LICENSE][license_file] file for the full license.
 [license_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/main/LICENSE
 [contributing_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/main/CONTRIBUTING.md
 [examples]: https://github.com/CycloneDX/cyclonedx-javascript-library/tree/main/examples/README.md
+[link_rtfd]: https://cyclonedx-javascript-library.readthedocs.io
 
 [shield_npm-version]: https://img.shields.io/npm/v/@cyclonedx/cyclonedx-library?logo=npm&logoColor=white "npm"
+[shield_rtfd]: https://img.shields.io/readthedocs/cyclonedx-javascript-library?logo=readthedocs&logoColor=white "Read the Docs"
 [shield_gh-workflow-test]: https://img.shields.io/github/actions/workflow/status/CycloneDX/cyclonedx-javascript-library/nodejs.yml?branch=main&logo=GitHub&logoColor=white "tests"
 [shield_coverage]: https://img.shields.io/codacy/coverage/ae6c086b53d54653ad5077b12ec22264?logo=Codacy&logoColor=white "test coverage"
 [shield_ossf-best-practices]: https://img.shields.io/cii/level/7883?label=OpenSSF%20best%20practices "OpenSSF best practices"
@@ -206,6 +210,7 @@ See the [LICENSE][license_file] file for the full license.
 
 [link_website]: https://cyclonedx.org/
 [link_npm]: https://www.npmjs.com/package/@cyclonedx/cyclonedx-library
+
 [link_gh-workflow-test]: https://github.com/CycloneDX/cyclonedx-javascript-library/actions/workflows/nodejs.yml?query=branch%3Amain
 [link_codacy]: https://app.codacy.com/gh/CycloneDX/cyclonedx-javascript-library/dashboard
 [link_ossf-best-practices]: https://www.bestpractices.dev/projects/7883
