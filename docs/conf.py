@@ -25,6 +25,7 @@ source_suffix = ['.rst', '.md']
 # This pattern also affects html_static_path and html_extra_path.
 # see https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-exclude_patterns
 exclude_patterns = [
+    'api',
     'processes',  'dev', # internal docs
     '_build',  # build target
     '.*', '**/.*',  # dotfiles and folders
