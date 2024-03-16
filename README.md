@@ -176,7 +176,7 @@ bom.metadata.component.dependencies.add(componentA.bomRef)
 
 We ship annotated type definitions, so that your IDE and tools may pick up the documentation when you use this library downstream.
 
-There are also pre-rendered documentation hosted on [readthedocs](https://cyclonedx-javascript-library.readthedocs.io).
+There are also pre-rendered documentations hosted on [readthedocs][link_rtfd].
 
 Additionally, there is a prepared set of configs for [TypeDoc](https://typedoc.org), so that you can build the API documentation from source via `npm run api-doc`.
 
@@ -195,6 +195,7 @@ See the [LICENSE][license_file] file for the full license.
 [license_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/main/LICENSE
 [contributing_file]: https://github.com/CycloneDX/cyclonedx-javascript-library/blob/main/CONTRIBUTING.md
 [examples]: https://github.com/CycloneDX/cyclonedx-javascript-library/tree/main/examples/README.md
+[link_rtfd]: https://cyclonedx-javascript-library.readthedocs.io
 
 [shield_npm-version]: https://img.shields.io/npm/v/@cyclonedx/cyclonedx-library?logo=npm&logoColor=white "npm"
 [shield_rtfd]: https://img.shields.io/readthedocs/cyclonedx-javascript-library?logo=readthedocs&logoColor=white "Read the Docs"
@@ -209,7 +210,7 @@ See the [LICENSE][license_file] file for the full license.
 
 [link_website]: https://cyclonedx.org/
 [link_npm]: https://www.npmjs.com/package/@cyclonedx/cyclonedx-library
-[link_rtfd]: https://cyclonedx-javascript-library.readthedocs.io/
+
 [link_gh-workflow-test]: https://github.com/CycloneDX/cyclonedx-javascript-library/actions/workflows/nodejs.yml?query=branch%3Amain
 [link_codacy]: https://app.codacy.com/gh/CycloneDX/cyclonedx-javascript-library/dashboard
 [link_ossf-best-practices]: https://www.bestpractices.dev/projects/7883
