@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Documentation
+  * Rendered (API) docs are hosted on [readthedocs](https://cyclonedx-javascript-library.readthedocs.io) ([#1027] via [#1028])
+
+[#1027]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1027
+[#1028]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1028
+
 ## 6.4.0 -- 2024-02-26
 
 * Added
