@@ -3,5 +3,5 @@
   "extends": ["./typedoc.json"],
   "entryPoints": ["src/index.node.ts"],
   "name": "CycloneDX JavaScript Library - Node",
-  "out": "docs/api/api_node/"
+  "out": "docs/api/typedoc/node/"
 }
