@@ -6,7 +6,10 @@ All notable changes to this project will be documented in this file.
 
 * Documentation
   * Rendered (API) docs are hosted on [readthedocs](https://cyclonedx-javascript-library.readthedocs.io) ([#1027] via [#1028])
+* Build
+  * Use _TypeScript_ `v5.4.2` now, was `v5.3.3` (via [#1021])
 
+[#1021]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1021
 [#1027]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1027
 [#1028]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1028
 
