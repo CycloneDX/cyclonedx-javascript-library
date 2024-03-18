@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+<!-- add unreleased items here -->
+
+## 6.4.1 -- 2024-03-18
+
 * Documentation
   * Rendered (API) docs are hosted on [readthedocs](https://cyclonedx-javascript-library.readthedocs.io) ([#1027] via [#1028])
 * Build
