@@ -1,2 +1,5 @@
+# rendered api docs
 /api/
+
 /_build/
+/.venv/
