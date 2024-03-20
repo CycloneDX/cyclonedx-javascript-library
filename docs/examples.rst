@@ -16,8 +16,8 @@ JavaScript as CommonJS
   :linenos:
 
 
-JavaScript as module
-^^^^^^^^^^^^^^^^^^^^
+JavaScript as ECMAScript module
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. literalinclude:: ../examples/node/javascript/example.mjs
   :language: javascript
@@ -33,8 +33,8 @@ TypeScript for CommonJS
   :language: typescript
   :linenos:
 
-TypeScript for module
-^^^^^^^^^^^^^^^^^^^^^
+TypeScript for ECMAScript module
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. literalinclude:: ../examples/node/typescript/example.mjs/src/example.ts
   :language: typescript
