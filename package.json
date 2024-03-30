@@ -67,7 +67,7 @@
   },
   "optionalDependencies": {
     "ajv": "^8.12.0",
-    "ajv-formats": "^2.1.1",
+    "ajv-formats": "^3.0.0",
     "ajv-formats-draft2019": "^1.6.1",
     "libxmljs2": "^0.31 || ^0.32 || ^0.33",
     "xmlbuilder2": "^3.0.2"
