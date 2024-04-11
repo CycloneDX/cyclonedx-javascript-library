@@ -139,6 +139,7 @@ export class Factory {
 }
 
 const schemaUrl: ReadonlyMap<SpecVersion, string> = new Map([
+  [SpecVersion.v1dot6, 'http://cyclonedx.org/schema/bom-1.6.schema.json'],
   [SpecVersion.v1dot5, 'http://cyclonedx.org/schema/bom-1.5.schema.json'],
   [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom-1.4.schema.json'],
   [SpecVersion.v1dot3, 'http://cyclonedx.org/schema/bom-1.3a.schema.json'],
