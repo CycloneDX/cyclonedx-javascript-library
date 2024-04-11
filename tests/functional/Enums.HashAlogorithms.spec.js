@@ -31,7 +31,7 @@ const {
 
 suite('HashAlgorithm enum', () => {
   const specVersions = new Set([
-    Version.v1dot5,
+    Version.v1dot6,
     Version.v1dot4,
     Version.v1dot3,
     Version.v1dot2

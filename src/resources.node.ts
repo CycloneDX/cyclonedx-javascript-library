@@ -31,6 +31,7 @@ export const SCHEMA_ROOT = path.resolve(ROOT, 'schema')
 export const FILES = Object.freeze({
   CDX: Object.freeze({
     XML_SCHEMA: Object.freeze({
+      [Version.v1dot6]: path.resolve(SCHEMA_ROOT, 'bom-1.6.SNAPSHOT.xsd'),
       [Version.v1dot5]: path.resolve(SCHEMA_ROOT, 'bom-1.5.SNAPSHOT.xsd'),
       [Version.v1dot4]: path.resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.xsd'),
       [Version.v1dot3]: path.resolve(SCHEMA_ROOT, 'bom-1.3.SNAPSHOT.xsd'),
@@ -40,6 +41,7 @@ export const FILES = Object.freeze({
 
     }),
     JSON_SCHEMA: Object.freeze({
+      [Version.v1dot6]: path.resolve(SCHEMA_ROOT, 'bom-1.6.SNAPSHOT.schema.json'),
       [Version.v1dot5]: path.resolve(SCHEMA_ROOT, 'bom-1.5.SNAPSHOT.schema.json'),
       [Version.v1dot4]: path.resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.schema.json'),
       [Version.v1dot3]: path.resolve(SCHEMA_ROOT, 'bom-1.3.SNAPSHOT.schema.json'),
@@ -49,7 +51,7 @@ export const FILES = Object.freeze({
       [Version.v1dot0]: undefined
     }),
     JSON_STRICT_SCHEMA: Object.freeze({
-      // >= v1.4 is already strict - no special file here
+      [Version.v1dot6]: path.resolve(SCHEMA_ROOT, 'bom-1.6.SNAPSHOT.schema.json'),
       [Version.v1dot5]: path.resolve(SCHEMA_ROOT, 'bom-1.5.SNAPSHOT.schema.json'),
       [Version.v1dot4]: path.resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.schema.json'),
       // <= 1.3 need special files

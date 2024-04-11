@@ -46,7 +46,7 @@ componentA.purl = purlFac.makeFromComponent(componentA)
 bom.components.add(componentA)
 bom.metadata.component.dependencies.add(componentA.bomRef)
 
-const serializeSpec = CDX.Spec.Spec1dot5
+const serializeSpec = CDX.Spec.Spec1dot6
 
 const jsonSerializer = new CDX.Serialize.JsonSerializer(
   new CDX.Serialize.JSON.Normalize.Factory(serializeSpec))

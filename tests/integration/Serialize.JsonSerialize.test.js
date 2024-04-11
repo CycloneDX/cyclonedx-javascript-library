@@ -29,7 +29,7 @@ const {
     JSON: { Normalize: { Factory: JsonNormalizeFactory } },
     JsonSerializer
   },
-  Spec: { Spec1dot2, Spec1dot3, Spec1dot4, Spec1dot5 },
+  Spec,
   Validation: {
     MissingOptionalDependencyError,
     JsonStrictValidator
@@ -40,10 +40,11 @@ describe('Serialize.JsonSerialize', function () {
   this.timeout(60000);
 
   [
-    Spec1dot5,
-    Spec1dot4,
-    Spec1dot3,
-    Spec1dot2
+    Spec.Spec1dot6,
+    Spec.Spec1dot5,
+    Spec.Spec1dot4,
+    Spec.Spec1dot3,
+    Spec.Spec1dot2
   ].forEach(spec => describe(`complex with spec v${spec.version}`, () => {
     const normalizerFactory = new JsonNormalizeFactory(spec)
 
@@ -126,7 +127,7 @@ describe('Serialize.JsonSerialize', function () {
           return {}
         }
       }
-      const normalizerFactory = { makeForBom: () => bomNormalizer, spec: Spec1dot4 }
+      const normalizerFactory = { makeForBom: () => bomNormalizer, spec: Spec.Spec1dot4 }
       const serializer = new JsonSerializer(normalizerFactory)
 
       serializer.serialize(bom)

@@ -31,6 +31,7 @@ const {
 
 suite('ExternalReferenceType enum', () => {
   const specVersions = new Set([
+    Version.v1dot6,
     Version.v1dot5,
     Version.v1dot4,
     Version.v1dot3,
@@ -48,7 +49,8 @@ suite('ExternalReferenceType enum', () => {
           case 'vcs':
           case 'bom':
           case 'poam':
-            expectedName = enumValue.toUpperCase()
+          case 'rfc-9116':
+            expectedName = expectedName.toUpperCase()
             break
         }
         test(`is known: ${expectedName} -> ${enumValue}`, () =>

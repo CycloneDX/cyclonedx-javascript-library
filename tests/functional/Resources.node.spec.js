@@ -43,6 +43,7 @@ suite('Resources', () => {
       Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot3],
       Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot4],
       Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot5],
+      Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot6],
       Resources.FILES.CDX.JSON_STRICT_SCHEMA[Version.v1dot2],
       Resources.FILES.CDX.JSON_STRICT_SCHEMA[Version.v1dot3],
       Resources.FILES.CDX.XML_SCHEMA[Version.v1dot0],
@@ -51,6 +52,7 @@ suite('Resources', () => {
       Resources.FILES.CDX.XML_SCHEMA[Version.v1dot3],
       Resources.FILES.CDX.XML_SCHEMA[Version.v1dot4],
       Resources.FILES.CDX.XML_SCHEMA[Version.v1dot5],
+      Resources.FILES.CDX.XML_SCHEMA[Version.v1dot6],
       Resources.FILES.SPDX.JSON_SCHEMA,
       Resources.FILES.SPDX.XML_SCHEMA,
       Resources.FILES.JSF.JSON_SCHEMA

@@ -82,6 +82,7 @@ written in _TypeScript_ and compiled for the target.
 * Builders for the following use cases:
   * Specific to _Node.js_: create deep data models `Tool` or `Component` from PackageJson-like data structures
 * Implementation of the [_CycloneDX_ Specification][CycloneDX-spec] for the following versions:
+  * `1.6`
   * `1.5`
   * `1.4`
   * `1.3`
