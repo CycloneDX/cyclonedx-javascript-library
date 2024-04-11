@@ -14,7 +14,7 @@ Added support for [_CycloneDX_ Specification-1.6](https://github.com/CycloneDX/s
   * Normalizers support _CycloneDX_ Specification-1.6 ([#1039] via [#1041])
   * Validators support _CycloneDX_ Specification-1.6 ([#1039] via [#1041])
 * Added
-  * Existing `Enums` got the new members and values for _CycloneDX_ Specification-1.6 ([#1039] via [#1041])
+  * Existing `Enums` got new members and values for _CycloneDX_ Specification-1.6 ([#1039] via [#1041])
     * `Enums.ComponentType.CryptographicAsset`
     * `Enums.ExternalReferenceType.SourceDistribution`
     * `Enums.ExternalReferenceType.ElectronicSignature`
