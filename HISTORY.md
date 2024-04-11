@@ -21,8 +21,11 @@ Added support for [_CycloneDX_ Specification-1.6](https://github.com/CycloneDX/s
   * Namespace `Spec` was enhanced for _CycloneDX_ Specification-1.6 ([#1039] via [#1041])
     * `Spec.Spec1dot6`
     * `Spec.Version.v1dot6`
+* Build
+  * Use _TypeScript_ `v5.4.5` now, was `v5.4.3` (via [#1040])
 
 [#1039]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1039
+[#1040]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1040
 [#1041]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1041
 
 ## 6.4.2 -- 2024-03-21
