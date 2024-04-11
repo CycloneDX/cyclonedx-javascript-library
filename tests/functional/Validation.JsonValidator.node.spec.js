@@ -39,6 +39,7 @@ const test = hasDep ? it : xit
 
 suite('Validation.JsonValidator functional', () => {
   [
+    Version.v1dot6,
     Version.v1dot5,
     Version.v1dot4,
     Version.v1dot3,
@@ -66,6 +67,7 @@ suite('Validation.JsonValidator functional', () => {
 
 suite('Validation.JsonStrictValidator functional', () => {
   [
+    Version.v1dot6,
     Version.v1dot5,
     Version.v1dot4,
     Version.v1dot3,

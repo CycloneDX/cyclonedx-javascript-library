@@ -27,17 +27,18 @@ const {
   Serialize: {
     JSON: { Normalize: { Factory: JsonNormalizeFactory } }
   },
-  Spec: { Spec1dot2, Spec1dot3, Spec1dot4, Spec1dot5 }
+  Spec
 } = require('../../')
 
 describe('Serialize.JsonNormalize', function () {
   this.timeout(60000);
 
   [
-    Spec1dot5,
-    Spec1dot4,
-    Spec1dot3,
-    Spec1dot2
+    Spec.Spec1dot6,
+    Spec.Spec1dot5,
+    Spec.Spec1dot4,
+    Spec.Spec1dot3,
+    Spec.Spec1dot2
   ].forEach(spec => describe(`complex with spec v${spec.version}`, () => {
     const normalizerFactory = new JsonNormalizeFactory(spec)
 

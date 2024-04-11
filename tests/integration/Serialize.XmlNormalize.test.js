@@ -28,17 +28,18 @@ const {
   Serialize: {
     XML: { Normalize: { Factory: XmlNormalizeFactory } }
   },
-  Spec: { Spec1dot2, Spec1dot3, Spec1dot4, Spec1dot5 }
+  Spec
 } = require('../../')
 
 describe('Serialize.XmlNormalize', function () {
   this.timeout(60000);
 
   [
-    Spec1dot5,
-    Spec1dot4,
-    Spec1dot3,
-    Spec1dot2
+    Spec.Spec1dot6,
+    Spec.Spec1dot5,
+    Spec.Spec1dot4,
+    Spec.Spec1dot3,
+    Spec.Spec1dot2
   ].forEach(spec => describe(`complex with spec v${spec.version}`, () => {
     const normalizerFactory = new XmlNormalizeFactory(spec)
 
@@ -75,7 +76,7 @@ describe('Serialize.XmlNormalize', function () {
   }))
 
   describe('ExternalReference\'s `anyURI`', () => {
-    const normalizer = new XmlNormalizeFactory(Spec1dot4).makeForExternalReference()
+    const normalizer = new XmlNormalizeFactory(Spec.Spec1dot4).makeForExternalReference()
 
     describe('omit invalid', () => {
       [
