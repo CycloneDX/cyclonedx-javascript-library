@@ -6,6 +6,25 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+Added support for [_CycloneDX_ Specification-1.6](https://github.com/CycloneDX/specification/releases/tag/1.6).
+
+* Changed
+  * Normalizers support _CycloneDX_ Specification-1.6 ([#1039] via [#1041])
+  * Validators support _CycloneDX_ Specification-1.6 ([#1039] via [#1041])
+* Added
+  * Existing `Enums` got the new members and values for _CycloneDX_ Specification-1.6 ([#1039] via [#1041])
+    * `Enums.ComponentType.CryptographicAsset`
+    * `Enums.ExternalReferenceType.SourceDistribution`
+    * `Enums.ExternalReferenceType.ElectronicSignature`
+    * `Enums.ExternalReferenceType.DigitalSignature`
+    * `Enums.ExternalReferenceType.RFC9116`
+  * Namespace `Spec` was enhanced for _CycloneDX_ Specification-1.6 ([#1039] via [#1041])
+    * `Spec.Spec1dot6`
+    * `Spec.Version.v1dot6`
+
+[#1039]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1039
+[#1041]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1041
+
 ## 6.4.2 -- 2024-03-21
 
 * Build
