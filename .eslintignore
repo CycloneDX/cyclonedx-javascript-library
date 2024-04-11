@@ -5,6 +5,8 @@
 /dist/**
 /dist.*/**
 /docs/api/**
+/docs/_build/**
+/docs/.venv/**
 /examples/**/dist/**
 
 
@@ -12,3 +14,7 @@
 !/libs/**
 
 !/tools/schema-downloader/**
+
+
+**/.idea/**
+**/.vscode/**
