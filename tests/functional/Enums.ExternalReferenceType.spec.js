@@ -49,7 +49,8 @@ suite('ExternalReferenceType enum', () => {
           case 'vcs':
           case 'bom':
           case 'poam':
-            expectedName = enumValue.toUpperCase()
+          case 'rfc-9116':
+            expectedName = expectedName.toUpperCase()
             break
         }
         test(`is known: ${expectedName} -> ${enumValue}`, () =>
