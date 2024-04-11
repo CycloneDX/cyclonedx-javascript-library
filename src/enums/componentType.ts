@@ -30,4 +30,5 @@ export enum ComponentType {
   File = 'file',
   MachineLearningModel = 'machine-learning-model',
   Data = 'data',
+  CryptographicAsset = 'cryptographic-asset',
 }

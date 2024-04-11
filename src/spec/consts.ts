@@ -333,7 +333,8 @@ export const Spec1dot6: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
     ComponentType.Firmware,
     ComponentType.File,
     ComponentType.MachineLearningModel,
-    ComponentType.Data
+    ComponentType.Data,
+    ComponentType.CryptographicAsset
   ],
   [
     HashAlgorithm.MD5,
@@ -361,6 +362,7 @@ export const Spec1dot6: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
     ExternalReferenceType.Chat,
     ExternalReferenceType.Documentation,
     ExternalReferenceType.Support,
+    ExternalReferenceType.SourceDistribution,
     ExternalReferenceType.Distribution,
     ExternalReferenceType.DistributionIntake,
     ExternalReferenceType.License,
@@ -389,6 +391,9 @@ export const Spec1dot6: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
     ExternalReferenceType.CodifiedInfrastructure,
     ExternalReferenceType.QualityMetrics,
     ExternalReferenceType.POAM,
+    ExternalReferenceType.ElectronicSignature,
+    ExternalReferenceType.DigitalSignature,
+    ExternalReferenceType.RFC9116,
     ExternalReferenceType.Other
   ],
   true,

@@ -28,6 +28,7 @@ export enum ExternalReferenceType {
   Chat = 'chat',
   Documentation = 'documentation',
   Support = 'support',
+  SourceDistribution = 'source-distribution',
   Distribution = 'distribution',
   DistributionIntake = 'distribution-intake',
   License = 'license',
@@ -56,5 +57,11 @@ export enum ExternalReferenceType {
   CodifiedInfrastructure = 'codified-infrastructure',
   QualityMetrics = 'quality-metrics',
   POAM = 'poam',
+  ElectronicSignature = 'electronic-signature',
+  DigitalSignature = 'digital-signature',
+  RFC9116 = 'rfc-9116',
+
+  // --
+
   Other = 'other',
 }
