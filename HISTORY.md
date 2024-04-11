@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 6.5.0 -- 2024-04-11
+
 Added support for [_CycloneDX_ Specification-1.6](https://github.com/CycloneDX/specification/releases/tag/1.6).
 
 * Changed
@@ -19,8 +21,8 @@ Added support for [_CycloneDX_ Specification-1.6](https://github.com/CycloneDX/s
     * `Enums.ExternalReferenceType.DigitalSignature`
     * `Enums.ExternalReferenceType.RFC9116`
   * Namespace `Spec` was enhanced for _CycloneDX_ Specification-1.6 ([#1039] via [#1041])
-    * `Spec.Spec1dot6`
-    * `Spec.Version.v1dot6`
+    * New const `Spec.Spec1dot6`
+    * New enum member `Spec.Version.v1dot6`
 * Build
   * Use _TypeScript_ `v5.4.5` now, was `v5.4.3` (via [#1040])
 
