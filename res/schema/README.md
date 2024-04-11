@@ -1,10 +1,10 @@
 # Resources: Schema files
 
 some schema for offline use as download via [script](../../tools/schema-downloader/download.js). 
-original sources: <https://github.com/CycloneDX/specification/blob/1.5>
+original sources: <https://github.com/CycloneDX/specification/blob/master>
 
 Currently using version
-[c320fc0f0b46873864927d9d5684eea7ba439728](https://github.com/CycloneDX/specification/commit/c320fc0f0b46873864927d9d5684eea7ba439728)
+[9899d5cb13e3f380cc35c36829525188472f5ce3](https://github.com/CycloneDX/specification/commit/9899d5cb13e3f380cc35c36829525188472f5ce3)
 
 | file | note |
 |------|------|
@@ -14,10 +14,12 @@ Currently using version
 | [`bom-1.3.SNAPSHOT.xsd`](bom-1.3.SNAPSHOT.xsd) | applied changes: 1 |
 | [`bom-1.4.SNAPSHOT.xsd`](bom-1.4.SNAPSHOT.xsd) | applied changes: 1 |
 | [`bom-1.5.SNAPSHOT.xsd`](bom-1.5.SNAPSHOT.xsd) | applied changes: 1 |
+| [`bom-1.6.SNAPSHOT.xsd`](bom-1.6.SNAPSHOT.xsd) | applied changes: 1 |
 | [`bom-1.2.SNAPSHOT.schema.json`](bom-1.2.SNAPSHOT.schema.json) | applied changes: 2,3,4,5 |
 | [`bom-1.3.SNAPSHOT.schema.json`](bom-1.3.SNAPSHOT.schema.json) | applied changes: 2,3,4,5 |
 | [`bom-1.4.SNAPSHOT.schema.json`](bom-1.4.SNAPSHOT.schema.json) | applied changes: 2,3,4,5 |
 | [`bom-1.5.SNAPSHOT.schema.json`](bom-1.5.SNAPSHOT.schema.json) | applied changes: 2,3,4,5 |
+| [`bom-1.6.SNAPSHOT.schema.json`](bom-1.6.SNAPSHOT.schema.json) | applied changes: 2,3,4,5 |
 | [`bom-1.2-strict.SNAPSHOT.schema.json`](bom-1.2-strict.SNAPSHOT.schema.json) | applied changes: 2,3,4,5 |
 | [`bom-1.3-strict.SNAPSHOT.schema.json`](bom-1.3-strict.SNAPSHOT.schema.json) | applied changes: 2,3,4,5 |
 | [`spdx.SNAPSHOT.xsd`](spdx.SNAPSHOT.xsd) | |
