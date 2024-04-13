@@ -9,6 +9,7 @@
 /docs/.venv/**
 /examples/**/dist/**
 
+/res/schema/
 
 !/src/**
 !/libs/**
