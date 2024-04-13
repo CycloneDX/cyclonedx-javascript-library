@@ -82,8 +82,8 @@ module.exports = {
         'eslint-plugin-tsdoc'
       ],
       extends: [
-        /* see https://github.com/standard/ts-standard */
-        'standard-with-typescript'
+        /* see https://github.com/mightyiam/eslint-config-love */
+        'love'
       ],
       rules: {
         // region override rules from plugin 'standard-with-typescript'
