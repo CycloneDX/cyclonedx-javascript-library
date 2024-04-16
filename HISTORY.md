@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 6.5.1 -- 2024-04-16
+
+* Dependencies
+  * Bumped the range of optional requirement `ajv-formats` to `^3.0.1`, was `^2.1.1` (via [#1037])  
+    This should fix JSON-validation for time/date.
+
+[#1037]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1037
+
 ## 6.5.0 -- 2024-04-11
 
 Added support for [_CycloneDX_ Specification-1.6](https://github.com/CycloneDX/specification/releases/tag/1.6).
