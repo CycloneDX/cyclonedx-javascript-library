@@ -21,7 +21,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 /**
  * @type {import('eslint').Linter.Config}
- * @see {@link https://eslint.org/}
+ * @see https://eslint.org/
  */
 module.exports = {
   root: true,
@@ -29,50 +29,62 @@ module.exports = {
     /* see https://github.com/lydell/eslint-plugin-simple-import-sort#readme */
     'simple-import-sort',
     /* see https://github.com/Stuk/eslint-plugin-header#readme */
-    'header'
+    'header',
+    /* see https://github.com/phanect/eslint-plugin-editorconfig */
+    'editorconfig'
   ],
   env: {
     commonjs: true,
     browser: true,
     node: true
   },
+  extends: [
+    /* see https://github.com/phanect/eslint-plugin-editorconfig */
+    'plugin:editorconfig/all'
+  ],
   rules: {
     // region sort imports/exports
     /* disable other sorters in favour of `simple-import-sort` */
-    'import/order': 0,
-    'sort-imports': 0,
+    'import/order': 'off',
+    'sort-imports': 'off',
     /* see https://github.com/lydell/eslint-plugin-simple-import-sort/ */
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     // endregion sort imports/exports
     // region license-header
     /* see https://github.com/Stuk/eslint-plugin-header#readme */
-    'header/header': ['error', './.license-header.js']
+    'header/header': ['error', './.license-header.js'],
     // endregion license-header
+    // indent is managed by plugin '*standard'
+    'editorconfig/indent': 'off'
   },
   overrides: [
+    {
+      files: ['*.node.*'],
+      env: { browser: false, node: true }
+    },
+    {
+      files: ['*.web.*'],
+      env: { browser: true, node: false }
+    },
     {
       files: ['*.spec.*', '*.test.*'],
       env: {
         mocha: true,
-        commonjs: true,
         node: true,
         browser: false // change, when mocha is enabled for browser
       }
     },
     {
       files: ['*.ts'],
-      extends: [
-        /* see https://github.com/standard/ts-standard */
-        'standard-with-typescript'
-      ],
       plugins: [
         /* see https://github.com/microsoft/tsdoc */
         'eslint-plugin-tsdoc'
       ],
-      parserOptions: {
-        project: './tsconfig.json'
-      },
+      extends: [
+        /* see https://github.com/mightyiam/eslint-config-love */
+        'love'
+      ],
       rules: {
         // region override rules from plugin 'standard-with-typescript'
         /* @see https://typescript-eslint.io/rules/consistent-type-imports/ */
@@ -91,19 +103,22 @@ module.exports = {
         /* see https://github.com/microsoft/tsdoc */
         'tsdoc/syntax': 'error'
         // endregion docs
+      },
+      parserOptions: {
+        project: './tsconfig.json'
       }
     },
     {
       files: ['*.js', '*.mjs', '*.cjs'],
+      plugins: [
+        /* see https://github.com/gajus/eslint-plugin-jsdoc/ */
+        'jsdoc'
+      ],
       extends: [
         /* see https://www.npmjs.com/package/eslint-config-standard */
         'standard',
         /* see https://github.com/gajus/eslint-plugin-jsdoc */
         'plugin:jsdoc/recommended'
-      ],
-      plugins: [
-        /* see https://github.com/gajus/eslint-plugin-jsdoc/ */
-        'jsdoc'
       ],
       rules: {
         /* see https://github.com/gajus/eslint-plugin-jsdoc */
