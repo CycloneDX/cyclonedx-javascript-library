@@ -83,7 +83,7 @@ describe('Serialize.XmlSerialize', function () {
         }
       }
 
-      if (!!process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
+      if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
         writeSerializeResult(serialized, 'xml_complex', spec.version, 'xml')
       }
       assert.strictEqual(

@@ -63,7 +63,7 @@ describe('Serialize.XmlNormalize', function () {
 
       const json = JSON.stringify(normalized, null, 2)
 
-      if (!!process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
+      if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
         writeNormalizeResult(json, 'xml_sortedLists', spec.version, 'json')
       }
       assert.deepStrictEqual(
