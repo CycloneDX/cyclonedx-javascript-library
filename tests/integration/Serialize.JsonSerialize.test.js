@@ -76,7 +76,7 @@ describe('Serialize.JsonSerialize', function () {
         }
       }
 
-      if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
+      if (!!process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
         writeSerializeResult(serialized, 'json_complex', spec.version, 'json')
       }
       assert.strictEqual(
