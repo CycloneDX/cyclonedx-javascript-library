@@ -87,10 +87,7 @@ export class ComponentBuilder {
     return this.#licenseFactory
   }
 
-  makeComponent (data: PackageJson,
-                 type: Enums.ComponentType = Enums.ComponentType.Library,
-                 licenseAcknowledgement: Enums.LicenseAcknowledgement = Enums.LicenseAcknowledgement.Declared
-  ): Models.Component | undefined {
+  makeComponent (data: PackageJson, type: Enums.ComponentType = Enums.ComponentType.Library): Models.Component | undefined {
     if (typeof data.name !== 'string') {
       return undefined
     }
@@ -122,16 +119,13 @@ export class ComponentBuilder {
     const licenses = new Models.LicenseRepository()
     if (typeof data.license === 'string') {
       /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#license */
-      const license = this.#licenseFactory.makeFromString(data.license)
-      license.acknowledgement = licenseAcknowledgement
-      licenses.add(license)
+      licenses.add(this.#licenseFactory.makeFromString(data.license))
     }
     if (Array.isArray(data.licenses)) {
       /* see https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json */
       for (const licenseData of data.licenses) {
         if (typeof licenseData?.type === 'string') {
           const license = this.#licenseFactory.makeDisjunctive(licenseData.type)
-          license.acknowledgement = licenseAcknowledgement
           license.url = typeof licenseData.url === 'string'
             ? licenseData.url
             : undefined
