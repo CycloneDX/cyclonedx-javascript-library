@@ -18,9 +18,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { Sortable } from '../_helpers/sortable'
+import type { LicenseAcknowledgement } from '../enums'
 import type { SpdxId } from '../spdx'
 import type { Attachment } from './attachment'
-import type { LicenseAcknowledgement } from '../enums'
 
 /**
  * (SPDX) License Expression.
@@ -32,7 +32,7 @@ import type { LicenseAcknowledgement } from '../enums'
 export class LicenseExpression {
   /** @see {@link expression} */
   #expression!: string
-  acknowledgement? : LicenseAcknowledgement
+  acknowledgement?: LicenseAcknowledgement
 
   /**
    * @throws {@link RangeError} if `expression` is empty string
@@ -63,7 +63,7 @@ export class LicenseExpression {
 class DisjunctiveLicenseBase {
   text?: Attachment
   #url?: URL | string
-  acknowledgement? : LicenseAcknowledgement
+  acknowledgement?: LicenseAcknowledgement
 
   constructor (op: OptionalDisjunctiveLicenseProperties = {}) {
     this.text = op.text
