@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { Sortable } from '../_helpers/sortable'
 import type { SpdxId } from '../spdx'
 import type { Attachment } from './attachment'
-import type { LicenseAcknowledgement } from '../enums/licenseAcknowledgement'
+import type { LicenseAcknowledgement } from '../enums'
 
 /**
  * (SPDX) License Expression.
