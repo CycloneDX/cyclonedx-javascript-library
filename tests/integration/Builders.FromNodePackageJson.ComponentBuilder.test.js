@@ -72,8 +72,8 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
           description: `dummy lib ${salt}`,
           externalReferences: new Models.ExternalReferenceRepository([`FAKE REFERENCES ${salt}`]),
           licenses: new Models.LicenseRepository([
-            { name: `FAKE LICENSE: dummy license ${salt}` },
-            { name: `FAKE DISJUNCTIVE LICENSE: some license ${salt}`, url: `https://acme.org/license/${salt}` }
+            { name: `FAKE LICENSE: dummy license ${salt}`, acknowledgement: 'declared' },
+            { name: `FAKE DISJUNCTIVE LICENSE: some license ${salt}`, acknowledgement: 'declared', url: `https://acme.org/license/${salt}` }
           ]),
           group: '@foo',
           version: `1.33.7-alpha.23.${salt}`

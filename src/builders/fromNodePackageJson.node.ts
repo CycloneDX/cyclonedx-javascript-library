@@ -31,6 +31,7 @@ import { splitNameGroup } from '../_helpers/packageJson'
 import * as Enums from '../enums'
 import type * as Factories from '../factories/index.node'
 import * as Models from '../models'
+import {LicenseAcknowledgement} from "../enums";
 
 /**
  * Node-specific ToolBuilder.
@@ -119,13 +120,16 @@ export class ComponentBuilder {
     const licenses = new Models.LicenseRepository()
     if (typeof data.license === 'string') {
       /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#license */
-      licenses.add(this.#licenseFactory.makeFromString(data.license))
+      const license = this.#licenseFactory.makeFromString(data.license)
+      license.acknowledgement = LicenseAcknowledgement.Declared
+      licenses.add(license)
     }
     if (Array.isArray(data.licenses)) {
       /* see https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json */
       for (const licenseData of data.licenses) {
         if (typeof licenseData?.type === 'string') {
           const license = this.#licenseFactory.makeDisjunctive(licenseData.type)
+          license.acknowledgement = LicenseAcknowledgement.Declared
           license.url = typeof licenseData.url === 'string'
             ? licenseData.url
             : undefined
