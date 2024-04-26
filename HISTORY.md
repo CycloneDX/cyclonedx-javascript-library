@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 * Changed
   * Serializers and `License`-Normalizers will take license acknowledgement into account ([#1051] via [#1052])
 * Added:
-  * Namespace `Enum` 
+  * Namespace `Enums` 
     * New enum `LicenseAcknowledgement` ([#1051] via [#1052])
   * Namespace `Models`
     * Class `LicenseExpression` got new property `acknowledgement` ([#1051] via [#1052])
