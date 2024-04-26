@@ -146,6 +146,7 @@ module.exports.createComplexStructure = function () {
       license.text.contentType = 'text/plain'
       license.text.encoding = Enums.AttachmentEncoding.Base64
       license.url = new URL('https://spdx.org/licenses/MIT.html')
+      license.acknowledgement = Enums.LicenseAcknowledgement.Declared
       return license
     })(new Models.SpdxLicense('MIT')))
     component.publisher = 'the publisher'
