@@ -61,14 +61,14 @@ export class LicenseExpression {
 }
 
 class DisjunctiveLicenseBase {
+  acknowledgement?: LicenseAcknowledgement
   text?: Attachment
   #url?: URL | string
-  acknowledgement?: LicenseAcknowledgement
 
   constructor (op: OptionalDisjunctiveLicenseProperties = {}) {
+    this.acknowledgement = op.acknowledgement
     this.text = op.text
     this.url = op.url
-    this.acknowledgement = op.acknowledgement
   }
 
   get url (): URL | string | undefined {
@@ -83,9 +83,9 @@ class DisjunctiveLicenseBase {
 }
 
 interface OptionalDisjunctiveLicenseProperties {
+  acknowledgement?: DisjunctiveLicenseBase['acknowledgement']
   text?: DisjunctiveLicenseBase['text']
   url?: DisjunctiveLicenseBase['url']
-  acknowledgement?: DisjunctiveLicenseBase['acknowledgement']
 }
 
 export interface OptionalNamedLicenseProperties extends OptionalDisjunctiveLicenseProperties {}
