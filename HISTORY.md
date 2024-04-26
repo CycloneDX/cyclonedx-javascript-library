@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 6.6.0 -- 2024-04-26
+
 * Changed
   * Serializers and `License`-Normalizers will take license acknowledgement into account ([#1051] via [#1052])
 * Added:
