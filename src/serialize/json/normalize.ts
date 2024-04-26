@@ -452,6 +452,7 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
     return {
       license: {
         name: data.name,
+        acknowledgement: data.acknowledgement,
         text: data.text === undefined
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options),
@@ -467,6 +468,7 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
     return {
       license: {
         id: data.id,
+        acknowledgement: data.acknowledgement,
         text: data.text === undefined
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options),
@@ -479,7 +481,8 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
 
   #normalizeLicenseExpression (data: Models.LicenseExpression): Normalized.LicenseExpression {
     return {
-      expression: data.expression
+      expression: data.expression,
+      acknowledgement: data.acknowledgement
     }
   }
 
