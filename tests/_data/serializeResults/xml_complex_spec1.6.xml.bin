@@ -197,7 +197,7 @@
                     <text content-type="text/plain" encoding="base64">U29tZQpsaWNlbnNlCnRleHQu</text>
                     <url>https://localhost/license</url>
                 </license>
-                <license>
+                <license acknowledgement="declared">
                     <id>MIT</id>
                     <text content-type="text/plain" encoding="base64">TUlUIExpY2Vuc2UKLi4uClRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLi4u</text>
                     <url>https://spdx.org/licenses/MIT.html</url>

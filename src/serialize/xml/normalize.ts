@@ -578,6 +578,11 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
     return {
       type: 'element',
       name: 'license',
+      attributes: {
+        acknowledgement: this._factory.spec.supportsLicenseAcknowledgement
+          ? data.acknowledgement
+          : undefined
+      },
       children: [
         makeTextElement(data.name, 'name'),
         data.text === undefined
@@ -595,6 +600,11 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
     return {
       type: 'element',
       name: 'license',
+      attributes: {
+        acknowledgement: this._factory.spec.supportsLicenseAcknowledgement
+          ? data.acknowledgement
+          : undefined
+      },
       children: [
         makeTextElement(data.id, 'id'),
         data.text === undefined
@@ -608,7 +618,13 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
   }
 
   #normalizeLicenseExpression (data: Models.LicenseExpression): SimpleXml.Element {
-    return makeTextElement(data.expression, 'expression')
+    const elem = makeTextElement(data.expression, 'expression')
+    elem.attributes = {
+      acknowledgement: this._factory.spec.supportsLicenseAcknowledgement
+        ? data.acknowledgement
+        : undefined
+    }
+    return elem
   }
 
   /**

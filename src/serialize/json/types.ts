@@ -170,6 +170,7 @@ export namespace Normalized {
   export interface NamedLicense {
     license: {
       name: string
+      acknowledgement?: Enums.LicenseAcknowledgement
       text?: Attachment
       url?: string
     }
@@ -179,6 +180,7 @@ export namespace Normalized {
     license: {
       /* see http://cyclonedx.org/schema/spdx */
       id: SpdxId
+      acknowledgement?: Enums.LicenseAcknowledgement
       text?: Attachment
       url?: string
     }
@@ -186,6 +188,7 @@ export namespace Normalized {
 
   export interface LicenseExpression {
     expression: string
+    acknowledgement?: Enums.LicenseAcknowledgement
   }
 
   export type License = NamedLicense | SpdxLicense | LicenseExpression

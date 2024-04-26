@@ -292,6 +292,7 @@
         {
           "license": {
             "id": "MIT",
+            "acknowledgement": "declared",
             "text": {
               "content": "TUlUIExpY2Vuc2UKLi4uClRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLi4u",
               "contentType": "text/plain",

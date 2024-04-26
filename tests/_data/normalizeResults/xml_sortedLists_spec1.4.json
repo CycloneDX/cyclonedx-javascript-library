@@ -235,6 +235,7 @@
             {
               "type": "element",
               "name": "license",
+              "attributes": {},
               "children": [
                 {
                   "type": "element",
@@ -246,6 +247,7 @@
             {
               "type": "element",
               "name": "license",
+              "attributes": {},
               "children": [
                 {
                   "type": "element",
@@ -319,7 +321,8 @@
                 {
                   "type": "element",
                   "name": "expression",
-                  "children": "(MIT OR Apache-2.0)"
+                  "children": "(MIT OR Apache-2.0)",
+                  "attributes": {}
                 }
               ]
             }
@@ -345,6 +348,7 @@
                 {
                   "type": "element",
                   "name": "license",
+                  "attributes": {},
                   "children": [
                     {
                       "type": "element",
@@ -356,6 +360,7 @@
                 {
                   "type": "element",
                   "name": "license",
+                  "attributes": {},
                   "children": [
                     {
                       "type": "element",
@@ -367,6 +372,7 @@
                 {
                   "type": "element",
                   "name": "license",
+                  "attributes": {},
                   "children": [
                     {
                       "type": "element",
@@ -378,6 +384,7 @@
                 {
                   "type": "element",
                   "name": "license",
+                  "attributes": {},
                   "children": [
                     {
                       "type": "element",
@@ -415,7 +422,8 @@
                 {
                   "type": "element",
                   "name": "expression",
-                  "children": "(MIT OR Apache-2.0)"
+                  "children": "(MIT OR Apache-2.0)",
+                  "attributes": {}
                 }
               ]
             }
@@ -822,6 +830,7 @@
                 {
                   "type": "element",
                   "name": "license",
+                  "attributes": {},
                   "children": [
                     {
                       "type": "element",
@@ -847,6 +856,7 @@
                 {
                   "type": "element",
                   "name": "license",
+                  "attributes": {},
                   "children": [
                     {
                       "type": "element",
@@ -1034,6 +1044,7 @@
                     {
                       "type": "element",
                       "name": "license",
+                      "attributes": {},
                       "children": [
                         {
                           "type": "element",
