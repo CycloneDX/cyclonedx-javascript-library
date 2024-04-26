@@ -9,8 +9,12 @@ All notable changes to this project will be documented in this file.
 * Changed
   * Serializers and `License`-Normalizers will take license acknowledgement into account ([#1051] via [#1052])
 * Added:
-  * New enum `Enums.LicenseAcknowledgement` ([#1051] via [#1052])
-  * Classes `Models.{LicenseExpression,SpdxLicense,NamedLicense}` got new property `acknowledgement` ([#1051] via [#1052])
+  * Namespace `Enum` 
+    * New enum `LicenseAcknowledgement` ([#1051] via [#1052])
+  * Namespace `Models`
+    * Class `LicenseExpression` got new property `acknowledgement` ([#1051] via [#1052])
+    * Class `SpdxLicense`       got new property `acknowledgement` ([#1051] via [#1052])
+    * Class `NamedLicense`      got new property `acknowledgement` ([#1051] via [#1052])
 
 [#1051]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1051
 [#1052]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1052
