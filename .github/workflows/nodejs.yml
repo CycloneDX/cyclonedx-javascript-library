@@ -53,7 +53,7 @@ jobs:
         run: npm run build:${{ matrix.target }}
       - name: artifact build result
         # see https://github.com/actions/upload-artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist.${{ matrix.target }}
           path: dist.${{ matrix.target }}
@@ -92,7 +92,7 @@ jobs:
           reports: ${{ env.REPORTS_DIR }}/eslint.xml
       - name: artifact build result
         # see https://github.com/actions/upload-artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
           name: ${{ env.STANDARD_REPORTS_ARTIFACT }}
@@ -159,7 +159,7 @@ jobs:
           npm i --ignore-scripts --loglevel=silly --no-save $dev_requirements
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist.node
           path: dist.node
@@ -175,9 +175,9 @@ jobs:
       - name: artifact test reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.TESTS_REPORTS_ARTIFACT }}
+          name: '${{ env.TESTS_REPORTS_ARTIFACT }}_regular_${{ matrix.os }}_node${{ matrix.node-version }}'
           path: ${{ env.REPORTS_DIR }}
     # test-web:
     # TODO via https://github.com/CycloneDX/cyclonedx-javascript-library/issues/51
@@ -204,7 +204,7 @@ jobs:
           npm i --ignore-scripts --omit=optional --no-save --loglevel=silly mocha c8 npm-run-all fast-glob
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist.node
           path: dist.node
@@ -219,9 +219,9 @@ jobs:
       - name: artifact test reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.TESTS_REPORTS_ARTIFACT }}
+          name: '${{ env.TESTS_REPORTS_ARTIFACT }}_no-opt_${{ matrix.os }}_node${{ matrix.node-version }}'
           path: ${{ env.REPORTS_DIR }}
 
   report-coverage:
@@ -234,14 +234,16 @@ jobs:
     steps:
       - name: fetch test artifacts
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: ${{ env.TESTS_REPORTS_ARTIFACT }}
+          pattern: '${{ env.TESTS_REPORTS_ARTIFACT }}_*'
+          merge-multiple: true
           path: ${{ env.REPORTS_DIR }}
       - name: Run codacy-coverage-reporter
         env:
           CODACY_PROJECT_TOKEN:  ${{ secrets.CODACY_PROJECT_TOKEN }}
-        if: ${{ env.CODACY_PROJECT_TOKEN != '' }} ## see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-secrets
+        ## see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-secrets
+        if: ${{ env.CODACY_PROJECT_TOKEN != '' }}
         # see https://github.com/codacy/codacy-coverage-reporter-action/blob/8a27d704d4ea6890aee42477b231c4fbbebac2ae/action.yml#L59
         run: |
           set -eux
@@ -276,7 +278,7 @@ jobs:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: fetch build artifact 'node'
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist.node
           path: dist.node
@@ -323,13 +325,13 @@ jobs:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: fetch build artifact 'd'
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist.d
           path: dist.d
       - name: fetch build artifact 'node'
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist.node
           path: dist.node
@@ -379,7 +381,7 @@ jobs:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: fetch build artifact 'node'
         # see https://github.com/actions/download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist.web
           path: dist.web
