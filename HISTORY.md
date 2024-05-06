@@ -6,8 +6,10 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
-* Fixes
-  * JsonValidator allow arbitrary `$schema` ([#1059] via [#1060])
+## 6.6.1 -- 2024-05-06
+
+* Fixed
+  * JSON validator allow arbitrary `$schema` ([#1059] via [#1060])
 
 [#1059]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1059
 [#1060]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1060
@@ -16,7 +18,7 @@ All notable changes to this project will be documented in this file.
 
 * Changed
   * Serializers and `License`-Normalizers will take license acknowledgement into account ([#1051] via [#1052])
-* Added:
+* Added
   * Namespace `Enums` 
     * New enum `LicenseAcknowledgement` ([#1051] via [#1052])
   * Namespace `Models`
