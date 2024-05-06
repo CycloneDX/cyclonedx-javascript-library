@@ -85,6 +85,7 @@ describe('Validation.JsonStrictValidator', () => {
     it('valid passes', async () => {
       const validator = new JsonStrictValidator(version)
       const input = JSON.stringify({
+        $schema: `http://cyclonedx.org/schema/bom-${version}.schema.json`,
         bomFormat: 'CycloneDX',
         specVersion: version,
         components: [{
