@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Fixes
+  * JsonValidator allow arbitrary `$schema` ([#1059] via [#1060])
+
+[#1059]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1059
+[#1060]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1060
+
 ## 6.6.0 -- 2024-04-26
 
 * Changed
