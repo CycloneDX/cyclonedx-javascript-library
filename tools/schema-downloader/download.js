@@ -58,8 +58,12 @@ const BomJsonLax = Object.freeze({
   replace: Object.freeze([
     Object.freeze(['spdx.schema.json', 'spdx.SNAPSHOT.schema.json']),
     Object.freeze(['jsf-0.82.schema.json', 'jsf-0.82.SNAPSHOT.schema.json']),
-    /* fix "$schema" property to match $id */
-    Object.freeze([/("\$id": "(http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json)".*"enum": \[\s+")http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json"/sg, '$1$2"']),
+    /* "$schema" is not required but optional.
+       that enum constraint value there is complicated -> remove it.
+       See https://github.com/CycloneDX/specification/issues/402
+       See https://github.com/CycloneDX/specification/pull/403
+    */
+    Object.freeze([/,?\s*"enum"\s*:\s*\[\s*"http:\/\/cyclonedx\.org\/schema\/.+?\.schema\.json"\s*\]/sg, '']),
     Object.freeze([_bomRequired, _bomRequiredReplace])
     /* there was a case where the default value did not match the own pattern ...
         this is wrong in schema<1.5
