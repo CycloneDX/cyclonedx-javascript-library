@@ -6,6 +6,13 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Changed
+  * XmlValidation no longer supports XML external entities (via [#1063]; concerns [#1061])  
+    This is considered a security measure to prevent XML external entity (XXE) injection.
+
+[#1061]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1061
+[#1063]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1063
+
 ## 6.6.1 -- 2024-05-06
 
 * Fixed
