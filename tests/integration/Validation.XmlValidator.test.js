@@ -119,6 +119,7 @@ describe('Validation.XmlValidator', () => {
             <component type="library">
               <name>&writer;</name><!-- << XML external entity (XXE) injection -->
               <version>1.337</version>
+              ${version === '1.0' ? '<modified>false</modified>' : ''}
             </component>
           </components>
         </bom>`
@@ -145,6 +146,7 @@ describe('Validation.XmlValidator', () => {
             <component type="library">
               <name>&writer;</name><!-- << XML external entity (XXE) injection -->
               <version>1.337</version>
+              ${version === '1.0' ? '<modified>false</modified>' : ''}
             </component>
           </components>
         </bom>`
