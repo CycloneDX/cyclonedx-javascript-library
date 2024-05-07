@@ -119,6 +119,10 @@ jobs:
           - ubuntu-latest
           - macos-13 # macos-latest has issues with node14
           - windows-latest
+        includes:
+          - #
+            node-version: 20
+            os: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout
