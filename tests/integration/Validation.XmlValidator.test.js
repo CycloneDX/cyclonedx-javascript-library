@@ -110,14 +110,19 @@ describe('Validation.XmlValidator', () => {
       see https://research.jfrog.com/vulnerabilities/libxmljs2-attrs-type-confusion-rce-jfsa-2024-001034097/#poc
        */
       const input = `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE note
-[
-<!ENTITY writer "` + 'A'.repeat(0x1234) + `">
-]>
-<from>&writer;</from>
-`;
+        <!DOCTYPE note
+        [
+        <!ENTITY writer "` + 'A'.repeat(0x1234) + `">
+        ]>
+        <bom xmlns="http://cyclonedx.org/schema/bom/${version}">
+          <components>
+            <component type="library">
+              <name>&writer;</name><!-- << XML external entity (XXE) injection -->
+              <version>1.337</version>
+            </component>
+          </components>
+        </bom>`
       const validationError = await validator.validate(input)
-      // expected to not crash ...
       assert.strictEqual(validationError, null)
     })
 
@@ -131,14 +136,19 @@ describe('Validation.XmlValidator', () => {
       see https://research.jfrog.com/vulnerabilities/libxmljs2-namespaces-type-confusion-rce-jfsa-2024-001034098/#poc
       */
       const input = `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE note
-[
-<!ENTITY writer PUBLIC "` + "A".repeat(8) + "B".repeat(8) + "C".repeat(8) + "D".repeat(8) + "P".repeat(8) + `" "JFrog Security">
-]>
-<from>&writer;</from>
-`;
+        <!DOCTYPE note
+        [
+        <!ENTITY writer PUBLIC "` + "A".repeat(8) + "B".repeat(8) + "C".repeat(8) + "D".repeat(8) + "P".repeat(8) + `" "JFrog Security">
+        ]>
+        <bom xmlns="http://cyclonedx.org/schema/bom/${version}">
+          <components>
+            <component type="library">
+              <name>&writer;</name><!-- << XML external entity (XXE) injection -->
+              <version>1.337</version>
+            </component>
+          </components>
+        </bom>`
       const validationError = await validator.validate(input)
-      // expected to not crash ...
       assert.strictEqual(validationError, null)
     })
   }))
