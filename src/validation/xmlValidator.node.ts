@@ -48,8 +48,7 @@ async function getParser (): Promise<typeof parseXml> {
 
 const xmlParseOptions: Readonly<ParserOptions> = Object.freeze({
   nonet: true,
-  compact: true,
-  noent: true // prevent https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1061
+  compact: true
 })
 
 export class XmlValidator extends BaseValidator {

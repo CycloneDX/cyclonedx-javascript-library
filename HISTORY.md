@@ -6,7 +6,13 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 6.7.1 -- 2024-05-07
+
+Reverted v6.7.0, back to v6.6.1
+
 ## 6.7.0 -- 2024-05-07
+
+!! THIS VERSION GOT YANKED !!
 
 * Changed
   * The provided XML validation capabilities no longer supports external entities (via [#1063]; concerns [#1061])  
