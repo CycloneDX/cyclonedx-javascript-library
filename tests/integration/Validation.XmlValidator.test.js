@@ -100,7 +100,7 @@ describe('Validation.XmlValidator', () => {
       assert.strictEqual(validationError, null)
     })
 
-    it('is not vulnerable to advisories/GHSA-mjr4-7xg5-pfvh', async  () => {
+    it('is not vulnerable to advisories/GHSA-mjr4-7xg5-pfvh', async () => {
       /* report:
       see https://github.com/advisories/GHSA-mjr4-7xg5-pfvh
       see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1061
@@ -126,7 +126,7 @@ describe('Validation.XmlValidator', () => {
       assert.strictEqual(validationError, null)
     })
 
-    it('is not vulnerable to advisories/GHSA-78h3-pg4x-j8cv', async  () => {
+    it('is not vulnerable to advisories/GHSA-78h3-pg4x-j8cv', async () => {
       /* report:
       see https://github.com/advisories/GHSA-78h3-pg4x-j8cv
       see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1061
@@ -138,7 +138,7 @@ describe('Validation.XmlValidator', () => {
       const input = `<?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE note
         [
-        <!ENTITY writer PUBLIC "` + "A".repeat(8) + "B".repeat(8) + "C".repeat(8) + "D".repeat(8) + "P".repeat(8) + `" "JFrog Security">
+        <!ENTITY writer PUBLIC "` + 'A'.repeat(8) + 'B'.repeat(8) + 'C'.repeat(8) + 'D'.repeat(8) + 'P'.repeat(8) + `" "JFrog Security">
         ]>
         <bom xmlns="http://cyclonedx.org/schema/bom/${version}">
           <components>
