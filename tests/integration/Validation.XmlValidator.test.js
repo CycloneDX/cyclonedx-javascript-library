@@ -18,8 +18,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 const assert = require('assert')
-const { join } = require('path')
 const { realpathSync } = require('fs')
+const { join } = require('path')
 const { pathToFileURL } = require('url')
 
 const { describe, it } = require('mocha')
