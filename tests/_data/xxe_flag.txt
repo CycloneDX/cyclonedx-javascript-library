@@ -1,0 +1,5 @@
+This file is target of a XXE injection test, that is expected to fail.
+
+The secret flag is:
+
+vaiquia2zoo3Im8ro9zahNg5mohwipouka2xieweed6ahChei3doox2fek3ise0lmohju3loh5oDu7eigh3jaeR2aiph2Voo
