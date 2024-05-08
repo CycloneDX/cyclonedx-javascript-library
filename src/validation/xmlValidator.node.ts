@@ -48,7 +48,11 @@ async function getParser (): Promise<typeof parseXml> {
 
 const xmlParseOptions: Readonly<ParserOptions> = Object.freeze({
   nonet: true,
-  compact: true
+  compact: true,
+  // explicitly prevent XXE
+  // see https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html
+  noent: false,
+  dtdload: false
 })
 
 export class XmlValidator extends BaseValidator {

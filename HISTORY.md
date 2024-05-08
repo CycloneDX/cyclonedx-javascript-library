@@ -6,6 +6,13 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Changed
+  * The provided XML validation capabilities are hardened (via [#1064]; concerns [#1061])  
+    This is considered a security measure concerning XML external entity (XXE) injection.
+
+[#1061]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1061
+[#1064]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1064
+
 ## 6.7.1 -- 2024-05-07
 
 Reverted v6.7.0, back to v6.6.1
