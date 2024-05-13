@@ -32,8 +32,8 @@ import { isNotUndefined } from '../_helpers/notUndefined'
 import type { PackageJson } from '../_helpers/packageJson'
 import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
 import { ExternalReferenceType } from '../enums/externalReferenceType'
+import type { Component } from '../models/component'
 import { ExternalReference } from '../models/externalReference'
-import { Component } from '../models/component'
 import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
 
 /**

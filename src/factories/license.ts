@@ -17,7 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { LicenseExpression, NamedLicense, SpdxLicense, type DisjunctiveLicense, type License } from '../models/license'
+import type { DisjunctiveLicense, License } from '../models/license'
+import { LicenseExpression, NamedLicense, SpdxLicense } from '../models/license'
 import { fixupSpdxId, isValidSpdxLicenseExpression } from '../spdx'
 
 export class LicenseFactory {

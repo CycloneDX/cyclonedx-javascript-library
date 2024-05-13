@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { ComponentType } from '../enums/componentType'
-import {  ExternalReferenceType } from '../enums/externalReferenceType'
+import { ExternalReferenceType } from '../enums/externalReferenceType'
 import { HashAlgorithm } from '../enums/hashAlogorithm'
 import { RatingMethod as VulnerabilityRatingMethod } from '../enums/vulnerability/ratingMethod'
 import type { _SpecProtocol } from './_protocol'
