@@ -29,12 +29,12 @@ suite('packageManifest:exports', () => {
   const pjPath = join(__dirname, '..', '..', 'package.json')
   const { exports: pjExports } = JSON.parse(readFileSync(pjPath))
 
-  suite('subpaths',() => {
+  suite('subpaths', () => {
     /** @type {Set<string>} */
     const pjRelExported = new Set(
       Object.keys(pjExports)
-      .filter(e => e.startsWith('./'))
-      .map(e => e.substring(2))
+        .filter(e => e.startsWith('./'))
+        .map(e => e.substring(2))
     )
 
     suite('can load defined', () => {
