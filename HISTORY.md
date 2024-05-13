@@ -7,7 +7,8 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Added
-  * NodeJS module exports modules as path-like (via [#1066])
+  * NodeJS sub-modules exported as path-like (via [#1066])  
+    Downstream, this should allow slicker imports and better tree shaking.
 
 [#1066]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1066
 
