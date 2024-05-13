@@ -111,6 +111,7 @@
       "browser": "./dist.web/lib.js",
       "default": "./dist.node/index.node.js"
     },
+    "./package.json": "./package.json",
     "./Builders": {
       "types": "./dist.d/builders/index.node.d.ts",
       "default": "./dist.node/builders/index.node.js"
