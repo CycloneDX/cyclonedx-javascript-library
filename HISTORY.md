@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * NodeJS module exports modules as path-like (via [#]) 
+
 ## 6.7.2 -- 2024-05-07
 
 * Changed

@@ -106,9 +106,51 @@
   "types": "./dist.d/index.node.d.ts",
   "main": "./dist.node/index.node.js",
   "exports": {
-    "types": "./dist.d/index.node.d.ts",
-    "browser": "./dist.web/lib.js",
-    "default": "./dist.node/index.node.js"
+    ".": {
+      "types": "./dist.d/index.node.d.ts",
+      "browser": "./dist.web/lib.js",
+      "default": "./dist.node/index.node.js"
+    },
+    "./builders": {
+      "types": "./dist.d/builders/index.node.d.ts",
+      "default": "./dist.node/builders/index.node.js"
+    },
+    "./enums": {
+      "types": "./dist.d/enums/index.d.ts",
+      "default": "./dist.node/enums/index.js"
+    },
+    "./factories": {
+      "types": "./dist.d/factories/index.node.d.ts",
+      "default": "./dist.node/factories/index.node.js"
+    },
+    "./models": {
+      "types": "./dist.d/models/index.d.ts",
+      "default": "./dist.node/models/index.js"
+    },
+    "./serialize": {
+      "types": "./dist.d/serialize/index.node.d.ts",
+      "default": "./dist.node/serialize/index.node.js"
+    },
+    "./spec": {
+      "types": "./dist.d/spec/index.d.ts",
+      "default": "./dist.node/spec/index.js"
+    },
+    "./types": {
+      "types": "./dist.d/types/index.d.ts",
+      "default": "./dist.node/types/index.js"
+    },
+    "./utils": {
+      "types": "./dist.d/utils/index.d.ts",
+      "default": "./dist.node/utils/index.js"
+    },
+    "./validation": {
+      "types": "./dist.d/validation/index.node.d.ts",
+      "default": "./dist.node/validation/index.node.js"
+    },
+    "./spdx": {
+      "types": "./dist.d/spdx.d.ts",
+      "default": "./dist.node/spdx.js"
+    }
   },
   "directories": {
     "doc": "./docs",

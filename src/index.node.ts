@@ -17,6 +17,10 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+/* REMEMBER:
+ALL non-internal exports in here have to be set as `exports` in `package.json`
+*/
+
 export * from './index.common'
 
 // region node-specifics
