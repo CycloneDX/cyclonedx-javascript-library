@@ -7,8 +7,8 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Added
-  * NodeJS sub-modules exported as path-like (via [#1066])  
-    Downstream usage with bundlers/packers, this should allow slicker imports and better tree shaking.
+  * explicitly exporte own first-level submodules (via [#1066])  
+    When used with bundlers/packers downstream, this might enable better tree shaking due to scoped imports.
 
 [#1066]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1066
 
