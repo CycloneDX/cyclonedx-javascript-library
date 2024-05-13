@@ -27,9 +27,9 @@ const CDX = require('../../')
 
 suite('packageManifest:exports', () => {
   const pjPath = join(__dirname, '..', '..', 'package.json')
-  const pjExports = JSON.parse(readFileSync(pjPath)).exports
+  const { exports: pjExports } = JSON.parse(readFileSync(pjPath))
 
-  suite('relative',() => {
+  suite('subpaths',() => {
     /** @type {Set<string>} */
     const pjRelExported = new Set(
       Object.keys(pjExports)
@@ -48,21 +48,20 @@ suite('packageManifest:exports', () => {
       }
     })
 
-    suite('load sub-module as expected', () => {
+    suite('load submodule as expected', () => {
       for (const [cdxModName, cdxMod] of Object.entries(CDX)) {
         if (cdxModName.startsWith('_')) {
           continue // skip internal
         }
         test(cdxModName, () => {
-          const pjExp = cdxModName.toLowerCase()
-          assert.ok(pjRelExported.has(pjExp))
-          const resolved = require(`@cyclonedx/cyclonedx-library/${pjExp}`)
+          assert.ok(pjRelExported.has(cdxModName))
+          const resolved = require(`@cyclonedx/cyclonedx-library/${cdxModName}`)
           assert.strictEqual(cdxMod, resolved)
         })
       }
     })
 
-    suite('does not export internals', () => {
+    suite('does not export internal sobmodules', () => {
       for (const [cdxModName, cdxMod] of Object.entries(CDX)) {
         if (!cdxModName.startsWith('_')) {
           continue // skip non-internal
