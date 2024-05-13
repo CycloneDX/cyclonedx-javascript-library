@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 * Added
   * NodeJS sub-modules exported as path-like (via [#1066])  
-    Downstream, this should allow slicker imports and better tree shaking.
+    Downstream usage with bundlers/packers, this should allow slicker imports and better tree shaking.
 
 [#1066]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1066
 
