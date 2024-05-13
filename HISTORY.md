@@ -7,8 +7,10 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Added
-  * explicitly exporte own first-level submodules (via [#1066])  
+  * Explicitly export own first-level submodules via package manifest (via [#1066])  
     When used with bundlers/packers downstream, this might enable better tree shaking due to scoped imports.
+* Refactor
+  * Ease internal tree shaking (via [#1066])
 
 [#1066]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1066
 
