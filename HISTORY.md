@@ -7,7 +7,9 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Added
-  * NodeJS module exports modules as path-like (via [#]) 
+  * NodeJS module exports modules as path-like (via [#1066])
+
+[#1066]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1066
 
 ## 6.7.2 -- 2024-05-07
 
