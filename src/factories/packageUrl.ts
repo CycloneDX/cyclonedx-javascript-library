@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import { PackageURL } from 'packageurl-js'
 
 import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
-import { ExternalReferenceType } from '../enums'
+import { ExternalReferenceType } from '../enums/externalReferenceType'
 import type { Component } from '../models'
 
 export class PackageUrlFactory {

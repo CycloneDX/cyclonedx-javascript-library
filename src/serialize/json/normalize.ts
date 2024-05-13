@@ -22,7 +22,10 @@ import type { SortableIterable } from '../../_helpers/sortable'
 import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
 import { escapeUri } from '../../_helpers/uri'
-import * as Models from '../../models'
+import type * as Models from '../../models'
+import { NamedLifecycle } from '../../models/lifecycle'
+import { AffectedSingleVersion, AffectedVersionRange } from '../../models/vulnerability/affect'
+import { NamedLicense, SpdxLicense, LicenseExpression } from '../../models/license'
 import { isSupportedSpdxId } from '../../spdx'
 import { Version as SpecVersion } from '../../spec'
 import type { _SpecProtocol as Spec } from '../../spec/_protocol'
@@ -237,7 +240,7 @@ export class MetadataNormalizer extends BaseJsonNormalizer<Models.Metadata> {
 
 export class LifecycleNormalizer extends BaseJsonNormalizer<Models.Lifecycle> {
   normalize (data: Models.Lifecycle, options: NormalizerOptions): Normalized.Lifecycle {
-    return data instanceof Models.NamedLifecycle
+    return data instanceof NamedLifecycle
       ? { name: data.name, description: data.description }
       : { phase: data }
   }
@@ -427,17 +430,17 @@ export class ComponentEvidenceNormalizer extends BaseJsonNormalizer<Models.Compo
 export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
   normalize (data: Models.License, options: NormalizerOptions): Normalized.License {
     switch (true) {
-      case data instanceof Models.NamedLicense:
+      case data instanceof NamedLicense:
         return this.#normalizeNamedLicense(data, options)
-      case data instanceof Models.SpdxLicense:
+      case data instanceof SpdxLicense:
         return isSupportedSpdxId(data.id)
           ? this.#normalizeSpdxLicense(data, options)
-          : this.#normalizeNamedLicense(new Models.NamedLicense(
+          : this.#normalizeNamedLicense(new NamedLicense(
             // prevent information loss -> convert to broader type
             data.id,
             { url: data.url }
           ), options)
-      case data instanceof Models.LicenseExpression:
+      case data instanceof LicenseExpression:
         return this.#normalizeLicenseExpression(data)
       /* c8 ignore start */
       default:
@@ -501,7 +504,7 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
       : Array.from(data)
 
     if (licenses.length > 1) {
-      const expressions = licenses.filter(l => l instanceof Models.LicenseExpression) as Models.LicenseExpression[]
+      const expressions = licenses.filter(l => l instanceof LicenseExpression) as Models.LicenseExpression[]
       if (expressions.length > 0) {
         // could have thrown {@link RangeError} when there is more than one only {@link Models.LicenseExpression | LicenseExpression}.
         // but let's be graceful and just normalize to the most relevant choice: any expression
@@ -805,9 +808,9 @@ export class VulnerabilityAffectNormalizer extends BaseJsonNormalizer<Models.Vul
 export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<Models.Vulnerability.AffectedVersion> {
   normalize (data: Models.Vulnerability.AffectedVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersion | undefined {
     switch (true) {
-      case data instanceof Models.Vulnerability.AffectedSingleVersion:
+      case data instanceof AffectedSingleVersion:
         return this.#normalizeAffectedSingleVersion(data)
-      case data instanceof Models.Vulnerability.AffectedVersionRange:
+      case data instanceof AffectedVersionRange:
         return this.#normalizeAffectedVersionRange(data)
       /* c8 ignore start */
       default:

@@ -28,9 +28,12 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { PackageJson } from '../_helpers/packageJson'
 import { splitNameGroup } from '../_helpers/packageJson'
-import * as Enums from '../enums'
+import { ComponentType } from '../enums/componentType'
 import type * as Factories from '../factories/index.node'
-import * as Models from '../models'
+import { Tool } from '../models/tool'
+import { ExternalReferenceRepository } from '../models/externalReference'
+import { Component } from '../models/component'
+import { LicenseRepository } from '../models/license'
 
 /**
  * Node-specific ToolBuilder.
@@ -48,18 +51,18 @@ export class ToolBuilder {
 
   // Current implementation does not return `undefined` yet, but it is an option for future implementation.
   // To prevent future breaking changes, it is declared to return `undefined`.
-  makeTool (data: PackageJson): Models.Tool | undefined {
+  makeTool (data: PackageJson): Tool | undefined {
     const [name, vendor] = typeof data.name === 'string'
       ? splitNameGroup(data.name)
       : []
 
-    return new Models.Tool({
+    return new Tool({
       vendor,
       name,
       version: (typeof data.version === 'string')
         ? data.version
         : undefined,
-      externalReferences: new Models.ExternalReferenceRepository(this.#extRefFactory.makeExternalReferences(data))
+      externalReferences: new ExternalReferenceRepository(this.#extRefFactory.makeExternalReferences(data))
     })
   }
 }
@@ -87,7 +90,7 @@ export class ComponentBuilder {
     return this.#licenseFactory
   }
 
-  makeComponent (data: PackageJson, type: Enums.ComponentType = Enums.ComponentType.Library): Models.Component | undefined {
+  makeComponent (data: PackageJson, type: ComponentType = ComponentType.Library): Component | undefined {
     if (typeof data.name !== 'string') {
       return undefined
     }
@@ -116,7 +119,7 @@ export class ComponentBuilder {
 
     const externalReferences = this.#extRefFactory.makeExternalReferences(data)
 
-    const licenses = new Models.LicenseRepository()
+    const licenses = new LicenseRepository()
     if (typeof data.license === 'string') {
       /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#license */
       licenses.add(this.#licenseFactory.makeFromString(data.license))
@@ -134,10 +137,10 @@ export class ComponentBuilder {
       }
     }
 
-    return new Models.Component(type, name, {
+    return new Component(type, name, {
       author,
       description,
-      externalReferences: new Models.ExternalReferenceRepository(externalReferences),
+      externalReferences: new ExternalReferenceRepository(externalReferences),
       group,
       licenses,
       version

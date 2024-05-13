@@ -17,22 +17,5 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type { Stringable } from '../_helpers/stringable'
-import type { AttachmentEncoding } from '../enums/attachmentEncoding'
-
-export interface OptionalAttachmentProperties {
-  contentType?: Attachment['contentType']
-  encoding?: Attachment['encoding']
-}
-
-export class Attachment {
-  contentType?: string
-  content: Stringable
-  encoding?: AttachmentEncoding
-
-  constructor (content: Attachment['content'], op: OptionalAttachmentProperties = {}) {
-    this.contentType = op.contentType
-    this.content = content
-    this.encoding = op.encoding
-  }
+export class UnsupportedFormatError extends Error {
 }

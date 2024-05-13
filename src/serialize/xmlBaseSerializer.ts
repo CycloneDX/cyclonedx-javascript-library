@@ -18,7 +18,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { Bom } from '../models'
-import { Format, UnsupportedFormatError } from '../spec'
+import { Format } from '../spec/enums'
+import { UnsupportedFormatError } from '../spec/errors'
 import { BaseSerializer } from './baseSerializer'
 import type { NormalizerOptions } from './types'
 import type { Factory as NormalizerFactory } from './xml/normalize'

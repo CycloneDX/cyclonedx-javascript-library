@@ -17,11 +17,11 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type { PositiveInteger } from '../types'
-import { isPositiveInteger } from '../types'
+import type { PositiveInteger } from '../types/integer'
+import { isPositiveInteger } from '../types/integer'
 import { ComponentRepository } from './component'
 import { Metadata } from './metadata'
-import { VulnerabilityRepository } from './vulnerability'
+import { VulnerabilityRepository } from './vulnerability/vulnerability'
 
 export interface OptionalBomProperties {
   metadata?: Bom['metadata']

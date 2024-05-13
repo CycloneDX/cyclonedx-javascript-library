@@ -19,6 +19,4 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 export * from './consts'
 export * from './enums'
-
-export class UnsupportedFormatError extends Error {
-}
+export * from './errors'

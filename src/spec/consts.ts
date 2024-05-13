@@ -17,7 +17,10 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { ComponentType, ExternalReferenceType, HashAlgorithm, Vulnerability } from '../enums'
+import { ComponentType } from '../enums/componentType'
+import {  ExternalReferenceType } from '../enums/externalReferenceType'
+import { HashAlgorithm } from '../enums/hashAlogorithm'
+import { RatingMethod as VulnerabilityRatingMethod } from '../enums/vulnerability/ratingMethod'
 import type { _SpecProtocol } from './_protocol'
 import { _Spec } from './_protocol'
 import { Format, Version } from './enums'
@@ -204,11 +207,11 @@ export const Spec1dot4: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   true,
   true,
   [
-    Vulnerability.RatingMethod.CVSSv2,
-    Vulnerability.RatingMethod.CVSSv3,
-    Vulnerability.RatingMethod.CVSSv31,
-    Vulnerability.RatingMethod.OWASP,
-    Vulnerability.RatingMethod.Other
+    VulnerabilityRatingMethod.CVSSv2,
+    VulnerabilityRatingMethod.CVSSv3,
+    VulnerabilityRatingMethod.CVSSv31,
+    VulnerabilityRatingMethod.OWASP,
+    VulnerabilityRatingMethod.Other
   ],
   true,
   false,
@@ -301,13 +304,13 @@ export const Spec1dot5: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   true,
   true,
   [
-    Vulnerability.RatingMethod.CVSSv2,
-    Vulnerability.RatingMethod.CVSSv3,
-    Vulnerability.RatingMethod.CVSSv31,
-    Vulnerability.RatingMethod.CVSSv4,
-    Vulnerability.RatingMethod.OWASP,
-    Vulnerability.RatingMethod.SSVC,
-    Vulnerability.RatingMethod.Other
+    VulnerabilityRatingMethod.CVSSv2,
+    VulnerabilityRatingMethod.CVSSv3,
+    VulnerabilityRatingMethod.CVSSv31,
+    VulnerabilityRatingMethod.CVSSv4,
+    VulnerabilityRatingMethod.OWASP,
+    VulnerabilityRatingMethod.SSVC,
+    VulnerabilityRatingMethod.Other
   ],
   true,
   true,
@@ -405,13 +408,13 @@ export const Spec1dot6: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   true,
   true,
   [
-    Vulnerability.RatingMethod.CVSSv2,
-    Vulnerability.RatingMethod.CVSSv3,
-    Vulnerability.RatingMethod.CVSSv31,
-    Vulnerability.RatingMethod.CVSSv4,
-    Vulnerability.RatingMethod.OWASP,
-    Vulnerability.RatingMethod.SSVC,
-    Vulnerability.RatingMethod.Other
+    VulnerabilityRatingMethod.CVSSv2,
+    VulnerabilityRatingMethod.CVSSv3,
+    VulnerabilityRatingMethod.CVSSv31,
+    VulnerabilityRatingMethod.CVSSv4,
+    VulnerabilityRatingMethod.OWASP,
+    VulnerabilityRatingMethod.SSVC,
+    VulnerabilityRatingMethod.Other
   ],
   true,
   true,
