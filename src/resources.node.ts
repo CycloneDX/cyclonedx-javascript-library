@@ -17,56 +17,56 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import * as path from 'path'
+import { resolve } from 'path'
 
-import { Version } from './spec'
-
-/** @internal */
-export const ROOT = path.resolve(__dirname, '..', 'res')
+import { Version } from './spec/enums'
 
 /** @internal */
-export const SCHEMA_ROOT = path.resolve(ROOT, 'schema')
+export const ROOT = resolve(__dirname, '..', 'res')
+
+/** @internal */
+export const SCHEMA_ROOT = resolve(ROOT, 'schema')
 
 /** @internal */
 export const FILES = Object.freeze({
   CDX: Object.freeze({
     XML_SCHEMA: Object.freeze({
-      [Version.v1dot6]: path.resolve(SCHEMA_ROOT, 'bom-1.6.SNAPSHOT.xsd'),
-      [Version.v1dot5]: path.resolve(SCHEMA_ROOT, 'bom-1.5.SNAPSHOT.xsd'),
-      [Version.v1dot4]: path.resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.xsd'),
-      [Version.v1dot3]: path.resolve(SCHEMA_ROOT, 'bom-1.3.SNAPSHOT.xsd'),
-      [Version.v1dot2]: path.resolve(SCHEMA_ROOT, 'bom-1.2.SNAPSHOT.xsd'),
-      [Version.v1dot1]: path.resolve(SCHEMA_ROOT, 'bom-1.1.SNAPSHOT.xsd'),
-      [Version.v1dot0]: path.resolve(SCHEMA_ROOT, 'bom-1.0.SNAPSHOT.xsd')
+      [Version.v1dot6]: resolve(SCHEMA_ROOT, 'bom-1.6.SNAPSHOT.xsd'),
+      [Version.v1dot5]: resolve(SCHEMA_ROOT, 'bom-1.5.SNAPSHOT.xsd'),
+      [Version.v1dot4]: resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.xsd'),
+      [Version.v1dot3]: resolve(SCHEMA_ROOT, 'bom-1.3.SNAPSHOT.xsd'),
+      [Version.v1dot2]: resolve(SCHEMA_ROOT, 'bom-1.2.SNAPSHOT.xsd'),
+      [Version.v1dot1]: resolve(SCHEMA_ROOT, 'bom-1.1.SNAPSHOT.xsd'),
+      [Version.v1dot0]: resolve(SCHEMA_ROOT, 'bom-1.0.SNAPSHOT.xsd')
 
     }),
     JSON_SCHEMA: Object.freeze({
-      [Version.v1dot6]: path.resolve(SCHEMA_ROOT, 'bom-1.6.SNAPSHOT.schema.json'),
-      [Version.v1dot5]: path.resolve(SCHEMA_ROOT, 'bom-1.5.SNAPSHOT.schema.json'),
-      [Version.v1dot4]: path.resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.schema.json'),
-      [Version.v1dot3]: path.resolve(SCHEMA_ROOT, 'bom-1.3.SNAPSHOT.schema.json'),
-      [Version.v1dot2]: path.resolve(SCHEMA_ROOT, 'bom-1.2.SNAPSHOT.schema.json'),
+      [Version.v1dot6]: resolve(SCHEMA_ROOT, 'bom-1.6.SNAPSHOT.schema.json'),
+      [Version.v1dot5]: resolve(SCHEMA_ROOT, 'bom-1.5.SNAPSHOT.schema.json'),
+      [Version.v1dot4]: resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.schema.json'),
+      [Version.v1dot3]: resolve(SCHEMA_ROOT, 'bom-1.3.SNAPSHOT.schema.json'),
+      [Version.v1dot2]: resolve(SCHEMA_ROOT, 'bom-1.2.SNAPSHOT.schema.json'),
       // <= v1.1 is not defined in JSON
       [Version.v1dot1]: undefined,
       [Version.v1dot0]: undefined
     }),
     JSON_STRICT_SCHEMA: Object.freeze({
-      [Version.v1dot6]: path.resolve(SCHEMA_ROOT, 'bom-1.6.SNAPSHOT.schema.json'),
-      [Version.v1dot5]: path.resolve(SCHEMA_ROOT, 'bom-1.5.SNAPSHOT.schema.json'),
-      [Version.v1dot4]: path.resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.schema.json'),
+      [Version.v1dot6]: resolve(SCHEMA_ROOT, 'bom-1.6.SNAPSHOT.schema.json'),
+      [Version.v1dot5]: resolve(SCHEMA_ROOT, 'bom-1.5.SNAPSHOT.schema.json'),
+      [Version.v1dot4]: resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.schema.json'),
       // <= 1.3 need special files
-      [Version.v1dot3]: path.resolve(SCHEMA_ROOT, 'bom-1.3-strict.SNAPSHOT.schema.json'),
-      [Version.v1dot2]: path.resolve(SCHEMA_ROOT, 'bom-1.2-strict.SNAPSHOT.schema.json'),
+      [Version.v1dot3]: resolve(SCHEMA_ROOT, 'bom-1.3-strict.SNAPSHOT.schema.json'),
+      [Version.v1dot2]: resolve(SCHEMA_ROOT, 'bom-1.2-strict.SNAPSHOT.schema.json'),
       // <= v1.1 is not defined in JSON
       [Version.v1dot1]: undefined,
       [Version.v1dot0]: undefined
     })
   }),
   SPDX: Object.freeze({
-    XML_SCHEMA: path.resolve(SCHEMA_ROOT, 'spdx.SNAPSHOT.xsd'),
-    JSON_SCHEMA: path.resolve(SCHEMA_ROOT, 'spdx.SNAPSHOT.schema.json')
+    XML_SCHEMA: resolve(SCHEMA_ROOT, 'spdx.SNAPSHOT.xsd'),
+    JSON_SCHEMA: resolve(SCHEMA_ROOT, 'spdx.SNAPSHOT.schema.json')
   }),
   JSF: Object.freeze({
-    JSON_SCHEMA: path.resolve(SCHEMA_ROOT, 'jsf-0.82.SNAPSHOT.schema.json')
+    JSON_SCHEMA: resolve(SCHEMA_ROOT, 'jsf-0.82.SNAPSHOT.schema.json')
   })
 })

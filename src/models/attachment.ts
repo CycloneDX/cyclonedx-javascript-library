@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { Stringable } from '../_helpers/stringable'
-import type { AttachmentEncoding } from '../enums'
+import type { AttachmentEncoding } from '../enums/attachmentEncoding'
 
 export interface OptionalAttachmentProperties {
   contentType?: Attachment['contentType']

@@ -31,16 +31,17 @@ import type { PackageURL } from 'packageurl-js'
 import { isNotUndefined } from '../_helpers/notUndefined'
 import type { PackageJson } from '../_helpers/packageJson'
 import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
-import * as Enums from '../enums'
-import * as Models from '../models'
+import { ExternalReferenceType } from '../enums/externalReferenceType'
+import type { Component } from '../models/component'
+import { ExternalReference } from '../models/externalReference'
 import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
 
 /**
  * Node-specific ExternalReferenceFactory.
  */
 export class ExternalReferenceFactory {
-  makeExternalReferences (data: PackageJson): Models.ExternalReference[] {
-    const refs: Array<Models.ExternalReference | undefined> = []
+  makeExternalReferences (data: PackageJson): ExternalReference[] {
+    const refs: Array<ExternalReference | undefined> = []
 
     try { refs.push(this.makeVcs(data)) } catch { /* pass */ }
     try { refs.push(this.makeHomepage(data)) } catch { /* pass */ }
@@ -49,7 +50,7 @@ export class ExternalReferenceFactory {
     return refs.filter(isNotUndefined)
   }
 
-  makeVcs (data: PackageJson): Models.ExternalReference | undefined {
+  makeVcs (data: PackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#repositoryc */
     const repository = data.repository
     let url
@@ -67,21 +68,21 @@ export class ExternalReferenceFactory {
       comment = 'as detected from PackageJson property "repository"'
     }
     return typeof url === 'string' && url.length > 0
-      ? new Models.ExternalReference(url, Enums.ExternalReferenceType.VCS, { comment })
+      ? new ExternalReference(url, ExternalReferenceType.VCS, { comment })
       : undefined
   }
 
-  makeHomepage (data: PackageJson): Models.ExternalReference | undefined {
+  makeHomepage (data: PackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#homepage */
     const url = data.homepage
     return typeof url === 'string' && url.length > 0
-      ? new Models.ExternalReference(
-        url, Enums.ExternalReferenceType.Website,
+      ? new ExternalReference(
+        url, ExternalReferenceType.Website,
         { comment: 'as detected from PackageJson property "homepage"' })
       : undefined
   }
 
-  makeIssueTracker (data: PackageJson): Models.ExternalReference | undefined {
+  makeIssueTracker (data: PackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#bugs */
     const bugs = data.bugs
     let url
@@ -94,7 +95,7 @@ export class ExternalReferenceFactory {
       comment = 'as detected from PackageJson property "bugs"'
     }
     return typeof url === 'string' && url.length > 0
-      ? new Models.ExternalReference(url, Enums.ExternalReferenceType.IssueTracker, { comment })
+      ? new ExternalReference(url, ExternalReferenceType.IssueTracker, { comment })
       : undefined
   }
 }
@@ -105,7 +106,7 @@ const npmDefaultRegistryMatcher = /^https?:\/\/registry\.npmjs\.org/
  * Node-specific PackageUrlFactory.
  */
 export class PackageUrlFactory extends PlainPackageUrlFactory {
-  override makeFromComponent (component: Models.Component, sort: boolean = false): PackageURL | undefined {
+  override makeFromComponent (component: Component, sort: boolean = false): PackageURL | undefined {
     const purl = super.makeFromComponent(component, sort)
     return purl === undefined
       ? undefined

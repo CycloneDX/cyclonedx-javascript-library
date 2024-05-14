@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { Comparable } from '../_helpers/sortable'
 import { SortableComparables } from '../_helpers/sortable'
-import type { ExternalReferenceType } from '../enums'
+import type { ExternalReferenceType } from '../enums/externalReferenceType'
 import type { BomLink } from './bomLink'
 import { HashDictionary } from './hash'
 

@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { Comparable, Sortable } from '../_helpers/sortable'
-import type { LifecyclePhase } from '../enums'
+import type { LifecyclePhase } from '../enums/lifecyclePhase'
 
 export interface OptionalNamedLifecycleProperties {
   description?: NamedLifecycle['description']

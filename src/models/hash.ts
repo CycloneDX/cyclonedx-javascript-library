@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { Sortable } from '../_helpers/sortable'
-import type { HashAlgorithm } from '../enums'
+import type { HashAlgorithm } from '../enums/hashAlogorithm'
 
 // no regex for the HashContent in here. It applies at runtime of a normalization/serialization process.
 export type HashContent = string
