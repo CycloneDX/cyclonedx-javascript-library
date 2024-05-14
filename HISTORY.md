@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 6.8.0 -- 2024-05-14
+
 * Added
   * Explicitly export own first-level submodules via package manifest (via [#1066])  
     When used with bundlers/packers downstream, this might enable better tree shaking due to scoped imports.
