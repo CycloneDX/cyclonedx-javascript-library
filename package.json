@@ -43,6 +43,12 @@
     "name": "Jan Kowalleck",
     "url": "https://github.com/jkowalleck"
   },
+  "maintainers": [
+    {
+      "name": "Jan Kowalleck",
+      "url": "https://github.com/jkowalleck"
+    }
+  ],
   "contributors": [
     {
       "name": "Jan Kowalleck",
@@ -55,6 +61,18 @@
     {
       "name": "Peter Wagner",
       "url": "https://github.com/thepwagner"
+    },
+    {
+      "name": "Xavier Maso",
+      "url": "https://github.com/xmasoracle"
+    },
+    {
+      "name": "mLuca",
+      "url": "https://github.com/mLuca"
+    },
+    {
+      "name": " Augustus Kling ",
+      "url": "https://github.com/AugustusKling"
     }
   ],
   "type": "commonjs",
@@ -133,6 +151,10 @@
       "types": "./dist.d/serialize/index.node.d.ts",
       "default": "./dist.node/serialize/index.node.js"
     },
+    "./SPDX": {
+      "types": "./dist.d/spdx.d.ts",
+      "default": "./dist.node/spdx.js"
+    },
     "./Spec": {
       "types": "./dist.d/spec/index.d.ts",
       "default": "./dist.node/spec/index.js"
@@ -148,10 +170,6 @@
     "./Validation": {
       "types": "./dist.d/validation/index.node.d.ts",
       "default": "./dist.node/validation/index.node.js"
-    },
-    "./SPDX": {
-      "types": "./dist.d/spdx.d.ts",
-      "default": "./dist.node/spdx.js"
     }
   },
   "directories": {
