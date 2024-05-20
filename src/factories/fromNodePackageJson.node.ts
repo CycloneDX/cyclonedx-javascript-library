@@ -100,7 +100,7 @@ export class ExternalReferenceFactory {
   }
 }
 
-const npmDefaultRegistryMatcher = /^https?:\/\/registry\.npmjs\.org/
+const npmDefaultRegistryMatcher = /^https?:\/\/registry\.npmjs\.org(:?\/|$)/
 
 /**
  * Node-specific PackageUrlFactory.
