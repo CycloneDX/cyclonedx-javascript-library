@@ -23,7 +23,7 @@ import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
 import { ExternalReferenceType } from '../enums/externalReferenceType'
 import type { Component } from '../models/component'
 
-export class PackageUrlFactory<PurlType extends PackageURL['type']> {
+export class PackageUrlFactory<PurlType extends PackageURL['type'] = PackageURL['type']> {
   readonly #type: PurlType
 
   constructor (type: PurlType) {
