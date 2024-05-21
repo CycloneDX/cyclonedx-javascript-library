@@ -21,17 +21,13 @@ const assert = require('assert')
 const { suite, test } = require('mocha')
 
 const {
-  Factories: { PackageUrlFactory }
+  Factories: { FromNodePackageJson: { PackageUrlFactory } }
 } = require('../../')
 
-const { randomString } = require('../_helpers/stringFunctions')
-
-suite('Factories.PackageUrlFactory', () => {
-  test('construct', () => {
-    const type = randomString(5)
-
-    const actual = new PackageUrlFactory(type)
-
-    assert.strictEqual(actual.type, type)
+suite('Factories.FromNodePackageJson.PackageUrlFactory', () => {
+  suite('makeFromComponent()', () => {
+    test('TODO', () => {
+      assert.ok(false, 'TODO')
+    })
   })
 })
