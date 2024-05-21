@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 ## 6.8.2 -- 2024-05-21
 
 * Fixed
-  * Added `Factories.PackageUrlFactory`'s generic default back in (via [#1076])
+  * Added `Factories.PackageUrlFactory`'s generic type's default back in (via [#1076])
 
 [#1076]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1076
 
