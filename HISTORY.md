@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Fixed
+  * Hardened `Factories.FromNodePackageJson.PackageUrlFactory`'s default package repository detection ([#1073] via [#1074])
+
+[#1073]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1073
+[#1074]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1074
+
 ## 6.8.0 -- 2024-05-14
 
 * Added
