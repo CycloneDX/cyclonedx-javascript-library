@@ -105,7 +105,7 @@ const npmDefaultRegistryMatcher = /^https?:\/\/registry\.npmjs\.org(:?\/|$)/
 /**
  * Node-specific PackageUrlFactory.
  */
-export class PackageUrlFactory extends PlainPackageUrlFactory {
+export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
   override makeFromComponent (component: Component, sort: boolean = false): PackageURL | undefined {
     const purl = super.makeFromComponent(component, sort)
     return purl === undefined
