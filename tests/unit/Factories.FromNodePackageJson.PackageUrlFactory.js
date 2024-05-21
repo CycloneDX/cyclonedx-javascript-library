@@ -21,13 +21,65 @@ const assert = require('assert')
 const { suite, test } = require('mocha')
 
 const {
-  Factories: { FromNodePackageJson: { PackageUrlFactory } }
+  Factories: { FromNodePackageJson: { PackageUrlFactory } },
+  Enums: { ComponentType, ExternalReferenceType },
+  Models: { Component, ExternalReference, ExternalReferenceRepository }
 } = require('../../')
 
 suite('Factories.FromNodePackageJson.PackageUrlFactory', () => {
   suite('makeFromComponent()', () => {
-    test('TODO', () => {
-      assert.ok(false, 'TODO')
+    test('plain', () => {
+      const component = new Component(ComponentType.Library, 'testing')
+      const purlFac = new PackageUrlFactory('npm')
+      const actual = purlFac.makeFromComponent(component)
+      assert.deepEqual(actual, 'TODO')
+    })
+
+    test('strips default repo', () => {
+      // see https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#npm
+      const component = new Component(ComponentType.Library, 'testing', {
+        externalReferences: new ExternalReferenceRepository([
+          new ExternalReference(
+            'https://registry.npmjs.org/@cyclonedx/cyclonedx-library/-/cyclonedx-library-1.0.0-beta.2.tgz',
+            ExternalReferenceType.Distribution
+          )
+        ])
+      })
+      const purlFac = new PackageUrlFactory('npm')
+      const actual = purlFac.makeFromComponent(component)
+      assert.deepEqual(actual, {
+        type: 'npm',
+        name: 'testing',
+        namespace: undefined,
+        version: undefined,
+        qualifiers: undefined,
+        subpath: undefined
+      })
+    })
+
+    test('dont strip BA repo', () => {
+      // regression test for https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1073
+      const component = new Component(ComponentType.Library, 'testing', {
+        externalReferences: new ExternalReferenceRepository([
+          new ExternalReference(
+            'https://registry.npmjs.org.badactor.net/@cyclonedx/cyclonedx-library/-/cyclonedx-library-1.0.0-beta.2.tgz',
+            ExternalReferenceType.Distribution
+          )
+        ])
+      })
+      const purlFac = new PackageUrlFactory('npm')
+      const actual = purlFac.makeFromComponent(component)
+      assert.deepEqual(actual,
+        {
+          type: 'npm',
+          name: 'testing',
+          namespace: undefined,
+          version: undefined,
+          qualifiers: {
+            download_url: 'https://registry.npmjs.org.badactor.net/@cyclonedx/cyclonedx-library/-/cyclonedx-library-1.0.0-beta.2.tgz'
+          },
+          subpath: undefined
+        })
     })
   })
 })

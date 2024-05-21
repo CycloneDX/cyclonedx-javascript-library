@@ -23,14 +23,14 @@ import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
 import { ExternalReferenceType } from '../enums/externalReferenceType'
 import type { Component } from '../models/component'
 
-export class PackageUrlFactory<TypeConstraint extends PackageURL['type']> {
-  readonly #type: TypeConstraint
+export class PackageUrlFactory<PurlType extends PackageURL['type']> {
+  readonly #type: PurlType
 
-  constructor (type: TypeConstraint) {
+  constructor (type: PurlType) {
     this.#type = type
   }
 
-  get type (): TypeConstraint {
+  get type (): PurlType {
     return this.#type
   }
 
