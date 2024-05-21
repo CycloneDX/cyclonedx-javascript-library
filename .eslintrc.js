@@ -109,6 +109,18 @@ module.exports = {
       }
     },
     {
+      files: ['examples/node/typescript/example.cjs/src/*.ts'],
+      parserOptions: {
+        project: './examples/node/typescript/example.cjs/tsconfig.json'
+      }
+    },
+    {
+      files: ['examples/node/typescript/example.mjs/src/*.ts'],
+      parserOptions: {
+        project: './examples/node/typescript/example.mjs/tsconfig.json'
+      }
+    },
+    {
       files: ['*.js', '*.mjs', '*.cjs'],
       plugins: [
         /* see https://github.com/gajus/eslint-plugin-jsdoc/ */

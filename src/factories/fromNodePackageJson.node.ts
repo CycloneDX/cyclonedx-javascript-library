@@ -100,12 +100,17 @@ export class ExternalReferenceFactory {
   }
 }
 
-const npmDefaultRegistryMatcher = /^https?:\/\/registry\.npmjs\.org/
+/**
+ * The default repository is `https://registry.npmjs.org`.
+ * @see {@link https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#npm}
+ */
+const npmDefaultRepositoryMatcher = /^https?:\/\/registry\.npmjs\.org(:?\/|$)/
 
 /**
  * Node-specific PackageUrlFactory.
+ * @see {@link https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#npm}
  */
-export class PackageUrlFactory extends PlainPackageUrlFactory {
+export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
   override makeFromComponent (component: Component, sort: boolean = false): PackageURL | undefined {
     const purl = super.makeFromComponent(component, sort)
     return purl === undefined
@@ -132,7 +137,7 @@ export class PackageUrlFactory extends PlainPackageUrlFactory {
     const downloadUrl = qualifiers.get(PackageUrlQualifierNames.DownloadURL)
     if (downloadUrl !== undefined) {
       qualifiers.delete(PackageUrlQualifierNames.VcsUrl)
-      if (npmDefaultRegistryMatcher.test(downloadUrl)) {
+      if (npmDefaultRepositoryMatcher.test(downloadUrl)) {
         qualifiers.delete(PackageUrlQualifierNames.DownloadURL)
       }
     }

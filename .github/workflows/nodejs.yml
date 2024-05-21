@@ -59,6 +59,26 @@ jobs:
           path: dist.${{ matrix.target }}
           if-no-files-found: error
 
+  test-lint:
+    name: test lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        # see https://github.com/actions/checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
+        # see https://github.com/actions/setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_ACTIVE_LTS }}
+          # cache: "npm"
+          # cache-dependency-path: "**/package-lock.json"
+      - name: setup project
+        run: npm i --ignore-scripts --include=optional  --loglevel=silly
+      - name: test
+        run: npm run test:lint
+
   test-standard:
     name: test standard
     runs-on: ubuntu-latest
