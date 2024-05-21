@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 6.8.1 -- 2024-05-21
+
 * Fixed
   * Hardened `Factories.FromNodePackageJson.PackageUrlFactory`'s default package repository detection ([#1073] via [#1074])
 
