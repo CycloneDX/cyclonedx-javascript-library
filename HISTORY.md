@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Chore
+  * The package will be published to GitHub package registry, too. ([#1026] via [#1078])
+
+[#1026]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1026
+[#1078]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1078
+
 ## 6.9.0 -- 2024-05-23
 
 * Changed
