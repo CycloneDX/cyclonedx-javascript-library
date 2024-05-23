@@ -52,7 +52,7 @@ jobs:
       - name: Configure Git
         # needed for push back of changes
         run: |
-          set -ex
+          set -eux
           git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git config --local user.name "${GITHUB_ACTOR}"
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
@@ -64,8 +64,9 @@ jobs:
       - name: bump VERSION
         id: bump
         run: |
-          set -ex
-          VERSION="$(npm version "$NPMV_NEWVERSION" --message "$NPMV_MESSAGE" --preid "$NPMV_PREID")"
+          set -eux
+          COMMIT_SIG="Signed-off-by: $(git config user.name) <$(git config user.email)>"
+          VERSION="$( npm version "$NPMV_NEWVERSION" --message "$NPMV_MESSAGE"$'\n\n'"$COMMIT_SIG" --preid "$NPMV_PREID" )"
           echo "::debug::new version = $VERSION"
           VERSION_PLAIN="${VERSION:1}" # remove 'v' prefix
           echo "::debug::plain version = $VERSION_PLAIN"
@@ -78,14 +79,14 @@ jobs:
       - name: git push back
         run: git push --follow-tags
 
-  publish-NPMJS:
+  publish-package:
     needs:
       - "bump"
-    name: publish NPMJS
+    name: publish package
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      NPMJS_RELEASE_TAG: ${{ github.event.inputs.prerelease == 'true' && 'unstable-prerelease' || 'latest' }}
+      PACKAGE_RELEASE_TAG: ${{ github.event.inputs.prerelease == 'true' && 'unstable-prerelease' || 'latest' }}
     steps:
       - name: Checkout code
         # see https://github.com/actions/checkout
@@ -100,16 +101,27 @@ jobs:
       - name: install build tools
         run: npm i --ignore-scripts --include=optional --loglevel=silly
       # no explicit npm build. if a build is required, it should be configured as prepublish/prepublishOnly script of npm.
-      - name: login to NPMJS
-        run: npm config set "//registry.npmjs.org/:_authToken=$NPMJS_AUTH_TOKEN"
+      - name: login to registries
+        run: |
+          npm config set "//registry.npmjs.org/:_authToken=$NPM_TOKEN"
+          npm config set "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN"
         env:
-          NPMJS_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: publish to NPMJS as "${{ env.NPMJS_RELEASE_TAG }}"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: publish to NPMJS as "${{ env.PACKAGE_RELEASE_TAG }}"
         run: >
-          npm publish 
+          npm publish
+          --@cyclonedx:registry='https://registry.npmjs.org'
           --provenance
           --access public 
-          --tag "$NPMJS_RELEASE_TAG"
+          --tag "$PACKAGE_RELEASE_TAG"
+      - name: publish to GitHub as "${{ env.PACKAGE_RELEASE_TAG }}"
+        run: >
+          npm publish
+          --@cyclonedx:registry='https://npm.pkg.github.com'
+          --provenance
+          --access public 
+          --tag "$PACKAGE_RELEASE_TAG"
       - name: pack release result
         run: |
           mkdir -p "$PACKED_DIR"
@@ -125,7 +137,7 @@ jobs:
   release-GH:
     needs:
       - "bump"
-      - "publish-NPMJS"
+      - "publish-package"
     name: publish GitHub
     runs-on: ubuntu-latest
     timeout-minutes: 30
