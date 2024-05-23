@@ -68,7 +68,7 @@ jobs:
           git config user.name 'release bot'
           git config user.email 'release@bot.local'
           COMMIT_SIG="Signed-off-by: $(git config user.name) <$(git config user.email)>"
-          VERSION="$( npm version "$NPMV_NEWVERSION" --message "$NPMV_MESSAGE\n\n$COMMIT_SIG" --preid "$NPMV_PREID" )"
+          VERSION="$( npm version "$NPMV_NEWVERSION" --message "$NPMV_MESSAGE"$'\n\n'$$COMMIT_SIG" --preid "$NPMV_PREID" )"
           echo "::debug::new version = $VERSION"
           VERSION_PLAIN="${VERSION:1}" # remove 'v' prefix
           echo "::debug::plain version = $VERSION_PLAIN"
