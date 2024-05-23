@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 6.9.4 -- 2024-05-23
+
+Maintenance release.
+
 * Chore
   * The package will be published to GitHub package registry, too. ([#1026] via [#1078])
 
