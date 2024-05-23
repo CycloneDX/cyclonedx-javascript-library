@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
-## 6.9.4 -- 2024-05-23
+## 6.9.5 -- 2024-05-23
 
 Maintenance release.
 
