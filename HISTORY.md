@@ -6,8 +6,10 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 6.9.0 -- 2024-05-23
+
 * Changed
-  * Updated SPDX license list `v3.24.0` (via [#1077])
+  * Updated SPDX license list to `v3.24.0` (via [#1077])
 
 [#1077]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1077
 
