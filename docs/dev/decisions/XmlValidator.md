@@ -28,9 +28,14 @@ Both had the needed capabilities.
 
 ### Decision
 
+#### 2023-04-23
+
 Decided to go with `libxmljs2` for the moment, 
 as it was more popular/used and had a more active community.
 
+#### 2024-05-24
+
+DEcided to replace `libxmljs2`, as it is end of life.
 
 ## WebBrowsers
 
