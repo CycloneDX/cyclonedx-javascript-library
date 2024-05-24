@@ -22,6 +22,7 @@ There are several implementations for this:
 * [`libxmljs3`](https://www.npmjs.com/package/libxmljs3)
   * unmaintained copy of `libxmljs2`
   * ! DO NOT USE !
+* Any alternative? Please open a pull-request to add them.
 
 At the moment of writing, `libxmljs` and `libxmljs2` are both working on several test environments.
 Both had the needed capabilities.
