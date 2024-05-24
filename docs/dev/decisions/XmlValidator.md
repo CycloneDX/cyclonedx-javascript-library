@@ -36,7 +36,7 @@ as it was more popular/used and had a more active community.
 
 #### 2024-05-24
 
-DEcided to replace `libxmljs2`, as it is end of life.
+Decided to replace `libxmljs2`, as it is end of life.
 
 ## WebBrowsers
 
