@@ -14,7 +14,7 @@ This lib has all needed capabilities and was already utilized for similar purpos
 To get the `libxml2` linked/accessible to NodeJS, native bindings via yp are required.  
 There are several implementations for this: 
 * [`libxmljs`](https://www.npmjs.com/package/libxmljs)
-  *  maintained and working (again - was lon time abandoned, and appears to be maintaines sporadically)
+  *  maintained and working -- was abandoned for some time, and appears to be maintaines sporadically, again
 * [`libxmljs2`](https://www.npmjs.com/package/libxmljs2)
   * ~~maintained~~ and working fork of `libxmljs`
   * as of 2024-05-24, this library is [no longer mainained](https://github.com/marudor/libxmljs2/commit/7ef018cfa3be3b908530e0cb4f3b6bdec6af6633)
@@ -24,8 +24,8 @@ There are several implementations for this:
   * ! DO NOT USE !
 * Any alternative? Please open a pull-request to add them.
 
-At the moment of writing, `libxmljs` and `libxmljs2` are both working on several test environments.
-Both had the needed capabilities.
+At the moment of writing (2023-04-21),
+`libxmljs` and `libxmljs2` are both working on several test environments. Both had the needed capabilities.
 
 ### Decision
 
