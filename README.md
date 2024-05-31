@@ -198,7 +198,7 @@ See the [LICENSE][license_file] file for the full license.
 [examples]: https://github.com/CycloneDX/cyclonedx-javascript-library/tree/main/examples/README.md
 [link_rtfd]: https://cyclonedx-javascript-library.readthedocs.io
 
-[shield_npm-version]: https://img.shields.io/npm/v/@cyclonedx/cyclonedx-library/latest?label=npm&logo=npm&logoColor=white "npm"
+[shield_npm-version]: https://img.shields.io/npm/v/%40cyclonedx%2fcyclonedx-library/latest?label=npm&logo=npm&logoColor=white "npm"
 [shield_rtfd]: https://img.shields.io/readthedocs/cyclonedx-javascript-library?logo=readthedocs&logoColor=white "Read the Docs"
 [shield_gh-workflow-test]: https://img.shields.io/github/actions/workflow/status/CycloneDX/cyclonedx-javascript-library/nodejs.yml?branch=main&logo=GitHub&logoColor=white "tests"
 [shield_coverage]: https://img.shields.io/codacy/coverage/ae6c086b53d54653ad5077b12ec22264?logo=Codacy&logoColor=white "test coverage"
@@ -210,7 +210,7 @@ See the [LICENSE][license_file] file for the full license.
 [shield_twitter-follow]: https://img.shields.io/badge/Twitter-follow-blue?logo=Twitter&logoColor=white "twitter follow"
 
 [link_website]: https://cyclonedx.org/
-[link_npm]: https://www.npmjs.com/package/@cyclonedx/cyclonedx-library
+[link_npm]: https://www.npmjs.com/package/%40cyclonedx/cyclonedx-library
 
 [link_gh-workflow-test]: https://github.com/CycloneDX/cyclonedx-javascript-library/actions/workflows/nodejs.yml?query=branch%3Amain
 [link_codacy]: https://app.codacy.com/gh/CycloneDX/cyclonedx-javascript-library/dashboard
