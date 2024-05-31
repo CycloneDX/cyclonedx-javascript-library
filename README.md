@@ -198,7 +198,7 @@ See the [LICENSE][license_file] file for the full license.
 [examples]: https://github.com/CycloneDX/cyclonedx-javascript-library/tree/main/examples/README.md
 [link_rtfd]: https://cyclonedx-javascript-library.readthedocs.io
 
-[shield_npm-version]: https://img.shields.io/npm/v/@cyclonedx/cyclonedx-library?logo=npm&logoColor=white "npm"
+[shield_npm-version]: https://img.shields.io/npm/v/@cyclonedx/cyclonedx-library/latest?label=npm&logo=npm&logoColor=white "npm"
 [shield_rtfd]: https://img.shields.io/readthedocs/cyclonedx-javascript-library?logo=readthedocs&logoColor=white "Read the Docs"
 [shield_gh-workflow-test]: https://img.shields.io/github/actions/workflow/status/CycloneDX/cyclonedx-javascript-library/nodejs.yml?branch=main&logo=GitHub&logoColor=white "tests"
 [shield_coverage]: https://img.shields.io/codacy/coverage/ae6c086b53d54653ad5077b12ec22264?logo=Codacy&logoColor=white "test coverage"
