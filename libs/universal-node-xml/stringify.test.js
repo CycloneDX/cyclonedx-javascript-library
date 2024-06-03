@@ -20,32 +20,32 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const stringify  = require('./stringify')
+const stringify = require('./stringify')
 
 suite('libs/universal-node-xml/stringify', () => {
-    const dummyElem = Object.freeze({
-      type: 'element',
-      name: 'foo'
-    })
-    const dummyElemStringifiedRE = /<foo(:?\/>|><\/foo>)/
+  const dummyElem = Object.freeze({
+    type: 'element',
+    name: 'foo'
+  })
+  const dummyElemStringifiedRE = /<foo(:?\/>|><\/foo>)/
 
-    if (stringify.fails) {
-      test('call should fail/throw', () => {
-        assert.throws(
-          () => {
-            stringify(dummyElem)
-          },
-          (err) => {
-            assert.ok(err instanceof Error)
-            assert.match(err.message, /no stringifier available/i)
-            return true
-          }
-        )
-      })
-    } else {
-      test('call should pass', () => {
-        const stringified = stringify(dummyElem)
-        assert.match(stringified, dummyElemStringifiedRE)
-      })
-    }
+  if (stringify.fails) {
+    test('call should fail/throw', () => {
+      assert.throws(
+        () => {
+          stringify(dummyElem)
+        },
+        (err) => {
+          assert.ok(err instanceof Error)
+          assert.match(err.message, /no stringifier available/i)
+          return true
+        }
+      )
+    })
+  } else {
+    test('call should pass', () => {
+      const stringified = stringify(dummyElem)
+      assert.match(stringified, dummyElemStringifiedRE)
+    })
+  }
 })
