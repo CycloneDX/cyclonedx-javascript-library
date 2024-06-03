@@ -20,10 +20,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const { stringify } = require('./')
+const stringify  = require('./stringify')
 
-suite('libs/universal-node-xml', () => {
-  suite('stringify', () => {
+suite('libs/universal-node-xml/stringify', () => {
     const dummyElem = Object.freeze({
       type: 'element',
       name: 'foo'
@@ -49,5 +48,4 @@ suite('libs/universal-node-xml', () => {
         assert.match(stringified, dummyElemStringifiedRE)
       })
     }
-  })
 })
