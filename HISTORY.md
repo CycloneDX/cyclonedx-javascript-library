@@ -41,12 +41,13 @@ Maintenance release.
 ## 6.8.0 -- 2024-05-14
 
 * Added
-  * Explicitly export own first-level submodules via package manifest (via [#1066])  
+  * Explicitly export own first-level submodules via package manifest ([#87] via [#1066])  
     When used with bundlers/packers downstream, this might enable better tree shaking due to scoped imports.
 * Refactor
   * Ease internal tree shaking (via [#1066])
 
 [#1066]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1066
+[#87]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/87
 
 ## 6.7.2 -- 2024-05-07
 
