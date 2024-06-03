@@ -20,7 +20,6 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { SerializerOptions } from '../../src/serialize/types'
 import type { SimpleXml } from '../../src/serialize/xml/types'
 
-/** @throws {@link Error} */
 declare interface ThrowError {
   /** @throws {@link Error} */
   (..._: any[]): never
