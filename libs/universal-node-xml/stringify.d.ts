@@ -28,9 +28,5 @@ declare interface ThrowError {
 }
 
 declare type Stringify = (element: SimpleXml.Element, options?: SerializerOptions) => string
-export declare const stringify: Stringify | ThrowError
-
-/*
-declare type Parse = (xml: string) => SimpleXml.Element
-export declare const parse: Parse | ThrowError
-*/
+declare const stringify: Stringify | ThrowError
+export = stringify

@@ -25,24 +25,25 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * @type {[string, function():(Function|*)][]}
  */
 const possibleStringifiers = [
-  ['xmlbuilder2', () => require('./stringifiers/xmlbuilder2')]
+  ['xmlbuilder2', () => require('./__stringifiers/xmlbuilder2')]
+  // ... add others here, pull-requests welcome!
 ]
 /* eslint-enable jsdoc/valid-types */
 
-module.exports.stringify = function () {
+module.exports = function () {
   throw new Error(
     'No stringifier available.' +
     ' Please install any of the optional dependencies: ' +
     possibleStringifiers.map(kv => kv[0]).join(', ')
   )
 }
-module.exports.stringify.fails = true
+module.exports.fails = true
 
 for (const [, getStringifier] of possibleStringifiers) {
   try {
     const possibleStringifier = getStringifier()
     if (typeof possibleStringifier === 'function') {
-      module.exports.stringify = possibleStringifier
+      module.exports = possibleStringifier
       break
     }
   } catch {
