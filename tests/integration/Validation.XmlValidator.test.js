@@ -103,32 +103,5 @@ describe('Validation.XmlValidator', () => {
       const validationError = await validator.validate(input)
       assert.strictEqual(validationError, null)
     })
-
-    it('is not affected by XXE injection', async () => {
-      const validator = new XmlValidator(version)
-      const input = `<?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE poc [
-          <!ENTITY flag SYSTEM "${pathToFileURL(realpathSync(join(__dirname, '..', '_data', 'xxe_flag.txt')))}">
-        ]>
-        <bom xmlns="http://cyclonedx.org/schema/bom/${version}">
-          <components>
-            <component type="library">
-              <name>bar</name>
-              <version>1.337</version>
-              ${version === '1.0' ? '<modified>false</modified>' : ''}
-              <licenses>
-                <license>
-                  <id>&flag;</id>
-                </license>
-              </licenses>
-            </component>
-          </components>
-        </bom>`
-      const validationError = await validator.validate(input)
-      assert.doesNotMatch(
-        JSON.stringify(validationError),
-        /vaiquia2zoo3Im8ro9zahNg5mohwipouka2xieweed6ahChei3doox2fek3ise0lmohju3loh5oDu7eigh3jaeR2aiph2Voo/
-      )
-    })
   }))
 })

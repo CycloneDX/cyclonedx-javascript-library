@@ -24,6 +24,9 @@ const {
   _Resources: Resources,
   Spec: { Version }
 } = require('../../../')
+const { pathToFileURL } = require('url')
+const { realpathSync } = require('fs')
+const { join } = require('path')
 
 let xmlValidate
 try {
@@ -36,17 +39,47 @@ try {
   ? suite.skip
   : suite
 )('internals: OpPlug.node.xmlValidate :: libxmljs2 ', () => {
+  const schemaCache = {}
   const schemaPath = Resources.FILES.CDX.XML_SCHEMA[Version.v1dot6]
-  const validXML = '<bom xmlns="http://cyclonedx.org/schema/bom/1.6"></bom>'
-  const invalidXML = '<bom> xmlns="http://cyclonedx.org/schema/bom/1.6"><unexpected/></bom>'
+  const validXML = `<?xml version="1.0" encoding="UTF-8"?>
+    <bom xmlns="http://cyclonedx.org/schema/bom/1.6"></bom>`
+  const invalidXML = `<?xml version="1.0" encoding="UTF-8"?>
+    <bom> xmlns="http://cyclonedx.org/schema/bom/1.6"><unexpected/></bom>`
 
-  test('call should return null', () => {
-    const validationError = xmlValidate(validXML, schemaPath, {})
+  test('valid return null', () => {
+    const validationError = xmlValidate(validXML, schemaPath, schemaCache)
     assert.strictEqual(validationError, null)
   })
 
-  test('call should return validationError', () => {
-    const validationError = xmlValidate(invalidXML, schemaPath, {})
+  test('invalid returns validationError', () => {
+    const validationError = xmlValidate(invalidXML, schemaPath, schemaCache)
     assert.notEqual(validationError, null)
+  })
+
+  test('is not affected by XXE injection', async () => {
+    // see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1061
+    const xxeFile = join(__dirname, '..', '..',  '_data', 'xxe_flag.txt')
+    const input = `<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE poc [
+          <!ENTITY flag SYSTEM "${pathToFileURL(realpathSync(xxeFile))}">
+        ]>
+        <bom xmlns="http://cyclonedx.org/schema/bom/1.6">
+          <components>
+            <component type="library">
+              <name>bar</name>
+              <version>1.337</version>
+              <licenses>
+                <license>
+                  <id>&flag;</id>
+                </license>
+              </licenses>
+            </component>
+          </components>
+        </bom>`
+    const validationError = xmlValidate(input, schemaPath, schemaCache)
+    assert.doesNotMatch(
+      JSON.stringify(validationError),
+      /vaiquia2zoo3Im8ro9zahNg5mohwipouka2xieweed6ahChei3doox2fek3ise0lmohju3loh5oDu7eigh3jaeR2aiph2Voo/,
+      'must not leak secrets')
   })
 })
