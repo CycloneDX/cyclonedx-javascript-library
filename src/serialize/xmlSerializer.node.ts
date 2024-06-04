@@ -28,6 +28,8 @@ import { XmlBaseSerializer } from './xmlBaseSerializer'
  * XML serializer for node.
  */
 export class XmlSerializer extends XmlBaseSerializer {
+  // maybe override  parent::serialize() and skip nonmalization and everything, in case `stringify.fails` is true
+
   /**
    * @throws {@link Serialize.MissingOptionalDependencyError | MissingOptionalDependencyError}
    * @throws {@link Error}
