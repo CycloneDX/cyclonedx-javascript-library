@@ -58,7 +58,7 @@ try {
 
   test('is not affected by XXE injection', async () => {
     // see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1061
-    const xxeFile = join(__dirname, '..', '..',  '_data', 'xxe_flag.txt')
+    const xxeFile = join(__dirname, '..', '..', '_data', 'xxe_flag.txt')
     const input = `<?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE poc [
           <!ENTITY flag SYSTEM "${pathToFileURL(realpathSync(xxeFile))}">

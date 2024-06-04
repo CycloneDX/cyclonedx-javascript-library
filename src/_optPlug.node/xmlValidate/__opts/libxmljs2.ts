@@ -29,6 +29,7 @@ const xmlParseOptions: Readonly<ParserOptions> = Object.freeze({
   compact: true,
   // explicitly prevent XXE
   // see https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html
+  // see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1061
   noent: false,
   dtdload: false
 })
@@ -38,7 +39,7 @@ export default (function (
   data: string,
   schemaPath: string,
   schemaCache: Record<string, Document> = {}
-): ValidationError {
+): null | ValidationError {
   const doc = parseXml(data, xmlParseOptions)
   const schema = schemaCache[schemaPath] ?? (schemaCache[schemaPath] =
     parseXml(readFileSync(schemaPath, 'utf-8'),
