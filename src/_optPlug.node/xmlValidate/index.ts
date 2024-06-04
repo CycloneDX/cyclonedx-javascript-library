@@ -22,7 +22,7 @@ import opWrapper from '../_wrapper'
 
 export type Functionality = (data: string, schemaPath: string, schemaCache: Exclude<any, null>) => null | ValidationError
 
-export default opWrapper<Functionality>('XmlStringifier', [
+export default opWrapper<Functionality>('XmlValidator', [
   /* eslint-disable @typescript-eslint/no-var-requires */
   ['libxmljs2', () => require('./__opts/libxmljs2').default]
   // ... add others here, pull-requests welcome!

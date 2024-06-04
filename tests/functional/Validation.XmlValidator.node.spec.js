@@ -23,19 +23,13 @@ const assert = require('assert')
 const { suite, it, xit } = require('mocha')
 const { globSync } = require('fast-glob')
 
+const { default: { fails: skipTests } } = require('../../dist.node/_optPlug.node/xmlValidate/')
 const {
   Validation: { XmlValidator },
   Spec: { Version }
 } = require('../../')
 
-let hasDep = true
-try {
-  require('libxmljs2')
-} catch {
-  hasDep = false
-}
-
-const test = hasDep ? it : xit
+const test = skipTests ? xit : it
 
 suite('Validation.XmlValidator functional', function () {
   this.timeout(60000);

@@ -20,32 +20,38 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const stringify = require('../../../dist.node/_optPlug.node/xmlStringify/').default
+const xmlValidate = require('../../../dist.node/_optPlug.node/xmlValidate/').default
+const {
+  _Resources: Resources,
+  Spec: { Version }
+} = require('../../../')
 
-suite('internals: OptPlug.xmlStringify::auto', () => {
-  const dummyElem = Object.freeze({
-    type: 'element',
-    name: 'foo'
-  })
-  const dummyElemStringifiedRE = /<foo(:?\/>|><\/foo>)/
+suite('internals: OpPlug.node.xmlValidate::auto', () => {
+  const schemaPath = Resources.FILES.CDX.XML_SCHEMA[Version.v1dot6]
+  const validXML = '<bom xmlns="http://cyclonedx.org/schema/bom/1.6"></bom>'
+  const invalidXML = '<bom> xmlns="http://cyclonedx.org/schema/bom/1.6"><unexpected/></bom>'
 
-  if (stringify.fails) {
+  if (xmlValidate.fails) {
     test('call should fail/throw', () => {
       assert.throws(
         () => {
-          stringify(dummyElem)
+          xmlValidate(validXML, schemaPath, {})
         },
         (err) => {
           assert.ok(err instanceof Error)
-          assert.match(err.message, /no XmlStringifier available/i)
+          assert.match(err.message, /no XmlValidator available/i)
           return true
         }
       )
     })
   } else {
-    test('call should pass', () => {
-      const stringified = stringify(dummyElem)
-      assert.match(stringified, dummyElemStringifiedRE)
+    test('call should return null', () => {
+      const validationError = xmlValidate(validXML, schemaPath, {})
+      assert.strictEqual(validationError, null)
+    })
+    test('call should return validationError', () => {
+      const validationError = xmlValidate(invalidXML, schemaPath, {})
+      assert.notEqual(validationError, null)
     })
   }
 })
