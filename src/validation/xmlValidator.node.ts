@@ -17,64 +17,22 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { readFile } from 'fs/promises'
-import type { Document, ParserOptions, parseXml } from 'libxmljs2'
-import { pathToFileURL } from 'url'
-
+import { OptPlugError } from '../_optPlug.node/errors'
+import xmlValidate from '../_optPlug.node/xmlValidate'
 import { FILES } from '../resources.node'
 import { BaseValidator } from './baseValidator'
 import { MissingOptionalDependencyError, NotImplementedError } from './errors'
 import type { ValidationError } from './types'
 
-let _parser: typeof parseXml | undefined
-
-async function getParser (): Promise<typeof parseXml> {
-  if (_parser === undefined) {
-    let libxml
-    try {
-      libxml = await import('libxmljs2')
-    } catch (err) {
-      throw new MissingOptionalDependencyError(
-        'No XML validator available.' +
-        ' Please install the optional dependency "libxmljs2".' +
-        ' Please make sure the system meets the requirements for "node-gyp", see https://github.com/TooTallNate/node-gyp#installation',
-        err
-      )
-    }
-    _parser = libxml.parseXml
-  }
-  return _parser
-}
-
-const xmlParseOptions: Readonly<ParserOptions> = Object.freeze({
-  nonet: true,
-  compact: true,
-  // explicitly prevent XXE
-  // see https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html
-  noent: false,
-  dtdload: false
-})
-
 export class XmlValidator extends BaseValidator {
-  #schema: Document | undefined
+  readonly #schemaCache = {}
 
-  #getSchemaFile (): string | undefined {
-    return FILES.CDX.XML_SCHEMA[this.version]
-  }
-
-  async #getSchema (): Promise<Document> {
-    if (undefined === this.#schema) {
-      const file = this.#getSchemaFile()
-      if (file === undefined) {
-        throw new NotImplementedError(this.version)
-      }
-      const [parse, schema] = await Promise.all([
-        getParser(),
-        readFile(file, 'utf-8')
-      ])
-      this.#schema = parse(schema, { ...xmlParseOptions, baseUrl: pathToFileURL(file).toString() })
+  #getSchemaFilePath (): string {
+    const file = FILES.CDX.XML_SCHEMA[this.version]
+    if (file === undefined) {
+      throw new NotImplementedError(this.version)
     }
-    return this.#schema
+    return file
   }
 
   /**
@@ -89,13 +47,13 @@ export class XmlValidator extends BaseValidator {
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError}, when a required dependency was not installed
    */
   async validate (data: string): Promise<null | ValidationError> {
-    const [parse, schema] = await Promise.all([
-      getParser(),
-      this.#getSchema()
-    ])
-    const doc = parse(data, xmlParseOptions)
-    return doc.validate(schema)
-      ? null
-      : doc.validationErrors
+    try {
+      return xmlValidate(data, this.#getSchemaFilePath(), this.#schemaCache)
+    } catch (err) {
+      if (err instanceof OptPlugError) {
+        throw new MissingOptionalDependencyError(err.message, err)
+      }
+      throw err
+    }
   }
 }
