@@ -17,35 +17,11 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-/* eslint-disable jsdoc/valid-types */
+export class OptPlugError extends Error {
+  readonly cause: any | undefined
 
-/**
- * @typedef {import('../../../src/serialize/xml/types').SimpleXml.Element} Element
- */
-
-/* eslint-enable jsdoc/valid-types */
-
-/**
- * @param {Element} element
- * @return {string|string|null}
- */
-module.exports.getNS = function (element) {
-  const ns = (element.namespace ?? element.attributes?.xmlns)?.toString() ?? ''
-  return ns.length > 0
-    ? ns
-    : null
-}
-
-/**
- * @param {string|number|*} [space]
- * @return {string}
- */
-module.exports.makeIndent = function (space) {
-  if (typeof space === 'number') {
-    return ' '.repeat(Math.max(0, space))
+  constructor (message: string, cause?: any) {
+    super(message)
+    this.cause = cause
   }
-  if (typeof space === 'string') {
-    return space
-  }
-  return ''
 }

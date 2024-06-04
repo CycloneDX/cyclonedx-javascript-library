@@ -22,13 +22,13 @@ const { suite, test } = require('mocha')
 
 let stringify
 try {
-  stringify = require('./xmlbuilder2')
+  stringify = require('../../../dist.node/_optPlug.node/xmlStringify/__opts/xmlbuilder2').default
 } catch {
   stringify = undefined
 }
 
-suite('libs/universal-node-xml', () => {
-  suite('stringifiers: xmlbuilder2', () => {
+suite('internals: OptPlug.xmlStringify::xmlbuilder2', () => {
+  suite('xmlbuilder2', () => {
     if (stringify === undefined) {
       test('SKIPPED', () => {})
       return
@@ -81,14 +81,14 @@ suite('libs/universal-node-xml', () => {
       assert.strictEqual(stringified,
         '<?xml version="1.0" encoding="UTF-8"?>' +
         '<some-children>' +
-          '<some-attributes string="some-value" number="1" quote-encode="foo &quot; bar"/>' +
-          '<some-text>testing... \n' +
-            'amp-encode? &amp; \n' +
-            'tag-encode? &lt;b&gt;foo&lt;b&gt; \n' +
-          '</some-text>' +
-          '<some-namespaced xmlns="https://example.com/ns1">' +
-            '<empty/>' +
-          '</some-namespaced>' +
+        '<some-attributes string="some-value" number="1" quote-encode="foo &quot; bar"/>' +
+        '<some-text>testing... \n' +
+        'amp-encode? &amp; \n' +
+        'tag-encode? &lt;b&gt;foo&lt;b&gt; \n' +
+        '</some-text>' +
+        '<some-namespaced xmlns="https://example.com/ns1">' +
+        '<empty/>' +
+        '</some-namespaced>' +
         '</some-children>'
       )
     })

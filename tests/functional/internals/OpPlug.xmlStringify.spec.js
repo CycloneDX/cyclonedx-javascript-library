@@ -20,9 +20,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const stringify = require('./stringify')
+const stringify = require('../../../dist.node/_optPlug.node/xmlStringify/').default
 
-suite('libs/universal-node-xml/stringify', () => {
+suite('internals: OptPlug.xmlStringify::auto', () => {
   const dummyElem = Object.freeze({
     type: 'element',
     name: 'foo'
@@ -37,7 +37,7 @@ suite('libs/universal-node-xml/stringify', () => {
         },
         (err) => {
           assert.ok(err instanceof Error)
-          assert.match(err.message, /no stringifier available/i)
+          assert.match(err.message, /no XmlStringifier available/i)
           return true
         }
       )

@@ -17,6 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { OptPlugError } from '../_optPlug.node/errors'
 import type { Version } from '../spec'
 
 export class NotImplementedError extends Error {
@@ -25,11 +26,4 @@ export class NotImplementedError extends Error {
   }
 }
 
-export class MissingOptionalDependencyError extends Error {
-  readonly cause: any | undefined
-
-  constructor (message: string, cause?: any) {
-    super(message)
-    this.cause = cause
-  }
-}
+export class MissingOptionalDependencyError extends OptPlugError {}

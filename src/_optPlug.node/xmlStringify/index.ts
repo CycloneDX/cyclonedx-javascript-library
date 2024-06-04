@@ -17,24 +17,15 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-/**
- * mocha config
- * @see {@link https://mochajs.org/#configuring-mocha-nodejs}
- * @see {@link https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.js example}
- * @type {import('@types/mocha').Mocha.MochaOptions}
- */
-module.exports = {
-  timeout: 10000,
-  spec: [
-    'tests'
-  ],
-  recursive: true,
-  parallel: false, // if true, then some IDEs cannot run it
-  global: [],
-  extension: [
-    'spec.js', 'test.js',
-    'spec.cjs', 'test.cjs',
-    'spec.mjs', 'test.mjs',
-  ],
-  ui: 'tdd',
-}
+import type { SerializerOptions } from '../../serialize/types'
+import type { SimpleXml } from '../../serialize/xml/types'
+import opWrapper from '../_wrapper'
+
+export type Functionality = (element: SimpleXml.Element, options?: SerializerOptions) => string
+
+export default opWrapper<Functionality>('XmlStringifier', [
+  /* eslint-disable @typescript-eslint/no-var-requires */
+  ['xmlbuilder2', () => require('./__opts/xmlbuilder2').default]
+  // ... add others here, pull-requests welcome!
+  /* eslint-enable @typescript-eslint/no-var-requires */
+])
