@@ -13,8 +13,5 @@
 
 !/src/**
 
-!/tools/schema-downloader/**
-
-
 **/.idea/**
 **/.vscode/**
