@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 const assert = require('assert')
-const { suite, test } = require('mocha')
+const { suite, test, before } = require('mocha')
 
 const {
   _Resources: Resources,
@@ -35,10 +35,13 @@ try {
   makeValidator = undefined
 }
 
-(makeValidator === undefined
-  ? suite.skip
-  : suite
-)('internals: OpPlug.node.xmlValidator :: libxmljs2 ', () => {
+before(function () {
+  if (typeof makeValidator !== 'function') {
+    this.skip()
+  }
+})
+
+suite('internals: OpPlug.node.xmlValidator :: libxmljs2 ', () => {
   const schemaPath = Resources.FILES.CDX.XML_SCHEMA[Version.v1dot6]
   const validXML = `<?xml version="1.0" encoding="UTF-8"?>
     <bom xmlns="http://cyclonedx.org/schema/bom/1.6"></bom>`

@@ -24,9 +24,10 @@ const {
   _Resources: Resources,
   Spec: { Version }
 } = require('../../../')
-const makeValidator = require('../../../dist.node/_optPlug.node/jsonValidator').default
+const { default: makeValidator } = require('../../../dist.node/_optPlug.node/jsonValidator')
+const { OptPlugError } = require('../../../dist.node/_optPlug.node/errors')
 
-suite('internals: OpPlug.node.jsonValidator', () => {
+suite('internals: OpPlug.node.jsonValidator auto', () => {
   const schemaPath = Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot6]
   const schemaMap = {
     'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': Resources.FILES.SPDX.JSON_SCHEMA,
@@ -37,13 +38,11 @@ suite('internals: OpPlug.node.jsonValidator', () => {
   const brokenJson = '{"bomFormat": "CycloneDX", "specVersion": "1.6"' // not closed
 
   if (makeValidator.fails) {
-    test('call should fail/throw', () => {
-      assert.rejects(
-        async () => {
-          await makeValidator(schemaPath)
-        },
+    test('call should fail/throw', async () => {
+      await assert.rejects(
+        makeValidator(schemaPath),
         (err) => {
-          assert.ok(err instanceof Error)
+          assert.ok(err instanceof OptPlugError)
           assert.match(err.message, /no JsonValidator available/i)
           return true
         }

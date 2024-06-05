@@ -18,14 +18,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 const assert = require('assert')
-const { describe, it } = require('mocha')
 
-let hasDep = true
-try {
-  require('ajv')
-} catch {
-  hasDep = false
-}
+const { describe, it } = require('mocha')
 
 const {
   Spec: { Version },
@@ -35,7 +29,11 @@ const {
   }
 } = require('../../')
 
+const jsonValidator = require('../../dist.node/_optPlug.node/jsonValidator').default
+
 describe('Validation.JsonValidator', () => {
+  const expectMissingDepError = jsonValidator.fails ?? false;
+
   [
     Version.v1dot0,
     Version.v1dot1
@@ -56,7 +54,7 @@ describe('Validation.JsonValidator', () => {
     Version.v1dot3,
     Version.v1dot2
   ].forEach((version) => describe(version, () => {
-    if (!hasDep) {
+    if (expectMissingDepError) {
       it('throws MissingOptionalDependencyError', async () => {
         const validator = new JsonValidator(version)
         await assert.rejects(

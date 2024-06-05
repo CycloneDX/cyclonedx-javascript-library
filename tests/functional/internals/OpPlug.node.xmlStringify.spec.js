@@ -20,9 +20,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const xmlStringify = require('../../../dist.node/_optPlug.node/xmlStringify').default
+const { default: xmlStringify } = require('../../../dist.node/_optPlug.node/xmlStringify')
+const { OptPlugError } = require('../../../dist.node/_optPlug.node/errors')
 
-suite('internals: OpPlug.node.xmlStringify', () => {
+suite('internals: OpPlug.node.xmlStringify auto', () => {
   const dummyElem = Object.freeze({
     type: 'element',
     name: 'foo'
@@ -32,11 +33,9 @@ suite('internals: OpPlug.node.xmlStringify', () => {
   if (xmlStringify.fails) {
     test('call should fail/throw', () => {
       assert.throws(
-        () => {
-          xmlStringify(dummyElem)
-        },
+        () => { xmlStringify(dummyElem) },
         (err) => {
-          assert.ok(err instanceof Error)
+          assert.ok(err instanceof OptPlugError)
           assert.match(err.message, /no XmlStringifier available/i)
           return true
         }

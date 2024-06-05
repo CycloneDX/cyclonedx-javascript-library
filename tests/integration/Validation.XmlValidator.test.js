@@ -21,13 +21,6 @@ const assert = require('assert')
 
 const { describe, it } = require('mocha')
 
-let hasDep = true
-try {
-  require('libxmljs2')
-} catch {
-  hasDep = false
-}
-
 const {
   Spec: { Version },
   Validation: {
@@ -36,7 +29,11 @@ const {
   }
 } = require('../../')
 
+const xmlValidator = require('../../dist.node/_optPlug.node/xmlValidator').default
+
 describe('Validation.XmlValidator', () => {
+  const expectMissingDepError = xmlValidator.fails ?? false;
+
   [
     // none so far
   ].forEach((version) => describe(version, () => {
@@ -58,7 +55,7 @@ describe('Validation.XmlValidator', () => {
     Version.v1dot1,
     Version.v1dot0
   ].forEach((version) => describe(version, () => {
-    if (!hasDep) {
+    if (expectMissingDepError) {
       it('throws MissingOptionalDependencyError', async () => {
         const validator = new XmlValidator(version)
         await assert.rejects(

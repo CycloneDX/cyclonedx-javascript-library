@@ -184,7 +184,7 @@ jobs:
           name: dist.node
           path: dist.node
       - name: test
-        run: npm run test:node
+        run: npm run test:node --forbid-pending
       - name: collect coverage
         if: ${{ failure() || success() }}
         run: >

@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 const assert = require('assert')
-const { suite, test } = require('mocha')
+const { suite, test, before } = require('mocha')
 
 const {
   _Resources: Resources,
@@ -32,10 +32,13 @@ try {
   makeValidator = undefined
 }
 
-(makeValidator === undefined
-  ? suite.skip
-  : suite
-)('internals: OpPlug.node.jsonValidator :: ajv ', () => {
+before(function () {
+  if (typeof makeValidator !== 'function') {
+    this.skip()
+  }
+})
+
+suite('internals: OpPlug.node.jsonValidator :: ajv ', () => {
   const schemaPath = Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot6]
   const schemaMap = {
     'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': Resources.FILES.SPDX.JSON_SCHEMA,

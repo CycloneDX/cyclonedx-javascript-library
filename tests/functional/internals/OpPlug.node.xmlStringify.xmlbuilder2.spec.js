@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 const assert = require('assert')
-const { suite, test } = require('mocha')
+const { suite, test, before } = require('mocha')
 
 let xmlStringify
 try {
@@ -27,10 +27,13 @@ try {
   xmlStringify = undefined
 }
 
-(xmlStringify === undefined
-  ? suite.skip
-  : suite
-)('internals: OpPlug.node.xmlStringify :: xmlbuilder2', () => {
+before(function () {
+  if (typeof xmlStringify !== 'function') {
+    this.skip()
+  }
+})
+
+suite('internals: OpPlug.node.xmlStringify :: xmlbuilder2', () => {
   const data = {
     type: 'element',
     name: 'some-children',

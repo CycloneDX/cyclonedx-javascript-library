@@ -27,16 +27,17 @@ const {
   Models, Enums,
   Serialize: {
     XML: { Normalize: { Factory: XmlNormalizeFactory } },
-    XmlSerializer
+    XmlSerializer, MissingOptionalDependencyError
   },
   Spec,
-  Validation: {
-    MissingOptionalDependencyError,
-    XmlValidator
-  }
+  Validation
 } = require('../../')
 
+const xmlStringify = require('../../dist.node/_optPlug.node/xmlStringify').default
+
 describe('Serialize.XmlSerialize', function () {
+  const expectMissingDepError = xmlStringify.fails ?? false
+
   this.timeout(60000);
 
   [
@@ -56,30 +57,33 @@ describe('Serialize.XmlSerialize', function () {
       delete this.bom
     })
 
+    if (expectMissingDepError) {
+      it('throws MissingOptionalDependencyError', function () {
+        const serializer = new XmlSerializer(normalizerFactory)
+        assert.throws(
+          () => { serializer.serialize(this.bom, {}) },
+          (err) => err instanceof MissingOptionalDependencyError
+        )
+      })
+      return // skip other tests
+    }
+
     it('serialize', async function () {
       const serializer = new XmlSerializer(normalizerFactory)
+      const serialized = await serializer.serialize(
+        this.bom, {
+          sortLists: true,
+          space: 4
+        })
 
-      let serialized
-      try {
-        serialized = serializer.serialize(
-          this.bom, {
-            sortLists: true,
-            space: 4
-          })
-      } catch (err) {
-        assert.ok(err instanceof Error)
-        assert.match(err.message, /no XmlStringifier available\./i)
-        return // skipped
-      }
-
-      const validator = new XmlValidator(spec.version)
+      const validator = new Validation.XmlValidator(spec.version)
       try {
         const validationError = await validator.validate(serialized)
         assert.strictEqual(validationError, null)
       } catch (err) {
-        if (!(err instanceof MissingOptionalDependencyError)) {
+        if (!(err instanceof Validation.MissingOptionalDependencyError)) {
           // unexpected error
-          assert.fail(err)
+          throw err
         }
       }
 

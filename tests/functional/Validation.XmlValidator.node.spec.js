@@ -20,16 +20,20 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const fs = require('fs')
 const path = require('path')
 const assert = require('assert')
-const { suite, it, xit } = require('mocha')
+const { suite, test, before } = require('mocha')
 const { globSync } = require('fast-glob')
 
-const { default: { fails: skipTests } } = require('../../dist.node/_optPlug.node/xmlValidator')
 const {
   Validation: { XmlValidator },
   Spec: { Version }
 } = require('../../')
 
-const test = skipTests ? xit : it
+before(function () {
+  const xmlValidator = require('../../dist.node/_optPlug.node/xmlValidator').default
+  if (xmlValidator.fails) {
+    this.skip()
+  }
+})
 
 suite('Validation.XmlValidator functional', function () {
   this.timeout(60000);
