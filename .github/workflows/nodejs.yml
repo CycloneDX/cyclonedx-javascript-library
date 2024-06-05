@@ -190,12 +190,13 @@ jobs:
         env:
           NODE_VERSION: '${{ matrix.node-version }}'
         run:
+          test_opts=''
           if [[ "$NODE_VERSION" = "$NODE_ACTIVE_LTS" ]]
           then
-            npm run -- test:node --forbid-pending
+            echo 'forbid pending tests!' >&2
+            test_opts+=' --forbid-pending'
           else
-            npm run -- test:node
-          fi
+          npm run -- test:node $test_opts
       - name: collect coverage
         if: ${{ failure() || success() }}
         run: >
