@@ -29,7 +29,7 @@ const {
 } = require('../../')
 
 before(function () {
-  const jsonValidator = require('../../dist.node/_optPlug.node/jsonValidator').default
+  const { default: jsonValidator } = require('../../dist.node/_optPlug.node/jsonValidator')
   if (jsonValidator.fails) {
     this.skip()
   }

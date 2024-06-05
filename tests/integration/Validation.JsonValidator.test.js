@@ -29,7 +29,7 @@ const {
   }
 } = require('../../')
 
-const jsonValidator = require('../../dist.node/_optPlug.node/jsonValidator').default
+const { default: jsonValidator } = require('../../dist.node/_optPlug.node/jsonValidator')
 
 describe('Validation.JsonValidator', () => {
   const expectMissingDepError = jsonValidator.fails ?? false;

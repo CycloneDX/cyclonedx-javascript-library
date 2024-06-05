@@ -33,7 +33,7 @@ const {
   Validation
 } = require('../../')
 
-const xmlStringify = require('../../dist.node/_optPlug.node/xmlStringify').default
+const { default: xmlStringify } = require('../../dist.node/_optPlug.node/xmlStringify')
 
 describe('Serialize.XmlSerialize', function () {
   const expectMissingDepError = xmlStringify.fails ?? false

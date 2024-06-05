@@ -29,7 +29,7 @@ const {
 } = require('../../')
 
 before(function () {
-  const xmlValidator = require('../../dist.node/_optPlug.node/xmlValidator').default
+  const { default: xmlValidator } = require('../../dist.node/_optPlug.node/xmlValidator')
   if (xmlValidator.fails) {
     this.skip()
   }
