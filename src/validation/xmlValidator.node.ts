@@ -61,13 +61,6 @@ export class XmlValidator extends BaseValidator {
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError}, when a required dependency was not installed
    */
   async validate (data: string): Promise<null | ValidationError> {
-    try {
-      return (await this.#getValidator())(data)
-    } catch (err) {
-      if (err instanceof OptPlugError) {
-        throw new MissingOptionalDependencyError(err.message, err)
-      }
-      throw err
-    }
+    return (await this.#getValidator())(data)
   }
 }
