@@ -18,11 +18,11 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { readFileSync } from 'fs'
-import { type Document, type ParserOptions, parseXml } from 'libxmljs2'
+import { type ParserOptions, parseXml } from 'libxmljs2'
 import { pathToFileURL } from 'url'
 
 import type { ValidationError } from '../../../validation/types'
-import type { Functionality } from '../index'
+import type { Functionality, Validator } from '../index'
 
 const xmlParseOptions: Readonly<ParserOptions> = Object.freeze({
   nonet: true,
@@ -35,16 +35,13 @@ const xmlParseOptions: Readonly<ParserOptions> = Object.freeze({
 })
 
 /** @internal */
-export default (function (
-  data: string,
-  schemaPath: string,
-  schemaCache: Record<string, Document> = {}
-): null | ValidationError {
-  const doc = parseXml(data, xmlParseOptions)
-  const schema = schemaCache[schemaPath] ?? (schemaCache[schemaPath] =
-    parseXml(readFileSync(schemaPath, 'utf-8'),
-      { ...xmlParseOptions, baseUrl: pathToFileURL(schemaPath).toString() }))
-  return doc.validate(schema)
-    ? null
-    : doc.validationErrors
+export default (function (schemaPath: string): Validator {
+  const schema = parseXml(readFileSync(schemaPath, 'utf-8'),
+    { ...xmlParseOptions, baseUrl: pathToFileURL(schemaPath).toString() })
+  return function (data: string): null | ValidationError {
+    const doc = parseXml(data, xmlParseOptions)
+    return doc.validate(schema)
+      ? null
+      : doc.validationErrors
+  }
 }) satisfies Functionality

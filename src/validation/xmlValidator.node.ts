@@ -18,21 +18,35 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { OptPlugError } from '../_optPlug.node/errors'
-import xmlValidate from '../_optPlug.node/xmlValidate'
+import makeValidator, { type Validator } from '../_optPlug.node/xmlValidator'
 import { FILES } from '../resources.node'
 import { BaseValidator } from './baseValidator'
 import { MissingOptionalDependencyError, NotImplementedError } from './errors'
 import type { ValidationError } from './types'
 
 export class XmlValidator extends BaseValidator {
-  readonly #schemaCache = {}
-
   #getSchemaFilePath (): string {
     const file = FILES.CDX.XML_SCHEMA[this.version]
     if (file === undefined) {
       throw new NotImplementedError(this.version)
     }
     return file
+  }
+
+  #validatorCache?: Validator = undefined
+
+  get #validator (): Validator {
+    if (this.#validatorCache === undefined) {
+      try {
+        this.#validatorCache = makeValidator(this.#getSchemaFilePath())
+      } catch (err) {
+        if (err instanceof OptPlugError) {
+          throw new MissingOptionalDependencyError(err.message, err)
+        }
+        throw err
+      }
+    }
+    return this.#validatorCache
   }
 
   /**
@@ -48,7 +62,7 @@ export class XmlValidator extends BaseValidator {
    */
   async validate (data: string): Promise<null | ValidationError> {
     try {
-      return xmlValidate(data, this.#getSchemaFilePath(), this.#schemaCache)
+      return this.#validator(data)
     } catch (err) {
       if (err instanceof OptPlugError) {
         throw new MissingOptionalDependencyError(err.message, err)

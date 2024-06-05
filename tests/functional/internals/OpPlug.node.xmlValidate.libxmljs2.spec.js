@@ -28,18 +28,17 @@ const { pathToFileURL } = require('url')
 const { realpathSync } = require('fs')
 const { join } = require('path')
 
-let xmlValidate
+let makeValidator
 try {
-  xmlValidate = require('../../../dist.node/_optPlug.node/xmlValidate/__opts/libxmljs2').default
+  makeValidator = require('../../../dist.node/_optPlug.node/xmlValidator/__opts/libxmljs2').default
 } catch {
-  xmlValidate = undefined
+  makeValidator = undefined
 }
 
-(xmlValidate === undefined
+(makeValidator === undefined
   ? suite.skip
   : suite
 )('internals: OpPlug.node.xmlValidate :: libxmljs2 ', () => {
-  const schemaCache = {}
   const schemaPath = Resources.FILES.CDX.XML_SCHEMA[Version.v1dot6]
   const validXML = `<?xml version="1.0" encoding="UTF-8"?>
     <bom xmlns="http://cyclonedx.org/schema/bom/1.6"></bom>`
@@ -47,12 +46,12 @@ try {
     <bom> xmlns="http://cyclonedx.org/schema/bom/1.6"><unexpected/></bom>`
 
   test('valid return null', () => {
-    const validationError = xmlValidate(validXML, schemaPath, schemaCache)
+    const validationError = makeValidator(schemaPath)(validXML)
     assert.strictEqual(validationError, null)
   })
 
   test('invalid returns validationError', () => {
-    const validationError = xmlValidate(invalidXML, schemaPath, schemaCache)
+    const validationError = makeValidator(schemaPath)(invalidXML)
     assert.notEqual(validationError, null)
   })
 
@@ -76,7 +75,7 @@ try {
             </component>
           </components>
         </bom>`
-    const validationError = xmlValidate(input, schemaPath, schemaCache)
+    const validationError = makeValidator(schemaPath)(input)
     assert.doesNotMatch(
       JSON.stringify(validationError),
       /vaiquia2zoo3Im8ro9zahNg5mohwipouka2xieweed6ahChei3doox2fek3ise0lmohju3loh5oDu7eigh3jaeR2aiph2Voo/,

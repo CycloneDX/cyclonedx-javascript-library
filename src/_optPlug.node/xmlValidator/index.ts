@@ -20,7 +20,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { ValidationError } from '../../validation/types'
 import opWrapper from '../_wrapper'
 
-export type Functionality = (data: string, schemaPath: string, schemaCache: NonNullable<any>) => null | ValidationError
+export type Validator = (data: string) => null | ValidationError
+export type Functionality = (schemaPath: string) => Validator
 
 export default opWrapper<Functionality>('XmlValidator', [
   /* eslint-disable @typescript-eslint/no-var-requires */

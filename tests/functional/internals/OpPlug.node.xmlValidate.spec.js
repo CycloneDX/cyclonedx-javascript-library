@@ -24,21 +24,20 @@ const {
   _Resources: Resources,
   Spec: { Version }
 } = require('../../../')
-const xmlValidate = require('../../../dist.node/_optPlug.node/xmlValidate/').default
+const makeValidator = require('../../../dist.node/_optPlug.node/xmlValidator/').default
 
 suite('internals: OpPlug.node.xmlValidate', () => {
-  const schemaCache = {}
   const schemaPath = Resources.FILES.CDX.XML_SCHEMA[Version.v1dot6]
   const validXML = `<?xml version="1.0" encoding="UTF-8"?>
     <bom xmlns="http://cyclonedx.org/schema/bom/1.6"></bom>`
   const invalidXML = `<?xml version="1.0" encoding="UTF-8"?>
     <bom> xmlns="http://cyclonedx.org/schema/bom/1.6"><unexpected/></bom>`
 
-  if (xmlValidate.fails) {
+  if (makeValidator.fails) {
     test('call should fail/throw', () => {
       assert.throws(
         () => {
-          xmlValidate(validXML, schemaPath, schemaCache)
+          makeValidator(schemaPath)
         },
         (err) => {
           assert.ok(err instanceof Error)
@@ -48,13 +47,15 @@ suite('internals: OpPlug.node.xmlValidate', () => {
       )
     })
   } else {
+    const validator = makeValidator(schemaPath)
+
     test('valid returns null', () => {
-      const validationError = xmlValidate(validXML, schemaPath, schemaCache)
+      const validationError = validator(validXML)
       assert.strictEqual(validationError, null)
     })
 
     test('invalid returns validationError', () => {
-      const validationError = xmlValidate(invalidXML, schemaPath, schemaCache)
+      const validationError = validator(invalidXML, schemaPath)
       assert.notEqual(validationError, null)
     })
   }
