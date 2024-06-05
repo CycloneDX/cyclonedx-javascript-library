@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { ValidationError } from '../validation/types'
-import opWrapper from './_wrapper'
+import opWrapper, { type WillThrow } from './_wrapper'
 
 export type Validator = (data: string) => null | ValidationError
 export type Functionality = (schemaPath: string, schemaMap: Record<string, string>) => Promise<Validator>
@@ -28,4 +28,4 @@ export default opWrapper<Functionality>('JsonValidator', [
   ['( ajv && ajv-formats && ajv-formats-draft2019 )', () => require('./__jsonValidators/ajv').default]
   // ... add others here, pull-requests welcome!
   /* eslint-enable @typescript-eslint/no-var-requires */
-])
+]) satisfies Functionality | WillThrow

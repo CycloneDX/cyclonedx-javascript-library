@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { SerializerOptions } from '../serialize/types'
 import type { SimpleXml } from '../serialize/xml/types'
-import opWrapper from './_wrapper'
+import opWrapper, { type WillThrow } from './_wrapper'
 
 export type Functionality = (element: SimpleXml.Element, options?: SerializerOptions) => string
 
@@ -28,4 +28,4 @@ export default opWrapper<Functionality>('XmlStringifier', [
   ['xmlbuilder2', () => require('./__xmlStringifiers/xmlbuilder2').default]
   // ... add others here, pull-requests welcome!
   /* eslint-enable @typescript-eslint/no-var-requires */
-])
+]) satisfies Functionality | WillThrow

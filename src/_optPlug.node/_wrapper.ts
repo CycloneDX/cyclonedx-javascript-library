@@ -19,9 +19,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { OptPlugError } from './errors'
 
-type WillThrow = (() => never) & { fails: true }
+export type WillThrow = (() => never) & { fails: true }
+
 type WillNotFailRightAway<T> = Omit<T, 'fails'>
-type PossibleFunctionalities<Functionality> = Array<[string, () => Functionality | undefined]>
+type PossibleFunctionalities<Functionality> = Array<[string, () => Functionality]>
 
 function makeWIllThrow (message: string): WillThrow {
   const f: WillThrow = function (): never {
@@ -31,16 +32,14 @@ function makeWIllThrow (message: string): WillThrow {
   return Object.freeze(f)
 }
 
+/** @internal */
 export default function <Functionality extends WillNotFailRightAway<Functionality>> (
   name: string,
   pf: PossibleFunctionalities<Functionality>
 ): Functionality | WillThrow {
   for (const [, getF] of pf) {
     try {
-      const f = getF()
-      if (f !== undefined) {
-        return f
-      }
+      return getF()
     } catch {
       /* pass */
     }

@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { ValidationError } from '../validation/types'
-import opWrapper from './_wrapper'
+import opWrapper, { type WillThrow } from './_wrapper'
 
 export type Validator = (data: string) => null | ValidationError
 export type Functionality = (schemaPath: string) => Promise<Validator>
@@ -28,4 +28,4 @@ export default opWrapper<Functionality>('XmlValidator', [
   ['libxmljs2', () => require('./__xmlValidators/libxmljs2').default]
   // ... add others here, pull-requests welcome!
   /* eslint-enable @typescript-eslint/no-var-requires */
-])
+]) satisfies Functionality | WillThrow
