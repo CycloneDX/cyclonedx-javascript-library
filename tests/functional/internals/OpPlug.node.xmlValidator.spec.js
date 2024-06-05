@@ -29,9 +29,9 @@ const { OptPlugError } = require('../../../dist.node/_optPlug.node/errors')
 
 suite('internals: OpPlug.node.xmlValidator auto', () => {
   if (makeValidator.fails) {
-    test('call should fail/throw', async () => {
-      await assert.rejects(
-        makeValidator(),
+    test('call should fail/throw', () => {
+      assert.throws(
+        () => { makeValidator() },
         (err) => {
           assert.ok(err instanceof OptPlugError)
           assert.match(err.message, /no XmlValidator available/i)

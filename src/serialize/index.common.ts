@@ -20,6 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 // !!! not everything is public, yet
 
 export * from './bomRefDiscriminator'
+export * from './errors'
 export * as Types from './types'
 
 // region base
