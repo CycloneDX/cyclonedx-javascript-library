@@ -135,19 +135,16 @@
       "properties": {
         "vendor": {
           "type": "string",
-          "format": "string",
           "title": "Tool Vendor",
           "description": "The date and time (timestamp) when the document was created."
         },
         "name": {
           "type": "string",
-          "format": "string",
           "title": "Tool Name",
           "description": "The date and time (timestamp) when the document was created."
         },
         "version": {
           "type": "string",
-          "format": "string",
           "title": "Tool Version",
           "description": "The date and time (timestamp) when the document was created."
         },

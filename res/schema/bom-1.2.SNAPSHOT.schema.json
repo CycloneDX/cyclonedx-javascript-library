@@ -129,19 +129,16 @@
       "properties": {
         "vendor": {
           "type": "string",
-          "format": "string",
           "title": "Tool Vendor",
           "description": "The date and time (timestamp) when the document was created."
         },
         "name": {
           "type": "string",
-          "format": "string",
           "title": "Tool Name",
           "description": "The date and time (timestamp) when the document was created."
         },
         "version": {
           "type": "string",
-          "format": "string",
           "title": "Tool Version",
           "description": "The date and time (timestamp) when the document was created."
         },
@@ -837,7 +834,6 @@
       "properties": {
         "ref": {
           "$ref": "#/definitions/refType",
-          "format": "string",
           "title": "Reference",
           "description": "References a component by the components bom-ref attribute"
         },
