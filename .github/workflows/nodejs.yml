@@ -188,7 +188,7 @@ jobs:
       - name: test
         run: >
           npm run -- test:node
-          ${{ matrix.node-version == env.NODE_ACTIVE_LTS && ' --forbid-pending' || '' }}
+          ${{ startsWith(matrix.node-version, env.NODE_ACTIVE_LTS) && ' --forbid-pending' || '' }}
       - name: collect coverage
         if: ${{ failure() || success() }}
         run: >
