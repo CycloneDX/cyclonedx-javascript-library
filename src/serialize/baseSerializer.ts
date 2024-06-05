@@ -58,10 +58,7 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
     }
   }
 
-  /**
-   * @readonly
-   * @throws {@link Error}
-   */
+  /** {@inheritDoc Serialize.Types.Validator.validate} */
   public serialize (bom: Bom, options?: SerializerOptions & NormalizerOptions): string {
     return this._serialize(
       this.#normalize(bom, options),
