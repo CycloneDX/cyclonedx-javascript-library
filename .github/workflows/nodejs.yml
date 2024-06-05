@@ -189,7 +189,7 @@ jobs:
         shell: bash
         env:
           NODE_VERSION: '${{ matrix.node-version }}'
-        run:
+        run: |
           test_opts=''
           if [[ "$NODE_VERSION" = "$NODE_ACTIVE_LTS" ]]
           then
