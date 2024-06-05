@@ -195,7 +195,7 @@ jobs:
           then
             echo 'forbid pending tests!' >&2
             test_opts+=' --forbid-pending'
-          else
+          fi
           npm run -- test:node $test_opts
       - name: collect coverage
         if: ${{ failure() || success() }}
