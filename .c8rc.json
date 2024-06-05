@@ -1,8 +1,7 @@
 {
   "all": true,
   "src": [
-    "src",
-    "libs/universal-node-xml"
+    "src"
   ],
   "exclude": [
     "**/*.web.ts",
