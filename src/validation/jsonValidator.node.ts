@@ -25,6 +25,7 @@ import { MissingOptionalDependencyError, NotImplementedError } from './errors'
 import type { ValidationError } from './types'
 
 abstract class BaseJsonValidator extends BaseValidator {
+  /** @internal */
   protected abstract _getSchemaFile (): string | undefined
 
   #getSchemaFilePath (): string {
