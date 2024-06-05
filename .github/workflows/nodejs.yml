@@ -186,17 +186,9 @@ jobs:
           name: dist.node
           path: dist.node
       - name: test
-        shell: bash
-        env:
-          NODE_VERSION: '${{ matrix.node-version }}'
-        run: |
-          test_opts=''
-          if [[ "$NODE_VERSION" = "$NODE_ACTIVE_LTS" ]]
-          then
-            echo 'forbid pending tests!' >&2
-            test_opts+=' --forbid-pending'
-          fi
-          npm run -- test:node $test_opts
+        run: >
+          npm run -- test:node
+          ${{ matrix.node-version == env.NODE_ACTIVE_LTS && ' --forbid-pending' || '' }}
       - name: collect coverage
         if: ${{ failure() || success() }}
         run: >
