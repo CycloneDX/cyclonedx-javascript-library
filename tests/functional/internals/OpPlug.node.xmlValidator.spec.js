@@ -28,12 +28,10 @@ const { default: makeValidator } = require('../../../dist.node/_optPlug.node/xml
 const { OptPlugError } = require('../../../dist.node/_optPlug.node/errors')
 
 suite('internals: OpPlug.node.xmlValidator auto', () => {
-  const schemaPath = Resources.FILES.CDX.XML_SCHEMA[Version.v1dot6]
-
   if (makeValidator.fails) {
     test('call should fail/throw', async () => {
       await assert.rejects(
-        makeValidator(schemaPath),
+        makeValidator(),
         (err) => {
           assert.ok(err instanceof OptPlugError)
           assert.match(err.message, /no XmlValidator available/i)
@@ -44,6 +42,7 @@ suite('internals: OpPlug.node.xmlValidator auto', () => {
     return
   }
 
+  const schemaPath = Resources.FILES.CDX.XML_SCHEMA[Version.v1dot6]
   const validXML = `<?xml version="1.0" encoding="UTF-8"?>
     <bom xmlns="http://cyclonedx.org/schema/bom/1.6"></bom>`
   const invalidXML = `<?xml version="1.0" encoding="UTF-8"?>
