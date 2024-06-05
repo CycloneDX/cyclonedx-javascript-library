@@ -35,7 +35,7 @@ describe('Validation.XmlValidator', () => {
   const expectMissingDepError = xmlValidator.fails ?? false;
 
   [
-    // none so far
+    'somthing-unexpected'
   ].forEach((version) => describe(version, () => {
     it('throws not implemented', async () => {
       const validator = new XmlValidator(version)

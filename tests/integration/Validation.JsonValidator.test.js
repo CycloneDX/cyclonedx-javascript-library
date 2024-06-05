@@ -35,6 +35,7 @@ describe('Validation.JsonValidator', () => {
   const expectMissingDepError = jsonValidator.fails ?? false;
 
   [
+    'somthing-unexpected',
     Version.v1dot0,
     Version.v1dot1
   ].forEach((version) => describe(version, () => {
