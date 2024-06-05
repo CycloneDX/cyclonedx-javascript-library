@@ -24,12 +24,6 @@ const { default: xmlStringify } = require('../../../dist.node/_optPlug.node/xmlS
 const { OptPlugError } = require('../../../dist.node/_optPlug.node/errors')
 
 suite('internals: OpPlug.node.xmlStringify auto', () => {
-  const dummyElem = Object.freeze({
-    type: 'element',
-    name: 'foo'
-  })
-  const dummyElemStringifiedRE = /<foo(:?\/>|><\/foo>)/
-
   if (xmlStringify.fails) {
     test('call should fail/throw', () => {
       assert.throws(
@@ -41,10 +35,17 @@ suite('internals: OpPlug.node.xmlStringify auto', () => {
         }
       )
     })
-  } else {
-    test('call should pass', () => {
-      const stringified = xmlStringify(dummyElem)
-      assert.match(stringified, dummyElemStringifiedRE)
-    })
+    return
   }
+
+  const dummyElem = Object.freeze({
+    type: 'element',
+    name: 'foo'
+  })
+  const dummyElemStringifiedRE = /<foo(:?\/>|><\/foo>)/
+
+  test('call should pass', () => {
+    const stringified = xmlStringify(dummyElem)
+    assert.match(stringified, dummyElemStringifiedRE)
+  })
 })

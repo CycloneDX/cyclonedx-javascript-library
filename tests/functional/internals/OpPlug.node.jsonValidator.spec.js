@@ -28,15 +28,6 @@ const { default: makeValidator } = require('../../../dist.node/_optPlug.node/jso
 const { OptPlugError } = require('../../../dist.node/_optPlug.node/errors')
 
 suite('internals: OpPlug.node.jsonValidator auto', () => {
-  const schemaPath = Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot6]
-  const schemaMap = {
-    'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': Resources.FILES.SPDX.JSON_SCHEMA,
-    'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': Resources.FILES.JSF.JSON_SCHEMA
-  }
-  const validJson = '{"bomFormat": "CycloneDX", "specVersion": "1.6"}'
-  const invalidJson = '{"bomFormat": "unexpected", "specVersion": "1.6"}'
-  const brokenJson = '{"bomFormat": "CycloneDX", "specVersion": "1.6"' // not closed
-
   if (makeValidator.fails) {
     test('call should fail/throw', async () => {
       await assert.rejects(
@@ -48,20 +39,30 @@ suite('internals: OpPlug.node.jsonValidator auto', () => {
         }
       )
     })
-  } else {
-    test('valid causes no validationError', async () => {
-      const validationError = (await makeValidator(schemaPath, schemaMap))(validJson)
-      assert.strictEqual(validationError, null)
-    })
-
-    test('invalid causes validationError', async () => {
-      const validationError = (await makeValidator(schemaPath, schemaMap))(invalidJson)
-      assert.notEqual(validationError, null)
-    })
-
-    test('broken causes validationError', async () => {
-      const validator = await makeValidator(schemaPath, schemaMap)
-      assert.throws(() => { validator(brokenJson) })
-    })
+    return
   }
+
+  const schemaPath = Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot6]
+  const schemaMap = {
+    'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': Resources.FILES.SPDX.JSON_SCHEMA,
+    'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': Resources.FILES.JSF.JSON_SCHEMA
+  }
+  const validJson = '{"bomFormat": "CycloneDX", "specVersion": "1.6"}'
+  const invalidJson = '{"bomFormat": "unexpected", "specVersion": "1.6"}'
+  const brokenJson = '{"bomFormat": "CycloneDX", "specVersion": "1.6"' // not closed
+
+  test('valid causes no validationError', async () => {
+    const validationError = (await makeValidator(schemaPath, schemaMap))(validJson)
+    assert.strictEqual(validationError, null)
+  })
+
+  test('invalid causes validationError', async () => {
+    const validationError = (await makeValidator(schemaPath, schemaMap))(invalidJson)
+    assert.notEqual(validationError, null)
+  })
+
+  test('broken causes validationError', async () => {
+    const validator = await makeValidator(schemaPath, schemaMap)
+    assert.throws(() => { validator(brokenJson) })
+  })
 })
