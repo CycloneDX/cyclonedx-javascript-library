@@ -68,7 +68,7 @@ describe('Serialize.XmlSerialize', function () {
           })
       } catch (err) {
         assert.ok(err instanceof Error)
-        assert.match(err.message, /no stringifier available\./i)
+        assert.match(err.message, /no XmlStringifier available\./i)
         return // skipped
       }
 
@@ -141,7 +141,7 @@ describe('Serialize.XmlSerialize', function () {
         serializer.serialize(bom)
       } catch (err) {
         assert.ok(err instanceof Error)
-        assert.match(err.message, /no stringifier available./i)
+        assert.match(err.message, /no XmlStringifier available./i)
       }
 
       assert.strictEqual(normalizedBomRefs.has('testing'), true)
