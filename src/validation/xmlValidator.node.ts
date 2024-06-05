@@ -26,19 +26,19 @@ import type { ValidationError } from './types'
 
 export class XmlValidator extends BaseValidator {
   #getSchemaFilePath (): string {
-    const file = FILES.CDX.XML_SCHEMA[this.version]
-    if (file === undefined) {
+    const s = FILES.CDX.XML_SCHEMA[this.version]
+    if (s === undefined) {
       throw new NotImplementedError(this.version)
     }
-    return file
+    return s
   }
 
   #validatorCache?: Validator = undefined
 
-  get #validator (): Validator {
+  async #getValidator (): Promise<Validator> {
     if (this.#validatorCache === undefined) {
       try {
-        this.#validatorCache = makeValidator(this.#getSchemaFilePath())
+        this.#validatorCache = await makeValidator(this.#getSchemaFilePath())
       } catch (err) {
         if (err instanceof OptPlugError) {
           throw new MissingOptionalDependencyError(err.message, err)
@@ -62,7 +62,7 @@ export class XmlValidator extends BaseValidator {
    */
   async validate (data: string): Promise<null | ValidationError> {
     try {
-      return this.#validator(data)
+      return (await this.#getValidator())(data)
     } catch (err) {
       if (err instanceof OptPlugError) {
         throw new MissingOptionalDependencyError(err.message, err)

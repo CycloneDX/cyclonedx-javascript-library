@@ -26,7 +26,7 @@ const {
 } = require('../../../')
 const makeValidator = require('../../../dist.node/_optPlug.node/xmlValidator/').default
 
-suite('internals: OpPlug.node.xmlValidate', () => {
+suite('internals: OpPlug.node.xmlValidate', async () => {
   const schemaPath = Resources.FILES.CDX.XML_SCHEMA[Version.v1dot6]
   const validXML = `<?xml version="1.0" encoding="UTF-8"?>
     <bom xmlns="http://cyclonedx.org/schema/bom/1.6"></bom>`
@@ -35,9 +35,9 @@ suite('internals: OpPlug.node.xmlValidate', () => {
 
   if (makeValidator.fails) {
     test('call should fail/throw', () => {
-      assert.throws(
-        () => {
-          makeValidator(schemaPath)
+      assert.rejects(
+        async () => {
+          await makeValidator(schemaPath)
         },
         (err) => {
           assert.ok(err instanceof Error)
@@ -47,7 +47,7 @@ suite('internals: OpPlug.node.xmlValidate', () => {
       )
     })
   } else {
-    const validator = makeValidator(schemaPath)
+    const validator = await makeValidator(schemaPath)
 
     test('valid returns null', () => {
       const validationError = validator(validXML)
@@ -55,7 +55,7 @@ suite('internals: OpPlug.node.xmlValidate', () => {
     })
 
     test('invalid returns validationError', () => {
-      const validationError = validator(invalidXML, schemaPath)
+      const validationError = validator(invalidXML)
       assert.notEqual(validationError, null)
     })
   }

@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { readFileSync } from 'fs'
+import { readFile } from 'fs/promises'
 import { type ParserOptions, parseXml } from 'libxmljs2'
 import { pathToFileURL } from 'url'
 
@@ -35,9 +35,10 @@ const xmlParseOptions: Readonly<ParserOptions> = Object.freeze({
 })
 
 /** @internal */
-export default (function (schemaPath: string): Validator {
-  const schema = parseXml(readFileSync(schemaPath, 'utf-8'),
+export default (async function (schemaPath: string): Promise<Validator> {
+  const schema = parseXml(await readFile(schemaPath, 'utf-8'),
     { ...xmlParseOptions, baseUrl: pathToFileURL(schemaPath).toString() })
+
   return function (data: string): null | ValidationError {
     const doc = parseXml(data, xmlParseOptions)
     return doc.validate(schema)

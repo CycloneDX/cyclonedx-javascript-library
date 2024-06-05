@@ -45,13 +45,13 @@ try {
   const invalidXML = `<?xml version="1.0" encoding="UTF-8"?>
     <bom> xmlns="http://cyclonedx.org/schema/bom/1.6"><unexpected/></bom>`
 
-  test('valid return null', () => {
-    const validationError = makeValidator(schemaPath)(validXML)
+  test('valid return null', async () => {
+    const validationError = (await makeValidator(schemaPath))(validXML)
     assert.strictEqual(validationError, null)
   })
 
-  test('invalid returns validationError', () => {
-    const validationError = makeValidator(schemaPath)(invalidXML)
+  test('invalid returns validationError', async () => {
+    const validationError = (await makeValidator(schemaPath))(invalidXML)
     assert.notEqual(validationError, null)
   })
 
@@ -75,7 +75,7 @@ try {
             </component>
           </components>
         </bom>`
-    const validationError = makeValidator(schemaPath)(input)
+    const validationError = (await makeValidator(schemaPath))(input)
     assert.doesNotMatch(
       JSON.stringify(validationError),
       /vaiquia2zoo3Im8ro9zahNg5mohwipouka2xieweed6ahChei3doox2fek3ise0lmohju3loh5oDu7eigh3jaeR2aiph2Voo/,

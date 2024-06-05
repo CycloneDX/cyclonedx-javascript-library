@@ -17,86 +17,41 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type Ajv from 'ajv'
-import { type ValidateFunction } from 'ajv'
-import { readFile } from 'fs/promises'
-
+import { OptPlugError } from '../_optPlug.node/errors'
+import makeValidator, { type Validator } from '../_optPlug.node/jsonValidator'
 import { FILES } from '../resources.node'
 import { BaseValidator } from './baseValidator'
 import { MissingOptionalDependencyError, NotImplementedError } from './errors'
 import type { ValidationError } from './types'
 
-let _ajv: Ajv | undefined
-
-/**
- * @throws {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError}
- */
-async function getAjv (): Promise<Ajv> {
-  if (_ajv === undefined) {
-    let Ajv, addFormats, addFormats2019
-    try {
-      [Ajv, addFormats, addFormats2019] = await Promise.all([
-        import('ajv').then((m) => m.default),
-        import('ajv-formats').then((m) => m.default),
-        /* @ts-expect-error TS7016 */
-        import('ajv-formats-draft2019')
-      ])
-    } catch (err) {
-      throw new MissingOptionalDependencyError(
-        'No JSON validator available.' +
-        ' Please install all of the optional dependencies:' +
-        ' ajv, ajv-formats, ajv-formats-draft2019',
-        err
-      )
-    }
-
-    const [spdxSchema, jsfSchema] = await Promise.all([
-      readFile(FILES.SPDX.JSON_SCHEMA, 'utf-8').then(JSON.parse),
-      readFile(FILES.JSF.JSON_SCHEMA, 'utf-8').then(JSON.parse)
-    ])
-    const ajv = new Ajv({
-      // no defaults => no data alteration
-      useDefaults: false,
-      formats: {
-        // "string" was mistakenly set as format in CycloneDX1.2
-        string: true
-      },
-      strict: false,
-      strictSchema: false,
-      addUsedSchema: false,
-      schemas: {
-        'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': spdxSchema,
-        'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': jsfSchema
-      }
-    })
-    addFormats(ajv)
-    addFormats2019(ajv, { formats: ['idn-email'] })
-    // there is just no working implementation for format "iri-reference": see https://github.com/luzlab/ajv-formats-draft2019/issues/22
-    ajv.addFormat('iri-reference', true)
-    _ajv = ajv
-  }
-  return _ajv
-}
-
 abstract class BaseJsonValidator extends BaseValidator {
-  #validator: ValidateFunction | undefined
-
-  /** @internal */
   protected abstract _getSchemaFile (): string | undefined
 
-  async #getValidator (): Promise<ValidateFunction> {
-    if (this.#validator === undefined) {
-      const schemaFile = this._getSchemaFile()
-      if (schemaFile === undefined) {
-        throw new NotImplementedError(this.version)
-      }
-      const [ajv, schema] = await Promise.all([
-        getAjv(),
-        readFile(schemaFile, 'utf-8').then(JSON.parse)
-      ])
-      this.#validator = ajv.compile(schema)
+  #getSchemaFilePath (): string {
+    const s = this._getSchemaFile()
+    if (s === undefined) {
+      throw new NotImplementedError(this.version)
     }
-    return this.#validator
+    return s
+  }
+
+  #validatorCache?: Validator = undefined
+
+  async #getValidator (): Promise<Validator> {
+    if (this.#validatorCache === undefined) {
+      try {
+        this.#validatorCache = await makeValidator(this.#getSchemaFilePath(), {
+          'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': FILES.SPDX.JSON_SCHEMA,
+          'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': FILES.JSF.JSON_SCHEMA
+        })
+      } catch (err) {
+        if (err instanceof OptPlugError) {
+          throw new MissingOptionalDependencyError(err.message, err)
+        }
+        throw err
+      }
+    }
+    return this.#validatorCache
   }
 
   /**
@@ -111,13 +66,7 @@ abstract class BaseJsonValidator extends BaseValidator {
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError}, when a required dependency was not installed
    */
   async validate (data: string): Promise<null | ValidationError> {
-    const [doc, validator] = await Promise.all([
-      (async () => JSON.parse(data))(),
-      this.#getValidator()
-    ])
-    return validator(doc)
-      ? null
-      : validator.errors
+    return (await this.#getValidator())(data)
   }
 }
 export class JsonValidator extends BaseJsonValidator {

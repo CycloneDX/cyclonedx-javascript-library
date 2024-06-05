@@ -21,11 +21,11 @@ import type { ValidationError } from '../../validation/types'
 import opWrapper from '../_wrapper'
 
 export type Validator = (data: string) => null | ValidationError
-export type Functionality = (schemaPath: string) => Promise<Validator>
+export type Functionality = (schemaPath: string, schemaMap: Record<string, string>) => Promise<Validator>
 
-export default opWrapper<Functionality>('XmlValidator', [
+export default opWrapper<Functionality>('JsonValidator', [
   /* eslint-disable @typescript-eslint/no-var-requires */
-  ['libxmljs2', () => require('./__opts/libxmljs2').default]
+  ['( ajv && ajv-formats && ajv-formats-draft2019 )', () => require('./__opts/ajv').default]
   // ... add others here, pull-requests welcome!
   /* eslint-enable @typescript-eslint/no-var-requires */
 ])

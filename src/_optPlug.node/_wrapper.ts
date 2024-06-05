@@ -47,7 +47,7 @@ export default function <Functionality extends WillNotFailRightAway<Functionalit
   }
   return makeWIllThrow(
     `No ${name} available.` +
-    ' Please install any of the optional dependencies: ' +
+    ' Please install the optional dependency groups: ' +
     pf.map(kv => kv[0]).join(' || ')
   )
 }
