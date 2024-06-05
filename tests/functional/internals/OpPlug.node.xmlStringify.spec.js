@@ -27,7 +27,7 @@ suite('internals: OpPlug.node.xmlStringify auto', () => {
   if (xmlStringify.fails) {
     test('call should fail/throw', () => {
       assert.throws(
-        () => { xmlStringify(dummyElem) },
+        () => { xmlStringify() },
         (err) => {
           assert.ok(err instanceof OptPlugError)
           assert.match(err.message, /no XmlStringifier available/i)
