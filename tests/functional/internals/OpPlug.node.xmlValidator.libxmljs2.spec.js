@@ -59,9 +59,7 @@ try {
 
   test('broken causes validationError', async () => {
     const validator = await makeValidator(schemaPath)
-    assert.throws(() => {
-      validator(brokenXML)
-    })
+    assert.throws(() => { validator(brokenXML) })
   })
 
   test('is not affected by XXE injection', async () => {

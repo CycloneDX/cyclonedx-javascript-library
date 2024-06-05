@@ -24,16 +24,17 @@ const {
   _Resources: Resources,
   Spec: { Version }
 } = require('../../../')
-const makeValidator = require('../../../dist.node/_optPlug.node/xmlValidator/').default
+const makeValidator = require('../../../dist.node/_optPlug.node/jsonValidator/').default
 
-suite('internals: OpPlug.node.xmlValidator', () => {
-  const schemaPath = Resources.FILES.CDX.XML_SCHEMA[Version.v1dot6]
-  const validXML = `<?xml version="1.0" encoding="UTF-8"?>
-    <bom xmlns="http://cyclonedx.org/schema/bom/1.6"></bom>`
-  const invalidXML = `<?xml version="1.0" encoding="UTF-8"?>
-    <bom xmlns="http://cyclonedx.org/schema/bom/1.6"><unexpected/></bom>`
-  const brokenXML = `<?xml version="1.0" encoding="UTF-8"?>
-    <bom xmlns="http://cyclonedx.org/schema/bom/1.6">` // not closed
+suite('internals: OpPlug.node.jsonValidator', () => {
+  const schemaPath = Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot6]
+  const schemaMap = {
+    'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': Resources.FILES.SPDX.JSON_SCHEMA,
+    'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': Resources.FILES.JSF.JSON_SCHEMA
+  }
+  const validJson = '{"bomFormat": "CycloneDX", "specVersion": "1.6"}'
+  const invalidJson = '{"bomFormat": "unexpected", "specVersion": "1.6"}'
+  const brokenJson = '{"bomFormat": "CycloneDX", "specVersion": "1.6"' // not closed
 
   if (makeValidator.fails) {
     test('call should fail/throw', () => {
@@ -43,25 +44,25 @@ suite('internals: OpPlug.node.xmlValidator', () => {
         },
         (err) => {
           assert.ok(err instanceof Error)
-          assert.match(err.message, /no XmlValidator available/i)
+          assert.match(err.message, /no JsonValidator available/i)
           return true
         }
       )
     })
   } else {
     test('valid causes no validationError', async () => {
-      const validationError = (await makeValidator(schemaPath))(validXML)
+      const validationError = (await makeValidator(schemaPath, schemaMap))(validJson)
       assert.strictEqual(validationError, null)
     })
 
     test('invalid causes validationError', async () => {
-      const validationError = (await makeValidator(schemaPath))(invalidXML)
+      const validationError = (await makeValidator(schemaPath, schemaMap))(invalidJson)
       assert.notEqual(validationError, null)
     })
 
     test('broken causes validationError', async () => {
-      const validator = await makeValidator(schemaPath)
-      assert.throws(() => { validator(brokenXML) })
+      const validator = await makeValidator(schemaPath, schemaMap)
+      assert.throws(() => { validator(brokenJson) })
     })
   }
 })
