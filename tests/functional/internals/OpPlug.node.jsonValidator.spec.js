@@ -24,7 +24,7 @@ const {
   _Resources: Resources,
   Spec: { Version }
 } = require('../../../')
-const makeValidator = require('../../../dist.node/_optPlug.node/jsonValidator/').default
+const makeValidator = require('../../../dist.node/_optPlug.node/jsonValidator').default
 
 suite('internals: OpPlug.node.jsonValidator', () => {
   const schemaPath = Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot6]

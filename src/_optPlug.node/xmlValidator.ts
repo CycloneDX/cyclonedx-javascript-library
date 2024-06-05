@@ -17,15 +17,15 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type { SerializerOptions } from '../../serialize/types'
-import type { SimpleXml } from '../../serialize/xml/types'
-import opWrapper from '../_wrapper'
+import type { ValidationError } from '../validation/types'
+import opWrapper from './_wrapper'
 
-export type Functionality = (element: SimpleXml.Element, options?: SerializerOptions) => string
+export type Validator = (data: string) => null | ValidationError
+export type Functionality = (schemaPath: string) => Promise<Validator>
 
-export default opWrapper<Functionality>('XmlStringifier', [
+export default opWrapper<Functionality>('XmlValidator', [
   /* eslint-disable @typescript-eslint/no-var-requires */
-  ['xmlbuilder2', () => require('./__opts/xmlbuilder2').default]
+  ['libxmljs2', () => require('./__xmlValidators/libxmljs2').default]
   // ... add others here, pull-requests welcome!
   /* eslint-enable @typescript-eslint/no-var-requires */
 ])

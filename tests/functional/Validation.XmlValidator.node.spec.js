@@ -23,7 +23,7 @@ const assert = require('assert')
 const { suite, it, xit } = require('mocha')
 const { globSync } = require('fast-glob')
 
-const { default: { fails: skipTests } } = require('../../dist.node/_optPlug.node/xmlValidator/')
+const { default: { fails: skipTests } } = require('../../dist.node/_optPlug.node/xmlValidator')
 const {
   Validation: { XmlValidator },
   Spec: { Version }

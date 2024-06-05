@@ -27,7 +27,7 @@ const {
 
 let makeValidator
 try {
-  makeValidator = require('../../../dist.node/_optPlug.node/jsonValidator/__opts/ajv').default
+  makeValidator = require('../../../dist.node/_optPlug.node/__jsonValidators/ajv').default
 } catch {
   makeValidator = undefined
 }

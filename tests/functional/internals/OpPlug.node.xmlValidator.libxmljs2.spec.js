@@ -30,7 +30,7 @@ const { join } = require('path')
 
 let makeValidator
 try {
-  makeValidator = require('../../../dist.node/_optPlug.node/xmlValidator/__opts/libxmljs2').default
+  makeValidator = require('../../../dist.node/_optPlug.node/__xmlValidators/libxmljs2').default
 } catch {
   makeValidator = undefined
 }

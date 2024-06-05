@@ -22,7 +22,7 @@ const { suite, test } = require('mocha')
 
 let xmlStringify
 try {
-  xmlStringify = require('../../../dist.node/_optPlug.node/xmlStringify/__opts/xmlbuilder2').default
+  xmlStringify = require('../../../dist.node/_optPlug.node/__xmlStringifiers/xmlbuilder2').default
 } catch {
   xmlStringify = undefined
 }

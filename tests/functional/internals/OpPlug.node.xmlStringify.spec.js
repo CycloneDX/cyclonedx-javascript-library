@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const xmlStringify = require('../../../dist.node/_optPlug.node/xmlStringify/').default
+const xmlStringify = require('../../../dist.node/_optPlug.node/xmlStringify').default
 
 suite('internals: OpPlug.node.xmlStringify', () => {
   const dummyElem = Object.freeze({

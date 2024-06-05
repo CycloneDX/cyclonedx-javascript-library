@@ -24,7 +24,7 @@ const {
   _Resources: Resources,
   Spec: { Version }
 } = require('../../../')
-const makeValidator = require('../../../dist.node/_optPlug.node/xmlValidator/').default
+const makeValidator = require('../../../dist.node/_optPlug.node/xmlValidator').default
 
 suite('internals: OpPlug.node.xmlValidator', () => {
   const schemaPath = Resources.FILES.CDX.XML_SCHEMA[Version.v1dot6]

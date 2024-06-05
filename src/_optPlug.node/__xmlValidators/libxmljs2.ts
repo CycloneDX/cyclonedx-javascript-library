@@ -21,8 +21,8 @@ import { readFile } from 'fs/promises'
 import { type ParserOptions, parseXml } from 'libxmljs2'
 import { pathToFileURL } from 'url'
 
-import type { ValidationError } from '../../../validation/types'
-import type { Functionality, Validator } from '../index'
+import type { ValidationError } from '../../validation/types'
+import type { Functionality, Validator } from '../xmlValidator'
 
 const xmlParseOptions: Readonly<ParserOptions> = Object.freeze({
   nonet: true,

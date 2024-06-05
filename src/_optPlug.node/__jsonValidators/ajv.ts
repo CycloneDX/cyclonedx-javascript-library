@@ -23,8 +23,8 @@ import addFormats from 'ajv-formats'
 import * as addFormats2019 from 'ajv-formats-draft2019'
 import { readFile } from 'fs/promises'
 
-import type { ValidationError } from '../../../validation/types'
-import type { Functionality, Validator } from '../index'
+import type { ValidationError } from '../../validation/types'
+import type { Functionality, Validator } from '../jsonValidator'
 
 const ajvOptions: AjvOptions = Object.freeze({
   // no defaults => no data alteration

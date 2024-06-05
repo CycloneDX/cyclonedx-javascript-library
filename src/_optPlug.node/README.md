@@ -7,4 +7,5 @@ The internal defined interfaces, classes, functions are required for proper type
 
 Some functionality is private.  
 These exports **MUST** be marked as `@internal`.
-These files **MUST** be prefixed with double-underscore ("dunder" - `__`).
+Respective files **MUST NOT** export or declare any relevant types or symbols.
+Respective files **MUST** be prefixed with double-underscore ("dunder" - `__`).

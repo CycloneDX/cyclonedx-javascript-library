@@ -20,9 +20,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import { create } from 'xmlbuilder2'
 import type { XMLBuilder } from 'xmlbuilder2/lib/interfaces'
 
-import type { SerializerOptions } from '../../../serialize/types'
-import type { SimpleXml } from '../../../serialize/xml/types'
-import type { Functionality } from '../'
+import type { SerializerOptions } from '../../serialize/types'
+import type { SimpleXml } from '../../serialize/xml/types'
+import type { Functionality } from '../xmlStringify'
 
 if (typeof create !== 'function') {
   throw new Error('`create` is not a function')
