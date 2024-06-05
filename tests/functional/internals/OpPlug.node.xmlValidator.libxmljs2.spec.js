@@ -38,21 +38,30 @@ try {
 (makeValidator === undefined
   ? suite.skip
   : suite
-)('internals: OpPlug.node.xmlValidate :: libxmljs2 ', () => {
+)('internals: OpPlug.node.xmlValidator :: libxmljs2 ', () => {
   const schemaPath = Resources.FILES.CDX.XML_SCHEMA[Version.v1dot6]
   const validXML = `<?xml version="1.0" encoding="UTF-8"?>
     <bom xmlns="http://cyclonedx.org/schema/bom/1.6"></bom>`
   const invalidXML = `<?xml version="1.0" encoding="UTF-8"?>
-    <bom> xmlns="http://cyclonedx.org/schema/bom/1.6"><unexpected/></bom>`
+    <bom xmlns="http://cyclonedx.org/schema/bom/1.6"><unexpected/></bom>`
+  const brokenXML = `<?xml version="1.0" encoding="UTF-8"?>
+    <bom xmlns="http://cyclonedx.org/schema/bom/1.6">` // not closed
 
-  test('valid return null', async () => {
+  test('valid causes no validationError', async () => {
     const validationError = (await makeValidator(schemaPath))(validXML)
     assert.strictEqual(validationError, null)
   })
 
-  test('invalid returns validationError', async () => {
+  test('invalid causes validationError', async () => {
     const validationError = (await makeValidator(schemaPath))(invalidXML)
     assert.notEqual(validationError, null)
+  })
+
+  test('broken causes validationError', async () => {
+    const validator = await makeValidator(schemaPath)
+    assert.throws(() => {
+      validator(brokenXML)
+    })
   })
 
   test('is not affected by XXE injection', async () => {
