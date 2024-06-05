@@ -28,10 +28,16 @@ const { default: makeValidator } = require('../../../dist.node/_optPlug.node/jso
 const { OptPlugError } = require('../../../dist.node/_optPlug.node/errors')
 
 suite('internals: OpPlug.node.jsonValidator auto', () => {
+  const schemaPath = Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot6]
+  const schemaMap = {
+    'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': Resources.FILES.SPDX.JSON_SCHEMA,
+    'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': Resources.FILES.JSF.JSON_SCHEMA
+  }
+
   if (makeValidator.fails) {
     test('call should fail/throw', async () => {
       await assert.rejects(
-        makeValidator(schemaPath),
+        makeValidator(schemaPath, schemaMap),
         (err) => {
           assert.ok(err instanceof OptPlugError)
           assert.match(err.message, /no JsonValidator available/i)
@@ -42,11 +48,6 @@ suite('internals: OpPlug.node.jsonValidator auto', () => {
     return
   }
 
-  const schemaPath = Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot6]
-  const schemaMap = {
-    'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': Resources.FILES.SPDX.JSON_SCHEMA,
-    'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': Resources.FILES.JSF.JSON_SCHEMA
-  }
   const validJson = '{"bomFormat": "CycloneDX", "specVersion": "1.6"}'
   const invalidJson = '{"bomFormat": "unexpected", "specVersion": "1.6"}'
   const brokenJson = '{"bomFormat": "CycloneDX", "specVersion": "1.6"' // not closed
