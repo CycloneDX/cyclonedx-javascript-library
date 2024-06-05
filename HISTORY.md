@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Changed
+  * Exising `Serialize.XmlSerializer.serialize()` for _Node.js_ may throw `Serialize.MissingOptionalDependencyError` (via [#1084])  
+    This is considered a non-breaking change, as the docs always told that any `Error` may be thrown.
+* Added
+  * New class `Serialize.MissingOptionalDependencyError` (via [#1084])
 * Misc
   * Refactored functionality around optional/pluggable dependencies (via [#1083], [#1084])  
     This was done in preparation for [#1079]

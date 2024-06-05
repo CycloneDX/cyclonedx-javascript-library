@@ -31,6 +31,7 @@ export interface Validator {
    * Promise rejects with one of the following:
    * - {@link Validation.NotImplementedError | NotImplementedError}, when there is no validator available
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError}, when a required dependency was not installed
+   * - {@link Error}
    */
   validate: (data: string) => Promise<null | ValidationError>
 }
