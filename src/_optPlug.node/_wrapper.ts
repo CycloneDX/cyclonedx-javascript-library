@@ -21,9 +21,6 @@ import { OptPlugError } from './errors'
 
 export type WillThrow = (() => never) & { fails: true }
 
-type WillNotFailRightAway<T> = Omit<T, 'fails'>
-type PossibleFunctionalities<Functionality> = Array<[string, () => Functionality]>
-
 function makeWIllThrow (message: string): WillThrow {
   const f: WillThrow = function (): never {
     throw new OptPlugError(message)
@@ -32,8 +29,10 @@ function makeWIllThrow (message: string): WillThrow {
   return Object.freeze(f)
 }
 
+type PossibleFunctionalities<Functionality> = Array<[string, () => Functionality]>
+
 /** @internal */
-export default function <Functionality extends WillNotFailRightAway<Functionality>> (
+export default function <Functionality> (
   name: string,
   pf: PossibleFunctionalities<Functionality>
 ): Functionality | WillThrow {
