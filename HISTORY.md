@@ -6,6 +6,19 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Changed
+  * Exising `Serialize.XmlSerializer.serialize()` for _Node.js_ may throw `Serialize.MissingOptionalDependencyError` (via [#1084])  
+    This is considered a non-breaking change, as the docs always told that any `Error` may be thrown.
+* Added
+  * New class `Serialize.MissingOptionalDependencyError` (via [#1084])
+* Misc
+  * Refactored functionality around optional/pluggable dependencies (via [#1083], [#1084])  
+    This was done in preparation for [#1079]
+
+[#1079]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1079
+[#1083]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1083
+[#1084]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1084
+
 ## 6.9.5 -- 2024-05-23
 
 Maintenance release.

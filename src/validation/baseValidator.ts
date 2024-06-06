@@ -31,6 +31,5 @@ export abstract class BaseValidator implements Validator {
     return this.#version
   }
 
-  /** {@inheritDoc Validation.Types.Validator.validate} */
   abstract validate (data: string): Promise<null | ValidationError>
 }

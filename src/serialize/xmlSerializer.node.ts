@@ -17,7 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import * as stringify from '../../libs/universal-node-xml/stringify'
+import { OptPlugError } from '../_optPlug.node/errors'
+import stringify from '../_optPlug.node/xmlStringify'
+import { MissingOptionalDependencyError } from './errors'
 import type { SerializerOptions } from './types'
 import type { SimpleXml } from './xml/types'
 import { XmlBaseSerializer } from './xmlBaseSerializer'
@@ -26,10 +28,23 @@ import { XmlBaseSerializer } from './xmlBaseSerializer'
  * XML serializer for node.
  */
 export class XmlSerializer extends XmlBaseSerializer {
+  // maybe override  parent::serialize() and skip nonmalization and everything, in case `stringify.fails` is true
+
+  /**
+   * @throws {@link Serialize.MissingOptionalDependencyError | MissingOptionalDependencyError}
+   * @throws {@link Error}
+   */
   protected _serialize (
     normalizedBom: SimpleXml.Element,
     options: SerializerOptions = {}
   ): string {
-    return stringify(normalizedBom, options)
+    try {
+      return stringify(normalizedBom, options)
+    } catch (err) {
+      if (err instanceof OptPlugError) {
+        throw new MissingOptionalDependencyError(err.message, err)
+      }
+      throw err
+    }
   }
 }

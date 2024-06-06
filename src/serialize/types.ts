@@ -35,6 +35,7 @@ export interface SerializerOptions {
 
 export interface Serializer {
   /**
+   * @throws {@link Serialize.MissingOptionalDependencyError | MissingOptionalDependencyError}, when a required dependency was not installed
    * @throws {@link Error}
    */
   serialize: (bom: Bom, options?: SerializerOptions & NormalizerOptions) => string

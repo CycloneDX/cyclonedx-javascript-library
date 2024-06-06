@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const fs = require('fs')
 const path = require('path')
 const assert = require('assert')
-const { suite, it, xit } = require('mocha')
+const { suite, test, before } = require('mocha')
 const { globSync } = require('fast-glob')
 
 const {
@@ -28,14 +28,12 @@ const {
   Spec: { Version }
 } = require('../../')
 
-let hasDep = true
-try {
-  require('libxmljs2')
-} catch {
-  hasDep = false
-}
-
-const test = hasDep ? it : xit
+before(function () {
+  const { default: xmlValidator } = require('../../dist.node/_optPlug.node/xmlValidator')
+  if (xmlValidator.fails) {
+    this.skip()
+  }
+})
 
 suite('Validation.XmlValidator functional', function () {
   this.timeout(60000);

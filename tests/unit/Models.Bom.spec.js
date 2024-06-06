@@ -88,9 +88,7 @@ suite('Models.Bom', () => {
         const bom = new Bom()
         assert.notStrictEqual(bom.version, newVersion)
         assert.throws(
-          () => {
-            bom.version = newVersion
-          },
+          () => { bom.version = newVersion },
           /not PositiveInteger/i
         )
       })

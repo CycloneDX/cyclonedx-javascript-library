@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const fs = require('fs')
 const path = require('path')
 const assert = require('assert')
-const { suite, it, xit } = require('mocha')
+const { suite, test, before } = require('mocha')
 const { globSync } = require('fast-glob')
 
 const {
@@ -28,16 +28,16 @@ const {
   Spec: { Version }
 } = require('../../')
 
-let hasDep = true
-try {
-  require('ajv')
-} catch {
-  hasDep = false
-}
+before(function () {
+  const { default: jsonValidator } = require('../../dist.node/_optPlug.node/jsonValidator')
+  if (jsonValidator.fails) {
+    this.skip()
+  }
+})
 
-const test = hasDep ? it : xit
+suite('Validation.JsonValidator functional', function () {
+  this.timeout(60000);
 
-suite('Validation.JsonValidator functional', () => {
   [
     Version.v1dot6,
     Version.v1dot5,
@@ -65,7 +65,9 @@ suite('Validation.JsonValidator functional', () => {
   })
 })
 
-suite('Validation.JsonStrictValidator functional', () => {
+suite('Validation.JsonStrictValidator functional', function () {
+  this.timeout(60000);
+
   [
     Version.v1dot6,
     Version.v1dot5,

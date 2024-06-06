@@ -17,15 +17,6 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type { SerializerOptions } from '../../src/serialize/types'
-import type { SimpleXml } from '../../src/serialize/xml/types'
+import { OptPlugError } from '../_optPlug.node/errors'
 
-declare interface ThrowError {
-  /** @throws {@link Error} */
-  (..._: any[]): never
-  fails: true
-}
-
-declare type Stringify = (element: SimpleXml.Element, options?: SerializerOptions) => string
-declare const stringify: Stringify | ThrowError
-export = stringify
+export class MissingOptionalDependencyError extends OptPlugError {}

@@ -9,5 +9,7 @@
     "declarationDir": "dist.d",
     "removeComments": false     /* to keep annotations */
   },
-  "include": ["src/**.ts"]
+  "include": [
+    "src/**.ts"
+  ]
 }

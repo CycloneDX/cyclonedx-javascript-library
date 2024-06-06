@@ -17,32 +17,22 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const { create } = require('xmlbuilder2')
-const { getNS, makeIndent } = require('./_helpers')
+import { create } from 'xmlbuilder2'
+import type { XMLBuilder } from 'xmlbuilder2/lib/interfaces'
 
-module.exports = typeof create === 'function'
-  ? stringify
-  /* c8 ignore next */
-  : undefined
+import type { SerializerOptions } from '../../serialize/types'
+import type { SimpleXml } from '../../serialize/xml/types'
+import type { Functionality } from '../xmlStringify'
 
-/* eslint-disable jsdoc/valid-types */
+if (typeof create !== 'function') {
+  throw new Error('`create` is not a function')
+}
 
-/**
- * @typedef {import('xmlbuilder2/lib/interfaces').XMLBuilder} XMLBuilder
- */
-
-/**
- * @typedef {import('../../../src/serialize/xml/types').SimpleXml.Element} Element
- */
-
-/* eslint-enable jsdoc/valid-types */
-
-/**
- * @param {Element} rootElement
- * @param {string|number|undefined} [space]
- * @return {string}
- */
-function stringify (rootElement, { space } = {}) {
+/** @internal */
+export default (function (
+  rootElement: SimpleXml.Element,
+  { space }: SerializerOptions = {}
+): string {
   const indent = makeIndent(space)
   const doc = create({ encoding: 'UTF-8' })
   addEle(doc, rootElement)
@@ -52,15 +42,16 @@ function stringify (rootElement, { space } = {}) {
     prettyPrint: indent.length > 0,
     indent
   })
-}
+}) satisfies Functionality
 
-/**
- * @param {XMLBuilder} parent
- * @param {Element} element
- * @param {?string} [parentNS]
- */
-function addEle (parent, element, parentNS = null) {
-  if (element.type !== 'element') { return }
+function addEle (
+  parent: XMLBuilder,
+  element: SimpleXml.Element | SimpleXml.Comment,
+  parentNS: string | null = null
+): void {
+  if (element.type !== 'element') {
+    return
+  }
   const ns = getNS(element) ?? parentNS
   const ele = parent.ele(ns, element.name, element.attributes)
   if (element.children === undefined) {
@@ -72,4 +63,21 @@ function addEle (parent, element, parentNS = null) {
       addEle(ele, child, ns)
     }
   }
+}
+
+function getNS (element: SimpleXml.Element): string | null {
+  const ns = (element.namespace ?? element.attributes?.xmlns)?.toString() ?? ''
+  return ns.length > 0
+    ? ns
+    : null
+}
+
+function makeIndent (space: string | number | any): string {
+  if (typeof space === 'number') {
+    return ' '.repeat(Math.max(0, space))
+  }
+  if (typeof space === 'string') {
+    return space
+  }
+  return ''
 }

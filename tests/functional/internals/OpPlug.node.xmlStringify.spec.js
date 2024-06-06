@@ -20,32 +20,32 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { suite, test } = require('mocha')
 
-const stringify = require('./stringify')
+const { default: xmlStringify } = require('../../../dist.node/_optPlug.node/xmlStringify')
+const { OptPlugError } = require('../../../dist.node/_optPlug.node/errors')
 
-suite('libs/universal-node-xml/stringify', () => {
+suite('internals: OpPlug.node.xmlStringify auto', () => {
+  if (xmlStringify.fails) {
+    test('call should fail/throw', () => {
+      assert.throws(
+        () => { xmlStringify() },
+        (err) => {
+          assert.ok(err instanceof OptPlugError)
+          assert.match(err.message, /no XmlStringifier available/i)
+          return true
+        }
+      )
+    })
+    return
+  }
+
   const dummyElem = Object.freeze({
     type: 'element',
     name: 'foo'
   })
   const dummyElemStringifiedRE = /<foo(:?\/>|><\/foo>)/
 
-  if (stringify.fails) {
-    test('call should fail/throw', () => {
-      assert.throws(
-        () => {
-          stringify(dummyElem)
-        },
-        (err) => {
-          assert.ok(err instanceof Error)
-          assert.match(err.message, /no stringifier available/i)
-          return true
-        }
-      )
-    })
-  } else {
-    test('call should pass', () => {
-      const stringified = stringify(dummyElem)
-      assert.match(stringified, dummyElemStringifiedRE)
-    })
-  }
+  test('call should pass', () => {
+    const stringified = xmlStringify(dummyElem)
+    assert.match(stringified, dummyElemStringifiedRE)
+  })
 })

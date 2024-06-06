@@ -17,35 +17,15 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-/* eslint-disable jsdoc/valid-types */
+import type { ValidationError } from '../validation/types'
+import opWrapper, { type WillThrow } from './_wrapper'
 
-/**
- * @typedef {import('../../../src/serialize/xml/types').SimpleXml.Element} Element
- */
+export type Validator = (data: string) => null | ValidationError
+export type Functionality = (schemaPath: string, schemaMap: Record<string, string>) => Promise<Validator>
 
-/* eslint-enable jsdoc/valid-types */
-
-/**
- * @param {Element} element
- * @return {string|string|null}
- */
-module.exports.getNS = function (element) {
-  const ns = (element.namespace ?? element.attributes?.xmlns)?.toString() ?? ''
-  return ns.length > 0
-    ? ns
-    : null
-}
-
-/**
- * @param {string|number|*} [space]
- * @return {string}
- */
-module.exports.makeIndent = function (space) {
-  if (typeof space === 'number') {
-    return ' '.repeat(Math.max(0, space))
-  }
-  if (typeof space === 'string') {
-    return space
-  }
-  return ''
-}
+export default opWrapper<Functionality>('JsonValidator', [
+  /* eslint-disable @typescript-eslint/no-var-requires */
+  ['( ajv && ajv-formats && ajv-formats-draft2019 )', () => require('./__jsonValidators/ajv').default]
+  // ... add others here, pull-requests welcome!
+  /* eslint-enable @typescript-eslint/no-var-requires */
+]) satisfies Functionality | WillThrow

@@ -152,12 +152,14 @@ jobs:
           # do not use caching, use fresh version always, since some deps are not pinned -- since this is a library.
       - name: setup project
         shell: bash
+        env:
+          NODE_VERSION: '${{ matrix.node-version }}'
         run: |
           set -ex
           dep_constraints=''
           dev_requirements='c8 mocha npm-run-all fast-glob'
           # as long as npm cannot auto-resolve engine-constraints, we need to help here
-          case '${{ matrix.node-version }}' in
+          case "$NODE_VERSION" in
             '16')
               # for some stupid reason, NPM tries to resolve dev-packages, event hey are to be omitted.
               # this is frustrating when NPM is not resolving to compatible versions ...so drop them here
@@ -184,7 +186,9 @@ jobs:
           name: dist.node
           path: dist.node
       - name: test
-        run: npm run test:node
+        run: >
+          npm run -- test:node
+          ${{ startsWith(matrix.node-version, env.NODE_ACTIVE_LTS) && ' --forbid-pending' || '' }}
       - name: collect coverage
         if: ${{ failure() || success() }}
         run: >

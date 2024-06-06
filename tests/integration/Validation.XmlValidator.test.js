@@ -18,18 +18,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 const assert = require('assert')
-const { realpathSync } = require('fs')
-const { join } = require('path')
-const { pathToFileURL } = require('url')
 
 const { describe, it } = require('mocha')
-
-let hasDep = true
-try {
-  require('libxmljs2')
-} catch {
-  hasDep = false
-}
 
 const {
   Spec: { Version },
@@ -39,9 +29,13 @@ const {
   }
 } = require('../../')
 
+const { default: xmlValidator } = require('../../dist.node/_optPlug.node/xmlValidator')
+
 describe('Validation.XmlValidator', () => {
+  const expectMissingDepError = xmlValidator.fails ?? false;
+
   [
-    // none so far
+    'somthing-unexpected'
   ].forEach((version) => describe(version, () => {
     it('throws not implemented', async () => {
       const validator = new XmlValidator(version)
@@ -61,7 +55,7 @@ describe('Validation.XmlValidator', () => {
     Version.v1dot1,
     Version.v1dot0
   ].forEach((version) => describe(version, () => {
-    if (!hasDep) {
+    if (expectMissingDepError) {
       it('throws MissingOptionalDependencyError', async () => {
         const validator = new XmlValidator(version)
         await assert.rejects(
@@ -102,33 +96,6 @@ describe('Validation.XmlValidator', () => {
         </bom>`
       const validationError = await validator.validate(input)
       assert.strictEqual(validationError, null)
-    })
-
-    it('is not affected by XXE injection', async () => {
-      const validator = new XmlValidator(version)
-      const input = `<?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE poc [
-          <!ENTITY flag SYSTEM "${pathToFileURL(realpathSync(join(__dirname, '..', '_data', 'xxe_flag.txt')))}">
-        ]>
-        <bom xmlns="http://cyclonedx.org/schema/bom/${version}">
-          <components>
-            <component type="library">
-              <name>bar</name>
-              <version>1.337</version>
-              ${version === '1.0' ? '<modified>false</modified>' : ''}
-              <licenses>
-                <license>
-                  <id>&flag;</id>
-                </license>
-              </licenses>
-            </component>
-          </components>
-        </bom>`
-      const validationError = await validator.validate(input)
-      assert.doesNotMatch(
-        JSON.stringify(validationError),
-        /vaiquia2zoo3Im8ro9zahNg5mohwipouka2xieweed6ahChei3doox2fek3ise0lmohju3loh5oDu7eigh3jaeR2aiph2Voo/
-      )
     })
   }))
 })

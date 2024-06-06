@@ -58,6 +58,7 @@ const BomJsonLax = Object.freeze({
   replace: Object.freeze([
     Object.freeze(['spdx.schema.json', 'spdx.SNAPSHOT.schema.json']),
     Object.freeze(['jsf-0.82.schema.json', 'jsf-0.82.SNAPSHOT.schema.json']),
+    Object.freeze([/,?\s*"format"\S*:\s*"string"/sg, '']),
     /* "$schema" is not required but optional.
        that enum constraint value there is complicated -> remove it.
        See https://github.com/CycloneDX/specification/issues/402

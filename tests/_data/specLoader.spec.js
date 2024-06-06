@@ -33,9 +33,7 @@ suite('test helpers: specLoader', () => {
   suite('loadSpec()', () => {
     test('unknown file', () => {
       assert.throws(
-        () => {
-          loadSpec('DOES-NOT-EXIST.schema.json')
-        },
+        () => { loadSpec('DOES-NOT-EXIST.schema.json') },
         Error,
         'missing expected error'
       )
@@ -50,11 +48,7 @@ suite('test helpers: specLoader', () => {
   suite('getSpecElement()', () => {
     test('unknown path', () => {
       assert.throws(
-        () => {
-          getSpecElement(
-            'bom-1.4.SNAPSHOT.schema.json',
-            'properties', 'UNKNOWN_PROP')
-        },
+        () => { getSpecElement('bom-1.4.SNAPSHOT.schema.json', 'properties', 'UNKNOWN_PROP') },
         TypeError('undefined element: bom-1.4.SNAPSHOT.schema.json#properties.UNKNOWN_PROP'),
         'missing expected error'
       )
