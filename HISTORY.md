@@ -9,9 +9,9 @@ All notable changes to this project will be documented in this file.
 ## 6.10.0 -- 2024-06-06
 
 * Changed
-  * Exising `Serialize.XmlSerializer.serialize()` for _Node.js_ may throw `Serialize.MissingOptionalDependencyError` (via [#1084])  
+  * Existing `Serialize.XmlSerializer.serialize()` for _Node.js_ may throw `Serialize.MissingOptionalDependencyError` (via [#1084])  
     This is considered a non-breaking change, as the docs always told that any `Error` may be thrown.
-  * Improved the verbose error messages when a functionality failed due absence of optional/pluggable dependency.
+  * Improved the verbose error messages when a functionality failed due to absence of optional/pluggable dependency.
 * Added
   * New class `Serialize.MissingOptionalDependencyError` (via [#1084])
 * Misc
