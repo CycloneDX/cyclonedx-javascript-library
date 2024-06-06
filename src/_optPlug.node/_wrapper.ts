@@ -45,7 +45,7 @@ export default function <Functionality> (
   }
   return makeWIllThrow(
     `No ${name} available.` +
-    ' Please install the optional dependency groups: ' +
+    ' Please install one of the optional dependencies: ' +
     pf.map(kv => kv[0]).join(' || ')
   )
 }
