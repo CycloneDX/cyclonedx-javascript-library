@@ -36,14 +36,16 @@ updates:
         patterns:
           - 'ajv'
           - 'ajv-*'
-      typescript:
+      typedoc:
         patterns:
-          - 'typescript'
-          - '@types/*'
           - 'typedoc'
           - 'typedoc-*'
           - '@microsoft/tsdoc'
           - '@microsoft/tsdoc-*'
+      typescript:
+        patterns:
+          - 'typescript'
+          - '@types/*'
           - 'ts-loader'
           - 'tslib'
       webpack:
