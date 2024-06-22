@@ -117,7 +117,7 @@
     "typedoc": "^0.25.0",
     "typedoc-plugin-missing-exports": "^2.0.1",
     "typescript": "5.4.5",
-    "webpack": "5.92.0",
+    "webpack": "5.92.1",
     "webpack-cli": "5.1.4",
     "webpack-node-externals": "3.0.0"
   },
