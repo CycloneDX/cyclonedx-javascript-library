@@ -6,9 +6,10 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@cyclonedx/cyclonedx-library-docs-gen": "file:",
+    "npm-run-all2": "^6.1.2",
     "typedoc": "^0.25.0",
-    "typedoc-plugin-missing-exports": "^2.0.1",
-    "npm-run-all2": "^6.1.2"
+    "typedoc-plugin-missing-exports": "^2.0.1"
   },
   "scripts": {
     "api-doc": "run-p --aggregate-output -lc api-doc:*",

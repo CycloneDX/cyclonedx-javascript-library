@@ -6,6 +6,8 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "6.21.0",
+    "@typescript-eslint/parser": "6.21.0",
     "eslint": "8.57.0",
     "eslint-config-love": "43.1.0",
     "eslint-config-standard": "17.1.0",
@@ -17,12 +19,13 @@
     "eslint-plugin-promise": "6.2.0",
     "eslint-plugin-simple-import-sort": "12.1.0",
     "eslint-plugin-tsdoc": "0.3.0",
-    "@typescript-eslint/eslint-plugin": "6.21.0",
-    "@typescript-eslint/parser": "6.21.0"
+    "docs-gen": "file:../docs-gen"
   },
   "scripts": {
     "test": "cd ..; cd ..; eslint .",
     "cs-fix": "cd ..; cd ..; eslint --fix ."
   },
-  "workspaces": []
+  "workspaces": [
+    "../docs-gen"
+  ]
 }
