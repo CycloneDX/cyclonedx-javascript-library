@@ -15,7 +15,8 @@ build:
     # golang: "1.20"
   jobs:
     pre_build:
-      - npm i --ignore-scripts --include=optional
+      - npm i --ignore-scripts --loglevel=silly
+      - npm i --ignore-scripts --loglevel=silly -w tools/docs-gen
       - npm run api-doc
 
 # Build documentation in the docs/ directory with Sphinx

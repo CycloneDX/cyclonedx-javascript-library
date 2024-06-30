@@ -95,7 +95,7 @@ jobs:
           # cache: "npm"
           # cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm i --ignore-scripts --include=optional  --loglevel=silly
+        run: npm i --ignore-scripts -w tools/code-style --include-workspace-root
       - name: make reports dir
         run: mkdir -p "$REPORTS_DIR"
       - name: test
@@ -157,16 +157,11 @@ jobs:
         run: |
           set -ex
           dep_constraints=''
-          dev_requirements='c8 mocha npm-run-all fast-glob'
+          dev_requirements='c8 mocha npm-run-all2 fast-glob'
           # as long as npm cannot auto-resolve engine-constraints, we need to help here
           case "$NODE_VERSION" in
-            '16')
-              # for some stupid reason, NPM tries to resolve dev-packages, event hey are to be omitted.
-              # this is frustrating when NPM is not resolving to compatible versions ...so drop them here
-              npm uninstall --save-dev eslint-plugin-jsdoc
-              ;;
             '14.0.0')
-              dev_requirements='c8@^8 mocha npm-run-all fast-glob'
+              dev_requirements+='c8@^8'
               ;;
           esac
           ## !! dont install all the dev-packages, especially since some are not runnable on node 14.0.0
@@ -225,7 +220,7 @@ jobs:
           ## dont install all the dev-packages, especially since some are not runnable on node 14.0.0
           npm i --ignore-scripts --omit=optional --omit=dev --loglevel=silly
           ## install the needed dev-deps
-          npm i --ignore-scripts --omit=optional --no-save --loglevel=silly mocha c8 npm-run-all fast-glob
+          npm i --ignore-scripts --omit=optional --no-save --loglevel=silly mocha c8 npm-run-all2 fast-glob
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@v4
@@ -280,6 +275,7 @@ jobs:
           bash <(curl -Ls https://raw.githubusercontent.com/codacy/codacy-coverage-reporter/master/get.sh) report $auth $reports --partial -l TypeScript &&\
           bash <(curl -Ls https://raw.githubusercontent.com/codacy/codacy-coverage-reporter/master/get.sh) report $auth $reports --partial -l Javascript &&\
           bash <(curl -Ls https://raw.githubusercontent.com/codacy/codacy-coverage-reporter/master/get.sh) final $auth
+
 
   examples-JS:
     needs: [ 'build' ]
@@ -440,6 +436,9 @@ jobs:
           # cache: "npm"
           # cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm i --ignore-scripts --loglevel=silly
+        run: >
+          npm install
+          --ignore-scripts --loglevel=silly 
+          -w tools/docs-gen --include-workspace-root
       - name: api-doc ${{ matrix.target }}
         run: npm run api-doc:${{ matrix.target }}

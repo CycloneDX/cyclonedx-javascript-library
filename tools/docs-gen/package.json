@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "@cyclonedx/cyclonedx-library-docs-gen",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "typedoc": "^0.25.0",
+    "typedoc-plugin-missing-exports": "^2.0.1",
+    "npm-run-all2": "^6.1.2"
+  },
+  "scripts": {
+    "api-doc": "run-p --aggregate-output -lc api-doc:*",
+    "api-doc:node": "typedoc --options ../../typedoc.node.json",
+    "api-doc:web": "typedoc --options ../../typedoc.web.json"
+  },
+  "workspaces": []
+}

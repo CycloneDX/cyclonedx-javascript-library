@@ -17,6 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+const path = require('path')
+
 /* eslint-disable jsdoc/valid-types */
 
 /**
@@ -53,7 +55,7 @@ module.exports = {
     // endregion sort imports/exports
     // region license-header
     /* see https://github.com/Stuk/eslint-plugin-header#readme */
-    'header/header': ['error', './.license-header.js'],
+    'header/header': ['error', path.join(__dirname, '.license-header.js')],
     // endregion license-header
     // indent is managed by plugin '*standard'
     'editorconfig/indent': 'off'
@@ -105,19 +107,19 @@ module.exports = {
         // endregion docs
       },
       parserOptions: {
-        project: './tsconfig.json'
+        project: path.join(__dirname, 'tsconfig.json')
       }
     },
     {
       files: ['examples/node/typescript/example.cjs/src/*.ts'],
       parserOptions: {
-        project: './examples/node/typescript/example.cjs/tsconfig.json'
+        project: path.join(__dirname, '/examples/node/typescript/example.cjs/tsconfig.json')
       }
     },
     {
       files: ['examples/node/typescript/example.mjs/src/*.ts'],
       parserOptions: {
-        project: './examples/node/typescript/example.mjs/tsconfig.json'
+        project: path.join(__dirname, '/examples/node/typescript/example.mjs/tsconfig.json')
       }
     },
     {
