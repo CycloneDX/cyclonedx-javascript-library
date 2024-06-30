@@ -153,6 +153,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           # do not use caching, use fresh version always, since some deps are not pinned -- since this is a library.
+      - name: bump npm
+        # older versions of npm have strange workspace support...bump it
+        run: npm i -g npm@^10
       - name: setup project
         shell: bash
         env:
@@ -183,7 +186,7 @@ jobs:
           fi
           echo "::endgroup"
           echo "::group::install deps"
-          npm i --ignore-scripts --include=optional --omit=dev --only=prod --production --loglevel=silly --no-workspaces
+          npm i --ignore-scripts --include=optional --omit=dev --only=prod --production --loglevel=silly
           echo "::endgroup"
           echo "::group::install libxmljs2 "
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
