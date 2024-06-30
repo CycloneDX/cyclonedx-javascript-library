@@ -179,7 +179,7 @@ jobs:
           ## !! dont install all the dev-packages, especially since some are not runnable on node 14.0.0
           if [[ -n "$dep_constraints" ]]
             then
-            npm add --ignore-scripts --omit=dev --only=prod --production --loglevel=silly --save $dep_constraints
+            npm add --workspaces=false --ignore-scripts --omit=dev --only=prod --production --loglevel=silly --save $dep_constraints
           fi
           echo "::endgroup::"
           echo "::group::install deps"
@@ -191,7 +191,7 @@ jobs:
           echo "::endgroup::"
           echo "::group::install dev_requirements"
           ## install the needed dev-deps
-          npm i --ignore-scripts --loglevel=silly --no-save $dev_requirements
+          npm i --workspaces=false --ignore-scripts --loglevel=silly --no-save $dev_requirements
           echo "::endgroup::"
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
