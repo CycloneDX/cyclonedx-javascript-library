@@ -24,8 +24,5 @@
   "scripts": {
     "test": "cd ..; cd ..; eslint .",
     "cs-fix": "cd ..; cd ..; eslint --fix ."
-  },
-  "workspaces": [
-    "../docs-gen"
-  ]
+  }
 }
