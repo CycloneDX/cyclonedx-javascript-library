@@ -94,7 +94,7 @@
     "@types/mocha": "^10",
     "@types/node": "ts5.4",
     "@types/spdx-expression-parse": "^3",
-    "c8": "^8||^9",
+    "c8": "^8||^9||^10",
     "deepmerge": "^4.2.2",
     "fast-glob": "^3.3.1",
     "mocha": "10.5.2",
