@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "name": "@cyclonedx/cyclonedx-library-code-style",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=25"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "6.21.0",
+    "@typescript-eslint/parser": "6.21.0",
+    "eslint": "8.57.0",
+    "eslint-config-love": "43.1.0",
+    "eslint-config-standard": "17.1.0",
+    "eslint-plugin-editorconfig": "4.0.3",
+    "eslint-plugin-header": "3.1.1",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-jsdoc": "48.2.8",
+    "eslint-plugin-n": "16.6.2",
+    "eslint-plugin-promise": "6.2.0",
+    "eslint-plugin-simple-import-sort": "12.1.0",
+    "eslint-plugin-tsdoc": "0.3.0",
+    "@cyclonedx/cyclonedx-library-docs-gen": "file:../docs-gen"
+  },
+  "scripts": {
+    "test": "cd ../..; eslint .",
+    "cs-fix": "cd ../..; eslint --fix ."
+  },
+  "workspaces": []
+}
