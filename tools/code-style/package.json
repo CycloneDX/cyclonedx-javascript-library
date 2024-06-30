@@ -19,10 +19,11 @@
     "eslint-plugin-promise": "6.2.0",
     "eslint-plugin-simple-import-sort": "12.1.0",
     "eslint-plugin-tsdoc": "0.3.0",
-    "docs-gen": "file:../docs-gen"
+    "@cyclonedx/cyclonedx-library-docs-gen": "file:../docs-gen"
   },
   "scripts": {
     "test": "cd ../..; eslint .",
     "cs-fix": "cd ../..; eslint --fix ."
-  }
+  },
+  "workspaces": []
 }
