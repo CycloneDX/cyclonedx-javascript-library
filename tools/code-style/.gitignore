@@ -1,5 +1,4 @@
 *
 !/.gitignore
 !/package.json
-!/download.js
 !/.npmrc
