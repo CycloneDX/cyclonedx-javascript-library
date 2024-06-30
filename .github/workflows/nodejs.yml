@@ -183,7 +183,7 @@ jobs:
           fi
           echo "::endgroup"
           echo "::group::install deps"
-          npm i --ignore-scripts --include=optional --omit=dev --only=prod --production --loglevel=silly
+          npm i --ignore-scripts --include=optional --omit=dev --only=prod --production --loglevel=silly --no-workspaces
           echo "::endgroup"
           echo "::group::install libxmljs2 "
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
