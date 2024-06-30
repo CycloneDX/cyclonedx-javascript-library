@@ -153,9 +153,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           # do not use caching, use fresh version always, since some deps are not pinned -- since this is a library.
-      - name: bump npm
-        # older versions of npm have strange workspace support...bump it
-        run: npm i -g npm@^10
       - name: setup project
         shell: bash
         env:
@@ -167,13 +164,19 @@ jobs:
           # as long as npm cannot auto-resolve engine-constraints, we need to help here
           case "$NODE_VERSION" in
             '16')
+              # older versions of npm have strange workspace support...bump it
+              npm i -g npm@^9
               dev_requirements="${dev_requirements/ c8 / c8@^9  }"
               ;;
             '14')
+              # older versions of npm have strange workspace support...bump it
+              npm i -g npm@^9
               dev_requirements="${dev_requirements/ c8 / c8@^9  }"
               dev_requirements="${dev_requirements/ npm-run-all2 / npm-run-all2@^5  }"
               ;;
             '14.0.0')
+              # older versions of npm have strange workspace support...bump it
+              npm i -g npm@^9
               dev_requirements="${dev_requirements/ c8 / c8@^8  }"
               dev_requirements="${dev_requirements/ npm-run-all2 / npm-run-all2@^5  }"
               ;;
