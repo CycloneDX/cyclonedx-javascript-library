@@ -15,6 +15,7 @@ build:
     # golang: "1.20"
   jobs:
     pre_build:
+      - npm i --ignore-scripts --loglevel=silly
       - npm --prefix tools/docs-gen i --ignore-scripts --loglevel=silly
       - npm --prefix tools/docs-gen run api-doc
 
