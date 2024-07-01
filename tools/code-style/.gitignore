@@ -2,3 +2,5 @@
 !/.gitignore
 !/package.json
 !/.npmrc
+!/eslint.config.mjs
+!/.license-header.js
