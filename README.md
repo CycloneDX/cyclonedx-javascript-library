@@ -179,8 +179,6 @@ We ship annotated type definitions, so that your IDE and tools may pick up the d
 
 There are also pre-rendered documentations hosted on [readthedocs][link_rtfd].
 
-Additionally, there is a prepared set of configs for [TypeDoc](https://typedoc.org), so that you can build the API documentation from source via `npm run api-doc`.
-
 ## Development & Contributing
 
 Feel free to open issues, bug reports or pull requests.  

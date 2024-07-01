@@ -166,8 +166,6 @@ dist
 !/src/
 !/tsconfig.*
 !/webpack.*
-!/typedoc.*
-!/tsdoc.json
 
 /test/
 /tests/

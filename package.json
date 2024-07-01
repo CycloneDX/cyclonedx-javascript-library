@@ -164,13 +164,10 @@
     "test": "./tests",
     "example": "./examples"
   },
-  "workspaces": [
-    "tools/schema-downloader",
-    "tools/docs-gen",
-    "tools/code-style"
-  ],
   "scripts": {
-    "dev-setup": "npm install --workspaces --include-workspace-root",
+    "dev-setup": "npm i && run-p --aggregate-output -lc dev-setup:*",
+    "dev-setup:code-style": "npm --prefix tools/code-style install",
+    "dev-setup:docs-gen": "npm --prefix tools/docs-gen install",
     "prepublish": "npm run build",
     "prepublishOnly": "run-s -lc build test",
     "build": "run-p --aggregate-output -l build:*",
@@ -180,12 +177,12 @@
     "build:web": "webpack build",
     "prebuild:d": "rimraf dist.d",
     "build:d": "tsc -b ./tsconfig.d.json",
-    "cs-fix": "npm run-script -w tools/code-style cs-fix",
+    "cs-fix": "npm --prefix tools/code-style run-script cs-fix",
     "test": "run-p --aggregate-output -lc test:*",
     "test:node": "c8 mocha -p",
     "test:web": "node -e 'console.log(\"TODO: write web test\")'",
     "test:lint": "tsc --noEmit",
-    "test:standard": "npm run-script -w tools/code-style test",
-    "api-doc": "npm run-script -w tools/docs-gen api-doc"
+    "test:standard": "npm --prefix tools/code-style run-script test",
+    "api-doc": "npm --prefix tools/docs-gen run-script api-doc "
   }
 }

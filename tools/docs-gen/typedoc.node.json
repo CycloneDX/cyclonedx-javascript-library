@@ -1,7 +1,7 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "extends": ["./typedoc.json"],
-  "entryPoints": ["src/index.node.ts"],
   "name": "CycloneDX JavaScript Library - Node",
-  "out": "docs/api/typedoc/node/"
+  "entryPoints": ["../../src/index.node.ts"],
+  "out": "../../docs/api/typedoc/node/"
 }

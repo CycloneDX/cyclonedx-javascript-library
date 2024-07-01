@@ -14,7 +14,6 @@ Install dependencies:
 
 ```shell
 npm run dev-setup
-npm install
 ```
 
 The setup will also build the project.

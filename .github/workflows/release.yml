@@ -98,11 +98,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
-      - name: install build tools
-        run: >
-          npm install
-          --ignore-scripts --include=optional --loglevel=silly
-          -w tools/code-style --include-workspace-root
+      - name: setup project
+        run: |
+          npm install --ignore-scripts --include=optional --loglevel=silly
+          npm --prefix tools/code-style install --ignore-scripts --loglevel=silly
       # no explicit npm build. if a build is required, it should be configured as prepublish/prepublishOnly script of npm.
       - name: login to registries
         run: |

@@ -95,10 +95,9 @@ jobs:
           # cache: "npm"
           # cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: >
-          npm i 
-          --ignore-scripts --loglevel=silly
-          -w tools/code-style --include-workspace-root
+        run: |
+          npm i --ignore-scripts --loglevel=silly
+          npm --prefix tools/code-style i --ignore-scripts --loglevel=silly
       - name: make reports dir
         run: mkdir -p "$REPORTS_DIR"
       - name: test
@@ -106,7 +105,7 @@ jobs:
           npm run --
           test:standard --
           --format checkstyle
-          --output-file "$REPORTS_DIR/eslint.xml"
+          --output-file "$PWD/$REPORTS_DIR/eslint.xml"
       - name: Publish Checkstyle report
         # see https://github.com/Juuxel/publish-checkstyle-report
         uses: Juuxel/publish-checkstyle-report@v1

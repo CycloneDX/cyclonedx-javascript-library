@@ -1,6 +1,7 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "tsconfig": "tsconfig.d.json",
+  "basePath": "../../",
+  "tsconfig": "../../tsconfig.d.json",
   "plugin": [
     "typedoc-plugin-missing-exports"
   ],
