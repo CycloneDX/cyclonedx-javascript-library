@@ -27,6 +27,7 @@ const path = require('path')
  */
 module.exports = {
   root: true,
+
   plugins: [
     /* see https://github.com/lydell/eslint-plugin-simple-import-sort#readme */
     'simple-import-sort',

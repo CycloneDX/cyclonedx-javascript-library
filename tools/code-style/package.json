@@ -22,7 +22,7 @@
     "@cyclonedx/cyclonedx-library-docs-gen": "file:../docs-gen"
   },
   "scripts": {
-    "test": "cd ../..; eslint .",
-    "cs-fix": "cd ../..; eslint --fix ."
+    "test": "eslint --resolve-plugins-relative-to \"$PWD\" ../..",
+    "cs-fix": "eslint --resolve-plugins-relative-to \"$PWD\" --fix ../.."
   }
 }
