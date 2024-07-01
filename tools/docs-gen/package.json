@@ -15,6 +15,5 @@
     "api-doc": "run-p --aggregate-output -lc api-doc:*",
     "api-doc:node": "typedoc --options ../../typedoc.node.json",
     "api-doc:web": "typedoc --options ../../typedoc.web.json"
-  },
-  "workspaces": []
+  }
 }

@@ -24,6 +24,5 @@
   "scripts": {
     "test": "cd ../..; eslint .",
     "cs-fix": "cd ../..; eslint --fix ."
-  },
-  "workspaces": []
+  }
 }
