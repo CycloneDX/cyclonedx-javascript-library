@@ -6,23 +6,23 @@
     "node": ">=20"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "6.21.0",
-    "@typescript-eslint/parser": "6.21.0",
+    "@cyclonedx/cyclonedx-library-docs-gen": "file:../docs-gen",
+    "@eslint/eslintrc": "^3.1.0",
     "eslint": "8.57.0",
-    "eslint-config-love": "43.1.0",
-    "eslint-config-standard": "17.1.0",
+    "eslint-config-love": "53.0.0",
     "eslint-plugin-editorconfig": "4.0.3",
     "eslint-plugin-header": "3.1.1",
     "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-jsdoc": "48.2.8",
-    "eslint-plugin-n": "16.6.2",
-    "eslint-plugin-promise": "6.2.0",
+    "eslint-plugin-jsdoc": "48.5.0",
+    "eslint-plugin-n": "15.7.0",
+    "eslint-plugin-promise": "6.4.0",
     "eslint-plugin-simple-import-sort": "12.1.0",
     "eslint-plugin-tsdoc": "0.3.0",
-    "@cyclonedx/cyclonedx-library-docs-gen": "file:../docs-gen"
+    "globals": "^15.7.0",
+    "typescript-eslint": "7.14.1"
   },
   "scripts": {
-    "test": "eslint --resolve-plugins-relative-to \"$PWD\" ../..",
-    "cs-fix": "eslint --resolve-plugins-relative-to \"$PWD\" --fix ../.."
+    "test": "eslint ../..",
+    "cs-fix": "eslint --fix ../.."
   }
 }

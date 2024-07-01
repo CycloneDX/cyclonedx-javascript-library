@@ -16,3 +16,5 @@ limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
+
+export default from './tools/code-style/eslint.config.mjs'
