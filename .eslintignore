@@ -2,7 +2,7 @@
 
 # generated files: dist and docs
 /reports/**
-/dist/**
+q/dist/**
 /dist.*/**
 /docs/api/**
 /docs/_build/**
@@ -13,8 +13,10 @@
 
 !/src/**
 
+/tools/**
 !/tools/schema-downloader/**
 
+/.license-header.js
 
 **/.idea/**
 **/.vscode/**

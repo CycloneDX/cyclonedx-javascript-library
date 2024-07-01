@@ -86,7 +86,7 @@ module.exports = {
       ],
       extends: [
         /* see https://github.com/mightyiam/eslint-config-love */
-        'love'
+        './tools/code-style/node_modules/eslint-config-love'
       ],
       rules: {
         // region override rules from plugin 'standard-with-typescript'
@@ -131,7 +131,7 @@ module.exports = {
       ],
       extends: [
         /* see https://www.npmjs.com/package/eslint-config-standard */
-        'standard',
+        './tools/code-style/node_modules/eslint-config-standard',
         /* see https://github.com/gajus/eslint-plugin-jsdoc */
         'plugin:jsdoc/recommended'
       ],
