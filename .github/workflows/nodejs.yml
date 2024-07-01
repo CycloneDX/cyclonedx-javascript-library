@@ -101,7 +101,7 @@ jobs:
       - name: test
         run: >
           npm run --
-          test:standard --
+          test:standard
           --format checkstyle
           --output-file "$REPORTS_DIR/eslint.xml"
       - name: Publish Checkstyle report
@@ -452,6 +452,6 @@ jobs:
           # cache: "npm"
           # cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: npm install--ignore-scripts --loglevel=silly
+        run: npm install --ignore-scripts --loglevel=silly
       - name: api-doc ${{ matrix.target }}
         run: npm run api-doc:${{ matrix.target }}
