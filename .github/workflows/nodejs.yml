@@ -95,10 +95,7 @@ jobs:
           # cache: "npm"
           # cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: >
-          npm i 
-          --ignore-scripts --loglevel=silly
-          -w tools/code-style --include-workspace-root
+        run: npm i --ignore-scripts --loglevel=silly
       - name: make reports dir
         run: mkdir -p "$REPORTS_DIR"
       - name: test
@@ -179,11 +176,11 @@ jobs:
           ## !! dont install all the dev-packages, especially since some are not runnable on node 14.0.0
           if [[ -n "$dep_constraints" ]]
             then
-            npm add --workspaces=false --ignore-scripts --omit=dev --only=prod --production --loglevel=silly --save $dep_constraints
+            npm add --ignore-scripts --omit=dev --only=prod --production --loglevel=silly --save $dep_constraints
           fi
           echo "::endgroup::"
           echo "::group::install deps"
-          npm i --workspaces=false --ignore-scripts --include=optional --omit=dev --only=prod --production --loglevel=silly
+          npm i --ignore-scripts --include=optional --omit=dev --only=prod --production --loglevel=silly
           echo "::endgroup::"
           echo "::group::install libxmljs2 "
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
@@ -191,7 +188,7 @@ jobs:
           echo "::endgroup::"
           echo "::group::install dev_requirements"
           ## install the needed dev-deps
-          npm i --workspaces=false --ignore-scripts --loglevel=silly --no-save $dev_requirements
+          npm i --ignore-scripts --loglevel=silly --no-save $dev_requirements
           echo "::endgroup::"
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
@@ -455,11 +452,6 @@ jobs:
           # cache: "npm"
           # cache-dependency-path: "**/package-lock.json"
       - name: setup project
-        run: >
-          npm install
-          --ignore-scripts --loglevel=silly 
-          -w tools/docs-gen --include-workspace-root
+        run: npm install--ignore-scripts --loglevel=silly
       - name: api-doc ${{ matrix.target }}
-        run: >
-          npm run -w tools/docs-gen
-          api-doc:${{ matrix.target }}
+        run: npm run api-doc:${{ matrix.target }}

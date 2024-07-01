@@ -94,6 +94,19 @@
     "@types/mocha": "^10",
     "@types/node": "ts5.4",
     "@types/spdx-expression-parse": "^3",
+    "@typescript-eslint/eslint-plugin": "6.21.0",
+    "@typescript-eslint/parser": "6.21.0",
+    "eslint": "8.57.0",
+    "eslint-config-love": "43.1.0",
+    "eslint-config-standard": "17.1.0",
+    "eslint-plugin-editorconfig": "4.0.3",
+    "eslint-plugin-header": "3.1.1",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-jsdoc": "48.2.8",
+    "eslint-plugin-n": "16.6.2",
+    "eslint-plugin-promise": "6.2.0",
+    "eslint-plugin-simple-import-sort": "12.1.0",
+    "eslint-plugin-tsdoc": "0.3.0",
     "c8": "^8||^9||^10",
     "deepmerge": "^4.2.2",
     "fast-glob": "^3.3.1",
@@ -104,7 +117,9 @@
     "typescript": "5.4.5",
     "webpack": "5.92.1",
     "webpack-cli": "5.1.4",
-    "webpack-node-externals": "3.0.0"
+    "webpack-node-externals": "3.0.0",
+    "typedoc": "^0.25.0",
+    "typedoc-plugin-missing-exports": "^2.0.1"
   },
   "browser": "./dist.web/lib.js",
   "types": "./dist.d/index.node.d.ts",
@@ -164,13 +179,7 @@
     "test": "./tests",
     "example": "./examples"
   },
-  "workspaces": [
-    "tools/schema-downloader",
-    "tools/docs-gen",
-    "tools/code-style"
-  ],
   "scripts": {
-    "dev-setup": "npm install --workspaces --include-workspace-root",
     "prepublish": "npm run build",
     "prepublishOnly": "run-s -lc build test",
     "build": "run-p --aggregate-output -l build:*",
@@ -180,12 +189,14 @@
     "build:web": "webpack build",
     "prebuild:d": "rimraf dist.d",
     "build:d": "tsc -b ./tsconfig.d.json",
-    "cs-fix": "npm run-script -w tools/code-style cs-fix",
     "test": "run-p --aggregate-output -lc test:*",
     "test:node": "c8 mocha -p",
     "test:web": "node -e 'console.log(\"TODO: write web test\")'",
     "test:lint": "tsc --noEmit",
-    "test:standard": "npm run-script -w tools/code-style test",
-    "api-doc": "npm run-script -w tools/docs-gen api-doc"
+    "test:standard": "eslint .",
+    "cs-fix": "eslint --fix .",
+    "api-doc": "run-p --aggregate-output -lc api-doc:*",
+    "api-doc:node": "typedoc --options typedoc.node.json",
+    "api-doc:web": "typedoc --options typedoc.web.json"
   }
 }

@@ -99,10 +99,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: install build tools
-        run: >
-          npm install
-          --ignore-scripts --include=optional --loglevel=silly
-          -w tools/code-style --include-workspace-root
+        run: npm install --ignore-scripts --include=optional --loglevel=silly
       # no explicit npm build. if a build is required, it should be configured as prepublish/prepublishOnly script of npm.
       - name: login to registries
         run: |
