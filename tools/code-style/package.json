@@ -3,7 +3,7 @@
   "name": "@cyclonedx/cyclonedx-library-code-style",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=25"
+    "node": ">=20"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "6.21.0",
