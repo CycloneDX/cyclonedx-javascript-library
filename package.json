@@ -177,12 +177,12 @@
     "build:web": "webpack build",
     "prebuild:d": "rimraf dist.d",
     "build:d": "tsc -b ./tsconfig.d.json",
-    "cs-fix": "npm --prefix tools/code-style run-script cs-fix",
+    "cs-fix": "npm --prefix tools/code-style run-script cs-fix --",
     "test": "run-p --aggregate-output -lc test:*",
     "test:node": "c8 mocha -p",
     "test:web": "node -e 'console.log(\"TODO: write web test\")'",
     "test:lint": "tsc --noEmit",
-    "test:standard": "npm --prefix tools/code-style run-script test",
-    "api-doc": "npm --prefix tools/docs-gen run-script api-doc "
+    "test:standard": "npm --prefix tools/code-style test --",
+    "api-doc": "npm --prefix tools/docs-gen run-script api-doc --"
   }
 }
