@@ -17,7 +17,7 @@ build:
     pre_build:
       - npm i --ignore-scripts --loglevel=silly
       - npm --prefix tools/docs-gen i --ignore-scripts --loglevel=silly
-      - npm tools/docs-gen run api-doc
+      - npm run api-doc
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
