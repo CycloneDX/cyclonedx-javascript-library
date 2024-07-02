@@ -159,6 +159,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           # do not use caching, use fresh version always, since some deps are not pinned -- since this is a library.
       - name: bump npm
+        shell: bash
         env:
           NODE_VERSION: '${{ matrix.node-version }}'
         run:
