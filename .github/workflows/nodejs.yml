@@ -194,13 +194,12 @@ jobs:
               dev_constraints="${dev_constraints/ npm-run-all2 / npm-run-all2@^5 }"
               ;;
             '14.0.0')
-              npm_config_engine_strict=false
               dev_constraints="${dev_constraints/ c8 / c8@^8 }"
               dev_constraints="${dev_constraints/ npm-run-all2 / npm-run-all2@^5 }"
               ;;
           esac
           echo "::group::install prod"
-          npm i --ignore-scripts --include=optional --omit=dev --only=prod --production --loglevel=silly
+          npm_config_engine_strict=false npm i --ignore-scripts --include=optional --omit=dev --only=prod --production --loglevel=silly
           echo "::endgroup::"
           echo "::group::install dev"
           npm i --ignore-scripts --loglevel=silly --no-save $dev_constraints
