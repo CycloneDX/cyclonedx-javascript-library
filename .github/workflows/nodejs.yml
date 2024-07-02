@@ -197,7 +197,7 @@ jobs:
               dev_constraints+=' c8@^8 npm-run-all2@^5'
               ;;
           esac
-          if [[ -z "$dev_constraints" ]]
+          if [[ -n "$dev_constraints" ]]
           then 
             echo "::group::install dev-devs"
             npm i --ignore-scripts --loglevel=silly --no-save $dev_constraints
