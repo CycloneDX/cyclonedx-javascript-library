@@ -3,3 +3,4 @@
 !/package.json
 !/download.js
 !/.npmrc
+!/eslint.config.mjs

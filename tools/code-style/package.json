@@ -7,7 +7,9 @@
   },
   "dependencies": {
     "@cyclonedx/cyclonedx-library-docs-gen": "file:../docs-gen",
-    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/eslintrc": "3.1.0",
+    "@eslint/js": "9.6.0",
+    "@types/eslint": "^8.56.10",
     "eslint": "8.57.0",
     "eslint-config-love": "53.0.0",
     "eslint-plugin-editorconfig": "4.0.3",
@@ -22,7 +24,7 @@
     "typescript-eslint": "7.14.1"
   },
   "scripts": {
-    "test": "eslint ../..",
-    "cs-fix": "eslint --fix ../.."
+    "test": "cd ../..; eslint .",
+    "cs-fix": "cd ../..; eslint --fix ."
   }
 }

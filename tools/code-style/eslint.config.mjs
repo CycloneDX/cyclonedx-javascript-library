@@ -20,152 +20,80 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import plugin_simpleImportSort from 'eslint-plugin-simple-import-sort'
 import plugin_header from 'eslint-plugin-header'
 import plugin_editorconfig from 'eslint-plugin-editorconfig'
+import config_love from 'eslint-config-love'
 import globals from 'globals'
+import plugin_js from '@eslint/js'
 import plugin_tsdoc from 'eslint-plugin-tsdoc'
 import plugin_jsdoc from 'eslint-plugin-jsdoc'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import js from '@eslint/js'
-import { FlatCompat } from '@eslint/eslintrc'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all
-})
-const projectRootPath = path.dirname(path.dirname(__dirname))
+const projectRoot = path.dirname(path.dirname(__dirname))
 
+/* eslint-disable jsdoc/valid-types */
+
+const licenseHeaderFile = path.join(projectRoot, '.license-header.js')
+
+/**
+ * @type {import('@types/eslint').Linter.FlatConfig[]}
+ * @see {@link https://eslint.org/}
+ */
 export default [
   {
-    ignores: [
-      '**/node_modules/**/*',
-      'reports/**/*',
-      'q/dist/**/*',
-      'dist.*/**/*',
-      'docs/api/**/*',
-      'docs/_build/**/*',
-      'docs/.venv/**/*',
-      'examples/**/dist/**/*',
-      'res/schema/',
-      '!src/**/*',
-      'tools/**/*',
-      '!tools/schema-downloader/**/*',
-      '.license-header.js',
-      '**/.idea/**/*',
-      '**/.vscode/**/*',
-    ],
-  },
-  ...compat.extends('plugin:editorconfig/all'),
-  {
+    name: 'general',
     plugins: {
       'simple-import-sort': plugin_simpleImportSort,
       'header': plugin_header,
       'editorconfig': plugin_editorconfig,
     },
-    languageOptions: {
-      globals: {
-        ...globals.commonjs,
-        ...globals.browser,
-        ...globals.node,
-      },
-    },
     rules: {
+      ...plugin_editorconfig.configs.all.rules,
       'import/order': 'off',
       'sort-imports': 'off',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
-      'header/header': [
-        'error',
-        path.join(__dirname, '.license-header.js'),
-      ],
+      'header/header': ['error', licenseHeaderFile],
       'editorconfig/indent': 'off',
     },
   },
   {
-    files: ['**/*.node.*'],
-    languageOptions: {
-      globals: {
-        ...Object.fromEntries(Object.entries(globals.browser).map(([key]) => [key, 'off'])),
-        ...globals.node,
-      },
-    },
+    files: ['**/*.{js,mjs,cjs}'],
+    rules: plugin_js.configs.recommended.rules,
   },
   {
-    files: ['**/*.web.*'],
+    ...config_love,
+    files: ['**/*.ts']
+  },
+  {
+    files: ['**/*!(.{node,web}).{js,mjs,cjs}'],
     languageOptions: {
       globals: {
-        ...Object.fromEntries(Object.entries(globals.node).map(([key]) => [key, 'off'])),
         ...globals.browser,
-      },
-    },
+        ...globals.node
+      }
+    }
   },
   {
-    files: [
-      '**/*.spec.*',
-      '**/*.test.*'
-    ],
+    files: ['**/*.node.{js,mjs,cjs}'],
     languageOptions: {
-      globals: {
-        ...globals.mocha,
-      },
-    },
+      globals: globals.node
+    }
   },
   {
-    ...await import('eslint-config-love'),
-    files: ['**/*.ts'],
-  },
-  {
-    files: ['**/*.ts'],
-    plugins: {
-      plugin_tsdoc,
-    },
+    files: ['**/*.web.{js,mjs,cjs}'],
     languageOptions: {
-      parserOptions: {
-        project: path.join(projectRootPath, 'tsconfig.json'),
-      },
-    },
-    rules: {
-      '@typescript-eslint/consistent-type-imports': ['error', {
-        fixStyle: 'separate-type-imports',
-      }],
-      '@typescript-eslint/unbound-method': ['error', {
-        ignoreStatic: true,
-      }],
-      'tsdoc/syntax': 'error',
-    },
-  },
-  {
-    files: ['examples/node/typescript/example.cjs/src/*.ts'],
-    languageOptions: {
-      parserOptions: {
-        project: path.join(projectRootPath, 'examples', 'node', 'typescript', 'example.cjs', 'tsconfig.json')
-      },
-    },
-  }, {
-    files: ['examples/node/typescript/example.mjs/src/*.ts'],
-    languageOptions: {
-      parserOptions: {
-        project: path.join(projectRootPath, 'examples', 'node', 'typescript', 'example.mjs', 'tsconfig.json'
-        )
-      },
-    },
+      globals: globals.browser
+    }
   },
   {
     ...plugin_jsdoc.configs['flat/recommended'],
-    files: [
-      '**/*.js',
-      '**/*.mjs',
-      '**/*.cjs'
-    ],
+    files: ['**/*.{js,mjs,cjs}'],
   },
   {
-    files: [
-      '**/*.js',
-      '**/*.mjs',
-      '**/*.cjs'
-    ],
+    name: 'jsdoc-override',
+    files: ['**/*.{js,mjs,cjs}'],
     plugins: {
       'jsdoc': plugin_jsdoc,
     },
@@ -196,6 +124,37 @@ export default [
       'jsdoc/require-yields': 0,
       'jsdoc/require-yields-check': 'error',
       'jsdoc/sort-tags': 'warn',
+    }
+  },
+  {
+    files: ['**/*.ts'],
+    plugins: {
+      'tsdoc': plugin_tsdoc,
     },
+    languageOptions: {
+      parserOptions: {
+        project: false,
+      },
+    },
+    rules: {
+      '@typescript-eslint/consistent-type-imports': ['error', {
+        fixStyle: 'separate-type-imports',
+      }],
+      '@typescript-eslint/unbound-method': ['error', {
+        ignoreStatic: true,
+      }],
+      'tsdoc/syntax': 'error',
+    },
+  },
+  {
+    // global ignores must have nothing but a "ignores" property!
+    // see https://github.com/eslint/eslint/discussions/17429#discussioncomment-6579229
+    ignores: [
+      '**/.idea/',
+      '**/.vscode/',
+      licenseHeaderFile,
+    ],
   }
 ]
+
+export { globals }

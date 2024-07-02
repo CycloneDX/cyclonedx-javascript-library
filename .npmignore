@@ -175,7 +175,7 @@ dist
 /examples/
 
 /tools/
-/eslint.*
+eslint.*
 
 /reports/
 /CI_reports/
