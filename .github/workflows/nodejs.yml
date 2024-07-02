@@ -158,6 +158,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           # do not use caching, use fresh version always, since some deps are not pinned -- since this is a library.
+      - name: bump npm
+        run: npm update -g npm
       - name: setup project
         shell: bash
         env:
@@ -183,7 +185,6 @@ jobs:
           echo "::endgroup::"
           echo "::group::install dev-devs"
           npm i --ignore-scripts --loglevel=silly --no-save $dev_constraints
-          npm i --ignore-scripts --loglevel=silly # npm7 might have omitted some dev-deps
           echo "::endgroup::"
           echo "::group::rebuild libxmljs2 "
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
