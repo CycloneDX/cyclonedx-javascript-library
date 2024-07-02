@@ -203,9 +203,6 @@ jobs:
           echo "::group::install prod"
           npm i --omit=dev --ignore-scripts --loglevel=silly --no-save $dev_constraints
           echo "::endgroup::"
-          echo "::group::install dev_constraints"
-          npm i --omit=dev --ignore-scripts --loglevel=silly --no-save
-          echo "::endgroup::"
           echo "::group::rebuild libxmljs2"
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
           npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
