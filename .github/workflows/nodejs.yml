@@ -157,22 +157,26 @@ jobs:
           NODE_VERSION: '${{ matrix.node-version }}'
         run: |
           set -ex
-          dep_constraints='mocha fast-glob'
+          dev_constraints='mocha fast-glob'
           # as long as npm cannot auto-resolve engine-constraints, we need to help here
           case "$NODE_VERSION" in
             '16')
-              dep_constraints+=' c8@^9'
+              dev_constraints+=' c8@^9'
               ;;
             '14')
-              dep_constraints+=' c8@^9 npm-run-all2@^5'
+              dev_constraints+=' c8@^9 npm-run-all2@^5'
               ;;
             '14.0.0')
-              dep_constraints+=' c8@^8 npm-run-all2@^5'
+              dev_constraints+=' c8@^8 npm-run-all2@^5'
               ;;
           esac
           echo "::endgroup::"
           echo "::group::install deps"
-          npm i --ignore-scripts --loglevel=silly --no-save $dep_constraints
+          npm i --ignore-scripts --omit=dev --only=prod --production --loglevel=silly
+          echo "::endgroup::"
+          echo "::group::install dev-devs"
+          npm i --ignore-scripts --loglevel=silly --no-save $dev_constraints
+          npm i --ignore-scripts --loglevel=silly # npm7 might have omitted some dev-deps
           echo "::endgroup::"
           echo "::group::rebuild libxmljs2 "
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
