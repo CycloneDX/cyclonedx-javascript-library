@@ -164,6 +164,7 @@ jobs:
           NODE_VERSION: '${{ matrix.node-version }}'
         run:
           case "$NODE_VERSION" in
+          '20')
           '18')
             npm i -g npm@^10
             ;;
