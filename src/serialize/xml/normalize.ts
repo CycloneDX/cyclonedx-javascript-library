@@ -639,7 +639,7 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
       : Array.from(data)
 
     if (licenses.length > 1) {
-      const expressions = licenses.filter(l => l instanceof LicenseExpression) as Models.LicenseExpression[]
+      const expressions = licenses.filter(l => l instanceof LicenseExpression)
       if (expressions.length > 0) {
         // could have thrown {@link RangeError} when there is more than one only {@link Models.LicenseExpression | LicenseExpression}.
         // but let's be graceful and just normalize to the most relevant choice: any expression
