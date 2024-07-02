@@ -91,7 +91,7 @@
     "xmlbuilder2": "^3.0.2"
   },
   "devDependencies": {
-    "@types/mocha": "10.0.7",
+    "@types/mocha": "^10",
     "@types/node": "ts5.4",
     "@types/spdx-expression-parse": "^3",
     "c8": "^8||^9||^10",
