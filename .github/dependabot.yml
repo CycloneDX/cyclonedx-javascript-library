@@ -3,7 +3,11 @@
 version: 2
 updates:
   - package-ecosystem: 'npm'
-    directory: '/'
+    directories:
+      - '/'
+      - '/tools/code-style'
+      - '/tools/docs-gen'
+      - '/tools/schema-downloader'
     schedule:
       interval: 'weekly'
       day: 'saturday'
