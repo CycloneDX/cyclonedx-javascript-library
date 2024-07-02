@@ -174,7 +174,7 @@ jobs:
             npm i -g npm@^8
             ;;
           '14.0.0')
-            npm i -g npm@^7
+            npm i -g npm@^8
             ;;
           esac
       - name: setup project
