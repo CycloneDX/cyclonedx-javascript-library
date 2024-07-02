@@ -23,9 +23,11 @@ updates:
         patterns:
           - 'eslint'
           - '@eslint/*'
-          - '@types/eslint'
+          - '*-eslint'
           - 'eslint-*'
+          - '@types/eslint'
           - '@types/eslint-*'
+          - '@types/*-eslint'
           - '@eslint-community/*'
           - '@typescript-eslint/*'
       spdx:

@@ -166,8 +166,6 @@ dist
 !/src/
 !/tsconfig.*
 !/webpack.*
-!/typedoc.*
-!/tsdoc.json
 
 /test/
 /tests/
@@ -177,6 +175,7 @@ dist
 /examples/
 
 /tools/
+eslint.*
 
 /reports/
 /CI_reports/

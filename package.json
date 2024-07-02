@@ -99,7 +99,7 @@
     "fast-glob": "^3.3.1",
     "mocha": "10.5.2",
     "npm-run-all2": "^5||^6",
-    "rimraf": "^5.0.7",
+    "rimraf": "^4||^5",
     "ts-loader": "9.5.1",
     "typescript": "5.4.5",
     "webpack": "5.92.1",
@@ -164,13 +164,10 @@
     "test": "./tests",
     "example": "./examples"
   },
-  "workspaces": [
-    "tools/schema-downloader",
-    "tools/docs-gen",
-    "tools/code-style"
-  ],
   "scripts": {
-    "dev-setup": "npm install --workspaces --include-workspace-root",
+    "dev-setup": "npm i && run-p --aggregate-output -lc dev-setup:*",
+    "dev-setup:code-style": "npm --prefix tools/code-style install",
+    "dev-setup:docs-gen": "npm --prefix tools/docs-gen install",
     "prepublish": "npm run build",
     "prepublishOnly": "run-s -lc build test",
     "build": "run-p --aggregate-output -l build:*",
@@ -180,12 +177,14 @@
     "build:web": "webpack build",
     "prebuild:d": "rimraf dist.d",
     "build:d": "tsc -b ./tsconfig.d.json",
-    "cs-fix": "npm run-script -w tools/code-style cs-fix",
     "test": "run-p --aggregate-output -lc test:*",
     "test:node": "c8 mocha -p",
     "test:web": "node -e 'console.log(\"TODO: write web test\")'",
     "test:lint": "tsc --noEmit",
-    "test:standard": "npm run-script -w tools/code-style test",
-    "api-doc": "npm run-script -w tools/docs-gen api-doc"
+    "test:standard": "npm --prefix tools/code-style exec -- eslint .",
+    "cs-fix": "npm --prefix tools/code-style exec -- eslint --fix .",
+    "api-doc": "run-p --aggregate-output -lc api-doc:*",
+    "api-doc:node": "npm --prefix tools/docs-gen exec -- typedoc --options ./typedoc.node.json",
+    "api-doc:web": "npm --prefix tools/docs-gen exec -- typedoc --options ./typedoc.web.json"
   }
 }

@@ -13,7 +13,7 @@ it requires node>=18 on dev-time.
 Install dependencies:
 
 ```shell
-npm install --workspaces --include-workspace-root
+npm run dev-setup
 ```
 
 The setup will also build the project.
