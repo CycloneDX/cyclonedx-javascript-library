@@ -128,7 +128,7 @@ See the shipped `package.json` for version constraints.
   * [`ajv-formats-draft2019`](https://www.npmjs.com/package/ajv-formats-draft2019)
 * Validation of XML on _Node.js_ requires all of:
   * [`libxmljs2`](https://www.npmjs.com/package/libxmljs2)  
-  * the system must meet the requirements for [`node-gyp`](https://github.com/TooTallNate/node-gyp#installation)
+  * the system might need to meet the requirements for [`node-gyp`](https://github.com/TooTallNate/node-gyp#installation), in certain cases.
 
 ## Usage
 
