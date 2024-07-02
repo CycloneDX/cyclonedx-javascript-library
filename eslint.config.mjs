@@ -19,6 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+
 import { default as baseCfg, globals } from './tools/code-style/eslint.config.mjs'
 
 const __filename = fileURLToPath(import.meta.url)

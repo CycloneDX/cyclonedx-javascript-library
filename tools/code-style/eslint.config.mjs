@@ -17,16 +17,17 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import plugin_simpleImportSort from 'eslint-plugin-simple-import-sort'
-import plugin_header from 'eslint-plugin-header'
-import plugin_editorconfig from 'eslint-plugin-editorconfig'
-import config_love from 'eslint-config-love'
-import globals from 'globals'
-import plugin_js from '@eslint/js'
-import plugin_tsdoc from 'eslint-plugin-tsdoc'
-import plugin_jsdoc from 'eslint-plugin-jsdoc'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+import plugin_js from '@eslint/js'
+import config_love from 'eslint-config-love'
+import plugin_editorconfig from 'eslint-plugin-editorconfig'
+import plugin_header from 'eslint-plugin-header'
+import plugin_jsdoc from 'eslint-plugin-jsdoc'
+import plugin_simpleImportSort from 'eslint-plugin-simple-import-sort'
+import plugin_tsdoc from 'eslint-plugin-tsdoc'
+import globals from 'globals'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
