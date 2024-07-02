@@ -174,7 +174,7 @@ jobs:
             npm i -g npm@^8
             ;;
           '14.0.0')
-            npm i -g npm@^8
+            npm i -g npm@^7
             ;;
           esac
       - name: setup project
@@ -187,23 +187,23 @@ jobs:
           # as long as npm cannot auto-resolve engine-constraints, we need to help here
           case "$NODE_VERSION" in
             '16')
-              dev_constraints+=' c8@^9'
+              dev_constraints+=' c8@^9 npm-run-all rimraf'
               ;;
             '14')
-              dev_constraints+=' c8@^9 npm-run-all2@^5'
+              dev_constraints+=' c8@^9 npm-run-all2@^5 rimraf'
               ;;
             '14.0.0')
               dev_constraints+=' c8@^8 npm-run-all2@^5 rimraf@^4'
               ;;
+            *)
+              dev_constraints+=' c8 npm-run-all2 rimraf'
+              ;;
           esac
-          if [[ -n "$dev_constraints" ]]
-          then 
-            echo "::group::install dev_constraints"
-            npm i --ignore-scripts --loglevel=silly --no-save $dev_constraints
-            echo "::endgroup::"
-          fi
+          echo "::group::install dev_constraints"
+          npm i --omit=dev --only=prod --production --ignore-scripts --loglevel=silly --no-save $dev_constraints
+          echo "::endgroup::"
           echo "::group::install deps"
-          npm i --ignore-scripts --loglevel=silly
+          npm i --omit=dev --only=prod --production --ignore-scripts --loglevel=silly
           echo "::endgroup::"
           echo "::group::rebuild libxmljs2 "
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
