@@ -20,6 +20,6 @@
     "eslint-plugin-simple-import-sort": "12.1.0",
     "eslint-plugin-tsdoc": "0.3.0",
     "globals": "^15.7.0",
-    "typescript-eslint": "7.14.1"
+    "typescript-eslint": "7.15.0"
   }
 }
