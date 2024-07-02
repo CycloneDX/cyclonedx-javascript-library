@@ -99,6 +99,9 @@ jobs:
           echo "::group::install deps"
           npm i --ignore-scripts --loglevel=silly
           echo "::endgroup::"
+          echo "::group::install docs-gen deps"
+          npm --prefix tools/docs-gen i --ignore-scripts --loglevel=silly
+          echo "::endgroup::"
           echo "::group::install code-style deps"
           npm --prefix tools/code-style i --ignore-scripts --loglevel=silly
           echo "::endgroup::"

@@ -6,7 +6,6 @@
     "node": ">=20"
   },
   "dependencies": {
-    "@cyclonedx/cyclonedx-library-docs-gen": "file:../docs-gen",
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.6.0",
     "@types/eslint": "^8.56.10",
