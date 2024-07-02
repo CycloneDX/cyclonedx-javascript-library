@@ -10,10 +10,12 @@
     "**/*.cache/**",
     "{,CI_}reports/**",
     "test{,s}/**",
+    "tools/**",
     "**/{ava,babel,nyc}.config.{js,cjs,mjs}",
     "**/jest.config.{js,cjs,mjs,ts}",
     "**/{karma,rollup,webpack}.config.js",
-    "**/.{eslint,mocha}rc.{js,cjs}"
+    "**/.{eslint,mocha}rc.{js,cjs,mjs}",
+    "**/eslint.config.{js,cjs,mjs}"
   ],
   "reporter": ["text", "clover", "html"],
   "reporterOptions": {
