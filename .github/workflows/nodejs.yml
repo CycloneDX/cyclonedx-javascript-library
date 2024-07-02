@@ -158,38 +158,25 @@ jobs:
         run: |
           set -ex
           dep_constraints=''
-          dev_requirements=' c8 mocha npm-run-all2 fast-glob '
           # as long as npm cannot auto-resolve engine-constraints, we need to help here
           case "$NODE_VERSION" in
             '16')
-              dev_requirements="${dev_requirements/ c8 / c8@^9  }"
+              dep_constraints+=' c8@^9'
               ;;
             '14')
-              dev_requirements="${dev_requirements/ c8 / c8@^9  }"
-              dev_requirements="${dev_requirements/ npm-run-all2 / npm-run-all2@^5  }"
+              dep_constraints+=' c8@^9 npm-run-all2@^5'
               ;;
             '14.0.0')
-              dev_requirements="${dev_requirements/ c8 / c8@^8  }"
-              dev_requirements="${dev_requirements/ npm-run-all2 / npm-run-all2@^5  }"
+              dep_constraints+=' c8@^8 npm-run-all2@^5'
               ;;
           esac
-          echo "::group::install dep_constraints"
-          ## !! dont install all the dev-packages, especially since some are not runnable on node 14.0.0
-          if [[ -n "$dep_constraints" ]]
-            then
-            npm add --ignore-scripts --omit=dev --only=prod --production --loglevel=silly --save $dep_constraints
-          fi
           echo "::endgroup::"
           echo "::group::install deps"
-          npm i --ignore-scripts --include=optional --omit=dev --only=prod --production --loglevel=silly
+          npm i --ignore-scripts --include=optional --loglevel=silly --no-save $dep_constraints
           echo "::endgroup::"
-          echo "::group::install libxmljs2 "
+          echo "::group::rebuild libxmljs2 "
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
           npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
-          echo "::endgroup::"
-          echo "::group::install dev_requirements"
-          ## install the needed dev-deps
-          npm i --ignore-scripts --loglevel=silly --no-save $dev_requirements
           echo "::endgroup::"
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
@@ -204,7 +191,7 @@ jobs:
       - name: collect coverage
         if: ${{ failure() || success() }}
         run: >
-          node -- node_modules/c8/bin/c8.js
+          npm exec -- c8
           report
           --reporter clover
           --reports-dir '${{ env.REPORTS_DIR }}/coverage/${{ matrix.os }}_node${{ matrix.node-version }}'
