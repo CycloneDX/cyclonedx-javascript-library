@@ -159,7 +159,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           # do not use caching, use fresh version always, since some deps are not pinned -- since this is a library.
       - name: bump npm
-        if: ${{ false }}
         shell: bash
         env:
           NODE_VERSION: '${{ matrix.node-version }}'
@@ -169,13 +168,13 @@ jobs:
             npm i -g npm@^10
             ;;
           '16')
-            npm i -g npm@^10
+            npm i -g npm@^9
             ;;
           '14')
-            npm i -g npm
+            npm i -g npm@^8
             ;;
           '14.0.0')
-            npm i -g npm
+            npm i -g npm@^8
             ;;
           esac
       - name: setup project
