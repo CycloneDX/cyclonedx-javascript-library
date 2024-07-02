@@ -159,6 +159,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           # do not use caching, use fresh version always, since some deps are not pinned -- since this is a library.
       - name: bump npm
+        if: ${{ false }}
         shell: bash
         env:
           NODE_VERSION: '${{ matrix.node-version }}'
@@ -168,13 +169,13 @@ jobs:
             npm i -g npm@^10
             ;;
           '16')
-            npm i -g npm@^9
+            npm i -g npm@^10
             ;;
           '14')
-            npm i -g npm@^8
+            npm i -g npm
             ;;
           '14.0.0')
-            npm i -g npm@^7
+            npm i -g npm
             ;;
           esac
       - name: setup project
@@ -197,11 +198,11 @@ jobs:
               ;;
           esac
           echo "::endgroup::"
-          echo "::group::install deps"
-          npm i --ignore-scripts --omit=dev --only=prod --production --loglevel=silly
-          echo "::endgroup::"
           echo "::group::install dev-devs"
           npm i --ignore-scripts --loglevel=silly --no-save $dev_constraints
+          echo "::endgroup::"
+          echo "::group::install deps"
+          npm i --ignore-scripts --omit=dev --only=prod --production --loglevel=silly
           echo "::endgroup::"
           echo "::group::rebuild libxmljs2 "
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
