@@ -3,11 +3,6 @@
   "extends": ["./tools/docs-gen/tsdoc.json"],
   "tagDefinitions": [
     {
-      "tagName": "@since",
-      "syntaxKind": "block",
-      "allowMultiple": false
-    },
-    {
       "tagName": "@TODO",
       "syntaxKind": "block",
       "allowMultiple": true
