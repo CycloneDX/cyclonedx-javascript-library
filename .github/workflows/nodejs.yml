@@ -157,7 +157,7 @@ jobs:
           NODE_VERSION: '${{ matrix.node-version }}'
         run: |
           set -ex
-          dep_constraints=''
+          dep_constraints='mocha'
           # as long as npm cannot auto-resolve engine-constraints, we need to help here
           case "$NODE_VERSION" in
             '16')
