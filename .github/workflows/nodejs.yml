@@ -199,7 +199,6 @@ jobs:
           esac
           if [[ -z "$dev_constraints" ]]
           then 
-            echo "::endgroup::"
             echo "::group::install dev-devs"
             npm i --ignore-scripts --loglevel=silly --no-save $dev_constraints
             echo "::endgroup::"
