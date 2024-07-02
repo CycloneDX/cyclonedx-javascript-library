@@ -184,7 +184,7 @@ jobs:
           NODE_VERSION: '${{ matrix.node-version }}'
         run: |
           set -ex
-          dev_constraints='mocha fast-glob'
+          dev_constraints=''
           # as long as npm cannot auto-resolve engine-constraints, we need to help here
           case "$NODE_VERSION" in
             '16')
@@ -197,10 +197,13 @@ jobs:
               dev_constraints+=' c8@^8 npm-run-all2@^5'
               ;;
           esac
-          echo "::endgroup::"
-          echo "::group::install dev-devs"
-          npm i --ignore-scripts --loglevel=silly --no-save $dev_constraints
-          echo "::endgroup::"
+          if [[ -z "$dev_constraints" ]]
+          then 
+            echo "::endgroup::"
+            echo "::group::install dev-devs"
+            npm i --ignore-scripts --loglevel=silly --no-save $dev_constraints
+            echo "::endgroup::"
+          fi
           echo "::group::install deps"
           npm i --ignore-scripts --loglevel=silly
           echo "::endgroup::"
