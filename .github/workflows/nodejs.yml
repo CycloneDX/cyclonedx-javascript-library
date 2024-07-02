@@ -201,7 +201,7 @@ jobs:
             '14.0.0')
               dev_constraints="${dev_constraints/ c8 / c8@^8 }"
               dev_constraints="${dev_constraints/ npm-run-all2 / npm-run-all2@^5 }"
-              npm_config_engine_strict=false
+              export npm_config_engine_strict=false
               ;;
           esac
           echo "::group::install prod"
