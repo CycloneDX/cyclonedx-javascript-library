@@ -193,7 +193,7 @@ jobs:
               dev_constraints+=' c8@^9 npm-run-all2@^5'
               ;;
             '14.0.0')
-              dev_constraints+=' c8@^8 npm-run-all2@^5'
+              dev_constraints+=' c8@^8 npm-run-all2@^5 rimraf@^4'
               ;;
           esac
           if [[ -n "$dev_constraints" ]]
