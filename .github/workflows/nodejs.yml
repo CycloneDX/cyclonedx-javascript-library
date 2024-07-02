@@ -172,7 +172,7 @@ jobs:
           esac
           echo "::endgroup::"
           echo "::group::install deps"
-          npm i --ignore-scripts --include=optional --loglevel=silly --no-save $dep_constraints
+          npm i --ignore-scripts --loglevel=silly --no-save $dep_constraints
           echo "::endgroup::"
           echo "::group::rebuild libxmljs2 "
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
@@ -191,7 +191,7 @@ jobs:
       - name: collect coverage
         if: ${{ failure() || success() }}
         run: >
-          npm exec -- c8
+          node -- node_modules/c8/bin/c8.js
           report
           --reporter clover
           --reports-dir '${{ env.REPORTS_DIR }}/coverage/${{ matrix.os }}_node${{ matrix.node-version }}'
@@ -221,7 +221,6 @@ jobs:
       - name: setup library
         run: |
           set -ex
-          ## dont install all the dev-packages, especially since some are not runnable on node 14.0.0
           npm i --ignore-scripts --omit=optional --omit=dev --loglevel=silly
           ## install the needed dev-deps
           npm i --ignore-scripts --omit=optional --no-save --loglevel=silly mocha c8 npm-run-all2 fast-glob
