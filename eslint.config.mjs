@@ -38,14 +38,6 @@ export default [
     languageOptions: { sourceType: 'commonjs' }
   },
   {
-    files: [
-      '**/webpack.config.js'
-    ],
-    languageOptions: {
-      globals: globals.node
-    }
-  },
-  {
     files: ['{src,tests}/**/*!(.{node,web}).{js,mjs,cjs.ts}'],
     languageOptions: {
       globals: {
@@ -55,7 +47,10 @@ export default [
     }
   },
   {
-    files: ['**/*.{test,spec}.{js,mjs,cjs,ts}'],
+    files: [
+      '**/*.{test,spec}.{js,mjs,cjs,ts}',
+      'tests/**.{js,mjs,cjs,ts}'
+    ],
     languageOptions: {
       globals: globals.mocha
     }

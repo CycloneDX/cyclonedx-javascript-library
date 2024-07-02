@@ -128,6 +128,16 @@ export default [
     },
   },
   {
+    files:[
+      '**/eslint.config.{js,mjs,cjs}',
+      '**/webpack.config.js',
+      '**/.mocharc.js'
+    ],
+    languageOptions: {
+      globals: globals.node
+    }
+  },
+  {
     files: ['**/*.node.{js,mjs,cjs.ts}'],
     languageOptions: {
       globals: globals.node

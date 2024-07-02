@@ -96,8 +96,12 @@ jobs:
           # cache-dependency-path: "**/package-lock.json"
       - name: setup project
         run: |
+          echo "::group::install deps"
           npm i --ignore-scripts --loglevel=silly
+          echo "::endgroup::"
+          echo "::group::install code-style deps"
           npm --prefix tools/code-style i --ignore-scripts --loglevel=silly
+          echo "::endgroup::"
       - name: make reports dir
         run: mkdir -p "$REPORTS_DIR"
       - name: test
@@ -225,9 +229,13 @@ jobs:
       - name: setup library
         run: |
           set -ex
+          echo "::group::install prod"
           npm i --ignore-scripts --omit=optional --omit=dev --loglevel=silly
+          echo "::endgroup::"
+          echo "::endgroup::install dev"
           ## install the needed dev-deps
           npm i --ignore-scripts --omit=optional --no-save --loglevel=silly mocha c8 npm-run-all2 fast-glob
+          echo "::endgroup::"
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@v4
@@ -312,9 +320,13 @@ jobs:
       - name: setup library
         run: |
           set -ex
+          echo "::group::install"
           npm i --ignore-scripts --omit=dev --include=optional --loglevel=silly
+          echo "::endgroup::"
+          echo "::group::setup libxml2"
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
           npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
+          echo "::endgroup::"
       - name: setup example project
         run: npm i --no-save --loglevel=silly
         working-directory: ${{ env.EXAMPLE_DIR }}
@@ -365,9 +377,13 @@ jobs:
       - name: setup library
         run: |
           set -ex
+          echo "::group::install"
           npm i --ignore-scripts --omit=dev --include=optional --loglevel=silly
+          echo "::endgroup::"
+          echo "::group::setup libxml2"
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
           npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
+          echo "::endgroup::"
       - name: setup example project
         run: npm i --no-save --loglevel=silly 'typescript@${{ matrix.typescript-version }}'
         working-directory: ${{ env.EXAMPLE_DIR }}
@@ -444,7 +460,12 @@ jobs:
           # cache-dependency-path: "**/package-lock.json"
       - name: setup project
         run: |
-          npm install --ignore-scripts --loglevel=silly 
+          set -ex
+          echo "::group::install project"
+          npm install --ignore-scripts --loglevel=silly
+          echo "::endgroup::"
+          echo "::group::install docs-gen"
           npm --prefix tools/docs-gen install --ignore-scripts --loglevel=silly
+          echo "::endgroup::"
       - name: api-doc ${{ matrix.target }}
         run: npm run api-doc:${{ matrix.target }}
