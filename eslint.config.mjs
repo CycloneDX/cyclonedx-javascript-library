@@ -61,7 +61,7 @@ export default [
     }
   },
   {
-    files: ['**/*.ts'],
+    files: ['src/**/*.ts'],
     languageOptions: {
       parserOptions: {
         project: path.join(__dirname, 'tsconfig.json'),
