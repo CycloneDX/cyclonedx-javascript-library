@@ -63,31 +63,6 @@ export default [
     rules: plugin_js.configs.recommended.rules,
   },
   {
-    ...config_love,
-    files: ['**/*.ts']
-  },
-  {
-    files: ['**/*!(.{node,web}).{js,mjs,cjs}'],
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node
-      }
-    }
-  },
-  {
-    files: ['**/*.node.{js,mjs,cjs}'],
-    languageOptions: {
-      globals: globals.node
-    }
-  },
-  {
-    files: ['**/*.web.{js,mjs,cjs}'],
-    languageOptions: {
-      globals: globals.browser
-    }
-  },
-  {
     ...plugin_jsdoc.configs['flat/recommended'],
     files: ['**/*.{js,mjs,cjs}'],
   },
@@ -127,14 +102,13 @@ export default [
     }
   },
   {
+    ...config_love,
+    files: ['**/*.ts']
+  },
+  {
     files: ['**/*.ts'],
     plugins: {
       'tsdoc': plugin_tsdoc,
-    },
-    languageOptions: {
-      parserOptions: {
-        project: false,
-      },
     },
     rules: {
       '@typescript-eslint/consistent-type-imports': ['error', {
@@ -145,6 +119,27 @@ export default [
       }],
       'tsdoc/syntax': 'error',
     },
+  },
+  {
+    files: ['**/*!(.{node,web}).{js,mjs,cjs}'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node
+      }
+    }
+  },
+  {
+    files: ['**/*.node.{js,mjs,cjs}'],
+    languageOptions: {
+      globals: globals.node
+    }
+  },
+  {
+    files: ['**/*.web.{js,mjs,cjs}'],
+    languageOptions: {
+      globals: globals.browser
+    }
   },
   {
     // global ignores must have nothing but a "ignores" property!

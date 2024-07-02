@@ -22,9 +22,5 @@
     "eslint-plugin-tsdoc": "0.3.0",
     "globals": "^15.7.0",
     "typescript-eslint": "7.14.1"
-  },
-  "scripts": {
-    "test": "cd ../..; eslint .",
-    "cs-fix": "cd ../..; eslint --fix ."
   }
 }
