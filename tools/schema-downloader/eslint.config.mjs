@@ -1,4 +1,3 @@
-
 /*!
 This file is part of CycloneDX JavaScript Library.
 
@@ -18,8 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { default as baseCfg } from '../code-style/eslint.config.mjs'
-
+import { default as baseCfg, globals } from '../code-style/eslint.config.mjs'
 
 /* eslint-disable jsdoc/valid-types */
 
@@ -31,6 +29,9 @@ export default [
   ...baseCfg,
   {
     files: ['**/*.js'],
-    languageOptions: { sourceType: 'module' }
+    languageOptions: {
+      sourceType: 'module',
+      globals: globals.node,
+    }
   },
 ]

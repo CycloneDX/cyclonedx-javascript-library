@@ -38,7 +38,24 @@ export default [
     languageOptions: { sourceType: 'commonjs' }
   },
   {
-    files: ['** /*.{test,spec}.{js,mjs,cjs,ts}'],
+    files: [
+      '**/webpack.config.js'
+    ],
+    languageOptions: {
+      globals: globals.node
+    }
+  },
+  {
+    files: ['{src,tests}/**/*!(.{node,web}).{js,mjs,cjs.ts}'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node
+      }
+    }
+  },
+  {
+    files: ['**/*.{test,spec}.{js,mjs,cjs,ts}'],
     languageOptions: {
       globals: globals.mocha
     }
@@ -50,6 +67,18 @@ export default [
         project: path.join(__dirname, 'tsconfig.json'),
       },
     },
+  },
+  {
+    files: ['examples/node/**/*.{js,mjs,cjs,ts}'],
+    languageOptions: {
+      globals: globals.node
+    }
+  },
+  {
+    files: ['examples/web/*/src/**'],
+    languageOptions: {
+      globals: globals.browser
+    }
   },
   {
     files: ['examples/node/typescript/example.cjs/src/*.ts'],

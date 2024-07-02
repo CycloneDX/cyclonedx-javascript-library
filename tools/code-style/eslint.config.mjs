@@ -128,22 +128,13 @@ export default [
     },
   },
   {
-    files: ['**/*!(.{node,web}).{js,mjs,cjs}'],
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node
-      }
-    }
-  },
-  {
-    files: ['**/*.node.{js,mjs,cjs}'],
+    files: ['**/*.node.{js,mjs,cjs.ts}'],
     languageOptions: {
       globals: globals.node
     }
   },
   {
-    files: ['**/*.web.{js,mjs,cjs}'],
+    files: ['**/*.web.{js,mjs,cjs.ts}'],
     languageOptions: {
       globals: globals.browser
     }
