@@ -37,13 +37,13 @@ export default [
     languageOptions: { sourceType: 'commonjs' }
   },
   {
-    files: ['** /*.{test,spec}.{js,mjs,cjs}'],
+    files: ['** /*.{test,spec}.{js,mjs,cjs,ts}'],
     languageOptions: {
       globals: globals.mocha
     }
   },
   {
-    files: ['x**/*.ts'],
+    files: ['**/*.ts'],
     languageOptions: {
       parserOptions: {
         project: path.join(__dirname, 'tsconfig.json'),
@@ -71,14 +71,14 @@ export default [
     // global ignores must have nothing but a "ignores" property!
     // see https://github.com/eslint/eslint/discussions/17429#discussioncomment-6579229
     ignores: [
-      'reports/**/*',
-      'dist.*/**/*',
-      'docs/api/**/*',
-      'docs/_build/**/*',
-      'docs/.venv/**/*',
-      'examples/**/dist/**/*',
+      'reports/',
+      'dist.*/',
+      'docs/api/',
+      'docs/_build/',
+      'docs/.venv/',
+      'examples/**/dist/',
       'res/schema/',
-      'tools/**',
+      'tools/',
     ],
   },
 ]

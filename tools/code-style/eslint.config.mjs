@@ -110,6 +110,12 @@ export default [
     plugins: {
       'tsdoc': plugin_tsdoc,
     },
+    languageOptions: {
+      parserOptions: {
+        // override
+        project: false,
+      },
+    },
     rules: {
       '@typescript-eslint/consistent-type-imports': ['error', {
         fixStyle: 'separate-type-imports',
