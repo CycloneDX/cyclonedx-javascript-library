@@ -54,14 +54,14 @@ suite('Serialize.XML._xsd', () => {
     '1\t&#0013;&#0010;\n2&#0009;3&#10;': '1 2 3',
   }
 
-  suite('normalizedString', () => {
+  suite('normalizedString()', () => {
     for (const [input, expected] of Object.entries(normalizedStringCases)) {
       test(`i: ${input}`, () => {
         assert.strictEqual(normalizedString(input), expected)
       })
     }
   })
-  suite('token', () => {
+  suite('token()', () => {
     for (const [input, expected] of Object.entries(tokenCases)) {
       test(`i: ${input}`, () => {
         assert.strictEqual(token(input), expected)
