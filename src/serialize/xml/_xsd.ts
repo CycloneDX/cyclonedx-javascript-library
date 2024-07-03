@@ -19,16 +19,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 // region normalizedString
 
-/**
- * search-item for {@link normalizedString}.
- *
- * @remark
- *
- * (hexa)decimal may include leading zeros.
- * hexadecimal may include uppercase and lowercase.
- * hexadecimal must have a leading `x` in lowercase.
- */
-const _normalizeStringForbiddenSearch = /[\t\n\r]|&#(?:x0*[9aAdD]|0*(?:9|10|13));/g
+/** search-item for {@link normalizedString} */
+const _normalizeStringForbiddenSearch = /\r\n|\t|\n|\r/g
 /** replace-item for {@link normalizedString} */
 const _normalizeStringForbiddenReplace = ' '
 
@@ -37,7 +29,7 @@ const _normalizeStringForbiddenReplace = ' '
  *
  * @see {@link http://www.w3.org/TR/xmlschema-2/#normalizedString}
  *
- * @remark
+ * @remarks
  *
  * quote from the XML schema spec:
  *
@@ -66,7 +58,7 @@ const _tokenMultispaceReplace = ' '
  *
  * @see {@link http://www.w3.org/TR/xmlschema-2/#token}
  *
- * @remark
+ * @remarks
  *
  * quote from the XML schema spec:
  *
