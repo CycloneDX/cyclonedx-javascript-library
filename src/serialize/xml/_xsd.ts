@@ -30,11 +30,16 @@ const _normalizeStringSearch = /[\t\n\r]|&#(?:x0*[9aAdD]|0*(?:9|10|14));/g
 const _normalizeStringReplace = ' '
 
 /**
- * > *normalizedString* represents white space normalized strings.
- * > The [·value space·](https://www.w3.org/TR/xmlschema-2/#dt-value-space) of normalizedString is the set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters.
- * > The [·lexical space·](https://www.w3.org/TR/xmlschema-2/#dt-lexical-space) of normalizedString is the set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters.
- * > The [·base type·](https://www.w3.org/TR/xmlschema-2/#dt-basetype) of normalizedString is [string](https://www.w3.org/TR/xmlschema-2/#string).
  * @see {@link http://www.w3.org/TR/xmlschema-2/#normalizedString|normalizedStrin spec}
+ *
+ * @remark
+ *
+ * quote from the XML schema spec:
+ *
+ * *normalizedString* represents white space normalized strings.
+ * The [·value space·](https://www.w3.org/TR/xmlschema-2/#dt-value-space) of normalizedString is the set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters.
+ * The [·lexical space·](https://www.w3.org/TR/xmlschema-2/#dt-lexical-space) of normalizedString is the set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters.
+ * The [·base type·](https://www.w3.org/TR/xmlschema-2/#dt-basetype) of normalizedString is [string](https://www.w3.org/TR/xmlschema-2/#string).
  *
  * @internal
  */
@@ -44,11 +49,17 @@ export function normalizedString(s: string): string {
 
 
 /**
- * > *token* represents tokenized strings.
- * > The [·value space·](https://www.w3.org/TR/xmlschema-2/#dt-value-space) of token is the set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters, that have no leading or trailing spaces (#x20) and that have no internal sequences of two or more spaces.
- * > The [·lexical space·](https://www.w3.org/TR/xmlschema-2/#dt-lexical-space) of token is the set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters, that have no leading or trailing spaces (#x20) and that have no internal sequences of two or more spaces.
- * > The [·base type·](https://www.w3.org/TR/xmlschema-2/#dt-basetype) of token is [normalizedString](https://www.w3.org/TR/xmlschema-2/#normalizedString).
  * @see {@link http://www.w3.org/TR/xmlschema-2/#token|token spec}
+ *
+ * @remark
+ *
+ * quote from the XML schema spec:
+ *
+ * *token* represents tokenized strings.
+ * The [·value space·](https://www.w3.org/TR/xmlschema-2/#dt-value-space) of token is the set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters, that have no leading or trailing spaces (#x20) and that have no internal sequences of two or more spaces.
+ * The [·lexical space·](https://www.w3.org/TR/xmlschema-2/#dt-lexical-space) of token is the set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters, that have no leading or trailing spaces (#x20) and that have no internal sequences of two or more spaces.
+ * The [·base type·](https://www.w3.org/TR/xmlschema-2/#dt-basetype) of token is [normalizedString](https://www.w3.org/TR/xmlschema-2/#normalizedString).
+ *
  *
  * @internal
  */

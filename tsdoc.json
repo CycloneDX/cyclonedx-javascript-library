@@ -6,6 +6,11 @@
       "tagName": "@TODO",
       "syntaxKind": "block",
       "allowMultiple": true
+    },
+    {
+      "tagName": "@remark",
+      "syntaxKind": "block",
+      "allowMultiple": true
     }
   ]
 }

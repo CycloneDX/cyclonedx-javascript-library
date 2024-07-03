@@ -30,9 +30,9 @@ import { isSupportedSpdxId } from '../../spdx'
 import type { _SpecProtocol as Spec } from '../../spec/_protocol'
 import { Version as SpecVersion } from '../../spec/enums'
 import type { NormalizerOptions } from '../types'
+import { normalizedString, token} from './_xsd'
 import type { SimpleXml } from './types'
 import { XmlSchema } from './types'
-import { normalizedString, token} from './_xsd'
 
 export class Factory {
   readonly #spec: Spec
