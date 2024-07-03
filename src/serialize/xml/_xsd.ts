@@ -17,6 +17,18 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+
+/**
+ * search-item for {@link normalizedString}.
+ *
+ * (hexa)decimal may include leading zeros
+ * hexadecimal may include uppercase and lowercase
+ * hexadecimal must have a leading `x` in lowercase
+ */
+const _normalizeStringSearch = /[\t\n\r]|&#(?:x0*[9aAdD]|0*(?:9|10|14));/g
+/** replace-item for {@link normalizedString} */
+const _normalizeStringReplace = ' '
+
 /**
  * > *normalizedString* represents white space normalized strings.
  * > The [·value space·](https://www.w3.org/TR/xmlschema-2/#dt-value-space) of normalizedString is the set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters.
@@ -27,10 +39,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * @internal
  */
 export function normalizedString(s: string): string {
-  // (hexa)decimal may include leading zeros
-  // hexadecimal must have a leading `x` in lowercase
-  // hexadecimal may include uppercase and lowercase
-  return s.replace(/[\t\n\r]|&#(?:x0*[9aAdD]|0*(?:9|10|14));/g, ' ')
+  return s.replace(_normalizeStringSearch, _normalizeStringReplace)
 }
 
 
