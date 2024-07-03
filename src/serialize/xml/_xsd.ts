@@ -21,9 +21,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 /**
  * search-item for {@link normalizedString}.
  *
- * (hexa)decimal may include leading zeros
- * hexadecimal may include uppercase and lowercase
- * hexadecimal must have a leading `x` in lowercase
+ * (hexa)decimal may include leading zeros.
+ * hexadecimal may include uppercase and lowercase.
+ * hexadecimal must have a leading `x` in lowercase.
  */
 const _normalizeStringSearch = /[\t\n\r]|&#(?:x0*[9aAdD]|0*(?:9|10|14));/g
 /** replace-item for {@link normalizedString} */
