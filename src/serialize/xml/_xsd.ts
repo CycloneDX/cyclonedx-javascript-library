@@ -17,19 +17,20 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+// region normalizedString
 
 /**
  * search-item for {@link normalizedString}.
  *
+ * @remark
+ *
  * (hexa)decimal may include leading zeros.
  * hexadecimal may include uppercase and lowercase.
  * hexadecimal must have a leading `x` in lowercase.
- *
- * @see {@link http://www.w3.org/TR/xmlschema-2/#normalizedString}
  */
-const _normalizeStringSearch = /[\t\n\r]|&#(?:x0*[9aAdD]|0*(?:9|10|14));/g
+const _normalizeStringForbiddenSearch = /[\t\n\r]|&#(?:x0*[9aAdD]|0*(?:9|10|14));/g
 /** replace-item for {@link normalizedString} */
-const _normalizeStringReplace = ' '
+const _normalizeStringForbiddenReplace = ' '
 
 /**
  * Make a 'normalizedString', adhering XML spec.
@@ -48,9 +49,17 @@ const _normalizeStringReplace = ' '
  * @internal
  */
 export function normalizedString(s: string): string {
-  return s.replace(_normalizeStringSearch, _normalizeStringReplace)
+  return s.replace(_normalizeStringForbiddenSearch, _normalizeStringForbiddenReplace)
 }
 
+// endregion
+
+// region token
+
+/** search-item for {@link token} */
+const _tokenMultispaceSearch = / {2,}/g
+/** replace-item for {@link token} */
+const _tokenMultispaceReplace = ' '
 
 /**
  * Make a 'token', adhering XML spec.
@@ -70,5 +79,7 @@ export function normalizedString(s: string): string {
  */
 export function token(s: string): string {
   // according to spec, `token` inherits from `normalizedString` - so we utilize it here.
-  return normalizedString(s).trim().replace(/ {2,}/g, ' ')
+  return normalizedString(s).trim().replace(_tokenMultispaceSearch, _tokenMultispaceReplace)
 }
+
+// endregion
