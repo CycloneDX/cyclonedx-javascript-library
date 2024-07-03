@@ -100,8 +100,15 @@ jobs:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: setup project
         run: |
+          echo "::group::install project"
           npm install --ignore-scripts --include=optional --loglevel=silly
+          echo "::endgroup::"
+          echo "::group::install code-style"
           npm --prefix tools/code-style install --ignore-scripts --loglevel=silly
+          echo "::endgroup::"
+          echo "::group::install docs-gen"
+          npm --prefix tools/docs-gen   install --ignore-scripts --loglevel=silly
+          echo "::endgroup::"
       # no explicit npm build. if a build is required, it should be configured as prepublish/prepublishOnly script of npm.
       - name: login to registries
         run: |
