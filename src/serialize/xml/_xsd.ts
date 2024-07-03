@@ -23,6 +23,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * > The [·lexical space·](https://www.w3.org/TR/xmlschema-2/#dt-lexical-space) of normalizedString is the set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters.
  * > The [·base type·](https://www.w3.org/TR/xmlschema-2/#dt-basetype) of normalizedString is [string](https://www.w3.org/TR/xmlschema-2/#string).
  * @see {@link http://www.w3.org/TR/xmlschema-2/#normalizedString|normalizedStrin spec}
+ *
+ * @internal
  */
 export function normalizedString(s: string): string {
   // (hexa)decimal may include leading zeros
@@ -38,6 +40,8 @@ export function normalizedString(s: string): string {
  * > The [·lexical space·](https://www.w3.org/TR/xmlschema-2/#dt-lexical-space) of token is the set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters, that have no leading or trailing spaces (#x20) and that have no internal sequences of two or more spaces.
  * > The [·base type·](https://www.w3.org/TR/xmlschema-2/#dt-basetype) of token is [normalizedString](https://www.w3.org/TR/xmlschema-2/#normalizedString).
  * @see {@link http://www.w3.org/TR/xmlschema-2/#token|token spec}
+ *
+ * @internal
  */
 export function token(s: string): string {
   // according to spec, `token` inherits from `normalizedString` - so we utilize it here.

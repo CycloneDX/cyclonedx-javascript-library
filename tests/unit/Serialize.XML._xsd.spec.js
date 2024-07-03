@@ -23,9 +23,9 @@ const { suite, test } = require('mocha')
 const {
   normalizedString,
   token
-} = require('../../dist.node/_helpers/xml.js')
+} = require('../../dist.node/serialize/xml/_xsd.js')
 
-suite('Helpers.XML', () => {
+suite('Serialize.XML._xsd', () => {
   suite('normalizedString', () => {
     const cases = {
       '': '',
