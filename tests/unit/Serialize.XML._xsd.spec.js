@@ -28,6 +28,7 @@ const {
 suite('Serialize.XML._xsd', () => {
   const normalizedStringCases = {
     '': '',
+    ' \r\n \t \n ': '        ',
     ' f o  o ': ' f o  o ',
     '1 2 3': '1 2 3',
     '1\r\n2\t3\n': '1  2 3 ',
@@ -41,6 +42,7 @@ suite('Serialize.XML._xsd', () => {
 
   const tokenCases = {
     '': '',
+    ' \r\n \t \n ': '',
     ' f o  o\r\n ': 'f o o',
     '1 2 3': '1 2 3',
     '1 \r\n2\t 3 \n': '1 2 3',
