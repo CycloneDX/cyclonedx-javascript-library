@@ -100,9 +100,9 @@ jobs:
         run: npm config set "//registry.npmjs.org/:_authToken=$NPMJS_AUTH_TOKEN"
         env:
           NPMJS_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: publish to NPMJS as "latest"
+      - name: publish to NPMJS as "tag-for-older-releases"
         if: ${{ github.event.inputs.prerelease != 'true' }}
-        run: npm publish --access public --tag 'latest'
+        run: npm publish --access public --tag 'tag-for-older-releases'
       - name: publish to NPMJS as "unstable-prerelease"
         if: ${{ github.event.inputs.prerelease == 'true' }}
         run: npm publish --access public --tag 'unstable-prerelease'
