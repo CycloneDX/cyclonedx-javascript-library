@@ -46,9 +46,9 @@ suite('Serialize.XML._xsd', () => {
    */
   function escapeTNR(s) {
     return s
-      .replaceAll('\t', '\\t')
-      .replaceAll('\n', '\\n')
-      .replaceAll('\r', '\\r')
+      .replace(/\t/g, '\\t')
+      .replace(/\n/g, '\\n')
+      .replace(/\r/g, '\\r')
   }
 
   suite('normalizedString()', () => {
