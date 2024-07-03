@@ -1,6 +1,6 @@
 {
   "name": "@cyclonedx/cyclonedx-library",
-  "version": "6.10.1",
+  "version": "6.10.0",
   "description": "Core functionality of CycloneDX for JavaScript (Node.js or WebBrowser).",
   "license": "Apache-2.0",
   "keywords": [
