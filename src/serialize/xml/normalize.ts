@@ -30,6 +30,7 @@ import { isSupportedSpdxId } from '../../spdx'
 import type { _SpecProtocol as Spec } from '../../spec/_protocol'
 import { Version as SpecVersion } from '../../spec/enums'
 import type { NormalizerOptions } from '../types'
+import { normalizedString, token} from './_xsd'
 import type { SimpleXml } from './types'
 import { XmlSchema } from './types'
 
@@ -295,7 +296,7 @@ export class LifecycleNormalizer extends BaseXmlNormalizer<Models.Lifecycle> {
           type: 'element',
           name: elementName,
           children: [
-            makeTextElement(data.name, 'name'),
+            makeTextElement(data.name, 'name', normalizedString),
             makeOptionalTextElement(data.description, 'description')
           ].filter(isNotUndefined)
         }
@@ -338,9 +339,9 @@ export class ToolNormalizer extends BaseXmlNormalizer<Models.Tool> {
       type: 'element',
       name: elementName,
       children: [
-        makeOptionalTextElement(data.vendor, 'vendor'),
-        makeOptionalTextElement(data.name, 'name'),
-        makeOptionalTextElement(data.version, 'version'),
+        makeOptionalTextElement(data.vendor, 'vendor', normalizedString),
+        makeOptionalTextElement(data.name, 'name', normalizedString),
+        makeOptionalTextElement(data.version, 'version', normalizedString),
         hashes,
         externalReferences
       ].filter(isNotUndefined)
@@ -364,7 +365,7 @@ export class HashNormalizer extends BaseXmlNormalizer<Models.Hash> {
           type: 'element',
           name: elementName,
           attributes: { alg: algorithm },
-          children: content
+          children: token(content)
         }
       : undefined
   }
@@ -386,9 +387,9 @@ export class OrganizationalContactNormalizer extends BaseXmlNormalizer<Models.Or
       type: 'element',
       name: elementName,
       children: [
-        makeOptionalTextElement(data.name, 'name'),
-        makeOptionalTextElement(data.email, 'email'),
-        makeOptionalTextElement(data.phone, 'phone')
+        makeOptionalTextElement(data.name, 'name', normalizedString),
+        makeOptionalTextElement(data.email, 'email', normalizedString),
+        makeOptionalTextElement(data.phone, 'phone', normalizedString)
       ].filter(isNotUndefined)
     }
   }
@@ -408,7 +409,7 @@ export class OrganizationalEntityNormalizer extends BaseXmlNormalizer<Models.Org
       type: 'element',
       name: elementName,
       children: [
-        makeOptionalTextElement(data.name, 'name'),
+        makeOptionalTextElement(data.name, 'name', normalizedString),
         ...makeTextElementIter(Array.from(
           data.url, (s): string => escapeUri(s.toString())
         ), options, 'url'
@@ -442,7 +443,8 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
         : makeOptionalTextElement
     )(
       data.version ?? '',
-      'version'
+      'version',
+      normalizedString
     )
     const hashes: SimpleXml.Element | undefined = data.hashes.size > 0
       ? {
@@ -494,16 +496,16 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
       },
       children: [
         supplier,
-        makeOptionalTextElement(data.author, 'author'),
-        makeOptionalTextElement(data.publisher, 'publisher'),
-        makeOptionalTextElement(data.group, 'group'),
-        makeTextElement(data.name, 'name'),
+        makeOptionalTextElement(data.author, 'author', normalizedString),
+        makeOptionalTextElement(data.publisher, 'publisher', normalizedString),
+        makeOptionalTextElement(data.group, 'group', normalizedString),
+        makeTextElement(data.name, 'name', normalizedString),
         version,
-        makeOptionalTextElement(data.description, 'description'),
+        makeOptionalTextElement(data.description, 'description', normalizedString),
         makeOptionalTextElement(data.scope, 'scope'),
         hashes,
         licenses,
-        makeOptionalTextElement(data.copyright, 'copyright'),
+        makeOptionalTextElement(data.copyright, 'copyright', normalizedString),
         makeOptionalTextElement(data.cpe, 'cpe'),
         makeOptionalTextElement(data.purl, 'purl'),
         swid,
@@ -587,7 +589,7 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
           : undefined
       },
       children: [
-        makeTextElement(data.name, 'name'),
+        makeTextElement(data.name, 'name', normalizedString),
         data.text === undefined
           ? undefined
           : this._factory.makeForAttachment().normalize(data.text, options, 'text'),
@@ -621,7 +623,7 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
   }
 
   #normalizeLicenseExpression (data: Models.LicenseExpression): SimpleXml.Element {
-    const elem = makeTextElement(data.expression, 'expression')
+    const elem = makeTextElement(data.expression, 'expression', normalizedString)
     elem.attributes = {
       acknowledgement: this._factory.spec.supportsLicenseAcknowledgement
         ? data.acknowledgement
@@ -722,7 +724,9 @@ export class AttachmentNormalizer extends BaseXmlNormalizer<Models.Attachment> {
       type: 'element',
       name: elementName,
       attributes: {
-        'content-type': data.contentType || undefined,
+        'content-type': data.contentType
+          ? normalizedString(data.contentType)
+          : undefined,
         encoding: data.encoding || undefined
       },
       children: data.content.toString()
@@ -738,7 +742,7 @@ export class PropertyNormalizer extends BaseXmlNormalizer<Models.Property> {
       attributes: {
         name: data.name
       },
-      children: data.value
+      children: normalizedString(data.value)
     }
   }
 
@@ -875,7 +879,7 @@ export class VulnerabilityNormalizer extends BaseXmlNormalizer<Models.Vulnerabil
       name: elementName,
       attributes: { 'bom-ref': data.bomRef.value || undefined },
       children: [
-        makeOptionalTextElement(data.id, 'id'),
+        makeOptionalTextElement(data.id, 'id', normalizedString),
         data.source === undefined
           ? undefined
           : this._factory.makeForVulnerabilitySource().normalize(data.source, options, 'source'),
@@ -918,7 +922,7 @@ export class VulnerabilitySourceNormalizer extends BaseXmlNormalizer<Models.Vuln
       type: 'element',
       name: elementName,
       children: [
-        makeOptionalTextElement(data.name, 'name'),
+        makeOptionalTextElement(data.name, 'name', normalizedString),
         XmlSchema.isAnyURI(url)
           ? makeTextElement(url, 'url')
           : undefined
@@ -962,7 +966,7 @@ export class VulnerabilityRatingNormalizer extends BaseXmlNormalizer<Models.Vuln
         this._factory.spec.supportsVulnerabilityRatingMethod(data.method)
           ? makeOptionalTextElement(data.method, 'method')
           : undefined,
-        makeOptionalTextElement(data.vector, 'vector'),
+        makeOptionalTextElement(data.vector, 'vector', normalizedString),
         makeOptionalTextElement(data.justification, 'justification')
       ].filter(isNotUndefined)
     }
@@ -1106,7 +1110,7 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseXmlNormalizer<Mo
       type: 'element',
       name: elementName,
       children: [
-        makeTextElement(data.version, 'version'),
+        makeTextElement(data.version, 'version', normalizedString),
         makeOptionalTextElement(data.status, 'status')
       ].filter(isNotUndefined)
     }
@@ -1117,7 +1121,7 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseXmlNormalizer<Mo
       type: 'element',
       name: elementName,
       children: [
-        makeTextElement(data.range, 'range'),
+        makeTextElement(data.range, 'range', normalizedString),
         makeOptionalTextElement(data.status, 'status')
       ].filter(isNotUndefined)
     }
@@ -1136,32 +1140,35 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseXmlNormalizer<Mo
 
 type StrictTextElement = SimpleXml.TextElement & { children: string }
 
-function makeOptionalTextElement (data: null | undefined | Stringable, elementName: string): undefined | StrictTextElement {
-  const s = data?.toString() ?? ''
+type TextElementModifier = (i:string) => string
+const noTEM: TextElementModifier = (s) => s
+
+function makeOptionalTextElement (data: null | undefined | Stringable, elementName: string, mod: TextElementModifier = noTEM): undefined | StrictTextElement {
+  const s = mod(data?.toString() ?? '')
   return s.length > 0
     ? makeTextElement(s, elementName)
     : undefined
 }
 
-function makeTextElement (data: Stringable, elementName: string): StrictTextElement {
+function makeTextElement (data: Stringable, elementName: string, mod: TextElementModifier = noTEM): StrictTextElement {
   return {
     type: 'element',
     name: elementName,
-    children: data.toString()
+    children: mod(data.toString())
   }
 }
 
-function makeTextElementIter (data: Iterable<Stringable>, options: NormalizerOptions, elementName: string): StrictTextElement[] {
-  const r: StrictTextElement[] = Array.from(data, d => makeTextElement(d, elementName))
+function makeTextElementIter (data: Iterable<Stringable>, options: NormalizerOptions, elementName: string, mod: TextElementModifier = noTEM): StrictTextElement[] {
+  const r: StrictTextElement[] = Array.from(data, d => makeTextElement(d, elementName, mod))
   if (options.sortLists ?? false) {
     r.sort(({ children: a }, { children: b }) => a.localeCompare(b))
   }
   return r
 }
 
-function makeOptionalDateTimeElement (data: null | undefined | Date, elementName: string): undefined | StrictTextElement {
+function makeOptionalDateTimeElement (data: null | undefined | Date, elementName: string, mod: TextElementModifier = noTEM): undefined | StrictTextElement {
   const d = data?.toISOString()
   return d === undefined
     ? undefined
-    : makeTextElement(d, elementName)
+    : makeTextElement(d, elementName, mod)
 }
