@@ -24,6 +24,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * (hexa)decimal may include leading zeros.
  * hexadecimal may include uppercase and lowercase.
  * hexadecimal must have a leading `x` in lowercase.
+ *
+ * @see {@link http://www.w3.org/TR/xmlschema-2/#normalizedString}
  */
 const _normalizeStringSearch = /[\t\n\r]|&#(?:x0*[9aAdD]|0*(?:9|10|14));/g
 /** replace-item for {@link normalizedString} */
@@ -32,7 +34,7 @@ const _normalizeStringReplace = ' '
 /**
  * Make a 'normalizedString', adhering XML spec.
  *
- * @see {@link http://www.w3.org/TR/xmlschema-2/#normalizedString|normalizedStrin spec}
+ * @see {@link http://www.w3.org/TR/xmlschema-2/#normalizedString}
  *
  * @remark
  *
@@ -53,7 +55,7 @@ export function normalizedString(s: string): string {
 /**
  * Make a 'token', adhering XML spec.
  *
- * @see {@link http://www.w3.org/TR/xmlschema-2/#token|token spec}
+ * @see {@link http://www.w3.org/TR/xmlschema-2/#token}
  *
  * @remark
  *
