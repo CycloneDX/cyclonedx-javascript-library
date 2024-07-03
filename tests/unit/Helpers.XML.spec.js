@@ -32,7 +32,7 @@ suite('Helpers.XML', () => {
       // @TODO
     }
     for (const [input, expected] of Object.entries(cases)) {
-      test('', () => {
+      test(`i: ${input}`, () => {
         assert.strictEqual(normalizedString(input), expected)
       })
     }
@@ -43,7 +43,7 @@ suite('Helpers.XML', () => {
       // @TODO
     }
     for (const [input, expected] of Object.entries(cases)) {
-      test('', () => {
+      test(`i: ${input}`, () => {
         assert.strictEqual(token(input), expected)
       })
     }
