@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 6.10.1 -- 2024-07-03
+
 * Fixed
   * XML: properly handle `normalizedString` & `token` ([#1098] via [#1116])
 * Build
