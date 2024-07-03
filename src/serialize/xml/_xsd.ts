@@ -30,6 +30,8 @@ const _normalizeStringSearch = /[\t\n\r]|&#(?:x0*[9aAdD]|0*(?:9|10|14));/g
 const _normalizeStringReplace = ' '
 
 /**
+ * Make a 'normalizedString', adhering XML spec.
+ *
  * @see {@link http://www.w3.org/TR/xmlschema-2/#normalizedString|normalizedStrin spec}
  *
  * @remark
@@ -49,6 +51,8 @@ export function normalizedString(s: string): string {
 
 
 /**
+ * Make a 'token', adhering XML spec.
+ *
  * @see {@link http://www.w3.org/TR/xmlschema-2/#token|token spec}
  *
  * @remark
@@ -59,7 +63,6 @@ export function normalizedString(s: string): string {
  * The [·value space·](https://www.w3.org/TR/xmlschema-2/#dt-value-space) of token is the set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters, that have no leading or trailing spaces (#x20) and that have no internal sequences of two or more spaces.
  * The [·lexical space·](https://www.w3.org/TR/xmlschema-2/#dt-lexical-space) of token is the set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters, that have no leading or trailing spaces (#x20) and that have no internal sequences of two or more spaces.
  * The [·base type·](https://www.w3.org/TR/xmlschema-2/#dt-basetype) of token is [normalizedString](https://www.w3.org/TR/xmlschema-2/#normalizedString).
- *
  *
  * @internal
  */
