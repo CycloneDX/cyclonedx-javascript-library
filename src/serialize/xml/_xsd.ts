@@ -68,5 +68,5 @@ export function normalizedString(s: string): string {
  */
 export function token(s: string): string {
   // according to spec, `token` inherits from `normalizedString` - so we utilize it here.
-  return normalizedString(s).trim().replace(/ +/g, ' ')
+  return normalizedString(s).trim().replace(/ {2,}/g, ' ')
 }
