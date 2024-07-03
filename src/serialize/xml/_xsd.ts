@@ -28,7 +28,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * hexadecimal may include uppercase and lowercase.
  * hexadecimal must have a leading `x` in lowercase.
  */
-const _normalizeStringForbiddenSearch = /[\t\n\r]|&#(?:x0*[9aAdD]|0*(?:9|10|14));/g
+const _normalizeStringForbiddenSearch = /[\t\n\r]|&#(?:x0*[9aAdD]|0*(?:9|10|13));/g
 /** replace-item for {@link normalizedString} */
 const _normalizeStringForbiddenReplace = ' '
 

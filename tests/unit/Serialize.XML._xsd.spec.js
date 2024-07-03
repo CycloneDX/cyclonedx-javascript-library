@@ -26,23 +26,41 @@ const {
 } = require('../../dist.node/serialize/xml/_xsd.js')
 
 suite('Serialize.XML._xsd', () => {
+  const normalizedStringCases = {
+    '': '',
+    ' f o  o ': ' f o  o ',
+    '1 2 3': '1 2 3',
+    '1\r\n2\t3\n': '1  2 3 ',
+    '1&#xd;&#xa;2&#x9;3&#xa;': '1  2 3 ',
+    '1&#x0d;&#x00a;2&#x0009;3&#xa;': '1  2 3 ',
+    '1&#xD;&#xA;2&#x9;3&#xA;': '1  2 3 ',
+    '1&#x0D;&#x00A;2&#x0009;3&#xA;': '1  2 3 ',
+    '1&#x13;&#x10;2&#9;3&#10;': '1  2 3 ',
+    '1&#x013;&#x0010;2&#0009;3&#10;': '1  2 3 ',
+  }
+
+  const tokenCases = {
+    '': '',
+    ' f o  o ': 'f o o',
+    '1 2 3': '1 2 3',
+    '1\r\n2\t3\n': '1 2 3',
+    '1&#xd;&#xa;2&#x9;3&#xa;': '1 2 3',
+    '1&#x0d;&#x00a;2&#x0009;3&#xa;': '1 2 3',
+    '1&#xD;&#xA;2&#x9;3&#xA;': '1 2 3',
+    '1&#x0D;&#x00A;2&#x0009;3&#xA;': '1 2 3',
+    '1&#x13;&#x10;2&#9;3&#10;': '1 2 3',
+    '1&#x013;&#x0010;2&#0009;3&#10;': '1 2 3',
+  }
+
   suite('normalizedString', () => {
-    const cases = {
-      '': '',
-      // @TODO
-    }
-    for (const [input, expected] of Object.entries(cases)) {
+    for (const [input, expected] of Object.entries(normalizedStringCases)) {
       test(`i: ${input}`, () => {
         assert.strictEqual(normalizedString(input), expected)
       })
     }
   })
   suite('token', () => {
-    const cases = {
-      '': '',
-      // @TODO
-    }
-    for (const [input, expected] of Object.entries(cases)) {
+    for (const [input, expected] of Object.entries(tokenCases)) {
       test(`i: ${input}`, () => {
         assert.strictEqual(token(input), expected)
       })
