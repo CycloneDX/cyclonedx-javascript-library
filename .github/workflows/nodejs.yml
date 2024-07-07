@@ -194,11 +194,13 @@ jobs:
             '16')
               dev_constraints="${dev_constraints/ c8 / c8@^9 }"
               dev_constraints="${dev_constraints/ rimraf / rimraf@^4 }"
+              export npm_config_engine_strict=false
               ;;
             '14')
               dev_constraints="${dev_constraints/ c8 / c8@^9 }"
               dev_constraints="${dev_constraints/ npm-run-all2 / npm-run-all2@^5 }"
               dev_constraints="${dev_constraints/ rimraf / rimraf@^4 }"
+              export npm_config_engine_strict=false
               ;;
             '14.0.0')
               dev_constraints="${dev_constraints/ c8 / c8@^8 }"
