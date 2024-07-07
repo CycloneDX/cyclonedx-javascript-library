@@ -188,19 +188,22 @@ jobs:
           # we need to craft compatible versions by hand, 
           # and might utilize `npm_config_engine_strict=false` 
           
-          dev_constraints=' npm-run-all2 c8 mocha fast-glob '
+          dev_constraints=' npm-run-all2 c8 mocha fast-glob rimraf '
           # as long as npm cannot auto-resolve engine-constraints, we need to help here
           case "$NODE_VERSION" in
             '16')
               dev_constraints="${dev_constraints/ c8 / c8@^9 }"
+              dev_constraints="${dev_constraints/ rimraf / rimraf@^4 }"
               ;;
             '14')
               dev_constraints="${dev_constraints/ c8 / c8@^9 }"
               dev_constraints="${dev_constraints/ npm-run-all2 / npm-run-all2@^5 }"
+              dev_constraints="${dev_constraints/ rimraf / rimraf@^4 }"
               ;;
             '14.0.0')
               dev_constraints="${dev_constraints/ c8 / c8@^8 }"
               dev_constraints="${dev_constraints/ npm-run-all2 / npm-run-all2@^5 }"
+              dev_constraints="${dev_constraints/ rimraf / rimraf@^4 }"
               export npm_config_engine_strict=false
               ;;
           esac
