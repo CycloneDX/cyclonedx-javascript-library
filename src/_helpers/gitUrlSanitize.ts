@@ -31,6 +31,7 @@ export function tryFixGitUrl <T extends (string | undefined)> (value: T): T {
 
   // this is a polyfill for URL.canParse()
   try {
+    /* eslint-disable-next-line no-new */
     new URL(value)
     return value
     // was a valid URL already

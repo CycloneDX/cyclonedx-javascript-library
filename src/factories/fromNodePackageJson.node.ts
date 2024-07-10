@@ -28,6 +28,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { PackageURL } from 'packageurl-js'
 
+import {tryFixGitUrl} from "../_helpers/gitUrlSanitize";
 import { isNotUndefined } from '../_helpers/notUndefined'
 import type { PackageJson } from '../_helpers/packageJson'
 import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
@@ -35,7 +36,6 @@ import { ExternalReferenceType } from '../enums/externalReferenceType'
 import type { Component } from '../models/component'
 import { ExternalReference } from '../models/externalReference'
 import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
-import {tryFixGitUrl} from "../_helpers/gitUrlSanitize";
 
 /**
  * Node-specific ExternalReferenceFactory.
