@@ -24,7 +24,7 @@ interface _sshGitUrlRE_groups {
   path: string
 }
 
-export function tryFixGitUrl <T extends (string | undefined)> (value: T): T {
+export function tryCanonicalizeGitUrl <T extends (string | undefined)> (value: T): T {
   if (value === undefined) {
     return value
   }

@@ -28,7 +28,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { PackageURL } from 'packageurl-js'
 
-import {tryFixGitUrl} from "../_helpers/gitUrlSanitize";
+import {tryCanonicalizeGitUrl} from "../_helpers/gitUrlSanitize";
 import { isNotUndefined } from '../_helpers/notUndefined'
 import type { PackageJson } from '../_helpers/packageJson'
 import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
@@ -57,7 +57,7 @@ export class ExternalReferenceFactory {
     let url
     let comment: string | undefined
     if (typeof repository === 'object') {
-      url = tryFixGitUrl(repository.url)
+      url = tryCanonicalizeGitUrl(repository.url)
       comment = 'as detected from PackageJson property "repository.url"'
       if (typeof repository.directory === 'string' && typeof url === 'string' && url.length > 0) {
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
@@ -65,7 +65,7 @@ export class ExternalReferenceFactory {
         comment += ' and "repository.directory"'
       }
     } else {
-      url = tryFixGitUrl(repository)
+      url = tryCanonicalizeGitUrl(repository)
       comment = 'as detected from PackageJson property "repository"'
     }
     return typeof url === 'string' && url.length > 0
