@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Fixed
+  * Imported URL sanitizer (via [#1121])
+
+[#1121]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1121
+
 ## 6.10.1 -- 2024-07-03
 
 * Fixed
