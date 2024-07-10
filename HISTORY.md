@@ -6,8 +6,9 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Changed
+  * `Factories.FromNodePackageJson.ExternalReferenceFactory.makeVcs()` tries to canonicalize git-URLs ([#1119] via [#1120])
 * Fixed
-  * `Factories.FromNodePackageJson.ExternalReferenceFactory.makeVcs()` tries to canonicalize git-URLs ([#1119] via [#1120]) 
   * Improved URL sanitizer (via [#1121])
 * Build
   * Use _webpack_ `v5.93.0` now, was `v5.92.1` (via [#1122])
