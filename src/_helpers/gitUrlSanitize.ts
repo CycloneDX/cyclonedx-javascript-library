@@ -24,6 +24,9 @@ interface _sshGitUrlRE_groups {
   path: string
 }
 
+/**
+ * try to convert git connection string to actual valid URL
+ */
 export function tryCanonicalizeGitUrl <T extends (string | undefined)> (value: T): T {
   if (value === undefined) {
     return value
