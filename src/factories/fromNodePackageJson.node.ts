@@ -61,7 +61,7 @@ export class ExternalReferenceFactory {
       comment = 'as detected from PackageJson property "repository.url"'
       if (typeof repository.directory === 'string' && typeof url === 'string' && url.length > 0) {
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-        url += '#' + repository.directory
+        url += '#' + repository.directory.replace(/#/g,'%23')
         comment += ' and "repository.directory"'
       }
     } else {
