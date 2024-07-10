@@ -508,7 +508,7 @@
                     {
                       "type": "element",
                       "name": "url",
-                      "children": "https://example.org/?bar%5Btest%5D=baz"
+                      "children": "https://example.org/?bar%5Btest%5D=baz[again]"
                     },
                     {
                       "type": "element",
@@ -527,7 +527,7 @@
                     {
                       "type": "element",
                       "name": "url",
-                      "children": "https://example.org/?bar%5Btest%5D=baz"
+                      "children": "https://example.org/?bar%5Btest%5D=baz%5bagain%5D"
                     },
                     {
                       "type": "element",
@@ -546,7 +546,7 @@
                     {
                       "type": "element",
                       "name": "url",
-                      "children": "https://example.org/#%7Btest%7D"
+                      "children": "https://example.org/#%7Btest%7D{again}"
                     },
                     {
                       "type": "element",
@@ -565,7 +565,7 @@
                     {
                       "type": "element",
                       "name": "url",
-                      "children": "https://example.org/#%3Ctest%3E"
+                      "children": "https://example.org/#%3Ctest%3E<again>"
                     },
                     {
                       "type": "element",
@@ -603,7 +603,7 @@
                     {
                       "type": "element",
                       "name": "url",
-                      "children": "https://example.org/foo%20bar"
+                      "children": "https://example.org/foo%20bar bazz%20again+again"
                     },
                     {
                       "type": "element",
