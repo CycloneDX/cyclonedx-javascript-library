@@ -117,19 +117,19 @@
                     <comment>encode anyUri: relative path</comment>
                 </reference>
                 <reference type="other">
-                    <url>https://example.org/?bar%5Btest%5D=baz</url>
+                    <url>https://example.org/?bar%5Btest%5D=baz%5Bagain%5D</url>
                     <comment>encode anyUri: []</comment>
                 </reference>
                 <reference type="other">
-                    <url>https://example.org/?bar%5Btest%5D=baz</url>
+                    <url>https://example.org/?bar%5Btest%5D=baz%5bagain%5D</url>
                     <comment>encode anyUri: partially encoded</comment>
                 </reference>
                 <reference type="other">
-                    <url>https://example.org/#%7Btest%7D</url>
+                    <url>https://example.org/#%7Btest%7D%7Bagain%7D</url>
                     <comment>encode anyUri: {}</comment>
                 </reference>
                 <reference type="other">
-                    <url>https://example.org/#%3Ctest%3E</url>
+                    <url>https://example.org/#%3Ctest%3E%3Cagain%3E</url>
                     <comment>encode anyUri: &lt;&gt;</comment>
                 </reference>
                 <reference type="other">
@@ -137,7 +137,7 @@
                     <comment>encode anyUri: non-ASCII</comment>
                 </reference>
                 <reference type="other">
-                    <url>https://example.org/foo%20bar</url>
+                    <url>https://example.org/foo%20bar%20bazz%20again+again</url>
                     <comment>encode anyUri: space</comment>
                 </reference>
                 <reference type="other">

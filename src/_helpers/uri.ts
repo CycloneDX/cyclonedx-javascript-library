@@ -17,15 +17,15 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const escapeMap: Readonly<Record<string, string>> = Object.freeze({
-  ' ': '%20',
-  '[': '%5B',
-  ']': '%5D',
-  '<': '%3C',
-  '>': '%3E',
-  '{': '%7B',
-  '}': '%7D'
-})
+const _ESCAPES: Array<[RegExp, string]> = [
+  [/ /g, '%20'],
+  [/\[/g, '%5B'],
+  [/]/g, '%5D'],
+  [/</g, '%3C'],
+  [/>/g, '%3E'],
+  [/\{/g, '%7B'],
+  [/}/g, '%7D']
+]
 
 /**
  * Make a string valid to
@@ -43,7 +43,7 @@ export function escapeUri<T extends (string | undefined)> (value: T): T {
   if (value === undefined) {
     return value
   }
-  for (const [s, r] of Object.entries(escapeMap)) {
+  for (const [s, r] of _ESCAPES) {
     /* @ts-expect-error -- TS does not properly detect that value is to be forced as string, here */
     value = value.replace(s, r)
   }

@@ -508,7 +508,7 @@
                     {
                       "type": "element",
                       "name": "url",
-                      "children": "https://example.org/?bar%5Btest%5D=baz"
+                      "children": "https://example.org/?bar%5Btest%5D=baz%5Bagain%5D"
                     },
                     {
                       "type": "element",
@@ -527,7 +527,7 @@
                     {
                       "type": "element",
                       "name": "url",
-                      "children": "https://example.org/?bar%5Btest%5D=baz"
+                      "children": "https://example.org/?bar%5Btest%5D=baz%5bagain%5D"
                     },
                     {
                       "type": "element",
@@ -546,7 +546,7 @@
                     {
                       "type": "element",
                       "name": "url",
-                      "children": "https://example.org/#%7Btest%7D"
+                      "children": "https://example.org/#%7Btest%7D%7Bagain%7D"
                     },
                     {
                       "type": "element",
@@ -565,7 +565,7 @@
                     {
                       "type": "element",
                       "name": "url",
-                      "children": "https://example.org/#%3Ctest%3E"
+                      "children": "https://example.org/#%3Ctest%3E%3Cagain%3E"
                     },
                     {
                       "type": "element",
@@ -603,7 +603,7 @@
                     {
                       "type": "element",
                       "name": "url",
-                      "children": "https://example.org/foo%20bar"
+                      "children": "https://example.org/foo%20bar%20bazz%20again+again"
                     },
                     {
                       "type": "element",
