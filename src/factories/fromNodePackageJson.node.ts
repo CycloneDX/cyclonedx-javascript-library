@@ -35,6 +35,7 @@ import { ExternalReferenceType } from '../enums/externalReferenceType'
 import type { Component } from '../models/component'
 import { ExternalReference } from '../models/externalReference'
 import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
+import {tryFixGitUrl} from "../_helpers/gitUrlSanitize";
 
 /**
  * Node-specific ExternalReferenceFactory.
@@ -56,7 +57,7 @@ export class ExternalReferenceFactory {
     let url
     let comment: string | undefined
     if (typeof repository === 'object') {
-      url = repository.url
+      url = tryFixGitUrl(repository.url)
       comment = 'as detected from PackageJson property "repository.url"'
       if (typeof repository.directory === 'string' && typeof url === 'string' && url.length > 0) {
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
@@ -64,7 +65,7 @@ export class ExternalReferenceFactory {
         comment += ' and "repository.directory"'
       }
     } else {
-      url = repository
+      url = tryFixGitUrl(repository)
       comment = 'as detected from PackageJson property "repository"'
     }
     return typeof url === 'string' && url.length > 0
