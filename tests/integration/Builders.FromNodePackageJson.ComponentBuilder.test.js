@@ -106,8 +106,9 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
       {
         name: 'with-implicit-git-ssh',
         repository: {
-          type: "git",
-          url: "git@gitlab.example.com:my-project/some-repo.git"
+          type: 'git',
+          url: 'git@gitlab.example.com:my-project/some-repo.git',
+          directory: 'foo#bar'
         }
       },
       new Models.Component(
@@ -116,10 +117,10 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
         {
           externalReferences: new Models.ExternalReferenceRepository([
             new Models.ExternalReference(
-              'git+ssh://git@gitlab.example.com/my-project/some-repo.git',
+              'git+ssh://git@gitlab.example.com/my-project/some-repo.git#foo%23bar',
               Enums.ExternalReferenceType.VCS,
               {
-                comment: 'as detected from PackageJson property "repository.url"'
+                comment: 'as detected from PackageJson property "repository.url" and "repository.directory"'
               }
             )
           ])
