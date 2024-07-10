@@ -169,7 +169,7 @@
           "comment": "encode anyUri: relative path"
         },
         {
-          "url": "https://example.org/?bar%5Btest%5D=baz[again]",
+          "url": "https://example.org/?bar%5Btest%5D=baz%5Bagain%5D",
           "type": "other",
           "comment": "encode anyUri: []"
         },
@@ -179,12 +179,12 @@
           "comment": "encode anyUri: partially encoded"
         },
         {
-          "url": "https://example.org/#%7Btest%7D{again}",
+          "url": "https://example.org/#%7Btest%7D%7Bagain%7D",
           "type": "other",
           "comment": "encode anyUri: {}"
         },
         {
-          "url": "https://example.org/#%3Ctest%3E<again>",
+          "url": "https://example.org/#%3Ctest%3E%3Cagain%3E",
           "type": "other",
           "comment": "encode anyUri: <>"
         },
@@ -194,7 +194,7 @@
           "comment": "encode anyUri: non-ASCII"
         },
         {
-          "url": "https://example.org/foo%20bar bazz%20again+again",
+          "url": "https://example.org/foo%20bar%20bazz%20again+again",
           "type": "other",
           "comment": "encode anyUri: space"
         },
