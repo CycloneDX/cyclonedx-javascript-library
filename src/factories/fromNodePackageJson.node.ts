@@ -28,7 +28,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { PackageURL } from 'packageurl-js'
 
-import {tryCanonicalizeGitUrl} from "../_helpers/gitUrlSanitize";
+import {tryCanonicalizeGitUrl} from "../_helpers/gitUrl"
 import { isNotUndefined } from '../_helpers/notUndefined'
 import type { PackageJson } from '../_helpers/packageJson'
 import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
