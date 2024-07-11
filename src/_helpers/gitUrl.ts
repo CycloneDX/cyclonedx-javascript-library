@@ -17,8 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const _sshGitUrlRE = /^(?<user>[^@:]+)@(?<host>[^:]+):(?<path>.*)$/
-interface _sshGitUrlRE_groups {
+const _sshConnStringRE = /^(?<user>[^@:]+)@(?<host>[^:]+):(?<path>.*)$/
+interface _sshConnStringRE_groups {
   user: string
   host: string
   path: string
@@ -42,7 +42,7 @@ export function tryCanonicalizeGitUrl <T extends (string | undefined)> (value: T
     /* pass */
   }
 
-  const sshGs = _sshGitUrlRE.exec(value)?.groups as _sshGitUrlRE_groups | undefined
+  const sshGs = _sshConnStringRE.exec(value)?.groups as _sshConnStringRE_groups | undefined
   if (sshGs !== undefined) {
     try {
       // utilize URL so needed chars are properly url-encoded
