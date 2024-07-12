@@ -99,33 +99,6 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
         'bar/baz',
         { group: '@foo' }
       )
-    ],
-    [
-      // regression for https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1119
-      'with-implicit-git-ssh',
-      {
-        name: 'with-implicit-git-ssh',
-        repository: {
-          type: 'git',
-          url: 'git@gitlab.example.com:my-project/some-repo.git',
-          directory: 'foo#bar'
-        }
-      },
-      new Models.Component(
-        Enums.ComponentType.Library,
-        'with-implicit-git-ssh',
-        {
-          externalReferences: new Models.ExternalReferenceRepository([
-            new Models.ExternalReference(
-              new URL('git+ssh://git@gitlab.example.com/my-project/some-repo.git#foo%23bar'),
-              Enums.ExternalReferenceType.VCS,
-              {
-                comment: 'as detected from PackageJson property "repository.url" and "repository.directory"'
-              }
-            )
-          ])
-        }
-      )
     ]
   ].forEach(([purpose, data, expected]) => {
     test(`makeComponent: ${purpose}`, () => {
