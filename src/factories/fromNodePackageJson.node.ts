@@ -60,7 +60,7 @@ export class ExternalReferenceFactory {
       url = tryCanonicalizeGitUrl(repository.url)
       comment = 'as detected from PackageJson property "repository.url"'
       if (typeof repository.directory === 'string' && url instanceof URL) {
-        // node<=16 does not properly encode `#` in the hash ...
+        // node does not properly encode `#` in the hash ... need to manually esscape
         url.hash = repository.directory.replace(/#/g, '%23')
         comment += ' and "repository.directory"'
       }
