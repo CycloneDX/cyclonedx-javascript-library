@@ -60,8 +60,8 @@ export class ExternalReferenceFactory {
       url = tryCanonicalizeGitUrl(repository.url)
       comment = 'as detected from PackageJson property "repository.url"'
       if (typeof repository.directory === 'string' && url instanceof URL) {
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-        url.hash = repository.directory
+        // node<=16 does not properly encode `#` in the hash ...
+        url.hash = repository.directory.replace(/#/g, '%23')
         comment += ' and "repository.directory"'
       }
     } else {

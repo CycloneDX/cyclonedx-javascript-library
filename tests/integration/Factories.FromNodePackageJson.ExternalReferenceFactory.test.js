@@ -143,11 +143,11 @@ suite('Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
   suite('from "repository.directory"', () => {
     test('is non-empty string', () => {
       const expected = [new ExternalReference(
-        new URL('https://foo.bar#some/dir'),
+        new URL('https://foo.bar#some/other%2323/dir%2342'),
         ExternalReferenceType.VCS,
         { comment: 'as detected from PackageJson property "repository.url" and "repository.directory"' }
       )]
-      const data = { repository: { url: 'https://foo.bar', directory: 'some/dir' } }
+      const data = { repository: { url: 'https://foo.bar', directory: 'some/other#23/dir#42' } }
       const actual = sut.makeExternalReferences(data)
       assert.deepStrictEqual(actual, expected)
     })
