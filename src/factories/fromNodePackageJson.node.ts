@@ -70,6 +70,7 @@ export class ExternalReferenceFactory {
     }
     return url === undefined
       ? undefined
+      // cast to string so the URL is frozen/immutable
       : new ExternalReference(url.toString(), ExternalReferenceType.VCS, { comment })
   }
 
