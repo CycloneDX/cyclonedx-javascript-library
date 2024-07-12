@@ -70,7 +70,7 @@ export class ExternalReferenceFactory {
     }
     return url === undefined
       ? undefined
-      : new ExternalReference(url, ExternalReferenceType.VCS, { comment })
+      : new ExternalReference(url.toString(), ExternalReferenceType.VCS, { comment })
   }
 
   makeHomepage (data: PackageJson): ExternalReference | undefined {

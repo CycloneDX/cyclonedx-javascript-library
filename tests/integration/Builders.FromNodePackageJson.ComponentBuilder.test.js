@@ -72,7 +72,7 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
           description: `dummy lib ${salt}`,
           externalReferences: new Models.ExternalReferenceRepository([
             new Models.ExternalReference(
-              new URL('https://github.com/foo/bar.git'),
+              'https://github.com/foo/bar.git',
               Enums.ExternalReferenceType.VCS,
               {
                 comment: 'as detected from PackageJson property "repository.url"'
