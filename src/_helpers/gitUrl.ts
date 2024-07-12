@@ -35,7 +35,6 @@ export function tryCanonicalizeGitUrl (value: string | undefined): URL | string 
   // this is a polyfill for URL.canParse()
   try {
     return new URL(value)
-    // was a valid URL already
   } catch {
     /* pass */
   }
