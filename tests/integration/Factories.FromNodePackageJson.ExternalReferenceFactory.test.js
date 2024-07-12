@@ -99,7 +99,7 @@ suite('Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
   suite('from "repository"', () => {
     test('is non-empty string', () => {
       const expected = [new ExternalReference(
-        'https://foo.bar',
+        new URL('https://foo.bar'),
         ExternalReferenceType.VCS,
         { comment: 'as detected from PackageJson property "repository"' }
       )]
@@ -121,7 +121,7 @@ suite('Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
   suite('from "repository.url"', () => {
     test('is non-empty string', () => {
       const expected = [new ExternalReference(
-        'https://foo.bar',
+        new URL('https://foo.bar'),
         ExternalReferenceType.VCS,
         { comment: 'as detected from PackageJson property "repository.url"' }
       )]
@@ -143,7 +143,7 @@ suite('Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
   suite('from "repository.directory"', () => {
     test('is non-empty string', () => {
       const expected = [new ExternalReference(
-        'https://foo.bar#some/dir',
+        new URL('https://foo.bar#some/dir'),
         ExternalReferenceType.VCS,
         { comment: 'as detected from PackageJson property "repository.url" and "repository.directory"' }
       )]

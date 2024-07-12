@@ -72,7 +72,7 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
           description: `dummy lib ${salt}`,
           externalReferences: new Models.ExternalReferenceRepository([
             new Models.ExternalReference(
-              'https://github.com/foo/bar.git',
+              new URL('https://github.com/foo/bar.git'),
               Enums.ExternalReferenceType.VCS,
               {
                 comment: 'as detected from PackageJson property "repository.url"'
@@ -117,7 +117,7 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
         {
           externalReferences: new Models.ExternalReferenceRepository([
             new Models.ExternalReference(
-              'git+ssh://git@gitlab.example.com/my-project/some-repo.git#foo%23bar',
+              new URL('git+ssh://git@gitlab.example.com/my-project/some-repo.git#foo%23bar'),
               Enums.ExternalReferenceType.VCS,
               {
                 comment: 'as detected from PackageJson property "repository.url" and "repository.directory"'
