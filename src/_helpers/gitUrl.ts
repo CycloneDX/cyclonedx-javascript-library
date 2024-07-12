@@ -27,16 +27,14 @@ interface _sshConnStringRE_groups {
 /**
  * try to convert git connection string to actual valid URL
  */
-export function tryCanonicalizeGitUrl <T extends (string | undefined)> (value: T): T {
-  if (value === undefined) {
-    return value
+export function tryCanonicalizeGitUrl (value: string | undefined): URL | string | undefined {
+  if (value === undefined || value.length <= 0) {
+    return undefined
   }
 
   // this is a polyfill for URL.canParse()
   try {
-    /* eslint-disable-next-line no-new */
-    new URL(value)
-    return value
+    return new URL(value)
     // was a valid URL already
   } catch {
     /* pass */
@@ -49,7 +47,7 @@ export function tryCanonicalizeGitUrl <T extends (string | undefined)> (value: T
       const u = new URL(`git+ssh://${sshGs.host}`)
       u.username = sshGs.user
       u.pathname = sshGs.path
-      return u.toString() as T
+      return u
     } catch {
       /* pass */
     }

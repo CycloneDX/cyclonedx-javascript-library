@@ -59,18 +59,18 @@ export class ExternalReferenceFactory {
     if (typeof repository === 'object') {
       url = tryCanonicalizeGitUrl(repository.url)
       comment = 'as detected from PackageJson property "repository.url"'
-      if (typeof repository.directory === 'string' && typeof url === 'string' && url.length > 0) {
+      if (typeof repository.directory === 'string' && url instanceof URL) {
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-        url += '#' + repository.directory.replace(/#/g,'%23')
+        url.hash = repository.directory
         comment += ' and "repository.directory"'
       }
     } else {
       url = tryCanonicalizeGitUrl(repository)
       comment = 'as detected from PackageJson property "repository"'
     }
-    return typeof url === 'string' && url.length > 0
-      ? new ExternalReference(url, ExternalReferenceType.VCS, { comment })
-      : undefined
+    return url === undefined
+      ? undefined
+      :  new ExternalReference(url, ExternalReferenceType.VCS, { comment })
   }
 
   makeHomepage (data: PackageJson): ExternalReference | undefined {
