@@ -8,8 +8,11 @@ All notable changes to this project will be documented in this file.
 
 * Fixed
   * Improved URL sanitizer (via [#1121])
+* Build
+  * Use _webpack_ `v5.93.0` now, was `v5.92.1` (via [#1122])
 
 [#1121]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1121
+[#1122]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1122
 
 ## 6.10.1 -- 2024-07-03
 
