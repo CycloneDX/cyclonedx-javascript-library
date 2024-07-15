@@ -31,10 +31,7 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
   const salt = Math.random()
 
   const extRefFactory = new Factories.FromNodePackageJson.ExternalReferenceFactory()
-  extRefFactory.makeExternalReferences = () => [`FAKE REFERENCES ${salt}`]
   const licenseFactory = new Factories.LicenseFactory()
-  licenseFactory.makeFromString = (s) => ({ name: `FAKE LICENSE: ${s}` })
-  licenseFactory.makeDisjunctive = (s) => ({ name: `FAKE DISJUNCTIVE LICENSE: ${s}` })
 
   const sut = new ComponentBuilder(extRefFactory, licenseFactory);
 
@@ -42,8 +39,7 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
     [
       'minimal',
       { name: 'foo_bar' },
-      new Models.Component(Enums.ComponentType.Library, 'foo_bar',
-        { externalReferences: new Models.ExternalReferenceRepository([`FAKE REFERENCES ${salt}`]) })
+      new Models.Component(Enums.ComponentType.Library, 'foo_bar')
     ],
     [
       'full',
@@ -53,15 +49,19 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
         description: `dummy lib ${salt}`,
         author: {
           name: 'Jane Doe',
-          url: 'https://acme.org/~jd'
+          url: 'https://example.com/~jd'
         },
         license: `dummy license ${salt}`,
         licenses: [
           {
             type: `some license ${salt}`,
-            url: `https://acme.org/license/${salt}`
+            url: `https://example.com/license/${salt}`
           }
-        ]
+        ],
+        repository: {
+          type: "git",
+          url: "https://github.com/foo/bar.git"
+        }
         // to be continued
       },
       new Models.Component(
@@ -70,12 +70,20 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
         {
           author: 'Jane Doe',
           description: `dummy lib ${salt}`,
-          externalReferences: new Models.ExternalReferenceRepository([`FAKE REFERENCES ${salt}`]),
-          licenses: new Models.LicenseRepository([
-            { name: `FAKE LICENSE: dummy license ${salt}` },
-            { name: `FAKE DISJUNCTIVE LICENSE: some license ${salt}`, url: `https://acme.org/license/${salt}` }
+          externalReferences: new Models.ExternalReferenceRepository([
+            new Models.ExternalReference(
+              'https://github.com/foo/bar.git',
+              Enums.ExternalReferenceType.VCS,
+              {
+                comment: 'as detected from PackageJson property "repository.url"'
+              }
+            )
           ]),
           group: '@foo',
+          licenses: new Models.LicenseRepository([
+            new Models.NamedLicense(`dummy license ${salt}`),
+            new Models.NamedLicense(`some license ${salt}`),
+          ]),
           version: `1.33.7-alpha.23.${salt}`
         }
       )
@@ -89,10 +97,7 @@ suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
       new Models.Component(
         Enums.ComponentType.Library,
         'bar/baz',
-        {
-          group: '@foo',
-          externalReferences: new Models.ExternalReferenceRepository([`FAKE REFERENCES ${salt}`])
-        }
+        { group: '@foo' }
       )
     ]
   ].forEach(([purpose, data, expected]) => {

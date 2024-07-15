@@ -32,13 +32,13 @@ suite('Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
   suite('from "homepage"', () => {
     test('is non-empty string', () => {
       const expected = [new ExternalReference(
-        'https://foo.bar',
+        'https://example.com',
         ExternalReferenceType.Website,
         { comment: 'as detected from PackageJson property "homepage"' }
       )]
-      const data = { homepage: 'https://foo.bar' }
+      const data = { homepage: 'https://example.com' }
       const actual = sut.makeExternalReferences(data)
-      assert.deepStrictEqual(actual, expected)
+      assert.deepEqual(actual, expected)
     })
     test('is empty string', () => {
       const data = { homepage: '' }
@@ -55,13 +55,13 @@ suite('Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
   suite('from "bugs"', () => {
     test('is non-empty string', () => {
       const expected = [new ExternalReference(
-        'https://foo.bar',
+        'https://example.com',
         ExternalReferenceType.IssueTracker,
         { comment: 'as detected from PackageJson property "bugs"' }
       )]
-      const data = { bugs: 'https://foo.bar' }
+      const data = { bugs: 'https://example.com' }
       const actual = sut.makeExternalReferences(data)
-      assert.deepStrictEqual(actual, expected)
+      assert.deepEqual(actual, expected)
     })
     test('is empty string', () => {
       const data = { bugs: '' }
@@ -77,13 +77,13 @@ suite('Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
   suite('from "bugs.url"', () => {
     test('is non-empty string', () => {
       const expected = [new ExternalReference(
-        'https://foo.bar',
+        'https://example.com',
         ExternalReferenceType.IssueTracker,
         { comment: 'as detected from PackageJson property "bugs.url"' }
       )]
-      const data = { bugs: { url: 'https://foo.bar' } }
+      const data = { bugs: { url: 'https://example.com' } }
       const actual = sut.makeExternalReferences(data)
-      assert.deepStrictEqual(actual, expected)
+      assert.deepEqual(actual, expected)
     })
     test('is empty string', () => {
       const data = { bugs: { url: '' } }
@@ -97,69 +97,173 @@ suite('Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
     })
   })
   suite('from "repository"', () => {
-    test('is non-empty string', () => {
+    test('non-empty string', () => {
       const expected = [new ExternalReference(
-        'https://foo.bar',
+        '../foo/bar',
         ExternalReferenceType.VCS,
         { comment: 'as detected from PackageJson property "repository"' }
       )]
-      const data = { repository: 'https://foo.bar' }
+      const data = { repository:  '../foo/bar' }
       const actual = sut.makeExternalReferences(data)
-      assert.deepStrictEqual(actual, expected)
+      assert.deepEqual(actual, expected)
     })
-    test('is empty string', () => {
-      const data = { repository: '' }
+    test('implicit-git-url', () => {
+      const expected = [new ExternalReference(
+        'git+ssh://git@example.com/foo/bar',
+        ExternalReferenceType.VCS,
+        { comment: 'as detected from PackageJson property "repository"' }
+      )]
+      const data = { repository:  'git@example.com:foo/bar'}
       const actual = sut.makeExternalReferences(data)
-      assert.strictEqual(actual.length, 0)
+      assert.deepEqual(actual, expected)
     })
-    test('is undefined', () => {
-      const data = { repository: undefined }
+    test('explicit-git-url', () => {
+      const expected = [new ExternalReference(
+        'git+https://example.com/dings.git',
+        ExternalReferenceType.VCS,
+        { comment: 'as detected from PackageJson property "repository"' }
+      )]
+      const data = { repository: 'git+https://example.com/dings.git' }
       const actual = sut.makeExternalReferences(data)
-      assert.strictEqual(actual.length, 0)
+      assert.deepEqual(actual, expected)
+    })
+    test('implicit-svn-url', () => {
+      const expected = [new ExternalReference(
+        'svn://example.com/foo/trunk',
+        ExternalReferenceType.VCS,
+        { comment: 'as detected from PackageJson property "repository"' }
+      )]
+      const data = { repository:  'svn://example.com/foo/trunk' }
+      const actual = sut.makeExternalReferences(data)
+      assert.deepEqual(actual, expected)
+    })
+    test('empty string', () => {
+      const expected = []
+      const data = { repository:  '' }
+      const actual = sut.makeExternalReferences(data)
+      assert.deepEqual(actual, expected)
+    })
+    test('undefined', () => {
+      const expected = []
+      const data = {  }
+      const actual = sut.makeExternalReferences(data)
+      assert.deepEqual(actual, expected)
     })
   })
   suite('from "repository.url"', () => {
-    test('is non-empty string', () => {
+    test('non-empty string', () => {
       const expected = [new ExternalReference(
-        'https://foo.bar',
+        '../foo/bar',
         ExternalReferenceType.VCS,
         { comment: 'as detected from PackageJson property "repository.url"' }
       )]
-      const data = { repository: { url: 'https://foo.bar' } }
+      const data = { repository: { url: '../foo/bar' } }
       const actual = sut.makeExternalReferences(data)
-      assert.deepStrictEqual(actual, expected)
+      assert.deepEqual(actual, expected)
     })
-    test('is empty string', () => {
+    test('implicit-git-url', () => {
+      const expected = [new ExternalReference(
+        'git+ssh://git@example.com/foo/bar',
+        ExternalReferenceType.VCS,
+        { comment: 'as detected from PackageJson property "repository.url"' }
+      )]
+      const data = { repository: { url: 'git@example.com:foo/bar'} }
+      const actual = sut.makeExternalReferences(data)
+      assert.deepEqual(actual, expected)
+    })
+    test('explicit-git-url', () => {
+      const expected = [new ExternalReference(
+        'git+https://example.com/dings.git',
+        ExternalReferenceType.VCS,
+        { comment: 'as detected from PackageJson property "repository.url"' }
+      )]
+      const data = { repository: { url: 'git+https://example.com/dings.git' } }
+      const actual = sut.makeExternalReferences(data)
+      assert.deepEqual(actual, expected)
+    })
+    test('implicit-svn-url', () => {
+      const expected = [new ExternalReference(
+        'svn://example.com/foo/trunk',
+        ExternalReferenceType.VCS,
+        { comment: 'as detected from PackageJson property "repository.url"' }
+      )]
+      const data = { repository: { url: 'svn://example.com/foo/trunk' } }
+      const actual = sut.makeExternalReferences(data)
+      assert.deepEqual(actual, expected)
+    })
+    test('empty string', () => {
+      const expected = []
       const data = { repository: { url: '' } }
-      const repo = sut.makeExternalReferences(data)
-      assert.strictEqual(repo.length, 0)
-    })
-    test('is undefined', () => {
-      const data = { repository: { url: undefined } }
       const actual = sut.makeExternalReferences(data)
-      assert.strictEqual(actual.length, 0)
+      assert.deepEqual(actual, expected)
+    })
+    test('undefined', () => {
+      const expected = []
+      const data = { repository: {  } }
+      const actual = sut.makeExternalReferences(data)
+      assert.deepEqual(actual, expected)
     })
   })
   suite('from "repository.directory"', () => {
-    test('is non-empty string', () => {
+    test('non-empty string', () => {
       const expected = [new ExternalReference(
-        'https://foo.bar#some/dir',
+        '../foo/bar',
+        ExternalReferenceType.VCS,
+        { comment: 'as detected from PackageJson property "repository.url"' }
+      )]
+      const data = { repository: { url: '../foo/bar', directory: 'some/other#23/dir#42' } }
+      const actual = sut.makeExternalReferences(data)
+      assert.deepEqual(actual, expected)
+    })
+    test('implicit-git-url', () => {
+      const expected = [new ExternalReference(
+        'git+ssh://git@example.com/foo/bar#some/other%2323/dir%2342',
         ExternalReferenceType.VCS,
         { comment: 'as detected from PackageJson property "repository.url" and "repository.directory"' }
       )]
-      const data = { repository: { url: 'https://foo.bar', directory: 'some/dir' } }
+      const data = { repository: { url: 'git@example.com:foo/bar', directory: 'some/other#23/dir#42'} }
       const actual = sut.makeExternalReferences(data)
-      assert.deepStrictEqual(actual, expected)
+      assert.deepEqual(actual, expected)
     })
-    test('is empty string', () => {
-      const data = { repository: { directory: '' } }
+    test('explicit-git-url', () => {
+      const expected = [new ExternalReference(
+        'git+https://example.com/dings.git#some/other%2323/dir%2342',
+        ExternalReferenceType.VCS,
+        { comment: 'as detected from PackageJson property "repository.url" and "repository.directory"' }
+      )]
+      const data = { repository: { url: 'git+https://example.com/dings.git', directory: 'some/other#23/dir#42' } }
       const actual = sut.makeExternalReferences(data)
-      assert.strictEqual(actual.length, 0)
+      assert.deepEqual(actual, expected)
     })
-    test('is undefined', () => {
-      const data = { repository: { directory: undefined } }
+    test('implicit-svn-url', () => {
+      const expected = [new ExternalReference(
+        'svn://example.com/foo/trunk#some/other%2323/dir%2342',
+        ExternalReferenceType.VCS,
+        { comment: 'as detected from PackageJson property "repository.url" and "repository.directory"' }
+      )]
+      const data = { repository: { url: 'svn://example.com/foo/trunk', directory: 'some/other#23/dir#42' } }
       const actual = sut.makeExternalReferences(data)
-      assert.strictEqual(actual.length, 0)
+      assert.deepEqual(actual, expected)
+    })
+    test('empty string', () => {
+      const expected = [new ExternalReference(
+        'http://example.com/foo',
+        ExternalReferenceType.VCS,
+        { comment: 'as detected from PackageJson property "repository.url" and "repository.directory"' }
+      )]
+      const data = { repository: { url: 'http://example.com/foo', directory: '' } }
+      const actual = sut.makeExternalReferences(data)
+      assert.deepEqual(actual, expected)
+    })
+    test('undefined', () => {
+      const expected = [new ExternalReference(
+        'http://example.com/foo',
+        ExternalReferenceType.VCS,
+        { comment: 'as detected from PackageJson property "repository.url"' }
+      )]
+      const data = { repository: { url: 'http://example.com/foo' } }
+      const actual = sut.makeExternalReferences(data)
+      assert.deepEqual(actual, expected)
     })
   })
 })

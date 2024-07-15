@@ -6,11 +6,15 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Changed
+  * `Factories.FromNodePackageJson.ExternalReferenceFactory.makeVcs()` tries to canonicalize git-URLs ([#1119] via [#1120])
 * Fixed
   * Improved URL sanitizer (via [#1121])
 * Build
   * Use _webpack_ `v5.93.0` now, was `v5.92.1` (via [#1122])
 
+[#1119]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1119
+[#1120]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1120
 [#1121]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1121
 [#1122]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1122
 

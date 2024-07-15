@@ -28,6 +28,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { PackageURL } from 'packageurl-js'
 
+import {tryCanonicalizeGitUrl} from "../_helpers/gitUrl"
 import { isNotUndefined } from '../_helpers/notUndefined'
 import type { PackageJson } from '../_helpers/packageJson'
 import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
@@ -56,20 +57,21 @@ export class ExternalReferenceFactory {
     let url
     let comment: string | undefined
     if (typeof repository === 'object') {
-      url = repository.url
+      url = tryCanonicalizeGitUrl(repository.url)
       comment = 'as detected from PackageJson property "repository.url"'
-      if (typeof repository.directory === 'string' && typeof url === 'string' && url.length > 0) {
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-        url += '#' + repository.directory
+      if (typeof repository.directory === 'string' && url instanceof URL) {
+        // node does not properly encode `#` in the hash ... need to manually esscape
+        url.hash = repository.directory.replace(/#/g, '%23')
         comment += ' and "repository.directory"'
       }
     } else {
-      url = repository
+      url = tryCanonicalizeGitUrl(repository)
       comment = 'as detected from PackageJson property "repository"'
     }
-    return typeof url === 'string' && url.length > 0
-      ? new ExternalReference(url, ExternalReferenceType.VCS, { comment })
-      : undefined
+    return url === undefined
+      ? undefined
+      // cast to string so the URL is frozen/immutable
+      : new ExternalReference(url.toString(), ExternalReferenceType.VCS, { comment })
   }
 
   makeHomepage (data: PackageJson): ExternalReference | undefined {

@@ -57,8 +57,9 @@ export interface PackageJson {
   }
   homepage?: string
   repository?: string | {
+    type?: string
     url?: string
     directory?: string
   }
-  // .. to be continued
+  // ... to be continued
 }
