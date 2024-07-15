@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 6.11.0 -- 2024-07-15
+
 * Changed
   * `Factories.FromNodePackageJson.ExternalReferenceFactory.makeVcs()` tries to canonicalize git-URLs ([#1119] via [#1120])
 * Fixed
