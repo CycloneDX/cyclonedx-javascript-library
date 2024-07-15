@@ -92,7 +92,7 @@
   },
   "devDependencies": {
     "@types/mocha": "^10",
-    "@types/node": "ts5.4",
+    "@types/node": "ts5.5",
     "@types/spdx-expression-parse": "^3",
     "c8": "^8||^9||^10",
     "deepmerge": "^4.2.2",
