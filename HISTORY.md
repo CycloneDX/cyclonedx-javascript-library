@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Build
+  * Use _TypeScript_ `v5.5.4` now, was `v5.5.3` (via [#1130])
+ 
+[#1130]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1130
+
 ## 6.11.0 -- 2024-07-15
 
 * Changed
