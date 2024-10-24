@@ -31,6 +31,7 @@ bom.metadata.component = new CDX.Models.Component(
   'MyProject'
 )
 bom.metadata.component.licenses.add(lFac.makeFromString('MIT OR Apache-2.0'))
+bom.metadata.component.
 
 const componentA = new CDX.Models.Component(
   CDX.Enums.ComponentType.Library,
