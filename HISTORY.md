@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 6.11.1 -- 2024-10-24
+
 * Fixed
   * Encode quotation marks in URLs ([#1154] via [#1155])
 * Build
