@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Fixed
-  * url-encode double-quote in urls. ([#1154] via [#])
+  * url-encode double-quote in urls. ([#1154] via [#1155])
 * Build
   * Use _TypeScript_ `v5.6.2` now, was `v5.5.3` (via [#1130]. [#1144])
   * Use _webpack_ `v5.95.0` now, was `v5.93.0` (via [#1138], [#1147])
@@ -17,7 +17,7 @@ All notable changes to this project will be documented in this file.
 [#1144]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1144
 [#1147]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1147
 [#1154]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1154
-[#]:
+[#1155]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1155
 
 ## 6.11.0 -- 2024-07-15
 
