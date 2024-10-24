@@ -146,11 +146,6 @@
           "comment": "encode anyUri: partially encoded"
         },
         {
-          "url": "https://example.org/%22test%22",
-          "type": "other",
-          "comment": "encode anyUri: \""
-        },
-        {
           "url": "https://example.org/#%7Btest%7D%7Bagain%7D",
           "type": "other",
           "comment": "encode anyUri: {}"
@@ -174,6 +169,11 @@
           "url": "https://example.org/p?k=v#f",
           "type": "other",
           "comment": "encode anyUri: https"
+        },
+        {
+          "url": "https://example.org/this%22test%22isa%27test%27",
+          "type": "other",
+          "comment": "encode anyUri: quotation"
         },
         {
           "url": "mailto:info@example.org",

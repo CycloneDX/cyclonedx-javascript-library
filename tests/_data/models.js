@@ -284,7 +284,7 @@ module.exports.createComplexStructure = function () {
             ['encode anyUri: mailto', 'mailto:info@example.org'],
             ['encode anyUri: relative path', '../foo/bar'],
             ['encode anyUri: space', 'https://example.org/foo bar bazz%20again+again'],
-            ['encode anyUri: "', 'https://example.org/"test"'],
+            ['encode anyUri: quotation', `https://example.org/this"test"isa'test'`],
             ['encode anyUri: []', 'https://example.org/?bar[test]=baz[again]'],
             ['encode anyUri: <>', 'https://example.org/#<test><again>'],
             ['encode anyUri: {}', 'https://example.org/#{test}{again}'],

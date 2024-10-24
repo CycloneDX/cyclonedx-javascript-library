@@ -20,6 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const _ESCAPES: Array<[RegExp, string]> = [
   [/ /g, '%20'],
   [/"/g, '%22'],
+  [/'/g, '%27'],
   [/\[/g, '%5B'],
   [/]/g, '%5D'],
   [/</g, '%3C'],

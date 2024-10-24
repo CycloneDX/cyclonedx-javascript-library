@@ -116,10 +116,6 @@
                     <comment>encode anyUri: partially encoded</comment>
                 </reference>
                 <reference type="other">
-                    <url>https://example.org/%22test%22</url>
-                    <comment>encode anyUri: "</comment>
-                </reference>
-                <reference type="other">
                     <url>https://example.org/#%7Btest%7D%7Bagain%7D</url>
                     <comment>encode anyUri: {}</comment>
                 </reference>
@@ -138,6 +134,10 @@
                 <reference type="other">
                     <url>https://example.org/p?k=v#f</url>
                     <comment>encode anyUri: https</comment>
+                </reference>
+                <reference type="other">
+                    <url>https://example.org/this%22test%22isa%27test%27</url>
+                    <comment>encode anyUri: quotation</comment>
                 </reference>
                 <reference type="other">
                     <url>mailto:info@example.org</url>
