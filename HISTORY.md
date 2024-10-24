@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Fixed
-  * url-encode double-quote in urls. ([#1154] via [#1155])
+  * Encode double-quote in URLs. ([#1154] via [#1155])
 * Build
   * Use _TypeScript_ `v5.6.2` now, was `v5.5.3` (via [#1130]. [#1144])
   * Use _webpack_ `v5.95.0` now, was `v5.93.0` (via [#1138], [#1147])
