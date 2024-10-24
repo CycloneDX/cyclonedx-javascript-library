@@ -146,6 +146,11 @@
           "comment": "encode anyUri: partially encoded"
         },
         {
+          "url": "https://example.org/%22test%22",
+          "type": "other",
+          "comment": "encode anyUri: \""
+        },
+        {
           "url": "https://example.org/#%7Btest%7D%7Bagain%7D",
           "type": "other",
           "comment": "encode anyUri: {}"

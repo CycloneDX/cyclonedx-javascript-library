@@ -19,13 +19,13 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 const _ESCAPES: Array<[RegExp, string]> = [
   [/ /g, '%20'],
+  [/"/g, '%22'],
   [/\[/g, '%5B'],
   [/]/g, '%5D'],
   [/</g, '%3C'],
   [/>/g, '%3E'],
   [/\{/g, '%7B'],
   [/}/g, '%7D'],
-  [/"/, '%%22']
 ]
 
 /**
@@ -35,10 +35,10 @@ const _ESCAPES: Array<[RegExp, string]> = [
  *
  * BEST EFFORT IMPLEMENTATION
  *
- * @see {@kink http://www.w3.org/TR/xmlschema-2/#anyURI}
- * @see {@kink http://www.datypic.com/sc/xsd/t-xsd_anyURI.html}
- * @see {@kink https://datatracker.ietf.org/doc/html/rfc2396}
- * @see {@kink https://datatracker.ietf.org/doc/html/rfc3987}
+ * @see {@link http://www.w3.org/TR/xmlschema-2/#anyURI}
+ * @see {@link http://www.datypic.com/sc/xsd/t-xsd_anyURI.html}
+ * @see {@link https://datatracker.ietf.org/doc/html/rfc2396}
+ * @see {@link https://datatracker.ietf.org/doc/html/rfc3987}
  */
 export function escapeUri<T extends (string | undefined)> (value: T): T {
   if (value === undefined) {
