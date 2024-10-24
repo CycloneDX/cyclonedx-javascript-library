@@ -608,6 +608,25 @@
                     {
                       "type": "element",
                       "name": "url",
+                      "children": "https://example.org/this%22test%22isa%27test%27"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: quotation"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
                       "children": "mailto:info@example.org"
                     },
                     {

@@ -195,6 +195,11 @@
           "comment": "encode anyUri: https"
         },
         {
+          "url": "https://example.org/this%22test%22isa%27test%27",
+          "type": "other",
+          "comment": "encode anyUri: quotation"
+        },
+        {
           "url": "mailto:info@example.org",
           "type": "other",
           "comment": "encode anyUri: mailto"

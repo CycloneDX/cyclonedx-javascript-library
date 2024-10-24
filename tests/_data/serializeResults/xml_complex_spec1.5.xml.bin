@@ -145,6 +145,10 @@
                     <comment>encode anyUri: https</comment>
                 </reference>
                 <reference type="other">
+                    <url>https://example.org/this%22test%22isa%27test%27</url>
+                    <comment>encode anyUri: quotation</comment>
+                </reference>
+                <reference type="other">
                     <url>mailto:info@example.org</url>
                     <comment>encode anyUri: mailto</comment>
                 </reference>
