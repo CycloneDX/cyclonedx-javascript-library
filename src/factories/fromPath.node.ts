@@ -23,7 +23,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import {readFileSync} from "fs";
 
-import {getMimeForTextFile, type MimeType} from "../_helpers/mime";
+import {getMimeTypeForTextFile, type MimeType} from "../_helpers/mime";
 import {AttachmentEncoding} from "../enums/attachmentEncoding";
 import {Attachment} from "../models/attachment";
 
@@ -45,7 +45,7 @@ export class AttachmentFactory {
   }
 
   public fromTextFile(file: string): Attachment | undefined {
-    const contentType = getMimeForTextFile(file)
+    const contentType = getMimeTypeForTextFile(file)
     if (contentType === undefined) {
       return undefined
     }

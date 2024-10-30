@@ -22,8 +22,8 @@ import {extname} from "path";
 
 export type MimeType = string
 
-const MAP_TEXT_EXTENSION_MIME: Readonly<Record<string, MimeType>> = {
-  '': 'text/plain',
+const MAP_TEXT_EXTENSION_MIMETYPE: Readonly<Record<string, MimeType>> = {
+  '': 'text/plain', // our scope is text!
   '.licence': 'text/plain',
   '.license': 'text/plain',
   '.md': 'text/markdown',
@@ -32,6 +32,6 @@ const MAP_TEXT_EXTENSION_MIME: Readonly<Record<string, MimeType>> = {
   '.xml': 'text/xml' // not `application/xml` -- our scope is text!
 } as const
 
-export function getMimeForTextFile (filename: string): MimeType | undefined {
-  return MAP_TEXT_EXTENSION_MIME[extname(filename).toLowerCase()]
+export function getMimeTypeForTextFile (filename: string): MimeType | undefined {
+  return MAP_TEXT_EXTENSION_MIMETYPE[extname(filename).toLowerCase()]
 }
