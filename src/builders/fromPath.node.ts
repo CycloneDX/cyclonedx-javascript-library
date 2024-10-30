@@ -22,7 +22,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
 import {readdirSync} from "fs";
-import {join, relative, resolve} from "path";
+import {join, relative} from "path";
 
 import type * as Factories from "../factories/index.node";
 import {NamedLicense} from "../models/license";
@@ -48,6 +48,9 @@ export class LicenseEvidenceBuilder {
    * Return a license on success.
    * Returns undefined if it appears to bes no known text file.
    * Throws error, if license attachment content could not be fetched.
+   *
+   * If `relativeFrom` is given, the file is displayed relative from there,
+   * else the full file name is displayed.
    *
    * @param file - path to file
    * @param relativeFrom -  relative path reference for file display
@@ -77,6 +80,10 @@ export class LicenseEvidenceBuilder {
    *
    * @param dir - path to inspect
    * @param relativeFrom - relative path reference for file display
+   *
+   * @remarks
+   *
+   * Utilizes {@link fromFile}.
    */
   public * fromDir(dir: string, relativeFrom: string | undefined = undefined): Generator<NamedLicense> {
     // may throw if `readdirSync()` fails
