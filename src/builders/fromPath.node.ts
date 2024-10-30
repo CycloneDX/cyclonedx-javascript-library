@@ -50,7 +50,7 @@ export class LicenseEvidenceBuilder {
    * Throws error, if license attachment content could not be fetched.
    *
    * If `relativeFrom` is given, the file is displayed relative from there,
-   * else the full file name is displayed.
+   * else the file is displayed unmodified.
    *
    * @param file - path to file
    * @param relativeFrom -  relative path reference for file display
