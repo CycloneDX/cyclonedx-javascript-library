@@ -17,5 +17,21 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * as FromNodePackageJson from './fromNodePackageJson.node'
-export * as FromPath from './fromPath.node'
+
+import {extname} from "path";
+
+export type MimeType = string
+
+const MAP_TEXT_EXTENSION_MIME: Readonly<Record<string, MimeType>> = {
+  '': 'text/plain',
+  '.licence': 'text/plain',
+  '.license': 'text/plain',
+  '.md': 'text/markdown',
+  '.rst': 'text/prs.fallenstein.rst',
+  '.txt': 'text/plain',
+  '.xml': 'text/xml' // not `application/xml` -- our scope is text!
+} as const
+
+export function getMimeForTextFile (filename: string): MimeType | undefined {
+  return MAP_TEXT_EXTENSION_MIME[extname(filename).toLowerCase()]
+}
