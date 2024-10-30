@@ -44,31 +44,31 @@ export class LicenseEvidenceBuilder {
 
   /**
    * Return a license on success, returns undefined if it appears to bes no known text file.
-   * Throws errors, if license attachment failed to create.
+   * Throws error, if license attachment content could not be fetched.
    *
    * @param file - path to file
    * @param relativeFrom - path the file shall be relative to
    * @returns {@link NamedLicense} on success
    */
   public fromFile(file: string, relativeFrom: string | undefined = undefined): NamedLicense | undefined {
-    let lname
+    let name
     if ( relativeFrom === undefined) {
-      lname = `file: ${file}`
+      name = `file: ${file}`
     } else {
       // `file` could be absolute or relative path - lets resolve it anyway
       file = resolve(relativeFrom, file)
-      lname = `file: ${relative(relativeFrom, file)}`
+      name = `file: ${relative(relativeFrom, file)}`
     }
     const text = this.#afac.fromTextFile(file)
     if (text === undefined) {
       return undefined
     }
-    return new NamedLicense(lname, {text})
+    return new NamedLicense(name, {text})
   }
 
   /**
    * Returns a generator for license evidences.
-   * Throws errors, if dir cannot be inspected.
+   * Throws error, if dir content could not be inspected.
    *
    * @param dir - path to inspect
    * @param relativeFrom - path the dir and files shall be relative to

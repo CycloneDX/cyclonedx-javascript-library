@@ -34,6 +34,12 @@ import {Attachment} from "../models/attachment";
  */
 export class AttachmentFactory {
 
+  /**
+   * Return an attachment on success.
+   * Throws error, if content could not be fetched.
+   *
+   * @returns {@link NamedLicense} on success
+   */
   public fromFile(file: string, contentType: MimeType): Attachment {
     return new Attachment(
           // may throw if `readFileSync()` fails
@@ -44,6 +50,12 @@ export class AttachmentFactory {
           })
   }
 
+  /**
+   * Return an attachment on success, returns undefined if it appears to bes no known text file.
+   * Throws error, if content could not be fetched.
+   *
+   * @returns {@link Attachment} on success
+   */
   public fromTextFile(file: string): Attachment | undefined {
     const contentType = getMimeTypeForTextFile(file)
     if (contentType === undefined) {
