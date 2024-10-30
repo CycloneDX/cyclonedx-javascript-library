@@ -24,7 +24,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import {readdirSync} from "fs";
 import {join, relative, resolve} from "path";
 
-import type {AttachmentFactory} from "../factories/fromPath.node";
+import type * as Factories from "../factories/index.node";
 import {NamedLicense} from "../models/license";
 
 
@@ -34,21 +34,23 @@ import {NamedLicense} from "../models/license";
  */
 export class LicenseEvidenceBuilder {
 
-  readonly #afac: AttachmentFactory
+  readonly #attachmentFactory: Factories.FromPath.AttachmentFactory
 
-  constructor(afac: AttachmentFactory) {
-    this.#afac = afac
+  constructor(attachmentFactory: LicenseEvidenceBuilder['attachmentFactory']) {
+    this.#attachmentFactory = attachmentFactory
   }
 
-  readonly #LICENSE_FILENAME_PATTERN = /^(?:UN)?LICEN[CS]E|.\.LICEN[CS]E$|^NOTICE$/i
+  get attachmentFactory (): Factories.FromPath.AttachmentFactory {
+    return this.#attachmentFactory
+  }
 
   /**
-   * Return a license on success, returns undefined if it appears to bes no known text file.
+   * Return a license on success.
+   * Returns undefined if it appears to bes no known text file.
    * Throws error, if license attachment content could not be fetched.
    *
    * @param file - path to file
-   * @param relativeFrom - path the file shall be relative to
-   * @returns {@link NamedLicense} on success
+   * @param relativeFrom - path the file shall be relative from
    */
   public fromFile(file: string, relativeFrom: string | undefined = undefined): NamedLicense | undefined {
     let name
@@ -59,19 +61,23 @@ export class LicenseEvidenceBuilder {
       file = resolve(relativeFrom, file)
       name = `file: ${relative(relativeFrom, file)}`
     }
-    const text = this.#afac.fromTextFile(file)
+    const text = this.#attachmentFactory.fromTextFile(file)
     if (text === undefined) {
       return undefined
     }
     return new NamedLicense(name, {text})
   }
 
+  readonly #LICENSE_FILENAME_PATTERN = /^(?:UN)?LICEN[CS]E|.\.LICEN[CS]E$|^NOTICE$/i
+
   /**
-   * Returns a generator for license evidences.
-   * Throws error, if dir content could not be inspected.
+   * Returns a generator for license evidences in a directory.
+   * Throws error, if directory content could not be inspected.
+   *
+   * Unreadable files will be omitted.
    *
    * @param dir - path to inspect
-   * @param relativeFrom - path the dir and files shall be relative to
+   * @param relativeFrom - path the dir and files shall be relative from
    */
   public * fromDir(dir: string, relativeFrom: string | undefined = undefined): Generator<NamedLicense> {
     if ( relativeFrom !== undefined) {

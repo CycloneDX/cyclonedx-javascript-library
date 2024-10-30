@@ -23,9 +23,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import {readFileSync} from "fs";
 
-import {getMimeTypeForTextFile, type MimeType} from "../_helpers/mime";
+import {getMimeTypeForTextFile} from "../_helpers/mime";
 import {AttachmentEncoding} from "../enums/attachmentEncoding";
 import {Attachment} from "../models/attachment";
+import type {MimeType} from "../types/mimeType";
 
 
 
@@ -35,15 +36,14 @@ import {Attachment} from "../models/attachment";
 export class AttachmentFactory {
 
   /**
-   * Return an attachment on success.
-   * Throws error, if content could not be fetched.
+   * Throws error, if file content could not be read.
    *
-   * @returns {@link NamedLicense} on success
+   * Content will be base64 encoded.
    */
-  public fromFile(file: string, contentType: MimeType): Attachment {
+  public fromFile(file: string, contentType: MimeType | undefined = undefined): Attachment {
     return new Attachment(
           // may throw if `readFileSync()` fails
-          readFileSync(file).toString('base64'),
+          readFileSync(file, {encoding: 'base64'}),
           {
             contentType,
             encoding: AttachmentEncoding.Base64
@@ -51,10 +51,11 @@ export class AttachmentFactory {
   }
 
   /**
-   * Return an attachment on success, returns undefined if it appears to bes no known text file.
+   * Return an attachment on success.
+   * Returns undefined if it appears to be no known text file.
    * Throws error, if content could not be fetched.
    *
-   * @returns {@link Attachment} on success
+   * Tries to guess the file's mime-type.
    */
   public fromTextFile(file: string): Attachment | undefined {
     const contentType = getMimeTypeForTextFile(file)

@@ -20,10 +20,13 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import {extname} from "path";
 
-export type MimeType = string
+import type {MimeType} from "../types/mimeType";
 
 const MAP_TEXT_EXTENSION_MIMETYPE: Readonly<Record<string, MimeType>> = {
   '': 'text/plain', // our scope is text!
+  '.csv': 'text/csv',
+  '.htm': 'text/html',
+  '.html': 'text/html',
   '.licence': 'text/plain',
   '.license': 'text/plain',
   '.md': 'text/markdown',
@@ -32,6 +35,10 @@ const MAP_TEXT_EXTENSION_MIMETYPE: Readonly<Record<string, MimeType>> = {
   '.xml': 'text/xml' // not `application/xml` -- our scope is text!
 } as const
 
+/**
+ * Returns the guessed mime type of file, based on file name extension.
+ * Returns undefined if tile extension is unknown.
+ */
 export function getMimeTypeForTextFile (filename: string): MimeType | undefined {
   return MAP_TEXT_EXTENSION_MIMETYPE[extname(filename).toLowerCase()]
 }
