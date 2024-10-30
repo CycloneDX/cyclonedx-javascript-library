@@ -23,7 +23,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import {readFileSync} from "fs";
 
-import {getMimeForTextFile, MimeType} from "../_helpers/mime";
+import {getMimeForTextFile, type MimeType} from "../_helpers/mime";
 import {AttachmentEncoding} from "../enums/attachmentEncoding";
 import {Attachment} from "../models/attachment";
 
