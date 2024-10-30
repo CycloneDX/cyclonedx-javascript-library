@@ -23,7 +23,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import {readFileSync} from "fs";
 
-import {getMimeForTextFile} from "../_helpers/mime";
+import {getMimeForTextFile, MimeType} from "../_helpers/mime";
 import {AttachmentEncoding} from "../enums/attachmentEncoding";
 import {Attachment} from "../models/attachment";
 
@@ -34,7 +34,7 @@ import {Attachment} from "../models/attachment";
  */
 export class AttachmentFactory {
 
-  public fromFile(file: string, contentType: string): Attachment {
+  public fromFile(file: string, contentType: MimeType): Attachment {
     return new Attachment(
           // may throw if `readFileSync()` fails
           readFileSync(file).toString('base64'),
