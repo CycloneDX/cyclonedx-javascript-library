@@ -50,7 +50,7 @@ export class LicenseEvidenceBuilder {
    * Throws error, if license attachment content could not be fetched.
    *
    * @param file - path to file
-   * @param relativeFrom - path the file shall be relative from
+   * @param relativeFrom -  relative path reference for file display
    */
   public fromFile(file: string, relativeFrom: string | undefined = undefined): NamedLicense | undefined {
     let name
@@ -58,7 +58,6 @@ export class LicenseEvidenceBuilder {
       name = `file: ${file}`
     } else {
       // `file` could be absolute or relative path - lets resolve it anyway
-      file = resolve(relativeFrom, file)
       name = `file: ${relative(relativeFrom, file)}`
     }
     const text = this.#attachmentFactory.fromTextFile(file)
@@ -77,13 +76,9 @@ export class LicenseEvidenceBuilder {
    * Unreadable files will be omitted.
    *
    * @param dir - path to inspect
-   * @param relativeFrom - path the dir and files shall be relative from
+   * @param relativeFrom - relative path reference for file display
    */
   public * fromDir(dir: string, relativeFrom: string | undefined = undefined): Generator<NamedLicense> {
-    if ( relativeFrom !== undefined) {
-      // `dir` could be absolute or relative path - lets resolve it anyway
-      dir = resolve(relativeFrom, dir)
-    }
     // may throw if `readdirSync()` fails
     const dcis = readdirSync(dir, { withFileTypes: true })
     for (const dci of dcis) {
