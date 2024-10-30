@@ -21,12 +21,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * Node-specifics.
  */
 
-import {readdirSync, readFileSync} from "fs";
+import {readdirSync} from "fs";
 import {join, relative, resolve} from "path";
 
-import {getMimeForTextFile} from "../_helpers/mime";
-import {AttachmentEncoding} from "../enums/attachmentEncoding";
-import {Attachment} from "../models/attachment";
+import type {AttachmentFactory} from "../factories/fromPath.node";
 import {NamedLicense} from "../models/license";
 
 
@@ -35,6 +33,12 @@ import {NamedLicense} from "../models/license";
  * Node-specific LicenseEvidenceBuilder.
  */
 export class LicenseEvidenceBuilder {
+
+  readonly #afac: AttachmentFactory
+
+  constructor(afac: AttachmentFactory) {
+    this.#afac = afac
+  }
 
   readonly #LICENSE_FILENAME_PATTERN = /^(?:UN)?LICEN[CS]E|.\.LICEN[CS]E$|^NOTICE$/i
 
@@ -47,10 +51,6 @@ export class LicenseEvidenceBuilder {
    * @returns {@link NamedLicense} on success
    */
   public fromFile(file: string, relativeFrom: string | undefined = undefined): NamedLicense | undefined {
-    const contentType = getMimeForTextFile(file)
-    if (contentType === undefined) {
-      return undefined
-    }
     let lname
     if ( relativeFrom === undefined) {
       lname = `file: ${file}`
@@ -59,18 +59,11 @@ export class LicenseEvidenceBuilder {
       file = resolve(relativeFrom, file)
       lname = `file: ${relative(relativeFrom, file)}`
     }
-    return new NamedLicense(
-      `file: ${lname}`,
-      {
-        text: new Attachment(
-          // may throw if `readFileSync()` fails
-          readFileSync(file).toString('base64'),
-          {
-            contentType,
-            encoding: AttachmentEncoding.Base64
-          }
-        )
-      })
+    const text = this.#afac.fromTextFile(file)
+    if (text === undefined) {
+      return undefined
+    }
+    return new NamedLicense(lname, {text})
   }
 
   /**
@@ -78,7 +71,7 @@ export class LicenseEvidenceBuilder {
    * Throws errors, if dir cannot be inspected.
    *
    * @param dir - path to inspect
-   * @param relativeFrom - path the dir shall be relative to
+   * @param relativeFrom - path the dir and files shall be relative to
    */
   public * fromDir(dir: string, relativeFrom: string | undefined = undefined): Generator<NamedLicense> {
     if ( relativeFrom !== undefined) {
