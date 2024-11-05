@@ -17,15 +17,16 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { chainI } from "../../_helpers/iterable";
 import { isNotUndefined } from '../../_helpers/notUndefined'
 import type { SortableIterable } from '../../_helpers/sortable'
 import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
 import { escapeUri } from '../../_helpers/uri'
 import type * as Models from '../../models'
-import { ToolRepository } from '../../models/tool'
 import { LicenseExpression, NamedLicense, SpdxLicense } from '../../models/license'
 import { NamedLifecycle } from '../../models/lifecycle'
+import { Tool, ToolRepository } from '../../models/tool'
 import { AffectedSingleVersion, AffectedVersionRange } from '../../models/vulnerability/affect'
 import { isSupportedSpdxId } from '../../spdx'
 import type { _SpecProtocol as Spec } from '../../spec/_protocol'
@@ -33,8 +34,6 @@ import { Version as SpecVersion } from '../../spec/enums'
 import type { NormalizerOptions } from '../types'
 import type { Normalized } from './types'
 import { JsonSchema } from './types'
-import { chainI} from "../../_helpers/iterable";
-import {Tool} from "../../models";
 
 export class Factory {
   readonly #spec: Spec

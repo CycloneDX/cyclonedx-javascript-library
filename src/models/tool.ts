@@ -19,9 +19,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { Comparable } from '../_helpers/sortable'
 import { SortableComparables } from '../_helpers/sortable'
+import {type Component, ComponentRepository} from "./component";
 import { ExternalReferenceRepository } from './externalReference'
 import { HashDictionary } from './hash'
-import {type Component, ComponentRepository} from "./component";
 
 export interface OptionalToolProperties {
   vendor?: Tool['vendor']

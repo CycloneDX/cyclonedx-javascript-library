@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export function * chainI<T = any> (...iterables: Array<Iterable<T>>): Generator<T> {
+export function * chainI<T> (...iterables: Array<Iterable<T>>): Generator<T> {
   for (const iterable of iterables) {
     for (const item of iterable) {
       yield item

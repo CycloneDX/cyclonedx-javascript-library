@@ -17,12 +17,14 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { chainI } from "../../_helpers/iterable";
 import { isNotUndefined } from '../../_helpers/notUndefined'
 import type { SortableIterable } from '../../_helpers/sortable'
 import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
 import { escapeUri } from '../../_helpers/uri'
 import type * as Models from '../../models'
+import { Tool, ToolRepository } from "../../models";
 import { LicenseExpression, NamedLicense, SpdxLicense } from '../../models/license'
 import { NamedLifecycle } from '../../models/lifecycle'
 import { AffectedSingleVersion, AffectedVersionRange } from '../../models/vulnerability/affect'
@@ -33,8 +35,6 @@ import type { NormalizerOptions } from '../types'
 import { normalizedString, token} from './_xsd'
 import type { SimpleXml } from './types'
 import { XmlSchema } from './types'
-import {Tool, ToolRepository} from "../../models";
-import {chainI} from "../../_helpers/iterable";
 
 export class Factory {
   readonly #spec: Spec
@@ -376,7 +376,7 @@ export class ToolsNormalizer extends BaseXmlNormalizer<Models.Tools> {
     let children: SimpleXml.Element[]
     if (data.tools.size > 0 || !this._factory.spec.supportsToolsComponentsServices) {
       children = this._factory.makeForTool().normalizeIterable(
-        new ToolRepository(chainI<Models.Tool>(
+        new ToolRepository(chainI(
           Array.from(data.components, Tool.fromComponent),
           // TODO services
           data.tools,
