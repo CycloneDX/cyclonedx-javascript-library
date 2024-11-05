@@ -61,6 +61,12 @@ export class Factory {
     return new ComponentNormalizer(this)
   }
 
+  makeForService (): ServiceNormalizer {
+    return new ServiceNormalizer(this)
+  }
+
+
+
   makeForComponentEvidence (): ComponentEvidenceNormalizer {
     return new ComponentEvidenceNormalizer(this)
   }
@@ -189,6 +195,13 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
         ? this._factory.makeForComponent().normalizeIterable(data.components, options, 'component')
         : undefined
     }
+    const services: SimpleXml.Element | undefined = this._factory.spec.supportsServices  && data.services.size > 0
+    ? {
+        type: 'element',
+        name: 'services',
+        children: this._factory.makeForService().normalizeIterable(data.services, options, 'service')
+      }
+      : undefined
     const vulnerabilities: SimpleXml.Element | undefined = this._factory.spec.supportsVulnerabilities && data.vulnerabilities.size > 0
       ? {
           type: 'element',
@@ -212,6 +225,7 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
           ? this._factory.makeForMetadata().normalize(data.metadata, options, 'metadata')
           : undefined,
         components,
+        services,
         this._factory.spec.supportsDependencyGraph
           ? this._factory.makeForDependencyGraph().normalize(data, options, 'dependencies')
           : undefined,
@@ -527,6 +541,11 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
     ).filter(isNotUndefined)
   }
 }
+
+export class ServiceNormalizer extends BaseXmlNormalizer<Models.Service> {
+  //TODO
+}
+
 
 export class ComponentEvidenceNormalizer extends BaseXmlNormalizer<Models.ComponentEvidence> {
   normalize (data: Models.ComponentEvidence, options: NormalizerOptions, elementName: string): SimpleXml.Element {

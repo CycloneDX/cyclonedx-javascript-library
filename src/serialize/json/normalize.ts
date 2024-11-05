@@ -56,6 +56,10 @@ export class Factory {
     return new ComponentNormalizer(this)
   }
 
+  makeForService (): ServiceNormalizer {
+    return new ServiceNormalizer(this)
+  }
+
   makeForComponentEvidence (): ComponentEvidenceNormalizer {
     return new ComponentEvidenceNormalizer(this)
   }
@@ -189,6 +193,9 @@ export class BomNormalizer extends BaseJsonNormalizer<Models.Bom> {
         ? this._factory.makeForComponent().normalizeIterable(data.components, options)
         // spec < 1.4 requires `component` to be array
         : [],
+      services: this._factory.spec.supportsServices && data.services.size > 0
+        ? this._factory.makeForService().normalizeIterable(data.services, options)
+        : undefined,
       dependencies: this._factory.spec.supportsDependencyGraph
         ? this._factory.makeForDependencyGraph().normalize(data, options)
         : undefined,
@@ -404,6 +411,10 @@ export class ComponentNormalizer extends BaseJsonNormalizer<Models.Component> {
       c => this.normalize(c, options)
     ).filter(isNotUndefined)
   }
+}
+
+export class ServiceNormalizer extends BaseJsonNormalizer<Models.Service> {
+  // TODO
 }
 
 export class ComponentEvidenceNormalizer extends BaseJsonNormalizer<Models.ComponentEvidence> {

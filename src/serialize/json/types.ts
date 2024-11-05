@@ -80,6 +80,7 @@ export namespace Normalized {
     serialNumber?: string
     metadata?: Metadata
     components?: Component[]
+    services?: Service[]
     externalReferences?: ExternalReference[]
     dependencies?: Dependency[]
     vulnerabilities?: Vulnerability[]
@@ -155,6 +156,18 @@ export namespace Normalized {
     externalReferences?: ExternalReference[]
     components?: Component[]
     evidence?: ComponentEvidence
+    properties?: Property[]
+  }
+
+  export interface Service {
+    'bom-ref'?: RefType
+    provider?: OrganizationalEntity
+    group?: string
+    name: string
+    version?: string
+    description?: string
+    externalReferences?: ExternalReference[]
+    services?: Service[]
     properties?: Property[]
   }
 

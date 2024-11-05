@@ -20,8 +20,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { PositiveInteger } from '../types/integer'
 import { isPositiveInteger } from '../types/integer'
 import { ComponentRepository } from './component'
-import { ServiceRepository } from './service'
 import { Metadata } from './metadata'
+import { ServiceRepository } from './service'
 import { VulnerabilityRepository } from './vulnerability/vulnerability'
 
 export interface OptionalBomProperties {
