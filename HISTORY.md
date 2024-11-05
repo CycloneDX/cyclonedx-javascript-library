@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+[#1164]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1164
+
 ## 6.11.1 -- 2024-10-24
 
 * Fixed
