@@ -294,7 +294,7 @@ export class ToolNormalizer extends BaseJsonNormalizer<Models.Tool> {
 
 export class ToolsNormalizer extends BaseJsonNormalizer<Models.Tools> {
   normalize(data: Models.Tools, options: NormalizerOptions): Normalized.ToolsType {
-    if (data.tools.size > 0) {
+    if (data.tools.size > 0 || !this._factory.spec.supportsToolsComponentsServices) {
       return this._factory.makeForTool().normalizeIterable(
         new ToolRepository(chainI<Models.Tool>(
           Array.from(data.components, Tool.fromComponent),

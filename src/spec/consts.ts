@@ -86,7 +86,8 @@ export const Spec1dot2: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   false,
   false,
   false,
-  true
+  true,
+  false
 ))
 
 /** Specification v1.3 */
@@ -150,7 +151,8 @@ export const Spec1dot3: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   true,
   true,
   false,
-  true
+  true,
+  false
 ))
 
 /** Specification v1.4 */
@@ -221,7 +223,8 @@ export const Spec1dot4: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   true,
   true,
   false,
-  true
+  true,
+  false
 ))
 
 /** Specification v1.5 */
@@ -321,6 +324,7 @@ export const Spec1dot5: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   true,
   true,
   false,
+  true,
   true
 ))
 
@@ -420,6 +424,7 @@ export const Spec1dot6: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
     VulnerabilityRatingMethod.SSVC,
     VulnerabilityRatingMethod.Other
   ],
+  true,
   true,
   true,
   true,

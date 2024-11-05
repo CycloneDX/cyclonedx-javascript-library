@@ -48,6 +48,7 @@ export interface _SpecProtocol {
   supportsExternalReferenceHashes: boolean
   supportsLicenseAcknowledgement: boolean
   supportsServices:boolean
+  supportsToolsComponentsServices:boolean
 }
 
 /**
@@ -77,6 +78,7 @@ export class _Spec implements _SpecProtocol {
   readonly #supportsExternalReferenceHashes: boolean
   readonly #supportsLicenseAcknowledgement: boolean
   readonly #supportsServices: boolean
+  readonly #supportsToolsComponentsServices:boolean
 
   /* eslint-disable-next-line @typescript-eslint/max-params -- architectural decision */
   constructor (
@@ -99,6 +101,8 @@ export class _Spec implements _SpecProtocol {
     supportsExternalReferenceHashes: boolean,
     supportsLicenseAcknowledgement: boolean,
     supportsServices:boolean
+    supportsLicenseAcknowledgement: boolean,
+    supportsToolsComponentsServices:boolean
   ) {
     this.#version = version
     this.#formats = new Set(formats)
@@ -119,6 +123,7 @@ export class _Spec implements _SpecProtocol {
     this.#supportsExternalReferenceHashes = supportsExternalReferenceHashes
     this.#supportsLicenseAcknowledgement = supportsLicenseAcknowledgement
     this.#supportsServices = supportsServices
+    this.#supportsToolsComponentsServices=supportsToolsComponentsServices
   }
 
   get version (): Version {
@@ -202,5 +207,9 @@ export class _Spec implements _SpecProtocol {
 
   get supportsServices (): boolean {
     return this.#supportsServices
+  }
+
+  get supportsToolsComponentsServices(): boolean {
+    return this.#supportsToolsComponentsServices
   }
 }

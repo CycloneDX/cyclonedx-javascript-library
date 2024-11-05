@@ -256,7 +256,7 @@ export class MetadataNormalizer extends BaseXmlNormalizer<Models.Metadata> {
         }
       : undefined
     const tools: SimpleXml.Element | undefined = data.tools.size > 0
-      ? this._factory.makeForTools().normalize(data.tools, options)
+      ? this._factory.makeForTools().normalize(data.tools, options, 'tools')
       : undefined
     const authors: SimpleXml.Element | undefined = data.authors.size > 0
       ? {
@@ -374,7 +374,7 @@ export class ToolNormalizer extends BaseXmlNormalizer<Models.Tool> {
 export class ToolsNormalizer extends BaseXmlNormalizer<Models.Tools> {
   normalize (data: Models.Tools, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     let children: SimpleXml.Element[]
-    if (data.tools.size > 0) {
+    if (data.tools.size > 0 || !this._factory.spec.supportsToolsComponentsServices) {
       children = this._factory.makeForTool().normalizeIterable(
         new ToolRepository(chainI<Models.Tool>(
           Array.from(data.components, Tool.fromComponent),
@@ -966,11 +966,7 @@ export class VulnerabilityNormalizer extends BaseXmlNormalizer<Models.Vulnerabil
         }
       : undefined
     const tools: SimpleXml.Element | undefined = data.tools.size > 0
-      ? {
-          type: 'element',
-          name: 'tools',
-          children: this._factory.makeForTools().normalize(data.tools, options)
-        }
+      ? this._factory.makeForTools().normalize(data.tools, options, 'tools')
       : undefined
     const affects: SimpleXml.Element | undefined = data.affects.size > 0
       ? {
