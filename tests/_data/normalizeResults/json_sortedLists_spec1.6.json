@@ -19,7 +19,7 @@
       "components": [
         {
           "type": "library",
-          "name": "tool name",
+          "name": "other tool",
           "group": "tool group",
           "externalReferences": [
             {
@@ -679,7 +679,7 @@
       "tools": [
         {
           "vendor": "g the group",
-          "name": "tool name"
+          "name": "other tool name"
         },
         {
           "vendor": "v the vendor",

@@ -72,7 +72,7 @@
                     {
                       "type": "element",
                       "name": "name",
-                      "children": "tool name"
+                      "children": "other tool"
                     },
                     {
                       "type": "element",
@@ -2142,7 +2142,7 @@
                     {
                       "type": "element",
                       "name": "name",
-                      "children": "tool name"
+                      "children": "other tool name"
                     }
                   ]
                 },

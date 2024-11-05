@@ -9,7 +9,7 @@
     "tools": [
       {
         "vendor": "tool group",
-        "name": "tool name",
+        "name": "other tool",
         "externalReferences": [
           {
             "url": "https://cyclonedx.org/tool-center/",
@@ -665,7 +665,7 @@
       "tools": [
         {
           "vendor": "g the group",
-          "name": "tool name"
+          "name": "other tool name"
         },
         {
           "vendor": "v the vendor",

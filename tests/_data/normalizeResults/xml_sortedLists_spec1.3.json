@@ -32,7 +32,7 @@
                 {
                   "type": "element",
                   "name": "name",
-                  "children": "tool name"
+                  "children": "other tool"
                 }
               ]
             },

@@ -72,6 +72,7 @@ export class ToolRepository extends SortableComparables<Tool> {
 
 export interface OptionalToolsProperties {
   components?: ComponentRepository
+  // TODO: services
   tools?: ToolRepository
 }
 

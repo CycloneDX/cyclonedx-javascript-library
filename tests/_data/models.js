@@ -49,7 +49,7 @@ module.exports.createComplexStructure = function () {
             }),
           new Models.Component(
             Enums.ComponentType.Library,
-            'tool name', {
+            'other tool', {
               group: 'tool group',
               version: '', // empty string, not undefined
               externalReferences: new Models.ExternalReferenceRepository([
@@ -552,7 +552,7 @@ module.exports.createComplexStructure = function () {
         components: new Models.ComponentRepository([
           new Models.Component(
             Enums.ComponentType.Application,
-            'tool name', {
+            'other tool name', {
               group: 'g the group'
             })
         ])
