@@ -90,7 +90,7 @@ export namespace Normalized {
   export interface Metadata {
     timestamp?: JsonSchema.DateTime
     lifecycles?: Lifecycle[]
-    tools?: Tool[]
+    tools?: ToolsType
     authors?: OrganizationalContact[]
     component?: Component
     manufacture?: OrganizationalEntity
@@ -117,6 +117,14 @@ export namespace Normalized {
     hashes?: Hash[]
     externalReferences?: ExternalReference[]
   }
+
+  /** since CDX 1.5 */
+  export interface Tools {
+    components: Component[]
+    // TODO: services
+  }
+
+  export type ToolsType = Tools | Tool[]
 
   export interface OrganizationalContact {
     name?: string
@@ -257,7 +265,7 @@ export namespace Normalized {
     published?: JsonSchema.DateTime
     updated?: JsonSchema.DateTime
     credits?: Vulnerability.Credits
-    tools?: Tool[]
+    tools?: ToolsType
     analysis?: Vulnerability.Analysis
     affects?: Vulnerability.Affect[]
     properties?: Property[]

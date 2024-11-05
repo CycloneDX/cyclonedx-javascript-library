@@ -23,7 +23,7 @@ import { LifecycleRepository } from './lifecycle'
 import { OrganizationalContactRepository } from './organizationalContact'
 import type { OrganizationalEntity } from './organizationalEntity'
 import { PropertyRepository } from './property'
-import { ToolRepository } from './tool'
+import { Tools } from './tool'
 
 export interface OptionalMetadataProperties {
   timestamp?: Metadata['timestamp']
@@ -40,7 +40,7 @@ export interface OptionalMetadataProperties {
 export class Metadata {
   timestamp?: Date
   lifecycles: LifecycleRepository
-  tools: ToolRepository
+  tools: Tools
   authors: OrganizationalContactRepository
   component?: Component
   manufacture?: OrganizationalEntity
@@ -51,7 +51,7 @@ export class Metadata {
   constructor (op: OptionalMetadataProperties = {}) {
     this.timestamp = op.timestamp
     this.lifecycles = op.lifecycles ?? new LifecycleRepository()
-    this.tools = op.tools ?? new ToolRepository()
+    this.tools = op.tools ?? new Tools()
     this.authors = op.authors ?? new OrganizationalContactRepository()
     this.component = op.component
     this.manufacture = op.manufacture

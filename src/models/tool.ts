@@ -21,6 +21,7 @@ import type { Comparable } from '../_helpers/sortable'
 import { SortableComparables } from '../_helpers/sortable'
 import { ExternalReferenceRepository } from './externalReference'
 import { HashDictionary } from './hash'
+import {type Component, ComponentRepository} from "./component";
 
 export interface OptionalToolProperties {
   vendor?: Tool['vendor']
@@ -53,7 +54,41 @@ export class Tool implements Comparable<Tool> {
       (this.version ?? '').localeCompare(other.version ?? '')
     /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
+
+  static fromComponent(component: Component): Tool {
+    return new Tool({
+      vendor: component.group,
+      name: component.name,
+      version: component.version,
+      hashes: component.hashes,
+      externalReferences: component.externalReferences
+    })
+  }
 }
 
 export class ToolRepository extends SortableComparables<Tool> {
+}
+
+
+export interface OptionalToolsProperties {
+  components?: ComponentRepository
+  tools?: ToolRepository
+}
+
+export class Tools {
+  components: ComponentRepository
+  // TODO: services
+  tools: ToolRepository
+
+  constructor(op: OptionalToolsProperties = {}) {
+    this.components = op.components ?? new ComponentRepository()
+    // TODO: this.services
+    this.tools = op.tools ?? new ToolRepository()
+  }
+
+  get size(): number {
+    return this.components.size
+      // TODO: this.services
+      + this.tools.size
+  }
 }

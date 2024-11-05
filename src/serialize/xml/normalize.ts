@@ -33,6 +33,8 @@ import type { NormalizerOptions } from '../types'
 import { normalizedString, token} from './_xsd'
 import type { SimpleXml } from './types'
 import { XmlSchema } from './types'
+import {Tool, ToolRepository} from "../../models";
+import {chainI} from "../../_helpers/iterable";
 
 export class Factory {
   readonly #spec: Spec
@@ -73,6 +75,10 @@ export class Factory {
 
   makeForTool (): ToolNormalizer {
     return new ToolNormalizer(this)
+  }
+
+  makeForTools (): ToolsNormalizer {
+    return new ToolsNormalizer(this)
   }
 
   makeForOrganizationalContact (): OrganizationalContactNormalizer {
@@ -250,11 +256,7 @@ export class MetadataNormalizer extends BaseXmlNormalizer<Models.Metadata> {
         }
       : undefined
     const tools: SimpleXml.Element | undefined = data.tools.size > 0
-      ? {
-          type: 'element',
-          name: 'tools',
-          children: this._factory.makeForTool().normalizeIterable(data.tools, options, 'tool')
-        }
+      ? this._factory.makeForTools().normalize(data.tools, options)
       : undefined
     const authors: SimpleXml.Element | undefined = data.authors.size > 0
       ? {
@@ -366,6 +368,35 @@ export class ToolNormalizer extends BaseXmlNormalizer<Models.Tool> {
         ? data.sorted()
         : Array.from(data)
     ).map(t => this.normalize(t, options, elementName))
+  }
+}
+
+export class ToolsNormalizer extends BaseXmlNormalizer<Models.Tools> {
+  normalize (data: Models.Tools, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    let children: SimpleXml.Element[]
+    if (data.tools.size > 0) {
+      children = this._factory.makeForTool().normalizeIterable(
+        new ToolRepository(chainI<Models.Tool>(
+          Array.from(data.components, Tool.fromComponent),
+          // TODO services
+          data.tools,
+        )), options, 'tool')
+    } else {
+      children = []
+      if (data.components.size > 0) {
+        children.push({
+          type: 'element',
+          name: 'components',
+          children: this._factory.makeForComponent().normalizeIterable(data.components, options, 'component')
+        })
+      }
+      // TODO data.services
+    }
+    return {
+      type: 'element',
+      name: elementName,
+      children
+    }
   }
 }
 
@@ -938,7 +969,7 @@ export class VulnerabilityNormalizer extends BaseXmlNormalizer<Models.Vulnerabil
       ? {
           type: 'element',
           name: 'tools',
-          children: this._factory.makeForTool().normalizeIterable(data.tools, options, 'tool')
+          children: this._factory.makeForTools().normalize(data.tools, options)
         }
       : undefined
     const affects: SimpleXml.Element | undefined = data.affects.size > 0
