@@ -15,34 +15,38 @@
         "phase": "design"
       }
     ],
-    "tools": [
-      {
-        "vendor": "tool vendor",
-        "name": "other tool",
-        "externalReferences": [
-          {
-            "url": "https://cyclonedx.org/tool-center/",
-            "type": "website",
-            "comment": "the tools that made this"
-          }
-        ]
-      },
-      {
-        "vendor": "tool vendor",
-        "name": "tool name",
-        "version": "0.8.15",
-        "hashes": [
-          {
-            "alg": "MD5",
-            "content": "f32a26e2a3a8aa338cd77b6e1263c535"
-          },
-          {
-            "alg": "SHA-1",
-            "content": "829c3804401b0727f70f73d4415e162400cbe57b"
-          }
-        ]
-      }
-    ],
+    "tools": {
+      "components": [
+        {
+          "type": "library",
+          "name": "tool name",
+          "group": "tool group",
+          "externalReferences": [
+            {
+              "url": "https://cyclonedx.org/tool-center/",
+              "type": "website",
+              "comment": "the tools that made this"
+            }
+          ]
+        },
+        {
+          "type": "application",
+          "name": "tool name",
+          "group": "tool group",
+          "version": "0.8.15",
+          "hashes": [
+            {
+              "alg": "MD5",
+              "content": "f32a26e2a3a8aa338cd77b6e1263c535"
+            },
+            {
+              "alg": "SHA-1",
+              "content": "829c3804401b0727f70f73d4415e162400cbe57b"
+            }
+          ]
+        }
+      ]
+    },
     "authors": [
       {
         "name": "Jane \"the-author\" Doe",
@@ -672,6 +676,10 @@
         ]
       },
       "tools": [
+        {
+          "vendor": "g the group",
+          "name": "tool name"
+        },
         {
           "vendor": "v the vendor",
           "name": "tool name"

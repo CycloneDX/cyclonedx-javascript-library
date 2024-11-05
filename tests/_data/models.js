@@ -35,29 +35,33 @@ module.exports.createComplexStructure = function () {
         Enums.LifecyclePhase.Design,
         new Models.NamedLifecycle('testing', { description: 'my testing stage' })
       ]),
-      tools: new Models.ToolRepository([
-        new Models.Tool({
-          vendor: 'tool vendor',
-          name: 'tool name',
-          version: '0.8.15',
-          hashes: new Models.HashDictionary([
-            [Enums.HashAlgorithm.MD5, 'f32a26e2a3a8aa338cd77b6e1263c535'],
-            [Enums.HashAlgorithm['SHA-1'], '829c3804401b0727f70f73d4415e162400cbe57b']
-          ])
-        }),
-        new Models.Tool({
-          vendor: 'tool vendor',
-          name: 'other tool',
-          version: '', // empty string, not undefined
-          externalReferences: new Models.ExternalReferenceRepository([
-            new Models.ExternalReference(
-              'https://cyclonedx.org/tool-center/',
-              Enums.ExternalReferenceType.Website,
-              { comment: 'the tools that made this' }
-            )
-          ])
-        })
-      ]),
+      tools: new Models.Tools({
+        components: new Models.ComponentRepository([
+          new Models.Component(
+            Enums.ComponentType.Application,
+            'tool name', {
+              group: 'tool group',
+              version: '0.8.15',
+              hashes: new Models.HashDictionary([
+                [Enums.HashAlgorithm.MD5, 'f32a26e2a3a8aa338cd77b6e1263c535'],
+                [Enums.HashAlgorithm['SHA-1'], '829c3804401b0727f70f73d4415e162400cbe57b']
+              ])
+            }),
+          new Models.Component(
+            Enums.ComponentType.Library,
+            'tool name', {
+              group: 'tool group',
+              version: '', // empty string, not undefined
+              externalReferences: new Models.ExternalReferenceRepository([
+                new Models.ExternalReference(
+                  'https://cyclonedx.org/tool-center/',
+                  Enums.ExternalReferenceType.Website,
+                  { comment: 'the tools that made this' }
+                )
+              ])
+            })
+        ])
+      }),
       authors: new Models.OrganizationalContactRepository([
         new Models.OrganizationalContact({ name: 'John "the-co-author" Doe' }),
         new Models.OrganizationalContact({
@@ -452,12 +456,14 @@ module.exports.createComplexStructure = function () {
           new Models.OrganizationalContact({ name: 'John "pentester" Doe' })
         ])
       }),
-      tools: new Models.ToolRepository([
-        new Models.Tool({
-          vendor: 'v the vendor',
-          name: 'tool name'
-        })
-      ]),
+      tools: new Models.Tools({
+        tools: new Models.ToolRepository([
+          new Models.Tool({
+            vendor: 'v the vendor',
+            name: 'tool name'
+          })
+        ])
+      }),
       analysis: new Models.Vulnerability.Analysis({
         state: Enums.Vulnerability.AnalysisState.FalsePositive,
         justification: Enums.Vulnerability.AnalysisJustification.ProtectedAtRuntime,
@@ -536,12 +542,21 @@ module.exports.createComplexStructure = function () {
           new Models.OrganizationalContact({ name: 'John "pentester" Doe' })
         ])
       }),
-      tools: new Models.ToolRepository([
-        new Models.Tool({
-          vendor: 'v the vendor',
-          name: 'tool name'
-        })
-      ]),
+      tools: new Models.Tools({
+        tools: new Models.ToolRepository([
+          new Models.Tool({
+            vendor: 'v the vendor',
+            name: 'tool name'
+          })
+        ]),
+        components: new Models.ComponentRepository([
+          new Models.Component(
+            Enums.ComponentType.Application,
+            'tool name', {
+              group: 'g the group'
+            })
+        ])
+      }),
       analysis: new Models.Vulnerability.Analysis({
         state: Enums.Vulnerability.AnalysisState.FalsePositive,
         justification: Enums.Vulnerability.AnalysisJustification.ProtectedAtRuntime,

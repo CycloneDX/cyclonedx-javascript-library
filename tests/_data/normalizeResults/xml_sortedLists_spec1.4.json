@@ -27,12 +27,12 @@
                 {
                   "type": "element",
                   "name": "vendor",
-                  "children": "tool vendor"
+                  "children": "tool group"
                 },
                 {
                   "type": "element",
                   "name": "name",
-                  "children": "other tool"
+                  "children": "tool name"
                 },
                 {
                   "type": "element",
@@ -68,7 +68,7 @@
                 {
                   "type": "element",
                   "name": "vendor",
-                  "children": "tool vendor"
+                  "children": "tool group"
                 },
                 {
                   "type": "element",
@@ -2085,6 +2085,22 @@
               "type": "element",
               "name": "tools",
               "children": [
+                {
+                  "type": "element",
+                  "name": "tool",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "vendor",
+                      "children": "g the group"
+                    },
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "tool name"
+                    }
+                  ]
+                },
                 {
                   "type": "element",
                   "name": "tool",

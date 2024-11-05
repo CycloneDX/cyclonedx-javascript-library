@@ -8,8 +8,8 @@
     "timestamp": "2032-05-23T13:37:42.000Z",
     "tools": [
       {
-        "vendor": "tool vendor",
-        "name": "other tool",
+        "vendor": "tool group",
+        "name": "tool name",
         "externalReferences": [
           {
             "url": "https://cyclonedx.org/tool-center/",
@@ -19,7 +19,7 @@
         ]
       },
       {
-        "vendor": "tool vendor",
+        "vendor": "tool group",
         "name": "tool name",
         "version": "0.8.15",
         "hashes": [
@@ -663,6 +663,10 @@
         ]
       },
       "tools": [
+        {
+          "vendor": "g the group",
+          "name": "tool name"
+        },
         {
           "vendor": "v the vendor",
           "name": "tool name"
