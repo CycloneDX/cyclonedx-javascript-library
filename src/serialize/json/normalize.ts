@@ -414,7 +414,19 @@ export class ComponentNormalizer extends BaseJsonNormalizer<Models.Component> {
 }
 
 export class ServiceNormalizer extends BaseJsonNormalizer<Models.Service> {
-  // TODO
+  normalize (data: Models.Service, options: NormalizerOptions): Normalized.Service {
+    // @TODO
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Service>, options: NormalizerOptions): Normalized.Service[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      s => this.normalize(s, options)
+    )
+  }
 }
 
 export class ComponentEvidenceNormalizer extends BaseJsonNormalizer<Models.ComponentEvidence> {

@@ -543,7 +543,19 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
 }
 
 export class ServiceNormalizer extends BaseXmlNormalizer<Models.Service> {
-  //TODO
+  normalize (data: Models.Service, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    // @TODO
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Service>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      s => this.normalize(s, options, elementName)
+    )
+  }
 }
 
 
