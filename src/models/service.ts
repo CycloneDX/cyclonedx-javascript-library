@@ -24,12 +24,7 @@ import {LicenseRepository} from "./license";
 import type {OrganizationalEntity} from "./organizationalEntity";
 import {PropertyRepository} from "./property";
 
-export interface OptionalToolProperties {
-  provider?: Service['provider']
-}
-
-
-export interface OptionalComponentProperties {
+export interface OptionalServiceProperties {
   bomRef?: BomRef['value']
   provider?: Service['provider']
   group?: Service['group']
@@ -52,11 +47,10 @@ export class Service implements Comparable<Service> {
   services: ServiceRepository
   properties: PropertyRepository
 
-
   /** @see {@link bomRef} */
   readonly #bomRef: BomRef
 
-  constructor(name: Service['name'], op: OptionalComponentProperties = {}) {
+  constructor(name: Service['name'], op: OptionalServiceProperties = {}) {
     this.#bomRef = new BomRef(op.bomRef)
     this.provider = op.provider
     this.group = op.group
