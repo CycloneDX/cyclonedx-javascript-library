@@ -47,6 +47,7 @@ export interface _SpecProtocol {
   supportsMetadataProperties: boolean
   supportsExternalReferenceHashes: boolean
   supportsLicenseAcknowledgement: boolean
+  supportsServices:boolean
 }
 
 /**
@@ -75,6 +76,7 @@ export class _Spec implements _SpecProtocol {
   readonly #supportsMetadataProperties: boolean
   readonly #supportsExternalReferenceHashes: boolean
   readonly #supportsLicenseAcknowledgement: boolean
+  readonly #supportsServices: boolean
 
   constructor (
     version: Version,
@@ -94,7 +96,8 @@ export class _Spec implements _SpecProtocol {
     supportsMetadataLicenses: boolean,
     supportsMetadataProperties: boolean,
     supportsExternalReferenceHashes: boolean,
-    supportsLicenseAcknowledgement: boolean
+    supportsLicenseAcknowledgement: boolean,
+    supportsServices:boolean
   ) {
     this.#version = version
     this.#formats = new Set(formats)
@@ -114,6 +117,7 @@ export class _Spec implements _SpecProtocol {
     this.#supportsMetadataProperties = supportsMetadataProperties
     this.#supportsExternalReferenceHashes = supportsExternalReferenceHashes
     this.#supportsLicenseAcknowledgement = supportsLicenseAcknowledgement
+    this.#supportsServices = supportsServices
   }
 
   get version (): Version {
@@ -193,5 +197,9 @@ export class _Spec implements _SpecProtocol {
 
   get supportsLicenseAcknowledgement (): boolean {
     return this.#supportsLicenseAcknowledgement
+  }
+
+  get supportsServices (): boolean {
+    return this.#supportsServices
   }
 }
