@@ -17,13 +17,14 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type{ Comparable } from "../_helpers/sortable";
-import { SortableComparables} from "../_helpers/sortable";
-import {BomRef} from "./bomRef";
-import {ExternalReferenceRepository} from "./externalReference";
-import {LicenseRepository} from "./license";
-import type {OrganizationalEntity} from "./organizationalEntity";
-import {PropertyRepository} from "./property";
+import type { Comparable } from "../_helpers/sortable";
+import { SortableComparables } from "../_helpers/sortable";
+import { treeIteratorSymbol } from "../_helpers/tree";
+import { BomRef, BomRefRepository } from "./bomRef";
+import { ExternalReferenceRepository } from "./externalReference";
+import { LicenseRepository } from "./license";
+import type {OrganizationalEntity } from "./organizationalEntity";
+import { PropertyRepository } from "./property";
 
 export interface OptionalServiceProperties {
   bomRef?: BomRef['value']
@@ -35,6 +36,8 @@ export interface OptionalServiceProperties {
   externalReferences?: Service['externalReferences']
   services?: Service['services']
   properties?: Service['properties']
+
+  dependencies?: Service['dependencies']
 }
 
 export class Service implements Comparable<Service> {
@@ -51,6 +54,8 @@ export class Service implements Comparable<Service> {
   /** @see {@link bomRef} */
   readonly #bomRef: BomRef
 
+  dependencies: BomRefRepository
+
   constructor(name: Service['name'], op: OptionalServiceProperties = {}) {
     this.#bomRef = new BomRef(op.bomRef)
     this.provider = op.provider
@@ -62,6 +67,8 @@ export class Service implements Comparable<Service> {
     this.externalReferences = op.externalReferences ?? new ExternalReferenceRepository()
     this.services = op.services ?? new ServiceRepository()
     this.properties = op.properties ?? new PropertyRepository()
+
+    this.dependencies = op.dependencies ?? new BomRefRepository()
   }
 
   get bomRef(): BomRef {
@@ -84,4 +91,10 @@ export class Service implements Comparable<Service> {
 }
 
 export class ServiceRepository extends SortableComparables<Service> {
+  * [treeIteratorSymbol] (): Generator<Service> {
+    for (const service of this) {
+      yield service
+      yield * service.services[treeIteratorSymbol]()
+    }
+  }
 }

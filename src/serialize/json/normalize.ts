@@ -643,6 +643,9 @@ export class DependencyGraphNormalizer extends BaseJsonNormalizer<Models.Bom> {
     for (const component of data.components[treeIteratorSymbol]()) {
       allRefs.set(component.bomRef, component.dependencies)
     }
+    for (const service of data.services[treeIteratorSymbol]()) {
+      allRefs.set(service.bomRef, service.dependencies)
+    }
 
     const normalized: Normalized.Dependency[] = []
     for (const [ref, deps] of allRefs) {
