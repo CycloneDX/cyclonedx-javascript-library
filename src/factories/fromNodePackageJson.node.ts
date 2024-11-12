@@ -113,7 +113,8 @@ const npmDefaultRepositoryMatcher = /^https?:\/\/registry\.npmjs\.org(:?\/|$)/
  * @see {@link https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#npm}
  */
 export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
-  override makeFromComponent (component: Component, sort = false): PackageURL | undefined {
+  /* eslint-disable-next-line @typescript-eslint/no-inferrable-types -- docs */
+  override makeFromComponent (component: Component, sort: boolean = false): PackageURL | undefined {
     const purl = super.makeFromComponent(component, sort)
     return purl === undefined
       ? undefined

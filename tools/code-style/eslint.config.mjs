@@ -23,7 +23,7 @@ import { fileURLToPath } from 'node:url'
 import plugin_js from '@eslint/js'
 import config_love from 'eslint-config-love'
 import plugin_editorconfig from 'eslint-plugin-editorconfig'
-import plugin_header from 'eslint-plugin-header'
+import plugin_header from 'eslint-plugin-license-header'
 import plugin_jsdoc from 'eslint-plugin-jsdoc'
 import plugin_simpleImportSort from 'eslint-plugin-simple-import-sort'
 import plugin_tsdoc from 'eslint-plugin-tsdoc'
@@ -46,7 +46,7 @@ export default [
     name: 'general',
     plugins: {
       'simple-import-sort': plugin_simpleImportSort,
-      // 'header': plugin_header,
+      'license-header': plugin_header,
       'editorconfig': plugin_editorconfig,
     },
     rules: {
@@ -55,7 +55,7 @@ export default [
       'sort-imports': 'off',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
-      // 'header/header': ['error', licenseHeaderFile],
+      'license-header/header': ['error', licenseHeaderFile],
       'editorconfig/indent': 'off',
     },
   },
