@@ -158,7 +158,7 @@ module.exports.createComplexStructure = function () {
     component.supplier.contact.add(new Models.OrganizationalContact({ name: 'The quick brown fox' }))
     component.supplier.contact.add((function (contact) {
       contact.name = 'Franz'
-      contact.email = 'franz-aus-bayern@komplett.verwahrlosten.taxi'
+      contact.email = 'franz-aus-bayern@komplett.verwahrlostes.taxi'
       contact.phone = '555-732378879'
       return contact
     })(new Models.OrganizationalContact()))
@@ -301,6 +301,46 @@ module.exports.createComplexStructure = function () {
       }
     )
   )
+
+  bom.services.add((function (service) {
+    service.bomRef.value = 'some-service'
+    service.provider = new Models.OrganizationalEntity({ name: 'Service Provider' })
+    service.group = 'acme'
+    service.version = '1.2+service-version'
+    service.description = 'this is a test service'
+    service.externalReferences.add(new Models.ExternalReference(
+      'https://localhost/service/docs',
+      Enums.ExternalReferenceType.Documentation
+    ))
+    service.licenses.add(new Models.NamedLicense('some license', {
+      text: new Models.Attachment('U29tZQpsaWNlbnNlCnRleHQu', {
+        contentType: 'text/plain',
+        encoding: Enums.AttachmentEncoding.Base64
+      }),
+      url: 'https://localhost/service/license'
+    }))
+    service.properties.add(new Models.Property('foo', 'bar'))
+
+    bom.metadata.component.dependencies.add(service.bomRef)
+
+    return service
+  })(new Models.Service('dummy-service', { version: '1.0+service-version' })))
+
+  bom.services.add((function (service) {
+    service.bomRef.value = 'my-service'
+
+    s2 = new Models.Service('sub-service')
+    s2.bomRef.value = 'my-service/sub-service'
+    service.services.add(s2)
+
+    s3 = new Models.Service('nested-service')
+    s3.bomRef.value = 'my-service/nested-service'
+    service.services.add(s3)
+
+    bom.metadata.component.dependencies.add(service.bomRef)
+
+    return service
+  })(new Models.Service('dummy-service-2')))
 
   const someVulnerableComponent = new Models.Component(
     Enums.ComponentType.Library,
