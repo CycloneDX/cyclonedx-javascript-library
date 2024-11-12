@@ -547,7 +547,7 @@ export class ServiceNormalizer extends BaseXmlNormalizer<Models.Service> {
     const spec = this._factory.spec
     const provider: SimpleXml.Element | undefined = data.provider === undefined
       ? undefined
-      : this._factory.makeForOrganizationalEntity().normalize(data.provider, options, 'supplier')
+      : this._factory.makeForOrganizationalEntity().normalize(data.provider, options, 'provider')
     const licenses: SimpleXml.Element | undefined = data.licenses.size > 0
       ? {
         type: 'element',
@@ -572,8 +572,8 @@ export class ServiceNormalizer extends BaseXmlNormalizer<Models.Service> {
     const services: SimpleXml.Element | undefined = data.services.size > 0
       ? {
         type: 'element',
-        name: 'components',
-        children: this.normalizeIterable(data.services, options, 'component')
+        name: 'services',
+        children: this.normalizeIterable(data.services, options, 'service')
       }
       : undefined
     return {

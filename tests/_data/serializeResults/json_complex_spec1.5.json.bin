@@ -260,7 +260,7 @@
                 "contact": [
                     {
                         "name": "Franz",
-                        "email": "franz-aus-bayern@komplett.verwahrlosten.taxi",
+                        "email": "franz-aus-bayern@komplett.verwahrlostes.taxi",
                         "phone": "555-732378879"
                     },
                     {
@@ -396,6 +396,57 @@
             ]
         }
     ],
+    "services": [
+        {
+            "bom-ref": "my-service",
+            "name": "dummy-service-2",
+            "services": [
+                {
+                    "bom-ref": "my-service/nested-service",
+                    "name": "nested-service"
+                },
+                {
+                    "bom-ref": "my-service/sub-service",
+                    "name": "sub-service"
+                }
+            ]
+        },
+        {
+            "bom-ref": "some-service",
+            "provider": {
+                "name": "Service Provider"
+            },
+            "group": "acme",
+            "name": "dummy-service",
+            "version": "1.2+service-version",
+            "description": "this is a test service",
+            "licenses": [
+                {
+                    "license": {
+                        "name": "some license",
+                        "text": {
+                            "content": "U29tZQpsaWNlbnNlCnRleHQu",
+                            "contentType": "text/plain",
+                            "encoding": "base64"
+                        },
+                        "url": "https://localhost/service/license"
+                    }
+                }
+            ],
+            "externalReferences": [
+                {
+                    "url": "https://localhost/service/docs",
+                    "type": "documentation"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ]
+        }
+    ],
     "dependencies": [
         {
             "ref": "a-component"
@@ -429,8 +480,22 @@
             "dependsOn": [
                 "a-component",
                 "dummy-component",
+                "my-service",
+                "some-service",
                 "SomeFrameworkBundle"
             ]
+        },
+        {
+            "ref": "my-service"
+        },
+        {
+            "ref": "my-service/nested-service"
+        },
+        {
+            "ref": "my-service/sub-service"
+        },
+        {
+            "ref": "some-service"
         },
         {
             "ref": "SomeFrameworkBundle",

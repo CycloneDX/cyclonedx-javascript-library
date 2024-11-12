@@ -686,7 +686,7 @@
                     {
                       "type": "element",
                       "name": "email",
-                      "children": "franz-aus-bayern@komplett.verwahrlosten.taxi"
+                      "children": "franz-aus-bayern@komplett.verwahrlostes.taxi"
                     },
                     {
                       "type": "element",
@@ -1003,6 +1003,152 @@
     },
     {
       "type": "element",
+      "name": "services",
+      "children": [
+        {
+          "type": "element",
+          "name": "service",
+          "attributes": {
+            "bom-ref": "my-service"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "dummy-service-2"
+            },
+            {
+              "type": "element",
+              "name": "services",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "service",
+                  "attributes": {
+                    "bom-ref": "my-service/nested-service"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "nested-service"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "service",
+                  "attributes": {
+                    "bom-ref": "my-service/sub-service"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "sub-service"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "service",
+          "attributes": {
+            "bom-ref": "some-service"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "provider",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "Service Provider"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "group",
+              "children": "acme"
+            },
+            {
+              "type": "element",
+              "name": "name",
+              "children": "dummy-service"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": "1.2+service-version"
+            },
+            {
+              "type": "element",
+              "name": "description",
+              "children": "this is a test service"
+            },
+            {
+              "type": "element",
+              "name": "licenses",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "license",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "some license"
+                    },
+                    {
+                      "type": "element",
+                      "name": "text",
+                      "attributes": {
+                        "content-type": "text/plain",
+                        "encoding": "base64"
+                      },
+                      "children": "U29tZQpsaWNlbnNlCnRleHQu"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://localhost/service/license"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "externalReferences",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "documentation"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://localhost/service/docs"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "element",
       "name": "dependencies",
       "children": [
         {
@@ -1102,10 +1248,56 @@
               "type": "element",
               "name": "dependency",
               "attributes": {
+                "ref": "my-service"
+              }
+            },
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "some-service"
+              }
+            },
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
                 "ref": "SomeFrameworkBundle"
               }
             }
           ]
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "my-service"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "my-service/nested-service"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "my-service/sub-service"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "some-service"
+          },
+          "children": []
         },
         {
           "type": "element",

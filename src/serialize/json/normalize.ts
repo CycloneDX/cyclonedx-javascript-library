@@ -415,6 +415,7 @@ export class ComponentNormalizer extends BaseJsonNormalizer<Models.Component> {
 
 export class ServiceNormalizer extends BaseJsonNormalizer<Models.Service> {
   normalize (data: Models.Service, options: NormalizerOptions): Normalized.Service {
+    const spec = this._factory.spec
     return {
       'bom-ref': data.bomRef.value || undefined,
       provider: data.provider
@@ -433,9 +434,9 @@ export class ServiceNormalizer extends BaseJsonNormalizer<Models.Service> {
       services: data.services.size > 0
         ? this._factory.makeForService().normalizeIterable(data.services, options)
         : undefined,
-      properties: data.properties.size > 0
+      properties: spec.supportsProperties(data) && data.properties.size > 0
         ? this._factory.makeForProperty().normalizeIterable(data.properties, options)
-        : undefined
+        : undefined,
     }
   }
 

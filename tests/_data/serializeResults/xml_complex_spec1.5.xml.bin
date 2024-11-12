@@ -177,7 +177,7 @@
                 <url>https://localhost/componentSupplier-B</url>
                 <contact>
                     <name>Franz</name>
-                    <email>franz-aus-bayern@komplett.verwahrlosten.taxi</email>
+                    <email>franz-aus-bayern@komplett.verwahrlostes.taxi</email>
                     <phone>555-732378879</phone>
                 </contact>
                 <contact>
@@ -261,6 +261,43 @@
             </components>
         </component>
     </components>
+    <services>
+        <service bom-ref="my-service">
+            <name>dummy-service-2</name>
+            <services>
+                <service bom-ref="my-service/nested-service">
+                    <name>nested-service</name>
+                </service>
+                <service bom-ref="my-service/sub-service">
+                    <name>sub-service</name>
+                </service>
+            </services>
+        </service>
+        <service bom-ref="some-service">
+            <provider>
+                <name>Service Provider</name>
+            </provider>
+            <group>acme</group>
+            <name>dummy-service</name>
+            <version>1.2+service-version</version>
+            <description>this is a test service</description>
+            <licenses>
+                <license>
+                    <name>some license</name>
+                    <text content-type="text/plain" encoding="base64">U29tZQpsaWNlbnNlCnRleHQu</text>
+                    <url>https://localhost/service/license</url>
+                </license>
+            </licenses>
+            <externalReferences>
+                <reference type="documentation">
+                    <url>https://localhost/service/docs</url>
+                </reference>
+            </externalReferences>
+            <properties>
+                <property name="foo">bar</property>
+            </properties>
+        </service>
+    </services>
     <dependencies>
         <dependency ref="a-component"/>
         <dependency ref="component-with-licenseExpression"/>
@@ -275,8 +312,14 @@
         <dependency ref="dummy.metadata.component">
             <dependency ref="a-component"/>
             <dependency ref="dummy-component"/>
+            <dependency ref="my-service"/>
+            <dependency ref="some-service"/>
             <dependency ref="SomeFrameworkBundle"/>
         </dependency>
+        <dependency ref="my-service"/>
+        <dependency ref="my-service/nested-service"/>
+        <dependency ref="my-service/sub-service"/>
+        <dependency ref="some-service"/>
         <dependency ref="SomeFrameworkBundle">
             <dependency ref="SomeFrameworkBundle#SubComponentA"/>
         </dependency>
