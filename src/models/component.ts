@@ -49,11 +49,12 @@ export interface OptionalComponentProperties {
   supplier?: Component['supplier']
   swid?: Component['swid']
   version?: Component['version']
-  dependencies?: Component['dependencies']
   components?: Component['components']
   cpe?: Component['cpe']
   properties?: Component['properties']
   evidence?: Component['evidence']
+
+  dependencies?: Component['dependencies']
 }
 
 export class Component implements Comparable<Component> {
@@ -72,7 +73,6 @@ export class Component implements Comparable<Component> {
   supplier?: OrganizationalEntity
   swid?: SWID
   version?: string
-  dependencies: BomRefRepository
   components: ComponentRepository
   properties: PropertyRepository
   evidence?: ComponentEvidence
@@ -82,6 +82,8 @@ export class Component implements Comparable<Component> {
 
   /** @see {@link cpe} */
   #cpe?: CPE
+
+  dependencies: BomRefRepository
 
   /**
    * @throws {@link TypeError} if `op.cpe` is neither {@link CPE} nor `undefined`
@@ -103,11 +105,12 @@ export class Component implements Comparable<Component> {
     this.swid = op.swid
     this.version = op.version
     this.description = op.description
-    this.dependencies = op.dependencies ?? new BomRefRepository()
     this.components = op.components ?? new ComponentRepository()
     this.cpe = op.cpe
     this.properties = op.properties ?? new PropertyRepository()
     this.evidence = op.evidence
+
+    this.dependencies = op.dependencies ?? new BomRefRepository()
   }
 
   get bomRef (): BomRef {

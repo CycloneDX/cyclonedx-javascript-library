@@ -21,11 +21,13 @@ import type { PositiveInteger } from '../types/integer'
 import { isPositiveInteger } from '../types/integer'
 import { ComponentRepository } from './component'
 import { Metadata } from './metadata'
+import { ServiceRepository } from './service'
 import { VulnerabilityRepository } from './vulnerability/vulnerability'
 
 export interface OptionalBomProperties {
   metadata?: Bom['metadata']
   components?: Bom['components']
+  services?: Bom['services']
   version?: Bom['version']
   vulnerabilities?: Bom['vulnerabilities']
   serialNumber?: Bom['serialNumber']
@@ -34,6 +36,7 @@ export interface OptionalBomProperties {
 export class Bom {
   metadata: Metadata
   components: ComponentRepository
+  services: ServiceRepository
   vulnerabilities: VulnerabilityRepository
 
   /** @see {@link version} */
@@ -54,6 +57,7 @@ export class Bom {
   constructor (op: OptionalBomProperties = {}) {
     this.metadata = op.metadata ?? new Metadata()
     this.components = op.components ?? new ComponentRepository()
+    this.services= op.services?? new ServiceRepository()
     this.version = op.version ?? this.version
     this.vulnerabilities = op.vulnerabilities ?? new VulnerabilityRepository()
     this.serialNumber = op.serialNumber

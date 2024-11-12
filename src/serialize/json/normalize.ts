@@ -56,6 +56,10 @@ export class Factory {
     return new ComponentNormalizer(this)
   }
 
+  makeForService (): ServiceNormalizer {
+    return new ServiceNormalizer(this)
+  }
+
   makeForComponentEvidence (): ComponentEvidenceNormalizer {
     return new ComponentEvidenceNormalizer(this)
   }
@@ -189,6 +193,9 @@ export class BomNormalizer extends BaseJsonNormalizer<Models.Bom> {
         ? this._factory.makeForComponent().normalizeIterable(data.components, options)
         // spec < 1.4 requires `component` to be array
         : [],
+      services: this._factory.spec.supportsServices && data.services.size > 0
+        ? this._factory.makeForService().normalizeIterable(data.services, options)
+        : undefined,
       dependencies: this._factory.spec.supportsDependencyGraph
         ? this._factory.makeForDependencyGraph().normalize(data, options)
         : undefined,
@@ -406,6 +413,44 @@ export class ComponentNormalizer extends BaseJsonNormalizer<Models.Component> {
   }
 }
 
+export class ServiceNormalizer extends BaseJsonNormalizer<Models.Service> {
+  normalize (data: Models.Service, options: NormalizerOptions): Normalized.Service {
+    const spec = this._factory.spec
+    return {
+      'bom-ref': data.bomRef.value || undefined,
+      provider: data.provider
+        ? this._factory.makeForOrganizationalEntity().normalize(data.provider, options)
+        : undefined,
+      group: data.group,
+      name: data.name,
+      version: data.version|| undefined,
+      description: data.description || undefined,
+      licenses: data.licenses.size > 0
+        ? this._factory.makeForLicense().normalizeIterable(data.licenses, options)
+        : undefined,
+      externalReferences: data.externalReferences.size > 0
+        ? this._factory.makeForExternalReference().normalizeIterable(data.externalReferences, options)
+        : undefined,
+      services: data.services.size > 0
+        ? this._factory.makeForService().normalizeIterable(data.services, options)
+        : undefined,
+      properties: spec.supportsProperties(data) && data.properties.size > 0
+        ? this._factory.makeForProperty().normalizeIterable(data.properties, options)
+        : undefined,
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Service>, options: NormalizerOptions): Normalized.Service[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      s => this.normalize(s, options)
+    )
+  }
+}
+
 export class ComponentEvidenceNormalizer extends BaseJsonNormalizer<Models.ComponentEvidence> {
   normalize (data: Models.ComponentEvidence, options: NormalizerOptions): Normalized.ComponentEvidence {
     return {
@@ -598,6 +643,9 @@ export class DependencyGraphNormalizer extends BaseJsonNormalizer<Models.Bom> {
     }
     for (const component of data.components[treeIteratorSymbol]()) {
       allRefs.set(component.bomRef, component.dependencies)
+    }
+    for (const service of data.services[treeIteratorSymbol]()) {
+      allRefs.set(service.bomRef, service.dependencies)
     }
 
     const normalized: Normalized.Dependency[] = []

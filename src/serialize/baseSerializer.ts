@@ -36,6 +36,12 @@ export abstract class BaseSerializer<NormalizedBom> implements Serializer {
     }
     // endregion from components
 
+    // region from services
+    for (const { bomRef } of bom.services[treeIteratorSymbol]()) {
+      yield bomRef
+    }
+    // endregion from services
+
     // region from vulnerabilities
     for (const { bomRef } of bom.vulnerabilities) {
       yield bomRef

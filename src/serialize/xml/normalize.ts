@@ -61,6 +61,12 @@ export class Factory {
     return new ComponentNormalizer(this)
   }
 
+  makeForService (): ServiceNormalizer {
+    return new ServiceNormalizer(this)
+  }
+
+
+
   makeForComponentEvidence (): ComponentEvidenceNormalizer {
     return new ComponentEvidenceNormalizer(this)
   }
@@ -189,6 +195,13 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
         ? this._factory.makeForComponent().normalizeIterable(data.components, options, 'component')
         : undefined
     }
+    const services: SimpleXml.Element | undefined = this._factory.spec.supportsServices  && data.services.size > 0
+    ? {
+        type: 'element',
+        name: 'services',
+        children: this._factory.makeForService().normalizeIterable(data.services, options, 'service')
+      }
+      : undefined
     const vulnerabilities: SimpleXml.Element | undefined = this._factory.spec.supportsVulnerabilities && data.vulnerabilities.size > 0
       ? {
           type: 'element',
@@ -212,6 +225,7 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
           ? this._factory.makeForMetadata().normalize(data.metadata, options, 'metadata')
           : undefined,
         components,
+        services,
         this._factory.spec.supportsDependencyGraph
           ? this._factory.makeForDependencyGraph().normalize(data, options, 'dependencies')
           : undefined,
@@ -528,6 +542,72 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
   }
 }
 
+export class ServiceNormalizer extends BaseXmlNormalizer<Models.Service> {
+  normalize (data: Models.Service, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    const spec = this._factory.spec
+    const provider: SimpleXml.Element | undefined = data.provider === undefined
+      ? undefined
+      : this._factory.makeForOrganizationalEntity().normalize(data.provider, options, 'provider')
+    const licenses: SimpleXml.Element | undefined = data.licenses.size > 0
+      ? {
+        type: 'element',
+        name: 'licenses',
+        children: this._factory.makeForLicense().normalizeIterable(data.licenses, options)
+      }
+      : undefined
+    const extRefs: SimpleXml.Element | undefined = data.externalReferences.size > 0
+      ? {
+        type: 'element',
+        name: 'externalReferences',
+        children: this._factory.makeForExternalReference().normalizeIterable(data.externalReferences, options, 'reference')
+      }
+      : undefined
+    const properties: SimpleXml.Element | undefined = spec.supportsProperties(data) && data.properties.size > 0
+      ? {
+        type: 'element',
+        name: 'properties',
+        children: this._factory.makeForProperty().normalizeIterable(data.properties, options, 'property')
+      }
+      : undefined
+    const services: SimpleXml.Element | undefined = data.services.size > 0
+      ? {
+        type: 'element',
+        name: 'services',
+        children: this.normalizeIterable(data.services, options, 'service')
+      }
+      : undefined
+    return {
+      type: 'element',
+      name: elementName,
+      attributes: {
+        'bom-ref': data.bomRef.value
+      },
+      children: [
+        provider,
+        makeOptionalTextElement(data.group, 'group', normalizedString),
+        makeTextElement(data.name, 'name', normalizedString),
+        makeOptionalTextElement(data.version, 'version', normalizedString),
+        makeOptionalTextElement(data.description, 'description', normalizedString),
+        licenses,
+        extRefs,
+        properties,
+        services,
+      ].filter(isNotUndefined)
+    }
+  }
+
+  normalizeIterable (data: SortableIterable<Models.Service>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
+    return (
+      options.sortLists ?? false
+        ? data.sorted()
+        : Array.from(data)
+    ).map(
+      s => this.normalize(s, options, elementName)
+    )
+  }
+}
+
+
 export class ComponentEvidenceNormalizer extends BaseXmlNormalizer<Models.ComponentEvidence> {
   normalize (data: Models.ComponentEvidence, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     const licenses: SimpleXml.Element | undefined = data.licenses.size > 0
@@ -766,6 +846,9 @@ export class DependencyGraphNormalizer extends BaseXmlNormalizer<Models.Bom> {
     }
     for (const component of data.components[treeIteratorSymbol]()) {
       allRefs.set(component.bomRef, component.dependencies)
+    }
+    for (const service of data.services[treeIteratorSymbol]()) {
+      allRefs.set(service.bomRef, service.dependencies)
     }
 
     const normalized: Array<(SimpleXml.Element & { attributes: { ref: string } })> = []
