@@ -53,7 +53,7 @@ export class ExternalReferenceFactory {
 
   makeVcs (data: PackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#repositoryc */
-    const {repository} = data
+    const repository = data.repository
     let url = undefined
     let comment: string | undefined = undefined
     if (typeof repository === 'object') {
@@ -86,9 +86,9 @@ export class ExternalReferenceFactory {
 
   makeIssueTracker (data: PackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#bugs */
-    const {bugs} = data
+    const bugs = data.bugs
     let url = undefined
-    let comment: string | undefined =undefined
+    let comment: string | undefined = undefined
     if (typeof bugs === 'object') {
       url = bugs.url
       comment = 'as detected from PackageJson property "bugs.url"'
