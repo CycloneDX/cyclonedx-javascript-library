@@ -35,4 +35,5 @@ export function isCWE (value: any): value is CWE {
   return isPositiveInteger(value)
 }
 
+/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-arguments -- docs */
 export class CweRepository extends SortableNumbers<CWE> {}

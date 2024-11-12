@@ -36,15 +36,19 @@ const ajvOptions: AjvOptions = Object.freeze({
 
 /** @internal */
 export default (async function (schemaPath: string, schemaMap: Record<string, string> = {}): Promise<Validator> {
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return -- intended */
   const [schema, schemas] = await Promise.all([
     readFile(schemaPath, 'utf-8').then(c => JSON.parse(c)),
     Promise.all(Object.entries(schemaMap).map(
       async ([k, v]) => await readFile(v, 'utf-8').then(c => [k, JSON.parse(c)])
     )).then(es => Object.fromEntries(es))
   ])
+  /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return  */
 
+  /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- intended */
   const ajv = new Ajv({ ...ajvOptions, schemas })
   addFormats(ajv)
+  /* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- intended */
   addFormats2019(ajv, { formats: ['idn-email'] })
   // there is just no working implementation for format "iri-reference": see https://github.com/luzlab/ajv-formats-draft2019/issues/22
   ajv.addFormat('iri-reference', true)

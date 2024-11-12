@@ -34,9 +34,10 @@ export class PackageUrlFactory<PurlType extends PackageURL['type'] = PackageURL[
     return this.#type
   }
 
+  /* eslint-disable-next-line @typescript-eslint/no-inferrable-types -- docs */
   makeFromComponent (component: Component, sort: boolean = false): PackageURL | undefined {
     const qualifiers: PackageURL['qualifiers'] = {}
-    let subpath: PackageURL['subpath']
+    let subpath: PackageURL['subpath'] = undefined
 
     // sorting to allow reproducibility: use the last instance for a `extRef.type`, if multiples exist
     const extRefs = sort
@@ -51,6 +52,7 @@ export class PackageUrlFactory<PurlType extends PackageURL['type'] = PackageURL[
       // According to https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst
       // there is no formal requirement to a `..._url`.
       // Everything is possible: URL-encoded, not encoded, with schema, without schema
+      /* eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check -- intended */
       switch (extRef.type) {
         case ExternalReferenceType.VCS:
           [qualifiers[PackageUrlQualifierNames.VcsUrl], subpath] = url.split('#', 2)

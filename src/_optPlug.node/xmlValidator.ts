@@ -24,8 +24,14 @@ export type Validator = (data: string) => null | ValidationError
 export type Functionality = (schemaPath: string) => Promise<Validator>
 
 export default opWrapper<Functionality>('XmlValidator', [
+  /* eslint-disable @typescript-eslint/no-unsafe-member-access -- needed */
+  /* eslint-disable @typescript-eslint/no-require-imports -- needed */
+  /* eslint-disable @typescript-eslint/no-unsafe-return -- needed */
 
   ['libxmljs2', () => require('./__xmlValidators/libxmljs2').default]
   // ... add others here, pull-requests welcome!
 
+  /* eslint-enable @typescript-eslint/no-unsafe-return */
+  /* eslint-enable @typescript-eslint/no-require-imports */
+  /* eslint-enable @typescript-eslint/no-unsafe-member-access */
 ]) satisfies Functionality | WillThrow

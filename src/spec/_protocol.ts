@@ -78,6 +78,7 @@ export class _Spec implements _SpecProtocol {
   readonly #supportsLicenseAcknowledgement: boolean
   readonly #supportsServices: boolean
 
+  /* eslint-disable-next-line @typescript-eslint/max-params -- architectural decision */
   constructor (
     version: Version,
     formats: Iterable<Format>,

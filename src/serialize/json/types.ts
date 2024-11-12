@@ -70,6 +70,7 @@ export namespace Normalized {
 
   export type BomLinkDocumentType = string
   export type BomLinkElementType = string
+  /* eslint-disable-next-line @typescript-eslint/no-duplicate-type-constituents -- as of spec */
   export type BomLink = BomLinkDocumentType | BomLinkElementType
 
   export interface Bom {
@@ -218,6 +219,7 @@ export namespace Normalized {
   }
 
   export interface ExternalReference {
+    /* eslint-disable-next-line @typescript-eslint/no-duplicate-type-constituents -- as of spec */
     url: JsonSchema.IriReference | BomLink
     type: Enums.ExternalReferenceType
     hashes?: Hash[]
@@ -300,6 +302,7 @@ export namespace Normalized {
     }
 
     export interface Affect {
+      /* eslint-disable-next-line @typescript-eslint/no-duplicate-type-constituents -- as of spec */
       ref: RefLinkType | BomLinkElementType
       versions?: AffectedVersion[]
     }

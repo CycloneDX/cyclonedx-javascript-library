@@ -21,7 +21,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 export * from './bomRefDiscriminator'
 export * from './errors'
-export * as Types from './types'
+export type * as Types from './types'
 
 // region base
 

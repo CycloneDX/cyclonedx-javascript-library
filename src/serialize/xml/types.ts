@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
+/* eslint-disable-next-line @typescript-eslint/no-namespace -- needed */
 export namespace XmlSchema {
 
   const _AnyUriSchemePattern = /^[a-z][a-z0-9+\-.]*$/i

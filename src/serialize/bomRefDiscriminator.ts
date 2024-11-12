@@ -24,6 +24,7 @@ export class BomRefDiscriminator {
 
   readonly #prefix: string
 
+  /* eslint-disable-next-line @typescript-eslint/no-inferrable-types -- docs */
   constructor (bomRefs: Iterable<BomRef>, prefix: string = 'BomRef') {
     this.#originalValues = Array.from(bomRefs, r => [r, r.value])
     this.#prefix = prefix
