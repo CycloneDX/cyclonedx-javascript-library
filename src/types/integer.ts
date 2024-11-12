@@ -22,7 +22,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  *
  * @see {@link isInteger}
  */
-export type Integer = number | NonNegativeInteger
+export type Integer = number
 
 export function isInteger (value: any): value is Integer {
   return Number.isInteger(value)
@@ -33,7 +33,7 @@ export function isInteger (value: any): value is Integer {
  *
  * @see {@link isNonNegativeInteger}
  */
-export type NonNegativeInteger = number | PositiveInteger
+export type NonNegativeInteger = number
 
 export function isNonNegativeInteger (value: any): value is NonNegativeInteger {
   return isInteger(value) &&

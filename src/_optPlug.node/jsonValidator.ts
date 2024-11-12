@@ -24,8 +24,8 @@ export type Validator = (data: string) => null | ValidationError
 export type Functionality = (schemaPath: string, schemaMap: Record<string, string>) => Promise<Validator>
 
 export default opWrapper<Functionality>('JsonValidator', [
-  /* eslint-disable @typescript-eslint/no-var-requires */
+
   ['( ajv && ajv-formats && ajv-formats-draft2019 )', () => require('./__jsonValidators/ajv').default]
   // ... add others here, pull-requests welcome!
-  /* eslint-enable @typescript-eslint/no-var-requires */
+
 ]) satisfies Functionality | WillThrow

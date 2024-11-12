@@ -47,15 +47,13 @@ export namespace XmlSchema {
     }
 
     const fragmentPos = value.indexOf('#')
-    let beforeFragment: string
+    let beforeFragment = value
     if (fragmentPos >= 0) {
       if (value.includes('#', fragmentPos + 1)) {
         // has a second fragment marker
         return false
       }
       beforeFragment = value.slice(undefined, fragmentPos)
-    } else {
-      beforeFragment = value
     }
 
     const schemePos = beforeFragment.indexOf(':')
@@ -71,7 +69,7 @@ export namespace XmlSchema {
 
 }
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
+/* eslint-disable-next-line @typescript-eslint/no-namespace -- needed */
 export namespace SimpleXml {
 
   /**

@@ -39,7 +39,7 @@ suite('Serialize.JsonSerializer', () => {
       const normalizerFactoryDummy = { spec: { supportsFormat: f => f !== Format.JSON } }
       assert.throws(
         () => {
-          /* eslint-disable-next-line no-new */
+
           new JsonSerializer(normalizerFactoryDummy)
         },
         UnsupportedFormatError,

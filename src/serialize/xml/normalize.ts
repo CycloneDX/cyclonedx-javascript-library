@@ -221,9 +221,7 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
           : undefined
       },
       children: [
-        data.metadata
-          ? this._factory.makeForMetadata().normalize(data.metadata, options, 'metadata')
-          : undefined,
+        this._factory.makeForMetadata().normalize(data.metadata, options, 'metadata'),
         components,
         services,
         this._factory.spec.supportsDependencyGraph

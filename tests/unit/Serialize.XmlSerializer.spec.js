@@ -39,7 +39,7 @@ suite('Serialize.XmlSerializer', () => {
       const normalizerFactoryDummy = { spec: { supportsFormat: f => f !== Format.XML } }
       assert.throws(
         () => {
-          /* eslint-disable-next-line no-new */
+
           new XmlSerializer(normalizerFactoryDummy)
         },
         UnsupportedFormatError,

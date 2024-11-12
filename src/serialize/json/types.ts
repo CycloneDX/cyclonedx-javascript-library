@@ -22,7 +22,7 @@ import type { HashContent } from '../../models'
 import type { SpdxId } from '../../spdx'
 import type { CPE, CWE, Integer } from '../../types'
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
+/* eslint-disable-next-line @typescript-eslint/no-namespace -- needed */
 export namespace JsonSchema {
 
   /**
@@ -62,7 +62,7 @@ export namespace JsonSchema {
 
 }
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
+/* eslint-disable-next-line @typescript-eslint/no-namespace -- needed */
 export namespace Normalized {
 
   export type RefType = string
@@ -261,7 +261,7 @@ export namespace Normalized {
     properties?: Property[]
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-namespace
+  /* eslint-disable-next-line @typescript-eslint/no-namespace -- needed */
   export namespace Vulnerability {
     export interface Source {
       name?: string

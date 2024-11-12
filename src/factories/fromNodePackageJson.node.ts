@@ -53,7 +53,7 @@ export class ExternalReferenceFactory {
 
   makeVcs (data: PackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#repositoryc */
-    const repository = data.repository
+    const {repository} = data
     let url
     let comment: string | undefined
     if (typeof repository === 'object') {
@@ -86,7 +86,7 @@ export class ExternalReferenceFactory {
 
   makeIssueTracker (data: PackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#bugs */
-    const bugs = data.bugs
+    const {bugs} = data
     let url
     let comment: string | undefined
     if (typeof bugs === 'object') {
@@ -113,7 +113,7 @@ const npmDefaultRepositoryMatcher = /^https?:\/\/registry\.npmjs\.org(:?\/|$)/
  * @see {@link https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#npm}
  */
 export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
-  override makeFromComponent (component: Component, sort: boolean = false): PackageURL | undefined {
+  override makeFromComponent (component: Component, sort = false): PackageURL | undefined {
     const purl = super.makeFromComponent(component, sort)
     return purl === undefined
       ? undefined

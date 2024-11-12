@@ -125,17 +125,17 @@ export class _Spec implements _SpecProtocol {
   }
 
   supportsFormat (f: Format | any): boolean {
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- fix */
     return this.#formats.has(f)
   }
 
   supportsComponentType (ct: ComponentType | any): boolean {
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- fix */
     return this.#componentTypes.has(ct)
   }
 
   supportsHashAlgorithm (ha: HashAlgorithm | any): boolean {
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- fix */
     return this.#hashAlgorithms.has(ha)
   }
 
@@ -145,7 +145,7 @@ export class _Spec implements _SpecProtocol {
   }
 
   supportsExternalReferenceType (ert: ExternalReferenceType | any): boolean {
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- fix */
     return this.#externalReferenceTypes.has(ert)
   }
 
@@ -171,7 +171,7 @@ export class _Spec implements _SpecProtocol {
   }
 
   supportsVulnerabilityRatingMethod (rm: Vulnerability.RatingMethod | any): boolean {
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- any */
     return this.#vulnerabilityRatingMethods.has(rm)
   }
 

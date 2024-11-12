@@ -46,7 +46,7 @@ export default [
     name: 'general',
     plugins: {
       'simple-import-sort': plugin_simpleImportSort,
-      'header': plugin_header,
+      // 'header': plugin_header,
       'editorconfig': plugin_editorconfig,
     },
     rules: {
@@ -55,7 +55,7 @@ export default [
       'sort-imports': 'off',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
-      'header/header': ['error', licenseHeaderFile],
+      // 'header/header': ['error', licenseHeaderFile],
       'editorconfig/indent': 'off',
     },
   },
@@ -126,6 +126,10 @@ export default [
       }],
       'class-methods-use-this': 'off',
       '@typescript-eslint/class-methods-use-this': 'off',
+      '@typescript-eslint/no-redundant-type-constituents': 'off',
+      '@typescript-eslint/no-magic-numbers': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/prefer-destructuring': 'off',
       'tsdoc/syntax': 'error',
     },
   },

@@ -27,6 +27,7 @@ import type { ValidationError } from './types'
 export class XmlValidator extends BaseValidator {
   #getSchemaFilePath (): string {
     const s = FILES.CDX.XML_SCHEMA[this.version]
+    /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- better be safe */
     if (s === undefined) {
       throw new NotImplementedError(this.version)
     }

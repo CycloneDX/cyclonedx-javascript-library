@@ -24,8 +24,8 @@ import opWrapper, { type WillThrow } from './_wrapper'
 export type Functionality = (element: SimpleXml.Element, options?: SerializerOptions) => string
 
 export default opWrapper<Functionality>('XmlStringifier', [
-  /* eslint-disable @typescript-eslint/no-var-requires */
+
   ['xmlbuilder2', () => require('./__xmlStringifiers/xmlbuilder2').default]
   // ... add others here, pull-requests welcome!
-  /* eslint-enable @typescript-eslint/no-var-requires */
+
 ]) satisfies Functionality | WillThrow
