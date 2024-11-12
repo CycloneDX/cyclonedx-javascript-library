@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 6.12.0 -- 2024-11-12
+
 * Added
   * Support for services ([#1164] via [#1165])
   * New class `Models.Service` ([#1164] via [#1165])
