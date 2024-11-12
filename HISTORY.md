@@ -12,7 +12,10 @@ All notable changes to this project will be documented in this file.
   * New class `Models.ServiceRepository` ([#1164] via [#1165])
   * Class `Models.Bom` got new property `services` ([#1164] via [#1165])
   * Serializers and `Bom`-Normalizers will take `Models.Bom.services` into account ([#1164] via [#1165])
+* Build
+  * Use _webpack_ `v5.96.1` now, was `v.95.0` (via [#1159])
 
+[#1159]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1159
 [#1164]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1164
 [#1165]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1165
 
