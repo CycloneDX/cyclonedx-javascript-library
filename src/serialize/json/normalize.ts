@@ -415,7 +415,28 @@ export class ComponentNormalizer extends BaseJsonNormalizer<Models.Component> {
 
 export class ServiceNormalizer extends BaseJsonNormalizer<Models.Service> {
   normalize (data: Models.Service, options: NormalizerOptions): Normalized.Service {
-    // @TODO
+    return {
+      'bom-ref': data.bomRef.value || undefined,
+      provider: data.provider
+        ? this._factory.makeForOrganizationalEntity().normalize(data.provider, options)
+        : undefined,
+      group: data.group,
+      name: data.name,
+      version: data.version|| undefined,
+      description: data.description || undefined,
+      licenses: data.licenses.size > 0
+        ? this._factory.makeForLicense().normalizeIterable(data.licenses, options)
+        : undefined,
+      externalReferences: data.externalReferences.size > 0
+        ? this._factory.makeForExternalReference().normalizeIterable(data.externalReferences, options)
+        : undefined,
+      services: data.services.size > 0
+        ? this._factory.makeForService().normalizeIterable(data.services, options)
+        : undefined,
+      properties: data.properties.size > 0
+        ? this._factory.makeForProperty().normalizeIterable(data.properties, options)
+        : undefined
+    }
   }
 
   normalizeIterable (data: SortableIterable<Models.Service>, options: NormalizerOptions): Normalized.Service[] {

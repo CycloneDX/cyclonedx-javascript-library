@@ -166,6 +166,7 @@ export namespace Normalized {
     name: string
     version?: string
     description?: string
+    licenses?: License[]
     externalReferences?: ExternalReference[]
     services?: Service[]
     properties?: Property[]

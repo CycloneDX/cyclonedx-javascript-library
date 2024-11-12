@@ -544,7 +544,56 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
 
 export class ServiceNormalizer extends BaseXmlNormalizer<Models.Service> {
   normalize (data: Models.Service, options: NormalizerOptions, elementName: string): SimpleXml.Element {
-    // @TODO
+    const spec = this._factory.spec
+    const provider: SimpleXml.Element | undefined = data.provider === undefined
+      ? undefined
+      : this._factory.makeForOrganizationalEntity().normalize(data.provider, options, 'supplier')
+    const licenses: SimpleXml.Element | undefined = data.licenses.size > 0
+      ? {
+        type: 'element',
+        name: 'licenses',
+        children: this._factory.makeForLicense().normalizeIterable(data.licenses, options)
+      }
+      : undefined
+    const extRefs: SimpleXml.Element | undefined = data.externalReferences.size > 0
+      ? {
+        type: 'element',
+        name: 'externalReferences',
+        children: this._factory.makeForExternalReference().normalizeIterable(data.externalReferences, options, 'reference')
+      }
+      : undefined
+    const properties: SimpleXml.Element | undefined = spec.supportsProperties(data) && data.properties.size > 0
+      ? {
+        type: 'element',
+        name: 'properties',
+        children: this._factory.makeForProperty().normalizeIterable(data.properties, options, 'property')
+      }
+      : undefined
+    const services: SimpleXml.Element | undefined = data.services.size > 0
+      ? {
+        type: 'element',
+        name: 'components',
+        children: this.normalizeIterable(data.services, options, 'component')
+      }
+      : undefined
+    return {
+      type: 'element',
+      name: elementName,
+      attributes: {
+        'bom-ref': data.bomRef.value
+      },
+      children: [
+        provider,
+        makeOptionalTextElement(data.group, 'group', normalizedString),
+        makeTextElement(data.name, 'name', normalizedString),
+        makeOptionalTextElement(data.version, 'version', normalizedString),
+        makeOptionalTextElement(data.description, 'description', normalizedString),
+        licenses,
+        extRefs,
+        properties,
+        services,
+      ].filter(isNotUndefined)
+    }
   }
 
   normalizeIterable (data: SortableIterable<Models.Service>, options: NormalizerOptions, elementName: string): SimpleXml.Element[] {
