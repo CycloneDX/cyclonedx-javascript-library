@@ -329,11 +329,11 @@ module.exports.createComplexStructure = function () {
   bom.services.add((function (service) {
     service.bomRef.value = 'my-service'
 
-    s2 = new Models.Service('sub-service')
+    const s2 = new Models.Service('sub-service')
     s2.bomRef.value = 'my-service/sub-service'
     service.services.add(s2)
 
-    s3 = new Models.Service('nested-service')
+    const s3 = new Models.Service('nested-service')
     s3.bomRef.value = 'my-service/nested-service'
     service.services.add(s3)
 
