@@ -27,6 +27,27 @@
                 {
                   "type": "element",
                   "name": "vendor",
+                  "children": "Service service group"
+                },
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "sbom-generator-service"
+                },
+                {
+                  "type": "element",
+                  "name": "version",
+                  "children": "1"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "tool",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "vendor",
                   "children": "tool group"
                 },
                 {
@@ -65,7 +86,7 @@
                       "attributes": {
                         "alg": "MD5"
                       },
-                      "children": "f32a26e2a3a8aa338cd77b6e1263c535"
+                      "children": "974e5cc07da6e4536bffd935fd4ddc61"
                     },
                     {
                       "type": "element",
@@ -73,7 +94,7 @@
                       "attributes": {
                         "alg": "SHA-1"
                       },
-                      "children": "829c3804401b0727f70f73d4415e162400cbe57b"
+                      "children": "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"
                     }
                   ]
                 }
@@ -1084,7 +1105,7 @@
             {
               "type": "element",
               "name": "version",
-              "children": "1.2+service-version"
+              "children": "1.0+service-version"
             },
             {
               "type": "element",

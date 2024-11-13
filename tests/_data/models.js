@@ -62,7 +62,17 @@ module.exports.createComplexStructure = function () {
             })
         ]),
         services: new Models.ServiceRepository([
-          new Models.Service('sbom-generator-service')
+          new Models.Service('sbom-generator-service', {
+            group: 'Service service group',
+            version: '1',
+            externalReferences: new Models.ExternalReferenceRepository([
+              new Models.ExternalReference(
+                'https://example.com/sbom-generator-service/',
+                Enums.ExternalReferenceType.Website,
+                { comment: 'the service that made this' }
+              )
+            ])
+          })
         ])
       }),
       authors: new Models.OrganizationalContactRepository([
@@ -313,7 +323,6 @@ module.exports.createComplexStructure = function () {
     service.bomRef.value = 'some-service'
     service.provider = new Models.OrganizationalEntity({ name: 'Service Provider' })
     service.group = 'acme'
-    service.version = '1.2+service-version'
     service.description = 'this is a test service'
     service.externalReferences.add(new Models.ExternalReference(
       'https://localhost/service/docs',
@@ -597,5 +606,67 @@ module.exports.createComplexStructure = function () {
       ])
     }))
 
+  return bom
+}
+
+
+/**
+ * @returns {Models.Bom}
+ */
+module.exports.createAllTools = function () {
+  const bomSerialNumberRaw = '8fd9e244-73b6-4cd3-ab3a-a0fefdee5c9e'
+  const bom = new Models.Bom({
+    version: 7,
+    serialNumber: `urn:uuid:${bomSerialNumberRaw}`,
+  })
+  bom.metadata.tools.components.push(
+    new Models.Component(
+      Enums.ComponentType.Application,
+      'Component tool name', {
+        group: 'Component tool group',
+        version: '0.8.15',
+        hashes: new Models.HashDictionary([
+          [Enums.HashAlgorithm.MD5, '974e5cc07da6e4536bffd935fd4ddc61'],
+          [Enums.HashAlgorithm['SHA-1'], '2aae6c35c94fcfb415dbe95f408b9ce91ee846ed']
+        ])
+      }))
+  bom.metadata.tools.services.push(
+    new Models.Service('sbom-generator-service', {
+      group: 'Service tool group',
+      version: '1',
+      externalReferences: new Models.ExternalReferenceRepository([
+        new Models.ExternalReference(
+          'https://example.com/sbom-generator-service/',
+          Enums.ExternalReferenceType.Website,
+          { comment: 'the service that made this' }
+        )
+      ])
+    })
+  )
+  bom.metadata.tools.tools.push(
+    new Models.Tool({
+      vendor: 'Tool tool vendor',
+      name: 'Tool tool name',
+      version: '0.8.15',
+      hashes: new Models.HashDictionary([
+        [Enums.HashAlgorithm.MD5, 'f32a26e2a3a8aa338cd77b6e1263c535'],
+        [Enums.HashAlgorithm['SHA-1'], '829c3804401b0727f70f73d4415e162400cbe57b']
+      ])
+    })
+  )
+  bom.metadata.tools.tools.push(
+    new Models.Tool({
+      vendor: 'Tool tool vendor',
+      name: 'Tool other tool',
+      version: '', // empty string, not undefined
+      externalReferences: new Models.ExternalReferenceRepository([
+        new Models.ExternalReference(
+          'https://cyclonedx.org/tool-center/',
+          Enums.ExternalReferenceType.Website,
+          { comment: 'the tools that made this' }
+        )
+      ])
+    })
+  )
   return bom
 }
