@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
     * Class `Models.Tools` ([#1152] via [#1163])
     * Static function `Models.Tool.fromComponent()` (via [#1163])
     * Static function `Models.Tool.fromService()` (via [#1163])
-    * New data models and serialization/normalization for `Models.Tools` ([#1152] via [#1163])
+    * New serialization/normalization for `Models.Tools` ([#1152] via [#1163])
 * Changed
     * Serializers and `Bom`-Normalizers will take changed `Models.Bom.tools` into account ([#1152] via [#1163])
 
