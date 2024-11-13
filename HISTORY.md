@@ -17,7 +17,6 @@ All notable changes to this project will be documented in this file.
 * Changed
     * Serializers and `Bom`-Normalizers will take changed `Models.Bom.tools` into account ([#1152] via [#1163])
 
-
 [#1152]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1152
 [#1163]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1163
 
