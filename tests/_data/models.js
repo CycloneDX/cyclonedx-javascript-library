@@ -43,8 +43,8 @@ module.exports.createComplexStructure = function () {
               group: 'tool group',
               version: '0.8.15',
               hashes: new Models.HashDictionary([
-                [Enums.HashAlgorithm.MD5, 'f32a26e2a3a8aa338cd77b6e1263c535'],
-                [Enums.HashAlgorithm['SHA-1'], '829c3804401b0727f70f73d4415e162400cbe57b']
+                [Enums.HashAlgorithm.MD5, '974e5cc07da6e4536bffd935fd4ddc61'],
+                [Enums.HashAlgorithm['SHA-1'], '2aae6c35c94fcfb415dbe95f408b9ce91ee846ed']
               ])
             }),
           new Models.Component(
@@ -60,6 +60,9 @@ module.exports.createComplexStructure = function () {
                 )
               ])
             })
+        ]),
+        services: new Models.ServiceRepository([
+          new Models.Service('sbom-generator-service')
         ])
       }),
       authors: new Models.OrganizationalContactRepository([
