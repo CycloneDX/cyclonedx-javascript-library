@@ -99,6 +99,17 @@ jobs:
           echo "::group::install deps"
           npm i --ignore-scripts --loglevel=silly
           echo "::endgroup::"
+          echo "::group::install example javascript"
+          npm --prefix examples/node/javascript i --ignore-scripts --loglevel=silly
+          echo "::endgroup::"
+          echo "::group::install example typescript cjs"
+          npm --prefix examples/node/typescript/example.cjs i --ignore-scripts --loglevel=silly
+          echo "::endgroup::"
+          echo "::group::install examples typescript mjs"
+          npm --prefix examples/node/typescript/example.mjs i --ignore-scripts --loglevel=silly
+          echo "::endgroup::"
+      - name: setup tools
+        run: |
           echo "::group::install docs-gen deps"
           npm --prefix tools/docs-gen i --ignore-scripts --loglevel=silly
           echo "::endgroup::"
