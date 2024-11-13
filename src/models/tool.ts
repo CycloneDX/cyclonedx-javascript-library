@@ -19,9 +19,12 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { Comparable } from '../_helpers/sortable'
 import { SortableComparables } from '../_helpers/sortable'
-import {type Component, ComponentRepository} from "./component";
+import type { Component } from "./component";
+import { ComponentRepository} from "./component";
 import { ExternalReferenceRepository } from './externalReference'
 import { HashDictionary } from './hash'
+import type { Service } from "./service";
+import { ServiceRepository } from "./service";
 
 export interface OptionalToolProperties {
   vendor?: Tool['vendor']
@@ -64,6 +67,15 @@ export class Tool implements Comparable<Tool> {
       externalReferences: component.externalReferences
     })
   }
+
+  static fromService(service: Service): Tool {
+    return new Tool({
+      vendor: service.group,
+      name: service.name,
+      version: service.version,
+      externalReferences: service.externalReferences
+    })
+  }
 }
 
 export class ToolRepository extends SortableComparables<Tool> {
@@ -71,25 +83,25 @@ export class ToolRepository extends SortableComparables<Tool> {
 
 
 export interface OptionalToolsProperties {
-  components?: ComponentRepository
-  // TODO: services
-  tools?: ToolRepository
+  components?: Tools['components']
+  services?: Tools['services']
+  tools?: Tools['tools']
 }
 
 export class Tools {
   components: ComponentRepository
-  // TODO: services
+  services: ServiceRepository
   tools: ToolRepository
 
   constructor(op: OptionalToolsProperties = {}) {
     this.components = op.components ?? new ComponentRepository()
-    // TODO: this.services
+    this.services = op.services ?? new ServiceRepository()
     this.tools = op.tools ?? new ToolRepository()
   }
 
   get size(): number {
     return this.components.size
-      // TODO: this.services
+      + this.services.size
       + this.tools.size
   }
 }

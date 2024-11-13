@@ -378,7 +378,7 @@ export class ToolsNormalizer extends BaseXmlNormalizer<Models.Tools> {
       children = this._factory.makeForTool().normalizeIterable(
         new ToolRepository(chainI(
           Array.from(data.components, Tool.fromComponent),
-          // TODO services
+          Array.from(data.services, Tool.fromService),
           data.tools,
         )), options, 'tool')
     } else {
@@ -390,7 +390,13 @@ export class ToolsNormalizer extends BaseXmlNormalizer<Models.Tools> {
           children: this._factory.makeForComponent().normalizeIterable(data.components, options, 'component')
         })
       }
-      // TODO data.services
+      if (data.components.size > 0) {
+        children.push({
+          type: 'element',
+          name: 'services',
+          children: this._factory.makeForService().normalizeIterable(data.services, options, 'service')
+        })
+      }
     }
     return {
       type: 'element',

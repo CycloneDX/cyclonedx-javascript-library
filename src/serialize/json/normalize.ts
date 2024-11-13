@@ -297,13 +297,13 @@ export class ToolsNormalizer extends BaseJsonNormalizer<Models.Tools> {
       return this._factory.makeForTool().normalizeIterable(
         new ToolRepository(chainI<Models.Tool>(
           Array.from(data.components, Tool.fromComponent),
-          // TODO services
+          Array.from(data.services, Tool.fromService),
           data.tools,
         )), options)
     }
     return {
-      components: this._factory.makeForComponent().normalizeIterable(data.components, options)
-      // TODO services
+      components: this._factory.makeForComponent().normalizeIterable(data.components, options),
+      services: this._factory.makeForService().normalizeIterable(data.services, options)
     }
   }
 }
