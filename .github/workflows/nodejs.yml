@@ -110,8 +110,8 @@ jobs:
       - name: test
         run: >
           npm run -- test:standard
-          --format json
-          --output-file "$PWD/$REPORTS_DIR/eslint.json"
+          ## --format json
+          ## --output-file "$PWD/$REPORTS_DIR/eslint.json"
       - name: Annotate Code Linting Results
         # see https://github.com/ataylorme/eslint-annotate-action
         uses: ataylorme/eslint-annotate-action@v3
