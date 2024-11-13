@@ -119,7 +119,23 @@ jobs:
       - name: make reports dir
         run: mkdir -p "$REPORTS_DIR"
       - name: test
-        run: npm run -- test:standard
+        run: >
+          npm run -- test:standard
+          --format json
+          --output-file "$PWD/$REPORTS_DIR/eslint.json"
+      - name: Annotate Code
+        # see https://github.com/DerLev/eslint-annotations
+        uses: DerLev/eslint-annotations@v2
+        with:
+          eslint-report: ${{ env.REPORTS_DIR }}/eslint.json
+      - name: artifact eslint result
+        # see https://github.com/actions/upload-artifact
+        uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
+        with:
+          name: ${{ env.STANDARD_REPORTS_ARTIFACT }}
+          path: ${{ env.REPORTS_DIR }}
+          if-no-files-found: error
 
   test-node:
     needs: [ 'build' ]
