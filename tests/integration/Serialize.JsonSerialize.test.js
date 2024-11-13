@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { describe, beforeEach, afterEach, it } = require('mocha')
 
-const { createComplexStructure } = require('../_data/models')
+const { createComplexStructure, createAllTools } = require('../_data/models')
 const { loadSerializeResult, writeSerializeResult } = require('../_data/serialize')
 
 const {
@@ -39,52 +39,57 @@ const {
 describe('Serialize.JsonSerialize', function () {
   this.timeout(60000);
 
-  [
-    Spec.Spec1dot6,
-    Spec.Spec1dot5,
-    Spec.Spec1dot4,
-    Spec.Spec1dot3,
-    Spec.Spec1dot2
-  ].forEach(spec => describe(`complex with spec v${spec.version}`, () => {
-    const normalizerFactory = new JsonNormalizeFactory(spec)
+  Object.entries({
+    complex: createComplexStructure,
+    allTools: createAllTools
+  }).forEach(([fixtureName, bomFixture]) => describe(`from fixture ${fixtureName}`, () => {
+    [
+      Spec.Spec1dot6,
+      Spec.Spec1dot5,
+      Spec.Spec1dot4,
+      Spec.Spec1dot3,
+      Spec.Spec1dot2
+    ].forEach(spec => describe(`with spec v${spec.version}`, () => {
+      const normalizerFactory = new JsonNormalizeFactory(spec)
 
-    beforeEach(function () {
-      this.bom = createComplexStructure()
-    })
+      beforeEach(function () {
+        this.bom = bomFixture()
+      })
 
-    afterEach(function () {
-      delete this.bom
-    })
+      afterEach(function () {
+        delete this.bom
+      })
 
-    it('serialize', async function () {
-      const serializer = new JsonSerializer(normalizerFactory)
+      it('serialize', async function () {
+        const serializer = new JsonSerializer(normalizerFactory)
 
-      const serialized = serializer.serialize(
-        this.bom, {
-          sortLists: true,
-          space: 4
-        })
+        const serialized = serializer.serialize(
+          this.bom, {
+            sortLists: true,
+            space: 4
+          })
 
-      const validator = new JsonStrictValidator(spec.version)
-      try {
-        const validationError = await validator.validate(serialized)
-        assert.strictEqual(validationError, null)
-      } catch (err) {
-        if (!(err instanceof MissingOptionalDependencyError)) {
-          // unexpected error
-          assert.fail(err)
+        const validator = new JsonStrictValidator(spec.version)
+        try {
+          const validationError = await validator.validate(serialized)
+          assert.strictEqual(validationError, null)
+        } catch (err) {
+          if (!(err instanceof MissingOptionalDependencyError)) {
+            // unexpected error
+            assert.fail(err)
+          }
         }
-      }
 
-      if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
-        writeSerializeResult(serialized, 'json_complex', spec.version, 'json')
-      }
-      assert.strictEqual(
-        serialized,
-        loadSerializeResult('json_complex', spec.version, 'json'))
-    })
+        if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
+          writeSerializeResult(serialized, `json_${fixtureName}`, spec.version, 'json')
+        }
+        assert.strictEqual(
+          serialized,
+          loadSerializeResult(`json_${fixtureName}`, spec.version, 'json'))
+      })
 
-    // TODO add more tests
+      // TODO add more tests
+    }))
   }))
 
   describe('make bom-refs unique', () => {

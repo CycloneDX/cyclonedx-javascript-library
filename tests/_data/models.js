@@ -619,7 +619,7 @@ module.exports.createAllTools = function () {
     version: 7,
     serialNumber: `urn:uuid:${bomSerialNumberRaw}`,
   })
-  bom.metadata.tools.components.push(
+  bom.metadata.tools.components.add(
     new Models.Component(
       Enums.ComponentType.Application,
       'Component tool name', {
@@ -630,7 +630,7 @@ module.exports.createAllTools = function () {
           [Enums.HashAlgorithm['SHA-1'], '2aae6c35c94fcfb415dbe95f408b9ce91ee846ed']
         ])
       }))
-  bom.metadata.tools.services.push(
+  bom.metadata.tools.services.add(
     new Models.Service('sbom-generator-service', {
       group: 'Service tool group',
       version: '1',
@@ -643,7 +643,7 @@ module.exports.createAllTools = function () {
       ])
     })
   )
-  bom.metadata.tools.tools.push(
+  bom.metadata.tools.tools.add(
     new Models.Tool({
       vendor: 'Tool tool vendor',
       name: 'Tool tool name',
@@ -654,7 +654,7 @@ module.exports.createAllTools = function () {
       ])
     })
   )
-  bom.metadata.tools.tools.push(
+  bom.metadata.tools.tools.add(
     new Models.Tool({
       vendor: 'Tool tool vendor',
       name: 'Tool other tool',

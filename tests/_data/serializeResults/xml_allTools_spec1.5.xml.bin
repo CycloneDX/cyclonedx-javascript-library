@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" version="7" serialNumber="urn:uuid:8fd9e244-73b6-4cd3-ab3a-a0fefdee5c9e">
+    <metadata>
+        <tools>
+            <tool>
+                <vendor>Component tool group</vendor>
+                <name>Component tool name</name>
+                <version>0.8.15</version>
+                <hashes>
+                    <hash alg="MD5">974e5cc07da6e4536bffd935fd4ddc61</hash>
+                    <hash alg="SHA-1">2aae6c35c94fcfb415dbe95f408b9ce91ee846ed</hash>
+                </hashes>
+            </tool>
+            <tool>
+                <vendor>Service tool group</vendor>
+                <name>sbom-generator-service</name>
+                <version>1</version>
+                <externalReferences>
+                    <reference type="website">
+                        <url>https://example.com/sbom-generator-service/</url>
+                        <comment>the service that made this</comment>
+                    </reference>
+                </externalReferences>
+            </tool>
+            <tool>
+                <vendor>Tool tool vendor</vendor>
+                <name>Tool other tool</name>
+                <externalReferences>
+                    <reference type="website">
+                        <url>https://cyclonedx.org/tool-center/</url>
+                        <comment>the tools that made this</comment>
+                    </reference>
+                </externalReferences>
+            </tool>
+            <tool>
+                <vendor>Tool tool vendor</vendor>
+                <name>Tool tool name</name>
+                <version>0.8.15</version>
+                <hashes>
+                    <hash alg="MD5">f32a26e2a3a8aa338cd77b6e1263c535</hash>
+                    <hash alg="SHA-1">829c3804401b0727f70f73d4415e162400cbe57b</hash>
+                </hashes>
+            </tool>
+        </tools>
+    </metadata>
+    <components/>
+    <dependencies/>
+</bom>
