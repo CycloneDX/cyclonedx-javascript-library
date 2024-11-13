@@ -110,7 +110,23 @@ jobs:
       - name: test
         run: >
           npm run -- test:standard
-          --format gha
+          --format json
+          --output-file "$PWD/$REPORTS_DIR/eslint.json"
+      - name: Annotate Code Linting Results
+        # see https://github.com/ataylorme/eslint-annotate-action
+        uses: ataylorme/eslint-annotate-action@v3
+        if: ${{ failure() || success() }}
+        with:
+          report-json: ${{ env.REPORTS_DIR }}/eslint.json
+          only-pr-files: false
+      - name: artifact build result
+        # see https://github.com/actions/upload-artifact
+        uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
+        with:
+          name: ${{ env.STANDARD_REPORTS_ARTIFACT }}
+          path: ${{ env.REPORTS_DIR }}
+          if-no-files-found: error
 
   test-node:
     needs: [ 'build' ]
