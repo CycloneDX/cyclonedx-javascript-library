@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { describe, beforeEach, afterEach, it } = require('mocha')
 
-const { createComplexStructure } = require('../_data/models')
+const { createComplexStructure, createAllTools } = require('../_data/models')
 const { loadSerializeResult, writeSerializeResult } = require('../_data/serialize')
 
 const {
@@ -40,62 +40,68 @@ describe('Serialize.XmlSerialize', function () {
 
   this.timeout(60000);
 
-  [
-    Spec.Spec1dot6,
-    Spec.Spec1dot5,
-    Spec.Spec1dot4,
-    Spec.Spec1dot3,
-    Spec.Spec1dot2
-  ].forEach(spec => describe(`complex with spec v${spec.version}`, () => {
-    const normalizerFactory = new XmlNormalizeFactory(spec)
+  Object.entries({
+    complex: createComplexStructure,
+    allTools: createAllTools
+  }).forEach(([fixtureName, bomFixture]) => describe(`from fixture ${fixtureName}`, () => {
+    [
+      Spec.Spec1dot6,
+      Spec.Spec1dot5,
+      Spec.Spec1dot4,
+      Spec.Spec1dot3,
+      Spec.Spec1dot2
+    ].forEach(spec => describe(`with spec v${spec.version}`, () => {
+      const normalizerFactory = new XmlNormalizeFactory(spec)
 
-    beforeEach(function () {
-      this.bom = createComplexStructure()
-    })
-
-    afterEach(function () {
-      delete this.bom
-    })
-
-    if (expectMissingDepError) {
-      it('throws MissingOptionalDependencyError', function () {
-        const serializer = new XmlSerializer(normalizerFactory)
-        assert.throws(
-          () => { serializer.serialize(this.bom, {}) },
-          (err) => err instanceof MissingOptionalDependencyError
-        )
+      beforeEach(function () {
+        this.bom = bomFixture()
       })
-      return // skip other tests
-    }
 
-    it('serialize', async function () {
-      const serializer = new XmlSerializer(normalizerFactory)
-      const serialized = await serializer.serialize(
-        this.bom, {
-          sortLists: true,
-          space: 4
+      afterEach(function () {
+        delete this.bom
+      })
+
+      if (expectMissingDepError) {
+        it('throws MissingOptionalDependencyError', function () {
+          const serializer = new XmlSerializer(normalizerFactory)
+          assert.throws(
+            () => { serializer.serialize(this.bom, {}) },
+            (err) => err instanceof MissingOptionalDependencyError
+          )
         })
+        return // skip other tests
+      }
 
-      const validator = new Validation.XmlValidator(spec.version)
-      try {
-        const validationError = await validator.validate(serialized)
-        assert.strictEqual(validationError, null)
-      } catch (err) {
-        if (!(err instanceof Validation.MissingOptionalDependencyError)) {
-          // unexpected error
-          throw err
+      it('serialize', async function () {
+        const serializer = new XmlSerializer(normalizerFactory)
+        const serialized = await serializer.serialize(
+          this.bom, {
+            sortLists: true,
+            space: 4
+          })
+
+        const validator = new Validation.XmlValidator(spec.version)
+        try {
+          const validationError = await validator.validate(serialized)
+          assert.strictEqual(validationError, null)
+        } catch (err) {
+          if (!(err instanceof Validation.MissingOptionalDependencyError)) {
+            // unexpected error
+            throw err
+          }
         }
-      }
 
-      if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
-        writeSerializeResult(serialized, 'xml_complex', spec.version, 'xml')
-      }
-      assert.strictEqual(
-        serialized,
-        loadSerializeResult('xml_complex', spec.version, 'xml'))
-    })
+        if (process.env.CJL_TEST_UPDATE_SNAPSHOTS) {
+          writeSerializeResult(serialized, `xml_${fixtureName}`, spec.version, 'xml')
+        }
+        assert.strictEqual(
+          serialized,
+          loadSerializeResult(`xml_${fixtureName}`, spec.version, 'xml'))
+      })
 
-    // TODO add more tests
+      // TODO add more tests
+    }))
+
   }))
 
   describe('make bom-refs unique', () => {

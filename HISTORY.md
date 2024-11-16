@@ -6,6 +6,20 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* BREAKING changes
+  * Property `Models.Bom.tools` is an instance of `Models.Tools` now ([#1152] via [#1163])  
+    Before, it was an instance of `Models.ToolRepository`.
+* Added
+  * Static function `Models.Tool.fromComponent()` (via [#1163])
+  * Static function `Models.Tool.fromService()` (via [#1163])
+  * New class `Models.Tools` ([#1152] via [#1163])
+  * New serialization/normalization for `Models.Tools` ([#1152] via [#1163])
+* Changed
+  * Serializers and `Bom`-Normalizers will take changed `Models.Bom.tools` into account ([#1152] via [#1163])
+
+[#1152]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1152
+[#1163]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1163
+
 ## 6.12.0 -- 2024-11-12
 
 * Added

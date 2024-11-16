@@ -15,34 +15,52 @@
         "phase": "design"
       }
     ],
-    "tools": [
-      {
-        "vendor": "tool vendor",
-        "name": "other tool",
-        "externalReferences": [
-          {
-            "url": "https://cyclonedx.org/tool-center/",
-            "type": "website",
-            "comment": "the tools that made this"
-          }
-        ]
-      },
-      {
-        "vendor": "tool vendor",
-        "name": "tool name",
-        "version": "0.8.15",
-        "hashes": [
-          {
-            "alg": "MD5",
-            "content": "f32a26e2a3a8aa338cd77b6e1263c535"
-          },
-          {
-            "alg": "SHA-1",
-            "content": "829c3804401b0727f70f73d4415e162400cbe57b"
-          }
-        ]
-      }
-    ],
+    "tools": {
+      "components": [
+        {
+          "type": "library",
+          "name": "other tool",
+          "group": "tool group",
+          "externalReferences": [
+            {
+              "url": "https://cyclonedx.org/tool-center/",
+              "type": "website",
+              "comment": "the tools that made this"
+            }
+          ]
+        },
+        {
+          "type": "application",
+          "name": "tool name",
+          "group": "tool group",
+          "version": "0.8.15",
+          "hashes": [
+            {
+              "alg": "MD5",
+              "content": "974e5cc07da6e4536bffd935fd4ddc61"
+            },
+            {
+              "alg": "SHA-1",
+              "content": "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "group": "Service service group",
+          "name": "sbom-generator-service",
+          "version": "1",
+          "externalReferences": [
+            {
+              "url": "https://example.com/sbom-generator-service/",
+              "type": "website",
+              "comment": "the service that made this"
+            }
+          ]
+        }
+      ]
+    },
     "authors": [
       {
         "name": "Jane \"the-author\" Doe",
@@ -418,7 +436,7 @@
       },
       "group": "acme",
       "name": "dummy-service",
-      "version": "1.2+service-version",
+      "version": "1.0+service-version",
       "description": "this is a test service",
       "licenses": [
         {
@@ -672,6 +690,10 @@
         ]
       },
       "tools": [
+        {
+          "vendor": "g the group",
+          "name": "other tool name"
+        },
         {
           "vendor": "v the vendor",
           "name": "tool name"

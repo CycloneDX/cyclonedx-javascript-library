@@ -4,16 +4,21 @@
         <timestamp>2032-05-23T13:37:42.000Z</timestamp>
         <tools>
             <tool>
-                <vendor>tool vendor</vendor>
+                <vendor>Service service group</vendor>
+                <name>sbom-generator-service</name>
+                <version>1</version>
+            </tool>
+            <tool>
+                <vendor>tool group</vendor>
                 <name>other tool</name>
             </tool>
             <tool>
-                <vendor>tool vendor</vendor>
+                <vendor>tool group</vendor>
                 <name>tool name</name>
                 <version>0.8.15</version>
                 <hashes>
-                    <hash alg="MD5">f32a26e2a3a8aa338cd77b6e1263c535</hash>
-                    <hash alg="SHA-1">829c3804401b0727f70f73d4415e162400cbe57b</hash>
+                    <hash alg="MD5">974e5cc07da6e4536bffd935fd4ddc61</hash>
+                    <hash alg="SHA-1">2aae6c35c94fcfb415dbe95f408b9ce91ee846ed</hash>
                 </hashes>
             </tool>
         </tools>
@@ -237,7 +242,7 @@
             </provider>
             <group>acme</group>
             <name>dummy-service</name>
-            <version>1.2+service-version</version>
+            <version>1.0+service-version</version>
             <description>this is a test service</description>
             <licenses>
                 <license>

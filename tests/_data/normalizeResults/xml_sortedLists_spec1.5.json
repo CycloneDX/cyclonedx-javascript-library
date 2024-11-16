@@ -55,38 +55,93 @@
           "children": [
             {
               "type": "element",
-              "name": "tool",
+              "name": "components",
               "children": [
                 {
                   "type": "element",
-                  "name": "vendor",
-                  "children": "tool vendor"
-                },
-                {
-                  "type": "element",
-                  "name": "name",
-                  "children": "other tool"
-                },
-                {
-                  "type": "element",
-                  "name": "externalReferences",
+                  "name": "component",
+                  "attributes": {
+                    "type": "library"
+                  },
                   "children": [
                     {
                       "type": "element",
-                      "name": "reference",
-                      "attributes": {
-                        "type": "website"
-                      },
+                      "name": "group",
+                      "children": "tool group"
+                    },
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "other tool"
+                    },
+                    {
+                      "type": "element",
+                      "name": "externalReferences",
                       "children": [
                         {
                           "type": "element",
-                          "name": "url",
-                          "children": "https://cyclonedx.org/tool-center/"
+                          "name": "reference",
+                          "attributes": {
+                            "type": "website"
+                          },
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "url",
+                              "children": "https://cyclonedx.org/tool-center/"
+                            },
+                            {
+                              "type": "element",
+                              "name": "comment",
+                              "children": "the tools that made this"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "component",
+                  "attributes": {
+                    "type": "application"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "group",
+                      "children": "tool group"
+                    },
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "tool name"
+                    },
+                    {
+                      "type": "element",
+                      "name": "version",
+                      "children": "0.8.15"
+                    },
+                    {
+                      "type": "element",
+                      "name": "hashes",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "hash",
+                          "attributes": {
+                            "alg": "MD5"
+                          },
+                          "children": "974e5cc07da6e4536bffd935fd4ddc61"
                         },
                         {
                           "type": "element",
-                          "name": "comment",
-                          "children": "the tools that made this"
+                          "name": "hash",
+                          "attributes": {
+                            "alg": "SHA-1"
+                          },
+                          "children": "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"
                         }
                       ]
                     }
@@ -96,42 +151,52 @@
             },
             {
               "type": "element",
-              "name": "tool",
+              "name": "services",
               "children": [
                 {
                   "type": "element",
-                  "name": "vendor",
-                  "children": "tool vendor"
-                },
-                {
-                  "type": "element",
-                  "name": "name",
-                  "children": "tool name"
-                },
-                {
-                  "type": "element",
-                  "name": "version",
-                  "children": "0.8.15"
-                },
-                {
-                  "type": "element",
-                  "name": "hashes",
+                  "name": "service",
+                  "attributes": {},
                   "children": [
                     {
                       "type": "element",
-                      "name": "hash",
-                      "attributes": {
-                        "alg": "MD5"
-                      },
-                      "children": "f32a26e2a3a8aa338cd77b6e1263c535"
+                      "name": "group",
+                      "children": "Service service group"
                     },
                     {
                       "type": "element",
-                      "name": "hash",
-                      "attributes": {
-                        "alg": "SHA-1"
-                      },
-                      "children": "829c3804401b0727f70f73d4415e162400cbe57b"
+                      "name": "name",
+                      "children": "sbom-generator-service"
+                    },
+                    {
+                      "type": "element",
+                      "name": "version",
+                      "children": "1"
+                    },
+                    {
+                      "type": "element",
+                      "name": "externalReferences",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "reference",
+                          "attributes": {
+                            "type": "website"
+                          },
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "url",
+                              "children": "https://example.com/sbom-generator-service/"
+                            },
+                            {
+                              "type": "element",
+                              "name": "comment",
+                              "children": "the service that made this"
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
@@ -1267,7 +1332,7 @@
             {
               "type": "element",
               "name": "version",
-              "children": "1.2+service-version"
+              "children": "1.0+service-version"
             },
             {
               "type": "element",
@@ -2118,6 +2183,22 @@
               "type": "element",
               "name": "tools",
               "children": [
+                {
+                  "type": "element",
+                  "name": "tool",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "vendor",
+                      "children": "g the group"
+                    },
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "other tool name"
+                    }
+                  ]
+                },
                 {
                   "type": "element",
                   "name": "tool",

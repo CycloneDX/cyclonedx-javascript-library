@@ -19,8 +19,12 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { Comparable } from '../_helpers/sortable'
 import { SortableComparables } from '../_helpers/sortable'
+import type { Component } from "./component";
+import { ComponentRepository} from "./component";
 import { ExternalReferenceRepository } from './externalReference'
 import { HashDictionary } from './hash'
+import type { Service } from "./service";
+import { ServiceRepository } from "./service";
 
 export interface OptionalToolProperties {
   vendor?: Tool['vendor']
@@ -53,7 +57,51 @@ export class Tool implements Comparable<Tool> {
       (this.version ?? '').localeCompare(other.version ?? '')
     /* eslint-enable @typescript-eslint/strict-boolean-expressions */
   }
+
+  static fromComponent(component: Component): Tool {
+    return new Tool({
+      vendor: component.group,
+      name: component.name,
+      version: component.version,
+      hashes: component.hashes,
+      externalReferences: component.externalReferences
+    })
+  }
+
+  static fromService(service: Service): Tool {
+    return new Tool({
+      vendor: service.group,
+      name: service.name,
+      version: service.version,
+      externalReferences: service.externalReferences
+    })
+  }
 }
 
 export class ToolRepository extends SortableComparables<Tool> {
+}
+
+
+export interface OptionalToolsProperties {
+  components?: Tools['components']
+  services?: Tools['services']
+  tools?: Tools['tools']
+}
+
+export class Tools {
+  components: ComponentRepository
+  services: ServiceRepository
+  tools: ToolRepository
+
+  constructor(op: OptionalToolsProperties = {}) {
+    this.components = op.components ?? new ComponentRepository()
+    this.services = op.services ?? new ServiceRepository()
+    this.tools = op.tools ?? new ToolRepository()
+  }
+
+  get size(): number {
+    return this.components.size
+      + this.services.size
+      + this.tools.size
+  }
 }

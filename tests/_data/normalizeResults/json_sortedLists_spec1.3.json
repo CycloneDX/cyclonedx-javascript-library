@@ -8,21 +8,26 @@
     "timestamp": "2032-05-23T13:37:42.000Z",
     "tools": [
       {
-        "vendor": "tool vendor",
+        "vendor": "Service service group",
+        "name": "sbom-generator-service",
+        "version": "1"
+      },
+      {
+        "vendor": "tool group",
         "name": "other tool"
       },
       {
-        "vendor": "tool vendor",
+        "vendor": "tool group",
         "name": "tool name",
         "version": "0.8.15",
         "hashes": [
           {
             "alg": "MD5",
-            "content": "f32a26e2a3a8aa338cd77b6e1263c535"
+            "content": "974e5cc07da6e4536bffd935fd4ddc61"
           },
           {
             "alg": "SHA-1",
-            "content": "829c3804401b0727f70f73d4415e162400cbe57b"
+            "content": "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"
           }
         ]
       }
@@ -407,7 +412,7 @@
       },
       "group": "acme",
       "name": "dummy-service",
-      "version": "1.2+service-version",
+      "version": "1.0+service-version",
       "description": "this is a test service",
       "licenses": [
         {

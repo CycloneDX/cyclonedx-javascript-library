@@ -17,6 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { chainI } from "../../_helpers/iterable";
 import { isNotUndefined } from '../../_helpers/notUndefined'
 import type { SortableIterable } from '../../_helpers/sortable'
 import type { Stringable } from '../../_helpers/stringable'
@@ -25,6 +26,7 @@ import { escapeUri } from '../../_helpers/uri'
 import type * as Models from '../../models'
 import { LicenseExpression, NamedLicense, SpdxLicense } from '../../models/license'
 import { NamedLifecycle } from '../../models/lifecycle'
+import { Tool, ToolRepository } from '../../models/tool'
 import { AffectedSingleVersion, AffectedVersionRange } from '../../models/vulnerability/affect'
 import { isSupportedSpdxId } from '../../spdx'
 import type { _SpecProtocol as Spec } from '../../spec/_protocol'
@@ -70,6 +72,10 @@ export class Factory {
 
   makeForTool (): ToolNormalizer {
     return new ToolNormalizer(this)
+  }
+
+  makeForTools (): ToolsNormalizer {
+    return new ToolsNormalizer(this)
   }
 
   makeForOrganizationalContact (): OrganizationalContactNormalizer {
@@ -221,7 +227,7 @@ export class MetadataNormalizer extends BaseJsonNormalizer<Models.Metadata> {
         ? this._factory.makeForLifecycle().normalizeIterable(data.lifecycles, options)
         : undefined,
       tools: data.tools.size > 0
-        ? this._factory.makeForTool().normalizeIterable(data.tools, options)
+        ? this._factory.makeForTools().normalize(data.tools, options)
         : undefined,
       authors: data.authors.size > 0
         ? this._factory.makeForOrganizationalContact().normalizeIterable(data.authors, options)
@@ -282,6 +288,23 @@ export class ToolNormalizer extends BaseJsonNormalizer<Models.Tool> {
         ? data.sorted()
         : Array.from(data)
     ).map(t => this.normalize(t, options))
+  }
+}
+
+export class ToolsNormalizer extends BaseJsonNormalizer<Models.Tools> {
+  normalize(data: Models.Tools, options: NormalizerOptions): Normalized.ToolsType {
+    if (data.tools.size > 0 || !this._factory.spec.supportsToolsComponentsServices) {
+      return this._factory.makeForTool().normalizeIterable(
+        new ToolRepository(chainI<Models.Tool>(
+          Array.from(data.components, Tool.fromComponent),
+          Array.from(data.services, Tool.fromService),
+          data.tools,
+        )), options)
+    }
+    return {
+      components: this._factory.makeForComponent().normalizeIterable(data.components, options),
+      services: this._factory.makeForService().normalizeIterable(data.services, options)
+    }
   }
 }
 
@@ -723,7 +746,7 @@ export class VulnerabilityNormalizer extends BaseJsonNormalizer<Models.Vulnerabi
         ? undefined
         : this._factory.makeForVulnerabilityCredits().normalize(data.credits, options),
       tools: data.tools.size > 0
-        ? this._factory.makeForTool().normalizeIterable(data.tools, options)
+        ? this._factory.makeForTools().normalize(data.tools, options)
         : undefined,
       analysis: data.analysis === undefined
         ? undefined

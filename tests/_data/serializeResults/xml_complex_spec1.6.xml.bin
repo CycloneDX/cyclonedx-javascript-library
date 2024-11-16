@@ -12,25 +12,40 @@
             </lifecycle>
         </lifecycles>
         <tools>
-            <tool>
-                <vendor>tool vendor</vendor>
-                <name>other tool</name>
-                <externalReferences>
-                    <reference type="website">
-                        <url>https://cyclonedx.org/tool-center/</url>
-                        <comment>the tools that made this</comment>
-                    </reference>
-                </externalReferences>
-            </tool>
-            <tool>
-                <vendor>tool vendor</vendor>
-                <name>tool name</name>
-                <version>0.8.15</version>
-                <hashes>
-                    <hash alg="MD5">f32a26e2a3a8aa338cd77b6e1263c535</hash>
-                    <hash alg="SHA-1">829c3804401b0727f70f73d4415e162400cbe57b</hash>
-                </hashes>
-            </tool>
+            <components>
+                <component type="library">
+                    <group>tool group</group>
+                    <name>other tool</name>
+                    <externalReferences>
+                        <reference type="website">
+                            <url>https://cyclonedx.org/tool-center/</url>
+                            <comment>the tools that made this</comment>
+                        </reference>
+                    </externalReferences>
+                </component>
+                <component type="application">
+                    <group>tool group</group>
+                    <name>tool name</name>
+                    <version>0.8.15</version>
+                    <hashes>
+                        <hash alg="MD5">974e5cc07da6e4536bffd935fd4ddc61</hash>
+                        <hash alg="SHA-1">2aae6c35c94fcfb415dbe95f408b9ce91ee846ed</hash>
+                    </hashes>
+                </component>
+            </components>
+            <services>
+                <service>
+                    <group>Service service group</group>
+                    <name>sbom-generator-service</name>
+                    <version>1</version>
+                    <externalReferences>
+                        <reference type="website">
+                            <url>https://example.com/sbom-generator-service/</url>
+                            <comment>the service that made this</comment>
+                        </reference>
+                    </externalReferences>
+                </service>
+            </services>
         </tools>
         <authors>
             <author>
@@ -279,7 +294,7 @@
             </provider>
             <group>acme</group>
             <name>dummy-service</name>
-            <version>1.2+service-version</version>
+            <version>1.0+service-version</version>
             <description>this is a test service</description>
             <licenses>
                 <license>
@@ -478,6 +493,10 @@
                 </individuals>
             </credits>
             <tools>
+                <tool>
+                    <vendor>g the group</vendor>
+                    <name>other tool name</name>
+                </tool>
                 <tool>
                     <vendor>v the vendor</vendor>
                     <name>tool name</name>

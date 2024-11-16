@@ -17,12 +17,14 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { chainI } from "../../_helpers/iterable";
 import { isNotUndefined } from '../../_helpers/notUndefined'
 import type { SortableIterable } from '../../_helpers/sortable'
 import type { Stringable } from '../../_helpers/stringable'
 import { treeIteratorSymbol } from '../../_helpers/tree'
 import { escapeUri } from '../../_helpers/uri'
 import type * as Models from '../../models'
+import { Tool, ToolRepository } from "../../models";
 import { LicenseExpression, NamedLicense, SpdxLicense } from '../../models/license'
 import { NamedLifecycle } from '../../models/lifecycle'
 import { AffectedSingleVersion, AffectedVersionRange } from '../../models/vulnerability/affect'
@@ -73,6 +75,10 @@ export class Factory {
 
   makeForTool (): ToolNormalizer {
     return new ToolNormalizer(this)
+  }
+
+  makeForTools (): ToolsNormalizer {
+    return new ToolsNormalizer(this)
   }
 
   makeForOrganizationalContact (): OrganizationalContactNormalizer {
@@ -250,11 +256,7 @@ export class MetadataNormalizer extends BaseXmlNormalizer<Models.Metadata> {
         }
       : undefined
     const tools: SimpleXml.Element | undefined = data.tools.size > 0
-      ? {
-          type: 'element',
-          name: 'tools',
-          children: this._factory.makeForTool().normalizeIterable(data.tools, options, 'tool')
-        }
+      ? this._factory.makeForTools().normalize(data.tools, options, 'tools')
       : undefined
     const authors: SimpleXml.Element | undefined = data.authors.size > 0
       ? {
@@ -366,6 +368,40 @@ export class ToolNormalizer extends BaseXmlNormalizer<Models.Tool> {
         ? data.sorted()
         : Array.from(data)
     ).map(t => this.normalize(t, options, elementName))
+  }
+}
+
+export class ToolsNormalizer extends BaseXmlNormalizer<Models.Tools> {
+  normalize (data: Models.Tools, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    let children: SimpleXml.Element[] = []
+    if (data.tools.size > 0 || !this._factory.spec.supportsToolsComponentsServices) {
+      children = this._factory.makeForTool().normalizeIterable(
+        new ToolRepository(chainI(
+          Array.from(data.components, Tool.fromComponent),
+          Array.from(data.services, Tool.fromService),
+          data.tools,
+        )), options, 'tool')
+    } else {
+      if (data.components.size > 0) {
+        children.push({
+          type: 'element',
+          name: 'components',
+          children: this._factory.makeForComponent().normalizeIterable(data.components, options, 'component')
+        })
+      }
+      if (data.components.size > 0) {
+        children.push({
+          type: 'element',
+          name: 'services',
+          children: this._factory.makeForService().normalizeIterable(data.services, options, 'service')
+        })
+      }
+    }
+    return {
+      type: 'element',
+      name: elementName,
+      children
+    }
   }
 }
 
@@ -935,11 +971,7 @@ export class VulnerabilityNormalizer extends BaseXmlNormalizer<Models.Vulnerabil
         }
       : undefined
     const tools: SimpleXml.Element | undefined = data.tools.size > 0
-      ? {
-          type: 'element',
-          name: 'tools',
-          children: this._factory.makeForTool().normalizeIterable(data.tools, options, 'tool')
-        }
+      ? this._factory.makeForTools().normalize(data.tools, options, 'tools')
       : undefined
     const affects: SimpleXml.Element | undefined = data.affects.size > 0
       ? {
