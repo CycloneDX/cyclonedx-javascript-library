@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_ACTIVE_LTS: "20" # see https://nodejs.org/en/about/releases/
+  NODE_ACTIVE_LTS: "22" # see https://nodejs.org/en/about/releases/
   REPORTS_DIR: "CI_reports"
   TESTS_REPORTS_ARTIFACT: tests-reports
   STANDARD_REPORTS_ARTIFACT: cs-reports
@@ -155,8 +155,9 @@ jobs:
         node-version:
           # action based on https://github.com/actions/node-versions/releases
           # see also: https://nodejs.org/en/about/releases/
-          - "22"      # Current
-          - "20"      # active LTS
+          - "23"      # current
+          - "22"      # active LTS
+          - "20"
           - "18"
           - "16"
           - "14"
