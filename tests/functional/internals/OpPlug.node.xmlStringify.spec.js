@@ -23,7 +23,7 @@ const { suite, test } = require('mocha')
 const { default: xmlStringify } = require('../../../dist.node/_optPlug.node/xmlStringify')
 const { OptPlugError } = require('../../../dist.node/_optPlug.node/errors')
 
-suite('internals: OpPlug.node.xmlStringify auto', () => {
+suite('functional: internals: OpPlug.node.xmlStringify auto', () => {
   if (xmlStringify.fails) {
     test('call should fail/throw', () => {
       assert.throws(

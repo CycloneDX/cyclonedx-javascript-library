@@ -27,7 +27,7 @@ const {
 const { default: makeValidator } = require('../../../dist.node/_optPlug.node/xmlValidator')
 const { OptPlugError } = require('../../../dist.node/_optPlug.node/errors')
 
-suite('internals: OpPlug.node.xmlValidator auto', () => {
+suite('functional: internals: OpPlug.node.xmlValidator auto', () => {
   if (makeValidator.fails) {
     test('call should fail/throw', () => {
       assert.throws(

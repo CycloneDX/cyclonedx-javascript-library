@@ -24,7 +24,7 @@ const { spdxSpecEnum } = require('../_data/spdx')
 
 const { SPDX } = require('../../')
 
-suite('isSupportedSpdxId()', () => {
+suite('functional: SPDX.isSupportedSpdxId()', () => {
   /** @type {string[]} knownSpdxIds */
   const knownSpdxIds = Object.freeze([
     ...spdxSpecEnum
@@ -39,7 +39,7 @@ suite('isSupportedSpdxId()', () => {
   })
 })
 
-suite('fixupSpdxId()', () => {
+suite('functional: SPDX.fixupSpdxId()', () => {
   const expectedFixed = new Map([
     ...spdxSpecEnum.map(v => [v, v]),
     ...spdxSpecEnum.map(v => [v.toLowerCase(), v]),

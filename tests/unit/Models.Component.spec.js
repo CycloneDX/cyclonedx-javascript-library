@@ -34,7 +34,7 @@ const {
   }
 } = require('../../')
 
-suite('Models.Component', () => {
+suite('unit: Models.Component', () => {
   test('constructor', () => {
     const component = new Component('application', 'foobar')
 

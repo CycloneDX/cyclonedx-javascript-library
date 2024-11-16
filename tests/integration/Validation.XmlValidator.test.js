@@ -31,7 +31,7 @@ const {
 
 const { default: xmlValidator } = require('../../dist.node/_optPlug.node/xmlValidator')
 
-describe('Validation.XmlValidator', () => {
+describe('integration.Validation.XmlValidator', () => {
   const expectMissingDepError = xmlValidator.fails ?? false;
 
   [

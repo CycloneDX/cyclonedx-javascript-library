@@ -25,7 +25,7 @@ const { suite, test } = require('mocha')
 
 const CDX = require('../../')
 
-suite('packageManifest:exports', () => {
+suite('functional: packageManifest:exports', () => {
   const pjPath = join(__dirname, '..', '..', 'package.json')
   const { exports: pjExports } = JSON.parse(readFileSync(pjPath))
 

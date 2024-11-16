@@ -26,7 +26,7 @@ const {
 
 const { randomString } = require('../_helpers/stringFunctions')
 
-suite('Factories.PackageUrlFactory', () => {
+suite('unit: Factories.PackageUrlFactory', () => {
   test('construct', () => {
     const type = randomString(5)
 

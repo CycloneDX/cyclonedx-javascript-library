@@ -28,7 +28,7 @@ const {
   Factories: { PackageUrlFactory }
 } = require('../../')
 
-suite('Factories.PackageUrlFactory', () => {
+suite('integration: Factories.PackageUrlFactory', () => {
   const salt = Math.random()
 
   const sut = new PackageUrlFactory('testing')

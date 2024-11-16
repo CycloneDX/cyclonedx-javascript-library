@@ -22,7 +22,7 @@ const { suite, test } = require('mocha')
 
 const { SortableStringables, SortableNumbers, SortableComparables } = require('../../dist.node/_helpers/sortable')
 
-suite('helpers.sortable', () => {
+suite('functional: helpers.sortable', () => {
   suite('SortableStringables', () => {
     test('sorted()', () => {
       const obj = { toString: () => 'bar' }

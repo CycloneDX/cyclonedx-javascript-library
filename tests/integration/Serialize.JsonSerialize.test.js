@@ -36,7 +36,7 @@ const {
   }
 } = require('../../')
 
-describe('Serialize.JsonSerialize', function () {
+describe('integration.Serialize.JsonSerialize', function () {
   this.timeout(60000);
 
   Object.entries({

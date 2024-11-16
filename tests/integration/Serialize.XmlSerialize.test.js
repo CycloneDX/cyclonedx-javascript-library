@@ -35,7 +35,7 @@ const {
 
 const { default: xmlStringify } = require('../../dist.node/_optPlug.node/xmlStringify')
 
-describe('Serialize.XmlSerialize', function () {
+describe('integration.Serialize.XmlSerialize', function () {
   const expectMissingDepError = xmlStringify.fails ?? false
 
   this.timeout(60000);
