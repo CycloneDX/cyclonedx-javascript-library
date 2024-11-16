@@ -24,7 +24,7 @@ const {
   Spec: { SpecVersionDict, Version }
 } = require('../../')
 
-suite('SpecVersionDict', () => {
+suite('functional: Spec.SpecVersionDict', () => {
   Object.entries(SpecVersionDict).forEach(([key, spec]) =>
     suite(`key: ${key}`, () => {
       test('key is well-known version', () =>

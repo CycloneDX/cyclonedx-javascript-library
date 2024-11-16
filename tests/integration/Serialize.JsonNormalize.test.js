@@ -30,7 +30,7 @@ const {
   Spec
 } = require('../../')
 
-describe('Serialize.JsonNormalize', function () {
+describe('integration.Serialize.JsonNormalize', function () {
   this.timeout(60000);
 
   [

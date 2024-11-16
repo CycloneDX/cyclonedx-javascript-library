@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('assert')
 const { suite, test, before } = require('mocha')
 
-suite('internals: OpPlug.node.xmlStringify implementation', () => {
+suite('functional: internals: OpPlug.node.xmlStringify implementation', () => {
   for (const impl of ['xmlbuilder2']) {
     suite(impl, () => {
       let xmlStringify

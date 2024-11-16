@@ -31,7 +31,7 @@ const {
   Spec
 } = require('../../')
 
-describe('Serialize.XmlNormalize', function () {
+describe('integration.Serialize.XmlNormalize', function () {
   this.timeout(60000);
 
   [

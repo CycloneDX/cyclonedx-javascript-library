@@ -35,7 +35,7 @@ before(function () {
   }
 })
 
-suite('Validation.XmlValidator functional', function () {
+suite('functional: Validation.XmlValidator functional', function () {
   this.timeout(60000);
 
   [

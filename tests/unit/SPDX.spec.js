@@ -24,7 +24,7 @@ const {
   SPDX: { fixupSpdxId, isSupportedSpdxId }
 } = require('../../')
 
-suite('SPDX.isSupportedSpdxId()', () => {
+suite('unit: SPDX.isSupportedSpdxId()', () => {
   const knownSpdxIds = Object.freeze(['MIT', 'Apache-2.0'])
 
   suite('is true', () =>
@@ -44,7 +44,7 @@ suite('SPDX.isSupportedSpdxId()', () => {
   )
 })
 
-suite('fixupSpdxId()', () => {
+suite('unit: SPDX.fixupSpdxId()', () => {
   const expectedFixed = new Map([
     ['MIT', 'MIT'],
     ['mit', 'MIT'],

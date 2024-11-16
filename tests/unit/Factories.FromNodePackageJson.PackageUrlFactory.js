@@ -26,7 +26,7 @@ const {
   Models: { Component, ExternalReference, ExternalReferenceRepository }
 } = require('../../')
 
-suite('Factories.FromNodePackageJson.PackageUrlFactory', () => {
+suite('unit: Factories.FromNodePackageJson.PackageUrlFactory', () => {
   suite('makeFromComponent()', () => {
     test('plain', () => {
       const component = new Component(ComponentType.Library, 'testing')

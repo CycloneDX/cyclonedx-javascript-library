@@ -28,7 +28,7 @@ const { pathToFileURL } = require('url')
 const { realpathSync } = require('fs')
 const { join } = require('path')
 
-suite('internals: OpPlug.node.xmlValidator implementation', () => {
+suite('functional: internals: OpPlug.node.xmlValidator implementation', () => {
   for (const impl of ['libxmljs2']) {
     suite(impl, () => {
       let makeValidator

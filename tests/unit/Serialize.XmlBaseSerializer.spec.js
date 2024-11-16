@@ -28,7 +28,7 @@ const {
   Spec: { Format, Spec1dot4, UnsupportedFormatError }
 } = require('../../')
 
-suite('Serialize.XmlBaseSerializer', () => {
+suite('unit: Serialize.XmlBaseSerializer', () => {
   suite('constructor', () => {
     class MySerializer extends XmlBaseSerializer {}
     test('happy path', () => {

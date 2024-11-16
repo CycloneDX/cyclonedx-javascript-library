@@ -31,7 +31,7 @@ const {
 
 const { default: jsonValidator } = require('../../dist.node/_optPlug.node/jsonValidator')
 
-describe('Validation.JsonValidator', () => {
+describe('integration.Validation.JsonValidator', () => {
   const expectMissingDepError = jsonValidator.fails ?? false;
 
   [

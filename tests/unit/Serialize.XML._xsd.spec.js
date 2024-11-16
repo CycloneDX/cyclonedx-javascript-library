@@ -25,7 +25,7 @@ const {
   token
 } = require('../../dist.node/serialize/xml/_xsd.js')
 
-suite('Serialize.XML._xsd', () => {
+suite('unit: Serialize.XML._xsd', () => {
   const normalizedStringCases = {
     '': '',
     '123': '123',

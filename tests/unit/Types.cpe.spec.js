@@ -24,7 +24,7 @@ const {
   Types: { isCPE }
 } = require('../../')
 
-suite('Types.cpe', () => {
+suite('unit: Types.cpe', () => {
   suite('isCPE()', () => {
     test('2.2', () => {
       const actual = isCPE('cpe:/a:microsoft:internet_explorer:11:-')
