@@ -63,7 +63,7 @@ written in _TypeScript_ and compiled for the target.
   * `OrganizationalEntity`, `OrganizationalEntityRepository`
   * `Property`, `PropertyRepository`
   * `SWID`
-  * `Tool`, `ToolRepository`
+  * `Tool`, `ToolRepository`, `Tools`
   * `Vulnerability` related:
     * `Advisory`, `AdvisoryRepository`
     * `Affect`, `AffectRepository`, `AffectedSingleVersion`, `AffectedVersionRange`, `AffectedVersionRepository`
