@@ -150,8 +150,8 @@ export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
     }
     if (qualifiers.size > 0) {
       purl.qualifiers = Object.fromEntries(qualifiers.entries())
-      /* @ts-ignore TS2322 */
-      purl.qualifiers.__proto__ = null
+      /* @ts-expect-error TS2322 */
+      purl.qualifiers.__proto__ = null /* eslint-disable-line no-proto -- intended */
     } else {
       purl.qualifiers = undefined
     }
