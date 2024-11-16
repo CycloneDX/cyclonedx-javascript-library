@@ -29,7 +29,7 @@ const {
   _Resources: { FILES: { CDX: { JSON_SCHEMA: CDX_JSON_SCHEMA } } }
 } = require('../../')
 
-suite('HashAlgorithm enum', () => {
+suite('functional: HashAlgorithm enum', () => {
   const specVersions = new Set([
     Version.v1dot6,
     Version.v1dot4,

@@ -27,7 +27,7 @@ const {
   }
 } = require('../../')
 
-suite('Models.Bom', () => {
+suite('unit: Models.Bom', () => {
   test('construct with empty properties', () => {
     const bom = new Bom()
 

@@ -27,7 +27,7 @@ const {
 
 const { randomString } = require('../_helpers/stringFunctions')
 
-suite('Serialize.BomRefDiscriminator', () => {
+suite('unit: Serialize.BomRefDiscriminator', () => {
   test('constructor', () => {
     const bomRef1 = new BomRef()
     const bomRef2 = new BomRef('foo')

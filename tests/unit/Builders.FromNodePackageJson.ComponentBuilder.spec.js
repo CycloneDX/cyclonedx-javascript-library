@@ -28,7 +28,7 @@ const {
   }
 } = require('../../')
 
-suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
+suite('unit: Builders.FromNodePackageJson.ComponentBuilder', () => {
   test('construct', () => {
     const extRefFactory = new ExternalReferenceFactory()
     const licenseFactory = new LicenseFactory()

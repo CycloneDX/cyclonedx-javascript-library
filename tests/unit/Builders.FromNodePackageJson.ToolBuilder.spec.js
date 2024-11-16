@@ -25,7 +25,7 @@ const {
   Factories: { FromNodePackageJson: { ExternalReferenceFactory } }
 } = require('../../')
 
-suite('Builders.FromNodePackageJson.ToolBuilder', () => {
+suite('unit: Builders.FromNodePackageJson.ToolBuilder', () => {
   test('construct', () => {
     const extRefFactory = new ExternalReferenceFactory()
 

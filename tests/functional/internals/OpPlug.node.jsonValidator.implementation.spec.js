@@ -25,7 +25,7 @@ const {
   Spec: { Version }
 } = require('../../../')
 
-suite('internals: OpPlug.node.jsonValidator implementation', () => {
+suite('functional: internals: OpPlug.node.jsonValidator implementation', () => {
   for (const impl of ['ajv']) {
     suite(impl, () => {
       let makeValidator

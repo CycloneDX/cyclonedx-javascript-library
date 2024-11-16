@@ -27,7 +27,7 @@ const {
   Builders: { FromNodePackageJson: { ComponentBuilder } }
 } = require('../../')
 
-suite('Builders.FromNodePackageJson.ComponentBuilder', () => {
+suite('integration: Builders.FromNodePackageJson.ComponentBuilder', () => {
   const salt = Math.random()
 
   const extRefFactory = new Factories.FromNodePackageJson.ExternalReferenceFactory()

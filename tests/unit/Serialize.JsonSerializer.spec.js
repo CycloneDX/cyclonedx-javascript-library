@@ -28,7 +28,7 @@ const {
   Spec: { Format, Spec1dot4, UnsupportedFormatError }
 } = require('../../')
 
-suite('Serialize.JsonSerializer', () => {
+suite('unit: Serialize.JsonSerializer', () => {
   suite('constructor', () => {
     test('happy path', () => {
       const normalizerFactory = new Factory(Spec1dot4)

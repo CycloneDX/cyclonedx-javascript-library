@@ -26,7 +26,7 @@ const {
   Spec: { Version }
 } = require('../../')
 
-suite('Resources', () => {
+suite('functional: Resources', () => {
   suite('expected dirs', () => {
     [
       Resources.ROOT

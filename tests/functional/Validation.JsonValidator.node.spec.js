@@ -35,7 +35,7 @@ before(function () {
   }
 })
 
-suite('Validation.JsonValidator functional', function () {
+suite('functional: Validation.JsonValidator functional', function () {
   this.timeout(60000);
 
   [
@@ -65,7 +65,7 @@ suite('Validation.JsonValidator functional', function () {
   })
 })
 
-suite('Validation.JsonStrictValidator functional', function () {
+suite('functional: Validation.JsonStrictValidator functional', function () {
   this.timeout(60000);
 
   [

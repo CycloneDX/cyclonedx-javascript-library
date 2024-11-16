@@ -24,7 +24,7 @@ const {
   Models: { BomLinkDocument, BomLinkElement }
 } = require('../../')
 
-suite('Models.BomLinkDocument', () => {
+suite('unit: Models.BomLinkDocument', () => {
   suite('isValid()', () => {
     test('pass', () => {
       // taken from examples in https://cyclonedx.org/capabilities/bomlink/

@@ -26,7 +26,7 @@ const {
   Factories: { FromNodePackageJson: { ExternalReferenceFactory } }
 } = require('../../')
 
-suite('Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
+suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
   const sut = new ExternalReferenceFactory()
 
   suite('from "homepage"', () => {
