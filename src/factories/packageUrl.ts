@@ -36,6 +36,8 @@ export class PackageUrlFactory<PurlType extends PackageURL['type'] = PackageURL[
   /* eslint-disable-next-line @typescript-eslint/no-inferrable-types -- docs */
   makeFromComponent (component: Component, sort: boolean = false): PackageURL | undefined {
     const qualifiers: PackageURL['qualifiers'] = {}
+    /* @ts-ignore TS2322 */
+    qualifiers.__proto__ = null
     let subpath: PackageURL['subpath'] = undefined
 
     // sorting to allow reproducibility: use the last instance for a `extRef.type`, if multiples exist

@@ -148,9 +148,13 @@ export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
       // nothing to base a checksum on
       qualifiers.delete(PurlQualifierNames.Checksum)
     }
-    purl.qualifiers = qualifiers.size > 0
-      ? Object.fromEntries(qualifiers.entries())
-      : undefined
+    if (qualifiers.size > 0) {
+      purl.qualifiers = Object.fromEntries(qualifiers.entries())
+      /* @ts-ignore TS2322 */
+      purl.qualifiers.__proto__ = null
+    } else {
+      purl.qualifiers = undefined
+    }
 
     return purl
   }
