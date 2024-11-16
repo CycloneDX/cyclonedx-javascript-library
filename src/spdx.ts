@@ -38,7 +38,7 @@ const spdxLowerToActual: Readonly<Record<string, SpdxId>> = Object.freeze(Object
 ))
 
 export function isSupportedSpdxId (value: SpdxId | any): value is SpdxId {
-  /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */
+  /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- fix */
   return spdxIds.has(value)
 }
 

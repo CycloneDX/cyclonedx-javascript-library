@@ -22,6 +22,7 @@ export class OptPlugError extends Error {
 
   constructor (message: string, cause?: any) {
     super(message)
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- intended */
     this.cause = cause
   }
 }

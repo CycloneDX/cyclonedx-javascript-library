@@ -1,14 +1,14 @@
 /*!
 This file is part of CycloneDX JavaScript Library.
 
-Licensed under the Apache License, Version 2.0 (the 'License');
+Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
    http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an 'AS IS' BASIS,
+distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
@@ -23,7 +23,7 @@ import { fileURLToPath } from 'node:url'
 import plugin_js from '@eslint/js'
 import config_love from 'eslint-config-love'
 import plugin_editorconfig from 'eslint-plugin-editorconfig'
-import plugin_header from 'eslint-plugin-header'
+import plugin_header from 'eslint-plugin-license-header'
 import plugin_jsdoc from 'eslint-plugin-jsdoc'
 import plugin_simpleImportSort from 'eslint-plugin-simple-import-sort'
 import plugin_tsdoc from 'eslint-plugin-tsdoc'
@@ -46,7 +46,7 @@ export default [
     name: 'general',
     plugins: {
       'simple-import-sort': plugin_simpleImportSort,
-      'header': plugin_header,
+      'license-header': plugin_header,
       'editorconfig': plugin_editorconfig,
     },
     rules: {
@@ -55,7 +55,7 @@ export default [
       'sort-imports': 'off',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
-      'header/header': ['error', licenseHeaderFile],
+      'license-header/header': ['error', licenseHeaderFile],
       'editorconfig/indent': 'off',
     },
   },
@@ -126,6 +126,10 @@ export default [
       }],
       'class-methods-use-this': 'off',
       '@typescript-eslint/class-methods-use-this': 'off',
+      '@typescript-eslint/no-redundant-type-constituents': 'off',
+      '@typescript-eslint/no-magic-numbers': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/prefer-destructuring': 'off',
       'tsdoc/syntax': 'error',
     },
   },

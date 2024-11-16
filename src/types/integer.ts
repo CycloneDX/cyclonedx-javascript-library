@@ -22,6 +22,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  *
  * @see {@link isInteger}
  */
+/* eslint-disable-next-line @typescript-eslint/no-duplicate-type-constituents -- intended */
 export type Integer = number | NonNegativeInteger
 
 export function isInteger (value: any): value is Integer {
@@ -33,6 +34,7 @@ export function isInteger (value: any): value is Integer {
  *
  * @see {@link isNonNegativeInteger}
  */
+/* eslint-disable-next-line @typescript-eslint/no-duplicate-type-constituents -- intended */
 export type NonNegativeInteger = number | PositiveInteger
 
 export function isNonNegativeInteger (value: any): value is NonNegativeInteger {

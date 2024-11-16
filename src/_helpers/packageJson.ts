@@ -25,7 +25,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * Having multiple slashes(`/`) is basically no issue.
  */
 export function splitNameGroup (data: string): [string, string?] {
-  const delimGroup = data[0] === '@'
+  const delimGroup = data.startsWith('@')
     ? data.indexOf('/', 2)
     : 0
   return delimGroup > 0

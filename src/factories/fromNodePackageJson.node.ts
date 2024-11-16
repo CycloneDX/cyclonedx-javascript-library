@@ -54,8 +54,8 @@ export class ExternalReferenceFactory {
   makeVcs (data: PackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#repositoryc */
     const repository = data.repository
-    let url
-    let comment: string | undefined
+    let url = undefined
+    let comment: string | undefined = undefined
     if (typeof repository === 'object') {
       url = tryCanonicalizeGitUrl(repository.url)
       comment = 'as detected from PackageJson property "repository.url"'
@@ -87,8 +87,8 @@ export class ExternalReferenceFactory {
   makeIssueTracker (data: PackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#bugs */
     const bugs = data.bugs
-    let url
-    let comment: string | undefined
+    let url = undefined
+    let comment: string | undefined = undefined
     if (typeof bugs === 'object') {
       url = bugs.url
       comment = 'as detected from PackageJson property "bugs.url"'
@@ -113,6 +113,7 @@ const npmDefaultRepositoryMatcher = /^https?:\/\/registry\.npmjs\.org(:?\/|$)/
  * @see {@link https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#npm}
  */
 export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
+  /* eslint-disable-next-line @typescript-eslint/no-inferrable-types -- docs */
   override makeFromComponent (component: Component, sort: boolean = false): PackageURL | undefined {
     const purl = super.makeFromComponent(component, sort)
     return purl === undefined

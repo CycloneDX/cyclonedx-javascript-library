@@ -21,6 +21,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 export * from './bomRefDiscriminator'
 export * from './errors'
+/* eslint-disable-next-line @typescript-eslint/consistent-type-exports -- backwards-compat TS4 */
 export * as Types from './types'
 
 // region base

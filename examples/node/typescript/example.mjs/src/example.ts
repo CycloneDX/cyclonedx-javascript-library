@@ -54,6 +54,7 @@ const serializedJson = jsonSerializer.serialize(bom)
 console.log(serializedJson)
 const jsonValidator = new CDX.Validation.JsonStrictValidator(serializeSpec.version)
 try {
+  /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- intended */
   const validationErrors = await jsonValidator.validate(serializedJson)
   if (validationErrors === null) {
     console.info('JSON valid')
@@ -75,6 +76,7 @@ const serializedXML = xmlSerializer.serialize(bom)
 console.log(serializedXML)
 const xmlValidator = new CDX.Validation.XmlValidator(serializeSpec.version)
 try {
+  /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- intended */
   const validationErrors = await xmlValidator.validate(serializedXML)
   if (validationErrors === null) {
     console.info('XML valid')

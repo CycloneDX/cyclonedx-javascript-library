@@ -23,7 +23,7 @@ const { suite, test } = require('mocha')
 const { loadSpec, getSpecElement, getSpecEnum } = require('./specLoader')
 
 suite('test helpers: specLoader', () => {
-  /* eslint-disable-next-line camelcase -- for better readability, JSON-path replaced `.` with `_` */
+
   const expected_definitions_affectedStatus_enum = [
     'affected',
     'unaffected',

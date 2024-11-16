@@ -22,7 +22,7 @@ import type { HashContent } from '../../models'
 import type { SpdxId } from '../../spdx'
 import type { CPE, CWE, Integer } from '../../types'
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
+/* eslint-disable-next-line @typescript-eslint/no-namespace -- needed */
 export namespace JsonSchema {
 
   /**
@@ -62,7 +62,7 @@ export namespace JsonSchema {
 
 }
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
+/* eslint-disable-next-line @typescript-eslint/no-namespace -- needed */
 export namespace Normalized {
 
   export type RefType = string
@@ -70,6 +70,7 @@ export namespace Normalized {
 
   export type BomLinkDocumentType = string
   export type BomLinkElementType = string
+  /* eslint-disable-next-line @typescript-eslint/no-duplicate-type-constituents -- as of spec */
   export type BomLink = BomLinkDocumentType | BomLinkElementType
 
   export interface Bom {
@@ -218,6 +219,7 @@ export namespace Normalized {
   }
 
   export interface ExternalReference {
+    /* eslint-disable-next-line @typescript-eslint/no-duplicate-type-constituents -- as of spec */
     url: JsonSchema.IriReference | BomLink
     type: Enums.ExternalReferenceType
     hashes?: Hash[]
@@ -261,7 +263,7 @@ export namespace Normalized {
     properties?: Property[]
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-namespace
+  /* eslint-disable-next-line @typescript-eslint/no-namespace -- needed */
   export namespace Vulnerability {
     export interface Source {
       name?: string
@@ -300,6 +302,7 @@ export namespace Normalized {
     }
 
     export interface Affect {
+      /* eslint-disable-next-line @typescript-eslint/no-duplicate-type-constituents -- as of spec */
       ref: RefLinkType | BomLinkElementType
       versions?: AffectedVersion[]
     }
