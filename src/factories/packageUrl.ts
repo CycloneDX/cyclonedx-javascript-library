@@ -17,9 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { PackageURL } from 'packageurl-js'
+import { PackageURL, PurlQualifierNames } from 'packageurl-js'
 
-import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
 import { ExternalReferenceType } from '../enums/externalReferenceType'
 import type { Component } from '../models/component'
 
@@ -37,6 +36,8 @@ export class PackageUrlFactory<PurlType extends PackageURL['type'] = PackageURL[
   /* eslint-disable-next-line @typescript-eslint/no-inferrable-types -- docs */
   makeFromComponent (component: Component, sort: boolean = false): PackageURL | undefined {
     const qualifiers: PackageURL['qualifiers'] = {}
+    /* @ts-expect-error TS2322 */
+    qualifiers.__proto__ = null /* eslint-disable-line no-proto -- intended */
     let subpath: PackageURL['subpath'] = undefined
 
     // sorting to allow reproducibility: use the last instance for a `extRef.type`, if multiples exist
@@ -55,17 +56,17 @@ export class PackageUrlFactory<PurlType extends PackageURL['type'] = PackageURL[
       /* eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check -- intended */
       switch (extRef.type) {
         case ExternalReferenceType.VCS:
-          [qualifiers[PackageUrlQualifierNames.VcsUrl], subpath] = url.split('#', 2)
+          [qualifiers[PurlQualifierNames.VcsUrl], subpath] = url.split('#', 2)
           break
         case ExternalReferenceType.Distribution:
-          qualifiers[PackageUrlQualifierNames.DownloadURL] = url
+          qualifiers[PurlQualifierNames.DownloadUrl] = url
           break
       }
     }
 
     const hashes = component.hashes
     if (hashes.size > 0) {
-      qualifiers[PackageUrlQualifierNames.Checksum] = Array.from(
+      qualifiers[PurlQualifierNames.Checksum] = Array.from(
         sort
           ? hashes.sorted()
           : hashes,

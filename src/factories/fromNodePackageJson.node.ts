@@ -27,11 +27,11 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
 import type { PackageURL } from 'packageurl-js'
+import { PurlQualifierNames } from 'packageurl-js'
 
 import {tryCanonicalizeGitUrl} from "../_helpers/gitUrl"
 import { isNotUndefined } from '../_helpers/notUndefined'
 import type { PackageJson } from '../_helpers/packageJson'
-import { PackageUrlQualifierNames } from '../_helpers/packageUrl'
 import { ExternalReferenceType } from '../enums/externalReferenceType'
 import type { Component } from '../models/component'
 import { ExternalReference } from '../models/externalReference'
@@ -137,20 +137,24 @@ export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
   #finalizeQualifiers (purl: PackageURL): PackageURL {
     const qualifiers = new Map(Object.entries(purl.qualifiers ?? {}))
 
-    const downloadUrl = qualifiers.get(PackageUrlQualifierNames.DownloadURL)
+    const downloadUrl = qualifiers.get(PurlQualifierNames.DownloadUrl)
     if (downloadUrl !== undefined) {
-      qualifiers.delete(PackageUrlQualifierNames.VcsUrl)
+      qualifiers.delete(PurlQualifierNames.VcsUrl)
       if (npmDefaultRepositoryMatcher.test(downloadUrl)) {
-        qualifiers.delete(PackageUrlQualifierNames.DownloadURL)
+        qualifiers.delete(PurlQualifierNames.DownloadUrl)
       }
     }
-    if (!qualifiers.has(PackageUrlQualifierNames.DownloadURL) && !qualifiers.has(PackageUrlQualifierNames.VcsUrl)) {
+    if (!qualifiers.has(PurlQualifierNames.DownloadUrl) && !qualifiers.has(PurlQualifierNames.VcsUrl)) {
       // nothing to base a checksum on
-      qualifiers.delete(PackageUrlQualifierNames.Checksum)
+      qualifiers.delete(PurlQualifierNames.Checksum)
     }
-    purl.qualifiers = qualifiers.size > 0
-      ? Object.fromEntries(qualifiers.entries())
-      : undefined
+    if (qualifiers.size > 0) {
+      purl.qualifiers = Object.fromEntries(qualifiers.entries())
+      /* @ts-expect-error TS2322 */
+      purl.qualifiers.__proto__ = null /* eslint-disable-line no-proto -- intended */
+    } else {
+      purl.qualifiers = undefined
+    }
 
     return purl
   }

@@ -18,7 +18,9 @@ All notable changes to this project will be documented in this file.
   * Serializers and `Bom`-Normalizers will take changed `Models.Bom.tools` into account ([#1152] via [#1163])
 * Dependencies
   * Support `libxmljs2@^0.35` (via [#1173])
+  * Use `packageurl-js@^2.0.1`, was `@>=0.0.6 <0.0.8 || ^1` (via [#1142])
 
+[#1142]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1142
 [#1152]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1152
 [#1163]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1163
 [#1173]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1173
