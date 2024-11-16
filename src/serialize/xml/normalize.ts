@@ -373,7 +373,7 @@ export class ToolNormalizer extends BaseXmlNormalizer<Models.Tool> {
 
 export class ToolsNormalizer extends BaseXmlNormalizer<Models.Tools> {
   normalize (data: Models.Tools, options: NormalizerOptions, elementName: string): SimpleXml.Element {
-    let children: SimpleXml.Element[]
+    let children: SimpleXml.Element[] = []
     if (data.tools.size > 0 || !this._factory.spec.supportsToolsComponentsServices) {
       children = this._factory.makeForTool().normalizeIterable(
         new ToolRepository(chainI(
@@ -382,7 +382,6 @@ export class ToolsNormalizer extends BaseXmlNormalizer<Models.Tools> {
           data.tools,
         )), options, 'tool')
     } else {
-      children = []
       if (data.components.size > 0) {
         children.push({
           type: 'element',
