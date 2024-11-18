@@ -23,7 +23,7 @@ import { fileURLToPath } from 'node:url'
 
 /* eslint-disable no-unused-vars */
 
-const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/master/schema/'
+const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/refs/tags/1.6.1/schema/'
 const TARGET_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'res', 'schema')
 
 const BomXsd = Object.freeze({
