@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 6.13.0 -- 2024-11-18
+
 * Added
   * Support CycloneDX 1.6.1 ([#1176] via [#1177])
 
