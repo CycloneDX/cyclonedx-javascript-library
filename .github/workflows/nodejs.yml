@@ -103,25 +103,25 @@ jobs:
           # cache-dependency-path: "**/package-lock.json"
       - name: setup project
         run: |
-          echo "::group::install deps"
-          npm i --ignore-scripts --loglevel=silly
-          echo "::endgroup::"
+          npm install --ignore-scripts --loglevel=silly
+      - name: setup examples
+        run: |
           echo "::group::install example javascript"
-          npm --prefix examples/node/javascript i --ignore-scripts --loglevel=silly
+          npm run -- dev-setup:examples:js     --ignore-scripts --loglevel=silly
           echo "::endgroup::"
           echo "::group::install example typescript cjs"
-          npm --prefix examples/node/typescript/example.cjs i --ignore-scripts --loglevel=silly
+          npm run -- dev-setup:examples:ts-cjs --ignore-scripts --loglevel=silly
           echo "::endgroup::"
           echo "::group::install examples typescript mjs"
-          npm --prefix examples/node/typescript/example.mjs i --ignore-scripts --loglevel=silly
+          npm run -- dev-setup:examples:ts-mjs --ignore-scripts --loglevel=silly
           echo "::endgroup::"
       - name: setup tools
         run: |
           echo "::group::install docs-gen deps"
-          npm --prefix tools/docs-gen i --ignore-scripts --loglevel=silly
+          npm run -- dev-setup:docs-gen   --ignore-scripts --loglevel=silly
           echo "::endgroup::"
           echo "::group::install code-style deps"
-          npm --prefix tools/code-style i --ignore-scripts --loglevel=silly
+          npm run -- dev-setup:code-style --ignore-scripts --loglevel=silly
           echo "::endgroup::"
       - name: make reports dir
         run: mkdir -p "$REPORTS_DIR"
@@ -509,8 +509,8 @@ jobs:
           echo "::group::install project"
           npm install --ignore-scripts --loglevel=silly
           echo "::endgroup::"
-          echo "::group::install docs-gen"
-          npm --prefix tools/docs-gen install --ignore-scripts --loglevel=silly
+          echo "::group::install docs-gen deps"
+          npm run -- dev-setup:docs-gen --ignore-scripts --loglevel=silly
           echo "::endgroup::"
       - name: api-doc ${{ matrix.target }}
         run: npm run api-doc:${{ matrix.target }}
