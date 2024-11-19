@@ -389,7 +389,7 @@ export class ToolsNormalizer extends BaseXmlNormalizer<Models.Tools> {
           children: this._factory.makeForComponent().normalizeIterable(data.components, options, 'component')
         })
       }
-      if (data.components.size > 0) {
+      if (data.services.size > 0) {
         children.push({
           type: 'element',
           name: 'services',

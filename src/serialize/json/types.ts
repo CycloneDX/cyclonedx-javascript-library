@@ -120,8 +120,8 @@ export namespace Normalized {
 
   /** since CDX 1.5 */
   export interface Tools {
-    components: Component[]
-    services: Service[]
+    components?: Component[]
+    services?: Service[]
   }
 
   export type ToolsType = Tools | Tool[]
