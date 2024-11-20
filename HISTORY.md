@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
   * Static function `Models.Tool.fromComponent()` (via [#1163])
   * Static function `Models.Tool.fromService()` (via [#1163])
   * New class `Models.Tools` ([#1152] via [#1163])
-  * New serialization/normalization for `Models.Tools` ([#1152] via [#1163])
+  * New serialization/normalization for `Models.Tools` ([#1152] via [#1163], [#1180])
 * Changed
   * Serializers and `Bom`-Normalizers will take changed `Models.Bom.tools` into account ([#1152] via [#1163])
 * Dependencies
@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file.
 [#1152]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1152
 [#1163]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1163
 [#1173]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1173
+[#1180]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1180
 
 ## 6.13.0 -- 2024-11-18
 

@@ -302,8 +302,12 @@ export class ToolsNormalizer extends BaseJsonNormalizer<Models.Tools> {
         )), options)
     }
     return {
-      components: this._factory.makeForComponent().normalizeIterable(data.components, options),
-      services: this._factory.makeForService().normalizeIterable(data.services, options)
+      components: data.components.size > 0
+        ? this._factory.makeForComponent().normalizeIterable(data.components, options)
+        : undefined,
+      services: data.services.size > 0
+        ? this._factory.makeForService().normalizeIterable(data.services, options)
+        : undefined
     }
   }
 }
