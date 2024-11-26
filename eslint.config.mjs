@@ -65,6 +65,9 @@ export default [
   },
   {
     files: ['examples/node/**/*.{js,mjs,cjs,ts}'],
+    rules: {
+      '@typescript-eslint/use-unknown-in-catch-callback-variable': 'off'
+    },
     languageOptions: {
       globals: globals.node
     }
