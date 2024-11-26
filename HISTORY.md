@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 7.0.0 -- 2024-11-26
+
 * BREAKING changes
   * Property `Models.Bom.tools` is an instance of `Models.Tools` now ([#1152] via [#1163])  
     Before, it was an instance of `Models.ToolRepository`.
