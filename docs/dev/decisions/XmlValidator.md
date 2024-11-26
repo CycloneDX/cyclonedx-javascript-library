@@ -22,7 +22,8 @@ There are several implementations for this:
 * [`libxmljs3`](https://www.npmjs.com/package/libxmljs3)
   * unmaintained copy of `libxmljs2`
   * ! DO NOT USE !
-* Any alternative? Please open a pull-request to add them.
+* [`libxml2-wasm`](https://www.npmjs.com/package/libxml2-wasm)
+  * maintained WASM implementation of a libxml2 wrapper
 
 At the moment of writing (2023-04-21),
 `libxmljs` and `libxmljs2` are both working on several test environments. Both had the needed capabilities.
@@ -37,6 +38,10 @@ as it was more popular/used and had a more active community.
 #### 2024-05-24
 
 Decided to replace `libxmljs2`, as it is end of life.
+
+#### 2024-11-26
+
+Decided to replace `libxmljs2` with `libxml2-wasm`, since it's maintained and a functioning XML validator.
 
 ## WebBrowsers
 
