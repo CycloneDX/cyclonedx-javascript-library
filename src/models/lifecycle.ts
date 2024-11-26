@@ -45,9 +45,9 @@ export class LifecycleRepository extends Set<Lifecycle> implements Sortable<Life
     if (a.constructor === b.constructor) {
       return a instanceof NamedLifecycle
         /* eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- false-positive */
-        ? a.compare(b as NamedLifecycle)
+        ? a.compare(b as typeof a)
         /* eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- false-positive */
-        : a.localeCompare(b as LifecyclePhase)
+        : a.localeCompare(b as typeof a)
     }
     return a.constructor.name.localeCompare(b.constructor.name)
   }
