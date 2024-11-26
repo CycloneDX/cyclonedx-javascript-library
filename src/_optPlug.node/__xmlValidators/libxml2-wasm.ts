@@ -26,16 +26,17 @@ import type { Functionality, Validator } from '../xmlValidator';
 
 /** @internal */
 export default (async function (schemaPath: string): Promise<Validator> {
+  const options = ParseOption.XML_PARSE_NONET | ParseOption.XML_PARSE_COMPACT;
   const schema = XmlDocument.fromString(
     await readFile(schemaPath, 'utf-8'),
     {
-      option: ParseOption.XML_PARSE_NONET | ParseOption.XML_PARSE_COMPACT,
+      option: options,
       url: pathToFileURL(schemaPath).toString()
     });
   const validator = XsdValidator.fromDoc(schema);
 
   return function (data: string): null | ValidationError {
-    const doc = XmlDocument.fromString(data, { option: ParseOption.XML_PARSE_NONET | ParseOption.XML_PARSE_COMPACT });
+    const doc = XmlDocument.fromString(data, { option: options });
     let errors = null;
     try {
       validator.validate(doc);

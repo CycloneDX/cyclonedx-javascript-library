@@ -24,6 +24,7 @@ There are several implementations for this:
   * ! DO NOT USE !
 * [`libxml2-wasm`](https://www.npmjs.com/package/libxml2-wasm)
   * maintained WASM implementation of a libxml2 wrapper
+* Any alternative? Please open a pull-request to add them.
 
 At the moment of writing (2023-04-21),
 `libxmljs` and `libxmljs2` are both working on several test environments. Both had the needed capabilities.
