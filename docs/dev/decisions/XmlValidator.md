@@ -39,10 +39,6 @@ as it was more popular/used and had a more active community.
 
 Decided to replace `libxmljs2`, as it is end of life.
 
-#### 2024-11-26
-
-Decided to replace `libxmljs2` with `libxml2-wasm`, since it's maintained and a functioning XML validator.
-
 ## WebBrowsers
 
 there seams to exist no solution for validating XML according to XSD
