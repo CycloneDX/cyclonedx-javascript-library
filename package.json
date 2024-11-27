@@ -1,6 +1,6 @@
 {
   "name": "@cyclonedx/cyclonedx-library",
-  "version": "7.0.0-beta.2",
+  "version": "7.0.0",
   "description": "Core functionality of CycloneDX for JavaScript (Node.js or WebBrowser).",
   "license": "Apache-2.0",
   "keywords": [
@@ -102,7 +102,7 @@
     "npm-run-all2": "^5||^6",
     "rimraf": "^4||^5",
     "ts-loader": "9.5.1",
-    "typescript": "5.6.3",
+    "typescript": "5.7.2",
     "webpack": "5.96.1",
     "webpack-cli": "5.1.4",
     "webpack-node-externals": "3.0.0"

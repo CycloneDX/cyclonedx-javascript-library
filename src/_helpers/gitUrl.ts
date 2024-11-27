@@ -38,7 +38,8 @@ export function tryCanonicalizeGitUrl (value: string | undefined): URL | string 
     /* pass */
   }
 
-  const sshGs = _sshConnStringRE.exec(value)?.groups as _sshConnStringRE_groups | undefined
+  /* @ts-expect-error TS2322 */
+  const sshGs: _sshConnStringRE_groups | undefined = _sshConnStringRE.exec(value)?.groups
   if (sshGs !== undefined) {
     try {
       // utilize URL so needed chars are properly url-encoded

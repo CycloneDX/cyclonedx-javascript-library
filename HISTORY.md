@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 7.0.0 -- 2024-11-26
+
 * BREAKING changes
   * Property `Models.Bom.tools` is an instance of `Models.Tools` now ([#1152] via [#1163])  
     Before, it was an instance of `Models.ToolRepository`.
@@ -16,16 +18,23 @@ All notable changes to this project will be documented in this file.
   * New serialization/normalization for `Models.Tools` ([#1152] via [#1163], [#1180])
 * Changed
   * Serializers and `Bom`-Normalizers will take changed `Models.Bom.tools` into account ([#1152] via [#1163])
+* Style
+  * Apply latest code style guide (via [#1170], [#1181])
 * Dependencies
   * Support `libxmljs2@^0.35` (via [#1173])
   * Support `libxml2-wasm@^0.41` as an alternative for `libxmljs2` (via [#1184])
   * Use `packageurl-js@^2.0.1`, was `@>=0.0.6 <0.0.8 || ^1` (via [#1142])
+* Build
+  * Use _TypeScript_ `v5.7.2` now, was `v5.6.3` (via [#1182])
 
 [#1142]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1142
 [#1152]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1152
 [#1163]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1163
+[#1170]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1170
 [#1173]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1173
 [#1180]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1180
+[#1181]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1181
+[#1182]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1182
 
 ## 6.13.0 -- 2024-11-18
 
@@ -55,7 +64,7 @@ All notable changes to this project will be documented in this file.
 * Fixed
   * Encode quotation marks in URLs ([#1154] via [#1155])
 * Build
-  * Use _TypeScript_ `v5.6.3` now, was `v5.5.3` (via [#1130]. [#1144], [#1150])
+  * Use _TypeScript_ `v5.6.3` now, was `v5.5.3` (via [#1130], [#1144], [#1150])
   * Use _webpack_ `v5.95.0` now, was `v5.93.0` (via [#1138], [#1147])
  
 [#1130]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1130
