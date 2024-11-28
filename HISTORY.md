@@ -11,6 +11,8 @@ All notable changes to this project will be documented in this file.
 * BREAKING changes
   * Property `Models.Bom.tools` is an instance of `Models.Tools` now ([#1152] via [#1163])  
     Before, it was an instance of `Models.ToolRepository`.
+  * Property `Models.Vulnerability.tools` is an instance of `Models.Tools` now (via [#1163])  
+    Before, it was an instance of `Models.ToolRepository`.
 * Added
   * Static function `Models.Tool.fromComponent()` (via [#1163])
   * Static function `Models.Tool.fromService()` (via [#1163])
@@ -18,6 +20,7 @@ All notable changes to this project will be documented in this file.
   * New serialization/normalization for `Models.Tools` ([#1152] via [#1163], [#1180])
 * Changed
   * Serializers and `Bom`-Normalizers will take changed `Models.Bom.tools` into account ([#1152] via [#1163])
+  * Serializers and `Vulnerability`-Normalizers will take changed `Models.Vulnerability.tools` into account (via [#1163])
 * Style
   * Apply latest code style guide (via [#1170], [#1181])
 * Dependencies
