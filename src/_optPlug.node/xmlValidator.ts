@@ -27,7 +27,8 @@ export default opWrapper<Functionality>('XmlValidator', [
   /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-require-imports
      -- needed */
 
-  ['libxmljs2', () => require('./__xmlValidators/libxmljs2').default]
+  ['libxmljs2', () => require('./__xmlValidators/libxmljs2').default],
+  ['libxml2-wasm', () => require('./__xmlValidators/libxml2-wasm').default]
   // ... add others here, pull-requests welcome!
 
   /* eslint-enable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-require-imports */
