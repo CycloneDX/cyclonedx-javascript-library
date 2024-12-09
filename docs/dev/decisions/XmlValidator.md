@@ -22,6 +22,8 @@ There are several implementations for this:
 * [`libxmljs3`](https://www.npmjs.com/package/libxmljs3)
   * unmaintained copy of `libxmljs2`
   * ! DO NOT USE !
+* [`libxml2-wasm`](https://www.npmjs.com/package/libxml2-wasm)
+  * maintained WASM implementation of a libxml2 wrapper
 * Any alternative? Please open a pull-request to add them.
 
 At the moment of writing (2023-04-21),

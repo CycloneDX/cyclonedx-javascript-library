@@ -29,7 +29,7 @@ const { realpathSync } = require('fs')
 const { join } = require('path')
 
 suite('functional: internals: OpPlug.node.xmlValidator implementation', () => {
-  for (const impl of ['libxmljs2']) {
+  for (const impl of ['libxmljs2','libxml2-wasm']) {
     suite(impl, () => {
       let makeValidator
       try {
