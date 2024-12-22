@@ -86,7 +86,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      PACKAGE_RELEASE_TAG: ${{ github.event.inputs.prerelease == 'true' && 'unstable-prerelease' || 'latest' }}
+      PACKAGE_RELEASE_TAG: ${{ github.event.inputs.prerelease == 'true' && 'unstable-prerelease' || 'backport' }}
     steps:
       - name: Checkout code
         # see https://github.com/actions/checkout
@@ -166,7 +166,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name:   ${{ needs.bump.outputs.version }}
-          name:       ${{ needs.bump.outputs.version_plain }}
-          prerelease: ${{ github.event.inputs.prerelease }}
-          files:      ${{ env.ASSETS_DIR }}/*
+          make_latest: false
+          tag_name:    ${{ needs.bump.outputs.version }}
+          name:        ${{ needs.bump.outputs.version_plain }}
+          prerelease:  ${{ github.event.inputs.prerelease }}
+          files:       ${{ env.ASSETS_DIR }}/*
