@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Dependencies
+  * Support `libxmljs2@^0.35` (via [#])
+
+[#]:
+
 ## 6.13.0 -- 2024-11-18
 
 * Added
