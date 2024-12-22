@@ -7,9 +7,9 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Dependencies
-  * Support `libxmljs2@^0.35` (via [#])
+  * Support `libxmljs2@^0.35` (via [#1196])
 
-[#]:
+[#1196]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1196
 
 ## 6.13.0 -- 2024-11-18
 
