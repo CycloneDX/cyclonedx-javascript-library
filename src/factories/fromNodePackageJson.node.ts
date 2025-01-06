@@ -41,18 +41,19 @@ import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
  * Node-specific ExternalReferenceFactory.
  */
 export class ExternalReferenceFactory {
-  makeExternalReferences (data: PackageJson): ExternalReference[] {
+  makeExternalReferences (data: PackageJson,  buildSystem: string | null = null): ExternalReference[] {
     const refs: Array<ExternalReference | undefined> = []
 
     try { refs.push(this.makeVcs(data)) } catch { /* pass */ }
     try { refs.push(this.makeHomepage(data)) } catch { /* pass */ }
     try { refs.push(this.makeIssueTracker(data)) } catch { /* pass */ }
+    try { refs.push(this.makeBuildSystem(buildSystem)) } catch { /* pass */ }
 
     return refs.filter(isNotUndefined)
   }
 
   makeVcs (data: PackageJson): ExternalReference | undefined {
-    /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#repositoryc */
+    /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#repository */
     const repository = data.repository
     let url = undefined
     let comment: string | undefined = undefined
@@ -99,6 +100,12 @@ export class ExternalReferenceFactory {
     return typeof url === 'string' && url.length > 0
       ? new ExternalReference(url, ExternalReferenceType.IssueTracker, { comment })
       : undefined
+  }
+
+  private makeBuildSystem(buildSystem: string | null): ExternalReference | undefined {
+    return buildSystem === null
+      ? undefined
+      : new ExternalReference(buildSystem, ExternalReferenceType.BuildSystem)
   }
 }
 

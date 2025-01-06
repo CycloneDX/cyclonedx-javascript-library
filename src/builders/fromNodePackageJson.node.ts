@@ -90,7 +90,7 @@ export class ComponentBuilder {
     return this.#licenseFactory
   }
 
-  makeComponent (data: PackageJson, type: ComponentType = ComponentType.Library): Component | undefined {
+  makeComponent (data: PackageJson, type: ComponentType = ComponentType.Library, buildSystem: string | null = null): Component | undefined {
     if (typeof data.name !== 'string') {
       return undefined
     }
@@ -117,7 +117,7 @@ export class ComponentBuilder {
       ? data.version
       : undefined
 
-    const externalReferences = this.#extRefFactory.makeExternalReferences(data)
+    const externalReferences = this.#extRefFactory.makeExternalReferences(data, buildSystem)
 
     const licenses = new LicenseRepository()
     if (typeof data.license === 'string') {
@@ -145,5 +145,4 @@ export class ComponentBuilder {
       licenses,
       version
     })
-  }
-}
+  }}

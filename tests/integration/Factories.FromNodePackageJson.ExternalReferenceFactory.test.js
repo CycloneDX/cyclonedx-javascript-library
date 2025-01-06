@@ -266,4 +266,22 @@ suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () 
       assert.deepEqual(actual, expected)
     })
   })
+  suite('buildSystem provided', () => {
+    test('is non-empty string', () => {
+      const expected = [new ExternalReference(
+        'https://example.com/build',
+        ExternalReferenceType.BuildSystem
+      )]
+      const buildSystem = 'https://example.com/build'
+      const data = {}
+      const actual = sut.makeExternalReferences(data, buildSystem)
+      assert.deepEqual(actual, expected)
+    })
+
+    test('is null', () => {
+      const data = {}
+      const actual = sut.makeExternalReferences(data, null)
+      assert.strictEqual(actual.length, 0)
+    })
+  })
 })
