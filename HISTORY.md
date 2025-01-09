@@ -6,6 +6,20 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * New type `Models.Copyright` and class `Models.CopyrightRepository` (via [#1202])
+  * New type `Models.AttachmentContent` (via [#1202])
+* Changed
+  * Replace usage of internals `Stringable` & `SortableStringables` with public aliases API ([#1192] via [#1202])
+    This is considered a non-breaking change, as the types are not changed, but made publicly available.
+* Misc
+  * Support `npm11` ([#1191] via [#1203])
+
+[#1191]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1191
+[#1192]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1192
+[#1202]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1202
+[#1203]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1203
+
 ## 7.0.0 -- 2024-11-26
 
 * BREAKING changes
