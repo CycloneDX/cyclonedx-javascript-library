@@ -34,6 +34,10 @@ abstract class BomLinkBase implements Stringable, Comparable<Stringable> {
     this.value = value
   }
 
+  get value (): string {
+    return this.#value
+  }
+
   /**
    * @throws {@link RangeError} if value is invalid
    */
@@ -42,10 +46,6 @@ abstract class BomLinkBase implements Stringable, Comparable<Stringable> {
       throw new RangeError('invalid value')
     }
     this.#value = value
-  }
-
-  get value (): string {
-    return this.#value
   }
 
   compare (other: Stringable): number {

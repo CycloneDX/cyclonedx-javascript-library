@@ -12,11 +12,14 @@ All notable changes to this project will be documented in this file.
 * Changed
   * Replace usage of internals `Stringable` & `SortableStringables` with public aliases API ([#1192] via [#1202])
     This is considered a non-breaking change, as the types are not changed, but made publicly available.
+* Style
+  * Apply latest code style guide (via [#1201])
 * Misc
   * Support `npm11` ([#1191] via [#1203])
 
 [#1191]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1191
 [#1192]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1192
+[#1201]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1201
 [#1202]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1202
 [#1203]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1203
 
