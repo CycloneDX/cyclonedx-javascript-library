@@ -17,24 +17,10 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { SortableStringables } from '../_helpers/sortable'
 import type { Stringable } from '../_helpers/stringable'
-import type { AttachmentEncoding } from '../enums/attachmentEncoding'
 
-export interface OptionalAttachmentProperties {
-  contentType?: Attachment['contentType']
-  encoding?: Attachment['encoding']
-}
+export type Copyright = Stringable
 
-export type AttachmentContent = Stringable
-
-export class Attachment {
-  contentType?: string
-  content: AttachmentContent
-  encoding?: AttachmentEncoding
-
-  constructor (content: Attachment['content'], op: OptionalAttachmentProperties = {}) {
-    this.contentType = op.contentType
-    this.content = content
-    this.encoding = op.encoding
-  }
-}
+/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-arguments -- for docs reasons */
+export class CopyrightRepository extends SortableStringables<Copyright> {}
