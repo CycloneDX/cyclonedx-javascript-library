@@ -34,6 +34,12 @@ const __dirname = path.dirname(__filename)
 export default [
   ...baseCfg,
   {
+    name: 'project-specific',
+    rules: {
+      "complexity": ["error", { "max": 15 }]
+    }
+  },
+  {
     files: ['**/*.js'],
     languageOptions: { sourceType: 'commonjs' }
   },
