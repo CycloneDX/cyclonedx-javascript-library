@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 7.1.0 -- 2025-01-09
+
 * Added
   * New type `Models.Copyright` and class `Models.CopyrightRepository` (via [#1202])
   * New type `Models.AttachmentContent` (via [#1202])
