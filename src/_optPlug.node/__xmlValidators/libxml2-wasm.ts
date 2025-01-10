@@ -46,8 +46,6 @@ export default (async function (schemaPath: string): Promise<Validator> {
     }
 
     doc.dispose();
-    validator.dispose();
-    schema.dispose();
 
     return errors;
   }
