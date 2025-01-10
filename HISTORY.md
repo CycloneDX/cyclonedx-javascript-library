@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 <!-- add unreleased items here -->
+* Dependencies
+  * Support `libxml2-wasm@^0.41` as an alternative for `libxmljs2` (via [#1184])
 
 ## 7.0.0 -- 2024-11-26
 
@@ -22,7 +24,6 @@ All notable changes to this project will be documented in this file.
   * Apply latest code style guide (via [#1170], [#1181])
 * Dependencies
   * Support `libxmljs2@^0.35` (via [#1173])
-  * Support `libxml2-wasm@^0.41` as an alternative for `libxmljs2` (via [#1184])
   * Use `packageurl-js@^2.0.1`, was `@>=0.0.6 <0.0.8 || ^1` (via [#1142])
 * Build
   * Use _TypeScript_ `v5.7.2` now, was `v5.6.3` (via [#1182])
