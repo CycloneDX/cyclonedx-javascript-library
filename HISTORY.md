@@ -8,10 +8,36 @@ All notable changes to this project will be documented in this file.
 * Dependencies
   * Support `libxml2-wasm@^0.41` as an alternative for `libxmljs2` (via [#1184])
 
+* Build
+  * Use _TypeScript_ `v5.7.3` now, was `v5.7.2` (via [#1204])
+
+[#1204]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1204
+
+## 7.1.0 -- 2025-01-09
+
+* Added
+  * New type `Models.Copyright` and class `Models.CopyrightRepository` (via [#1202])
+  * New type `Models.AttachmentContent` (via [#1202])
+* Changed
+  * Replace usage of internals `Stringable` & `SortableStringables` with public API ([#1192] via [#1202])  
+    This is considered a non-breaking change, as the types are not changed, but made publicly available.
+* Style
+  * Apply latest code style guide (via [#1201])
+* Misc
+  * Support `npm11` ([#1191] via [#1203])
+
+[#1191]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1191
+[#1192]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1192
+[#1201]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1201
+[#1202]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1202
+[#1203]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1203
+
 ## 7.0.0 -- 2024-11-26
 
 * BREAKING changes
   * Property `Models.Bom.tools` is an instance of `Models.Tools` now ([#1152] via [#1163])  
+    Before, it was an instance of `Models.ToolRepository`.
+  * Property `Models.Vulnerability.tools` is an instance of `Models.Tools` now (via [#1163])  
     Before, it was an instance of `Models.ToolRepository`.
 * Added
   * Static function `Models.Tool.fromComponent()` (via [#1163])
@@ -20,6 +46,7 @@ All notable changes to this project will be documented in this file.
   * New serialization/normalization for `Models.Tools` ([#1152] via [#1163], [#1180])
 * Changed
   * Serializers and `Bom`-Normalizers will take changed `Models.Bom.tools` into account ([#1152] via [#1163])
+  * Serializers and `Vulnerability`-Normalizers will take changed `Models.Vulnerability.tools` into account (via [#1163])
 * Style
   * Apply latest code style guide (via [#1170], [#1181])
 * Dependencies
@@ -36,6 +63,13 @@ All notable changes to this project will be documented in this file.
 [#1180]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1180
 [#1181]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1181
 [#1182]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1182
+
+## 6.13.1 -- 2024-12-22
+
+* Dependencies
+  * Support `libxmljs2@^0.35` (via [#1196])
+
+[#1196]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1196
 
 ## 6.13.0 -- 2024-11-18
 

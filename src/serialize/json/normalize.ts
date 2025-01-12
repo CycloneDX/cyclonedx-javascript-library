@@ -17,6 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+/* eslint complexity: ["error", 50 ] -- acknowledged */
+/* eslint max-lines: 'off' -- intended */
+
 import { chainI } from "../../_helpers/iterable";
 import { isNotUndefined } from '../../_helpers/notUndefined'
 import type { SortableIterable } from '../../_helpers/sortable'
@@ -34,6 +37,8 @@ import { Version as SpecVersion } from '../../spec/enums'
 import type { NormalizerOptions } from '../types'
 import type { Normalized } from './types'
 import { JsonSchema } from './types'
+
+
 
 export class Factory {
   readonly #spec: Spec
