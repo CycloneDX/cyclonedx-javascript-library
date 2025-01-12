@@ -6,12 +6,13 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 * Dependencies
-  * Support `libxml2-wasm@^0.41` as an alternative for `libxmljs2` (via [#1184])
+  * Support `libxml2-wasm@^0.5.0` as an alternative for `libxmljs2` (via [#1184])
 
 * Build
   * Use _TypeScript_ `v5.7.3` now, was `v5.7.2` (via [#1204])
 
 [#1204]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1204
+[#1184]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1184
 
 ## 7.1.0 -- 2025-01-09
 
