@@ -77,7 +77,7 @@
   ],
   "type": "commonjs",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=20.18"
   },
   "dependencies": {
     "packageurl-js": "^2.0.1",
