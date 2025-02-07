@@ -7,10 +7,10 @@
   },
   "devDependencies": {
     "webpack": "^5",
-    "webpack-cli": "^5"
+    "webpack-cli": "^5||^6"
   },
   "scripts": {
     "build": "webpack build",
-    "example": "www-browser dist/index.html"
+    "example": "x-www-browser dist/index.html"
   }
 }
