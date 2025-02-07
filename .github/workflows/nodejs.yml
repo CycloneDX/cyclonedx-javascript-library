@@ -186,6 +186,7 @@ jobs:
           '20' | '20.18.0')
             npm i -g npm@^10
             ;;
+          esac
       - name: setup project
         shell: bash
         env:
