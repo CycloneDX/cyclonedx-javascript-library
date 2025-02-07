@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 export class OptPlugError extends Error {
-  readonly cause: any | undefined
+  override readonly cause: any | undefined
 
   constructor (message: string, cause?: any) {
     super(message)
