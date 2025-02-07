@@ -161,7 +161,7 @@ jobs:
           - "20.18.0" # lowest supported
         os:
           - ubuntu-latest
-          - macos-13 # macos-latest has issues with node14
+          - macos-latest
           - windows-latest
     timeout-minutes: 10
     steps:
@@ -363,7 +363,7 @@ jobs:
         include:
           - # lowest reasonable number that works
             typescript-version: '^4.0'
-            nodeTypes-version: '^14'
+            nodeTypes-version: '^20'
             js-type: 'cjs'
     env:
       EXAMPLE_DIR: examples/node/typescript/example.${{ matrix.js-type }}
