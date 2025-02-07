@@ -17,8 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const fs = require('fs')
-const path = require('path')
+const fs = require('nodeLfs')
+const path = require('node:path')
 
 const resPath = path.resolve(__dirname, '..', '..', 'res', 'schema')
 

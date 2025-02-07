@@ -17,8 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const fs = require('fs')
-const assert = require('assert')
+const fs = require('node:fs')
+const assert = require('node:assert')
 
 const { _Resources: { FILES: { SPDX: { JSON_SCHEMA: SPDX_JSON_SCHEMA } } } } = require('../../')
 
