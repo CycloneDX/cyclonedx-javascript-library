@@ -130,12 +130,6 @@ See the shipped `package.json` for version constraints.
   * [`libxmljs2`](https://www.npmjs.com/package/libxmljs2)  
   * the system might need to meet the requirements for [`node-gyp`](https://github.com/TooTallNate/node-gyp#installation), in certain cases.
 
-## Requirements
-
-* `node`: `>=20.18`
-
-However, there are older versions of this library which support `node>=14.0.0`
-
 ## Usage
 
 See extended [examples].
