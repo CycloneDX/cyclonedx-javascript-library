@@ -158,13 +158,10 @@ jobs:
           - "23"      # current
           - "22"      # active LTS
           - "20"
-          - "18"
-          - "16"
-          - "14"
-          - "14.0.0"  # lowest supported
+          - "20.18.0" # lowest supported
         os:
           - ubuntu-latest
-          - macos-13 # macos-latest has issues with node14
+          - macos-latest
           - windows-latest
     timeout-minutes: 10
     steps:
@@ -186,17 +183,8 @@ jobs:
           '23' | '22')
             npm i -g npm@^11
             ;;
-          '20' | '18')
+          '20' | '20.18.0')
             npm i -g npm@^10
-            ;;
-          '16')
-            npm i -g npm@^9
-            ;;
-          '14')
-            npm i -g npm@^8
-            ;;
-          '14.0.0')
-            npm i -g npm@^7
             ;;
           esac
       - name: setup project
@@ -211,26 +199,6 @@ jobs:
           # and might utilize `npm_config_engine_strict=false` 
           
           dev_constraints=' npm-run-all2 c8 mocha fast-glob rimraf '
-          # as long as npm cannot auto-resolve engine-constraints, we need to help here
-          case "$NODE_VERSION" in
-            '16')
-              dev_constraints="${dev_constraints/ c8 / c8@^9 }"
-              dev_constraints="${dev_constraints/ rimraf / rimraf@^4 }"
-              export npm_config_engine_strict=false
-              ;;
-            '14')
-              dev_constraints="${dev_constraints/ c8 / c8@^9 }"
-              dev_constraints="${dev_constraints/ npm-run-all2 / npm-run-all2@^5 }"
-              dev_constraints="${dev_constraints/ rimraf / rimraf@^4 }"
-              export npm_config_engine_strict=false
-              ;;
-            '14.0.0')
-              dev_constraints="${dev_constraints/ c8 / c8@^8 }"
-              dev_constraints="${dev_constraints/ npm-run-all2 / npm-run-all2@^5 }"
-              dev_constraints="${dev_constraints/ rimraf / rimraf@^4 }"
-              export npm_config_engine_strict=false
-              ;;
-          esac
           echo "::group::install prod"
           npm_config_engine_strict=false npm i --ignore-scripts --include=optional --omit=dev --only=prod --production --loglevel=silly
           echo "::endgroup::"
@@ -396,7 +364,7 @@ jobs:
         include:
           - # lowest reasonable number that works
             typescript-version: '^4.0'
-            nodeTypes-version: '^14'
+            nodeTypes-version: '^20'
             js-type: 'cjs'
     env:
       EXAMPLE_DIR: examples/node/typescript/example.${{ matrix.js-type }}

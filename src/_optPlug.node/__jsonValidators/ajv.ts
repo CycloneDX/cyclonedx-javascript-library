@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import Ajv, { type Options as AjvOptions } from 'ajv'
 import addFormats from 'ajv-formats'
 /* @ts-expect-error TS7016 */
-import * as addFormats2019 from 'ajv-formats-draft2019'
+import addFormats2019 from 'ajv-formats-draft2019'
 import { readFile } from 'fs/promises'
 
 import type { ValidationError } from '../../validation/types'

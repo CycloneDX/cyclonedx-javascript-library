@@ -3,7 +3,7 @@
   "name": "@cyclonedx/cyclonedx-library-docs-gen",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=20"
+    "node": ">=20.18"
   },
   "dependencies": {
     "typedoc": "^0.27.2",
