@@ -132,7 +132,7 @@ See the shipped `package.json` for version constraints.
 
 ## Requirements
 
-* `node >=20.18`
+* `node`: `>=20.18`
 
 However, there are older versions of this library which support `node>=14.0.0`
 
