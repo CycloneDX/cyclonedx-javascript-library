@@ -21,5 +21,8 @@
     "eslint-plugin-tsdoc": "0.4.0",
     "globals": "^15.7.0",
     "typescript-eslint": "8.19.1"
+  },
+  "scripts": {
+    "cs-fix": "npm exec -- eslint --fix ."
   }
 }

@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const fs = require('nodeLfs')
+const fs = require('node:fs')
 const path = require('node:path')
 
 const resPath = path.resolve(__dirname, '..', '..', 'res', 'schema')
@@ -72,7 +72,7 @@ function getSpecEnum (resourceFile, ...path) {
 }
 
 module.exports = {
-  loadSpec,
   getSpecElement,
-  getSpecEnum
+  getSpecEnum,
+  loadSpec
 }

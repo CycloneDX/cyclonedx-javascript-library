@@ -17,11 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const assert = require('assert')
-const { describe, beforeEach, afterEach, it } = require('mocha')
+const assert = require('node:assert')
 
-const { createComplexStructure } = require('../_data/models')
-const { loadNormalizeResult, writeNormalizeResult } = require('../_data/normalize')
+const { afterEach, beforeEach, describe, it } = require('mocha')
 
 const {
   Models, Enums,
@@ -30,6 +28,8 @@ const {
   },
   Spec
 } = require('../../')
+const { createComplexStructure } = require('../_data/models')
+const { loadNormalizeResult, writeNormalizeResult } = require('../_data/normalize')
 
 describe('integration.Serialize.XmlNormalize', function () {
   this.timeout(60000);

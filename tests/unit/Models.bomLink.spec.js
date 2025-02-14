@@ -17,12 +17,14 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const assert = require('assert')
+const assert = require('node:assert')
+
 const { suite, test } = require('mocha')
 
 const {
   Models: { BomLinkDocument, BomLinkElement }
 } = require('../../')
+
 
 suite('unit: Models.BomLinkDocument', () => {
   suite('isValid()', () => {

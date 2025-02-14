@@ -23,8 +23,10 @@ import { fileURLToPath } from 'node:url'
 import plugin_js from '@eslint/js'
 import config_love from 'eslint-config-love'
 import plugin_editorconfig from 'eslint-plugin-editorconfig'
-import plugin_header from 'eslint-plugin-license-header'
+import plugin_import from 'eslint-plugin-import'
 import plugin_jsdoc from 'eslint-plugin-jsdoc'
+import plugin_header from 'eslint-plugin-license-header'
+import plugin_n from 'eslint-plugin-n'
 import plugin_simpleImportSort from 'eslint-plugin-simple-import-sort'
 import plugin_tsdoc from 'eslint-plugin-tsdoc'
 import globals from 'globals'
@@ -45,19 +47,52 @@ export default [
   {
     name: 'general',
     plugins: {
+      'import': plugin_import,
       'simple-import-sort': plugin_simpleImportSort,
       'license-header': plugin_header,
       'editorconfig': plugin_editorconfig,
+      'n': plugin_n,
     },
     rules: {
       ...plugin_editorconfig.configs.all.rules,
-      'import/order': 'off',
+      'editorconfig/indent': 'off',
+      'n/prefer-node-protocol': 'error',
       'sort-imports': 'off',
+      'import/order': [
+        // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
+        'error', {
+          'groups': [
+            'builtin',
+            'external',
+            /* and then all the rest */
+          ],
+          'newlines-between': 'always',
+        }],
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
+      'import/first': 'error',
+      'import/newline-after-import': 'error',
+      'import/no-duplicates': 'error',
       'license-header/header': ['error', licenseHeaderFile],
-      'editorconfig/indent': 'off',
     },
+  },
+  {
+    files: ['**/*.{js,cjs}'],
+    rules: {
+      'simple-import-sort/imports': 'off',
+      'import/order': [
+        // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
+        'error', {
+          'groups': [
+            'builtin',
+            'external',
+            /* and then all the rest */
+          ],
+          'alphabetize': { order: "asc" },
+          'named': true,
+          'newlines-between': 'always',
+        }],
+    }
   },
   {
     files: ['**/*.{js,mjs,cjs}'],
@@ -134,7 +169,7 @@ export default [
     },
   },
   {
-    files:[
+    files: [
       '**/eslint.config.{js,mjs,cjs}',
       '**/webpack.config.js',
       '**/.mocharc.js'

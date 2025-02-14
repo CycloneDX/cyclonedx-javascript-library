@@ -17,17 +17,17 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const assert = require('assert')
-const { suite, test } = require('mocha')
+const assert = require('node:assert')
 
-const { getSpecEnum } = require('../_data/specLoader')
-const { upperCamelCase } = require('../_helpers/stringFunctions')
+const { suite, test } = require('mocha')
 
 const {
   Enums: { LifecyclePhase },
   Spec: { Version },
   _Resources: { FILES: { CDX: { JSON_SCHEMA: CDX_JSON_SCHEMA } } }
 } = require('../../')
+const { getSpecEnum } = require('../_data/specLoader')
+const { upperCamelCase } = require('../_helpers/stringFunctions')
 
 suite('functional: LifecyclePhase enum', () => {
   const specVersions = new Set([

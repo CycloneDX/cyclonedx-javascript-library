@@ -17,9 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const assert = require('assert')
-const { suite, test } = require('mocha')
+const assert = require('node:assert')
 
+const { suite, test } = require('mocha')
 const { PackageURL } = require('packageurl-js')
 
 const {

@@ -17,15 +17,16 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const assert = require('assert')
+const assert = require('node:assert')
+
 const { suite, test } = require('mocha')
 
 const {
   _Resources: Resources,
   Spec: { Version }
 } = require('../../../')
-const { default: makeValidator } = require('../../../dist.node/_optPlug.node/xmlValidator')
 const { OptPlugError } = require('../../../dist.node/_optPlug.node/errors')
+const { default: makeValidator } = require('../../../dist.node/_optPlug.node/xmlValidator')
 
 suite('functional: internals: OpPlug.node.xmlValidator auto', () => {
   if (makeValidator.fails) {

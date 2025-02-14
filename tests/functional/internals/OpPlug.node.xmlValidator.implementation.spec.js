@@ -17,16 +17,17 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const assert = require('assert')
-const { suite, test, before } = require('mocha')
+const assert = require('node:assert')
+const { realpathSync } = require('node:fs')
+const { join } = require('node:path')
+const { pathToFileURL } = require('node:url')
+
+const { before, suite, test } = require('mocha')
 
 const {
   _Resources: Resources,
   Spec: { Version }
 } = require('../../../')
-const { pathToFileURL } = require('url')
-const { realpathSync } = require('fs')
-const { join } = require('path')
 
 suite('functional: internals: OpPlug.node.xmlValidator implementation', () => {
   for (const impl of ['libxmljs2']) {

@@ -17,12 +17,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const assert = require('assert')
+const assert = require('node:assert')
+
 const { suite, test } = require('mocha')
 
-const { spdxSpecEnum } = require('../_data/spdx')
-
 const { SPDX } = require('../../')
+const { spdxSpecEnum } = require('../_data/spdx')
 
 suite('functional: SPDX.isSupportedSpdxId()', () => {
   /** @type {string[]} knownSpdxIds */
