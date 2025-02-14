@@ -17,11 +17,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const assert = require('assert')
+const assert = require('node:assert')
+
 const { suite, test } = require('mocha')
 
-const { default: xmlStringify } = require('../../../dist.node/_optPlug.node/xmlStringify')
 const { OptPlugError } = require('../../../dist.node/_optPlug.node/errors')
+const { default: xmlStringify } = require('../../../dist.node/_optPlug.node/xmlStringify')
 
 suite('functional: internals: OpPlug.node.xmlStringify auto', () => {
   if (xmlStringify.fails) {

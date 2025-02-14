@@ -24,7 +24,7 @@ const { Enums, Models, Types } = require('../../')
 /**
  * @returns {Models.Bom}
  */
-module.exports.createComplexStructure = function () {
+function createComplexStructure () {
   const bomSerialNumberRaw = 'ac35b126-ef3a-11ed-a05b-0242ac120003'
   const bom = new Models.Bom({
     version: 7,
@@ -613,7 +613,7 @@ module.exports.createComplexStructure = function () {
 /**
  * @returns {Models.Bom}
  */
-module.exports.createAllTools = function () {
+function createAllTools () {
   const bomSerialNumberRaw = '8fd9e244-73b6-4cd3-ab3a-a0fefdee5c9e'
   const bom = new Models.Bom({
     version: 7,
@@ -669,4 +669,10 @@ module.exports.createAllTools = function () {
     })
   )
   return bom
+}
+
+
+module.exports = {
+  createAllTools,
+  createComplexStructure
 }

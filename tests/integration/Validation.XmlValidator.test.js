@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const assert = require('assert')
+const assert = require('node:assert')
 
 const { describe, it } = require('mocha')
 
@@ -28,7 +28,6 @@ const {
     XmlValidator
   }
 } = require('../../')
-
 const { default: xmlValidator } = require('../../dist.node/_optPlug.node/xmlValidator')
 
 describe('integration.Validation.XmlValidator', () => {

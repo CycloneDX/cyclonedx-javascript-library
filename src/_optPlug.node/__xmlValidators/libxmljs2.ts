@@ -17,9 +17,10 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { readFile } from 'fs/promises'
+import { readFile } from 'node:fs/promises'
+import { pathToFileURL } from 'node:url'
+
 import { type ParserOptions, parseXml } from 'libxmljs2'
-import { pathToFileURL } from 'url'
 
 import type { ValidationError } from '../../validation/types'
 import type { Functionality, Validator } from '../xmlValidator'

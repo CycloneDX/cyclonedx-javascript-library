@@ -17,9 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const assert = require('assert')
-const { join, dirname } = require('path')
-const { readFileSync } = require('fs')
+const assert = require('node:assert')
+const { readFileSync } = require('node:fs')
+const { dirname, join } = require('node:path')
 
 const { suite, test } = require('mocha')
 

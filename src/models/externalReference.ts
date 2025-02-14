@@ -23,6 +23,7 @@ import type { ExternalReferenceType } from '../enums/externalReferenceType'
 import type { BomLink } from './bomLink'
 import { HashDictionary } from './hash'
 
+
 export interface OptionalExternalReferenceProperties {
   hashes?: ExternalReference['hashes']
   comment?: ExternalReference['comment']

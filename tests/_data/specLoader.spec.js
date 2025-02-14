@@ -17,10 +17,11 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const assert = require('assert')
+const assert = require('node:assert')
+
 const { suite, test } = require('mocha')
 
-const { loadSpec, getSpecElement, getSpecEnum } = require('./specLoader')
+const { getSpecElement, getSpecEnum, loadSpec } = require('./specLoader')
 
 suite('test helpers: specLoader', () => {
 

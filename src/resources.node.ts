@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 
 import { Version } from './spec/enums'
 

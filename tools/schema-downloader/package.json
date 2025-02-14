@@ -5,9 +5,10 @@
   "type": "module",
   "main": "download.js",
   "scripts": {
-    "download": "node download.js"
+    "download": "node download.js",
+    "cs-fix": "npm --prefix ../code-style exec -- eslint --fix ."
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20.18"
   }
 }

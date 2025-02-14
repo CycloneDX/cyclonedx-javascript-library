@@ -17,11 +17,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const fs = require('fs')
-const path = require('path')
-const assert = require('assert')
-const { suite, test, before } = require('mocha')
+const assert = require('node:assert')
+const fs = require('node:fs')
+const path = require('node:path')
+
 const { globSync } = require('fast-glob')
+const { before, suite, test } = require('mocha')
 
 const {
   Validation: { XmlValidator },

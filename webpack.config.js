@@ -17,7 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const path = require('path')
+const path = require('node:path')
+
 const deepmerge = require('deepmerge')
 const nodeExternals = require('webpack-node-externals')
 
