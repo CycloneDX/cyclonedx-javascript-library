@@ -12,12 +12,14 @@ All notable changes to this project will be documented in this file.
   * Imports of builtin modules are prefixed with `node:` ([#1198] via [#1210]) 
 * Build
   * Use _TypeScript_ `v5.7.3` now, was `v5.7.2` (via [#1204])
+  * Use _webpack_ `v5.98.0` now, was `v5.97.1` (via [#1213])
 
 [#1081]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1081
 [#1198]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1198
 [#1204]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1204
 [#1209]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1209
 [#1210]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1210
+[#1213]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1213
 
 ## 7.1.0 -- 2025-01-09
 
