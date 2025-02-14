@@ -18,7 +18,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { SortableNumbers } from '../_helpers/sortable'
-import { isPositiveInteger, type PositiveInteger} from './integer'
+import type { PositiveInteger } from './integer'
+import { isPositiveInteger } from './integer'
 
 /**
  * Integer representation of a Common Weaknesses Enumerations (CWE).
