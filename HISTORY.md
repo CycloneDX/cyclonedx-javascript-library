@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
   * Dropped support for `node<=20.18.0` ([#1081] via [#1209])
 * Refactor
   * Imports of builtin modules are prefixed with `node:` ([#1198] via [#1210]) 
+  * Applied latest code style ()
 * Build
   * Use _TypeScript_ `v5.7.3` now, was `v5.7.2` (via [#1204])
 
