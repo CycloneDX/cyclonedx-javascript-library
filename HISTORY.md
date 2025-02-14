@@ -8,12 +8,16 @@ All notable changes to this project will be documented in this file.
 
 * BREAKING Changes
   * Dropped support for `node<=20.18.0` ([#1081] via [#1209])
+* Refactor
+  * Imports of builtin modules are prefixed with `node:` ([#1198] via [#1210]) 
 * Build
   * Use _TypeScript_ `v5.7.3` now, was `v5.7.2` (via [#1204])
 
 [#1081]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1081
+[#1198]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1198
 [#1204]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1204
 [#1209]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1209
+[#1210]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1210
 
 ## 7.1.0 -- 2025-01-09
 

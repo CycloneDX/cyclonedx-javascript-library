@@ -4,7 +4,7 @@ version: 2
 updates:
   - package-ecosystem: 'npm'
     directories:
-      - '/'
+      - '/.'
       - '/tools/code-style'
       - '/tools/docs-gen'
       - '/tools/schema-downloader'
