@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 * BREAKING Changes
   * Dropped support for `node<=20.18.0` ([#1081] via [#1209])
 * Refactor
-  * Imports of builtin modules are prefixed with `node:` ([#1198] via [#1210]) 
+  * Imports of built-in modules are prefixed with `node:` ([#1198] via [#1210]) 
 * Build
   * Use _TypeScript_ `v5.7.3` now, was `v5.7.2` (via [#1204])
   * Use _webpack_ `v5.98.0` now, was `v5.97.1` (via [#1213])
