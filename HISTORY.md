@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * BREAKING Changes
-  * Dropped support for `node<=20.18.0` ([#1081] via [#1209])
+  * Dropped support for `node<20.18.0` ([#1081] via [#1209])
 * Refactor
   * Imports of built-in modules are prefixed with `node:` ([#1198] via [#1210]) 
 * Build
