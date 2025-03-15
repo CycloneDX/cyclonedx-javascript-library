@@ -25,11 +25,11 @@ import { default as baseCfg, globals } from './tools/code-style/eslint.config.mj
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-/* eslint-disable jsdoc/valid-types */
+/* eslint-disable jsdoc/valid-types -- type-import not supported yet */
 
 /**
- * @type {import('@types/eslint').Linter.FlatConfig[]}
- * @see {@link https://eslint.org/}
+ * @type {import('./tools/code-style/node_modules/eslint').Linter.Config[]}
+ * @see https://eslint.org/
  */
 export default [
   ...baseCfg,
