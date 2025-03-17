@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 8.0.0 -- 2025-03-17
+
 * BREAKING Changes
   * Dropped support for `node<20.18.0` ([#1081] via [#1209])
 * Refactor
