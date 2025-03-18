@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@cyclonedx/cyclonedx-library-schema-downloader",
+  "name": "@cyclonedx/cyclonedx-javascript-library/tools/schema-downloader",
   "license": "Apache-2.0",
   "type": "module",
   "main": "download.js",
