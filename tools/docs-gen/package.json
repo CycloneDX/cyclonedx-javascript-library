@@ -6,7 +6,7 @@
     "node": ">=20.18"
   },
   "dependencies": {
-    "typedoc": "^0.27.2",
-    "typedoc-plugin-missing-exports": "^3.0.0"
+    "typedoc": "^0.28.1",
+    "typedoc-plugin-missing-exports": "^4.0.0"
   }
 }
