@@ -29,14 +29,14 @@ const {
 suite('unit: Serialize.XML._xsd', () => {
   const normalizedStringCases = {
     '': '',
-    '123': '123',
+    123: '123',
     ' 0 1\r\n2\t3\n4\t': ' 0 1 2 3 4 ',
     ' 0  1\r\n 2 \t3 \n 4 \t': ' 0  1  2  3   4  ',
   }
 
   const tokenCases = {
     '': '',
-    '123': '123',
+    123: '123',
     ' 0  1 \r\n2\t 3 \n4\n ': '0 1 2 3 4',
     ' 0  1\r\n 2 \t3 \n 4 \t ': '0 1 2 3 4',
   }
@@ -45,7 +45,7 @@ suite('unit: Serialize.XML._xsd', () => {
    * @param {string} s
    * @return {string}
    */
-  function escapeTNR(s) {
+  function escapeTNR (s) {
     return s
       .replace(/\t/g, '\\t')
       .replace(/\n/g, '\\n')

@@ -41,7 +41,7 @@ suite('unit: Serialize.XmlBaseSerializer', () => {
       const normalizerFactoryDummy = { spec: { supportsFormat: f => f !== Format.XML } }
       assert.throws(
         () => {
-
+          /* eslint-disable-next-line no-new -- needed to test constructor */
           new MySerializer(normalizerFactoryDummy)
         },
         UnsupportedFormatError,

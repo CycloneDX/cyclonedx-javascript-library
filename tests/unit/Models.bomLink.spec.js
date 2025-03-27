@@ -25,7 +25,6 @@ const {
   Models: { BomLinkDocument, BomLinkElement }
 } = require('../../')
 
-
 suite('unit: Models.BomLinkDocument', () => {
   suite('isValid()', () => {
     test('pass', () => {

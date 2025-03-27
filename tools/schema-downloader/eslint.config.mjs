@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { default as baseCfg, globals } from '../code-style/eslint.config.mjs'
+import baseCfg, { globals } from '../code-style/eslint.config.mjs'
 
 /* eslint-disable jsdoc/valid-types */
 
