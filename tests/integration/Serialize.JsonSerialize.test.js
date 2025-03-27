@@ -37,7 +37,7 @@ const { createAllTools, createComplexStructure } = require('../_data/models')
 const { loadSerializeResult, writeSerializeResult } = require('../_data/serialize')
 
 describe('integration.Serialize.JsonSerialize', function () {
-  this.timeout(60000);
+  this.timeout(60000)
 
   Object.entries({
     complex: createComplexStructure,

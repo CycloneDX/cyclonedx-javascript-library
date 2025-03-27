@@ -60,8 +60,8 @@ suite('integration: Builders.FromNodePackageJson.ComponentBuilder', () => {
           }
         ],
         repository: {
-          type: "git",
-          url: "https://github.com/foo/bar.git"
+          type: 'git',
+          url: 'https://github.com/foo/bar.git'
         }
         // to be continued
       },

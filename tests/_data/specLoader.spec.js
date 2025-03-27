@@ -24,8 +24,7 @@ const { suite, test } = require('mocha')
 const { getSpecElement, getSpecEnum, loadSpec } = require('./specLoader')
 
 suite('test helpers: specLoader', () => {
-
-  const expected_definitions_affectedStatus_enum = [
+  const expectedDefinitionsAffectedStatusEnum = [
     'affected',
     'unaffected',
     'unknown'
@@ -42,7 +41,7 @@ suite('test helpers: specLoader', () => {
     test('happy path', () => {
       const loaded = loadSpec('bom-1.4.SNAPSHOT.schema.json')
       // dummy test to see if loading worked somehow ...
-      assert.deepStrictEqual(loaded.definitions.affectedStatus.enum, expected_definitions_affectedStatus_enum)
+      assert.deepStrictEqual(loaded.definitions.affectedStatus.enum, expectedDefinitionsAffectedStatusEnum)
     })
   })
 
@@ -59,7 +58,7 @@ suite('test helpers: specLoader', () => {
         'bom-1.4.SNAPSHOT.schema.json',
         'definitions', 'affectedStatus', 'enum')
       // dummy test to see if loading worked somehow ...
-      assert.deepStrictEqual(loaded, expected_definitions_affectedStatus_enum)
+      assert.deepStrictEqual(loaded, expectedDefinitionsAffectedStatusEnum)
     })
   })
 
@@ -69,7 +68,7 @@ suite('test helpers: specLoader', () => {
         'bom-1.4.SNAPSHOT.schema.json',
         'affectedStatus')
       // dummy test to see if loading worked somehow ...
-      assert.deepStrictEqual(loaded, expected_definitions_affectedStatus_enum)
+      assert.deepStrictEqual(loaded, expectedDefinitionsAffectedStatusEnum)
     })
   })
 })

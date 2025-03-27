@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { default as baseCfg, globals } from './tools/code-style/eslint.config.mjs'
+import baseCfg, { globals } from './tools/code-style/eslint.config.mjs'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -36,7 +36,7 @@ export default [
   {
     name: 'project-specific',
     rules: {
-      "complexity": ["error", { "max": 15 }]
+      complexity: ['error', { max: 15 }]
     }
   },
   {
@@ -55,7 +55,7 @@ export default [
   {
     files: [
       '**/*.{test,spec}.{js,mjs,cjs,ts}',
-      'tests/**.{js,mjs,cjs,ts}'
+      'tests/**/*.{js,mjs,cjs,ts}'
     ],
     languageOptions: {
       globals: globals.mocha

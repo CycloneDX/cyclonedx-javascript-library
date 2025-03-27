@@ -104,7 +104,7 @@ suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () 
         ExternalReferenceType.VCS,
         { comment: 'as detected from PackageJson property "repository"' }
       )]
-      const data = { repository:  '../foo/bar' }
+      const data = { repository: '../foo/bar' }
       const actual = sut.makeExternalReferences(data)
       assert.deepEqual(actual, expected)
     })
@@ -114,7 +114,7 @@ suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () 
         ExternalReferenceType.VCS,
         { comment: 'as detected from PackageJson property "repository"' }
       )]
-      const data = { repository:  'git@example.com:foo/bar'}
+      const data = { repository: 'git@example.com:foo/bar' }
       const actual = sut.makeExternalReferences(data)
       assert.deepEqual(actual, expected)
     })
@@ -134,19 +134,19 @@ suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () 
         ExternalReferenceType.VCS,
         { comment: 'as detected from PackageJson property "repository"' }
       )]
-      const data = { repository:  'svn://example.com/foo/trunk' }
+      const data = { repository: 'svn://example.com/foo/trunk' }
       const actual = sut.makeExternalReferences(data)
       assert.deepEqual(actual, expected)
     })
     test('empty string', () => {
       const expected = []
-      const data = { repository:  '' }
+      const data = { repository: '' }
       const actual = sut.makeExternalReferences(data)
       assert.deepEqual(actual, expected)
     })
     test('undefined', () => {
       const expected = []
-      const data = {  }
+      const data = { }
       const actual = sut.makeExternalReferences(data)
       assert.deepEqual(actual, expected)
     })
@@ -168,7 +168,7 @@ suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () 
         ExternalReferenceType.VCS,
         { comment: 'as detected from PackageJson property "repository.url"' }
       )]
-      const data = { repository: { url: 'git@example.com:foo/bar'} }
+      const data = { repository: { url: 'git@example.com:foo/bar' } }
       const actual = sut.makeExternalReferences(data)
       assert.deepEqual(actual, expected)
     })
@@ -200,7 +200,7 @@ suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () 
     })
     test('undefined', () => {
       const expected = []
-      const data = { repository: {  } }
+      const data = { repository: { } }
       const actual = sut.makeExternalReferences(data)
       assert.deepEqual(actual, expected)
     })
@@ -222,7 +222,7 @@ suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () 
         ExternalReferenceType.VCS,
         { comment: 'as detected from PackageJson property "repository.url" and "repository.directory"' }
       )]
-      const data = { repository: { url: 'git@example.com:foo/bar', directory: 'some/other#23/dir#42'} }
+      const data = { repository: { url: 'git@example.com:foo/bar', directory: 'some/other#23/dir#42' } }
       const actual = sut.makeExternalReferences(data)
       assert.deepEqual(actual, expected)
     })

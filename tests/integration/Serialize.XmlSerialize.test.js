@@ -37,7 +37,7 @@ const { loadSerializeResult, writeSerializeResult } = require('../_data/serializ
 describe('integration.Serialize.XmlSerialize', function () {
   const expectMissingDepError = xmlStringify.fails ?? false
 
-  this.timeout(60000);
+  this.timeout(60000)
 
   Object.entries({
     complex: createComplexStructure,
@@ -100,7 +100,6 @@ describe('integration.Serialize.XmlSerialize', function () {
 
       // TODO add more tests
     }))
-
   }))
 
   describe('make bom-refs unique', () => {

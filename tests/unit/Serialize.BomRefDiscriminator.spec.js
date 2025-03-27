@@ -33,7 +33,6 @@ suite('unit: Serialize.BomRefDiscriminator', () => {
     const bomRef2 = new BomRef('foo')
     const prefix = randomString(10)
 
-
     const actual = new BomRefDiscriminator([bomRef1, bomRef2], prefix)
 
     assert.strictEqual(actual.prefix, prefix)
@@ -64,7 +63,6 @@ suite('unit: Serialize.BomRefDiscriminator', () => {
 
     assert.strictEqual(bomRef1.value, 'foo')
     assert.strictEqual(bomRef2.value, 'foo')
-
 
     const discriminator = new BomRefDiscriminator([bomRef1, bomRef2])
     discriminator.discriminate()
