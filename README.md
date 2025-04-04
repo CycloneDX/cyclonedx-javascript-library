@@ -16,6 +16,10 @@
 Core functionality of [_CycloneDX_][link_website] for _JavaScript_ (_Node.js_ or _WebBrowsers_),
 written in _TypeScript_ and compiled for the target.
 
+> [!NOTE]  
+> This package is a software library not intended for standalone use.  
+> For a list of tools and plugins for generating Software Bill of Materials (SBOM), check out the [meta-package](https://github.com/CycloneDX/cyclonedx-node-module?tab=readme-ov-file#readme).
+
 ## Responsibilities
 
 * Provide a general purpose _JavaScript_-implementation of [_CycloneDX_][link_website] for _Node.js_ and _WebBrowsers_.
