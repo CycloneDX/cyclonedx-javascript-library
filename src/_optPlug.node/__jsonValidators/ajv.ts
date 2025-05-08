@@ -21,8 +21,6 @@ import { readFile } from 'node:fs/promises'
 
 import Ajv, { type Options as AjvOptions } from 'ajv'
 import addFormats from 'ajv-formats'
-/* @ts-expect-error TS7016 */
-import addFormats2019 from 'ajv-formats-draft2019'
 
 import type { ValidationError } from '../../validation/types'
 import type { Functionality, Validator } from '../jsonValidator'
@@ -34,7 +32,6 @@ const ajvOptions: AjvOptions = Object.freeze({
   strictSchema: false,
   addUsedSchema: false
 })
-
 /** @internal */
 export default (async function (schemaPath: string, schemaMap: Record<string, string> = {}): Promise<Validator> {
   /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return -- intended */
@@ -49,10 +46,10 @@ export default (async function (schemaPath: string, schemaMap: Record<string, st
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- intended */
   const ajv = new Ajv({ ...ajvOptions, schemas })
   addFormats(ajv)
-  /* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- intended */
-  addFormats2019(ajv, { formats: ['idn-email'] })
-  // there is just no working implementation for format "iri-reference": see https://github.com/luzlab/ajv-formats-draft2019/issues/22
-  ajv.addFormat('iri-reference', true)
+  
+  // Add IDN email format - part of what was previously provided by ajv-formats-draft2019
+  // Setting to true to be permissive (IDN emails are valid emails with unicode chars)
+  ajv.addFormat('idn-email', true)
 
   const validator = ajv.compile(schema)
 
