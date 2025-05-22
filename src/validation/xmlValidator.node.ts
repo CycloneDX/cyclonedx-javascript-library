@@ -44,7 +44,6 @@ export class XmlValidator extends BaseValidator {
         if (err instanceof OptPlugError) {
           throw new MissingOptionalDependencyError(err.message, err)
         }
-        /* eslint-disable-next-line @typescript-eslint/only-throw-error -- forward */
         throw err
       }
     }
