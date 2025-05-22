@@ -65,7 +65,7 @@ jsonValidator.validate(serializedJson)
     if (err instanceof CDX.Validation.MissingOptionalDependencyError) {
       console.info('JSON validation skipped:', err)
     } else {
-      /* eslint-disable-next-line @typescript-eslint/only-throw-error -- forward */
+       
       throw err
     }
   })
@@ -87,7 +87,7 @@ xmlValidator.validate(serializedXML)
     if (err instanceof CDX.Validation.MissingOptionalDependencyError) {
       console.info('XML validation skipped:', err)
     } else {
-      /* eslint-disable-next-line @typescript-eslint/only-throw-error -- forward */
+       
       throw err
     }
   })
