@@ -45,6 +45,8 @@ jobs:
       version_plain: ${{ steps.bump.outputs.version_plain }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: write  # needed for git push
     steps:
       - name: Checkout code
         # see https://github.com/actions/checkout
