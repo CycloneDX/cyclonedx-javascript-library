@@ -28,7 +28,7 @@ on:
         default: false
         required: false
 
-permissions: write-all
+permissions: {}
 
 env:
   REPORTS_DIR: CI_reports
@@ -85,6 +85,8 @@ jobs:
     name: publish package
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      id-token: write  # Enables provenance signing via OIDC
     env:
       PACKAGE_RELEASE_TAG: ${{ github.event.inputs.prerelease == 'true' && 'unstable-prerelease' || 'latest' }}
     steps:
@@ -161,6 +163,8 @@ jobs:
     name: publish GitHub
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: write  # create a release
     env:
       ASSETS_DIR: release_assets
     steps:
