@@ -5,10 +5,7 @@
   "type": "module",
   "main": "validate.js",
   "dependencies": {
-    "@cyclonedx/cyclonedx-library": "file:../..",
-    "ajv": "^8.12.0",
-    "ajv-formats": "^3.0.1",
-    "ajv-formats-draft2019": "^1.6.1"
+    "@cyclonedx/cyclonedx-library": "file:../.."
   },
   "scripts": {
     "download": "node download.js",
