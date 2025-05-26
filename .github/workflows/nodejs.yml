@@ -512,6 +512,8 @@ jobs:
           path: dist.node
       - name: setup library
         run: npm i --ignore-scripts --omit=dev --include=optional --loglevel=silly
+      - name: setup tool
+        run: npm i --ignore-scripts --omit=dev --include=optional --loglevel=silly
         working-directory: tools/cdx-json-schema-validator
       - name: validate
         run: node tools/cdx-json-schema-validator/validate.js SECURITY.cdx.json
