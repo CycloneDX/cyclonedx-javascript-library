@@ -455,6 +455,7 @@ jobs:
         run: npm run build
         working-directory: ${{ env.EXAMPLE_DIR }}
 
+
   api-doc:
     name: api-doc ${{ matrix.target }}
     runs-on: "ubuntu-latest"
@@ -487,3 +488,31 @@ jobs:
           echo "::endgroup::"
       - name: api-doc ${{ matrix.target }}
         run: npm run api-doc:${{ matrix.target }}
+
+
+  validate-VEX-VDR:
+    needs: [ 'build' ]
+    name: validate VEX/VDR
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        # see https://github.com/actions/checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
+        # see https://github.com/actions/setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_ACTIVE_LTS }}
+      - name: fetch build artifact 'node'
+        # see https://github.com/actions/download-artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist.node
+          path: dist.node
+      - name: setup library
+        run: npm i --ignore-scripts --omit=dev --include=optional --loglevel=silly
+        working-directory: tools/cdx-json-schema-validator
+      - name: validate
+        run: node tools/cdx-json-schema-validator/validate.js SECURITY.cdx.json
+
