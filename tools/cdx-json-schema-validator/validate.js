@@ -17,28 +17,29 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import CDX from "@cyclonedx/cyclonedx-library"
-import {readFile} from 'node:fs/promises';
+import { readFile } from 'node:fs/promises'
 
-const args = process.argv.slice(2);
+import CDX from '@cyclonedx/cyclonedx-library'
+
+const args = process.argv.slice(2)
 if (args.length !== 1) {
-  console.error("missing args");
-  process.exit(1);
+  console.error('missing args')
+  process.exit(1)
 }
 const [filePath] = args
 console.debug('filePath', filePath)
 
 const json = await readFile(filePath, 'utf8')
-const data = JSON.parse(json);
+const data = JSON.parse(json)
 
-const CDX_JSON_SCHEMA_RE = /^http:\/\/cyclonedx\.org\/schema\/bom\-(\d+\.\d+)\.schema\.json$/
+const CDX_JSON_SCHEMA_RE = /^http:\/\/cyclonedx\.org\/schema\/bom-(\d+\.\d+)\.schema\.json$/
 const specVersion = data['$schema'].match(CDX_JSON_SCHEMA_RE)[1]
 const validator = new CDX.Validation.JsonStrictValidator(specVersion)
 
 const validationError = await validator.validate(json)
 if (validationError !== null) {
   console.error('validation error', validationError)
-  process.exit(2);
+  process.exit(2)
 }
 
 console.info('valid')
