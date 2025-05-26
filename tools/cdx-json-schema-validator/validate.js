@@ -26,7 +26,7 @@ if (args.length < 1) {
   console.error('missing args')
   process.exit(1)
 }
-const [filePath] = args
+const [filePath,] = args
 console.debug('filePath', filePath)
 
 const json = await readFile(filePath, 'utf8')
