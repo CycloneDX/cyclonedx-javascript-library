@@ -22,7 +22,7 @@ import { readFile } from 'node:fs/promises'
 import CDX from '@cyclonedx/cyclonedx-library'
 
 const args = process.argv.slice(2)
-if (args.length !== 1) {
+if (args.length < 1) {
   console.error('missing args')
   process.exit(1)
 }
