@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 <!-- add unreleased items here -->
+
+* Dependencies
+  * Support `libxmljs2@^0.35||0.37`, was `@0.35` (via [#])
 * Build
   * Use _TypeScript_ `v5.8.3` now, was `v5.8.2` (via [#1227])
   * Use _webpack_ `v5.99.5` now, was `v5.98.0` (via [#1229])
