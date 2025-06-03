@@ -157,7 +157,7 @@ jobs:
         node-version:
           # action based on https://github.com/actions/node-versions/releases
           # see also: https://nodejs.org/en/about/releases/
-          - "23"      # current
+          - "24"      # current
           - "22"      # active LTS
           - "20"
           - "20.18.0" # lowest supported
@@ -182,7 +182,7 @@ jobs:
           NODE_VERSION: '${{ matrix.node-version }}'
         run:
           case "$NODE_VERSION" in
-          '23' | '22')
+          '24' | '22')
             npm i -g npm@^11
             ;;
           '20' | '20.18.0')
