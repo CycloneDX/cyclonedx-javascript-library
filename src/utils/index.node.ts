@@ -21,6 +21,6 @@ export * from './index.common'
 
 // region node-specifics
 
-export * as NpmJs from './npmjs.node'
+export * as NpmjsUtility from './npmjsUtility.node'
 
 // endregion node-specifics

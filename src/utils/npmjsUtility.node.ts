@@ -83,7 +83,7 @@ export function parsePackageIntegrity (integrity: string): [HashAlgorithm, strin
 
 
 /**
- * The default repository is `https://registry.npmjs.org`.
+ * The default registry is `https://registry.npmjs.org`.
  * @see {@link https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#npm}
  */
-export const defaultRepoMatcher = /^https?:\/\/registry\.npmjs\.org(:?\/|$)/
+export const defaultRegistryMatcher = /^https?:\/\/registry\.npmjs\.org(:?\/|$)/

@@ -37,7 +37,7 @@ import { HashAlgorithm } from "../enums/hashAlogorithm";
 import type { Component } from '../models/component'
 import { ExternalReference } from '../models/externalReference'
 import { HashDictionary } from '../models/hash'
-import { defaultRepoMatcher, parsePackageIntegrity } from '../utils/npmjs.node'
+import { defaultRegistryMatcher, parsePackageIntegrity } from '../utils/npmjsUtility.node'
 import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
 
 /**
@@ -170,7 +170,7 @@ export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
     const downloadUrl = qualifiers.get(PurlQualifierNames.DownloadUrl)
     if (downloadUrl !== undefined) {
       qualifiers.delete(PurlQualifierNames.VcsUrl)
-      if (defaultRepoMatcher.test(downloadUrl)) {
+      if (defaultRegistryMatcher.test(downloadUrl)) {
         qualifiers.delete(PurlQualifierNames.DownloadUrl)
       }
     }
