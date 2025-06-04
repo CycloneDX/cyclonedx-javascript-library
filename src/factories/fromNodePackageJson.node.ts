@@ -119,8 +119,7 @@ export class ExternalReferenceFactory {
           // see https://blog.npmjs.org/post/172999548390/new-pgp-machinery
           hashes.set(...parsePackageIntegrity(integrity))
           hashSources.push(' and property "dist.integrity"')
-        } catch { /* pass */
-        }
+        } catch { /* pass */ }
       }
       if (typeof shasum === 'string' && shasum.length === 40) {
         hashes.set(HashAlgorithm["SHA-1"], shasum)
@@ -131,7 +130,7 @@ export class ExternalReferenceFactory {
         ExternalReferenceType.Distribution,
         {
           hashes,
-          comment: `as detected from npm-ls property "dist.tarball"${hashSources.join('')}`
+          comment: `as detected from manifest property "dist.tarball"${hashSources.join('')}`
         }
       )
     }
