@@ -29,12 +29,15 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { PackageURL } from 'packageurl-js'
 import { PurlQualifierNames } from 'packageurl-js'
 
-import {tryCanonicalizeGitUrl} from "../_helpers/gitUrl"
+import { tryCanonicalizeGitUrl } from "../_helpers/gitUrl"
 import { isNotUndefined } from '../_helpers/notUndefined'
 import type { PackageJson } from '../_helpers/packageJson'
 import { ExternalReferenceType } from '../enums/externalReferenceType'
+import { HashAlgorithm } from "../enums/hashAlogorithm";
 import type { Component } from '../models/component'
 import { ExternalReference } from '../models/externalReference'
+import { HashDictionary } from '../models/hash'
+import { defaultRepoMatcher, parsePackageIntegrity } from '../utils/npmjs.node'
 import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
 
 /**
@@ -47,6 +50,7 @@ export class ExternalReferenceFactory {
     try { refs.push(this.makeVcs(data)) } catch { /* pass */ }
     try { refs.push(this.makeHomepage(data)) } catch { /* pass */ }
     try { refs.push(this.makeIssueTracker(data)) } catch { /* pass */ }
+    try { refs.push(this.makeDist(data)) } catch { /* pass */ }
 
     return refs.filter(isNotUndefined)
   }
@@ -100,13 +104,38 @@ export class ExternalReferenceFactory {
       ? new ExternalReference(url, ExternalReferenceType.IssueTracker, { comment })
       : undefined
   }
-}
 
-/**
- * The default repository is `https://registry.npmjs.org`.
- * @see {@link https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#npm}
- */
-const npmDefaultRepositoryMatcher = /^https?:\/\/registry\.npmjs\.org(:?\/|$)/
+  makeDist(data: PackageJson): ExternalReference | undefined {
+    // "dist" might be used in bundled dependencies' manifests.
+    // docs: https://blog.npmjs.org/post/172999548390/new-pgp-machinery
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- acknowledged */
+    const { tarball, integrity, shasum } = data.dist ?? {}
+    if (typeof tarball === 'string') {
+      const hashes = new HashDictionary()
+      const hashSources = []
+      if (typeof integrity === 'string') {
+        try {
+          hashes.set(...parsePackageIntegrity(integrity))
+          hashSources.push(' and property "dist.integrity"')
+        } catch { /* pass */
+        }
+      }
+      if (typeof shasum === 'string' && shasum.length === 40) {
+        hashes.set(HashAlgorithm["SHA-1"], shasum)
+        hashSources.push(' and property "dist.shasum"')
+      }
+      return new ExternalReference(
+        tarball,
+        ExternalReferenceType.Distribution,
+        {
+          hashes,
+          comment: `as detected from npm-ls property "dist.tarball"${hashSources.join('')}`
+        }
+      )
+    }
+    return undefined
+  }
+}
 
 /**
  * Node-specific PackageUrlFactory.
@@ -134,13 +163,13 @@ export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
    * - "download_url" is stripped, if it is NPM's default registry ("registry.npmjs.org")
    * - "checksum" is stripped, unless a "download_url" or "vcs_url" is given.
    */
-  #finalizeQualifiers (purl: PackageURL): PackageURL {
+  #finalizeQualifiers(purl: PackageURL): PackageURL {
     const qualifiers = new Map(Object.entries(purl.qualifiers ?? {}))
 
     const downloadUrl = qualifiers.get(PurlQualifierNames.DownloadUrl)
     if (downloadUrl !== undefined) {
       qualifiers.delete(PurlQualifierNames.VcsUrl)
-      if (npmDefaultRepositoryMatcher.test(downloadUrl)) {
+      if (defaultRepoMatcher.test(downloadUrl)) {
         qualifiers.delete(PurlQualifierNames.DownloadUrl)
       }
     }

@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * `factories.FromNodePackageJson.makeExternalReferences` supports "dist" field (via [#]) 
+  * New symbols under `utils.NpmJs` (via [#]) 
+    * `defaultRepoMatcher`
+    * `parsePackageIntegrity`
+
+[#]: 
+
 ## 8.1.0 -- 2025-06-04
 
 Support for _Node.js_ v24.

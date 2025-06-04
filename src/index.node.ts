@@ -28,6 +28,7 @@ export * from './index.common'
 export * as Builders from './builders/index.node'
 export * as Factories from './factories/index.node'
 export * as Serialize from './serialize/index.node'
+export * as Utils from './utils/index.node'
 export * as Validation from './validation/index.node'
 
 /**
