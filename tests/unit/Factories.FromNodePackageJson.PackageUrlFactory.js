@@ -22,7 +22,7 @@ const assert = require('node:assert')
 const { suite, test } = require('mocha')
 
 const {
-  Factories: { FromNodePackageJson: { PackageUrlFactory }},
+  Factories: { FromNodePackageJson: { PackageUrlFactory } },
   Enums: { ComponentType, ExternalReferenceType },
   Models: { Component, ExternalReference, ExternalReferenceRepository }
 } = require('../../')
