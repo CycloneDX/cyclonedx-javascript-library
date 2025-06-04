@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 8.1.0 -- 2025-06-04
+
+Support for _Node.js_ v24.
+
 * Dependencies
   * Support `libxmljs2@0.35||^0.37`, was `@^0.35` (via [#1243])
 * Build
