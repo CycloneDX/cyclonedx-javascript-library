@@ -130,7 +130,7 @@ export class ExternalReferenceFactory {
         ExternalReferenceType.Distribution,
         {
           hashes,
-          comment: `as detected from manifest property "dist.tarball"${hashSources.join('')}`
+          comment: `as detected from PackageJson property "dist.tarball"${hashSources.join('')}`
         }
       )
     }
