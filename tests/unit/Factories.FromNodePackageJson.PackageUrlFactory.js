@@ -22,16 +22,10 @@ const assert = require('node:assert')
 const { suite, test } = require('mocha')
 
 const {
-  Factories: { FromNodePackageJson: {
-    ExternalReferenceFactory, PackageUrlFactory
-  }},
+  Factories: { FromNodePackageJson: { PackageUrlFactory }},
   Enums: { ComponentType, ExternalReferenceType },
   Models: { Component, ExternalReference, ExternalReferenceRepository }
 } = require('../../')
-
-suite('unit: Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
-  // TODO
-})
 
 suite('unit: Factories.FromNodePackageJson.PackageUrlFactory', () => {
   suite('makeFromComponent()', () => {

@@ -112,27 +112,20 @@ export class ExternalReferenceFactory {
     const { tarball, integrity, shasum } = data.dist ?? {}
     if (typeof tarball === 'string') {
       const hashes = new HashDictionary()
-      const hashSources = []
+      let comment = 'as detected from PackageJson property "dist.tarball"'
       if (typeof integrity === 'string') {
         try {
           // actually not the hash of the file, but more of an integrity-check -- lets use it anyway.
           // see https://blog.npmjs.org/post/172999548390/new-pgp-machinery
           hashes.set(...parsePackageIntegrity(integrity))
-          hashSources.push(' and property "dist.integrity"')
+          comment += ' and property "dist.integrity"'
         } catch { /* pass */ }
       }
       if (typeof shasum === 'string' && shasum.length === 40) {
         hashes.set(HashAlgorithm["SHA-1"], shasum)
-        hashSources.push(' and property "dist.shasum"')
+        comment += ' and property "dist.shasum"'
       }
-      return new ExternalReference(
-        tarball,
-        ExternalReferenceType.Distribution,
-        {
-          hashes,
-          comment: `as detected from PackageJson property "dist.tarball"${hashSources.join('')}`
-        }
-      )
+      return new ExternalReference(tarball, ExternalReferenceType.Distribution, { hashes, comment })
     }
     return undefined
   }

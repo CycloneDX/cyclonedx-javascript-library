@@ -97,6 +97,7 @@ suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () 
       assert.strictEqual(actual.length, 0)
     })
   })
+
   suite('from "repository"', () => {
     test('non-empty string', () => {
       const expected = [new ExternalReference(
@@ -267,4 +268,38 @@ suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () 
       assert.deepEqual(actual, expected)
     })
   })
+
+
+})
+
+suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
+  const factory = new ExternalReferenceFactory()
+
+  const cases = {
+    makeVcs: [
+      // TODO
+    ],
+    makeHomepage: [
+      // TODO
+    ],
+    makeIssueTracker: [
+      // TODO
+    ],
+    makeDist: [
+      // TODO
+    ],
+  }
+  cases.makeExternalReferences = [
+    // TODO
+  ]
+  for (const [func, testData] of Object.entries(cases)) {
+    suite(func, () => {
+      for (const [label, data, expected] of testData) {
+        test(label, () => {
+          const actual = factory[func](data)
+          assert.deepStrictEqual(actual, expected)
+        })
+      }
+    })
+  }
 })
