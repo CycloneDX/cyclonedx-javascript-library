@@ -321,35 +321,3 @@ suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () 
     })
   })
 })
-
-suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
-  const factory = new ExternalReferenceFactory()
-
-  const cases = {
-    makeVcs: [
-      // TODO
-    ],
-    makeHomepage: [
-      // TODO
-    ],
-    makeIssueTracker: [
-      // TODO
-    ],
-    makeDist: [
-      // TODO
-    ],
-  }
-  cases.makeExternalReferences = [
-    // TODO
-  ]
-  for (const [func, testData] of Object.entries(cases)) {
-    suite(func, () => {
-      for (const [label, data, expected] of testData) {
-        test(label, () => {
-          const actual = factory[func](data)
-          assert.deepStrictEqual(actual, expected)
-        })
-      }
-    })
-  }
-})
