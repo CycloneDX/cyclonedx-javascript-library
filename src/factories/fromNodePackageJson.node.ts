@@ -115,6 +115,8 @@ export class ExternalReferenceFactory {
       const hashSources = []
       if (typeof integrity === 'string') {
         try {
+          // actually not the hash of the file, but more of an integrity-check -- lets use it anyway.
+          // see https://blog.npmjs.org/post/172999548390/new-pgp-machinery
           hashes.set(...parsePackageIntegrity(integrity))
           hashSources.push(' and property "dist.integrity"')
         } catch { /* pass */
