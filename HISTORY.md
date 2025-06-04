@@ -7,12 +7,12 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Added
-  * `factories.FromNodePackageJson.makeExternalReferences` supports "dist" field (via [#]) 
-  * New symbols under `utils.NpmJs` (via [#]) 
+  * `factories.FromNodePackageJson.makeExternalReferences` supports "dist" field (via [#1246]) 
+  * New symbols under `utils.NpmJs` (via [#1246]) 
     * `defaultRepoMatcher`
     * `parsePackageIntegrity`
 
-[#]: 
+[#1246]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1246
 
 ## 8.1.0 -- 2025-06-04
 
