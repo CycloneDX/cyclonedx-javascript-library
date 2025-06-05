@@ -9,6 +9,13 @@ All notable changes to this project will be documented in this file.
 ## 8.2.0 -- 2025-06-05
 
 * Added
+  * Pulled SPDX license IDs v1.0-3.26.0 (via [#])
+
+[#]: 
+
+## 8.2.0 -- 2025-06-05
+
+* Added
   * `factories.FromNodePackageJson.makeExternalReferences()` supports "dist" field ([#1247] via [#1246]) 
   * New symbols under `utils.NpmjsUtility` (via [#1246]) 
     * `defaultRegistryMatcher`
