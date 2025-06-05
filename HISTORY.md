@@ -6,12 +6,12 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
-## 8.2.0 -- 2025-06-05
+## 8.3.0 -- 2025-06-05
 
 * Added
-  * Pulled SPDX license IDs v1.0-3.26.0 (via [#])
+  * Pulled SPDX license IDs v1.0-3.26.0 (via [#1248])
 
-[#]: 
+[#1248]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1248
 
 ## 8.2.0 -- 2025-06-05
 
