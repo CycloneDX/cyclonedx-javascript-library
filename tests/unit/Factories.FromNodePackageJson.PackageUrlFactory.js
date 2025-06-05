@@ -36,7 +36,7 @@ suite('unit: Factories.FromNodePackageJson.PackageUrlFactory', () => {
       assert.deepEqual(actual, 'TODO')
     })
 
-    test('strips default repo', () => {
+    test('strips default registry from qualifiers', () => {
       // see https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#npm
       const component = new Component(ComponentType.Library, 'testing', {
         externalReferences: new ExternalReferenceRepository([
@@ -58,7 +58,7 @@ suite('unit: Factories.FromNodePackageJson.PackageUrlFactory', () => {
       })
     })
 
-    test('dont strip BA repo', () => {
+    test('dont strip BA registry from qualifiers', () => {
       // regression test for https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1073
       const component = new Component(ComponentType.Library, 'testing', {
         externalReferences: new ExternalReferenceRepository([

@@ -23,6 +23,7 @@ export * from './index.common'
 
 export * as Factories from './factories/index.web'
 export * as Serialize from './serialize/index.web'
+export * as Utils from './utils/index.web'
 export * as Validation from './validation/index.web'
 
 // endregion web-specifics
