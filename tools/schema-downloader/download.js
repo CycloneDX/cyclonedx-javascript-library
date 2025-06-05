@@ -22,6 +22,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/refs/tags/1.6.1/schema/'
+const SOURCE_ROOT_LATEST = 'https://raw.githubusercontent.com/CycloneDX/specification/refs/heads/master/schema/'
 const TARGET_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'res', 'schema')
 
 const BomXsd = Object.freeze({
@@ -77,9 +78,9 @@ const BomJsonStrict = Object.freeze({
 })
 
 const OtherDownloadables = Object.freeze(Object.fromEntries([
-  [`${SOURCE_ROOT}spdx.schema.json`, join(TARGET_ROOT, 'spdx.SNAPSHOT.schema.json')],
-  [`${SOURCE_ROOT}spdx.xsd`, join(TARGET_ROOT, 'spdx.SNAPSHOT.xsd')],
-  [`${SOURCE_ROOT}jsf-0.82.schema.json`, join(TARGET_ROOT, 'jsf-0.82.SNAPSHOT.schema.json')]
+  [`${SOURCE_ROOT_LATEST}spdx.schema.json`, join(TARGET_ROOT, 'spdx.SNAPSHOT.schema.json')],
+  [`${SOURCE_ROOT_LATEST}spdx.xsd`, join(TARGET_ROOT, 'spdx.SNAPSHOT.xsd')],
+  [`${SOURCE_ROOT_LATEST}jsf-0.82.schema.json`, join(TARGET_ROOT, 'jsf-0.82.SNAPSHOT.schema.json')]
 ]))
 
 const FetchOptions = Object.freeze({ mode: 'no-cors' })
