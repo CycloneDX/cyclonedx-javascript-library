@@ -68,7 +68,7 @@ export class LicenseEvidenceFetcher {
   }
 
   * fetchAsAttachment (prefixPath: string, onError: ErrorReporter = noop): Generator<FetchedAttachmentResult> {
-    const files = this.#fs.readdirSync(prefixPath)
+    const files = this.#fs.readdirSync(prefixPath)  // may throw
     for (const file of files) {
       if (!LICENSE_FILENAME_PATTERN.test(file)) {
         continue
@@ -85,17 +85,11 @@ export class LicenseEvidenceFetcher {
       }
       try {
         yield { filePath, file, text: new Attachment(
-            this.#fs.readFileSync(filePath).toString('base64'),
-            {
-              contentType,
-              encoding: AttachmentEncoding.Base64
-            }
-          )
-        }
-      }
-      /* c8 ignore next 3 */
-      catch (e) {
-        onError(new Error(`skipped license file ${filePath}`, {cause: e}))
+            this.#fs.readFileSync(filePath).toString('base64'), // may throw
+            { contentType, encoding: AttachmentEncoding.Base64 }
+          ) }
+      } catch (cause) {
+        onError(new Error(`skipped license file ${filePath}`, {cause}))
       }
     }
   }

@@ -21,7 +21,6 @@ const assert = require('node:assert')
 
 const { suite, test } = require('mocha')
 
-
 const {
   getMimeForLicenseFile
 } = require('../../dist.node/_helpers/mime.js')
