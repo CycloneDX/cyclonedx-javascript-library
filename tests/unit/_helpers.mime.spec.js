@@ -26,7 +26,7 @@ const {
   getMimeForLicenseFile
 } = require('../../dist.node/_helpers/mime.js')
 
-suite('_helpers.mime.getMimeForLicenseFile', () => {
+suite('unit: _helpers.mime.getMimeForLicenseFile', () => {
   for (const [fileName, expected] of [
     ['LICENCE', 'text/plain'],
     ['site.html', 'text/html'],
