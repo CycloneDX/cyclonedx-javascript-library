@@ -43,7 +43,7 @@ export interface FetchResult {
 
 const LICENSE_FILENAME_PATTERN = /^(?:UN)?LICEN[CS]E|.\.LICEN[CS]E$|^NOTICE$/i
 
-type ErrorReporter = (e:Error) => void
+type ErrorReporter = (e:Error) => any
 
 /* eslint-disable-next-line @typescript-eslint/no-empty-function -- ack  */
 function noop ():void {}
@@ -85,8 +85,8 @@ export class LicenseEvidenceFetcher {
       }
       try {
         yield {
-          file,
           filePath,
+          file,
           text: new Attachment(
             this.#fs.readFileSync(filePath).toString('base64'),
             {
