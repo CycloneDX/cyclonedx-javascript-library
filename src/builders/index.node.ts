@@ -18,4 +18,3 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 export * as FromNodePackageJson from './fromNodePackageJson.node'
-export * as License from './license'
