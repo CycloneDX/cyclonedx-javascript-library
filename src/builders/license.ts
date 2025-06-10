@@ -52,12 +52,14 @@ export class LicenseEvidenceFetcher {
   readonly #fs: FsUtils
   readonly #path: PathUtils
 
+  /* eslint-disable tsdoc/syntax -- we want to use the dot-syntax - https://github.com/microsoft/tsdoc/issues/19 */
   /**
    * `fs` and `path` can be supplied, if any compatibility-layer or drop-in replacement is used.
    *
    * @param options.fs - If omitted, the native `node:fs` is used.
    * @param options.path - If omitted, the native `node:path` is used.
    */
+  /* eslint-enable tsdoc/syntax */
   constructor(options: { fs?: FsUtils, path?: PathUtils } = {}) {
     /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports -- needed */
     this.#fs = options.fs ?? require('node:fs')
