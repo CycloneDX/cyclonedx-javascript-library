@@ -35,7 +35,7 @@ suite('_helpers.mime.getMimeForLicenseFile', () => {
     ['UNKNOWN', 'text/plain'],
     ['LICENCE.MIT', 'text/plain']
   ]) {
-    test(`check fileName`, () => {
+    test(fileName, () => {
       const value = getMimeForLicenseFile(fileName)
       assert.strictEqual(value, expected)
     })
