@@ -187,7 +187,7 @@
     "test:lint": "tsc --noEmit",
     "test:standard": "npm --prefix tools/code-style exec -- eslint .",
     "cs-fix": "npm --prefix tools/code-style exec -- eslint --fix .",
-    "api-doc": "run-p --aggregate-output -lc api-doc:*",
+    "api-doc": "run-p --aggregate-output -lc api-doc:\\*",
     "api-doc:node": "npm --prefix tools/docs-gen exec -- typedoc --options ./typedoc.node.json",
     "api-doc:web": "npm --prefix tools/docs-gen exec -- typedoc --options ./typedoc.web.json"
   }
