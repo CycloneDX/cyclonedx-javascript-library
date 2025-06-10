@@ -35,9 +35,9 @@ interface PathUtils {
   join: typeof NATIVE_PATH.join
 }
 
-export interface FetchResult {
-  file: string
+export interface FetchedAttachmentResult {
   filePath: string
+  file: string
   text: Attachment
 }
 
@@ -60,14 +60,14 @@ export class LicenseEvidenceFetcher {
    * @param options.path - If omitted, the native `node:path` is used.
    */
   /* eslint-enable tsdoc/syntax */
-  constructor(options: { fs?: FsUtils, path?: PathUtils } = {}) {
+  constructor (options: { fs?: FsUtils, path?: PathUtils } = {}) {
     /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports -- needed */
     this.#fs = options.fs ?? require('node:fs')
     this.#path = options.path ?? require('node:path')
     /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports */
   }
 
-  * fetch(prefixPath: string, onError: ErrorReporter = noop): Generator<FetchResult> {
+  * fetchAsAttachment (prefixPath: string, onError: ErrorReporter = noop): Generator<FetchedAttachmentResult> {
     const files = this.#fs.readdirSync(prefixPath)
     for (const file of files) {
       if (!LICENSE_FILENAME_PATTERN.test(file)) {
@@ -84,10 +84,7 @@ export class LicenseEvidenceFetcher {
         continue
       }
       try {
-        yield {
-          filePath,
-          file,
-          text: new Attachment(
+        yield { filePath, file, text: new Attachment(
             this.#fs.readFileSync(filePath).toString('base64'),
             {
               contentType,
