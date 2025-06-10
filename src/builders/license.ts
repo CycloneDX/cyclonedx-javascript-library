@@ -17,12 +17,12 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-
 import type NATIVE_FS from 'node:fs'
 import type NATIVE_PATH from "node:path";
-import {Attachment} from '../models/attachment'
-import {AttachmentEncoding} from '../enums/attachmentEncoding'
+
 import {getMimeForLicenseFile} from '../_helpers/mime'
+import {AttachmentEncoding} from '../enums/attachmentEncoding'
+import {Attachment} from '../models/attachment'
 
 
 interface FsUtils {
@@ -45,6 +45,9 @@ const LICENSE_FILENAME_PATTERN = /^(?:UN)?LICEN[CS]E|.\.LICEN[CS]E$|^NOTICE$/i
 
 type ErrorReporter = (e:Error) => void
 
+/* eslint-disable-next-line @typescript-eslint/no-empty-function -- ack  */
+function noop ():void {}
+
 export class LicenseEvidenceFetcher {
   readonly #fs: FsUtils
   readonly #path: PathUtils
@@ -56,11 +59,13 @@ export class LicenseEvidenceFetcher {
    * @param options.path - If omitted, the native `node:path` is used.
    */
   constructor(options: { fs?: FsUtils, path?: PathUtils } = {}) {
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports -- needed */
     this.#fs = options.fs ?? require('node:fs')
     this.#path = options.path ?? require('node:path')
+    /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports */
   }
 
-  public* fetch(prefixPath: string, onError: ErrorReporter = function () {}): Generator<FetchResult> {
+  * fetch(prefixPath: string, onError: ErrorReporter = noop): Generator<FetchResult> {
     const files = this.#fs.readdirSync(prefixPath)
     for (const file of files) {
       if (!LICENSE_FILENAME_PATTERN.test(file)) {
@@ -88,7 +93,9 @@ export class LicenseEvidenceFetcher {
             }
           )
         }
-      } catch (e) {
+      }
+      /* c8 ignore next 3 */
+      catch (e) {
         onError(new Error(`skipped license file ${filePath}`, {cause: e}))
       }
     }
