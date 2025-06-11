@@ -23,7 +23,7 @@ const { suite, test } = require('mocha')
 
 const {
   getMimeForLicenseFile
-} = require('../../dist.node/_helpers/mime.js')
+} = require('../../dist.node/_helpers/mime.node.js')
 
 suite('unit: _helpers.mime.getMimeForLicenseFile', () => {
   for (const [fileName, expected] of [
