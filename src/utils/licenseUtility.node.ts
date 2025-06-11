@@ -38,7 +38,7 @@ export interface PathUtils<P extends string> {
   join: (...paths: P[]) => P
 }
 
-export interface FileAttachmentResult<P extends string> {
+export interface FileAttachment<P extends string> {
   filePath: P
   file: P
   text: Attachment
@@ -67,7 +67,7 @@ export class LicenseEvidenceGatherer<P extends string = string> {
     /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports */
   }
 
-  * getFileAttachments (prefixPath: P, onError: ErrorReporter = noop): Generator<FileAttachmentResult<P>> {
+  * getFileAttachments (prefixPath: P, onError: ErrorReporter = noop): Generator<FileAttachment<P>> {
     const files = this.#fs.readdirSync(prefixPath)  // may throw
     for (const file of files) {
       if (!LICENSE_FILENAME_PATTERN.test(file)) {
