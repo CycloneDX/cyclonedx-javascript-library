@@ -20,9 +20,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type NATIVE_FS from 'node:fs'
 import type NATIVE_PATH from "node:path";
 
-import {getMimeForLicenseFile} from '../_helpers/mime'
-import {AttachmentEncoding} from '../enums/attachmentEncoding'
-import {Attachment} from '../models/attachment'
+import { getMimeForLicenseFile } from '../_helpers/mime.node'
+import { AttachmentEncoding } from '../enums/attachmentEncoding'
+import { Attachment } from '../models/attachment'
 
 
 interface FsUtils {

@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import {parse} from 'node:path'
+import { parse as parsePath } from 'node:path'
 
 type MimeType = string
 
@@ -48,7 +48,7 @@ const LICENSE_FILENAME_EXT = new Set([
 ])
 
 export function getMimeForLicenseFile(filename: string): MimeType | undefined {
-  const {name, ext} = parse(filename.toLowerCase())
+  const {name, ext} = parsePath(filename.toLowerCase())
   return LICENSE_FILENAME_BASE.has(name) && LICENSE_FILENAME_EXT.has(ext)
     ? MIME_TEXT_PLAIN
     : MAP_TEXT_EXTENSION_MIME[ext]
