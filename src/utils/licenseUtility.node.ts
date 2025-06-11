@@ -18,39 +18,39 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type NATIVE_FS from 'node:fs'
-import type NATIVE_PATH from "node:path";
 
 import { getMimeTypeForLicenseFile } from '../_helpers/mime.node'
 import { AttachmentEncoding } from '../enums/attachmentEncoding'
 import { Attachment } from '../models/attachment'
 
+/*
+ * this module tries to be as compatible as possible - it only uses basic methods that are known to be working in all FS-abstraction-layers.
+ * In addition, we use type-vars for all PathLikes, so downstream users can utilize their implementations accordingly.
+ */
 
-interface FsUtils {
-  readdirSync: typeof NATIVE_FS.readdirSync
-  readFileSync: typeof NATIVE_FS.readFileSync
-  statSync: typeof NATIVE_FS.statSync
+export interface FsUtils<P extends string = string> {
+  readdirSync: (path: P ) => P[]
+  readFileSync: (path: P) => Buffer
+  statSync: (path: P) => NATIVE_FS.Stats
 }
 
-interface PathUtils {
-  join: typeof NATIVE_PATH.join
+export interface PathUtils<P extends string> {
+  join: (...paths: P[]) => P
 }
 
-export interface FetchedAttachmentResult {
-  filePath: string
-  file: string
+export interface FetchedAttachmentResult<P extends string> {
+  filePath: P
+  file: P
   text: Attachment
 }
 
 const LICENSE_FILENAME_PATTERN = /^(?:UN)?LICEN[CS]E|.\.LICEN[CS]E$|^NOTICE$/i
 
-type ErrorReporter = (e:Error) => any
+export type ErrorReporter = (e:Error) => any
 
-/* eslint-disable-next-line @typescript-eslint/no-empty-function -- ack  */
-function noop ():void {}
-
-export class LicenseEvidenceFetcher {
-  readonly #fs: FsUtils
-  readonly #path: PathUtils
+export class LicenseEvidenceFetcher<P extends string = string> {
+  readonly #fs: FsUtils<P>
+  readonly #path: PathUtils<P>
 
   /* eslint-disable tsdoc/syntax -- we want to use the dot-syntax - https://github.com/microsoft/tsdoc/issues/19 */
   /**
@@ -60,14 +60,14 @@ export class LicenseEvidenceFetcher {
    * @param options.path - If omitted, the native `node:path` is used.
    */
   /* eslint-enable tsdoc/syntax */
-  constructor (options: { fs?: FsUtils, path?: PathUtils } = {}) {
+  constructor (options: { fs?: FsUtils<P>, path?: PathUtils<P> } = {}) {
     /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports -- needed */
     this.#fs = options.fs ?? require('node:fs')
     this.#path = options.path ?? require('node:path')
     /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports */
   }
 
-  * fetchAsAttachment (prefixPath: string, onError: ErrorReporter = noop): Generator<FetchedAttachmentResult> {
+  * fetchAsAttachment (prefixPath: P, onError: ErrorReporter = noop): Generator<FetchedAttachmentResult<P>> {
     const files = this.#fs.readdirSync(prefixPath)  // may throw
     for (const file of files) {
       if (!LICENSE_FILENAME_PATTERN.test(file)) {
@@ -94,3 +94,8 @@ export class LicenseEvidenceFetcher {
     }
   }
 }
+
+
+
+/* eslint-disable-next-line @typescript-eslint/no-empty-function -- ack  */
+function noop ():void {}
