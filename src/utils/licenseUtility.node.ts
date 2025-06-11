@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type NATIVE_FS from 'node:fs'
+import type { Stats }  from 'node:fs'
 
 import { getMimeTypeForLicenseFile } from '../_helpers/mime.node'
 import { AttachmentEncoding } from '../enums/attachmentEncoding'
@@ -31,7 +31,7 @@ import { Attachment } from '../models/attachment'
 export interface FsUtils<P extends string> {
   readdirSync: (path: P ) => P[]
   readFileSync: (path: P) => Buffer
-  statSync: (path: P) => NATIVE_FS.Stats
+  statSync: (path: P) => Stats
 }
 
 export interface PathUtils<P extends string> {

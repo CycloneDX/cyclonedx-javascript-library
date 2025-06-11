@@ -22,7 +22,7 @@ const assert = require('node:assert')
 const { suite, test } = require('mocha')
 
 const {
-  getMimeForLicenseFile
+  getMimeTypeForLicenseFile
 } = require('../../dist.node/_helpers/mime.node.js')
 
 suite('unit: _helpers.mime.getMimeForLicenseFile', () => {
@@ -35,7 +35,7 @@ suite('unit: _helpers.mime.getMimeForLicenseFile', () => {
     ['LICENCE.MIT', 'text/plain']
   ]) {
     test(fileName, () => {
-      const value = getMimeForLicenseFile(fileName)
+      const value = getMimeTypeForLicenseFile(fileName)
       assert.strictEqual(value, expected)
     })
   }
