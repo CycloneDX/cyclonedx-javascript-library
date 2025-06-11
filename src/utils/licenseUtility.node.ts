@@ -28,7 +28,7 @@ import { Attachment } from '../models/attachment'
  * In addition, we use type-vars for all PathLikes, so downstream users can utilize their implementations accordingly.
  */
 
-export interface FsUtils<P extends string = string> {
+export interface FsUtils<P extends string> {
   readdirSync: (path: P ) => P[]
   readFileSync: (path: P) => Buffer
   statSync: (path: P) => NATIVE_FS.Stats
