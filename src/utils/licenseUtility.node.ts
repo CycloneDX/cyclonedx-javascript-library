@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type NATIVE_FS from 'node:fs'
 import type NATIVE_PATH from "node:path";
 
-import { getMimeForLicenseFile } from '../_helpers/mime.node'
+import { getMimeTypeForLicenseFile } from '../_helpers/mime.node'
 import { AttachmentEncoding } from '../enums/attachmentEncoding'
 import { Attachment } from '../models/attachment'
 
@@ -79,7 +79,7 @@ export class LicenseEvidenceFetcher {
         // Don't follow symlinks for security reasons!
         continue
       }
-      const contentType = getMimeForLicenseFile(file)
+      const contentType = getMimeTypeForLicenseFile(file)
       if (contentType === undefined) {
         continue
       }
