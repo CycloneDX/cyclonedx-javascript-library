@@ -40,8 +40,8 @@ const MAP_TEXT_EXTENSION_MIMETYPE: Readonly<Record<string, MimeType>> = {
   '.licence': MIMETYPE_TEXT_PLAIN,
 } as const
 
-const LICENSE_FILENAME_BASE = new Set(['licence', 'license'])
-const LICENSE_FILENAME_EXT = new Set([
+const LICENSE_FILENAME_BASE: Readonly<Set<string>> =  new Set(['licence', 'license'])
+const LICENSE_FILENAME_EXT: Readonly<Set<string>> = new Set([
   '.apache',
   '.bsd',
   '.gpl',
