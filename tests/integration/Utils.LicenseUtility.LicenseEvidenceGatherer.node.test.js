@@ -29,7 +29,6 @@ const {
 } = require('../../')
 
 suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
-
   test('no path -> throws', () => {
     const { fs } = memfs({ '/': {} })
     const leg = new LicenseEvidenceGatherer({ fs })
@@ -136,88 +135,87 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
     }
     assert.deepEqual(found.sort(orderByFilePath), [
       {
-        'filePath': '/LICENSE',
-        'file': 'LICENSE',
-        'text': new Attachment(
+        filePath: '/LICENSE',
+        file: 'LICENSE',
+        text: new Attachment(
           'TElDRU5TRSBmaWxlIGV4cGVjdGVk', {
-            'contentType': 'text/plain',
-            'encoding': 'base64'
+            contentType: 'text/plain',
+            encoding: AttachmentEncoding.Base64
           })
       },
       {
-        'filePath': '/LICENCE',
-        'file': 'LICENCE',
-        'text': new Attachment(
+        filePath: '/LICENCE',
+        file: 'LICENCE',
+        text: new Attachment(
           'TElDRU5DRSBmaWxlIGV4cGVjdGVk', {
-          'contentType': 'text/plain',
-          'encoding': 'base64'
-        })
+            contentType: 'text/plain',
+            encoding: AttachmentEncoding.Base64
+          })
       },
       {
-        'filePath': '/UNLICENCE',
-        'file': 'UNLICENCE',
-        'text': new Attachment(
+        filePath: '/UNLICENCE',
+        file: 'UNLICENCE',
+        text: new Attachment(
           'VU5MSUNFTkNFIGZpbGUgZXhwZWN0ZWQ=', {
-            'contentType': 'text/plain',
-            'encoding': 'base64'
+            contentType: 'text/plain',
+            encoding: AttachmentEncoding.Base64
           })
       },
       {
-        'filePath': '/UNLICENSE',
-        'file': 'UNLICENSE',
-        'text': new Attachment(
+        filePath: '/UNLICENSE',
+        file: 'UNLICENSE',
+        text: new Attachment(
           'VU5MSUNFTlNFIGZpbGUgZXhwZWN0ZWQ=', {
-            'contentType': 'text/plain',
-            'encoding': 'base64'
+            contentType: 'text/plain',
+            encoding: AttachmentEncoding.Base64
           })
       },
       {
-        'filePath': '/NOTICE',
-        'file': 'NOTICE',
-        'text': new Attachment(
+        filePath: '/NOTICE',
+        file: 'NOTICE',
+        text: new Attachment(
           'Tk9USUNFIGZpbGUgZXhwZWN0ZWQ=', {
-            'contentType': 'text/plain',
-            'encoding': 'base64'
+            contentType: 'text/plain',
+            encoding: AttachmentEncoding.Base64
           })
       },
       {
-        'filePath': '/MIT.license',
-        'file': 'MIT.license',
-        'text': new Attachment(
-          'TUlULmxpY2Vuc2UgZmlsZSBleHBlY3RlZA==',{
-            'contentType': 'text/plain',
-            'encoding': 'base64'
+        filePath: '/MIT.license',
+        file: 'MIT.license',
+        text: new Attachment(
+          'TUlULmxpY2Vuc2UgZmlsZSBleHBlY3RlZA==', {
+            contentType: 'text/plain',
+            encoding: AttachmentEncoding.Base64
           })
       },
       {
-        'filePath': '/MIT.licence',
-        'file': 'MIT.licence',
-        'text': new Attachment(
-          'TUlULmxpY2VuY2UgZmlsZSBleHBlY3RlZA==',{
-          'contentType': 'text/plain',
-          'encoding': 'base64'
-        })
+        filePath: '/MIT.licence',
+        file: 'MIT.licence',
+        text: new Attachment(
+          'TUlULmxpY2VuY2UgZmlsZSBleHBlY3RlZA==', {
+            contentType: 'text/plain',
+            encoding: AttachmentEncoding.Base64
+          })
       },
       {
-        'filePath': '/license.mit',
-        'file': 'license.mit',
-        'text': new Attachment(
+        filePath: '/license.mit',
+        file: 'license.mit',
+        text: new Attachment(
           'bGljZW5zZS5taXQgZmlsZSBleHBlY3RlZA==', {
-          'contentType': 'text/plain',
-          'encoding': 'base64'
-        })
+            contentType: 'text/plain',
+            encoding: AttachmentEncoding.Base64
+          })
       },
       {
-        'filePath': '/license.txt',
-        'file': 'license.txt',
-        'text': new Attachment(
+        filePath: '/license.txt',
+        file: 'license.txt',
+        text: new Attachment(
           'bGljZW5zZS50eHQgZmlsZSBleHBlY3RlZA==', {
-          'contentType': 'text/plain',
-          'encoding': 'base64'
-        })
+            contentType: 'text/plain',
+            encoding: AttachmentEncoding.Base64
+          })
       }
     ].sort(orderByFilePath))
     assert.deepEqual(errors, [])
   })
-
 })
