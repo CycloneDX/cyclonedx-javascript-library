@@ -17,16 +17,18 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+/**
+ * This module tries to be as compatible as possible, it only uses basic methods that are known to be working in all FileSystem abstraction-layers.
+ * In addition, we use type parameters for all `PathLike`s, so downstream users can utilize their implementations accordingly.
+ *
+ * @module
+ */
+
 import type { Stats }  from 'node:fs'
 
 import { guessMimeTypeForLicenseFile } from '../_helpers/mime.node'
 import { AttachmentEncoding } from '../enums/attachmentEncoding'
 import { Attachment } from '../models/attachment'
-
-/*
- * this module tries to be as compatible as possible - it only uses basic methods that are known to be working in all FS-abstraction-layers.
- * In addition, we use type-vars for all PathLikes, so downstream users can utilize their implementations accordingly.
- */
 
 export interface FsUtils<P extends string> {
   readdirSync: (path: P ) => P[]
