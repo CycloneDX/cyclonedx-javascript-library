@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 const assert = require('node:assert')
-const { sep} = require('node:path')
+const { sep } = require('node:path')
 
 const { memfs } = require('memfs')
 const { suite, test } = require('mocha')
@@ -30,10 +30,6 @@ const {
 } = require('../../')
 
 suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
-
-
-
-
   test('no path -> throws', () => {
     const { fs } = memfs({ '/': {} })
     const leg = new LicenseEvidenceGatherer({ fs })
