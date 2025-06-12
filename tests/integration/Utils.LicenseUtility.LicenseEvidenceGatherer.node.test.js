@@ -36,7 +36,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
       },
       {
         code: 'ENOENT',
-        message: 'ENOENT: no such file or directory, scandir \'/foo\'',
+        message: "ENOENT: no such file or directory, scandir '/foo'",
         path: '/foo',
       }
     )
