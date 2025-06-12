@@ -79,6 +79,7 @@ written in _TypeScript_ and compiled for the target.
     * `Vulnerability`, `VulnerabilityRepository`
 * Utilities for the following use cases:
   * Generate valid random SerialNumbers for `Bom.serialNumber`
+  * Gather license evidences from files (for _Node.js_ only)
 * Factories for the following use cases:
   * Create data models from any license descriptor string
   * Create `PackageURL` from `Component` data models
