@@ -60,13 +60,10 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
   })
 
   test('ignore LICENSE folder', () => {
-    // see https://reuse-standard.org/
-    const { fs } = memfs({
-      LICENSE: {
+    const { fs } = memfs({ LICENSE: {
         'MIT.txt': 'MIT License text here...',
         'GPL-3.0-or-later.txt': 'GPL-3.0-or-later License text here...'
-      }
-    })
+      } })
     const leg = new LicenseEvidenceGatherer({ fs })
     const found = Array.from(
       leg.getFileAttachments('/'))
@@ -75,12 +72,10 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
 
   test('ignore LICENSES folder', () => {
     // see https://reuse-standard.org/
-    const { fs } = memfs({
-      LICENSES: {
+    const { fs } = memfs({ LICENSES: {
         'MIT.txt': 'MIT License text here...',
         'GPL-3.0-or-later.txt': 'GPL-3.0-or-later License text here...'
-      }
-    })
+      } })
     const leg = new LicenseEvidenceGatherer({ fs })
     const found = Array.from(
       leg.getFileAttachments('/'))
@@ -89,9 +84,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
 
   test('reports unreadable files', () => {
     // see https://reuse-standard.org/
-    const { fs } = memfs({
-      '/LICENSE': 'license text here...',
-    })
+    const { fs } = memfs({ '/LICENSE': 'license text here...'})
     const expectedError = new Error(
       `skipped license file ${sep}LICENSE`,
       { cause: new Error('Custom read error: Access denied!') })
@@ -134,7 +127,6 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
   /* eslint-enable jsdoc/valid-types */
 
   test('finds licenses as expected', () => {
-    // see https://reuse-standard.org/
     const { fs } = memfs({ '/': mockedLicenses })
     const leg = new LicenseEvidenceGatherer({ fs })
     const errors = []
