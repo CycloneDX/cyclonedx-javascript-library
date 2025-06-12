@@ -17,11 +17,27 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index.common'
+const assert = require('node:assert')
 
-// region node-specifics
+const { suite, test } = require('mocha')
 
-export * as LicenseUtility from './licenseUtility.node'
-export * as NpmjsUtility from './npmjsUtility.node'
+const {
+  guessMimeTypeForLicenseFile
+} = require('../../../dist.node/_helpers/mime.node.js')
 
-// endregion node-specifics
+suite('unit: internals: helpers.mime.getMimeForLicenseFile', () => {
+  for (const [fileName, expected] of [
+    ['LICENCE', 'text/plain'],
+    ['site.html', 'text/html'],
+    ['license.md', 'text/markdown'],
+    ['info.xml', 'text/xml'],
+    ['UNKNOWN', 'text/plain'],
+    ['LICENCE.MIT', 'text/plain'],
+    ['mit.license', 'text/plain']
+  ]) {
+    test(fileName, () => {
+      const value = guessMimeTypeForLicenseFile(fileName)
+      assert.strictEqual(value, expected)
+    })
+  }
+})

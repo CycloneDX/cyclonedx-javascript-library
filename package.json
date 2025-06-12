@@ -97,6 +97,7 @@
     "c8": "^10",
     "deepmerge": "^4.2.2",
     "fast-glob": "^3.3.1",
+    "memfs": "4.17.2",
     "mocha": "11.5.0",
     "npm-run-all2": "^8",
     "rimraf": "^6",
@@ -190,7 +191,7 @@
     "test:lint": "tsc --noEmit",
     "test:standard": "npm --prefix tools/code-style exec -- eslint .",
     "cs-fix": "npm --prefix tools/code-style exec -- eslint --fix .",
-    "api-doc": "run-p --aggregate-output -lc api-doc:*",
+    "api-doc": "run-p --aggregate-output -lc api-doc:\\*",
     "api-doc:node": "npm --prefix tools/docs-gen exec -- typedoc --options ./typedoc.node.json",
     "api-doc:web": "npm --prefix tools/docs-gen exec -- typedoc --options ./typedoc.web.json"
   }
