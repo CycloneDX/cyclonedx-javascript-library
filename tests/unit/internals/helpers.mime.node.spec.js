@@ -32,7 +32,8 @@ suite('unit: internals: helpers.mime.getMimeForLicenseFile', () => {
     ['license.md', 'text/markdown'],
     ['info.xml', 'text/xml'],
     ['UNKNOWN', 'text/plain'],
-    ['LICENCE.MIT', 'text/plain']
+    ['LICENCE.MIT', 'text/plain'],
+    ['mit.license', 'text/plain']
   ]) {
     test(fileName, () => {
       const value = guessMimeTypeForLicenseFile(fileName)
