@@ -49,7 +49,7 @@ const LICENSE_FILENAME_EXT: Readonly<Set<string>> = new Set([
   // to be continued ... pullrequests welcome
 ])
 
-export function getMimeTypeForLicenseFile(filename: string): MimeType | undefined {
+export function guessMimeTypeForLicenseFile (filename: string): MimeType | undefined {
   const {name, ext} = parsePath(filename.toLowerCase())
   return LICENSE_FILENAME_BASE.has(name) && LICENSE_FILENAME_EXT.has(ext)
     ? MIMETYPE_TEXT_PLAIN

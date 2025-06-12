@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { Stats }  from 'node:fs'
 
-import { getMimeTypeForLicenseFile } from '../_helpers/mime.node'
+import { guessMimeTypeForLicenseFile } from '../_helpers/mime.node'
 import { AttachmentEncoding } from '../enums/attachmentEncoding'
 import { Attachment } from '../models/attachment'
 
@@ -79,7 +79,7 @@ export class LicenseEvidenceGatherer<P extends string = string> {
         // Don't follow symlinks for security reasons!
         continue
       }
-      const contentType = getMimeTypeForLicenseFile(file)
+      const contentType = guessMimeTypeForLicenseFile(file)
       if (contentType === undefined) {
         continue
       }
