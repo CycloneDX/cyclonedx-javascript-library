@@ -25,15 +25,15 @@ const MIMETYPE_TEXT_PLAIN: MimeType = 'text/plain'
 
 const MAP_TEXT_EXTENSION_MIMETYPE: Readonly<Record<string, MimeType>> = {
   '': MIMETYPE_TEXT_PLAIN,
-  // https://www.iana.org/assignments/media-types/media-types.xhtml
+  // https://www.iana.org/assignments/media-types/media-types.xhtml#text
   '.csv': 'text/csv',
   '.htm': 'text/html',
   '.html': 'text/html',
   '.md': 'text/markdown',
   '.txt': MIMETYPE_TEXT_PLAIN,
   '.rst': 'text/prs.fallenstein.rst',
+  '.rtf': 'text/rtf', // not `application/xml` -- our scope is text!
   '.xml': 'text/xml', // not `application/xml` -- our scope is text!
-  // to be continued ... pullrequests welcome
   // add more mime types above this line. pull-requests welcome!
   // license-specific files
   '.license': MIMETYPE_TEXT_PLAIN,
