@@ -62,8 +62,10 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
   test('ignore LICENSE folder', () => {
     // see https://reuse-standard.org/
     const { fs } = memfs({
-      '/LICENSE/MIT.txt': 'MIT License text here...',
-      '/LICENSE/GPL-3.0-or-later.txt': 'GPL-3.0-or-later License text here...'
+      LICENSE: {
+        'MIT.txt': 'MIT License text here...',
+        'GPL-3.0-or-later.txt': 'GPL-3.0-or-later License text here...'
+      }
     })
     const leg = new LicenseEvidenceGatherer({ fs })
     const found = Array.from(
@@ -74,8 +76,10 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
   test('ignore LICENSES folder', () => {
     // see https://reuse-standard.org/
     const { fs } = memfs({
-      '/LICENSES/MIT.txt': 'MIT License text here...',
-      '/LICENSES/GPL-3.0-or-later.txt': 'GPL-3.0-or-later License text here...'
+      LICENSES: {
+        'MIT.txt': 'MIT License text here...',
+        'GPL-3.0-or-later.txt': 'GPL-3.0-or-later License text here...'
+      }
     })
     const leg = new LicenseEvidenceGatherer({ fs })
     const found = Array.from(
@@ -103,22 +107,35 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
     assert.deepEqual(errors, [expectedError])
   })
 
+  const mockedLicenses = Object.freeze({
+    LICENSE: 'LICENSE file expected',
+    LICENCE: 'LICENCE file expected',
+    UNLICENSE: 'UNLICENSE file expected',
+    NOTICE: 'NOTICE file expected',
+    '---some-.licenses-below': 'unexpected file',
+    'MIT.license': 'MIT.license file expected',
+    'MIT.licence': 'MIT.licence file expected',
+    '---some-licenses.-below': 'unexpected file',
+    'license.mit': 'license.mit file expected',
+    'license.txt': 'license.txt file expected',
+    'license.js': 'license.js file unexpected',
+    'license.foo': 'license.foo file unexpected',
+  })
+
+  /* eslint-disable jsdoc/valid-types -- eslint/jsdoc does not jet known import syntax */
+  /**
+   * @param {import('../../').Utils.LicenseUtility.FileAttachment} a
+   * @param {import('../../').Utils.LicenseUtility.FileAttachment} b
+   * @return {number}
+   */
+  function orderByFilePath (a, b) {
+    return a.filePath.localeCompare(b.filePath)
+  }
+  /* eslint-enable jsdoc/valid-types */
+
   test('finds licenses as expected', () => {
     // see https://reuse-standard.org/
-    const { fs } = memfs({
-      '/LICENSE': 'LICENSE file expected',
-      '/LICENCE': 'LICENCE file expected',
-      '/UNLICENSE': 'UNLICENSE file expected',
-      '/NOTICE': 'NOTICE file expected',
-      '/---some-.licenses-below': 'unexpected file',
-      '/MIT.license': 'MIT.license file expected',
-      '/MIT.licence': 'MIT.licence file expected',
-      '/---some-licenses.-below': 'unexpected file',
-      '/license.mit': 'license.mit file expected',
-      '/license.txt': 'license.txt file expected',
-      '/license.js': 'license.js file unexpected',
-      '/license.foo': 'license.foo file unexpected',
-    })
+    const { fs } = memfs({ '/': mockedLicenses })
     const leg = new LicenseEvidenceGatherer({ fs })
     const errors = []
     const found = Array.from(
@@ -126,9 +143,6 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
         '/',
         (e) => { errors.push(e) }
       ))
-    function orderByFilePath (a, b) {
-      return a.filePath.localeCompare(b.filePath)
-    }
     assert.deepEqual(found.sort(orderByFilePath), [
       {
         filePath: `${sep}LICENSE`,
@@ -204,5 +218,13 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
       }
     ].sort(orderByFilePath))
     assert.deepEqual(errors, [])
+  })
+
+  test('does not find licenses in subfolder', () => {
+    const { fs } = memfs({ '/foo': mockedLicenses })
+    const leg = new LicenseEvidenceGatherer({ fs })
+    const found = Array.from(
+      leg.getFileAttachments('/'))
+    assert.deepEqual(found, [])
   })
 })

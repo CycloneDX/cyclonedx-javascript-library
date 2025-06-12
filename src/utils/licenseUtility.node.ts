@@ -59,13 +59,13 @@ export class LicenseEvidenceGatherer<P extends string = string> {
    * @param options.fs - If omitted, the native `node:fs` is used.
    * @param options.path - If omitted, the native `node:path` is used.
    */
-  /* eslint-enable tsdoc/syntax */
   constructor (options: { fs?: FsUtils<P>, path?: PathUtils<P> } = {}) {
     /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports -- needed */
     this.#fs = options.fs ?? require('node:fs')
     this.#path = options.path ?? require('node:path')
     /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports */
   }
+  /* eslint-enable tsdoc/syntax */
 
   * getFileAttachments (prefixPath: P, onError: ErrorReporter = noop): Generator<FileAttachment<P>> {
     const files = this.#fs.readdirSync(prefixPath)  // may throw
