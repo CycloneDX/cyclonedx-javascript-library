@@ -85,7 +85,10 @@ export class LicenseEvidenceGatherer<P extends string = string> {
       }
       try {
         yield { filePath, file, text: new Attachment(
-            this.#fs.readFileSync(filePath).toString('base64'), // may throw
+            // since we cannot be sure weather the file content is text-only, or maybe binary,
+              // we tend to base64 everything, regardless of the detected encoding.
+            this.#fs.readFileSync(filePath) // may throw
+                .toString('base64'),
             { contentType, encoding: AttachmentEncoding.Base64 }
           ) }
       } catch (cause) {
