@@ -18,6 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 const assert = require('node:assert')
+const { sep} = require('node:path')
 
 const { memfs } = require('memfs')
 const { suite, test } = require('mocha')
@@ -29,6 +30,10 @@ const {
 } = require('../../')
 
 suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
+
+
+
+
   test('no path -> throws', () => {
     const { fs } = memfs({ '/': {} })
     const leg = new LicenseEvidenceGatherer({ fs })
@@ -95,7 +100,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
       '/LICENSE': 'license text here...',
     })
     const expectedError = new Error(
-      'skipped license file /LICENSE',
+      `skipped license file ${sep}LICENSE`,
       { cause: new Error('Custom read error: Access denied!') })
     fs.readFileSync = function () { throw expectedError.cause }
     const leg = new LicenseEvidenceGatherer({ fs })
@@ -117,11 +122,14 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
       '/UNLICENSE': 'UNLICENSE file expected',
       '/UNLICENCE': 'UNLICENCE file expected',
       '/NOTICE': 'NOTICE file expected',
+      '/-some-.licenses-below': 'unexpected file',
       '/MIT.license': 'MIT.license file expected',
       '/MIT.licence': 'MIT.licence file expected',
+      '/-some-licenses.-below': 'unexpected file',
       '/license.mit': 'license.mit file expected',
       '/license.txt': 'license.txt file expected',
       '/license.js': 'license.js file unexpected',
+      '/license.foo': 'license.foo file unexpected',
     })
     const leg = new LicenseEvidenceGatherer({ fs })
     const errors = []
@@ -135,7 +143,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
     }
     assert.deepEqual(found.sort(orderByFilePath), [
       {
-        filePath: '/LICENSE',
+        filePath: `${sep}LICENSE`,
         file: 'LICENSE',
         text: new Attachment(
           'TElDRU5TRSBmaWxlIGV4cGVjdGVk', {
@@ -144,7 +152,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
           })
       },
       {
-        filePath: '/LICENCE',
+        filePath: `${sep}LICENCE`,
         file: 'LICENCE',
         text: new Attachment(
           'TElDRU5DRSBmaWxlIGV4cGVjdGVk', {
@@ -153,7 +161,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
           })
       },
       {
-        filePath: '/UNLICENCE',
+        filePath: `${sep}UNLICENCE`,
         file: 'UNLICENCE',
         text: new Attachment(
           'VU5MSUNFTkNFIGZpbGUgZXhwZWN0ZWQ=', {
@@ -162,7 +170,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
           })
       },
       {
-        filePath: '/UNLICENSE',
+        filePath: `${sep}UNLICENSE`,
         file: 'UNLICENSE',
         text: new Attachment(
           'VU5MSUNFTlNFIGZpbGUgZXhwZWN0ZWQ=', {
@@ -171,7 +179,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
           })
       },
       {
-        filePath: '/NOTICE',
+        filePath: `${sep}NOTICE`,
         file: 'NOTICE',
         text: new Attachment(
           'Tk9USUNFIGZpbGUgZXhwZWN0ZWQ=', {
@@ -180,7 +188,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
           })
       },
       {
-        filePath: '/MIT.license',
+        filePath: `${sep}MIT.license`,
         file: 'MIT.license',
         text: new Attachment(
           'TUlULmxpY2Vuc2UgZmlsZSBleHBlY3RlZA==', {
@@ -189,7 +197,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
           })
       },
       {
-        filePath: '/MIT.licence',
+        filePath: `${sep}MIT.licence`,
         file: 'MIT.licence',
         text: new Attachment(
           'TUlULmxpY2VuY2UgZmlsZSBleHBlY3RlZA==', {
@@ -198,7 +206,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
           })
       },
       {
-        filePath: '/license.mit',
+        filePath: `${sep}license.mit`,
         file: 'license.mit',
         text: new Attachment(
           'bGljZW5zZS5taXQgZmlsZSBleHBlY3RlZA==', {
@@ -207,7 +215,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
           })
       },
       {
-        filePath: '/license.txt',
+        filePath: `${sep}license.txt`,
         file: 'license.txt',
         text: new Attachment(
           'bGljZW5zZS50eHQgZmlsZSBleHBlY3RlZA==', {
