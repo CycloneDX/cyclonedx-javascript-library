@@ -6,11 +6,14 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Fixed
+  * Type exports for the web (via [#1252])
 * Added
   * New class `Utils.LicenseUtility.LicenseEvidenceGatherer` ([#1162] via [#1249])
 
 [#1162]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1162
 [#1249]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1249
+[#1252]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1252
 
 ## 8.3.0 -- 2025-06-05
 
