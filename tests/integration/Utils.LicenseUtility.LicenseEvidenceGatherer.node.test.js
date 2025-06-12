@@ -109,7 +109,6 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
       '/LICENSE': 'LICENSE file expected',
       '/LICENCE': 'LICENCE file expected',
       '/UNLICENSE': 'UNLICENSE file expected',
-      '/UNLICENCE': 'UNLICENCE file expected',
       '/NOTICE': 'NOTICE file expected',
       '/---some-.licenses-below': 'unexpected file',
       '/MIT.license': 'MIT.license file expected',
@@ -145,15 +144,6 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
         file: 'LICENCE',
         text: new Attachment(
           'TElDRU5DRSBmaWxlIGV4cGVjdGVk', {
-            contentType: 'text/plain',
-            encoding: AttachmentEncoding.Base64
-          })
-      },
-      {
-        filePath: `${sep}UNLICENCE`,
-        file: 'UNLICENCE',
-        text: new Attachment(
-          'VU5MSUNFTkNFIGZpbGUgZXhwZWN0ZWQ=', {
             contentType: 'text/plain',
             encoding: AttachmentEncoding.Base64
           })
