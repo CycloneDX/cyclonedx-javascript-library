@@ -24,7 +24,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * @module
  */
 
-import type { Stats }  from 'node:fs'
+import type { Stats } from 'node:fs'
 
 import { guessMimeTypeForLicenseFile } from '../_helpers/mime.node'
 import { AttachmentEncoding } from '../enums/attachmentEncoding'
