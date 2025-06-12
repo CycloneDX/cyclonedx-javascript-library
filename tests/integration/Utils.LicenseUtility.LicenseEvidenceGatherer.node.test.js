@@ -30,14 +30,15 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
   test('no path -> throws', () => {
     const { fs } = memfs({ '/': {} })
     const leg = new LicenseEvidenceGatherer({ fs })
-    assert.throws(() => {
-      Array.from(leg.getFileAttachments('/foo'))
-    },
-    {
-      code: 'ENOENT',
-      message: "ENOENT: no such file or directory, scandir '/foo'",
-      path: '/foo',
-    }
+    assert.throws(
+      () => {
+        Array.from(leg.getFileAttachments('/foo'))
+      },
+      {
+        code: 'ENOENT',
+        message: 'ENOENT: no such file or directory, scandir \'/foo\'',
+        path: '/foo',
+      }
     )
   })
 
