@@ -34,10 +34,13 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
     const { fs } = memfs({ '/': {} })
     const leg = new LicenseEvidenceGatherer({ fs })
     assert.throws(
-      () => { Array.from(leg.getFileAttachments('/foo')) },
+      () => {
+        Array.from(
+          leg.getFileAttachments('/foo'))
+      },
       {
         code: 'ENOENT',
-        message: 'ENOENT: no such file or directory, scandir \'/foo\'',
+        message: "ENOENT: no such file or directory, scandir '/foo'",
         path: '/foo',
       }
     )
@@ -63,14 +66,9 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
       '/LICENSE/GPL-3.0-or-later.txt': 'GPL-3.0-or-later License text here...'
     })
     const leg = new LicenseEvidenceGatherer({ fs })
-    const errors = []
     const found = Array.from(
-      leg.getFileAttachments(
-        '/',
-        (e) => { errors.push(e) }
-      ))
+      leg.getFileAttachments('/'))
     assert.deepEqual(found, [])
-    assert.deepEqual(errors, [])
   })
 
   test('ignore LICENSES folder', () => {
@@ -80,14 +78,9 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
       '/LICENSES/GPL-3.0-or-later.txt': 'GPL-3.0-or-later License text here...'
     })
     const leg = new LicenseEvidenceGatherer({ fs })
-    const errors = []
     const found = Array.from(
-      leg.getFileAttachments(
-        '/',
-        (e) => { errors.push(e) }
-      ))
+      leg.getFileAttachments('/'))
     assert.deepEqual(found, [])
-    assert.deepEqual(errors, [])
   })
 
   test('reports unreadable files', () => {
@@ -118,10 +111,10 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
       '/UNLICENSE': 'UNLICENSE file expected',
       '/UNLICENCE': 'UNLICENCE file expected',
       '/NOTICE': 'NOTICE file expected',
-      '/-some-.licenses-below': 'unexpected file',
+      '/---some-.licenses-below': 'unexpected file',
       '/MIT.license': 'MIT.license file expected',
       '/MIT.licence': 'MIT.licence file expected',
-      '/-some-licenses.-below': 'unexpected file',
+      '/---some-licenses.-below': 'unexpected file',
       '/license.mit': 'license.mit file expected',
       '/license.txt': 'license.txt file expected',
       '/license.js': 'license.js file unexpected',

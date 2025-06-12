@@ -98,8 +98,5 @@ export class LicenseEvidenceGatherer<P extends string = string> {
   }
 }
 
-
-
-/* c8 ignore next 2 */
 /* eslint-disable-next-line @typescript-eslint/no-empty-function -- ack  */
 function noop ():void {}
