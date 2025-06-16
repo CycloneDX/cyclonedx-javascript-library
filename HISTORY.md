@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 8.4.0 -- 2025-06-16
+
 * Fixed
   * Type exports for the web (via [#1252])
 * Added
