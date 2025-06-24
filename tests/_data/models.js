@@ -21,6 +21,8 @@ const { PackageURL } = require('packageurl-js')
 
 const { Enums, Models, Types } = require('../../')
 
+/* eslint-disable jsdoc/no-undefined-types -- something is odd with type detection */
+
 /**
  * @returns {Models.Bom}
  */
