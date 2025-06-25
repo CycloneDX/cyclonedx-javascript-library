@@ -1,0 +1,6 @@
+*
+!/.gitignore
+!/package.json
+!/validate.js
+!/.npmrc
+!/eslint.config.mjs
