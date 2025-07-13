@@ -52,8 +52,7 @@ export interface NodePackageJson {
 }
 
 
-/* TODO: write type assertion
 export function isNodePackageJson (value: any): value is NodePackageJson {
-  ...
+  /* TODO: write type assertion -- pullrequests welcome */
+  throw new Error("Not implemented")
 }
-*/
