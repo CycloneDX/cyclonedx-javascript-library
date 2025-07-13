@@ -62,7 +62,7 @@ export function isNodePackageJson (value: any): value is NodePackageJson {
   throw new Error('Not implemented')
   /* possible implementation:
   try { assertNodePackageJson(value) }
-  catch{ return false }
+  catch { return false }
   return true
   */
 }
