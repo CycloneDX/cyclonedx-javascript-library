@@ -53,10 +53,34 @@ export interface NodePackageJson {
 
 /**
  *
- *
  * Not implemented, yet.
- * TODO: write type assertion -- pullrequests welcome
+ * TODO: write type guard -- pull-requests welcome
+ *
+ * @alpha
  */
 export function isNodePackageJson (value: any): value is NodePackageJson {
-  throw new Error("Not implemented")
+  throw new Error('Not implemented')
+  /* possible implementation:
+  try { assertNodePackageJson(value) }
+  catch{ return false }
+  return true
+  */
+}
+
+/**
+ *
+ * Not implemented, yet.
+ * TODO: write type assertion -- pull-requests welcome
+ *
+ * @throws {@link Error} on error with qualitative error message
+ *
+ * @alpha
+ */
+export function assertNodePackageJson (value: any): asserts value is NodePackageJson {
+  throw new Error('Not implemented')
+  /* possible implementation:
+  if ( value === null || value === undefined ) { throw new Error('value not an object') }
+  if ( !(typeof value.name in ['undefined', 'string']) ) { throw new Error('unexpected name') }
+  etc...
+  */
 }
