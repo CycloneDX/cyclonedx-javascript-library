@@ -72,7 +72,7 @@ export function isNodePackageJson (value: any): value is NodePackageJson {
  * Not implemented, yet.
  * TODO: write type assertion -- pull-requests welcome
  *
- * @throws {@link Error} on error with qualitative error message
+ * @throws {@link Error} on error; includes qualitative message
  *
  * @alpha
  */
