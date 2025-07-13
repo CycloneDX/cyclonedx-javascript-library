@@ -31,12 +31,12 @@ import { PurlQualifierNames } from 'packageurl-js'
 
 import { tryCanonicalizeGitUrl } from "../_helpers/gitUrl"
 import { isNotUndefined } from '../_helpers/notUndefined'
-import type { PackageJson } from '../_helpers/packageJson'
 import { ExternalReferenceType } from '../enums/externalReferenceType'
 import { HashAlgorithm } from "../enums/hashAlogorithm";
 import type { Component } from '../models/component'
 import { ExternalReference } from '../models/externalReference'
 import { HashDictionary } from '../models/hash'
+import type { PackageJson } from '../types/packageJson'
 import { defaultRegistryMatcher, parsePackageIntegrity } from '../utils/npmjsUtility.node'
 import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
 
