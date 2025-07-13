@@ -25,7 +25,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * Normalization should be done downstream, for example
  * via [`normalize-package-data`](https://www.npmjs.com/package/normalize-package-data).
  */
-export interface PackageJson {
+export interface NodePackageJson {
   name?: string
   version?: string
   description?: string
@@ -53,7 +53,7 @@ export interface PackageJson {
 
 
 /* TODO: write type assertion
-export function isPackageJsonNode (value: any): value is PackageJsonNode {
-  return...
+export function isNodePackageJson (value: any): value is NodePackageJson {
+  ...
 }
 */
