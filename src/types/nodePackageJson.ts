@@ -51,8 +51,12 @@ export interface NodePackageJson {
   dist?: any // see https://github.com/CycloneDX/cyclonedx-node-npm/issues/1300
 }
 
-
+/**
+ *
+ *
+ * Not implemented, yet.
+ * TODO: write type assertion -- pullrequests welcome
+ */
 export function isNodePackageJson (value: any): value is NodePackageJson {
-  /* TODO: write type assertion -- pullrequests welcome */
   throw new Error("Not implemented")
 }
