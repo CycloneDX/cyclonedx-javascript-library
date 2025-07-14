@@ -2,6 +2,3 @@
 !/.gitignore
 !/package.json
 !/.npmrc
-!/tsdoc.json
-!/typedoc.json
-!/typedoc.*.json
