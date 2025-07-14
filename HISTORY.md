@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 8.5.0 -- 2025-07-14
+
 * Added
   * Public export `types.NodePackageJson`, which is the input type for various factories and builders (via [#1263])
 
