@@ -7,7 +7,6 @@
   "project": [
     "src/**!",
     "res/**!",
-    "examples/**",
     "tests/**",
     "!tests/_data/normalizeResults/**",
     "!tests/_data/schemaTestData/**"
