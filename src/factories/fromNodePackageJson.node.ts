@@ -31,12 +31,12 @@ import { PurlQualifierNames } from 'packageurl-js'
 
 import { tryCanonicalizeGitUrl } from "../_helpers/gitUrl"
 import { isNotUndefined } from '../_helpers/notUndefined'
-import type { PackageJson } from '../_helpers/packageJson'
 import { ExternalReferenceType } from '../enums/externalReferenceType'
 import { HashAlgorithm } from "../enums/hashAlogorithm";
 import type { Component } from '../models/component'
 import { ExternalReference } from '../models/externalReference'
 import { HashDictionary } from '../models/hash'
+import type { NodePackageJson } from '../types/nodePackageJson'
 import { defaultRegistryMatcher, parsePackageIntegrity } from '../utils/npmjsUtility.node'
 import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
 
@@ -44,7 +44,7 @@ import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
  * Node-specific ExternalReferenceFactory.
  */
 export class ExternalReferenceFactory {
-  makeExternalReferences (data: PackageJson): ExternalReference[] {
+  makeExternalReferences (data: NodePackageJson): ExternalReference[] {
     const refs: Array<ExternalReference | undefined> = []
 
     try { refs.push(this.makeVcs(data)) } catch { /* pass */ }
@@ -55,7 +55,7 @@ export class ExternalReferenceFactory {
     return refs.filter(isNotUndefined)
   }
 
-  makeVcs (data: PackageJson): ExternalReference | undefined {
+  makeVcs (data: NodePackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#repositoryc */
     const repository = data.repository
     let url = undefined
@@ -78,7 +78,7 @@ export class ExternalReferenceFactory {
       : new ExternalReference(url.toString(), ExternalReferenceType.VCS, { comment })
   }
 
-  makeHomepage (data: PackageJson): ExternalReference | undefined {
+  makeHomepage (data: NodePackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#homepage */
     const url = data.homepage
     return typeof url === 'string' && url.length > 0
@@ -88,7 +88,7 @@ export class ExternalReferenceFactory {
       : undefined
   }
 
-  makeIssueTracker (data: PackageJson): ExternalReference | undefined {
+  makeIssueTracker (data: NodePackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#bugs */
     const bugs = data.bugs
     let url = undefined
@@ -105,7 +105,7 @@ export class ExternalReferenceFactory {
       : undefined
   }
 
-  makeDist(data: PackageJson): ExternalReference | undefined {
+  makeDist(data: NodePackageJson): ExternalReference | undefined {
     // "dist" might be used in bundled dependencies' manifests.
     // docs: https://blog.npmjs.org/post/172999548390/new-pgp-machinery
     /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- acknowledged */

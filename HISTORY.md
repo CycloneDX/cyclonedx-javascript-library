@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * Public export `types.NodePackageJson`, which is the input type for various factories and builders (via [#1263])
+
+[#1263]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1263
+
 ## 8.4.0 -- 2025-06-16
 
 * Fixed

@@ -26,7 +26,6 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * Normalization should be done downstream, for example via [`normalize-package-data`](https://www.npmjs.com/package/normalize-package-data).
  */
 
-import type { PackageJson } from '../_helpers/packageJson'
 import { splitNameGroup } from '../_helpers/packageJson'
 import { ComponentType } from '../enums/componentType'
 import type * as Factories from '../factories/index.node'
@@ -34,6 +33,7 @@ import { Component } from '../models/component'
 import { ExternalReferenceRepository } from '../models/externalReference'
 import { LicenseRepository } from '../models/license'
 import { Tool } from '../models/tool'
+import type { NodePackageJson } from '../types/nodePackageJson'
 
 /**
  * Node-specific ToolBuilder.
@@ -51,7 +51,7 @@ export class ToolBuilder {
 
   // Current implementation does not return `undefined` yet, but it is an option for future implementation.
   // To prevent future breaking changes, it is declared to return `undefined`.
-  makeTool (data: PackageJson): Tool | undefined {
+  makeTool (data: NodePackageJson): Tool | undefined {
     const [name, vendor] = typeof data.name === 'string'
       ? splitNameGroup(data.name)
       : []
@@ -90,7 +90,7 @@ export class ComponentBuilder {
     return this.#licenseFactory
   }
 
-  makeComponent (data: PackageJson, type: ComponentType = ComponentType.Library): Component | undefined {
+  makeComponent (data: NodePackageJson, type: ComponentType = ComponentType.Library): Component | undefined {
     if (typeof data.name !== 'string') {
       return undefined
     }

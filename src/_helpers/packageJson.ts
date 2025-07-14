@@ -33,34 +33,3 @@ export function splitNameGroup (data: string): [string, string?] {
     : [data, undefined]
 }
 
-/**
- * Intended to represent normalized data structures
- * based on [PackageJson spec](https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json)
- * and explained by [PackageJson description](https://docs.npmjs.com/cli/v9/configuring-npm/package-json).
- * Normalization should be done downstream, for example via [`normalize-package-data`](https://www.npmjs.com/package/normalize-package-data).
- */
-export interface PackageJson {
-  name?: string
-  version?: string
-  description?: string
-  license?: string
-  licenses?: Array<{
-    type?: string
-    url?: string
-  }>
-  author?: string | {
-    name?: string
-    email?: string
-  }
-  bugs?: string | {
-    url?: string
-  }
-  homepage?: string
-  repository?: string | {
-    type?: string
-    url?: string
-    directory?: string
-  }
-  // ... to be continued
-  dist?: any // see https://github.com/CycloneDX/cyclonedx-node-npm/issues/1300
-}
