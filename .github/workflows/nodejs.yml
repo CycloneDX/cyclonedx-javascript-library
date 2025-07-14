@@ -148,7 +148,6 @@ jobs:
           if-no-files-found: error
 
   test-dependencies:
-    needs: [ 'build' ]
     name: test dependencies
     runs-on: ubuntu-latest
     timeout-minutes: 10
