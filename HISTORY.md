@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Build
+  * Use _webpack_ `v5.100.1` now, was `v5.99.9` (via [#1262])
+
+[#1262]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1262
+
 ## 8.5.0 -- 2025-07-14
 
 * Added
