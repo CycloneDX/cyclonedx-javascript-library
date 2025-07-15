@@ -21,8 +21,7 @@ updates:
       include: 'scope'
     open-pull-requests-limit: 999
     ignore:
-      - dependency-name: "@types/node"
-        # version is like `ts.X.Y` -- need to maintain manually
+      - dependency-name: "@types/node"  # version is like `ts.X.Y` -- need to maintain manually
     groups:
       eslint:
         patterns:
@@ -35,6 +34,9 @@ updates:
           - '@types/*-eslint'
           - '@eslint-community/*'
           - '@typescript-eslint/*'
+          - 'typescript-eslint'
+          - 'neostandard'
+          - 'globals'
       spdx:
         patterns:
           - 'spdx-*'
