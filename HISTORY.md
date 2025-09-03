@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 * Build
   * Use _TypeScript_ `v5.9.2` now, was `v5.8.3` (via [#1285])
-  * Use _webpack_ `v5.100.3` now, was `v5.99.9` (via [#1262], [#1267], [#1283])
+  * Use _webpack_ `v5.101.3` now, was `v5.99.9` (via [#1262], [#1267], [#1283])
 
 [#1262]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1262
 [#1267]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1267
