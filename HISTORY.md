@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 8.5.1 -- 2025-10-03
+
 * Build
   * Use _TypeScript_ `v5.9.2` now, was `v5.8.3` (via [#1285])
   * Use _webpack_ `v5.101.3` now, was `v5.99.9` (via [#1262], [#1267], [#1283])
