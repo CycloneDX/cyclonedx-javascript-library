@@ -44,7 +44,7 @@ jobs:
         uses: actions/checkout@v5
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           # cache: "npm"
@@ -71,7 +71,7 @@ jobs:
         uses: actions/checkout@v5
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           # cache: "npm"
@@ -98,7 +98,7 @@ jobs:
           path: dist.d
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           # cache: "npm"
@@ -157,7 +157,7 @@ jobs:
         uses: actions/checkout@v5
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           # cache: "npm"
@@ -194,7 +194,7 @@ jobs:
         uses: actions/checkout@v5
       - name: Setup Node.js ${{ matrix.node-version }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
           # do not use caching, use fresh version always, since some deps are not pinned -- since this is a library.
@@ -270,7 +270,7 @@ jobs:
         uses: actions/checkout@v5
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: setup library
@@ -348,7 +348,7 @@ jobs:
         uses: actions/checkout@v5
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: fetch build artifact 'node'
@@ -399,7 +399,7 @@ jobs:
         uses: actions/checkout@v5
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: fetch build artifact 'd'
@@ -459,7 +459,7 @@ jobs:
         uses: actions/checkout@v5
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
       - name: fetch build artifact 'node'
@@ -493,7 +493,7 @@ jobs:
         uses: actions/checkout@v5
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           # cache: "npm"
