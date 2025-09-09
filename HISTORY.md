@@ -6,14 +6,14 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
-## 8.6.0 -- 2025-10-09
+## 8.6.0 -- 2025-09-09
 
 * Changed
   * Pulled SPDX license IDs v1.0-3.27.0 (via [#1293])
 
 [#1293]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1293
 
-## 8.5.1 -- 2025-10-03
+## 8.5.1 -- 2025-09-03
 
 * Build
   * Use _TypeScript_ `v5.9.2` now, was `v5.8.3` (via [#1285])
