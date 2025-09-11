@@ -167,18 +167,26 @@ dist
 !/tsconfig.*
 !/webpack.*
 
+/examples/
+
+# ignore tests
 /test/
 /tests/
 *.spec.*
 *.test.*
 
-/examples/
-
+# ignore QA-tools and their configs
 /tools/
-eslint.*
+/eslint.*
+/knip.*
+/tsdoc.*
+/typedoc.*
 
+# ignore process reports
 /reports/
 /CI_reports/
+
+# ignore package targets
 /packed/
 /CI_packed/
 
