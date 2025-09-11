@@ -41,7 +41,7 @@ export class NamedLifecycle implements Comparable<NamedLifecycle> {
 export type Lifecycle = LifecyclePhase | NamedLifecycle
 
 export class LifecycleRepository extends Set<Lifecycle> implements Sortable<Lifecycle> {
-  static #compareItems (a: Lifecycle, b: Lifecycle): number {
+  private static _compareItems (a: Lifecycle, b: Lifecycle): number {
     if (a.constructor === b.constructor) {
       return a instanceof NamedLifecycle
         /* eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- false-positive */
@@ -53,6 +53,6 @@ export class LifecycleRepository extends Set<Lifecycle> implements Sortable<Life
   }
 
   sorted (): Lifecycle[] {
-    return Array.from(this).sort(LifecycleRepository.#compareItems)
+    return Array.from(this).sort(LifecycleRepository._compareItems)
   }
 }

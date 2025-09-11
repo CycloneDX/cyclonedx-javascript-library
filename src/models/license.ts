@@ -31,7 +31,7 @@ import type { Attachment } from './attachment'
  */
 export class LicenseExpression {
   /** @see {@link expression} */
-  #expression!: string
+  private _expression!: string
   acknowledgement?: LicenseAcknowledgement
 
   /**
@@ -42,7 +42,7 @@ export class LicenseExpression {
   }
 
   get expression (): string {
-    return this.#expression
+    return this._expression
   }
 
   /**
@@ -52,18 +52,18 @@ export class LicenseExpression {
     if (value === '') {
       throw new RangeError('value is empty string')
     }
-    this.#expression = value
+    this._expression = value
   }
 
   compare (other: LicenseExpression): number {
-    return this.#expression.localeCompare(other.#expression)
+    return this._expression.localeCompare(other._expression)
   }
 }
 
 class DisjunctiveLicenseBase {
   acknowledgement?: LicenseAcknowledgement
   text?: Attachment
-  #url?: URL | string
+  private _url?: URL | string
 
   constructor (op: OptionalDisjunctiveLicenseProperties = {}) {
     this.acknowledgement = op.acknowledgement
@@ -72,11 +72,11 @@ class DisjunctiveLicenseBase {
   }
 
   get url (): URL | string | undefined {
-    return this.#url
+    return this._url
   }
 
   set url (value: URL | string | undefined) {
-    this.#url = value === ''
+    this._url = value === ''
       ? undefined
       : value
   }
@@ -114,7 +114,7 @@ export interface OptionalSpdxLicenseProperties extends OptionalDisjunctiveLicens
  */
 export class SpdxLicense extends DisjunctiveLicenseBase {
   /** @see {@link id} */
-  #id!: SpdxId
+  private _id!: SpdxId
 
   /**
    * @throws {@link RangeError} if `id` is empy string
@@ -125,7 +125,7 @@ export class SpdxLicense extends DisjunctiveLicenseBase {
   }
 
   get id (): SpdxId {
-    return this.#id
+    return this._id
   }
 
   /**
@@ -135,11 +135,11 @@ export class SpdxLicense extends DisjunctiveLicenseBase {
     if (value === '') {
       throw new RangeError('value is empty string')
     }
-    this.#id = value
+    this._id = value
   }
 
   compare (other: SpdxLicense): number {
-    return this.#id.localeCompare(other.#id)
+    return this._id.localeCompare(other._id)
   }
 }
 
@@ -147,7 +147,7 @@ export type DisjunctiveLicense = NamedLicense | SpdxLicense
 export type License = DisjunctiveLicense | LicenseExpression
 
 export class LicenseRepository extends Set<License> implements Sortable<License> {
-  static #compareItems (a: License, b: License): number {
+  private static _compareItems (a: License, b: License): number {
     if (a.constructor === b.constructor) {
       // @ts-expect-error -- classes are from same type -> they are comparable
       return a.compare(b)
@@ -156,6 +156,6 @@ export class LicenseRepository extends Set<License> implements Sortable<License>
   }
 
   sorted (): License[] {
-    return Array.from(this).sort(LicenseRepository.#compareItems)
+    return Array.from(this).sort(LicenseRepository._compareItems)
   }
 }

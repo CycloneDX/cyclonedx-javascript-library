@@ -20,33 +20,33 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { BomRef } from '../models'
 
 export class BomRefDiscriminator {
-  readonly #originalValues: ReadonlyArray<readonly [BomRef, string | undefined]>
+  private readonly _originalValues: ReadonlyArray<readonly [BomRef, string | undefined]>
 
-  readonly #prefix: string
+  private readonly _prefix: string
 
   /* eslint-disable-next-line @typescript-eslint/no-inferrable-types -- docs */
   constructor (bomRefs: Iterable<BomRef>, prefix: string = 'BomRef') {
-    this.#originalValues = Array.from(bomRefs, r => [r, r.value])
-    this.#prefix = prefix
+    this._originalValues = Array.from(bomRefs, r => [r, r.value])
+    this._prefix = prefix
   }
 
   get prefix (): string {
-    return this.#prefix
+    return this._prefix
   }
 
   /** Iterate over the {@link BomRef}s. */
   * [Symbol.iterator] (): IterableIterator<BomRef> {
-    for (const [bomRef] of this.#originalValues) {
+    for (const [bomRef] of this._originalValues) {
       yield bomRef
     }
   }
 
   discriminate (): void {
     const knownRefValues = new Set<string>([''])
-    for (const [bomRef] of this.#originalValues) {
+    for (const [bomRef] of this._originalValues) {
       let value = bomRef.value
       if (value === undefined || knownRefValues.has(value)) {
-        value = this.#makeUniqueId()
+        value = this._makeUniqueId()
         bomRef.value = value
       }
       knownRefValues.add(value)
@@ -54,7 +54,7 @@ export class BomRefDiscriminator {
   }
 
   reset (): void {
-    for (const [bomRef, originalValue] of this.#originalValues) {
+    for (const [bomRef, originalValue] of this._originalValues) {
       bomRef.value = originalValue
     }
   }
@@ -63,9 +63,9 @@ export class BomRefDiscriminator {
    * generate a string in the format:
    * `${this.prefix}.<random-characters>.<random-characters>`
    */
-  #makeUniqueId (): string {
+  private _makeUniqueId (): string {
     return `${
-      this.#prefix
+      this._prefix
     }${
       Math.random().toString(32).substring(1)
     }${

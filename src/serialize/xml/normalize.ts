@@ -42,14 +42,14 @@ import { XmlSchema } from './types'
 
 
 export class Factory {
-  readonly #spec: Spec
+  private readonly _spec: Spec
 
   constructor (spec: Factory['spec']) {
-    this.#spec = spec
+    this._spec = spec
   }
 
   get spec (): Spec {
-    return this.#spec
+    return this._spec
   }
 
   makeForBom (): BomNormalizer {
@@ -227,7 +227,7 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
       namespace: xmlNamespace.get(this._factory.spec.version),
       attributes: {
         version: data.version,
-        serialNumber: this.#isEligibleSerialNumber(data.serialNumber)
+        serialNumber: this._isEligibleSerialNumber(data.serialNumber)
           ? data.serialNumber
           : undefined
       },
@@ -243,9 +243,9 @@ export class BomNormalizer extends BaseXmlNormalizer<Models.Bom> {
     }
   }
 
-  #isEligibleSerialNumber (v: string | undefined): boolean {
+  _isEligibleSerialNumber (v: string | undefined): boolean {
     return v !== undefined &&
-      // see https://github.com/CycloneDX/specification/blob/ef71717ae0ecb564c0b4c9536d6e9e57e35f2e69/schema/bom-1.4.xsd#L699
+      // see https://github.com/CycloneDX/specification/blob/ef71717ae0ecb564c0b4c9536d6e9e57e35f2e69/schema/bom-1.4.xsd_L699
       /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$|^\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}$/.test(v)
   }
 }
@@ -678,17 +678,17 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
   normalize (data: Models.License, options: NormalizerOptions): SimpleXml.Element {
     switch (true) {
       case data instanceof NamedLicense:
-        return this.#normalizeNamedLicense(data, options)
+        return this._normalizeNamedLicense(data, options)
       case data instanceof SpdxLicense:
         return isSupportedSpdxId(data.id)
-          ? this.#normalizeSpdxLicense(data, options)
-          : this.#normalizeNamedLicense(new NamedLicense(
+          ? this._normalizeSpdxLicense(data, options)
+          : this._normalizeNamedLicense(new NamedLicense(
             // prevent information loss -> convert to broader type
             data.id,
             { url: data.url }
           ), options)
       case data instanceof LicenseExpression:
-        return this.#normalizeLicenseExpression(data)
+        return this._normalizeLicenseExpression(data)
       /* c8 ignore start */
       default:
         // this case is expected to never happen - and therefore is undocumented
@@ -697,7 +697,7 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
     }
   }
 
-  #normalizeNamedLicense (data: Models.NamedLicense, options: NormalizerOptions): SimpleXml.Element {
+  _normalizeNamedLicense (data: Models.NamedLicense, options: NormalizerOptions): SimpleXml.Element {
     const url = escapeUri(data.url?.toString())
     return {
       type: 'element',
@@ -719,7 +719,7 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
     }
   }
 
-  #normalizeSpdxLicense (data: Models.SpdxLicense, options: NormalizerOptions): SimpleXml.Element {
+  _normalizeSpdxLicense (data: Models.SpdxLicense, options: NormalizerOptions): SimpleXml.Element {
     const url = escapeUri(data.url?.toString())
     return {
       type: 'element',
@@ -741,7 +741,7 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
     }
   }
 
-  #normalizeLicenseExpression (data: Models.LicenseExpression): SimpleXml.Element {
+  _normalizeLicenseExpression (data: Models.LicenseExpression): SimpleXml.Element {
     const elem = makeTextElement(data.expression, 'expression', normalizedString)
     elem.attributes = {
       acknowledgement: this._factory.spec.supportsLicenseAcknowledgement
@@ -764,7 +764,7 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
       if (expressions.length > 0) {
         // could have thrown {@link RangeError} when there is more than one only {@link Models.LicenseExpression | LicenseExpression}.
         // but let's be graceful and just normalize to the most relevant choice: any expression
-        return [this.#normalizeLicenseExpression(expressions[0])]
+        return [this._normalizeLicenseExpression(expressions[0])]
       }
     }
 
@@ -892,7 +892,7 @@ export class DependencyGraphNormalizer extends BaseXmlNormalizer<Models.Bom> {
 
     const normalized: Array<(SimpleXml.Element & { attributes: { ref: string } })> = []
     for (const [ref, deps] of allRefs) {
-      const dep = this.#normalizeDependency(ref, deps, allRefs, options)
+      const dep = this._normalizeDependency(ref, deps, allRefs, options)
       if (isNotUndefined(dep)) {
         normalized.push(dep)
       }
@@ -910,7 +910,7 @@ export class DependencyGraphNormalizer extends BaseXmlNormalizer<Models.Bom> {
     }
   }
 
-  #normalizeDependency (
+  _normalizeDependency (
     ref: Models.BomRef,
     deps: Models.BomRefRepository,
     allRefs: Map<Models.BomRef, Models.BomRefRepository>,
@@ -1212,9 +1212,9 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseXmlNormalizer<Mo
   normalize (data: Models.Vulnerability.AffectedVersion, options: NormalizerOptions, elementName: string): SimpleXml.Element {
     switch (true) {
       case data instanceof AffectedSingleVersion:
-        return this.#normalizeAffectedSingleVersion(data, elementName)
+        return this._normalizeAffectedSingleVersion(data, elementName)
       case data instanceof AffectedVersionRange:
-        return this.#normalizeAffectedVersionRange(data, elementName)
+        return this._normalizeAffectedVersionRange(data, elementName)
       /* c8 ignore start */
       default:
         // this case is expected to never happen - and therefore is undocumented
@@ -1223,7 +1223,7 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseXmlNormalizer<Mo
     }
   }
 
-  #normalizeAffectedSingleVersion (data: Models.Vulnerability.AffectedSingleVersion, elementName: string): SimpleXml.Element {
+  _normalizeAffectedSingleVersion (data: Models.Vulnerability.AffectedSingleVersion, elementName: string): SimpleXml.Element {
     return {
       type: 'element',
       name: elementName,
@@ -1234,7 +1234,7 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseXmlNormalizer<Mo
     }
   }
 
-  #normalizeAffectedVersionRange (data: Models.Vulnerability.AffectedVersionRange, elementName: string): SimpleXml.Element {
+  private normalizeAffectedVersionRange (data: Models.Vulnerability.AffectedVersionRange, elementName: string): SimpleXml.Element {
     return {
       type: 'element',
       name: elementName,

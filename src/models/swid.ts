@@ -41,7 +41,7 @@ export class SWID {
   url?: URL | string
 
   /** @see {@link tagVersion} */
-  #tagVersion?: NonNegativeInteger
+  private_tagVersion?: NonNegativeInteger
 
   /**
    * @throws {@link TypeError} if `op.tagVersion` is neither {@link NonNegativeInteger} nor `undefined`
@@ -57,7 +57,7 @@ export class SWID {
   }
 
   get tagVersion (): NonNegativeInteger | undefined {
-    return this.#tagVersion
+    return this._tagVersion
   }
 
   /**
@@ -67,6 +67,6 @@ export class SWID {
     if (value !== undefined && !isNonNegativeInteger(value)) {
       throw new TypeError('Not NonNegativeInteger nor undefined')
     }
-    this.#tagVersion = value
+    this._tagVersion = value
   }
 }

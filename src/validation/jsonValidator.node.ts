@@ -28,7 +28,7 @@ abstract class BaseJsonValidator extends BaseValidator {
   /** @internal */
   protected abstract _getSchemaFile (): string | undefined
 
-  #getSchemaFilePath (): string {
+  private _getSchemaFilePath (): string {
     const s = this._getSchemaFile()
     if (s === undefined) {
       throw new NotImplementedError(this.version)
@@ -36,12 +36,12 @@ abstract class BaseJsonValidator extends BaseValidator {
     return s
   }
 
-  #validatorCache?: Validator = undefined
+  private _validatorCache?: Validator = undefined
 
-  async #getValidator (): Promise<Validator> {
-    if (this.#validatorCache === undefined) {
+  private async _getValidator (): Promise<Validator> {
+    if (this._validatorCache === undefined) {
       try {
-        this.#validatorCache = await makeValidator(this.#getSchemaFilePath(), {
+        this._validatorCache = await makeValidator(this._getSchemaFilePath(), {
           'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': FILES.SPDX.JSON_SCHEMA,
           'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': FILES.JSF.JSON_SCHEMA
         })
@@ -52,7 +52,7 @@ abstract class BaseJsonValidator extends BaseValidator {
         throw err
       }
     }
-    return this.#validatorCache
+    return this._validatorCache
   }
 
   /**
@@ -67,7 +67,7 @@ abstract class BaseJsonValidator extends BaseValidator {
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError}, when a required dependency was not installed
    */
   async validate (data: string): Promise<null | ValidationError> {
-    return (await this.#getValidator())(data)
+    return (await this._getValidator())(data)
   }
 }
 export class JsonValidator extends BaseJsonValidator {

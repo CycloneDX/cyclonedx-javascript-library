@@ -41,14 +41,14 @@ import { JsonSchema } from './types'
 
 
 export class Factory {
-  readonly #spec: Spec
+  private readonly _spec: Spec
 
   constructor (spec: Factory['spec']) {
-    this.#spec = spec
+    this._spec = spec
   }
 
   get spec (): Spec {
-    return this.#spec
+    return this._spec
   }
 
   makeForBom (): BomNormalizer {
@@ -196,7 +196,7 @@ export class BomNormalizer extends BaseJsonNormalizer<Models.Bom> {
       bomFormat: 'CycloneDX',
       specVersion: this._factory.spec.version,
       version: data.version,
-      serialNumber: this.#isEligibleSerialNumber(data.serialNumber)
+      serialNumber: this._isEligibleSerialNumber(data.serialNumber)
         ? data.serialNumber
         : undefined,
       metadata: this._factory.makeForMetadata().normalize(data.metadata, options),
@@ -216,7 +216,7 @@ export class BomNormalizer extends BaseJsonNormalizer<Models.Bom> {
     }
   }
 
-  #isEligibleSerialNumber (v: string | undefined): boolean {
+  private _isEligibleSerialNumber (v: string | undefined): boolean {
     return v !== undefined &&
       // see https://github.com/CycloneDX/specification/blob/ef71717ae0ecb564c0b4c9536d6e9e57e35f2e69/schema/bom-1.4.schema.json#L39
       /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(v)
@@ -492,14 +492,14 @@ export class ComponentEvidenceNormalizer extends BaseJsonNormalizer<Models.Compo
       copyright: data.copyright.size > 0
         ? (
             options.sortLists
-              ? data.copyright.sorted().map(ComponentEvidenceNormalizer.#normalizeCopyright)
-              : Array.from(data.copyright, ComponentEvidenceNormalizer.#normalizeCopyright)
+              ? data.copyright.sorted().map(ComponentEvidenceNormalizer._normalizeCopyright)
+              : Array.from(data.copyright, ComponentEvidenceNormalizer._normalizeCopyright)
           )
         : undefined
     }
   }
 
-  static #normalizeCopyright (c: Stringable): Normalized.Copyright {
+  private static _normalizeCopyright (c: Stringable): Normalized.Copyright {
     return { text: c.toString() }
   }
 }
@@ -508,17 +508,17 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
   normalize (data: Models.License, options: NormalizerOptions): Normalized.License {
     switch (true) {
       case data instanceof NamedLicense:
-        return this.#normalizeNamedLicense(data, options)
+        return this._normalizeNamedLicense(data, options)
       case data instanceof SpdxLicense:
         return isSupportedSpdxId(data.id)
-          ? this.#normalizeSpdxLicense(data, options)
-          : this.#normalizeNamedLicense(new NamedLicense(
+          ? this._normalizeSpdxLicense(data, options)
+          : this._normalizeNamedLicense(new NamedLicense(
             // prevent information loss -> convert to broader type
             data.id,
             { url: data.url }
           ), options)
       case data instanceof LicenseExpression:
-        return this.#normalizeLicenseExpression(data)
+        return this._normalizeLicenseExpression(data)
       /* c8 ignore start */
       default:
         // this case is expected to never happen - and therefore is undocumented
@@ -527,7 +527,7 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
     }
   }
 
-  #normalizeNamedLicense (data: Models.NamedLicense, options: NormalizerOptions): Normalized.NamedLicense {
+  private _normalizeNamedLicense (data: Models.NamedLicense, options: NormalizerOptions): Normalized.NamedLicense {
     const url = escapeUri(data.url?.toString())
     return {
       license: {
@@ -545,7 +545,7 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
     }
   }
 
-  #normalizeSpdxLicense (data: Models.SpdxLicense, options: NormalizerOptions): Normalized.SpdxLicense {
+  private _normalizeSpdxLicense (data: Models.SpdxLicense, options: NormalizerOptions): Normalized.SpdxLicense {
     const url = escapeUri(data.url?.toString())
     return {
       license: {
@@ -563,7 +563,7 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
     }
   }
 
-  #normalizeLicenseExpression (data: Models.LicenseExpression): Normalized.LicenseExpression {
+  private _normalizeLicenseExpression (data: Models.LicenseExpression): Normalized.LicenseExpression {
     return {
       expression: data.expression,
       acknowledgement: this._factory.spec.supportsLicenseAcknowledgement
@@ -585,7 +585,7 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
       if (expressions.length > 0) {
         // could have thrown {@link RangeError} when there is more than one only {@link Models.LicenseExpression | LicenseExpression}.
         // but let's be graceful and just normalize to the most relevant choice: any expression
-        return [this.#normalizeLicenseExpression(expressions[0])]
+        return [this._normalizeLicenseExpression(expressions[0])]
       }
     }
 
@@ -682,7 +682,7 @@ export class DependencyGraphNormalizer extends BaseJsonNormalizer<Models.Bom> {
 
     const normalized: Normalized.Dependency[] = []
     for (const [ref, deps] of allRefs) {
-      const dep = this.#normalizeDependency(ref, deps, allRefs, options)
+      const dep = this._normalizeDependency(ref, deps, allRefs, options)
       if (isNotUndefined(dep)) {
         normalized.push(dep)
       }
@@ -695,7 +695,7 @@ export class DependencyGraphNormalizer extends BaseJsonNormalizer<Models.Bom> {
     return normalized
   }
 
-  #normalizeDependency (
+  private _normalizeDependency (
     ref: Models.BomRef,
     deps: Models.BomRefRepository,
     allRefs: Map<Models.BomRef, Models.BomRefRepository>,
@@ -889,9 +889,9 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
   normalize (data: Models.Vulnerability.AffectedVersion, options: NormalizerOptions): Normalized.Vulnerability.AffectedVersion | undefined {
     switch (true) {
       case data instanceof AffectedSingleVersion:
-        return this.#normalizeAffectedSingleVersion(data)
+        return this._normalizeAffectedSingleVersion(data)
       case data instanceof AffectedVersionRange:
-        return this.#normalizeAffectedVersionRange(data)
+        return this._normalizeAffectedVersionRange(data)
       /* c8 ignore start */
       default:
         // this case is expected to never happen - and therefore is undocumented
@@ -900,7 +900,7 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
     }
   }
 
-  #normalizeAffectedSingleVersion (data: Models.Vulnerability.AffectedSingleVersion): Normalized.Vulnerability.AffectedSingleVersion | undefined {
+  private _normalizeAffectedSingleVersion (data: Models.Vulnerability.AffectedSingleVersion): Normalized.Vulnerability.AffectedSingleVersion | undefined {
     return data.version.length < 1
       // invalid value -> cannot render
       ? undefined
@@ -910,7 +910,7 @@ export class VulnerabilityAffectedVersionNormalizer extends BaseJsonNormalizer<M
         }
   }
 
-  #normalizeAffectedVersionRange (data: Models.Vulnerability.AffectedVersionRange): Normalized.Vulnerability.AffectedVersionRange | undefined {
+  private _normalizeAffectedVersionRange (data: Models.Vulnerability.AffectedVersionRange): Normalized.Vulnerability.AffectedVersionRange | undefined {
     return data.range.length < 1
       // invalid value -> cannot render
       ? undefined

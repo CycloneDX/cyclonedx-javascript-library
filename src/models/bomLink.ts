@@ -22,7 +22,7 @@ import type { Stringable } from '../_helpers/stringable'
 
 abstract class BomLinkBase implements Stringable, Comparable<Stringable> {
   /* @ts-expect-error TS2564 */
-  #value: string
+  private _value: string
 
   /** @internal */
   protected abstract _isValid (value: any): boolean
@@ -35,7 +35,7 @@ abstract class BomLinkBase implements Stringable, Comparable<Stringable> {
   }
 
   get value (): string {
-    return this.#value
+    return this._value
   }
 
   /**
@@ -45,7 +45,7 @@ abstract class BomLinkBase implements Stringable, Comparable<Stringable> {
     if (!this._isValid(value)) {
       throw new RangeError('invalid value')
     }
-    this.#value = value
+    this._value = value
   }
 
   compare (other: Stringable): number {
@@ -64,14 +64,14 @@ abstract class BomLinkBase implements Stringable, Comparable<Stringable> {
  */
 export class BomLinkDocument extends BomLinkBase {
   /* regular expressions were taken from the CycloneDX schema definitions. */
-  static readonly #pattern = /^urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*$/
+  private static readonly _PATTERN = /^urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*$/
 
   /**
    * Whether the `value` is a valid descriptor for another BOM document.
    */
   static isValid (value: any): boolean {
     return typeof value === 'string' &&
-      this.#pattern.test(value)
+      this._PATTERN.test(value)
   }
 
   /** @internal */
@@ -87,14 +87,14 @@ export class BomLinkDocument extends BomLinkBase {
  */
 export class BomLinkElement extends BomLinkBase {
   /* regular expressions were taken from the CycloneDX schema definitions. */
-  static readonly #pattern = /^urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*#.+$/
+  private static readonly _PATTERN = /^urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[1-9][0-9]*#.+$/
 
   /**
    * Whether the `value` is a valid descriptor for an element in a BOM document.
    */
   static isValid (value: any): boolean {
     return typeof value === 'string' &&
-      this.#pattern.test(value)
+      this._PATTERN.test(value)
   }
 
   /** @internal */

@@ -29,7 +29,7 @@ import type { SimpleXml } from './xml/types'
  * Base XML serializer.
  */
 export abstract class XmlBaseSerializer extends BaseSerializer<SimpleXml.Element> {
-  readonly #normalizerFactory: NormalizerFactory
+  private readonly _normalizerFactory: NormalizerFactory
 
   /**
    * @throws {@link Spec.UnsupportedFormatError | UnsupportedFormatError} if `normalizerFactory.spec` does not support {@link Format.XML}.
@@ -40,18 +40,18 @@ export abstract class XmlBaseSerializer extends BaseSerializer<SimpleXml.Element
     }
 
     super()
-    this.#normalizerFactory = normalizerFactory
+    this._normalizerFactory = normalizerFactory
   }
 
   get normalizerFactory (): NormalizerFactory {
-    return this.#normalizerFactory
+    return this._normalizerFactory
   }
 
   protected _normalize (
     bom: Bom,
     options: NormalizerOptions = {}
   ): SimpleXml.Element {
-    return this.#normalizerFactory.makeForBom()
+    return this._normalizerFactory.makeForBom()
       .normalize(bom, options)
   }
 }

@@ -59,26 +59,26 @@ export interface _SpecProtocol {
  * @internal as this class may be affected by breaking changes without notice
  */
 export class _Spec implements _SpecProtocol {
-  readonly #version: Version
-  readonly #formats: ReadonlySet<Format>
-  readonly #componentTypes: ReadonlySet<ComponentType>
-  readonly #hashAlgorithms: ReadonlySet<HashAlgorithm>
-  readonly #hashValuePattern: RegExp
-  readonly #externalReferenceTypes: ReadonlySet<ExternalReferenceType>
-  readonly #vulnerabilityRatingMethods: ReadonlySet<Vulnerability.RatingMethod>
-  readonly #supportsDependencyGraph: boolean
-  readonly #supportsToolReferences: boolean
-  readonly #requiresComponentVersion: boolean
-  readonly #supportsProperties: boolean
-  readonly #supportsVulnerabilities: boolean
-  readonly #supportsComponentEvidence: boolean
-  readonly #supportsMetadataLifecycles: boolean
-  readonly #supportsMetadataLicenses: boolean
-  readonly #supportsMetadataProperties: boolean
-  readonly #supportsExternalReferenceHashes: boolean
-  readonly #supportsLicenseAcknowledgement: boolean
-  readonly #supportsServices: boolean
-  readonly #supportsToolsComponentsServices: boolean
+  private readonly _version: Version
+  private readonly _formats: ReadonlySet<Format>
+  private readonly _componentTypes: ReadonlySet<ComponentType>
+  private readonly _hashAlgorithms: ReadonlySet<HashAlgorithm>
+  private readonly _hashValuePattern: RegExp
+  private readonly _externalReferenceTypes: ReadonlySet<ExternalReferenceType>
+  private readonly _vulnerabilityRatingMethods: ReadonlySet<Vulnerability.RatingMethod>
+  private readonly _supportsDependencyGraph: boolean
+  private readonly _supportsToolReferences: boolean
+  private readonly _requiresComponentVersion: boolean
+  private readonly _supportsProperties: boolean
+  private readonly _supportsVulnerabilities: boolean
+  private readonly _supportsComponentEvidence: boolean
+  private readonly _supportsMetadataLifecycles: boolean
+  private readonly _supportsMetadataLicenses: boolean
+  private readonly _supportsMetadataProperties: boolean
+  private readonly _supportsExternalReferenceHashes: boolean
+  private readonly _supportsLicenseAcknowledgement: boolean
+  private readonly _supportsServices: boolean
+  private readonly _supportsToolsComponentsServices: boolean
 
   /* eslint-disable-next-line @typescript-eslint/max-params -- architectural decision */
   constructor (
@@ -103,112 +103,112 @@ export class _Spec implements _SpecProtocol {
     supportsServices: boolean,
     supportsToolsComponentsServices: boolean
   ) {
-    this.#version = version
-    this.#formats = new Set(formats)
-    this.#componentTypes = new Set(componentTypes)
-    this.#hashAlgorithms = new Set(hashAlgorithms)
-    this.#hashValuePattern = hashValuePattern
-    this.#externalReferenceTypes = new Set(externalReferenceTypes)
-    this.#supportsDependencyGraph = supportsDependencyGraph
-    this.#supportsToolReferences = supportsToolReferences
-    this.#requiresComponentVersion = requiresComponentVersion
-    this.#supportsProperties = supportsProperties
-    this.#supportsVulnerabilities = supportsVulnerabilities
-    this.#vulnerabilityRatingMethods = new Set(vulnerabilityRatingMethods)
-    this.#supportsComponentEvidence = supportsComponentEvidence
-    this.#supportsMetadataLifecycles = supportsMetadataLifecycles
-    this.#supportsMetadataLicenses = supportsMetadataLicenses
-    this.#supportsMetadataProperties = supportsMetadataProperties
-    this.#supportsExternalReferenceHashes = supportsExternalReferenceHashes
-    this.#supportsLicenseAcknowledgement = supportsLicenseAcknowledgement
-    this.#supportsServices = supportsServices
-    this.#supportsToolsComponentsServices = supportsToolsComponentsServices
+    this._version = version
+    this._formats = new Set(formats)
+    this._componentTypes = new Set(componentTypes)
+    this._hashAlgorithms = new Set(hashAlgorithms)
+    this._hashValuePattern = hashValuePattern
+    this._externalReferenceTypes = new Set(externalReferenceTypes)
+    this._supportsDependencyGraph = supportsDependencyGraph
+    this._supportsToolReferences = supportsToolReferences
+    this._requiresComponentVersion = requiresComponentVersion
+    this._supportsProperties = supportsProperties
+    this._supportsVulnerabilities = supportsVulnerabilities
+    this._vulnerabilityRatingMethods = new Set(vulnerabilityRatingMethods)
+    this._supportsComponentEvidence = supportsComponentEvidence
+    this._supportsMetadataLifecycles = supportsMetadataLifecycles
+    this._supportsMetadataLicenses = supportsMetadataLicenses
+    this._supportsMetadataProperties = supportsMetadataProperties
+    this._supportsExternalReferenceHashes = supportsExternalReferenceHashes
+    this._supportsLicenseAcknowledgement = supportsLicenseAcknowledgement
+    this._supportsServices = supportsServices
+    this._supportsToolsComponentsServices = supportsToolsComponentsServices
   }
 
   get version (): Version {
-    return this.#version
+    return this._version
   }
 
   supportsFormat (f: Format | any): boolean {
     /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- fix */
-    return this.#formats.has(f)
+    return this._formats.has(f)
   }
 
   supportsComponentType (ct: ComponentType | any): boolean {
     /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- fix */
-    return this.#componentTypes.has(ct)
+    return this._componentTypes.has(ct)
   }
 
   supportsHashAlgorithm (ha: HashAlgorithm | any): boolean {
     /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- fix */
-    return this.#hashAlgorithms.has(ha)
+    return this._hashAlgorithms.has(ha)
   }
 
   supportsHashValue (hv: HashContent | any): boolean {
     return typeof hv === 'string' &&
-        this.#hashValuePattern.test(hv)
+        this._hashValuePattern.test(hv)
   }
 
   supportsExternalReferenceType (ert: ExternalReferenceType | any): boolean {
     /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- fix */
-    return this.#externalReferenceTypes.has(ert)
+    return this._externalReferenceTypes.has(ert)
   }
 
   get supportsDependencyGraph (): boolean {
-    return this.#supportsDependencyGraph
+    return this._supportsDependencyGraph
   }
 
   get supportsToolReferences (): boolean {
-    return this.#supportsToolReferences
+    return this._supportsToolReferences
   }
 
   get requiresComponentVersion (): boolean {
-    return this.#requiresComponentVersion
+    return this._requiresComponentVersion
   }
 
   supportsProperties (): boolean {
     // currently a global allow/deny -- might work based on input, in the future
-    return this.#supportsProperties
+    return this._supportsProperties
   }
 
   get supportsVulnerabilities (): boolean {
-    return this.#supportsVulnerabilities
+    return this._supportsVulnerabilities
   }
 
   supportsVulnerabilityRatingMethod (rm: Vulnerability.RatingMethod | any): boolean {
     /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- any */
-    return this.#vulnerabilityRatingMethods.has(rm)
+    return this._vulnerabilityRatingMethods.has(rm)
   }
 
   get supportsComponentEvidence (): boolean {
-    return this.#supportsComponentEvidence
+    return this._supportsComponentEvidence
   }
 
   get supportsMetadataLifecycles (): boolean {
-    return this.#supportsMetadataLifecycles
+    return this._supportsMetadataLifecycles
   }
 
   get supportsMetadataLicenses (): boolean {
-    return this.#supportsMetadataLicenses
+    return this._supportsMetadataLicenses
   }
 
   get supportsMetadataProperties (): boolean {
-    return this.#supportsMetadataProperties
+    return this._supportsMetadataProperties
   }
 
   get supportsExternalReferenceHashes (): boolean {
-    return this.#supportsExternalReferenceHashes
+    return this._supportsExternalReferenceHashes
   }
 
   get supportsLicenseAcknowledgement (): boolean {
-    return this.#supportsLicenseAcknowledgement
+    return this._supportsLicenseAcknowledgement
   }
 
   get supportsServices (): boolean {
-    return this.#supportsServices
+    return this._supportsServices
   }
 
   get supportsToolsComponentsServices(): boolean {
-    return this.#supportsToolsComponentsServices
+    return this._supportsToolsComponentsServices
   }
 }

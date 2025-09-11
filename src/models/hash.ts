@@ -32,7 +32,7 @@ export type Hash = readonly [
 ]
 
 export class HashDictionary extends Map<Hash[0], Hash[1]> implements Sortable<Hash> {
-  static #compareItems ([a1, c1]: Hash, [a2, c2]: Hash): number {
+  private static _compareItems ([a1, c1]: Hash, [a2, c2]: Hash): number {
     /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return a1.localeCompare(a2) ||
       c1.localeCompare(c2)
@@ -40,6 +40,6 @@ export class HashDictionary extends Map<Hash[0], Hash[1]> implements Sortable<Ha
   }
 
   sorted (): Hash[] {
-    return Array.from(this.entries()).sort(HashDictionary.#compareItems)
+    return Array.from(this.entries()).sort(HashDictionary._compareItems)
   }
 }

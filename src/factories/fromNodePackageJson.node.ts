@@ -141,7 +141,7 @@ export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
     const purl = super.makeFromComponent(component, sort)
     return purl === undefined
       ? undefined
-      : this.#finalizeQualifiers(purl)
+      : this._finalizeQualifiers(purl)
   }
 
   /**
@@ -157,7 +157,7 @@ export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
    * - "download_url" is stripped, if it is NPM's default registry ("registry.npmjs.org")
    * - "checksum" is stripped, unless a "download_url" or "vcs_url" is given.
    */
-  #finalizeQualifiers(purl: PackageURL): PackageURL {
+  private finalizeQualifiers(purl: PackageURL): PackageURL {
     const qualifiers = new Map(Object.entries(purl.qualifiers ?? {}))
 
     const downloadUrl = qualifiers.get(PurlQualifierNames.DownloadUrl)

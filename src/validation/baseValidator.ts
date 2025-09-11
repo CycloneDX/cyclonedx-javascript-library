@@ -21,14 +21,14 @@ import type { Version } from '../spec'
 import type { ValidationError, Validator } from './types'
 
 export abstract class BaseValidator implements Validator {
-  readonly #version: Version
+  private readonly _version: Version
 
   constructor (version: Version) {
-    this.#version = version
+    this._version = version
   }
 
   get version (): Version {
-    return this.#version
+    return this._version
   }
 
   abstract validate (data: string): Promise<null | ValidationError>

@@ -23,14 +23,14 @@ import { ExternalReferenceType } from '../enums/externalReferenceType'
 import type { Component } from '../models/component'
 
 export class PackageUrlFactory<PurlType extends PackageURL['type'] = PackageURL['type']> {
-  readonly #type: PurlType
+  private readonly _type: PurlType
 
   constructor (type: PurlType) {
-    this.#type = type
+    this._type = type
   }
 
   get type (): PurlType {
-    return this.#type
+    return this._type
   }
 
   /* eslint-disable-next-line @typescript-eslint/no-inferrable-types -- docs */
@@ -78,7 +78,7 @@ export class PackageUrlFactory<PurlType extends PackageURL['type'] = PackageURL[
       // Do not beautify the parameters here, because that is in the domain of PackageURL and its representation.
       // No need to convert an empty "subpath" string to `undefined` and such.
       return new PackageURL(
-        this.#type,
+        this._type,
         component.group,
         component.name,
         component.version,

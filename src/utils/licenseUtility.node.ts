@@ -51,8 +51,8 @@ const LICENSE_FILENAME_PATTERN = /^(?:UN)?LICEN[CS]E|.\.LICEN[CS]E$|^NOTICE$/i
 export type ErrorReporter = (e:Error) => any
 
 export class LicenseEvidenceGatherer<P extends string = string> {
-  readonly #fs: FsUtils<P>
-  readonly #path: PathUtils<P>
+  private readonly _fs: FsUtils<P>
+  private readonly _path: PathUtils<P>
 
   /* eslint-disable tsdoc/syntax -- we want to use the dot-syntax - https://github.com/microsoft/tsdoc/issues/19 */
   /**
@@ -63,20 +63,20 @@ export class LicenseEvidenceGatherer<P extends string = string> {
    */
   constructor (options: { fs?: FsUtils<P>, path?: PathUtils<P> } = {}) {
     /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports -- needed */
-    this.#fs = options.fs ?? require('node:fs')
-    this.#path = options.path ?? require('node:path')
+    this._fs = options.fs ?? require('node:fs')
+    this._path = options.path ?? require('node:path')
     /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports */
   }
   /* eslint-enable tsdoc/syntax */
 
   * getFileAttachments (prefixPath: P, onError: ErrorReporter = noop): Generator<FileAttachment<P>> {
-    const files = this.#fs.readdirSync(prefixPath)  // may throw
+    const files = this._fs.readdirSync(prefixPath)  // may throw
     for (const file of files) {
       if (!LICENSE_FILENAME_PATTERN.test(file)) {
         continue
       }
-      const filePath = this.#path.join(prefixPath, file)
-      if (!this.#fs.statSync(filePath).isFile()) {
+      const filePath = this._path.join(prefixPath, file)
+      if (!this._fs.statSync(filePath).isFile()) {
         // Ignore all directories - they are not files :-)
         // Don't follow symlinks for security reasons!
         continue
@@ -89,7 +89,7 @@ export class LicenseEvidenceGatherer<P extends string = string> {
         yield { filePath, file, text: new Attachment(
             // since we cannot be sure weather the file content is text-only, or maybe binary,
               // we tend to base64 everything, regardless of the detected encoding.
-            this.#fs.readFileSync(filePath) // may throw
+            this._fs.readFileSync(filePath) // may throw
                 .toString('base64'),
             { contentType, encoding: AttachmentEncoding.Base64 }
           ) }

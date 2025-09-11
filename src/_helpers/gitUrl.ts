@@ -27,7 +27,7 @@ interface _sshConnStringRE_groups {
 /**
  * try to convert git connection string to actual valid URL
  */
-export function tryCanonicalizeGitUrl (value: string | undefined): URL | string | undefined {
+function tryCanonicalizeGitUrl (value: string | undefined): URL | string | undefined {
   if (value === undefined || value.length <= 0) {
     return undefined
   }
@@ -54,3 +54,8 @@ export function tryCanonicalizeGitUrl (value: string | undefined): URL | string 
 
   return value
 }
+
+export = {
+  tryCanonicalizeGitUrl
+}
+

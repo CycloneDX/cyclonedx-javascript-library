@@ -52,12 +52,12 @@ export class Service implements Comparable<Service> {
   properties: PropertyRepository
 
   /** @see {@link bomRef} */
-  readonly #bomRef: BomRef
+  private readonly _bomRef: BomRef
 
   dependencies: BomRefRepository
 
   constructor(name: Service['name'], op: OptionalServiceProperties = {}) {
-    this.#bomRef = new BomRef(op.bomRef)
+    this._bomRef = new BomRef(op.bomRef)
     this.provider = op.provider
     this.group = op.group
     this.name = name
@@ -72,7 +72,7 @@ export class Service implements Comparable<Service> {
   }
 
   get bomRef(): BomRef {
-    return this.#bomRef
+    return this._bomRef
   }
 
   compare(other: Service): number {

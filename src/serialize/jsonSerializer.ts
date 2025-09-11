@@ -29,7 +29,7 @@ import type { NormalizerOptions, SerializerOptions } from './types'
  * Multi purpose Json serializer.
  */
 export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
-  readonly #normalizerFactory: NormalizerFactory
+  private readonly _normalizerFactory: NormalizerFactory
 
   /**
    * @throws {@link Spec.UnsupportedFormatError | UnsupportedFormatError} if `normalizerFactory.spec` does not support {@link Format.JSON}.
@@ -40,18 +40,18 @@ export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
     }
 
     super()
-    this.#normalizerFactory = normalizerFactory
+    this._normalizerFactory = normalizerFactory
   }
 
   get normalizerFactory (): NormalizerFactory {
-    return this.#normalizerFactory
+    return this._normalizerFactory
   }
 
   protected _normalize (
     bom: Bom,
     options: NormalizerOptions = {}
   ): Normalized.Bom {
-    return this.#normalizerFactory.makeForBom()
+    return this._normalizerFactory.makeForBom()
       .normalize(bom, options)
   }
 

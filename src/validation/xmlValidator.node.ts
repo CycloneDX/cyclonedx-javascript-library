@@ -25,7 +25,7 @@ import { MissingOptionalDependencyError, NotImplementedError } from './errors'
 import type { ValidationError } from './types'
 
 export class XmlValidator extends BaseValidator {
-  #getSchemaFilePath (): string {
+  private _getSchemaFilePath (): string {
     const s = FILES.CDX.XML_SCHEMA[this.version]
     /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- better be safe */
     if (s === undefined) {
@@ -34,12 +34,12 @@ export class XmlValidator extends BaseValidator {
     return s
   }
 
-  #validatorCache?: Validator = undefined
+  private _validatorCache?: Validator = undefined
 
-  async #getValidator (): Promise<Validator> {
-    if (this.#validatorCache === undefined) {
+  private async _getValidator (): Promise<Validator> {
+    if (this._validatorCache === undefined) {
       try {
-        this.#validatorCache = await makeValidator(this.#getSchemaFilePath())
+        this._validatorCache = await makeValidator(this._getSchemaFilePath())
       } catch (err) {
         if (err instanceof OptPlugError) {
           throw new MissingOptionalDependencyError(err.message, err)
@@ -47,7 +47,7 @@ export class XmlValidator extends BaseValidator {
         throw err
       }
     }
-    return this.#validatorCache
+    return this._validatorCache
   }
 
   /**
@@ -62,6 +62,6 @@ export class XmlValidator extends BaseValidator {
    * - {@link Validation.MissingOptionalDependencyError | MissingOptionalDependencyError}, when a required dependency was not installed
    */
   async validate (data: string): Promise<null | ValidationError> {
-    return (await this.#getValidator())(data)
+    return (await this._getValidator())(data)
   }
 }

@@ -39,14 +39,14 @@ import type { NodePackageJson } from '../types/nodePackageJson'
  * Node-specific ToolBuilder.
  */
 export class ToolBuilder {
-  readonly #extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory
+  private readonly _extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory
 
   constructor (extRefFactory: ToolBuilder['extRefFactory']) {
-    this.#extRefFactory = extRefFactory
+    this._extRefFactory = extRefFactory
   }
 
   get extRefFactory (): Factories.FromNodePackageJson.ExternalReferenceFactory {
-    return this.#extRefFactory
+    return this._extRefFactory
   }
 
   // Current implementation does not return `undefined` yet, but it is an option for future implementation.
@@ -62,7 +62,7 @@ export class ToolBuilder {
       version: (typeof data.version === 'string')
         ? data.version
         : undefined,
-      externalReferences: new ExternalReferenceRepository(this.#extRefFactory.makeExternalReferences(data))
+      externalReferences: new ExternalReferenceRepository(this._extRefFactory.makeExternalReferences(data))
     })
   }
 }
@@ -71,23 +71,23 @@ export class ToolBuilder {
  * Node-specific ComponentBuilder.
  */
 export class ComponentBuilder {
-  readonly #extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory
-  readonly #licenseFactory: Factories.LicenseFactory
+  private readonly _extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory
+  private readonly _licenseFactory: Factories.LicenseFactory
 
   constructor (
     extRefFactory: ComponentBuilder['extRefFactory'],
     licenseFactory: ComponentBuilder['licenseFactory']
   ) {
-    this.#extRefFactory = extRefFactory
-    this.#licenseFactory = licenseFactory
+    this._extRefFactory = extRefFactory
+    this._licenseFactory = licenseFactory
   }
 
   get extRefFactory (): Factories.FromNodePackageJson.ExternalReferenceFactory {
-    return this.#extRefFactory
+    return this._extRefFactory
   }
 
   get licenseFactory (): Factories.LicenseFactory {
-    return this.#licenseFactory
+    return this._licenseFactory
   }
 
   makeComponent (data: NodePackageJson, type: ComponentType = ComponentType.Library): Component | undefined {
@@ -117,18 +117,18 @@ export class ComponentBuilder {
       ? data.version
       : undefined
 
-    const externalReferences = this.#extRefFactory.makeExternalReferences(data)
+    const externalReferences = this._extRefFactory.makeExternalReferences(data)
 
     const licenses = new LicenseRepository()
     if (typeof data.license === 'string') {
       /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#license */
-      licenses.add(this.#licenseFactory.makeFromString(data.license))
+      licenses.add(this._licenseFactory.makeFromString(data.license))
     }
     if (Array.isArray(data.licenses)) {
       /* see https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json */
       for (const licenseData of data.licenses) {
         if (typeof licenseData.type === 'string') {
-          const license = this.#licenseFactory.makeDisjunctive(licenseData.type)
+          const license = this._licenseFactory.makeDisjunctive(licenseData.type)
           license.url = typeof licenseData.url === 'string'
             ? licenseData.url
             : undefined

@@ -40,10 +40,10 @@ export class Bom {
   vulnerabilities: VulnerabilityRepository
 
   /** @see {@link version} */
-  #version: PositiveInteger = 1
+  private _version: PositiveInteger = 1
 
   /** @see {@link serialNumber} */
-  #serialNumber?: string
+  private _serialNumber?: string
 
   // Property `bomFormat` is not part of model, it is runtime information.
   // Property `specVersion` is not part of model, it is runtime information.
@@ -64,7 +64,7 @@ export class Bom {
   }
 
   get version (): PositiveInteger {
-    return this.#version
+    return this._version
   }
 
   /**
@@ -74,15 +74,15 @@ export class Bom {
     if (!isPositiveInteger(value)) {
       throw new TypeError('Not PositiveInteger')
     }
-    this.#version = value
+    this._version = value
   }
 
   get serialNumber (): string | undefined {
-    return this.#serialNumber
+    return this._serialNumber
   }
 
   set serialNumber (value: string | undefined) {
-    this.#serialNumber = value === ''
+    this._serialNumber = value === ''
       ? undefined
       : value
   }

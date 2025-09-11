@@ -119,7 +119,6 @@
       "browser": "./dist.web/lib.js",
       "default": "./dist.node/index.node.js"
     },
-    "./package.json": "./package.json",
     "./Builders": {
       "types": "./dist.d/builders/index.node.d.ts",
       "default": "./dist.node/builders/index.node.js"
@@ -159,6 +158,18 @@
     "./Validation": {
       "types": "./dist.d/validation/index.node.d.ts",
       "default": "./dist.node/validation/index.node.js"
+    },
+    "./package.json": "./package.json",
+    "./src/_*": {},
+    "./src/*": {
+      "default": "./src/*.ts",
+      "types": "./src/*.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "src/_*": [],
+      "src/*": ["src/*"]
     }
   },
   "directories": {

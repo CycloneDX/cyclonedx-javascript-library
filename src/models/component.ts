@@ -79,10 +79,10 @@ export class Component implements Comparable<Component> {
   evidence?: ComponentEvidence
 
   /** @see {@link bomRef} */
-  readonly #bomRef: BomRef
+  private readonly _bomRef: BomRef
 
   /** @see {@link cpe} */
-  #cpe?: CPE
+  private _cpe?: CPE
 
   dependencies: BomRefRepository
 
@@ -90,7 +90,7 @@ export class Component implements Comparable<Component> {
    * @throws {@link TypeError} if `op.cpe` is neither {@link CPE} nor `undefined`
    */
   constructor (type: Component['type'], name: Component['name'], op: OptionalComponentProperties = {}) {
-    this.#bomRef = new BomRef(op.bomRef)
+    this._bomRef = new BomRef(op.bomRef)
     this.type = type
     this.name = name
     this.supplier = op.supplier
@@ -115,11 +115,11 @@ export class Component implements Comparable<Component> {
   }
 
   get bomRef (): BomRef {
-    return this.#bomRef
+    return this._bomRef
   }
 
   get cpe (): CPE | undefined {
-    return this.#cpe
+    return this._cpe
   }
 
   /**
@@ -129,7 +129,7 @@ export class Component implements Comparable<Component> {
     if (value !== undefined && !isCPE(value)) {
       throw new TypeError('Not CPE nor undefined')
     }
-    this.#cpe = value
+    this._cpe = value
   }
 
   compare (other: Component): number {
@@ -141,8 +141,8 @@ export class Component implements Comparable<Component> {
     if (this.purl !== undefined && other.purl !== undefined) {
       return this.purl.toString().localeCompare(other.purl.toString())
     }
-    if (this.#cpe !== undefined && other.#cpe !== undefined) {
-      return this.#cpe.localeCompare(other.#cpe)
+    if (this._cpe !== undefined && other._cpe !== undefined) {
+      return this._cpe.localeCompare(other._cpe)
     }
     /* eslint-disable @typescript-eslint/strict-boolean-expressions -- run compares in weighted order */
     return (this.group ?? '').localeCompare(other.group ?? '') ||

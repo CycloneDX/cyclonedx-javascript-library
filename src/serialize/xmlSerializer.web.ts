@@ -30,40 +30,40 @@ export class XmlSerializer extends XmlBaseSerializer {
     normalizedBom: SimpleXml.Element,
     { space }: SerializerOptions = {}
   ): string {
-    const doc = this.#buildXmlDocument(normalizedBom)
+    const doc = this._buildXmlDocument(normalizedBom)
     // @TODO: add indention based on `space`
     return (new XMLSerializer()).serializeToString(doc)
   }
 
-  #buildXmlDocument (
+  private _buildXmlDocument (
     rootElement: SimpleXml.Element
   ): XMLDocument {
     const namespace = null
     const doc = document.implementation.createDocument(namespace, null)
-    doc.appendChild(this.#buildElement(rootElement, doc, namespace))
+    doc.appendChild(this._buildElement(rootElement, doc, namespace))
     return doc
   }
 
-  #getNS (element: SimpleXml.Element): string | null {
+  private _getNS (element: SimpleXml.Element): string | null {
     const ns = (element.namespace ?? element.attributes?.xmlns)?.toString() ?? ''
     return ns.length > 0
       ? ns
       : null
   }
 
-  #buildElement (element: SimpleXml.Element, doc: XMLDocument, parentNS: string | null): Element {
-    const ns = this.#getNS(element) ?? parentNS
+  private_buildElement (element: SimpleXml.Element, doc: XMLDocument, parentNS: string | null): Element {
+    const ns = this._getNS(element) ?? parentNS
     const node: Element = doc.createElementNS(ns, element.name)
     if (isNotUndefined(element.attributes)) {
-      this.#setAttributes(node, element.attributes)
+      this._setAttributes(node, element.attributes)
     }
     if (isNotUndefined(element.children)) {
-      this.#addChildren(node, element.children, ns)
+      this._addChildren(node, element.children, ns)
     }
     return node
   }
 
-  #setAttributes (node: Element, attributes: SimpleXml.ElementAttributes): void {
+  private _setAttributes (node: Element, attributes: SimpleXml.ElementAttributes): void {
     for (const [name, value] of Object.entries(attributes)) {
       if (isNotUndefined(value) && name !== 'xmlns') {
         // reminder: cannot change a namespace(xmlns) after the fact.
@@ -72,7 +72,7 @@ export class XmlSerializer extends XmlBaseSerializer {
     }
   }
 
-  #addChildren (node: Element, children: SimpleXml.ElementChildren, parentNS: string | null = null): void {
+  private _addChildren (node: Element, children: SimpleXml.ElementChildren, parentNS: string | null = null): void {
     if (children === undefined) {
       return
     }
@@ -85,7 +85,7 @@ export class XmlSerializer extends XmlBaseSerializer {
     const doc = node.ownerDocument
     for (const child of children) {
       if (child.type === 'element') {
-        node.appendChild(this.#buildElement(child, doc, parentNS))
+        node.appendChild(this._buildElement(child, doc, parentNS))
       }
       // comments are not implemented, yet
     }

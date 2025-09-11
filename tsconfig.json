@@ -103,7 +103,11 @@
     /* Completeness */
     "skipDefaultLibCheck": false,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     // needed for https://github.com/oozcitak/util/issues/13
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+    // Recommended Options
+    "verbatimModuleSyntax": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
   },
   "exclude": [
     "node_modules",
