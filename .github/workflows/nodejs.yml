@@ -276,12 +276,13 @@ jobs:
       - name: setup library
         run: |
           set -ex
+          dev_constraints=' npm-run-all2 c8 mocha fast-glob rimraf '
           echo "::group::install prod"
           npm i --ignore-scripts --omit=optional --omit=dev --loglevel=silly
           echo "::endgroup::"
-          echo "::endgroup::install dev"
+          echo "::group::install dev"
           ## install the needed dev-deps
-          npm i --ignore-scripts --omit=optional --no-save --loglevel=silly mocha c8 npm-run-all2 fast-glob
+          npm i --ignore-scripts --omit=optional --no-save --loglevel=silly $dev_constraints
           echo "::endgroup::"
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
