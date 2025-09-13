@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "example",
+  "name": "@cyclonedx/cyclonedx-library-examples-web-parcel",
   "license": "Apache-2.0",
   "source": "src/index.html",
   "dependencies": {
