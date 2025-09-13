@@ -120,9 +120,9 @@ pnpm add github:CycloneDX/cyclonedx-javascript-library
 yarn add @cyclonedx/cyclonedx-library@github:CycloneDX/cyclonedx-javascript-library # only with yarn-2
 ```
 
-## Optional Dependencies
+## Optional Peer Dependencies
 
-Some dependencies are optional.
+Some peer dependencies are optional.
 See the shipped `package.json` for version constraints.
 
 * Serialization to XML on _Node.js_ requires any of:

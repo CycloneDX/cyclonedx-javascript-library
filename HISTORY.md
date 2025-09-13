@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* BREAKING Changes
+  * Optional dependencies became optional peer dependencies (via [#1295])
+* Added
+  * Give downstream users control over optional dependencies ([#1294] via [#1295])
+
+[#1294]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1294
+[#1295]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1295
+
 ## 8.6.0 -- 2025-09-09
 
 * Changed

@@ -5,5 +5,11 @@
   "dependencies": {
     "@cyclonedx/cyclonedx-library": "file:../../..",
     "xmlbuilder2": "^3.0.2"
+  },
+  "optionalDependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^3.0.1",
+    "ajv-formats-draft2019": "^1.6.1",
+    "libxmljs2": "^0.35||^0.37"
   }
 }
