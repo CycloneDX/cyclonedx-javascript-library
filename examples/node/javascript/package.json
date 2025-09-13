@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "example",
+  "name": "@cyclonedx/cyclonedx-library-examples-node-javascript",
   "license": "Apache-2.0",
   "dependencies": {
     "@cyclonedx/cyclonedx-library": "file:../../..",
