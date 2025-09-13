@@ -1,6 +1,7 @@
 *
 !/.gitignore
 !/package.json
+!/.npmrc
 !/webpack.json
 !/src/
 !/src/**

@@ -1,6 +1,7 @@
 *
 !/.gitignore
 !/package.json
+!/.npmrc
 !/tsconfig.json
 !/src
 !/src/**
