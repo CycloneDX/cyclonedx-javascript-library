@@ -106,17 +106,6 @@ jobs:
       - name: setup project
         run: |
           npm install --ignore-scripts --include=optional --loglevel=silly
-      - name: setup examples
-        run: |
-          echo "::group::install example javascript"
-          npm run -- dev-setup:examples:js     --ignore-scripts --loglevel=silly
-          echo "::endgroup::"
-          echo "::group::install example typescript cjs"
-          npm run -- dev-setup:examples:ts-cjs --ignore-scripts --loglevel=silly
-          echo "::endgroup::"
-          echo "::group::install examples typescript mjs"
-          npm run -- dev-setup:examples:ts-mjs --ignore-scripts --loglevel=silly
-          echo "::endgroup::"
       - name: setup tools
         run: |
           echo "::group::install docs-gen deps"
