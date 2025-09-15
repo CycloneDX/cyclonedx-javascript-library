@@ -213,7 +213,6 @@
     "test:node": "c8 mocha -p",
     "test:web": "node -e 'console.log(\"TODO: write web test\")'",
     "test:lint": "tsc --noEmit",
-    "pretest:standard": "npm run dev-setup:examples",
     "test:standard": "npm --prefix tools/code-style exec -- eslint .",
     "test:dependencies": "npm --prefix tools/test-dependencies exec -- knip --include dependencies,unlisted,unresolved --production",
     "cs-fix": "npm --prefix tools/code-style exec -- eslint --fix .",
