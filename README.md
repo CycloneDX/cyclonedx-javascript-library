@@ -122,8 +122,7 @@ yarn add @cyclonedx/cyclonedx-library@github:CycloneDX/cyclonedx-javascript-libr
 
 ## Optional Peer Dependencies
 
-Some peer dependencies are optional.
-See the shipped `package.json` for version constraints.
+Some features require optional peer dependencies — see `package.json` for version details.
 
 * Serialization to XML on _Node.js_ requires any of:
   * [`xmlbuilder2`](https://www.npmjs.com/package/xmlbuilder2)
@@ -131,9 +130,9 @@ See the shipped `package.json` for version constraints.
   * [`ajv`](https://www.npmjs.com/package/ajv)
   * [`ajv-formats`](https://www.npmjs.com/package/ajv-formats)
   * [`ajv-formats-draft2019`](https://www.npmjs.com/package/ajv-formats-draft2019)
-* Validation of XML on _Node.js_ requires all of:
+* Validation of XML on _Node.js_ requires any of:
   * [`libxmljs2`](https://www.npmjs.com/package/libxmljs2)  
-  * the system might need to meet the requirements for [`node-gyp`](https://github.com/TooTallNate/node-gyp#installation), in certain cases.
+    * the system might need to meet the requirements for [`node-gyp`](https://github.com/TooTallNate/node-gyp#installation), in certain cases.
 
 ## Usage
 
