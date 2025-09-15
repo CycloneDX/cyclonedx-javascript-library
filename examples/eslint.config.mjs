@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import baseCfg, { globals } from './tools/code-style/eslint.config.mjs'
+import baseCfg, { globals } from '../tools/code-style/eslint.config.mjs'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -28,44 +28,46 @@ const __dirname = path.dirname(__filename)
 /* eslint-disable jsdoc/valid-types -- type-import not supported yet */
 
 /**
- * @type {import('./tools/code-style/node_modules/eslint').Linter.Config[]}
+ * @type {import('../tools/code-style/node_modules/eslint').Linter.Config[]}
  * @see https://eslint.org/
  */
 export default [
-  ...baseCfg,
+  ...baseCfg, ,
   {
-    name: 'project-specific',
+    files: ['./**/*.{js,mjs,cjs,ts}'],
     rules: {
-      complexity: ['error', { max: 15 }]
-    }
+      'no-console': 'off'
+    },
   },
   {
-    files: ['**/*.js'],
-    languageOptions: { sourceType: 'commonjs' }
-  },
-  {
-    files: ['{src,tests}/**/*!(.{node,web}).{js,mjs,cjs.ts}'],
+    files: ['./node/**/*.{js,mjs,cjs,ts}'],
+    rules: {
+      '@typescript-eslint/use-unknown-in-catch-callback-variable': 'off'
+    },
     languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node
-      }
+      globals: globals.node
     }
   },
   {
-    files: [
-      '**/*.{test,spec}.{js,mjs,cjs,ts}',
-      'tests/**/*.{js,mjs,cjs,ts}'
-    ],
+    files: ['./web/*/src/**'],
     languageOptions: {
-      globals: globals.mocha
+      globals: globals.browser
     }
   },
   {
-    files: ['src/**/*.ts'],
+    files: ['./node/typescript/example.cjs/src/*.ts'],
     languageOptions: {
       parserOptions: {
-        project: path.join(__dirname, 'tsconfig.json'),
+        project: path.join(__dirname, 'node', 'typescript', 'example.cjs', 'tsconfig.json')
+      },
+    },
+  },
+  {
+    files: ['./node/typescript/example.mjs/src/*.ts'],
+    languageOptions: {
+      parserOptions: {
+        project: path.join(__dirname, 'node', 'typescript', 'example.mjs', 'tsconfig.json'
+        )
       },
     },
   },
@@ -73,14 +75,7 @@ export default [
     // global ignores must have nothing but a "ignores" property!
     // see https://github.com/eslint/eslint/discussions/17429#discussioncomment-6579229
     ignores: [
-      'reports/',
-      'dist.*/',
-      'docs/api/',
-      'docs/_build/',
-      'docs/.venv/',
-      'examples/',
-      'res/schema/',
-      'tools/',
+      '**/dist/',
     ],
   },
 ]
