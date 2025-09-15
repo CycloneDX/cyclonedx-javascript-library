@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 9.0.0 -- 2025-09-15
+
 * BREAKING Changes
   * Optional dependencies became optional peer dependencies (via [#1295])
 * Added
