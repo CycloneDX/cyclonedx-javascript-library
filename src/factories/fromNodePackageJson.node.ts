@@ -158,6 +158,7 @@ export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
    * - "checksum" is stripped, unless a "download_url" or "vcs_url" is given.
    */
   #finalizeQualifiers(purl: PackageURL): PackageURL {
+    /* eslint-disable no-param-reassign -- intended */
     const qualifiers = new Map(Object.entries(purl.qualifiers ?? {}))
 
     const downloadUrl = qualifiers.get(PurlQualifierNames.DownloadUrl)
@@ -180,5 +181,6 @@ export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
     }
 
     return purl
+    /* eslint-enable no-param-reassign */
   }
 }

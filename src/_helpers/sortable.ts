@@ -62,6 +62,7 @@ export abstract class SortableSet<TItem> extends Set<TItem> implements SortableI
     }
 
     // it was asserted, that both lists have equal length -> zip-like compare
+    /* eslint-disable-next-line  no-plusplus -- ack */
     for (let i = sortedSelf.length - 1; i >= 0; --i) {
       const iCompared = this[compareObjectsSymbol](sortedSelf[i], sortedOther[i])
       if (iCompared !== 0) {

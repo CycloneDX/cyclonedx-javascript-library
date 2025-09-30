@@ -78,7 +78,7 @@ export class XmlSerializer extends XmlBaseSerializer {
     }
 
     if (typeof children === 'string' || typeof children === 'number') {
-      node.textContent = children.toString()
+      node.textContent = children.toString()  /* eslint-disable-line  no-param-reassign -- ack */
       return
     }
 
