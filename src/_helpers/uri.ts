@@ -47,7 +47,7 @@ export function escapeUri<T extends (string | undefined)> (value: T): T {
   }
   for (const [s, r] of _ESCAPES) {
     /* @ts-expect-error -- TS does not properly detect that value is to be forced as string, here */
-    value = value.replace(s, r)
+    value = value.replace(s, r) /* eslint-disable-line  no-param-reassign -- ack */
   }
   return value
 }

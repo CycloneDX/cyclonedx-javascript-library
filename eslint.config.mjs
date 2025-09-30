@@ -41,7 +41,10 @@ export default [
   },
   {
     files: ['**/*.js'],
-    languageOptions: { sourceType: 'commonjs' }
+    languageOptions: { sourceType: 'commonjs' },
+    rules: {
+      'jsdoc/reject-any-type': 'off'
+    }
   },
   {
     files: ['{src,tests}/**/*!(.{node,web}).{js,mjs,cjs.ts}'],
