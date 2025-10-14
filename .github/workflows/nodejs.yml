@@ -223,7 +223,7 @@ jobs:
         shell: bash
         run: |
           echo "::group::lock"
-          cat node_modules/.package-lock.jso
+          cat node_modules/.package-lock.json
           echo "::endgroup::"
           echo "::group::why"
           npm why tslib
