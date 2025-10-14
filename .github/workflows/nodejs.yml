@@ -211,7 +211,7 @@ jobs:
           # we need to craft compatible versions by hand, 
           # and might utilize `npm_config_engine_strict=false` 
           
-          dev_constraints=' npm-run-all2 c8 mocha fast-glob rimraf '
+          dev_constraints=' npm-run-all2 c8 mocha fast-glob memfs rimraf '
           echo "::group::install prod"
           npm_config_engine_strict=false npm i --ignore-scripts --include=optional --omit=dev --only=prod --production --loglevel=silly
           echo "::endgroup::"
@@ -265,7 +265,7 @@ jobs:
       - name: setup library
         run: |
           set -ex
-          dev_constraints=' npm-run-all2 c8 mocha fast-glob rimraf '
+          dev_constraints=' npm-run-all2 c8 mocha fast-glob memfs rimraf '
           echo "::group::install prod"
           npm i --ignore-scripts --omit=optional --omit=dev --loglevel=silly
           echo "::endgroup::"
