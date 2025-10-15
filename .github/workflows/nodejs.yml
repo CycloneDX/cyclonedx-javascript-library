@@ -217,7 +217,7 @@ jobs:
           cat node_modules/.package-lock.json
           echo "::endgroup::"
           echo "::group::why"
-          npm why tslib
+          npm why tslib || true
           echo "::endgroup::"
           echo "::group::ls"
           ls -lisah node_modules/
