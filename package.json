@@ -121,7 +121,7 @@
     "deepmerge": "^4.2.2",
     "fast-glob": "^3.3.1",
     "memfs": "^4.46.1",
-    "mocha": "11.7.2",
+    "mocha": "11.7.4",
     "npm-run-all2": "^8",
     "rimraf": "^6",
     "ts-loader": "9.5.4",
