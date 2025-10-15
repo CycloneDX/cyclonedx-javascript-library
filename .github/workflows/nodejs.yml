@@ -203,7 +203,7 @@ jobs:
           NODE_VERSION: '${{ matrix.node-version }}'
         run: |
           set -ex
-          echo "::group::install prod"
+          echo "::group::install project"
           npm i --ignore-scripts --include=optional --include=dev --loglevel=silly
           echo "::endgroup::"
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
