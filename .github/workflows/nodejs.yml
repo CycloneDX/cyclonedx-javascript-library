@@ -28,7 +28,7 @@ env:
 
 jobs:
   build:
-    name: build ${{ matrix.target }}
+    name: "build: ${{ matrix.target }}"
     runs-on: "ubuntu-latest"
     strategy:
       fail-fast: false
@@ -203,20 +203,11 @@ jobs:
           NODE_VERSION: '${{ matrix.node-version }}'
         run: |
           set -ex
-          
-          # for the purpose of testing strange setups, 
-          # we need to craft compatible versions by hand, 
-          # and might utilize `npm_config_engine_strict=false` 
-          
-          dev_constraints=' npm-run-all2 c8 mocha fast-glob memfs rimraf '
-          echo "::group::install prod"
-          npm_config_engine_strict=false npm i --ignore-scripts --include=optional --omit=dev --only=prod --production --loglevel=silly
+          echo "::group::install project"
+          npm i --ignore-scripts --include=optional --include=dev --loglevel=silly
           echo "::endgroup::"
-          echo "::group::install dev"
-          npm i --ignore-scripts --loglevel=silly --no-save $dev_constraints
-          echo "::endgroup::"
-          echo "::group::rebuild libxmljs2"
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
+          echo "::group::rebuild libxmljs2"
           npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2 || true
           echo "::endgroup::"
       - name: fetch build artifact
@@ -468,7 +459,7 @@ jobs:
         working-directory: ${{ env.EXAMPLE_DIR }}
 
   api-doc:
-    name: api-doc ${{ matrix.target }}
+    name: "api-doc: ${{ matrix.target }}"
     runs-on: "ubuntu-latest"
     strategy:
       fail-fast: false
