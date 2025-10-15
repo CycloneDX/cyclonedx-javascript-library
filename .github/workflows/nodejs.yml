@@ -471,7 +471,7 @@ jobs:
         working-directory: ${{ env.EXAMPLE_DIR }}
 
   api-doc:
-    name: api-doc ${{ matrix.target }}
+    name: "api-doc: ${{ matrix.target }}"
     runs-on: "ubuntu-latest"
     strategy:
       fail-fast: false
