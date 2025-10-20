@@ -3,6 +3,9 @@
   "name": "@cyclonedx/cyclonedx-library-examples-node-typescript-example-cjs",
   "license": "Apache-2.0",
   "type": "commonjs",
+  "engines": {
+    "node": ">=20.18.0"
+  },
   "dependencies": {
     "@cyclonedx/cyclonedx-library": "file:../../../..",
     "xmlbuilder2": "^3.0.2||^4.0.0"
