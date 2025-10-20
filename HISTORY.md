@@ -6,11 +6,13 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 9.1.0 -- 2025-10-20
+
+* Dependencies
+  * Support optional peer dependency `xmlbuilder2@^3.0.2||^4.0.0`, was `xmlbuilder2@^3.0.2` (via [#1321]) 
 * Build
   * Use _TypeScript_ `v5.9.3` now, was `v5.9.2` (via [#1308])
   * Use _webpack_ `v5.102.0` now, was `v5.101.3` (via [#1309])
-* Dependencies
-  * Support optional peer dependency `xmlbuilder2@^3.0.2||^4.0.0`, was `xmlbuilder2@^3.0.2` (via [#1321]) 
 
 [#1308]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1308
 [#1309]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1309
