@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@cyclonedx/cyclonedx-library": "file:../../../..",
-    "xmlbuilder2": "^3.0.2"
+    "xmlbuilder2": "^3.0.2||^4.0.0"
   },
   "optionalDependencies": {
     "ajv": "^8.12.0",
