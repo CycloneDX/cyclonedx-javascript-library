@@ -31,6 +31,7 @@ export const SCHEMA_ROOT = resolve(ROOT, 'schema')
 export const FILES = Object.freeze({
   CDX: Object.freeze({
     XML_SCHEMA: Object.freeze({
+      [Version.v1dot7]: resolve(SCHEMA_ROOT, 'bom-1.7.SNAPSHOT.xsd'),
       [Version.v1dot6]: resolve(SCHEMA_ROOT, 'bom-1.6.SNAPSHOT.xsd'),
       [Version.v1dot5]: resolve(SCHEMA_ROOT, 'bom-1.5.SNAPSHOT.xsd'),
       [Version.v1dot4]: resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.xsd'),
@@ -41,6 +42,7 @@ export const FILES = Object.freeze({
 
     }),
     JSON_SCHEMA: Object.freeze({
+      [Version.v1dot7]: resolve(SCHEMA_ROOT, 'bom-1.7.SNAPSHOT.schema.json'),
       [Version.v1dot6]: resolve(SCHEMA_ROOT, 'bom-1.6.SNAPSHOT.schema.json'),
       [Version.v1dot5]: resolve(SCHEMA_ROOT, 'bom-1.5.SNAPSHOT.schema.json'),
       [Version.v1dot4]: resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.schema.json'),
@@ -51,6 +53,7 @@ export const FILES = Object.freeze({
       [Version.v1dot0]: undefined
     }),
     JSON_STRICT_SCHEMA: Object.freeze({
+      [Version.v1dot7]: resolve(SCHEMA_ROOT, 'bom-1.7.SNAPSHOT.schema.json'),
       [Version.v1dot6]: resolve(SCHEMA_ROOT, 'bom-1.6.SNAPSHOT.schema.json'),
       [Version.v1dot5]: resolve(SCHEMA_ROOT, 'bom-1.5.SNAPSHOT.schema.json'),
       [Version.v1dot4]: resolve(SCHEMA_ROOT, 'bom-1.4.SNAPSHOT.schema.json'),
@@ -65,6 +68,9 @@ export const FILES = Object.freeze({
   SPDX: Object.freeze({
     XML_SCHEMA: resolve(SCHEMA_ROOT, 'spdx.SNAPSHOT.xsd'),
     JSON_SCHEMA: resolve(SCHEMA_ROOT, 'spdx.SNAPSHOT.schema.json')
+  }),
+  CryptoDefs: Object.freeze({
+    JSON_SCHEMA: resolve(SCHEMA_ROOT, 'cryptography-defs.SNAPSHOT.schema.json')
   }),
   JSF: Object.freeze({
     JSON_SCHEMA: resolve(SCHEMA_ROOT, 'jsf-0.82.SNAPSHOT.schema.json')

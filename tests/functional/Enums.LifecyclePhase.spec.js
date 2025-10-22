@@ -31,8 +31,9 @@ const { upperCamelCase } = require('../_helpers/stringFunctions')
 
 suite('functional: LifecyclePhase enum', () => {
   const specVersions = new Set([
+    Version.v1dot7,
     Version.v1dot6,
-    Version.v1dot5
+    Version.v1dot5,
   ])
 
   specVersions.forEach(specVersion =>

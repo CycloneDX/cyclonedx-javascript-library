@@ -18,6 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 export enum Version {
+  v1dot7 = '1.7',
   v1dot6 = '1.6',
   v1dot5 = '1.5',
   v1dot4 = '1.4',

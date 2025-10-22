@@ -30,4 +30,6 @@ export enum HashAlgorithm {
   'BLAKE2b-384' = 'BLAKE2b-384',
   'BLAKE2b-512' = 'BLAKE2b-512',
   BLAKE3 = 'BLAKE3',
+  'Streebog-256' = 'Streebog-256',
+  'Streebog-512' = 'Streebog-512',
 }

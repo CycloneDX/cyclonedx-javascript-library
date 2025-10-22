@@ -17,6 +17,8 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+/* eslint-disable max-lines -- ack */
+
 import { ComponentType } from '../enums/componentType'
 import { ExternalReferenceType } from '../enums/externalReferenceType'
 import { HashAlgorithm } from '../enums/hashAlogorithm'
@@ -434,7 +436,122 @@ export const Spec1dot6: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
   true
 ))
 
+
+/** Specification v1.7 */
+export const Spec1dot7: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
+  Version.v1dot7,
+  [
+    Format.XML,
+    Format.JSON
+  ],
+  [
+    ComponentType.Application,
+    ComponentType.Framework,
+    ComponentType.Library,
+    ComponentType.Container,
+    ComponentType.Platform,
+    ComponentType.OperatingSystem,
+    ComponentType.Device,
+    ComponentType.DeviceDriver,
+    ComponentType.Firmware,
+    ComponentType.File,
+    ComponentType.MachineLearningModel,
+    ComponentType.Data,
+    ComponentType.CryptographicAsset
+  ],
+  [
+    HashAlgorithm.MD5,
+    HashAlgorithm['SHA-1'],
+    HashAlgorithm['SHA-256'],
+    HashAlgorithm['SHA-384'],
+    HashAlgorithm['SHA-512'],
+    HashAlgorithm['SHA3-256'],
+    HashAlgorithm['SHA3-384'],
+    HashAlgorithm['SHA3-512'],
+    HashAlgorithm['BLAKE2b-256'],
+    HashAlgorithm['BLAKE2b-384'],
+    HashAlgorithm['BLAKE2b-512'],
+    HashAlgorithm.BLAKE3,
+    HashAlgorithm['Streebog-256'],
+    HashAlgorithm['Streebog-512'],
+  ],
+  /^([a-fA-F0-9]{32})$|^([a-fA-F0-9]{40})$|^([a-fA-F0-9]{64})$|^([a-fA-F0-9]{96})$|^([a-fA-F0-9]{128})$/,
+  [
+    ExternalReferenceType.VCS,
+    ExternalReferenceType.IssueTracker,
+    ExternalReferenceType.Website,
+    ExternalReferenceType.Advisories,
+    ExternalReferenceType.BOM,
+    ExternalReferenceType.MailingList,
+    ExternalReferenceType.Social,
+    ExternalReferenceType.Chat,
+    ExternalReferenceType.Documentation,
+    ExternalReferenceType.Support,
+    ExternalReferenceType.SourceDistribution,
+    ExternalReferenceType.Distribution,
+    ExternalReferenceType.DistributionIntake,
+    ExternalReferenceType.License,
+    ExternalReferenceType.BuildMeta,
+    ExternalReferenceType.BuildSystem,
+    ExternalReferenceType.ReleaseNotes,
+    ExternalReferenceType.SecurityContact,
+    ExternalReferenceType.ModelCard,
+    ExternalReferenceType.Log,
+    ExternalReferenceType.Configuration,
+    ExternalReferenceType.Evidence,
+    ExternalReferenceType.Formulation,
+    ExternalReferenceType.Attestation,
+    ExternalReferenceType.ThreatModel,
+    ExternalReferenceType.AdversaryModel,
+    ExternalReferenceType.RiskAssessment,
+    ExternalReferenceType.VulnerabilityAssertion,
+    ExternalReferenceType.ExploitabilityStatement,
+    ExternalReferenceType.PentestReport,
+    ExternalReferenceType.StaticAnalysisReport,
+    ExternalReferenceType.DynamicAnalysisReport,
+    ExternalReferenceType.RuntimeAnalysisReport,
+    ExternalReferenceType.ComponentAnalysisReport,
+    ExternalReferenceType.MaturityReport,
+    ExternalReferenceType.CertificationReport,
+    ExternalReferenceType.CodifiedInfrastructure,
+    ExternalReferenceType.QualityMetrics,
+    ExternalReferenceType.POAM,
+    ExternalReferenceType.ElectronicSignature,
+    ExternalReferenceType.DigitalSignature,
+    ExternalReferenceType.RFC9116,
+    ExternalReferenceType.Citation,
+    ExternalReferenceType.Patent,
+    ExternalReferenceType.PatentAssertion,
+    ExternalReferenceType.PatentFamily,
+    ExternalReferenceType.RFC9116,
+    ExternalReferenceType.Other
+  ],
+  true,
+  true,
+  false,
+  true,
+  true,
+  [
+    VulnerabilityRatingMethod.CVSSv2,
+    VulnerabilityRatingMethod.CVSSv3,
+    VulnerabilityRatingMethod.CVSSv31,
+    VulnerabilityRatingMethod.CVSSv4,
+    VulnerabilityRatingMethod.OWASP,
+    VulnerabilityRatingMethod.SSVC,
+    VulnerabilityRatingMethod.Other
+  ],
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true
+))
+
 export const SpecVersionDict: Readonly<Partial<Record<Version, Readonly<_SpecProtocol>>>> = Object.freeze({
+  [Version.v1dot7]: Spec1dot7,
   [Version.v1dot6]: Spec1dot6,
   [Version.v1dot5]: Spec1dot5,
   [Version.v1dot4]: Spec1dot4,

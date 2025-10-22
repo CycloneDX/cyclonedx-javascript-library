@@ -34,6 +34,7 @@ describe('integration.Serialize.JsonNormalize', function () {
   this.timeout(60000);
 
   [
+    Spec.Spec1dot7,
     Spec.Spec1dot6,
     Spec.Spec1dot5,
     Spec.Spec1dot4,

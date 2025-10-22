@@ -40,6 +40,7 @@ suite('functional: Validation.JsonValidator functional', function () {
   this.timeout(60000);
 
   [
+    Version.v1dot7,
     Version.v1dot6,
     Version.v1dot5,
     Version.v1dot4,
@@ -70,6 +71,7 @@ suite('functional: Validation.JsonStrictValidator functional', function () {
   this.timeout(60000);
 
   [
+    Version.v1dot7,
     Version.v1dot6,
     Version.v1dot5,
     Version.v1dot4,
