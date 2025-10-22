@@ -471,7 +471,9 @@ export const Spec1dot7: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
     HashAlgorithm['BLAKE2b-256'],
     HashAlgorithm['BLAKE2b-384'],
     HashAlgorithm['BLAKE2b-512'],
-    HashAlgorithm.BLAKE3
+    HashAlgorithm.BLAKE3,
+    HashAlgorithm['Streebog-256'],
+    HashAlgorithm['Streebog-512'],
   ],
   /^([a-fA-F0-9]{32})$|^([a-fA-F0-9]{40})$|^([a-fA-F0-9]{64})$|^([a-fA-F0-9]{96})$|^([a-fA-F0-9]{128})$/,
   [
@@ -516,6 +518,11 @@ export const Spec1dot7: Readonly<_SpecProtocol> = Object.freeze(new _Spec(
     ExternalReferenceType.POAM,
     ExternalReferenceType.ElectronicSignature,
     ExternalReferenceType.DigitalSignature,
+    ExternalReferenceType.RFC9116,
+    ExternalReferenceType.Citation,
+    ExternalReferenceType.Patent,
+    ExternalReferenceType.PatentAssertion,
+    ExternalReferenceType.PatentFamily,
     ExternalReferenceType.RFC9116,
     ExternalReferenceType.Other
   ],

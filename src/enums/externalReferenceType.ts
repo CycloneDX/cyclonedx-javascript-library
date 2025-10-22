@@ -60,6 +60,10 @@ export enum ExternalReferenceType {
   ElectronicSignature = 'electronic-signature',
   DigitalSignature = 'digital-signature',
   RFC9116 = 'rfc-9116',
+  Citation = 'citation',
+  Patent = 'patent',
+  PatentAssertion = 'patent-assertion',
+  PatentFamily = 'patent-family',
 
   // --
 
