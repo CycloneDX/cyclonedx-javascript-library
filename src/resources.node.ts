@@ -69,6 +69,9 @@ export const FILES = Object.freeze({
     XML_SCHEMA: resolve(SCHEMA_ROOT, 'spdx.SNAPSHOT.xsd'),
     JSON_SCHEMA: resolve(SCHEMA_ROOT, 'spdx.SNAPSHOT.schema.json')
   }),
+  CryptoDefs: Object.freeze({
+    JSON_SCHEMA: resolve(SCHEMA_ROOT, 'cryptography-defs.SNAPSHOT.schema.json')
+  }),
   JSF: Object.freeze({
     JSON_SCHEMA: resolve(SCHEMA_ROOT, 'jsf-0.82.SNAPSHOT.schema.json')
   })

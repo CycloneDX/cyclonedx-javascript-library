@@ -54,6 +54,7 @@ const BomJsonLax = Object.freeze({
   targetPattern: join(TARGET_ROOT, 'bom-%s.SNAPSHOT.schema.json'),
   replace: Object.freeze([
     Object.freeze(['spdx.schema.json', 'spdx.SNAPSHOT.schema.json']),
+    Object.freeze(['cryptography-defs.schema.json', 'cryptography-defs.SNAPSHOT.schema.json']),
     Object.freeze(['jsf-0.82.schema.json', 'jsf-0.82.SNAPSHOT.schema.json']),
     Object.freeze([/,?\s*"format"\S*:\s*"string"/sg, '']),
     /* "$schema" is not required but optional.
@@ -80,6 +81,7 @@ const BomJsonStrict = Object.freeze({
 const OtherDownloadables = Object.freeze(Object.fromEntries([
   [`${SOURCE_ROOT_LATEST}spdx.schema.json`, join(TARGET_ROOT, 'spdx.SNAPSHOT.schema.json')],
   [`${SOURCE_ROOT_LATEST}spdx.xsd`, join(TARGET_ROOT, 'spdx.SNAPSHOT.xsd')],
+  [`${SOURCE_ROOT_LATEST}cryptography-defs.schema.json`, join(TARGET_ROOT, 'cryptography-defs.SNAPSHOT.schema.json')],
   [`${SOURCE_ROOT_LATEST}jsf-0.82.schema.json`, join(TARGET_ROOT, 'jsf-0.82.SNAPSHOT.schema.json')]
 ]))
 

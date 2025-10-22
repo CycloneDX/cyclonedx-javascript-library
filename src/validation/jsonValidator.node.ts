@@ -43,6 +43,7 @@ abstract class BaseJsonValidator extends BaseValidator {
       try {
         this.#validatorCache = await makeValidator(this.#getSchemaFilePath(), {
           'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': FILES.SPDX.JSON_SCHEMA,
+          'http://cyclonedx.org/schema/cryptography-defs.SNAPSHOT.schema.json': FILES.CryptoDefs.JSON_SCHEMA,
           'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': FILES.JSF.JSON_SCHEMA
         })
       } catch (err) {

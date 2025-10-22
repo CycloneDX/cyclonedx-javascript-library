@@ -5280,9 +5280,9 @@
               }
             },
             "algorithmFamily": {
-              "$ref": "cryptography-defs.schema.json#/definitions/algorithmFamiliesEnum",
+              "$ref": "cryptography-defs.SNAPSHOT.schema.json#/definitions/algorithmFamiliesEnum",
               "title": "Algorithm Family",
-              "description": "A valid algorithm family identifier. If specified, this value must be one of the enumeration of valid algorithm Family identifiers defined in the `cryptography-defs.schema.json` subschema.",
+              "description": "A valid algorithm family identifier. If specified, this value must be one of the enumeration of valid algorithm Family identifiers defined in the `cryptography-defs.SNAPSHOT.schema.json` subschema.",
               "examples": ["3DES", "Blowfish", "ECDH"]
             },
             "parameterSetIdentifier": {
@@ -5297,9 +5297,9 @@
               "description": "[Deprecated] This will be removed in a future version. Use `@.ellipticCurve` instead.\nThe specific underlying Elliptic Curve (EC) definition employed which is an indicator of the level of security strength, performance and complexity. Absent an authoritative source of curve names, CycloneDX recommends using curve names as defined at [https://neuromancer.sk/std/](https://neuromancer.sk/std/), the source of which can be found at [https://github.com/J08nY/std-curves](https://github.com/J08nY/std-curves)."
             },
             "ellipticCurve": {
-              "$ref": "cryptography-defs.schema.json#/definitions/ellipticCurvesEnum",
+              "$ref": "cryptography-defs.SNAPSHOT.schema.json#/definitions/ellipticCurvesEnum",
               "title": "Elliptic Curve",
-              "description": "The specific underlying Elliptic Curve (EC) definition employed which is an indicator of the level of security strength, performance and complexity. If specified, this value must be one of the enumeration of valid elliptic curves identifiers defined in the `cryptography-defs.schema.json` subschema."
+              "description": "The specific underlying Elliptic Curve (EC) definition employed which is an indicator of the level of security strength, performance and complexity. If specified, this value must be one of the enumeration of valid elliptic curves identifiers defined in the `cryptography-defs.SNAPSHOT.schema.json` subschema."
             },
             "executionEnvironment": {
               "type": "string",
