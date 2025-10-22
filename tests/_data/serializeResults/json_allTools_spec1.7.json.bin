@@ -1,0 +1,66 @@
+{
+    "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.7",
+    "version": 7,
+    "serialNumber": "urn:uuid:8fd9e244-73b6-4cd3-ab3a-a0fefdee5c9e",
+    "metadata": {
+        "tools": [
+            {
+                "vendor": "Component tool group",
+                "name": "Component tool name",
+                "version": "0.8.15",
+                "hashes": [
+                    {
+                        "alg": "MD5",
+                        "content": "974e5cc07da6e4536bffd935fd4ddc61"
+                    },
+                    {
+                        "alg": "SHA-1",
+                        "content": "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"
+                    }
+                ]
+            },
+            {
+                "vendor": "Service tool group",
+                "name": "sbom-generator-service",
+                "version": "1",
+                "externalReferences": [
+                    {
+                        "url": "https://example.com/sbom-generator-service/",
+                        "type": "website",
+                        "comment": "the service that made this"
+                    }
+                ]
+            },
+            {
+                "vendor": "Tool tool vendor",
+                "name": "Tool other tool",
+                "externalReferences": [
+                    {
+                        "url": "https://cyclonedx.org/tool-center/",
+                        "type": "website",
+                        "comment": "the tools that made this"
+                    }
+                ]
+            },
+            {
+                "vendor": "Tool tool vendor",
+                "name": "Tool tool name",
+                "version": "0.8.15",
+                "hashes": [
+                    {
+                        "alg": "MD5",
+                        "content": "f32a26e2a3a8aa338cd77b6e1263c535"
+                    },
+                    {
+                        "alg": "SHA-1",
+                        "content": "829c3804401b0727f70f73d4415e162400cbe57b"
+                    }
+                ]
+            }
+        ]
+    },
+    "components": [],
+    "dependencies": []
+}
