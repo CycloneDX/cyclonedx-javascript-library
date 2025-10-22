@@ -46,6 +46,7 @@ suite('functional: internals: OpPlug.node.jsonValidator auto', () => {
   const schemaPath = Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot7]
   const schemaMap = {
     'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': Resources.FILES.SPDX.JSON_SCHEMA,
+    'http://cyclonedx.org/schema/cryptography-defs.SNAPSHOT.schema.json': Resources.FILES.CryptoDefs.JSON_SCHEMA,
     'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': Resources.FILES.JSF.JSON_SCHEMA
   }
   const validJson = '{"bomFormat": "CycloneDX", "specVersion": "1.7"}'
