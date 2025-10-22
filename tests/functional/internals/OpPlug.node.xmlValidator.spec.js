@@ -43,13 +43,13 @@ suite('functional: internals: OpPlug.node.xmlValidator auto', () => {
     return
   }
 
-  const schemaPath = Resources.FILES.CDX.XML_SCHEMA[Version.v1dot6]
+  const schemaPath = Resources.FILES.CDX.XML_SCHEMA[Version.v1dot7]
   const validXML = `<?xml version="1.0" encoding="UTF-8"?>
-    <bom xmlns="http://cyclonedx.org/schema/bom/1.6"></bom>`
+    <bom xmlns="http://cyclonedx.org/schema/bom/1.7"></bom>`
   const invalidXML = `<?xml version="1.0" encoding="UTF-8"?>
-    <bom xmlns="http://cyclonedx.org/schema/bom/1.6"><unexpected/></bom>`
+    <bom xmlns="http://cyclonedx.org/schema/bom/1.7"><unexpected/></bom>`
   const brokenXML = `<?xml version="1.0" encoding="UTF-8"?>
-    <bom xmlns="http://cyclonedx.org/schema/bom/1.6">` // not closed
+    <bom xmlns="http://cyclonedx.org/schema/bom/1.7">` // not closed
 
   test('valid causes no validationError', async () => {
     const validationError = (await makeValidator(schemaPath))(validXML)

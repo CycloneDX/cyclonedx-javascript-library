@@ -44,6 +44,7 @@ describe('integration.Serialize.JsonSerialize', function () {
     allTools: createAllTools
   }).forEach(([fixtureName, bomFixture]) => describe(`from fixture ${fixtureName}`, () => {
     [
+      Spec.Spec1dot7,
       Spec.Spec1dot6,
       Spec.Spec1dot5,
       Spec.Spec1dot4,

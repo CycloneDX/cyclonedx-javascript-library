@@ -31,7 +31,8 @@ const { upperCamelCase } = require('../_helpers/stringFunctions')
 
 suite('functional: LicenseAcknowledgement enum', () => {
   const specVersions = new Set([
-    Version.v1dot6
+    Version.v1dot7,
+    Version.v1dot6,
   ])
 
   specVersions.forEach(specVersion =>

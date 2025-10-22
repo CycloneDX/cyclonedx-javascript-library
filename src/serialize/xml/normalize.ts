@@ -160,6 +160,7 @@ export class Factory {
 }
 
 const xmlNamespace: ReadonlyMap<SpecVersion, string> = new Map([
+  [SpecVersion.v1dot7, 'http://cyclonedx.org/schema/bom/1.7'],
   [SpecVersion.v1dot6, 'http://cyclonedx.org/schema/bom/1.6'],
   [SpecVersion.v1dot5, 'http://cyclonedx.org/schema/bom/1.5'],
   [SpecVersion.v1dot4, 'http://cyclonedx.org/schema/bom/1.4'],

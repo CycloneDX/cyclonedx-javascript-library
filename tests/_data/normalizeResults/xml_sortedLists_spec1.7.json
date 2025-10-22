@@ -1,0 +1,2577 @@
+{
+  "type": "element",
+  "name": "bom",
+  "namespace": "http://cyclonedx.org/schema/bom/1.7",
+  "attributes": {
+    "version": 7,
+    "serialNumber": "urn:uuid:ac35b126-ef3a-11ed-a05b-0242ac120003"
+  },
+  "children": [
+    {
+      "type": "element",
+      "name": "metadata",
+      "children": [
+        {
+          "type": "element",
+          "name": "timestamp",
+          "children": "2032-05-23T13:37:42.000Z"
+        },
+        {
+          "type": "element",
+          "name": "lifecycles",
+          "children": [
+            {
+              "type": "element",
+              "name": "lifecycle",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "testing"
+                },
+                {
+                  "type": "element",
+                  "name": "description",
+                  "children": "my testing stage"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "lifecycle",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "phase",
+                  "children": "design"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "tools",
+          "children": [
+            {
+              "type": "element",
+              "name": "components",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "component",
+                  "attributes": {
+                    "type": "library"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "group",
+                      "children": "tool group"
+                    },
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "other tool"
+                    },
+                    {
+                      "type": "element",
+                      "name": "externalReferences",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "reference",
+                          "attributes": {
+                            "type": "website"
+                          },
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "url",
+                              "children": "https://cyclonedx.org/tool-center/"
+                            },
+                            {
+                              "type": "element",
+                              "name": "comment",
+                              "children": "the tools that made this"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "component",
+                  "attributes": {
+                    "type": "application"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "group",
+                      "children": "tool group"
+                    },
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "tool name"
+                    },
+                    {
+                      "type": "element",
+                      "name": "version",
+                      "children": "0.8.15"
+                    },
+                    {
+                      "type": "element",
+                      "name": "hashes",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "hash",
+                          "attributes": {
+                            "alg": "MD5"
+                          },
+                          "children": "974e5cc07da6e4536bffd935fd4ddc61"
+                        },
+                        {
+                          "type": "element",
+                          "name": "hash",
+                          "attributes": {
+                            "alg": "SHA-1"
+                          },
+                          "children": "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "services",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "service",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "group",
+                      "children": "Service service group"
+                    },
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "sbom-generator-service"
+                    },
+                    {
+                      "type": "element",
+                      "name": "version",
+                      "children": "1"
+                    },
+                    {
+                      "type": "element",
+                      "name": "externalReferences",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "reference",
+                          "attributes": {
+                            "type": "website"
+                          },
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "url",
+                              "children": "https://example.com/sbom-generator-service/"
+                            },
+                            {
+                              "type": "element",
+                              "name": "comment",
+                              "children": "the service that made this"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "authors",
+          "children": [
+            {
+              "type": "element",
+              "name": "author",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "Jane \"the-author\" Doe"
+                },
+                {
+                  "type": "element",
+                  "name": "email",
+                  "children": "cdx-authors@mailinator.com"
+                },
+                {
+                  "type": "element",
+                  "name": "phone",
+                  "children": "555-1234567890"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "author",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "John \"the-co-author\" Doe"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "dummy.metadata.component"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "Root Component"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": "1.33.7"
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "manufacture",
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "meta manufacture"
+            },
+            {
+              "type": "element",
+              "name": "url",
+              "children": "https://meta-manufacture.xmpl/"
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "supplier",
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "meta supplier"
+            },
+            {
+              "type": "element",
+              "name": "url",
+              "children": "https://meta-supplier.xmpl/"
+            },
+            {
+              "type": "element",
+              "name": "contact",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "Jane \"the-other-supplier\" Doe"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "contact",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "John \"the-supplier\" Doe"
+                },
+                {
+                  "type": "element",
+                  "name": "email",
+                  "children": "cdx-suppliers@mailinator.com"
+                },
+                {
+                  "type": "element",
+                  "name": "phone",
+                  "children": "555-0123456789"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "licenses",
+          "children": [
+            {
+              "type": "element",
+              "name": "license",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "Some license name"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "license",
+              "attributes": {},
+              "children": [
+                {
+                  "type": "element",
+                  "name": "id",
+                  "children": "0BSD"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "properties",
+          "children": [
+            {
+              "type": "element",
+              "name": "property",
+              "attributes": {
+                "name": "a"
+              },
+              "children": "b"
+            },
+            {
+              "type": "element",
+              "name": "property",
+              "attributes": {
+                "name": "cdx:reproducible"
+              },
+              "children": "true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "element",
+      "name": "components",
+      "children": [
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "a-component"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "a-component"
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "component-with-licenseExpression"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "component-with-licenseExpression"
+            },
+            {
+              "type": "element",
+              "name": "licenses",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "expression",
+                  "children": "(MIT OR Apache-2.0)",
+                  "attributes": {}
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "component-with-licenses"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "component-with-licenses"
+            },
+            {
+              "type": "element",
+              "name": "licenses",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "license",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "something"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "license",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "id",
+                      "children": "Apache-2.0"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "license",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "id",
+                      "children": "MIT"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "license",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "unknown SPDX license"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://acme.com/license"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "component-with-licenses-and-expression"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "component-with-licenses-and-expression"
+            },
+            {
+              "type": "element",
+              "name": "licenses",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "expression",
+                  "children": "(MIT OR Apache-2.0)",
+                  "attributes": {}
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "component-with-unescaped-urls"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "component-with-unescaped-urls"
+            },
+            {
+              "type": "element",
+              "name": "externalReferences",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "../foo/bar"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: relative path"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/?bar%5Btest%5D=baz%5Bagain%5D"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: []"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/?bar%5Btest%5D=baz%5bagain%5D"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: partially encoded"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/#%7Btest%7D%7Bagain%7D"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: {}"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/#%3Ctest%3E%3Cagain%3E"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: <>"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/édition"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: non-ASCII"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/foo%20bar%20bazz%20again+again"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: space"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/p?k=v#f"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: https"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://example.org/this%22test%22isa%27test%27"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: quotation"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "mailto:info@example.org"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: mailto"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "other"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "urn:example:org"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "encode anyUri: urn"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "component-with-vulnerabilities"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "component-with-vulnerabilities"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": "1.0"
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "ComponentWithProperties"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "component-with-properties"
+            },
+            {
+              "type": "element",
+              "name": "properties",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "property",
+                  "attributes": {
+                    "name": "internal:testing:prop-A"
+                  },
+                  "children": "value A"
+                },
+                {
+                  "type": "element",
+                  "name": "property",
+                  "attributes": {
+                    "name": "internal:testing:prop-Z"
+                  },
+                  "children": "value B"
+                },
+                {
+                  "type": "element",
+                  "name": "property",
+                  "attributes": {
+                    "name": "internal:testing:prop-Z"
+                  },
+                  "children": "value Z"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "library",
+            "bom-ref": "dummy-component"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "supplier",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "Component Supplier"
+                },
+                {
+                  "type": "element",
+                  "name": "url",
+                  "children": "https://localhost/componentSupplier-A"
+                },
+                {
+                  "type": "element",
+                  "name": "url",
+                  "children": "https://localhost/componentSupplier-B"
+                },
+                {
+                  "type": "element",
+                  "name": "contact",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "Franz"
+                    },
+                    {
+                      "type": "element",
+                      "name": "email",
+                      "children": "franz-aus-bayern@komplett.verwahrlostes.taxi"
+                    },
+                    {
+                      "type": "element",
+                      "name": "phone",
+                      "children": "555-732378879"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "contact",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "The quick brown fox"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "author",
+              "children": "component's author"
+            },
+            {
+              "type": "element",
+              "name": "publisher",
+              "children": "the publisher"
+            },
+            {
+              "type": "element",
+              "name": "group",
+              "children": "acme"
+            },
+            {
+              "type": "element",
+              "name": "name",
+              "children": "dummy-component"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": "1337-beta"
+            },
+            {
+              "type": "element",
+              "name": "description",
+              "children": "this is a test component"
+            },
+            {
+              "type": "element",
+              "name": "scope",
+              "children": "required"
+            },
+            {
+              "type": "element",
+              "name": "hashes",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "hash",
+                  "attributes": {
+                    "alg": "MD5"
+                  },
+                  "children": "6bd3ac6fb35bb07c3f74d7f72451af57"
+                },
+                {
+                  "type": "element",
+                  "name": "hash",
+                  "attributes": {
+                    "alg": "SHA-1"
+                  },
+                  "children": "e6f36746ccba42c288acf906e636bb278eaeb7e8"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "licenses",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "license",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "some other"
+                    },
+                    {
+                      "type": "element",
+                      "name": "text",
+                      "attributes": {
+                        "content-type": "text/plain",
+                        "encoding": "base64"
+                      },
+                      "children": "U29tZQpsaWNlbnNlCnRleHQu"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://localhost/license"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "license",
+                  "attributes": {
+                    "acknowledgement": "declared"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "id",
+                      "children": "MIT"
+                    },
+                    {
+                      "type": "element",
+                      "name": "text",
+                      "attributes": {
+                        "content-type": "text/plain",
+                        "encoding": "base64"
+                      },
+                      "children": "TUlUIExpY2Vuc2UKLi4uClRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLi4u"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://spdx.org/licenses/MIT.html"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "copyright",
+              "children": "ACME corp"
+            },
+            {
+              "type": "element",
+              "name": "cpe",
+              "children": "cpe:2.3:a:microsoft:internet_explorer:8.0.6001:beta:*:*:*:*:*:*"
+            },
+            {
+              "type": "element",
+              "name": "purl",
+              "children": "pkg:npm/acme/dummy-component@1337-beta"
+            },
+            {
+              "type": "element",
+              "name": "swid",
+              "attributes": {
+                "tagId": "some-tag",
+                "name": "dummy-component",
+                "version": "1337-beta",
+                "patch": "true"
+              },
+              "children": [
+                {
+                  "type": "element",
+                  "name": "text",
+                  "attributes": {
+                    "content-type": "some context type",
+                    "encoding": "base64"
+                  },
+                  "children": "some context"
+                },
+                {
+                  "type": "element",
+                  "name": "url",
+                  "children": "https://localhost/swid"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "externalReferences",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "distribution"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://localhost/download/acme.tar.gz"
+                    },
+                    {
+                      "type": "element",
+                      "name": "hashes",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "hash",
+                          "attributes": {
+                            "alg": "MD5"
+                          },
+                          "children": "327b6f07435811239bc47e1544353273"
+                        },
+                        {
+                          "type": "element",
+                          "name": "hash",
+                          "attributes": {
+                            "alg": "SHA-1"
+                          },
+                          "children": "d53a205a336e07cf9eac45471b3870f9489288ec"
+                        },
+                        {
+                          "type": "element",
+                          "name": "hash",
+                          "attributes": {
+                            "alg": "SHA-256"
+                          },
+                          "children": "1f2ec52b774368781bed1d1fb140a92e0eb6348090619c9291f9a5a3c8e8d151"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "release-notes"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "./other/file"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "support"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://localhost/acme/support"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "vcs"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "git+https://localhost/acme.git"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "website"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://localhost/acme"
+                    },
+                    {
+                      "type": "element",
+                      "name": "comment",
+                      "children": "testing"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "evidence",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "licenses",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "license",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "name",
+                          "children": "License.txt"
+                        },
+                        {
+                          "type": "element",
+                          "name": "text",
+                          "attributes": {
+                            "content-type": "text/plain",
+                            "encoding": "base64"
+                          },
+                          "children": "VEhFIFNPRlRXQVJFIElTIFBST1ZJREVEIOKAnEFTIElT4oCdLCBXSVRIT1VUIFdBUlJBTlRZIE9GIEFOWSBLSU5ELCBFWFBSRVNTIE9SIElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLCBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiBJTiBOTyBFVkVOVCBTSEFMTCBUSEUgQVVUSE9SUyBPUiBDT1BZUklHSFQgSE9MREVSUyBCRSBMSUFCTEUgRk9SIEFOWSBDTEFJTSwgREFNQUdFUyBPUiBPVEhFUiBMSUFCSUxJVFksIFdIRVRIRVIgSU4gQU4gQUNUSU9OIE9GIENPTlRSQUNULCBUT1JUIE9SIE9USEVSV0lTRSwgQVJJU0lORyBGUk9NLCBPVVQgT0YgT1IgSU4gQ09OTkVDVElPTiBXSVRIIFRIRSBTT0ZUV0FSRSBPUiBUSEUgVVNFIE9SIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4="
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "copyright",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "text",
+                      "children": "Copyright © 2023 ACME corp"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "component",
+          "attributes": {
+            "type": "framework",
+            "bom-ref": "SomeFrameworkBundle"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "SomeFrameworkBundle"
+            },
+            {
+              "type": "element",
+              "name": "components",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "component",
+                  "attributes": {
+                    "type": "library",
+                    "bom-ref": "SomeFrameworkBundle#SubComponentA"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "SubComponentA"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "component",
+                  "attributes": {
+                    "type": "library",
+                    "bom-ref": "SomeFrameworkBundle#SubComponentB"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "SubComponentB"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "element",
+      "name": "services",
+      "children": [
+        {
+          "type": "element",
+          "name": "service",
+          "attributes": {
+            "bom-ref": "my-service"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "name",
+              "children": "dummy-service-2"
+            },
+            {
+              "type": "element",
+              "name": "services",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "service",
+                  "attributes": {
+                    "bom-ref": "my-service/nested-service"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "nested-service"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "service",
+                  "attributes": {
+                    "bom-ref": "my-service/sub-service"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "sub-service"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "service",
+          "attributes": {
+            "bom-ref": "some-service"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "provider",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "Service Provider"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "group",
+              "children": "acme"
+            },
+            {
+              "type": "element",
+              "name": "name",
+              "children": "dummy-service"
+            },
+            {
+              "type": "element",
+              "name": "version",
+              "children": "1.0+service-version"
+            },
+            {
+              "type": "element",
+              "name": "description",
+              "children": "this is a test service"
+            },
+            {
+              "type": "element",
+              "name": "licenses",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "license",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "some license"
+                    },
+                    {
+                      "type": "element",
+                      "name": "text",
+                      "attributes": {
+                        "content-type": "text/plain",
+                        "encoding": "base64"
+                      },
+                      "children": "U29tZQpsaWNlbnNlCnRleHQu"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://localhost/service/license"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "externalReferences",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "attributes": {
+                    "type": "documentation"
+                  },
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://localhost/service/docs"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "properties",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "property",
+                  "attributes": {
+                    "name": "foo"
+                  },
+                  "children": "bar"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "element",
+      "name": "dependencies",
+      "children": [
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "a-component"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "component-with-licenseExpression"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "component-with-licenses"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "component-with-licenses-and-expression"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "component-with-unescaped-urls"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "component-with-vulnerabilities"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "ComponentWithProperties"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "dummy-component"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "a-component"
+              }
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "dummy.metadata.component"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "a-component"
+              }
+            },
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "dummy-component"
+              }
+            },
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "my-service"
+              }
+            },
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "some-service"
+              }
+            },
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "SomeFrameworkBundle"
+              }
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "my-service"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "my-service/nested-service"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "my-service/sub-service"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "some-service"
+          },
+          "children": []
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "SomeFrameworkBundle"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "SomeFrameworkBundle#SubComponentA"
+              }
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "SomeFrameworkBundle#SubComponentA"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "dependency",
+              "attributes": {
+                "ref": "SomeFrameworkBundle#SubComponentB"
+              }
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "dependency",
+          "attributes": {
+            "ref": "SomeFrameworkBundle#SubComponentB"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "element",
+      "name": "vulnerabilities",
+      "children": [
+        {
+          "type": "element",
+          "name": "vulnerability",
+          "attributes": {
+            "bom-ref": "dummy.vulnerability.1"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "id",
+              "children": "1"
+            },
+            {
+              "type": "element",
+              "name": "source",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "manual"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "references",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "id",
+                      "children": "CVE-2042-42420"
+                    },
+                    {
+                      "type": "element",
+                      "name": "source",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "url",
+                          "children": "https://nvd.nist.gov/vuln/detail/CVE-2022-42420"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "id",
+                      "children": "CVE-2042-42421"
+                    },
+                    {
+                      "type": "element",
+                      "name": "source",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "url",
+                          "children": "https://nvd.nist.gov/vuln/detail/CVE-2022-42421"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "ratings",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "rating",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "score",
+                      "children": "10"
+                    },
+                    {
+                      "type": "element",
+                      "name": "severity",
+                      "children": "critical"
+                    },
+                    {
+                      "type": "element",
+                      "name": "method",
+                      "children": "other"
+                    },
+                    {
+                      "type": "element",
+                      "name": "justification",
+                      "children": "this is crazy"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "cwes",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "cwe",
+                  "children": "42"
+                },
+                {
+                  "type": "element",
+                  "name": "cwe",
+                  "children": "142"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "description",
+              "children": "description of 1"
+            },
+            {
+              "type": "element",
+              "name": "detail",
+              "children": "detail of 1"
+            },
+            {
+              "type": "element",
+              "name": "recommendation",
+              "children": "recommendation of 1"
+            },
+            {
+              "type": "element",
+              "name": "advisories",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "advisory",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "title",
+                      "children": "vulnerability 1 discovered"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://www.advisories.com/"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "created",
+              "children": "2023-03-03T00:00:40.000Z"
+            },
+            {
+              "type": "element",
+              "name": "published",
+              "children": "2023-03-03T00:00:40.000Z"
+            },
+            {
+              "type": "element",
+              "name": "updated",
+              "children": "2023-03-03T00:00:40.000Z"
+            },
+            {
+              "type": "element",
+              "name": "credits",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "organizations",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "organization",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "name",
+                          "children": "vulnerability researchers inc."
+                        },
+                        {
+                          "type": "element",
+                          "name": "url",
+                          "children": "https://vulnerabilities-researchers.com/"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "individuals",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "individual",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "name",
+                          "children": "John \"pentester\" Doe"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "tools",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "tool",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "vendor",
+                      "children": "v the vendor"
+                    },
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "tool name"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "analysis",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "state",
+                  "children": "false_positive"
+                },
+                {
+                  "type": "element",
+                  "name": "justification",
+                  "children": "protected_at_runtime"
+                },
+                {
+                  "type": "element",
+                  "name": "responses",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "response",
+                      "children": "can_not_fix"
+                    },
+                    {
+                      "type": "element",
+                      "name": "response",
+                      "children": "will_not_fix"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "detail",
+                  "children": "analysis details"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "affects",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "target",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "ref",
+                      "children": "component-with-vulnerabilities"
+                    },
+                    {
+                      "type": "element",
+                      "name": "versions",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "version",
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "version",
+                              "children": "1.0.0"
+                            },
+                            {
+                              "type": "element",
+                              "name": "status",
+                              "children": "affected"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "target",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "ref",
+                      "children": "urn:cdx:ac35b126-ef3a-11ed-a05b-0242ac120003/7#component-with-vulnerabilities"
+                    },
+                    {
+                      "type": "element",
+                      "name": "versions",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "version",
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "version",
+                              "children": "1.0.0"
+                            },
+                            {
+                              "type": "element",
+                              "name": "status",
+                              "children": "affected"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "element",
+                          "name": "version",
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "range",
+                              "children": "> 1.0"
+                            },
+                            {
+                              "type": "element",
+                              "name": "status",
+                              "children": "unknown"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "properties",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "property",
+                  "attributes": {
+                    "name": "a name"
+                  },
+                  "children": "a value"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "vulnerability",
+          "attributes": {
+            "bom-ref": "dummy.vulnerability.2"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "id",
+              "children": "2"
+            },
+            {
+              "type": "element",
+              "name": "source",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "manual"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "references",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "reference",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "id",
+                      "children": "CVE-2042-42422"
+                    },
+                    {
+                      "type": "element",
+                      "name": "source",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "url",
+                          "children": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-42422"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "ratings",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "rating",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "score",
+                      "children": "10"
+                    },
+                    {
+                      "type": "element",
+                      "name": "severity",
+                      "children": "critical"
+                    },
+                    {
+                      "type": "element",
+                      "name": "method",
+                      "children": "other"
+                    },
+                    {
+                      "type": "element",
+                      "name": "justification",
+                      "children": "this is crazy"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "cwes",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "cwe",
+                  "children": "242"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "description",
+              "children": "description of 2"
+            },
+            {
+              "type": "element",
+              "name": "detail",
+              "children": "detail of 2"
+            },
+            {
+              "type": "element",
+              "name": "recommendation",
+              "children": "recommendation of 2"
+            },
+            {
+              "type": "element",
+              "name": "advisories",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "advisory",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "title",
+                      "children": "vulnerability 2 discovered"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://www.advisories.com/"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "created",
+              "children": "2023-03-03T00:00:40.000Z"
+            },
+            {
+              "type": "element",
+              "name": "published",
+              "children": "2023-03-03T00:00:40.000Z"
+            },
+            {
+              "type": "element",
+              "name": "updated",
+              "children": "2023-03-03T00:00:40.000Z"
+            },
+            {
+              "type": "element",
+              "name": "credits",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "organizations",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "organization",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "name",
+                          "children": "vulnerability researchers inc."
+                        },
+                        {
+                          "type": "element",
+                          "name": "url",
+                          "children": "https://vulnerabilities-researchers.com/"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "individuals",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "individual",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "name",
+                          "children": "John \"pentester\" Doe"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "tools",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "tool",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "vendor",
+                      "children": "g the group"
+                    },
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "other tool name"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "tool",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "vendor",
+                      "children": "v the vendor"
+                    },
+                    {
+                      "type": "element",
+                      "name": "name",
+                      "children": "tool name"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "analysis",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "state",
+                  "children": "false_positive"
+                },
+                {
+                  "type": "element",
+                  "name": "justification",
+                  "children": "protected_at_runtime"
+                },
+                {
+                  "type": "element",
+                  "name": "responses",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "response",
+                      "children": "can_not_fix"
+                    },
+                    {
+                      "type": "element",
+                      "name": "response",
+                      "children": "will_not_fix"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "detail",
+                  "children": "analysis details"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "affects",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "target",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "ref",
+                      "children": "dummy.metadata.component"
+                    },
+                    {
+                      "type": "element",
+                      "name": "versions",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "version",
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "version",
+                              "children": "1.0.0"
+                            },
+                            {
+                              "type": "element",
+                              "name": "status",
+                              "children": "affected"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "target",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "ref",
+                      "children": "urn:cdx:ac35b126-ef3a-11ed-a05b-0242ac120003/7#dummy.metadata.component"
+                    },
+                    {
+                      "type": "element",
+                      "name": "versions",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "version",
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "version",
+                              "children": "1.0.0"
+                            },
+                            {
+                              "type": "element",
+                              "name": "status",
+                              "children": "affected"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "element",
+                          "name": "version",
+                          "children": [
+                            {
+                              "type": "element",
+                              "name": "range",
+                              "children": "> 1.0"
+                            },
+                            {
+                              "type": "element",
+                              "name": "status",
+                              "children": "unknown"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "properties",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "property",
+                  "attributes": {
+                    "name": "a name"
+                  },
+                  "children": "a value"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "vulnerability",
+          "attributes": {
+            "bom-ref": "vulnerability-1"
+          },
+          "children": [
+            {
+              "type": "element",
+              "name": "id",
+              "children": "CVE-2018-7489"
+            },
+            {
+              "type": "element",
+              "name": "source",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "name",
+                  "children": "NVD"
+                },
+                {
+                  "type": "element",
+                  "name": "url",
+                  "children": "https://nvd.nist.gov/vuln/detail/CVE-2019-9997"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "ratings",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "rating",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "source",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "name",
+                          "children": "NVD"
+                        },
+                        {
+                          "type": "element",
+                          "name": "url",
+                          "children": "https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H&version=3.0"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "element",
+                      "name": "score",
+                      "children": "9.8"
+                    },
+                    {
+                      "type": "element",
+                      "name": "severity",
+                      "children": "critical"
+                    },
+                    {
+                      "type": "element",
+                      "name": "method",
+                      "children": "CVSSv3"
+                    },
+                    {
+                      "type": "element",
+                      "name": "vector",
+                      "children": "AN/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "cwes",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "cwe",
+                  "children": "184"
+                },
+                {
+                  "type": "element",
+                  "name": "cwe",
+                  "children": "502"
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "description",
+              "children": "FasterXML jackson-databind before 2.7.9.3, 2.8.x before 2.8.11.1 and 2.9.x before 2.9.5 allows unauthenticated remote code execution because of an incomplete fix for the CVE-2017-7525 deserialization flaw. This is exploitable by sending maliciously crafted JSON input to the readValue method of the ObjectMapper, bypassing a blacklist that is ineffective if the c3p0 libraries are available in the classpath."
+            },
+            {
+              "type": "element",
+              "name": "recommendation",
+              "children": "Upgrade com.fasterxml.jackson.core:jackson-databind to version 2.6.7.5, 2.8.11.1, 2.9.5 or higher."
+            },
+            {
+              "type": "element",
+              "name": "advisories",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "advisory",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "title",
+                      "children": "GitHub Commit"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://github.com/FasterXML/jackson-databind/commit/6799f8f10cc78e9af6d443ed6982d00a13f2e7d2"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "advisory",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "title",
+                      "children": "GitHub Issue"
+                    },
+                    {
+                      "type": "element",
+                      "name": "url",
+                      "children": "https://github.com/FasterXML/jackson-databind/issues/1931"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "created",
+              "children": "2021-08-15T23:42:00.000Z"
+            },
+            {
+              "type": "element",
+              "name": "published",
+              "children": "2021-08-15T23:42:00.000Z"
+            },
+            {
+              "type": "element",
+              "name": "updated",
+              "children": "2021-08-15T23:42:00.000Z"
+            },
+            {
+              "type": "element",
+              "name": "analysis",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "state",
+                  "children": "not_affected"
+                },
+                {
+                  "type": "element",
+                  "name": "justification",
+                  "children": "code_not_reachable"
+                },
+                {
+                  "type": "element",
+                  "name": "responses",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "response",
+                      "children": "update"
+                    },
+                    {
+                      "type": "element",
+                      "name": "response",
+                      "children": "will_not_fix"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "detail",
+                  "children": "An optional explanation of why the application is not affected by the vulnerable component."
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "affects",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "target",
+                  "children": [
+                    {
+                      "type": "element",
+                      "name": "ref",
+                      "children": "urn:cdx:3e671687-395b-41f5-a30f-a58921a69b79/1#jackson-databind-2.8.0"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

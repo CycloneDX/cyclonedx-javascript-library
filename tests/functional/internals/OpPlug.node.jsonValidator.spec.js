@@ -43,14 +43,14 @@ suite('functional: internals: OpPlug.node.jsonValidator auto', () => {
     return
   }
 
-  const schemaPath = Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot6]
+  const schemaPath = Resources.FILES.CDX.JSON_SCHEMA[Version.v1dot7]
   const schemaMap = {
     'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': Resources.FILES.SPDX.JSON_SCHEMA,
     'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': Resources.FILES.JSF.JSON_SCHEMA
   }
-  const validJson = '{"bomFormat": "CycloneDX", "specVersion": "1.6"}'
-  const invalidJson = '{"bomFormat": "unexpected", "specVersion": "1.6"}'
-  const brokenJson = '{"bomFormat": "CycloneDX", "specVersion": "1.6"' // not closed
+  const validJson = '{"bomFormat": "CycloneDX", "specVersion": "1.7"}'
+  const invalidJson = '{"bomFormat": "unexpected", "specVersion": "1.7"}'
+  const brokenJson = '{"bomFormat": "CycloneDX", "specVersion": "1.7"' // not closed
 
   test('valid causes no validationError', async () => {
     const validationError = (await makeValidator(schemaPath, schemaMap))(validJson)

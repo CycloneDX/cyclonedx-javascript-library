@@ -46,6 +46,7 @@ describe('integration.Validation.XmlValidator', () => {
   }));
 
   [
+    Version.v1dot7,
     Version.v1dot6,
     Version.v1dot5,
     Version.v1dot4,
