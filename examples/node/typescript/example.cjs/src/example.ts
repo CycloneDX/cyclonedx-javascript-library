@@ -46,7 +46,7 @@ componentA.purl = purlFac.makeFromComponent(componentA)
 bom.components.add(componentA)
 bom.metadata.component.dependencies.add(componentA.bomRef)
 
-const serializeSpec = CDX.Spec.Spec1dot6
+const serializeSpec = CDX.Spec.Spec1dot7
 
 const jsonSerializer = new CDX.Serialize.JsonSerializer(
   new CDX.Serialize.JSON.Normalize.Factory(serializeSpec))
@@ -65,7 +65,7 @@ jsonValidator.validate(serializedJson)
     if (err instanceof CDX.Validation.MissingOptionalDependencyError) {
       console.info('JSON validation skipped:', err)
     } else {
-       
+
       throw err
     }
   })
@@ -87,7 +87,7 @@ xmlValidator.validate(serializedXML)
     if (err instanceof CDX.Validation.MissingOptionalDependencyError) {
       console.info('XML validation skipped:', err)
     } else {
-       
+
       throw err
     }
   })
