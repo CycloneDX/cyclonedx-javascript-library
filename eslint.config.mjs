@@ -68,8 +68,9 @@ export default [
     files: ['src/**/*.ts'],
     languageOptions: {
       parserOptions: {
-        project: path.join(__dirname, 'tsconfig.json'),
-      },
+        projectService: true,
+        tsconfigRootDir: __dirname
+      }
     },
   },
   {
