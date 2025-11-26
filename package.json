@@ -182,6 +182,10 @@
     "./Validation": {
       "types": "./dist.d/validation/index.node.d.ts",
       "default": "./dist.node/validation/index.node.js"
+    },
+    "./Contrib": {
+      "types": "./dist.d/contrib/index.d.ts",
+      "default": "./dist.node/contrib/index.js"
     }
   },
   "directories": {
