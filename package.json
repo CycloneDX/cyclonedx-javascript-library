@@ -185,7 +185,7 @@
     },
     "./Contrib": {
       "types": "./dist.d/contrib/index.d.ts",
-      "default": "./dist.node/contrib/index.js"
+      "default": "./dist.node/contrib/index.node.js"
     }
   },
   "directories": {
