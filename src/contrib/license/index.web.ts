@@ -17,7 +17,6 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-
 export * from './index.common'
 
 // region web-specifics
@@ -25,3 +24,5 @@ export * from './index.common'
 // nothing. yet ...
 
 // endregion web-specifics
+
+// do not export the _helpers, they are for internal use only

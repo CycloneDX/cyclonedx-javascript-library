@@ -17,5 +17,6 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-
 export * as Factories from './factories'
+
+// do not export the _helpers, they are for internal use only

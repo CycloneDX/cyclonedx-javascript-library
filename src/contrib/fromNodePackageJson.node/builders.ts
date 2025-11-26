@@ -26,14 +26,14 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * Normalization should be done downstream, for example via [`normalize-package-data`](https://www.npmjs.com/package/normalize-package-data).
  */
 
-import { splitNameGroup } from './_helpers/packageJson'
 import { ComponentType } from '../../enums/componentType'
-import type { ExternalReferenceFactory } from './factories'
-import type { LicenseFactory } from '../license/factories'
 import { Component } from '../../models/component'
 import { ExternalReferenceRepository } from '../../models/externalReference'
 import { LicenseRepository } from '../../models/license'
 import { Tool } from '../../models/tool'
+import type { LicenseFactory } from '../license/factories'
+import { splitNameGroup } from './_helpers/packageJson'
+import type { ExternalReferenceFactory } from './factories'
 import type { NodePackageJson } from './types'
 
 /**

@@ -26,9 +26,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { Stats } from 'node:fs'
 
-import { guessMimeTypeForLicenseFile } from './_helpers/mime.node'
 import { AttachmentEncoding } from '../../enums/attachmentEncoding'
 import { Attachment } from '../../models/attachment'
+import { guessMimeTypeForLicenseFile } from './_helpers/mime.node'
 
 export interface FsUtils<P extends string> {
   readdirSync: (path: P ) => P[]

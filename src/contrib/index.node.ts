@@ -17,7 +17,6 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-
 /**
  * Some features in this library are marked as contrib. These are community-provided extensions and are not part of the official standard. They are optional and may evolve independently from the core.
  */
