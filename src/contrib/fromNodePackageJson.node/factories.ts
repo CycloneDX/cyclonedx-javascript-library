@@ -29,16 +29,16 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 import type { PackageURL } from 'packageurl-js'
 import { PurlQualifierNames } from 'packageurl-js'
 
-import { tryCanonicalizeGitUrl } from "../_helpers/gitUrl"
-import { isNotUndefined } from '../_helpers/notUndefined'
-import { ExternalReferenceType } from '../enums/externalReferenceType'
-import { HashAlgorithm } from "../enums/hashAlogorithm";
-import type { Component } from '../models/component'
-import { ExternalReference } from '../models/externalReference'
-import { HashDictionary } from '../models/hash'
-import type { NodePackageJson } from '../types/nodePackageJson'
-import { defaultRegistryMatcher, parsePackageIntegrity } from '../utils/npmjsUtility.node'
-import { PackageUrlFactory as PlainPackageUrlFactory } from './packageUrl'
+import { isNotUndefined } from '../../_helpers/notUndefined'
+import { ExternalReferenceType } from '../../enums/externalReferenceType'
+import { HashAlgorithm } from "../../enums/hashAlogorithm";
+import type { Component } from '../../models/component'
+import { ExternalReference } from '../../models/externalReference'
+import { HashDictionary } from '../../models/hash'
+import { PackageUrlFactory as PlainPackageUrlFactory } from '../packageUrl/factories'
+import { tryCanonicalizeGitUrl } from "./_helpers/gitUrl"
+import type { NodePackageJson } from './types'
+import { defaultRegistryMatcher, parsePackageIntegrity } from './utils'
 
 /**
  * Node-specific ExternalReferenceFactory.

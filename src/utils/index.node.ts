@@ -21,7 +21,7 @@ export * from './index.common'
 
 // region node-specifics
 
-export * as LicenseUtility from './licenseUtility.node'
-export * as NpmjsUtility from './npmjsUtility.node'
+export * as NpmjsUtility from '../contrib/fromNodePackageJson.node/utils' // DEPRECATED - use original
+export * as LicenseUtility from '../contrib/license/utils.node' // DEPRECATED - use original
 
 // endregion node-specifics

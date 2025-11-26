@@ -17,4 +17,4 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * as FromNodePackageJson from './fromNodePackageJson.node'
+export * as FromNodePackageJson from '../contrib/fromNodePackageJson.node/builders' // DEPRECATED - use original
