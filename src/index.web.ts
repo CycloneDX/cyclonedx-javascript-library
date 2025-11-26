@@ -21,6 +21,7 @@ export * from './index.common'
 
 // region web-specifics
 
+export * as Contrib from './contrib/index.web'
 export * as Factories from './factories/index.web'
 export * as Serialize from './serialize/index.web'
 export * as Utils from './utils/index.web'

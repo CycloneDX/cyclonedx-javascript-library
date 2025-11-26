@@ -19,5 +19,5 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 // not everything is public, yet
 
-export * from '../contrib/license/factories'
-export * from '../contrib/packageUrl/factories'
+export * from '../contrib/license/factories' // DEPRECATED - use original
+export * from '../contrib/packageUrl/factories' // DEPRECATED - use original

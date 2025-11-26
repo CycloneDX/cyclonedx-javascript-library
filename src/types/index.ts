@@ -23,4 +23,4 @@ export * from './integer'
 export * from './mimeType'
 
 // yes, this is node-specific, but who cares - these are just types
-export * from '../contrib/fromNodePackageJson.node/types'
+export * from '../contrib/fromNodePackageJson.node/types' // DEPRECATED - use original
