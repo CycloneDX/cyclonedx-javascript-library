@@ -19,5 +19,15 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 // not everything is public, yet
 
-export * from '../contrib/license/factories' // DEPRECATED - use original
-export * from '../contrib/packageUrl/factories' // DEPRECATED - use original
+/**
+ * @deprecated This re-export location is deprecated.
+ * Import from `Contrib.License.Factories` instead.
+ * The exported classes themselves are NOT deprecated - only this import path.
+ */
+export * from '../contrib/license/factories'
+/**
+ * @deprecated This re-export location is deprecated.
+ * Import from `Contrib.PackageUrl.Factories` instead.
+ * The exported classes themselves are NOT deprecated - only this import path.
+ */
+export * from '../contrib/packageUrl/factories'

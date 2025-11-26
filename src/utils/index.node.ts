@@ -21,7 +21,17 @@ export * from './index.common'
 
 // region node-specifics
 
-export * as NpmjsUtility from '../contrib/fromNodePackageJson.node/utils' // DEPRECATED - use original
-export * as LicenseUtility from '../contrib/license/utils.node' // DEPRECATED - use original
+/**
+ * @deprecated This re-export location is deprecated.
+ * Import from `Contrib.FromNodePackageJson.Utils` instead.
+ * The exported utilities themselves are NOT deprecated - only this import path.
+ */
+export * as NpmjsUtility from '../contrib/fromNodePackageJson.node/utils'
+/**
+ * @deprecated This re-export location is deprecated.
+ * Import from `Contrib.License.Utils` instead.
+ * The exported utilities themselves are NOT deprecated - only this import path.
+ */
+export * as LicenseUtility from '../contrib/license/utils.node'
 
 // endregion node-specifics

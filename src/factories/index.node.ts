@@ -21,6 +21,11 @@ export * from './index.common'
 
 // region node-specifics
 
-export * as FromNodePackageJson from '../contrib/fromNodePackageJson.node/factories' // DEPRECATED - use original
+/**
+ * @deprecated This re-export location is deprecated.
+ * Import from `Contrib.FromNodePackageJson.Factories` instead.
+ * The exported classes themselves are NOT deprecated - only this import path.
+ */
+export * as FromNodePackageJson from '../contrib/fromNodePackageJson.node/factories'
 
 // endregion node-specifics

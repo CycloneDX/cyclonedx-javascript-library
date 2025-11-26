@@ -23,4 +23,9 @@ export * from './integer'
 export * from './mimeType'
 
 // yes, this is node-specific, but who cares - these are just types
-export * from '../contrib/fromNodePackageJson.node/types' // DEPRECATED - use original
+/**
+ * @deprecated This re-export location is deprecated.
+ * Import from `Contrib.FromNodePackageJson.Types` instead.
+ * The exported types themselves are NOT deprecated - only this import path.
+ */
+export * from '../contrib/fromNodePackageJson.node/types'

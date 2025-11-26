@@ -17,4 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * as FromNodePackageJson from '../contrib/fromNodePackageJson.node/builders' // DEPRECATED - use original
+/**
+ * @deprecated This re-export location is deprecated.
+ * Import from `Contrib.FromNodePackageJson.Builders` instead.
+ * The exported classes themselves are NOT deprecated - only this import path.
+ */
+export * as FromNodePackageJson from '../contrib/fromNodePackageJson.node/builders'
