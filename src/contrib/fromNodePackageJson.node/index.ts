@@ -18,6 +18,15 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 /**
- * Some features in this library are marked as contrib. These are community-provided extensions and are not part of the official standard. They are optional and may evolve independently from the core.
+ * Node-specifics.
+ *
+ * Intended to run on normalized data structures
+ * based on [PackageJson spec](https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json)
+ * and explained by [PackageJson description](https://docs.npmjs.com/cli/v9/configuring-npm/package-json).
+ * Normalization should be done downstream, for example via [`normalize-package-data`](https://www.npmjs.com/package/normalize-package-data).
  */
-export {}
+
+export * as Builders from './builders'
+export * as Factories from './factories'
+export * as Types from './types'
+export * as Utils from './utils'

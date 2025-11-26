@@ -21,6 +21,6 @@ export * from './index.common'
 
 // region node-specifics
 
-export * as FromNodePackageJson from './fromNodePackageJson.node'
+export * as FromNodePackageJson from '../contrib/fromNodePackageJson.node/factories'
 
 // endregion node-specifics

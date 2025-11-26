@@ -17,11 +17,16 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+
+/**
+ * Some features in this library are marked as contrib. These are community-provided extensions and are not part of the official standard. They are optional and may evolve independently from the core.
+ */
+
 export * from './index.common'
 
 // region node-specifics
 
-export * as LicenseUtility from '../contrib/license/utils.node'
-export * as NpmjsUtility from '../contrib/fromNodePackageJson.node/utils'
+export * as FromNodePackageJson from './fromNodePackageJson.node'
+export * as License from './license/index.node'
 
 // endregion node-specifics

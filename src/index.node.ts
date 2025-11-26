@@ -25,6 +25,7 @@ export * from './index.common'
 
 // region node-specifics
 
+export * as Contrib from './contrib/index.node'
 export * as Builders from './builders/index.node'
 export * as Factories from './factories/index.node'
 export * as Serialize from './serialize/index.node'
@@ -37,5 +38,7 @@ export * as Validation from './validation/index.node'
  * @internal
  */
 export * as _Resources from './resources.node'
+
+// do not export the _helpers, they are for internal use only
 
 // endregion node-specifics

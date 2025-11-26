@@ -16,5 +16,5 @@ Unlike the modules in `../`, these features are not part of the official Cyclone
 ## Contributing
 Contributions are welcome. To add an extension:
 1. Follow the contribution guidelines in the main repository.
-2. Place your code in a clearly named subfolder under `contrib/`.
+2. Place your code in a clearly named subfolder or file under `contrib/`.
 3. Provide documentation and tests to ensure clarity and maintainability.  
