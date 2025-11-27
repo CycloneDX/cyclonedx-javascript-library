@@ -25,7 +25,7 @@ export * from './index.common'
 
 // region node-specifics
 
-export * as FromNodePackageJson from './fromNodePackageJson.node'
+export * as FromNodePackageJson from './fromNodePackageJson/index.node'
 export * as License from './license/index.node'
 
 // endregion node-specifics

@@ -17,11 +17,31 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import * as _NpmjsUtility from '../contrib/fromNodePackageJson/utils'
+import * as _LicenseUtility from '../contrib/license/utils.node'
+
+
 export * from './index.common'
 
 // region node-specifics
 
-export * as NpmjsUtility from '../contrib/fromNodePackageJson.node/utils' // DEPRECATED - use original
-export * as LicenseUtility from '../contrib/license/utils.node' // DEPRECATED - use original
+// region deprecated re-exports
+
+/**
+ * Alias of {@link Contrib.FromNodePackageJson.Utils}.
+ * @deprecated This re-export location is deprecated.
+ * Import `Contrib.FromNodePackageJson.Utils` instead.
+ * The exported symbol itself is NOT deprecated - only this import path.
+ */
+export const NpmjsUtility = _NpmjsUtility
+/**
+ * Alias of {@link Contrib.License.Utils}.
+ * @deprecated This re-export location is deprecated.
+ * Import `Contrib.License.Utils` instead.
+ * The exported symbol itself is NOT deprecated - only this import path.
+ */
+export const LicenseUtility = _LicenseUtility
+
+// region deprecated re-exports
 
 // endregion node-specifics

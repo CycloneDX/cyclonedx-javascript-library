@@ -184,7 +184,7 @@
       "default": "./dist.node/validation/index.node.js"
     },
     "./Contrib": {
-      "types": "./dist.d/contrib/index.d.ts",
+      "types": "./dist.d/contrib/index.node.d.ts",
       "default": "./dist.node/contrib/index.node.js"
     }
   },

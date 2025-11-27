@@ -17,10 +17,39 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import {
+  assertNodePackageJson as _assertNodePackageJson,
+  isNodePackageJson as _isNodePackageJson,
+  type NodePackageJson as _NodePackageJson
+} from '../contrib/fromNodePackageJson/types'
+
 export * from './cpe'
 export * from './cwe'
 export * from './integer'
 export * from './mimeType'
 
-// yes, this is node-specific, but who cares - these are just types
-export * from '../contrib/fromNodePackageJson.node/types' // DEPRECATED - use original
+// region deprecated re-exports
+
+/**
+ * Alias of {@link Contrib.FromNodePackageJson.Types.NodePackageJson}.
+ * @deprecated This re-export location is deprecated.
+ * Import `Contrib.FromNodePackageJson.Types.NodePackageJson` instead.
+ * The exported symbol itself is  NOT deprecated - only this import path.
+ */
+export type NodePackageJson = _NodePackageJson
+/**
+ * Alias of {@link Contrib.FromNodePackageJson.Types.assertNodePackageJson}.
+ * @deprecated This re-export location is deprecated.
+ * Import `Contrib.FromNodePackageJson.Types.assertNodePackageJson` instead.
+ * The exported symbol itself is  NOT deprecated - only this import path.
+ */
+export const assertNodePackageJson= _assertNodePackageJson
+/**
+ * Alias of {@link Contrib.FromNodePackageJson.Types.isNodePackageJson}.
+ * @deprecated This re-export location is deprecated.
+ * Import `Contrib.FromNodePackageJson.Types.isNodePackageJson` instead.
+ * The exported symbol itself is  NOT deprecated - only this import path.
+ */
+export const isNodePackageJson= _isNodePackageJson
+
+// endregion deprecated re-exports
