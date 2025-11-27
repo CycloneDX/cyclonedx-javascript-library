@@ -6,15 +6,14 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
-
+* Added
+  * New entry point for `/Contrib` and known submodules (via [#1343])  
+    See `package.json::exports` for details.
 * Changed
   * Moved non‑standard implementations to Contrib area ([#1344] via [#1343])
 * Deprecated
   * Certain exports have been deprecated; downstream imports should be updated to the new locations ([#1344] via [#1343])  
     Note: the symbols themselves remain supported. See documentation and the "Refactored" section below for details.
-* Added
-  * New entry point for `/Contrib` and known submodules  (via [#1343])  
-    See `package.json::exports` for details.
 * Refactored
   * The following symbols were moved. ([#1344] via [#1343])  
     The symbols are still import-able through their old location.
