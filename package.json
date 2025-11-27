@@ -186,6 +186,10 @@
     "./Contrib": {
       "types": "./dist.d/contrib/index.node.d.ts",
       "default": "./dist.node/contrib/index.node.js"
+    },
+    "./Contrib/*": {git
+      "types": "./dist.d/contrib/*/index.node.d.ts",
+      "default": "./dist.node/contrib/*/index.node.js"
     }
   },
   "directories": {
