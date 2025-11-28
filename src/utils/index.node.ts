@@ -28,14 +28,17 @@ export * from './index.common'
 // region deprecated re-exports
 
 /**
- * Alias of {@link Contrib.FromNodePackageJson.Utils}.
+ * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Utils}.
+ *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.FromNodePackageJson.Utils` instead.
  * The exported symbol itself is NOT deprecated - only this import path.
  */
 export const NpmjsUtility = _NpmjsUtility
+
 /**
- * Alias of {@link Contrib.License.Utils}.
+ * Deprecated — Alias of {@link Contrib.License.Utils}.
+ *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.License.Utils` instead.
  * The exported symbol itself is NOT deprecated - only this import path.

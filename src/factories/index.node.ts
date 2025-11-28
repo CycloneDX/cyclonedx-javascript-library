@@ -26,7 +26,8 @@ export * from './index.common'
 // region deprecated re-exports
 
 /**
- * Alias of {@link Contrib.FromNodePackageJson.Factories}.
+ * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Factories}.
+ *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.FromNodePackageJson.Factories` instead.
  * The exported symbol itself is NOT deprecated - only this import path.

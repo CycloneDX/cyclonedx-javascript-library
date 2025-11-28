@@ -23,7 +23,8 @@ import * as _FromNodePackageJson from '../contrib/fromNodePackageJson/builders'
 // region deprecated re-exports
 
 /**
- * Alias of {@link Contrib.FromNodePackageJson.Builders}.
+ * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Builders}.
+ *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.FromNodePackageJson.Builders` instead.
  * The exported symbol itself is NOT deprecated - only this import path.

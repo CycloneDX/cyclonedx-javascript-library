@@ -24,14 +24,17 @@ import {PackageUrlFactory as _PackageUrlFactory} from '../contrib/packageUrl/fac
 // region deprecated re-exports
 
 /**
- * Alias of {@link Contrib.License.Factories.LicenseFactory}.
+ * Deprecated — Alias of {@link Contrib.License.Factories.LicenseFactory}.
+ *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.License.Factories.LicenseFactory` instead.
  * The exported symbol itself is NOT deprecated - only this import path.
  */
 export const LicenseFactory = _LicenseFactory
+
 /**
- * Alias of {@link Contrib.PackageUrl.Factories.PackageUrlFactory}.
+ * Deprecated — Alias of {@link Contrib.PackageUrl.Factories.PackageUrlFactory}.
+ *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.PackageUrl.Factories.PackageUrlFactory` instead.
  * The exported symbol itself is NOT deprecated - only this import path.
