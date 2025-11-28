@@ -45,6 +45,6 @@ export const NpmjsUtility = _NpmjsUtility
  */
 export const LicenseUtility = _LicenseUtility
 
-// region deprecated re-exports
+// endregion deprecated re-exports
 
 // endregion node-specifics
