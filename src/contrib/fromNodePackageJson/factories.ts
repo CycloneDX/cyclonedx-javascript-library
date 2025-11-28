@@ -31,12 +31,12 @@ import { PurlQualifierNames } from 'packageurl-js'
 
 import { isNotUndefined } from '../../_helpers/notUndefined'
 import { ExternalReferenceType } from '../../enums/externalReferenceType'
-import { HashAlgorithm } from "../../enums/hashAlogorithm";
+import { HashAlgorithm } from '../../enums/hashAlogorithm'
 import type { Component } from '../../models/component'
 import { ExternalReference } from '../../models/externalReference'
 import { HashDictionary } from '../../models/hash'
 import { PackageUrlFactory as PlainPackageUrlFactory } from '../packageUrl/factories'
-import { tryCanonicalizeGitUrl } from "./_helpers/gitUrl"
+import { tryCanonicalizeGitUrl } from './_helpers/gitUrl'
 import type { NodePackageJson } from './types'
 import { defaultRegistryMatcher, parsePackageIntegrity } from './utils'
 
@@ -122,7 +122,7 @@ export class ExternalReferenceFactory {
         } catch { /* pass */ }
       }
       if (typeof shasum === 'string' && shasum.length === 40) {
-        hashes.set(HashAlgorithm["SHA-1"], shasum)
+        hashes.set(HashAlgorithm['SHA-1'], shasum)
         comment += ' and property "dist.shasum"'
       }
       return new ExternalReference(tarball, ExternalReferenceType.Distribution, { hashes, comment })
