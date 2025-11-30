@@ -22,8 +22,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const CDX = require('@cyclonedx/cyclonedx-library')
 // full Library is available as `CDX`, now
 
-const lFac = new CDX.Factories.LicenseFactory()
-const purlFac = new CDX.Factories.PackageUrlFactory('generic')
+const lFac = new CDX.Contrib.License.Factories.LicenseFactory()
+const purlFac = new CDX.Contrib.PackageUrl.Factories.PackageUrlFactory('generic')
 
 const bom = new CDX.Models.Bom()
 bom.metadata.component = new CDX.Models.Component(

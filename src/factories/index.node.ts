@@ -17,10 +17,23 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import * as _FromNodePackageJson from '../contrib/fromNodePackageJson/factories'
+
 export * from './index.common'
 
 // region node-specifics
 
-export * as FromNodePackageJson from './fromNodePackageJson.node'
+// region deprecated re-exports
+
+/**
+ * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Factories}.
+ *
+ * @deprecated This re-export location is deprecated.
+ * Import `Contrib.FromNodePackageJson.Factories` instead.
+ * The exported symbol itself is NOT deprecated - only this import path.
+ */
+export const FromNodePackageJson = _FromNodePackageJson
+
+// endregion deprecated re-exports
 
 // endregion node-specifics

@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import {HashAlgorithm} from '../enums/hashAlogorithm'
+import {HashAlgorithm} from '../../enums/hashAlogorithm'
 
 /**
  * See {@link https://docs.npmjs.com/cli/v9/configuring-npm/package-lock-json#packages | package lock docs} for "integrity".

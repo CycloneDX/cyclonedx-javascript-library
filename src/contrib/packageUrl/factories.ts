@@ -19,8 +19,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { PackageURL, PurlQualifierNames } from 'packageurl-js'
 
-import { ExternalReferenceType } from '../enums/externalReferenceType'
-import type { Component } from '../models/component'
+import { ExternalReferenceType } from '../../enums/externalReferenceType'
+import type { Component } from '../../models/component'
 
 export class PackageUrlFactory<PurlType extends PackageURL['type'] = PackageURL['type']> {
   readonly #type: PurlType
