@@ -22,8 +22,10 @@ export * from './index.common'
 // region web-specifics
 
 export * as Contrib from './contrib/index.web'
+/** @deprecated next */
 export * as Factories from './factories/index.web'
 export * as Serialize from './serialize/index.web'
+/** @deprecated next */
 export * as Utils from './utils/index.web'
 export * as Validation from './validation/index.web'
 

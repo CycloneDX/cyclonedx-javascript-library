@@ -17,4 +17,18 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * as BomUtility from './bomUtility'
+// region deprecated re-exports
+
+import * as _BomUtils from "../contrib/bom/utils";
+
+/**
+ * Deprecated — Alias of {@link Contrib.Bom.Utils}.
+ *
+ * @deprecated This re-export location is deprecated.
+ * Import `Contrib.Bom.Utils` instead.
+ * The exported symbol itself is NOT deprecated - only this import path.
+ */
+export const BomUtility = _BomUtils
+
+// endregion deprecated re-exports
+
