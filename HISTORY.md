@@ -6,9 +6,12 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
-* Refactor:
-  * Applied latest code style (via [#1341]) 
+* Refactor
+  * Applied latest code style (via [#1341])
+* Build
+  * Use _webpack_ `v5.103.0` now, was `v5.102.1` (via [#1340])
 
+[#1340]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1340
 [#1341]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1341
 
 ## 9.2.0 -- 2025-10-22
