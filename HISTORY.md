@@ -27,14 +27,15 @@ All notable changes to this project will be documented in this file.
     * `Types.NodePackageJson` -> `Contrib.FromNodePackageJson.Types.NodePackageJson`
     * `Utils.LicenseUtility` -> `Contrib.License.Utils`
     * `Utils.NpmjsUtility` -> `Contrib.FromNodePackageJson.Utils`
+* Style
   * Applied latest code style (via [#1341])
 * Build
   * Use _webpack_ `v5.103.0` now, was `v5.102.1` (via [#1340])
 
 [#1340]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1340
 [#1341]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1341
-[#1344]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1344
 [#1343]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1343
+[#1344]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1344
 
 ## 9.2.0 -- 2025-10-22
 
