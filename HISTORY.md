@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Added
-  * New entry point for `/Contrib` and known submodules (via [#1343])  
+  * New entry points for `/Contrib` and known submodules (via [#1343])  
     See `package.json::exports` for details.
 * Changed
   * Moved non‑standard implementations to Contrib area ([#1344] via [#1343])
