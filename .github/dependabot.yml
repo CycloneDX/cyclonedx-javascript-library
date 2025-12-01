@@ -24,6 +24,10 @@ updates:
       - dependency-name: "@types/node"  # version is like `ts.X.Y` -- need to maintain manually
     groups:
       eslint:
+        typedoc:
+          - 'typedoc'
+          - 'typedoc-*'
+          - '*-tsdoc'
         patterns:
           - 'eslint'
           - '@eslint/*'
