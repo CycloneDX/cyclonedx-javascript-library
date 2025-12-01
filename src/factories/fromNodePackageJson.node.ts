@@ -58,8 +58,8 @@ export class ExternalReferenceFactory {
   makeVcs (data: NodePackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#repositoryc */
     const repository = data.repository
-    let url // eslint-disable-line @typescript-eslint/init-declarations -- ack
-    let comment// eslint-disable-line @typescript-eslint/init-declarations -- ack
+    let url  // eslint-disable-line @typescript-eslint/init-declarations -- ack
+    let comment  // eslint-disable-line @typescript-eslint/init-declarations -- ack
     if (typeof repository === 'object') {
       url = tryCanonicalizeGitUrl(repository.url)
       comment = 'as detected from PackageJson property "repository.url"'
@@ -91,8 +91,8 @@ export class ExternalReferenceFactory {
   makeIssueTracker (data: NodePackageJson): ExternalReference | undefined {
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#bugs */
     const bugs = data.bugs
-    let url // eslint-disable-line @typescript-eslint/init-declarations -- ack
-    let comment // eslint-disable-line @typescript-eslint/init-declarations -- ack
+    let url  // eslint-disable-line @typescript-eslint/init-declarations -- ack
+    let comment  // eslint-disable-line @typescript-eslint/init-declarations -- ack
     if (typeof bugs === 'object') {
       url = bugs.url
       comment = 'as detected from PackageJson property "bugs.url"'
