@@ -6,8 +6,8 @@
     "node": ">=20.18"
   },
   "dependencies": {
-    "typedoc": "^0.28.1",
-    "typedoc-plugin-missing-exports": "^4.0.0"
+    "typedoc": "^0.28.15",
+    "typedoc-plugin-missing-exports": "^4.1.2"
   },
   "scripts": {
     "cs-fix": "npm --prefix ../code-style exec -- eslint --fix ."

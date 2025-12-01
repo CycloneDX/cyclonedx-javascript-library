@@ -9,12 +9,12 @@ All notable changes to this project will be documented in this file.
 * Added
   * New entry points for `/Contrib` and known submodules (via [#1343])  
     See `package.json::exports` for details.
-* Changed
+* Changes
   * Moved non‑standard implementations to Contrib area ([#1344] via [#1343])
 * Deprecated
   * Certain exports have been deprecated; downstream imports should be updated to the new locations ([#1344] via [#1343])  
     Note: the symbols themselves remain supported. See documentation and the "Refactored" section below for details.
-* Refactored
+* Refactor
   * The following symbols were moved. ([#1344] via [#1343])  
     The symbols are still import-able through their old location.
     * **OLD** -> **NEW**
@@ -27,7 +27,12 @@ All notable changes to this project will be documented in this file.
     * `Types.NodePackageJson` -> `Contrib.FromNodePackageJson.Types.NodePackageJson`
     * `Utils.LicenseUtility` -> `Contrib.License.Utils`
     * `Utils.NpmjsUtility` -> `Contrib.FromNodePackageJson.Utils`
+  * Applied latest code style (via [#1341])
+* Build
+  * Use _webpack_ `v5.103.0` now, was `v5.102.1` (via [#1340])
 
+[#1340]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1340
+[#1341]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1341
 [#1344]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1344
 [#1343]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1343
 
