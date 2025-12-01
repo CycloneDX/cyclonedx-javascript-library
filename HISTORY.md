@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Refactor:
+  * Applied latest code style (via [#1341]) 
+
+[#1341]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1341
+
 ## 9.2.0 -- 2025-10-22
 
 * Added
