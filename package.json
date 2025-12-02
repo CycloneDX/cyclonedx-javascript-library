@@ -187,6 +187,10 @@
       "types": "./dist.d/contrib/index.node.d.ts",
       "default": "./dist.node/contrib/index.node.js"
     },
+    "./Contrib/Bom": {
+      "types": "./dist.d/contrib/bom/index.d.ts",
+      "default": "./dist.node/contrib/bom/index.js"
+    },
     "./Contrib/FromNodePackageJson": {
       "types": "./dist.d/contrib/fromNodePackageJson/index.node.d.ts",
       "default": "./dist.node/contrib/fromNodePackageJson/index.node.js"

@@ -25,6 +25,7 @@ All notable changes to this project will be documented in this file.
     * `Types.assertNodePackageJson` -> `Contrib.FromNodePackageJson.Types.assertNodePackageJson`
     * `Types.isNodePackageJson` -> `Contrib.FromNodePackageJson.Types.isNodePackageJson`
     * `Types.NodePackageJson` -> `Contrib.FromNodePackageJson.Types.NodePackageJson`
+    * `Utils.BomUtility` -> `Contrib.Bom.Utils`
     * `Utils.LicenseUtility` -> `Contrib.License.Utils`
     * `Utils.NpmjsUtility` -> `Contrib.FromNodePackageJson.Utils`
 * Style
