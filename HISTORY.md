@@ -6,6 +6,28 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * New entry points for `/Contrib` and known submodules (via [#1343])  
+    See `package.json::exports` for details.
+* Changes
+  * Moved non‑standard implementations to Contrib area ([#1344] via [#1343])
+* Deprecated
+  * Certain exports have been deprecated; downstream imports should be updated to the new locations ([#1344] via [#1343])  
+    Note: the symbols themselves remain supported. See documentation and the "Refactored" section below for details.
+* Refactor
+  * The following symbols were moved. ([#1344] via [#1343])  
+    The symbols are still import-able through their old location.
+    * **OLD** -> **NEW**
+    * `Builders.FromNodePackageJson` -> `Contrib.FromNodePackageJson.Builders`
+    * `Factories.FromNodePackageJson` -> `Contrib.FromNodePackageJson.Factories`
+    * `Factories.LicenseFactory` -> `Contrib.License.Factories.LicenseFactory`
+    * `Factories.PackageUrlFactory` -> `Contrib.PackageUrl.Factories.PackageUrlFactory`
+    * `Types.assertNodePackageJson` -> `Contrib.FromNodePackageJson.Types.assertNodePackageJson`
+    * `Types.isNodePackageJson` -> `Contrib.FromNodePackageJson.Types.isNodePackageJson`
+    * `Types.NodePackageJson` -> `Contrib.FromNodePackageJson.Types.NodePackageJson`
+    * `Utils.BomUtility` -> `Contrib.Bom.Utils`
+    * `Utils.LicenseUtility` -> `Contrib.License.Utils`
+    * `Utils.NpmjsUtility` -> `Contrib.FromNodePackageJson.Utils`
 * Style
   * Applied latest code style (via [#1341])
 * Build
@@ -13,6 +35,8 @@ All notable changes to this project will be documented in this file.
 
 [#1340]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1340
 [#1341]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1341
+[#1343]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1343
+[#1344]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1344
 
 ## 9.2.0 -- 2025-10-22
 

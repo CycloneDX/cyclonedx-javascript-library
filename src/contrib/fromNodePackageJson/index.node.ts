@@ -17,10 +17,18 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * as Enums from './enums'
-export * as Models from './models'
-export * as SPDX from './spdx'
-export * as Spec from './spec'
+/**
+ * Node-specifics.
+ *
+ * Intended to run on normalized data structures
+ * based on [PackageJson spec](https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json)
+ * and explained by [PackageJson description](https://docs.npmjs.com/cli/v9/configuring-npm/package-json).
+ * Normalization should be done downstream, for example via [`normalize-package-data`](https://www.npmjs.com/package/normalize-package-data).
+ */
+
+export * as Builders from './builders'
+export * as Factories from './factories'
 export * as Types from './types'
+export * as Utils from './utils'
 
 // do not export the _helpers, they are for internal use only

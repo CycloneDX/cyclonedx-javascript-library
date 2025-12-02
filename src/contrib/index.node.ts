@@ -17,10 +17,15 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * as Enums from './enums'
-export * as Models from './models'
-export * as SPDX from './spdx'
-export * as Spec from './spec'
-export * as Types from './types'
+/**
+ * Some features in this library are marked as contrib. These are community-provided extensions and are not part of the official standard. They are optional and may evolve independently from the core.
+ */
 
-// do not export the _helpers, they are for internal use only
+export * from './index.common'
+
+// region node-specifics
+
+export * as FromNodePackageJson from './fromNodePackageJson/index.node'
+export * as License from './license/index.node'
+
+// endregion node-specifics

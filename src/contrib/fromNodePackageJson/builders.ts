@@ -26,26 +26,27 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * Normalization should be done downstream, for example via [`normalize-package-data`](https://www.npmjs.com/package/normalize-package-data).
  */
 
-import { splitNameGroup } from '../_helpers/packageJson'
-import { ComponentType } from '../enums/componentType'
-import type * as Factories from '../factories/index.node'
-import { Component } from '../models/component'
-import { ExternalReferenceRepository } from '../models/externalReference'
-import { LicenseRepository } from '../models/license'
-import { Tool } from '../models/tool'
-import type { NodePackageJson } from '../types/nodePackageJson'
+import { ComponentType } from '../../enums/componentType'
+import { Component } from '../../models/component'
+import { ExternalReferenceRepository } from '../../models/externalReference'
+import { LicenseRepository } from '../../models/license'
+import { Tool } from '../../models/tool'
+import type { LicenseFactory } from '../license/factories'
+import { splitNameGroup } from './_helpers/packageJson'
+import type { ExternalReferenceFactory } from './factories'
+import type { NodePackageJson } from './types'
 
 /**
  * Node-specific ToolBuilder.
  */
 export class ToolBuilder {
-  readonly #extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory
+  readonly #extRefFactory: ExternalReferenceFactory
 
   constructor (extRefFactory: ToolBuilder['extRefFactory']) {
     this.#extRefFactory = extRefFactory
   }
 
-  get extRefFactory (): Factories.FromNodePackageJson.ExternalReferenceFactory {
+  get extRefFactory (): ExternalReferenceFactory {
     return this.#extRefFactory
   }
 
@@ -71,8 +72,8 @@ export class ToolBuilder {
  * Node-specific ComponentBuilder.
  */
 export class ComponentBuilder {
-  readonly #extRefFactory: Factories.FromNodePackageJson.ExternalReferenceFactory
-  readonly #licenseFactory: Factories.LicenseFactory
+  readonly #extRefFactory: ExternalReferenceFactory
+  readonly #licenseFactory: LicenseFactory
 
   constructor (
     extRefFactory: ComponentBuilder['extRefFactory'],
@@ -82,11 +83,11 @@ export class ComponentBuilder {
     this.#licenseFactory = licenseFactory
   }
 
-  get extRefFactory (): Factories.FromNodePackageJson.ExternalReferenceFactory {
+  get extRefFactory (): ExternalReferenceFactory {
     return this.#extRefFactory
   }
 
-  get licenseFactory (): Factories.LicenseFactory {
+  get licenseFactory (): LicenseFactory {
     return this.#licenseFactory
   }
 
@@ -104,8 +105,8 @@ export class ComponentBuilder {
     const author = typeof data.author === 'string'
       ? data.author
       : (typeof data.author?.name === 'string'
-          ? data.author.name
-          : undefined)
+        ? data.author.name
+        : undefined)
 
     /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#description-1 */
     const description = typeof data.description === 'string'
