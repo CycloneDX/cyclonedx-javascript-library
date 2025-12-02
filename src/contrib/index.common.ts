@@ -21,4 +21,5 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * Some features in this library are marked as contrib. These are community-provided extensions and are not part of the official standard. They are optional and may evolve independently from the core.
  */
 
+export * as Bom from './bom'
 export * as PackageUrl from './packageUrl'
