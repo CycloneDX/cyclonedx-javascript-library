@@ -17,13 +17,13 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index.common'
+import { randomSerialNumber as _randomSerialNumber } from '../contrib/bom/utils'
 
-// region node-specifics
-
-/** @deprecated next */
-export * as LicenseUtility from './licenseUtility.node'
-/** @deprecated next */
-export * as NpmjsUtility from './npmjsUtility.node'
-
-// endregion node-specifics
+/**
+ * Deprecated — Alias of {@link Contrib.Bom.Utils.randomSerialNumber}.
+ *
+ * @deprecated This re-export location is deprecated.
+ * Import `Contrib.Bom.Utils.randomSerialNumber` instead.
+ * The exported symbol itself is NOT deprecated - only this import path.
+ */
+export const randomSerialNumber = _randomSerialNumber

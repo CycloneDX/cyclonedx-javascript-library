@@ -22,6 +22,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * @see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1350
  */
 
+import * as fs from 'node:fs'
+import * as path from 'node:path'
+
 import * as CDX from '@cyclonedx/cyclonedx-library'
 // full Library is available as `CDX`, now
 
@@ -31,6 +34,11 @@ const dBU1 = CDX.Utils.BomUtility.randomSerialNumber()
 
 const dNU1 = CDX.Utils.NpmjsUtility.defaultRegistryMatcher
 const dNU2 = CDX.Utils.NpmjsUtility.parsePackageIntegrity('sha1-aSbRsZT7xze47tUTdW3i/Np+pAg=')
+
+type dLU1_T = CDX.Utils.LicenseUtility.LicenseEvidenceGatherer
+const fsU: CDX.Utils.LicenseUtility.FsUtils<string> = fs
+const pathU: CDX.Utils.LicenseUtility.PathUtils<string> = path
+const dLU1 = new CDX.Utils.LicenseUtility.LicenseEvidenceGatherer({fs: fsU, path: pathU})
 
 const dTnpj1: CDX.Types.NodePackageJson = {}
 try { CDX.Types.isNodePackageJson(dTnpj1) } catch { /* not implemented */ }

@@ -22,6 +22,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * @see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1350
  */
 
+const fs = require('node:fs')
+const path = require('node:path')
+
 const CDX = require('@cyclonedx/cyclonedx-library')
 // full Library is available as `CDX`, now
 
@@ -29,6 +32,8 @@ const dBU1 = CDX.Utils.BomUtility.randomSerialNumber()
 
 const dNU1 = CDX.Utils.NpmjsUtility.defaultRegistryMatcher
 const dNU2 = CDX.Utils.NpmjsUtility.parsePackageIntegrity('sha1-aSbRsZT7xze47tUTdW3i/Np+pAg=')
+
+const dLU1 = new CDX.Utils.LicenseUtility.LicenseEvidenceGatherer({fs, path})
 
 /** @type {CDX.Types.NodePackageJson} */
 const dTnpj1 = {}
