@@ -24,6 +24,5 @@ import {LicenseFactory as _LicenseFactory} from '../contrib/license/factories'
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.License.Factories.LicenseFactory` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export class LicenseFactory extends _LicenseFactory {}

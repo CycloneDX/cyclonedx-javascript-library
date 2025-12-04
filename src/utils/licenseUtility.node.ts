@@ -24,19 +24,15 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * @module
  */
 
-import { LicenseEvidenceGatherer as _LicenseEvidenceGatherer,
-  type ErrorReporter as _ErrorReporter,
-  FileAttachment as _FileAttachment,
-  PathUtils as _PathUtils,
-  FsUtils as _FsUtils
-} from '../contrib/license/utils.node'
+import type { ErrorReporter as _ErrorReporter, FileAttachment as _FileAttachment, FsUtils as _FsUtils, PathUtils as _PathUtils} from '../contrib/license/utils.node';
+import { LicenseEvidenceGatherer as _LicenseEvidenceGatherer } from '../contrib/license/utils.node';
+
 
 /**
  * Deprecated — TypeAlias of {@link Contrib.License.Utils.FsUtils}.
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.License.Utils.FsUtils` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export interface FsUtils<P extends string> extends _FsUtils<P> {}
 
@@ -45,7 +41,6 @@ export interface FsUtils<P extends string> extends _FsUtils<P> {}
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.License.Utils.PathUtils` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export interface PathUtils<P extends string> extends _PathUtils<P> {}
 
@@ -54,7 +49,6 @@ export interface PathUtils<P extends string> extends _PathUtils<P> {}
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.License.Utils.FileAttachment` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export interface FileAttachment<P extends string> extends _FileAttachment<P> {}
 
@@ -63,7 +57,6 @@ export interface FileAttachment<P extends string> extends _FileAttachment<P> {}
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.License.Utils.ErrorReporter` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export type ErrorReporter = _ErrorReporter
 
@@ -72,6 +65,5 @@ export type ErrorReporter = _ErrorReporter
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.License.Utils.LicenseEvidenceGatherer` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export class LicenseEvidenceGatherer extends _LicenseEvidenceGatherer {}

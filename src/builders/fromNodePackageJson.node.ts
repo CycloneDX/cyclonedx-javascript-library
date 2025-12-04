@@ -34,7 +34,6 @@ import {ComponentBuilder as _ComponentBuilder,ToolBuilder as _ToolBuilder} from 
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.FromNodePackageJson.Builders.ToolBuilder` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export class ToolBuilder extends _ToolBuilder {}
 
@@ -43,6 +42,5 @@ export class ToolBuilder extends _ToolBuilder {}
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.FromNodePackageJson.Builders.ComponentBuilder` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export class ComponentBuilder extends _ComponentBuilder {}

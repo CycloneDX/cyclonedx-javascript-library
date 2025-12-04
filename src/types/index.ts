@@ -32,11 +32,10 @@ export * from './mimeType'
 // region deprecated re-exports
 
 /**
- * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Types.NodePackageJson}.
+ * Deprecated — TypeAlias of {@link Contrib.FromNodePackageJson.Types.NodePackageJson}.
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.FromNodePackageJson.Types.NodePackageJson` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export type NodePackageJson = _NodePackageJson
 
@@ -45,7 +44,6 @@ export type NodePackageJson = _NodePackageJson
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.FromNodePackageJson.Types.assertNodePackageJson` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export const assertNodePackageJson = _assertNodePackageJson
 
@@ -54,7 +52,6 @@ export const assertNodePackageJson = _assertNodePackageJson
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.FromNodePackageJson.Types.isNodePackageJson` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export const isNodePackageJson = _isNodePackageJson
 

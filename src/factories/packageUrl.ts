@@ -24,6 +24,5 @@ import { PackageUrlFactory as _PackageUrlFactory } from '../contrib/packageUrl/f
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.PackageUrl.Factories.PackageUrlFactory` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export class PackageUrlFactory extends _PackageUrlFactory {}

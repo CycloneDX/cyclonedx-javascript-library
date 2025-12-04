@@ -24,7 +24,6 @@ import { ExternalReferenceFactory as _ExternalReferenceFactory,PackageUrlFactory
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export class ExternalReferenceFactory extends _ExternalReferenceFactory {}
 
@@ -33,6 +32,5 @@ export class ExternalReferenceFactory extends _ExternalReferenceFactory {}
  *
  * @deprecated This re-export location is deprecated.
  * Import `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
  */
 export class PackageUrlFactory extends _PackageUrlFactory {}
