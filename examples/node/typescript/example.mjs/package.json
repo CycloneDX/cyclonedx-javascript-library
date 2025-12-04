@@ -23,6 +23,6 @@
   "scripts": {
     "prebuild": "tsc -b --clean",
     "build": "tsc -b",
-    "example": "node dist/example.js; node  dist/deprecated.js"
+    "example": "node dist/example.js && node dist/deprecated.js"
   }
 }
