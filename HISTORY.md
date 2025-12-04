@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 * Fixed
   * Type declarations for deprecated symbols support usage as type, again ([#1350] via [#1351])
 * Refactor
-  * Some of the deprecated symbols in `factories` and `builders` turned from re-exports into class extensions (via [#])  
+  * Some of the deprecated symbols in `factories` and `builders` turned from re-exports into class extensions (via [#1351])  
     Note: this change adds overhead for the sake of documentation.
 
 [#1350]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1350
