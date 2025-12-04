@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 9.4.1 -- 2025-12-04
+
 * Fixed
   * Type declarations for deprecated symbols support usage as types ([#1350] via [#1351])
 * Refactor
