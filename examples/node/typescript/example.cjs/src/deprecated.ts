@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 /**
- * Example showcasing the deprecated symbolsstillwork.
+ * Example showcasing the deprecated symbols still work.
  * @see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1350
  */
 
