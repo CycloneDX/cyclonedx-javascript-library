@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Fixed
-  * Type declarations for deprecated symbols support usage types ([#1350] via [#1351])
+  * Type declarations for deprecated symbols support usage as types ([#1350] via [#1351])
 * Refactor
   * Some of the deprecated symbols in `factories` and `builders` turned from re-exports from re-exports into class/interfaces/types (via [#1351])  
     Note: this change adds overhead for the sake of documentation.
