@@ -17,7 +17,6 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-
 import { PackageUrlFactory as _PackageUrlFactory } from '../contrib/packageUrl/factories'
 
 /**

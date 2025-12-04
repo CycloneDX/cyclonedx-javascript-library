@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { PackageUrlFactory as _PackageUrlFactory, ExternalReferenceFactory as _ExternalReferenceFactory } from '../contrib/fromNodePackageJson/factories'
+import { ExternalReferenceFactory as _ExternalReferenceFactory,PackageUrlFactory as _PackageUrlFactory } from '../contrib/fromNodePackageJson/factories'
 
 /**
  * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Factories.PackageUrlFactory}.
