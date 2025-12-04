@@ -30,7 +30,7 @@ import * as CDX from '@cyclonedx/cyclonedx-library'
 
 const dBU1 = CDX.Utils.BomUtility.randomSerialNumber()
 
-const dNU1 = CDX.Utils.NpmjsUtility.defaultRegistryMatcher
+const dNU1 = CDX.Utils.NpmjsUtility.defaultRegistryMatcher.test('foo')
 const dNU2 = CDX.Utils.NpmjsUtility.parsePackageIntegrity('sha1-aSbRsZT7xze47tUTdW3i/Np+pAg=')
 
 const dLU1 = new CDX.Utils.LicenseUtility.LicenseEvidenceGatherer({fs, path})

@@ -26,7 +26,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * Normalization should be done downstream, for example via [`normalize-package-data`](https://www.npmjs.com/package/normalize-package-data).
  */
 
-import {ComponentBuilder as _ComponentBuilder,ToolBuilder as _ToolBuilder} from '../contrib/fromNodePackageJson/builders'
+import {ComponentBuilder as _ComponentBuilder, ToolBuilder as _ToolBuilder} from '../contrib/fromNodePackageJson/builders'
 
 
 /**

@@ -28,11 +28,9 @@ import * as path from 'node:path'
 import * as CDX from '@cyclonedx/cyclonedx-library'
 // full Library is available as `CDX`, now
 
-
 const dBU1 = CDX.Utils.BomUtility.randomSerialNumber()
 
-
-const dNU1 = CDX.Utils.NpmjsUtility.defaultRegistryMatcher
+const dNU1 = CDX.Utils.NpmjsUtility.defaultRegistryMatcher.test('foo')
 const dNU2 = CDX.Utils.NpmjsUtility.parsePackageIntegrity('sha1-aSbRsZT7xze47tUTdW3i/Np+pAg=')
 
 type dLU1_T = CDX.Utils.LicenseUtility.LicenseEvidenceGatherer
