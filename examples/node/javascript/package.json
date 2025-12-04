@@ -2,6 +2,7 @@
   "private": true,
   "name": "@cyclonedx/cyclonedx-library-examples-node-javascript",
   "license": "Apache-2.0",
+  "type": "module",
   "engines": {
     "node": ">=20.18.0"
   },
@@ -14,5 +15,8 @@
     "ajv-formats": "^3.0.1",
     "ajv-formats-draft2019": "^1.6.1",
     "libxmljs2": "^0.35||^0.37"
+  },
+  "devDependencies": {
+    "@types/node": ">=20.18.0"
   }
 }

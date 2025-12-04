@@ -29,22 +29,29 @@ const CDX = require('@cyclonedx/cyclonedx-library')
 // full Library is available as `CDX`, now
 
 const dBU1 = CDX.Utils.BomUtility.randomSerialNumber()
+console.log(dBU1)
 
 const dNU1 = CDX.Utils.NpmjsUtility.defaultRegistryMatcher.test('foo')
 const dNU2 = CDX.Utils.NpmjsUtility.parsePackageIntegrity('sha1-aSbRsZT7xze47tUTdW3i/Np+pAg=')
+console.log(dNU1, dNU2)
 
 const dLU1 = new CDX.Utils.LicenseUtility.LicenseEvidenceGatherer({fs, path})
+console.log(dLU1)
 
 /** @type {CDX.Types.NodePackageJson} */
 const dTnpj1 = {}
-try { CDX.Types.isNodePackageJson(dTnpj1) } catch { /* not implemented */ }
+const dTnp2 = CDX.Types.isNodePackageJson(dTnpj1)
 try { CDX.Types.assertNodePackageJson(dTnpj1) } catch { /* pass */ }
+console.log(dTnpj1, dTnp2)
 
 const dF1 = new CDX.Factories.PackageUrlFactory('generic')
 const dF2 = new CDX.Factories.LicenseFactory()
+console.log(dF1, dF2)
 
-const dFnpj3 = new CDX.Factories.FromNodePackageJson.PackageUrlFactory('npm')
-const dFnpj4 = new CDX.Factories.FromNodePackageJson.ExternalReferenceFactory()
+const dFnpj1 = new CDX.Factories.FromNodePackageJson.PackageUrlFactory('npm')
+const dFnpj2 = new CDX.Factories.FromNodePackageJson.ExternalReferenceFactory()
+console.log(dFnpj1, dFnpj2)
 
 const dBnpj1 = new CDX.Builders.FromNodePackageJson.ComponentBuilder(dFnpj4, dF2)
 const dBnpj2 = new CDX.Builders.FromNodePackageJson.ToolBuilder(dFnpj4)
+console.log(dBnpj1, dBnpj2)

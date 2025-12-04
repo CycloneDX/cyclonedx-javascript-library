@@ -3,14 +3,13 @@
   "compilerOptions": {
     "target": "ES2016",
     "module": "CommonJS",
+    "moduleResolution": "node",
+    "types": ["node"],
+    "lib": ["esnext"],
     "outDir": "./dist",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "disableSourceOfProjectReferenceRedirect": false,
     "rootDir": "src"
-  },
-  "files": [
-    "./src/example.ts",
-    "./src/deprecated.ts"
-  ]
+  }
 }
