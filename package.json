@@ -137,9 +137,11 @@
     ".": {
       "types": {
         "browser": "./dist.d/index.web.d.ts",
+        "node": "./dist.d/index.node.d.ts",
         "default": "./dist.d/index.node.d.ts"
       },
       "browser": "./dist.web/lib.js",
+      "node": "./dist.node/index.node.js",
       "default": "./dist.node/index.node.js"
     },
     "./package.json": "./package.json",

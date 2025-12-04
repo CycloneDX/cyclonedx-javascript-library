@@ -35,6 +35,7 @@ export * from './index.common'
  * The exported symbol itself is NOT deprecated - only this import path.
  */
 export const NpmjsUtility = _NpmjsUtility
+export type NpmjsUtility = typeof _NpmjsUtility
 
 /**
  * Deprecated — Alias of {@link Contrib.License.Utils}.
@@ -44,6 +45,7 @@ export const NpmjsUtility = _NpmjsUtility
  * The exported symbol itself is NOT deprecated - only this import path.
  */
 export const LicenseUtility = _LicenseUtility
+// export type LicenseUtility = typeof _LicenseUtility
 
 // endregion deprecated re-exports
 

@@ -30,5 +30,6 @@ import * as _FromNodePackageJson from '../contrib/fromNodePackageJson/builders'
  * The exported symbol itself is NOT deprecated - only this import path.
  */
 export const FromNodePackageJson = _FromNodePackageJson
+// export type FromNodePackageJson = typeof _FromNodePackageJson
 
 // endregion deprecated re-exports

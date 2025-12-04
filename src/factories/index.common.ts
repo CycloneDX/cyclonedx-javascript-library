@@ -31,6 +31,7 @@ import {PackageUrlFactory as _PackageUrlFactory} from '../contrib/packageUrl/fac
  * The exported symbol itself is NOT deprecated - only this import path.
  */
 export const LicenseFactory = _LicenseFactory
+// export type LicenseFactory = typeof _LicenseFactory
 
 /**
  * Deprecated — Alias of {@link Contrib.PackageUrl.Factories.PackageUrlFactory}.
@@ -40,5 +41,6 @@ export const LicenseFactory = _LicenseFactory
  * The exported symbol itself is NOT deprecated - only this import path.
  */
 export const PackageUrlFactory = _PackageUrlFactory
+// export type PackageUrlFactory = typeof _PackageUrlFactory
 
 // endregion deprecated re-exports

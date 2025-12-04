@@ -29,6 +29,7 @@ import * as _BomUtils from '../contrib/bom/utils'
  * The exported symbol itself is NOT deprecated - only this import path.
  */
 export const BomUtility = _BomUtils
+// export type BomUtility = typeof _BomUtils
 
 // endregion deprecated re-exports
 
