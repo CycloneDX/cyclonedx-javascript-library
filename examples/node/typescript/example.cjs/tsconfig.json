@@ -3,13 +3,14 @@
   "compilerOptions": {
     "target": "ES2016",
     "module": "CommonJS",
+    "moduleResolution": "node",
+    "types": ["node"],
+    "lib": ["esnext"],
+    "sourceMap": true,
     "outDir": "./dist",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "disableSourceOfProjectReferenceRedirect": false,
     "rootDir": "src"
-  },
-  "files": [
-    "./src/example.ts"
-  ]
+  }
 }

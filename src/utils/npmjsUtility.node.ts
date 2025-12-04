@@ -17,11 +17,18 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index.common'
+import {defaultRegistryMatcher as _defaultRegistryMatcher, parsePackageIntegrity as _parsePackageIntegrity} from '../contrib/fromNodePackageJson/utils'
 
-// region node-specifics
+/**
+ * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Utils.parsePackageIntegrity}.
+ *
+ * @deprecated Use `Contrib.FromNodePackageJson.Utils.parsePackageIntegrity` instead.
+ */
+export const parsePackageIntegrity = _parsePackageIntegrity
 
-/** @deprecated next */
-export * as FromNodePackageJson from './fromNodePackageJson.node'
-
-// endregion node-specifics
+/**
+ * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher}.
+ *
+ * @deprecated Use `Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher` instead.
+ */
+export const defaultRegistryMatcher = _defaultRegistryMatcher

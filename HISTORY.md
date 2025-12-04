@@ -6,6 +6,17 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Fixed
+  * Type declarations for deprecated symbols support usage as types ([#1350] via [#1351])
+* Refactor
+  * Deprecated symbols turned from re-exports into re-declares (via [#1351])  
+    Note: this change adds runtime overhead for the sake of documentation.
+
+[#1350]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1350
+[#1351]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1351
+
+## 9.4.0 -- 2025-12-02
+
 * Added
   * New entry points for `/Contrib` and known submodules (via [#1343])  
     See `package.json::exports` for details.

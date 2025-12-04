@@ -32,29 +32,23 @@ export * from './mimeType'
 // region deprecated re-exports
 
 /**
- * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Types.NodePackageJson}.
+ * Deprecated — TypeAlias of {@link Contrib.FromNodePackageJson.Types.NodePackageJson}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.FromNodePackageJson.Types.NodePackageJson` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
+ * @deprecated Use `Contrib.FromNodePackageJson.Types.NodePackageJson` instead.
  */
 export type NodePackageJson = _NodePackageJson
 
 /**
  * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Types.assertNodePackageJson}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.FromNodePackageJson.Types.assertNodePackageJson` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
+ * @deprecated Use `Contrib.FromNodePackageJson.Types.assertNodePackageJson` instead.
  */
 export const assertNodePackageJson = _assertNodePackageJson
 
 /**
  * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Types.isNodePackageJson}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.FromNodePackageJson.Types.isNodePackageJson` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
+ * @deprecated Use `Contrib.FromNodePackageJson.Types.isNodePackageJson` instead.
  */
 export const isNodePackageJson = _isNodePackageJson
 

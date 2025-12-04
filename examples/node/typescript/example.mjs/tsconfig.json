@@ -3,13 +3,13 @@
   "compilerOptions": {
     "target": "ES2021",
     "module": "Node16",
+    "types": ["node"],
+    "lib": ["esnext"],
+    "sourceMap": true,
     "outDir": "./dist",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "disableSourceOfProjectReferenceRedirect": false,
     "rootDir": "src"
-  },
-  "files": [
-    "./src/example.ts"
-  ]
+  }
 }

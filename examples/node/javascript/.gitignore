@@ -2,5 +2,8 @@
 !/.gitignore
 !/example.mjs
 !/example.cjs
+!/deprecated.cjs
+!/deprecated.mjs
 !/package.json
+!/jsconfig.json
 !/.npmrc

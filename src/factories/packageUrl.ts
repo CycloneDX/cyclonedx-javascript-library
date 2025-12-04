@@ -17,11 +17,11 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index.common'
+import { PackageUrlFactory as _PackageUrlFactory } from '../contrib/packageUrl/factories'
 
-// region node-specifics
-
-/** @deprecated next */
-export * as FromNodePackageJson from './fromNodePackageJson.node'
-
-// endregion node-specifics
+/**
+ * Deprecated — Alias of {@link Contrib.PackageUrl.Factories.PackageUrlFactory}.
+ *
+ * @deprecated Use `Contrib.PackageUrl.Factories.PackageUrlFactory` instead.
+ */
+export class PackageUrlFactory extends _PackageUrlFactory {}
