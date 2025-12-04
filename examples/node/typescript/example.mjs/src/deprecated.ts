@@ -39,12 +39,12 @@ type dLU1_T = CDX.Utils.LicenseUtility.LicenseEvidenceGatherer
 const fsU: CDX.Utils.LicenseUtility.FsUtils<string> = fs
 const pathU: CDX.Utils.LicenseUtility.PathUtils<string> = path
 const dLU1: dLU1_T = new CDX.Utils.LicenseUtility.LicenseEvidenceGatherer({fs: fsU, path: pathU})
-console.log(fsU, pathU, dLU1)
+console.log(dLU1)
 
 const dTnpj1: CDX.Types.NodePackageJson = {}
-const dTnpj2 =CDX.Types.isNodePackageJson(dTnpj1)
+// const dTnpj2 =CDX.Types.isNodePackageJson(dTnpj1)
 try { CDX.Types.assertNodePackageJson(dTnpj1) } catch { /* pass */ }
-console.log(dTnpj1, dTnpj2)
+console.log(dTnpj1)
 
 type dF1_T = CDX.Factories.PackageUrlFactory
 type dF2_T = CDX.Factories.LicenseFactory

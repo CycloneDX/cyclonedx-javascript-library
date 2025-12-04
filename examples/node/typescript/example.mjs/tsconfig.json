@@ -5,6 +5,7 @@
     "module": "Node16",
     "types": ["node"],
     "lib": ["esnext"],
+    "sourceMap": true,
     "outDir": "./dist",
     "strict": true,
     "forceConsistentCasingInFileNames": true,

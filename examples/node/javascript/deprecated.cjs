@@ -40,17 +40,17 @@ console.log(dLU1)
 
 /** @type {CDX.Types.NodePackageJson} */
 const dTnpj1 = {}
-const dTnp2 = CDX.Types.isNodePackageJson(dTnpj1)
+// const dTnpj2 =CDX.Types.isNodePackageJson(dTnpj1)
 try { CDX.Types.assertNodePackageJson(dTnpj1) } catch { /* pass */ }
-console.log(dTnpj1, dTnp2)
+console.log(dTnpj1)
 
 const dF1 = new CDX.Factories.PackageUrlFactory('generic')
 const dF2 = new CDX.Factories.LicenseFactory()
 console.log(dF1, dF2)
 
-const dFnpj1 = new CDX.Factories.FromNodePackageJson.PackageUrlFactory('npm')
-const dFnpj2 = new CDX.Factories.FromNodePackageJson.ExternalReferenceFactory()
-console.log(dFnpj1, dFnpj2)
+const dFnpj3 = new CDX.Factories.FromNodePackageJson.PackageUrlFactory('npm')
+const dFnpj4  = new CDX.Factories.FromNodePackageJson.ExternalReferenceFactory()
+console.log(dFnpj3, dFnpj4)
 
 const dBnpj1 = new CDX.Builders.FromNodePackageJson.ComponentBuilder(dFnpj4, dF2)
 const dBnpj2 = new CDX.Builders.FromNodePackageJson.ToolBuilder(dFnpj4)
