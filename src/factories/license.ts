@@ -17,11 +17,13 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index.common'
+import {LicenseFactory as _LicenseFactory} from '../contrib/license/factories'
 
-// region node-specifics
-
-/** @deprecated next */
-export * as FromNodePackageJson from './fromNodePackageJson.node'
-
-// endregion node-specifics
+/**
+ * Deprecated — Alias of {@link Contrib.License.Factories.LicenseFactory}.
+ *
+ * @deprecated This re-export location is deprecated.
+ * Import `Contrib.License.Factories.LicenseFactory` instead.
+ * The exported symbol itself is NOT deprecated - only this import path.
+ */
+export class LicenseFactory extends _LicenseFactory {}

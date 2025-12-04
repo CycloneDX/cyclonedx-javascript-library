@@ -10,6 +10,7 @@
     "rootDir": "src"
   },
   "files": [
-    "./src/example.ts"
+    "./src/example.ts",
+    "./src/deprecated.ts"
   ]
 }

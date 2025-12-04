@@ -17,18 +17,22 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-// region deprecated re-exports
-
-import * as _BomUtils from '../contrib/bom/utils'
+import { PackageUrlFactory as _PackageUrlFactory, ExternalReferenceFactory as _ExternalReferenceFactory } from '../contrib/fromNodePackageJson/factories'
 
 /**
- * Deprecated — Alias of {@link Contrib.Bom.Utils}.
+ * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Factories.PackageUrlFactory}.
  *
  * @deprecated This re-export location is deprecated.
- * Import `Contrib.Bom.Utils` instead.
+ * Import `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` instead.
  * The exported symbol itself is NOT deprecated - only this import path.
  */
-export const BomUtility = _BomUtils
+export class ExternalReferenceFactory extends _ExternalReferenceFactory {}
 
-// endregion deprecated re-exports
-
+/**
+ * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Factories.PackageUrlFactory}.
+ *
+ * @deprecated This re-export location is deprecated.
+ * Import `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` instead.
+ * The exported symbol itself is NOT deprecated - only this import path.
+ */
+export class PackageUrlFactory extends _PackageUrlFactory {}
