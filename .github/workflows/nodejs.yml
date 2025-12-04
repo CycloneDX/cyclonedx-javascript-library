@@ -352,7 +352,7 @@ jobs:
       - name: run example
         run: node -- 'example.${{ matrix.js-type }}'
         working-directory: ${{ env.EXAMPLE_DIR }}
-      - name: run example
+      - name: run deprecated
         run: node -- 'deprecated.${{ matrix.js-type }}'
         working-directory: ${{ env.EXAMPLE_DIR }}
 
