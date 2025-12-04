@@ -31,39 +31,34 @@ import { LicenseEvidenceGatherer as _LicenseEvidenceGatherer } from '../contrib/
 /**
  * Deprecated — TypeAlias of {@link Contrib.License.Utils.FsUtils}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.License.Utils.FsUtils` instead.
+ * @deprecated Use `Contrib.License.Utils.FsUtils` instead.
  */
 export interface FsUtils<P extends string> extends _FsUtils<P> {}
 
 /**
  * Deprecated — TypeAlias of {@link Contrib.License.Utils.PathUtils}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.License.Utils.PathUtils` instead.
+ * @deprecated Use `Contrib.License.Utils.PathUtils` instead.
  */
 export interface PathUtils<P extends string> extends _PathUtils<P> {}
 
 /**
  * Deprecated — TypeAlias of {@link Contrib.License.Utils.FileAttachment}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.License.Utils.FileAttachment` instead.
+ * @deprecated Use `Contrib.License.Utils.FileAttachment` instead.
  */
 export interface FileAttachment<P extends string> extends _FileAttachment<P> {}
 
 /**
  * Deprecated — TypeAlias of {@link Contrib.License.Utils.ErrorReporter}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.License.Utils.ErrorReporter` instead.
+ * @deprecated Use `Contrib.License.Utils.ErrorReporter` instead.
  */
 export type ErrorReporter = _ErrorReporter
 
 /**
  * Deprecated — Alias of {@link Contrib.License.Utils.LicenseEvidenceGatherer}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.License.Utils.LicenseEvidenceGatherer` instead.
+ * @deprecated Use `Contrib.License.Utils.LicenseEvidenceGatherer` instead.
  */
 export class LicenseEvidenceGatherer extends _LicenseEvidenceGatherer {}

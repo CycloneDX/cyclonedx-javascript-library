@@ -22,15 +22,13 @@ import {defaultRegistryMatcher as _defaultRegistryMatcher, parsePackageIntegrity
 /**
  * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Utils.parsePackageIntegrity}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.FromNodePackageJson.Utils.parsePackageIntegrity` instead.
+ * @deprecated Use `Contrib.FromNodePackageJson.Utils.parsePackageIntegrity` instead.
  */
 export const parsePackageIntegrity = _parsePackageIntegrity
 
 /**
  * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher` instead.
+ * @deprecated Use `Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher` instead.
  */
 export const defaultRegistryMatcher = _defaultRegistryMatcher

@@ -22,7 +22,6 @@ import {LicenseFactory as _LicenseFactory} from '../contrib/license/factories'
 /**
  * Deprecated — Alias of {@link Contrib.License.Factories.LicenseFactory}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.License.Factories.LicenseFactory` instead.
+ * @deprecated Use `Contrib.License.Factories.LicenseFactory` instead.
  */
 export class LicenseFactory extends _LicenseFactory {}

@@ -22,8 +22,6 @@ import { randomSerialNumber as _randomSerialNumber } from '../contrib/bom/utils'
 /**
  * Deprecated — Alias of {@link Contrib.Bom.Utils.randomSerialNumber}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.Bom.Utils.randomSerialNumber` instead.
- * The exported symbol itself is NOT deprecated - only this import path.
+ * @deprecated Use `Contrib.Bom.Utils.randomSerialNumber` instead.
  */
 export const randomSerialNumber = _randomSerialNumber

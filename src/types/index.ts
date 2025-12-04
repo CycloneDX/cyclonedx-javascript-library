@@ -34,24 +34,21 @@ export * from './mimeType'
 /**
  * Deprecated — TypeAlias of {@link Contrib.FromNodePackageJson.Types.NodePackageJson}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.FromNodePackageJson.Types.NodePackageJson` instead.
+ * @deprecated Use `Contrib.FromNodePackageJson.Types.NodePackageJson` instead.
  */
 export type NodePackageJson = _NodePackageJson
 
 /**
  * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Types.assertNodePackageJson}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.FromNodePackageJson.Types.assertNodePackageJson` instead.
+ * @deprecated Use `Contrib.FromNodePackageJson.Types.assertNodePackageJson` instead.
  */
 export const assertNodePackageJson = _assertNodePackageJson
 
 /**
  * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Types.isNodePackageJson}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.FromNodePackageJson.Types.isNodePackageJson` instead.
+ * @deprecated Use `Contrib.FromNodePackageJson.Types.isNodePackageJson` instead.
  */
 export const isNodePackageJson = _isNodePackageJson
 

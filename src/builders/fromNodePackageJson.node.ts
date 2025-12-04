@@ -32,15 +32,13 @@ import {ComponentBuilder as _ComponentBuilder,ToolBuilder as _ToolBuilder} from 
 /**
  * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Builders.ToolBuilder}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.FromNodePackageJson.Builders.ToolBuilder` instead.
+ * @deprecated Use `Contrib.FromNodePackageJson.Builders.ToolBuilder` instead.
  */
 export class ToolBuilder extends _ToolBuilder {}
 
 /**
  * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Builders.ComponentBuilder}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.FromNodePackageJson.Builders.ComponentBuilder` instead.
+ * @deprecated Use `Contrib.FromNodePackageJson.Builders.ComponentBuilder` instead.
  */
 export class ComponentBuilder extends _ComponentBuilder {}

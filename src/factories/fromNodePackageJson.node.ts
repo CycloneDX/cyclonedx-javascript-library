@@ -22,15 +22,13 @@ import { ExternalReferenceFactory as _ExternalReferenceFactory,PackageUrlFactory
 /**
  * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Factories.PackageUrlFactory}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` instead.
+ * @deprecated Use `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` instead.
  */
 export class ExternalReferenceFactory extends _ExternalReferenceFactory {}
 
 /**
  * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Factories.PackageUrlFactory}.
  *
- * @deprecated This re-export location is deprecated.
- * Import `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` instead.
+ * @deprecated Use `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` instead.
  */
 export class PackageUrlFactory extends _PackageUrlFactory {}
