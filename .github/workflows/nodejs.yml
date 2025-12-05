@@ -100,6 +100,8 @@ jobs:
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
+      - name: update npm
+        run: npm install -g npm@latest
       - name: setup project
         run: |
           npm install --ignore-scripts --loglevel=silly
@@ -147,6 +149,8 @@ jobs:
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
+      - name: update npm
+        run: npm install -g npm@latest
       - name: setup project
         run: npm install --ignore-scripts --loglevel=silly
       - name: setup tool
@@ -191,6 +195,9 @@ jobs:
           NODE_VERSION: '${{ matrix.node-version }}'
         run:
           case "$NODE_VERSION" in
+          '25' )
+            npm install -g npm@latest
+            ;;
           '24' | '22')
             npm i -g npm@^11
             ;;
@@ -482,6 +489,8 @@ jobs:
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
+      - name: update npm
+        run: npm install -g npm@latest
       - name: setup project
         run: |
           set -ex
