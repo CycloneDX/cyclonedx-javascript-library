@@ -14,6 +14,8 @@ build:
     # rust: "1.70"
     # golang: "1.20"
   jobs:
+    install:
+      - npm install -g npm@latest
     pre_build:
       - npm i --ignore-scripts --loglevel=silly
       - npm run -- dev-setup:tools:docs-gen --ignore-scripts --loglevel=silly
@@ -31,7 +33,3 @@ formats:
 python:
   install:
     - requirements: docs/requirements.txt
-
-nodejs:
-  install:
-    - npm install -g npm@latest
