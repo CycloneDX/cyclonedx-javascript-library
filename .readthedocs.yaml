@@ -16,7 +16,7 @@ build:
   jobs:
     pre_build:
       - npm install -g npm@latest
-      - npm i --ignore-scripts --loglevel=silly
+      - npm install --ignore-scripts --loglevel=silly
       - npm run -- dev-setup:tools:docs-gen --ignore-scripts --loglevel=silly
       - npm run api-doc
 
@@ -31,4 +31,4 @@ formats:
 # Optionally declare the Python requirements required to build your docs
 python:
   install:
-    - requirements:
+    - requirements: docs/requirements.txt
