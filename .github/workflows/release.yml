@@ -35,7 +35,7 @@ env:
   REPORTS_DIR: CI_reports
   PACKED_DIR: CI_packed
   PACKED_ARTIFACT: packed
-  NODE_ACTIVE_LTS: "22"
+  NODE_ACTIVE_LTS: "24"
 
 jobs:
   bump:
@@ -64,6 +64,8 @@ jobs:
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
+      - name: update npm
+        run: npm install -g npm@latest
       ## ! no npm build at the moment
       - name: bump VERSION
         id: bump
@@ -106,6 +108,8 @@ jobs:
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
+      - name: update npm
+        run: npm install -g npm@latest
       - name: setup project
         run: |
           npm install --ignore-scripts --include=optional --loglevel=silly
