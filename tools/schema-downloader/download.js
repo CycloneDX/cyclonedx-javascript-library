@@ -17,6 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import { spawn } from 'node:child_process'
 import { writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -87,21 +88,34 @@ const OtherDownloadables = Object.freeze(Object.fromEntries([
 
 const FetchOptions = Object.freeze({ mode: 'no-cors' })
 
+/** @type {Promise[]} */
+const downloadedPs = []
+
 for (const dSpec of [BomXsd, BomJsonLax, BomJsonStrict]) {
   for (const version of dSpec.versions) {
     const source = dSpec.sourcePattern.replace('%s', String(version))
     const target = dSpec.targetPattern.replace('%s', String(version))
-    fetch(source, FetchOptions).then(res => res.text()).then(
-      /** @param {string} text */
-      text => new Promise((resolve, reject) => {
-        for (const [search, replace] of dSpec.replace) {
-          text = text.replaceAll(search, replace)
-        }
-        resolve(text)
-      })).then(text => writeFile(target, text))
+    downloadedPs.push(
+      fetch(source, FetchOptions).then(res => res.text()).then(
+        /** @param {string} text */
+        text => new Promise((resolve, reject) => {
+          for (const [search, replace] of dSpec.replace) {
+            text = text.replaceAll(search, replace)
+          }
+          resolve(text)
+        })).then(text => writeFile(target, text))
+    )
   }
 }
 
 for (const [source, target] of Object.entries(OtherDownloadables)) {
-  fetch(source, FetchOptions).then(res => res.text()).then(text => writeFile(target, text))
+  downloadedPs.push(
+    fetch(source, FetchOptions).then(res => res.text()).then(text => writeFile(target, text))
+  )
 }
+
+await Promise.all(downloadedPs)
+
+await spawn(process.execPath, [
+  join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'tools', 'spdx-specenum-converter', 'convert.js')
+], { stdio: 'inherit' })
