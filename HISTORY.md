@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 * List of well-known SPDX IDs is bundle-able and tree-shakable ([#1371] via [#1372])  
   The list itself is still not public, you may use the existing functionality to work with it:
-  .SPDX.isSupportedSpdxId()` and `.SPDX.fixupSpdxId()`
+  `SPDX.isSupportedSpdxId()` and `SPDX.fixupSpdxId()`
 
 [#1371]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1371
 [#1372]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1372
