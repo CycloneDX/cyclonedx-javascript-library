@@ -141,6 +141,8 @@ See extended [examples].
 
 ### As _Node.js_ package
 
+Import all at once and use it:
+
 ```javascript
 const CDX = require('@cyclonedx/cyclonedx-library')
 
@@ -151,6 +153,25 @@ bom.metadata.component = new CDX.Models.Component(
 )
 const componentA = new CDX.Models.Component(
   CDX.Enums.ComponentType.Library,
+  'myComponentA',
+)
+bom.components.add(componentA)
+bom.metadata.component.dependencies.add(componentA.bomRef)
+```
+
+To support _bundling_ and _tree-shaking_ in your project, it is recommended to only import the symbols from the [entry points](https://nodejs.org/api/packages.html#package-entry-points) that are actually needed. (For a list of available entry points, see `package.json::exports`.)
+
+```javascript
+const { Bom, Component } = require('@cyclonedx/cyclonedx-library/Models')
+const { ComponentType } = require('@cyclonedx/cyclonedx-library/Enums')
+
+const bom = new Bom()
+bom.metadata.component = new Component(
+  ComponentType.Application,
+  'MyProject'
+)
+const componentA = new Component(
+  ComponentType.Library,
   'myComponentA',
 )
 bom.components.add(componentA)
