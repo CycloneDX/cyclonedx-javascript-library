@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 /** Example how to serialize a Bom to JSON / XML. */
 
 import * as CDX from '@cyclonedx/cyclonedx-library'
-// Full Library is available as `CDX`, now.
+// Full library is available as `CDX`, now.
 // Alternative for better tree-shaking on bundling, import only the needed symbols like so:
 //    import { Bom, Component } from '@cyclonedx/cyclonedx-library/Models'
 //    import { ComponentType } from '@cyclonedx/cyclonedx-library/Enums'
