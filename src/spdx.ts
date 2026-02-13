@@ -19,11 +19,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import spdxExpressionParse from 'spdx-expression-parse'
 
-/* @ts-expect-error: TS6059 -- this works as long as the file/path is available in dist-package. */
-import { enum as _spdxSpecEnum } from '../res/schema/spdx.SNAPSHOT.schema.json' with { type: 'json' }
+import { LIST as spdxSpecEnum } from './spdx_specenum'
 
 /**
- * One of the known SPDX licence identifiers.
+ * One of the known SPDX license identifiers.
  *
  * @see {@link http://cyclonedx.org/schema/spdx | SPDX schema}
  * @see {@link isSupportedSpdxId}
@@ -31,15 +30,13 @@ import { enum as _spdxSpecEnum } from '../res/schema/spdx.SNAPSHOT.schema.json' 
  */
 export type SpdxId = string
 
-const spdxIds: ReadonlySet<SpdxId> = new Set(_spdxSpecEnum)
-
 const spdxLowerToActual: Readonly<Record<string, SpdxId>> = Object.freeze(Object.fromEntries(
-  _spdxSpecEnum.map(spdxId => [spdxId.toLowerCase(), spdxId])
+  spdxSpecEnum.map(spdxId => [spdxId.toLowerCase(), spdxId])
 ))
 
 export function isSupportedSpdxId (value: SpdxId | any): value is SpdxId {
-  /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- fix */
-  return spdxIds.has(value)
+  /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- ack */
+  return spdxSpecEnum.includes(value)
 }
 
 /** Try to convert a `string`-like to a valid/known {@link SpdxId}. */

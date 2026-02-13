@@ -1,0 +1,6 @@
+*
+!/.gitignore
+!/package.json
+!/convert.js
+!/.npmrc
+!/eslint.config.mjs
