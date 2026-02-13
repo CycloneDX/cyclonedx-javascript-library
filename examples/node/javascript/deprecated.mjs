@@ -26,7 +26,10 @@ import * as fs from 'node:fs'
 import * as path from 'node:path'
 
 import * as CDX from '@cyclonedx/cyclonedx-library'
-// full Library is available as `CDX`, now
+// Full library is available as `CDX`, now.
+// Alternative for better tree-shaking on bundling, import only the needed symbols like so:
+//    import { Bom, Component } from '@cyclonedx/cyclonedx-library/Models'
+//    import { ComponentType } from '@cyclonedx/cyclonedx-library/Enums'
 
 const dBU1 = CDX.Utils.BomUtility.randomSerialNumber()
 console.log(dBU1)

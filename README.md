@@ -157,6 +157,25 @@ bom.components.add(componentA)
 bom.metadata.component.dependencies.add(componentA.bomRef)
 ```
 
+To ensure optimal **tree‑shaking** when **bundling**, import only the symbols you actually need from the library’s published [entry points](https://nodejs.org/api/packages.html#package-entry-points). You can find all available entry points in the `exports` field of the package’s `package.json`.
+
+```javascript
+const { Bom, Component } = require('@cyclonedx/cyclonedx-library/Models')
+const { ComponentType } = require('@cyclonedx/cyclonedx-library/Enums')
+
+const bom = new Bom()
+bom.metadata.component = new Component(
+  ComponentType.Application,
+  'MyProject'
+)
+const componentA = new Component(
+  ComponentType.Library,
+  'myComponentA',
+)
+bom.components.add(componentA)
+bom.metadata.component.dependencies.add(componentA.bomRef)
+```
+
 ### In _WebBrowsers_
 
 ```html
