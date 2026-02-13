@@ -141,8 +141,6 @@ See extended [examples].
 
 ### As _Node.js_ package
 
-Import all at once and use it:
-
 ```javascript
 const CDX = require('@cyclonedx/cyclonedx-library')
 
@@ -159,7 +157,7 @@ bom.components.add(componentA)
 bom.metadata.component.dependencies.add(componentA.bomRef)
 ```
 
-To support _bundling_ and _tree-shaking_ in your project, it is recommended to only import the symbols from the [entry points](https://nodejs.org/api/packages.html#package-entry-points) that are actually needed. (For a list of available entry points, see `package.json::exports`.)
+To ensure optimal **bundling** and **tree‑shaking**, import only the symbols you actually need from the library’s published [entry points](https://nodejs.org/api/packages.html#package-entry-points). You can find all available entry points in the `exports` field of the package’s `package.json`.
 
 ```javascript
 const { Bom, Component } = require('@cyclonedx/cyclonedx-library/Models')
