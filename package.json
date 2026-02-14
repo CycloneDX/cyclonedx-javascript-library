@@ -126,7 +126,7 @@
     "rimraf": "^6",
     "ts-loader": "9.5.4",
     "typescript": "5.9.3",
-    "webpack": "5.104.1",
+    "webpack": "5.105.2",
     "webpack-cli": "6.0.1",
     "webpack-node-externals": "3.0.0"
   },
