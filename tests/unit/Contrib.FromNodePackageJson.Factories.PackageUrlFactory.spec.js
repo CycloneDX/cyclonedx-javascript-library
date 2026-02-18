@@ -46,7 +46,7 @@ suite('unit: Contrib.FromNodePackageJson.Factories.PackageUrlFactory', () => {
           )
         ])
       })
-      const purlFac = new PackageUrlFactory('npm')
+      const purlFac = new Contrib.FromNodePackageJson.Factories.PackageUrlFactory('npm')
       const actual = purlFac.makeFromComponent(component)
       assert.deepEqual(actual, {
         type: 'npm',
@@ -68,7 +68,7 @@ suite('unit: Contrib.FromNodePackageJson.Factories.PackageUrlFactory', () => {
           )
         ])
       })
-      const purlFac = new PackageUrlFactory('npm')
+      const purlFac = new Contrib.FromNodePackageJson.Factories.PackageUrlFactory('npm')
       const actual = purlFac.makeFromComponent(component)
       assert.deepEqual(actual,
         {
