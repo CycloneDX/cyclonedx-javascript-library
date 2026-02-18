@@ -19,7 +19,7 @@ All notable changes to this project will be documented in this file.
   * Deprecated symbol `Factories.FromNodePackageJson` ([#1346] via [#1377])
   * Deprecated symbol `Factories.FromNodePackageJson.ExternalReferenceFactory` ([#1346] via [#1377])  
     Use `Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory` instead.
-  * Deprecated symbol `Factories.FromNodePackageJson.PackageUrlFactory` ([#1346] via [#1377])
+  * Deprecated symbol `Factories.FromNodePackageJson.PackageUrlFactory` ([#1346] via [#1377])  
     Use `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` instead.
   * Deprecated symbol `Factories.LicenseFactory` ([#1346] via [#1377])  
     Use `Contrib.License.Factories.LicenseFactory` instead.
