@@ -7,13 +7,14 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Removed
-  * Deprecated symbol `` ([#1346] via [#])
+  * Deprecated symbol `` ([#1346] via [#1377])
 * Build
   * Use _webpack_ `5.105.2` now, was `v5.103.0` (via [#1360], [#1374])
 
+[#1346]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1346
 [#1360]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1360
 [#1374]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1374
-[#1346]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1346
+[#1377]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1377
 
 ## 9.4.1 -- 2025-12-04
 
