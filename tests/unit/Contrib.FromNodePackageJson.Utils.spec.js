@@ -28,7 +28,7 @@ const {
   Contrib,
 } = require('../../')
 
-suite('unit: Utils.NpmjsUtility.defaultRegistryMatcher', () => {
+suite('unit: Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher', () => {
   test('matches pure domain', () => {
     const actual = Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher.test('https://registry.npmjs.org')
     assert.strictEqual(actual, true)
@@ -51,7 +51,7 @@ suite('unit: Utils.NpmjsUtility.defaultRegistryMatcher', () => {
   })
 })
 
-suite('unit: Utils.NpmjsUtility.parsePackageIntegrity', () => {
+suite('unit: Contrib.FromNodePackageJson.Utils.parsePackageIntegrity', () => {
   suite('as expected', () => {
     for (const [c, ...expected] of [
       ['sha512-zvj65TkFeIt3i6aj5bIvJDzjjQQGs4o/sNoezg1F1kYap9Nu2jcUdpwzRSJTHMMzG0H7bZkn4rNQpImhuxWX2A==',

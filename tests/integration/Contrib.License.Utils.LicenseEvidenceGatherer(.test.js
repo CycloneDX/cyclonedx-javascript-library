@@ -29,7 +29,7 @@ const {
   Contrib,
 } = require('../../')
 
-suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
+suite('integration: Contrib.License.Utils.LicenseEvidenceGatherer(', () => {
   test('no path -> throws', () => {
     const { fs } = memfs({ '/': {} })
     const leg = new Contrib.License.Utils.LicenseEvidenceGatherer({ fs })

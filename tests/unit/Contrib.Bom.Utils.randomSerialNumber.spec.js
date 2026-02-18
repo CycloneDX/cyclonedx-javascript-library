@@ -25,7 +25,7 @@ const {
   Contrib,
 } = require('../../')
 
-suite('unit: Utils.BomUtility', () => {
+suite('unit: Contrib.Bom.Utils.randomSerialNumber', () => {
   suite('randomSerialNumber()', () => {
     test('has correct format according to XSD', () => {
       const value = Contrib.Bom.Utils.randomSerialNumber()

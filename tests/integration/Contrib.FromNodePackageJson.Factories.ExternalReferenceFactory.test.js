@@ -27,7 +27,7 @@ const {
   Contrib,
 } = require('../../')
 
-suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
+suite('integration: Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory', () => {
   const sut = new Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory()
 
   suite('from "homepage"', () => {

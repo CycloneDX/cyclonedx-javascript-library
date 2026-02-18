@@ -25,7 +25,7 @@ const {
   Contrib,
 } = require('../../')
 
-suite('unit: Builders.FromNodePackageJson.ComponentBuilder', () => {
+suite('unit: Contrib.FromNodePackageJson.Builders.ComponentBuilder', () => {
   test('construct', () => {
     const extRefFactory = new Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory()
     const licenseFactory = new Contrib.License.Factories.LicenseFactory()

@@ -22,16 +22,16 @@ const assert = require('node:assert')
 const { suite, test } = require('mocha')
 
 const {
-  Factories: { FromNodePackageJson: { PackageUrlFactory } },
+  Contrib,
   Enums: { ComponentType, ExternalReferenceType },
   Models: { Component, ExternalReference, ExternalReferenceRepository }
 } = require('../../')
 
-suite('unit: Factories.FromNodePackageJson.PackageUrlFactory', () => {
+suite('unit: Contrib.FromNodePackageJson.Factories.PackageUrlFactory', () => {
   suite('makeFromComponent()', () => {
     test('plain', () => {
       const component = new Component(ComponentType.Library, 'testing')
-      const purlFac = new PackageUrlFactory('npm')
+      const purlFac = new Contrib.FromNodePackageJson.Factories.PackageUrlFactory('npm')
       const actual = purlFac.makeFromComponent(component)
       assert.deepEqual(actual, 'TODO')
     })

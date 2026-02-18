@@ -23,31 +23,14 @@ const { suite, test } = require('mocha')
 
 const {
   Contrib,
-  Models,
 } = require('../../')
 
-suite('integration: Builders.FromNodePackageJson.ToolBuilder', () => {
-  const salt = Math.random()
+suite('unit: Contrib.FromNodePackageJson.Builders.ToolBuilder', () => {
+  test('construct', () => {
+    const extRefFactory = new Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory()
 
-  const extRefFactory = new Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory()
-  extRefFactory.makeExternalReferences = () => [`FAKE REFERENCES ${salt}`]
+    const actual = new Contrib.FromNodePackageJson.Builders.ToolBuilder(extRefFactory)
 
-  const sut = new Contrib.FromNodePackageJson.Builders.ToolBuilder(extRefFactory)
-
-  const data = {
-    name: '@foo/bar',
-    version: `1.33.7-alpha.23.${salt}`
-    // to be continued
-  }
-  const expected = new Models.Tool({
-    vendor: '@foo',
-    name: 'bar',
-    version: `1.33.7-alpha.23.${salt}`,
-    externalReferences: new Models.ExternalReferenceRepository([`FAKE REFERENCES ${salt}`])
-  })
-
-  test('makeTool', () => {
-    const actual = sut.makeTool(data)
-    assert.deepStrictEqual(actual, expected)
+    assert.strictEqual(actual.extRefFactory, extRefFactory)
   })
 })

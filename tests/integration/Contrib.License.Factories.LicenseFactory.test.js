@@ -26,7 +26,7 @@ const {
   Models: { LicenseExpression, NamedLicense, SpdxLicense }
 } = require('../../')
 
-suite('integration: Factories.LicenseFactory', () => {
+suite('integration: Contrib.License.Factories.LicenseFactory', () => {
   test('makeFromString() -> LicenseExpression', () => {
     const sut = new Contrib.License.Factories.LicenseFactory()
     const expression = '(MIT OR Apache-2.0)'

@@ -24,13 +24,14 @@ const { suite, test } = require('mocha')
 const {
   Contrib,
 } = require('../../')
+const { randomString } = require('../_helpers/stringFunctions')
 
-suite('unit: Builders.FromNodePackageJson.ToolBuilder', () => {
+suite('unit: Contrib.PackageUrl.Factories.PackageUrlFactory', () => {
   test('construct', () => {
-    const extRefFactory = new Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory()
+    const type = randomString(5)
 
-    const actual = new Contrib.FromNodePackageJson.Builders.ToolBuilder(extRefFactory)
+    const actual = new Contrib.PackageUrl.Factories.PackageUrlFactory(type)
 
-    assert.strictEqual(actual.extRefFactory, extRefFactory)
+    assert.strictEqual(actual.type, type)
   })
 })
