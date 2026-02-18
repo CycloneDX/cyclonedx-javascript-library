@@ -24,16 +24,16 @@ const { suite, test } = require('mocha')
 const {
   Models,
   Factories,
-  Builders: { FromNodePackageJson: { ToolBuilder } }
+  Contrib,
 } = require('../../')
 
 suite('integration: Builders.FromNodePackageJson.ToolBuilder', () => {
   const salt = Math.random()
 
-  const extRefFactory = new Factories.FromNodePackageJson.ExternalReferenceFactory()
+  const extRefFactory = new Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory()
   extRefFactory.makeExternalReferences = () => [`FAKE REFERENCES ${salt}`]
 
-  const sut = new ToolBuilder(extRefFactory)
+  const sut = new Contrib.FromNodePackageJson.Builders.ToolBuilder(extRefFactory)
 
   const data = {
     name: '@foo/bar',

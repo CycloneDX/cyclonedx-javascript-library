@@ -24,11 +24,11 @@ const { suite, test } = require('mocha')
 const {
   Enums: { ExternalReferenceType, HashAlgorithm },
   Models: { ExternalReference, HashDictionary },
-  Factories: { FromNodePackageJson: { ExternalReferenceFactory } }
+  Contrib,
 } = require('../../')
 
 suite('integration: Factories.FromNodePackageJson.ExternalReferenceFactory', () => {
-  const sut = new ExternalReferenceFactory()
+  const sut = new Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory()
 
   suite('from "homepage"', () => {
     test('is non-empty string', () => {

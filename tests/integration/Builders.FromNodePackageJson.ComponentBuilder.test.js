@@ -24,17 +24,16 @@ const { suite, test } = require('mocha')
 const {
   Enums,
   Models,
-  Factories,
-  Builders: { FromNodePackageJson: { ComponentBuilder } }
+  Contrib,
 } = require('../../')
 
 suite('integration: Builders.FromNodePackageJson.ComponentBuilder', () => {
   const salt = Math.random()
 
-  const extRefFactory = new Factories.FromNodePackageJson.ExternalReferenceFactory()
-  const licenseFactory = new Factories.LicenseFactory()
+  const extRefFactory = new Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory()
+  const licenseFactory = new Contrib.License.Factories.LicenseFactory()
 
-  const sut = new ComponentBuilder(extRefFactory, licenseFactory);
+  const sut = new Contrib.FromNodePackageJson.Builders.ComponentBuilder(extRefFactory, licenseFactory);
 
   [
     [

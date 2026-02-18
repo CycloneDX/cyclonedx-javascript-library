@@ -25,13 +25,13 @@ const { PackageURL } = require('packageurl-js')
 const {
   Enums,
   Models,
-  Factories: { FromNodePackageJson: { PackageUrlFactory } }
+  Contrib,
 } = require('../../')
 
 suite('integration: Factories.FromNodePackageJson.PackageUrlFactory', () => {
   const salt = Math.random()
 
-  const sut = new PackageUrlFactory('testing')
+  const sut = new Contrib.PackageUrl.Factories.PackageUrlFactory('testing')
 
   suite('makeFromComponent', () => {
     test('no-name-no-purl', () => {

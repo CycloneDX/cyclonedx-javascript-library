@@ -25,18 +25,16 @@ const {
   Enums: {
     HashAlgorithm
   },
-  Utils: {
-    NpmjsUtility
-  }
+  Contrib,
 } = require('../../')
 
 suite('unit: Utils.NpmjsUtility.defaultRegistryMatcher', () => {
   test('matches pure domain', () => {
-    const actual = NpmjsUtility.defaultRegistryMatcher.test('https://registry.npmjs.org')
+    const actual = Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher.test('https://registry.npmjs.org')
     assert.strictEqual(actual, true)
   })
   test('matches with path', () => {
-    const actual = NpmjsUtility.defaultRegistryMatcher.test('https://registry.npmjs.org/foo/bar')
+    const actual = Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher.test('https://registry.npmjs.org/foo/bar')
     assert.strictEqual(actual, true)
   })
   suite('not match unexpected', () => {
@@ -46,7 +44,7 @@ suite('unit: Utils.NpmjsUtility.defaultRegistryMatcher', () => {
       'https://registry.npmjs.org.uk/foo/bar'
     ]) {
       test(c, () => {
-        const actual = NpmjsUtility.defaultRegistryMatcher.test(c)
+        const actual = Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher.test(c)
         assert.strictEqual(actual, false)
       })
     }
@@ -74,7 +72,7 @@ suite('unit: Utils.NpmjsUtility.parsePackageIntegrity', () => {
       ],
     ]) {
       test(c, () => {
-        const actual = NpmjsUtility.parsePackageIntegrity(c)
+        const actual = Contrib.FromNodePackageJson.Utils.parsePackageIntegrity(c)
         assert.deepStrictEqual(actual, expected)
       })
     }

@@ -22,7 +22,7 @@ const assert = require('node:assert')
 const { suite, test } = require('mocha')
 
 const {
-  Factories: { PackageUrlFactory }
+  Contrib,
 } = require('../../')
 const { randomString } = require('../_helpers/stringFunctions')
 
@@ -30,7 +30,7 @@ suite('unit: Factories.PackageUrlFactory', () => {
   test('construct', () => {
     const type = randomString(5)
 
-    const actual = new PackageUrlFactory(type)
+    const actual = new Contrib.PackageUrl.Factories.PackageUrlFactory(type)
 
     assert.strictEqual(actual.type, type)
   })

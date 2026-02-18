@@ -22,19 +22,17 @@ const assert = require('node:assert')
 const { suite, test } = require('mocha')
 
 const {
-  Utils: {
-    BomUtility
-  }
+  Contrib,
 } = require('../../')
 
 suite('unit: Utils.BomUtility', () => {
   suite('randomSerialNumber()', () => {
     test('has correct format according to XSD', () => {
-      const value = BomUtility.randomSerialNumber()
+      const value = Contrib.Bom.Utils.randomSerialNumber()
       assert.match(value, /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$|^\\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\}$/)
     })
     test('has correct format according to JSON schema', () => {
-      const value = BomUtility.randomSerialNumber()
+      const value = Contrib.Bom.Utils.randomSerialNumber()
       assert.match(value, /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)
     })
   })

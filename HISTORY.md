@@ -9,6 +9,9 @@ All notable changes to this project will be documented in this file.
 * BREAKING changes
   * Removed deprecated symbols
 * Removed
+  * Entrypoint `Builders` (via [#1377])
+  * Entrypoint `Factories` (via [#1377])
+  * Entrypoint `Utils` (via [#1377])
   * Deprecated symbol `Builders` ([#1346] via [#1377])
   * Deprecated symbol `Builders.FromNodePackageJson` ([#1346] via [#1377])
   * Deprecated symbol `Builders.FromNodePackageJson.ToolBuilder` ([#1346] via [#1377])  

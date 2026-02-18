@@ -22,13 +22,13 @@ const assert = require('node:assert')
 const { suite, test } = require('mocha')
 
 const {
-  Factories: { LicenseFactory },
+  Contrib,
   Models: { LicenseExpression, NamedLicense, SpdxLicense }
 } = require('../../')
 
 suite('integration: Factories.LicenseFactory', () => {
   test('makeFromString() -> LicenseExpression', () => {
-    const sut = new LicenseFactory()
+    const sut = new Contrib.License.Factories.LicenseFactory()
     const expression = '(MIT OR Apache-2.0)'
 
     const license = sut.makeFromString(expression)
@@ -38,7 +38,7 @@ suite('integration: Factories.LicenseFactory', () => {
   })
 
   test('makeFromString() -> NamedLicense', () => {
-    const sut = new LicenseFactory()
+    const sut = new Contrib.License.Factories.LicenseFactory()
 
     const license = sut.makeFromString('(c) foo bar')
 
@@ -49,7 +49,7 @@ suite('integration: Factories.LicenseFactory', () => {
   })
 
   test('makeFromString() -> SpdxLicense', () => {
-    const sut = new LicenseFactory()
+    const sut = new Contrib.License.Factories.LicenseFactory()
 
     const license = sut.makeFromString('MIT')
 

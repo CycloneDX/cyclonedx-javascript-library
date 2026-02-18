@@ -26,13 +26,13 @@ const { suite, test } = require('mocha')
 const {
   Models: { Attachment },
   Enums: { AttachmentEncoding },
-  Utils: { LicenseUtility: { LicenseEvidenceGatherer } }
+  Contrib,
 } = require('../../')
 
 suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
   test('no path -> throws', () => {
     const { fs } = memfs({ '/': {} })
-    const leg = new LicenseEvidenceGatherer({ fs })
+    const leg = new Contrib.License.Utils.LicenseEvidenceGatherer({ fs })
     assert.throws(
       () => {
         Array.from(
@@ -48,7 +48,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
 
   test('no files', () => {
     const { fs } = memfs({ '/': {} })
-    const leg = new LicenseEvidenceGatherer({ fs })
+    const leg = new Contrib.License.Utils.LicenseEvidenceGatherer({ fs })
     const errors = []
     const found = Array.from(
       leg.getFileAttachments(
@@ -66,7 +66,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
         'GPL-3.0-or-later.txt': 'GPL-3.0-or-later License text here...'
       }
     })
-    const leg = new LicenseEvidenceGatherer({ fs })
+    const leg = new Contrib.License.Utils.LicenseEvidenceGatherer({ fs })
     const found = Array.from(
       leg.getFileAttachments('/'))
     assert.deepEqual(found, [])
@@ -80,7 +80,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
         'GPL-3.0-or-later.txt': 'GPL-3.0-or-later License text here...'
       }
     })
-    const leg = new LicenseEvidenceGatherer({ fs })
+    const leg = new Contrib.License.Utils.LicenseEvidenceGatherer({ fs })
     const found = Array.from(
       leg.getFileAttachments('/'))
     assert.deepEqual(found, [])
@@ -93,7 +93,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
       `skipped license file ${sep}LICENSE`,
       { cause: new Error('Custom read error: Access denied!') })
     fs.readFileSync = function () { throw expectedError.cause }
-    const leg = new LicenseEvidenceGatherer({ fs })
+    const leg = new Contrib.License.Utils.LicenseEvidenceGatherer({ fs })
     const errors = []
     const found = Array.from(
       leg.getFileAttachments(
@@ -132,7 +132,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
 
   test('finds licenses as expected', () => {
     const { fs } = memfs({ '/': mockedLicenses })
-    const leg = new LicenseEvidenceGatherer({ fs })
+    const leg = new Contrib.License.Utils.LicenseEvidenceGatherer({ fs })
     const errors = []
     const found = Array.from(
       leg.getFileAttachments(
@@ -218,7 +218,7 @@ suite('integration: Utils.LicenseUtility.LicenseEvidenceGatherer', () => {
 
   test('does not find licenses in subfolder', () => {
     const { fs } = memfs({ '/foo': mockedLicenses })
-    const leg = new LicenseEvidenceGatherer({ fs })
+    const leg = new Contrib.License.Utils.LicenseEvidenceGatherer({ fs })
     const found = Array.from(
       leg.getFileAttachments('/'))
     assert.deepEqual(found, [])
