@@ -28,28 +28,3 @@ export * from './cpe'
 export * from './cwe'
 export * from './integer'
 export * from './mimeType'
-
-// region deprecated re-exports
-
-/**
- * Deprecated — TypeAlias of {@link Contrib.FromNodePackageJson.Types.NodePackageJson}.
- *
- * @deprecated Use `Contrib.FromNodePackageJson.Types.NodePackageJson` instead.
- */
-export type NodePackageJson = _NodePackageJson
-
-/**
- * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Types.assertNodePackageJson}.
- *
- * @deprecated Use `Contrib.FromNodePackageJson.Types.assertNodePackageJson` instead.
- */
-export const assertNodePackageJson = _assertNodePackageJson
-
-/**
- * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Types.isNodePackageJson}.
- *
- * @deprecated Use `Contrib.FromNodePackageJson.Types.isNodePackageJson` instead.
- */
-export const isNodePackageJson = _isNodePackageJson
-
-// endregion deprecated re-exports
