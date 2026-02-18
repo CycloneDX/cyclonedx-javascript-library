@@ -23,9 +23,9 @@ const { suite, test } = require('mocha')
 const { PackageURL } = require('packageurl-js')
 
 const {
+  Contrib,
   Enums,
   Models,
-  Contrib,
 } = require('../../')
 
 suite('integration: Factories.FromNodePackageJson.PackageUrlFactory', () => {

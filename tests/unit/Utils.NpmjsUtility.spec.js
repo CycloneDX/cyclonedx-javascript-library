@@ -85,7 +85,7 @@ suite('unit: Utils.NpmjsUtility.parsePackageIntegrity', () => {
     ]) {
       test(c, () => {
         assert.throws(() => {
-          NpmjsUtility.parsePackageIntegrity(c)
+          Contrib.FromNodePackageJson.Utils.parsePackageIntegrity(c)
         })
       })
     }

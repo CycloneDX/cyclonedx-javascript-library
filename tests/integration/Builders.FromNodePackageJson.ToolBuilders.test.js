@@ -22,9 +22,8 @@ const assert = require('node:assert')
 const { suite, test } = require('mocha')
 
 const {
-  Models,
-  Factories,
   Contrib,
+  Models,
 } = require('../../')
 
 suite('integration: Builders.FromNodePackageJson.ToolBuilder', () => {

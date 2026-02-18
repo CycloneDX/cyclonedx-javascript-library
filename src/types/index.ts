@@ -17,13 +17,6 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import {
-  assertNodePackageJson as _assertNodePackageJson,
-  isNodePackageJson as _isNodePackageJson,
-  type NodePackageJson as _NodePackageJson
-} from '../contrib/fromNodePackageJson/types'
-
-
 export * from './cpe'
 export * from './cwe'
 export * from './integer'

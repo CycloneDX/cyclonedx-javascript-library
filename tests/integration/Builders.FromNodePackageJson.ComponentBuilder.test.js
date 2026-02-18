@@ -22,9 +22,9 @@ const assert = require('node:assert')
 const { suite, test } = require('mocha')
 
 const {
+  Contrib,
   Enums,
   Models,
-  Contrib,
 } = require('../../')
 
 suite('integration: Builders.FromNodePackageJson.ComponentBuilder', () => {
