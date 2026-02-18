@@ -33,7 +33,14 @@ suite('unit: Contrib.FromNodePackageJson.Factories.PackageUrlFactory', () => {
       const component = new Component(ComponentType.Library, 'testing')
       const purlFac = new Contrib.FromNodePackageJson.Factories.PackageUrlFactory('npm')
       const actual = purlFac.makeFromComponent(component)
-      assert.deepEqual(actual, 'TODO')
+      assert.deepEqual(actual, {
+        name: 'testing',
+        namespace: undefined,
+        qualifiers: undefined,
+        subpath: undefined,
+        type: 'npm',
+        version: undefined
+      })
     })
 
     test('strips default registry from qualifiers', () => {
