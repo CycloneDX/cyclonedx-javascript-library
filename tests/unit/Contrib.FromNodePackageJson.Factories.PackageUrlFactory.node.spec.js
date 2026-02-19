@@ -22,18 +22,25 @@ const assert = require('node:assert')
 const { suite, test } = require('mocha')
 
 const {
-  Factories: { FromNodePackageJson: { PackageUrlFactory } },
+  Contrib,
   Enums: { ComponentType, ExternalReferenceType },
   Models: { Component, ExternalReference, ExternalReferenceRepository }
 } = require('../../')
 
-suite('unit: Factories.FromNodePackageJson.PackageUrlFactory', () => {
+suite('unit: Contrib.FromNodePackageJson.Factories.PackageUrlFactory', () => {
   suite('makeFromComponent()', () => {
     test('plain', () => {
       const component = new Component(ComponentType.Library, 'testing')
-      const purlFac = new PackageUrlFactory('npm')
+      const purlFac = new Contrib.FromNodePackageJson.Factories.PackageUrlFactory('npm')
       const actual = purlFac.makeFromComponent(component)
-      assert.deepEqual(actual, 'TODO')
+      assert.deepEqual(actual, {
+        name: 'testing',
+        namespace: undefined,
+        qualifiers: undefined,
+        subpath: undefined,
+        type: 'npm',
+        version: undefined
+      })
     })
 
     test('strips default registry from qualifiers', () => {
@@ -46,7 +53,7 @@ suite('unit: Factories.FromNodePackageJson.PackageUrlFactory', () => {
           )
         ])
       })
-      const purlFac = new PackageUrlFactory('npm')
+      const purlFac = new Contrib.FromNodePackageJson.Factories.PackageUrlFactory('npm')
       const actual = purlFac.makeFromComponent(component)
       assert.deepEqual(actual, {
         type: 'npm',
@@ -68,7 +75,7 @@ suite('unit: Factories.FromNodePackageJson.PackageUrlFactory', () => {
           )
         ])
       })
-      const purlFac = new PackageUrlFactory('npm')
+      const purlFac = new Contrib.FromNodePackageJson.Factories.PackageUrlFactory('npm')
       const actual = purlFac.makeFromComponent(component)
       assert.deepEqual(actual,
         {

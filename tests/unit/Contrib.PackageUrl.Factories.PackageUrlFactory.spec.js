@@ -17,11 +17,21 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export * from './index.common'
+const assert = require('node:assert')
 
-// region node-specifics
+const { suite, test } = require('mocha')
 
-/** @deprecated next */
-export * as FromNodePackageJson from './fromNodePackageJson.node'
+const {
+  Contrib,
+} = require('../../')
+const { randomString } = require('../_helpers/stringFunctions')
 
-// endregion node-specifics
+suite('unit: Contrib.PackageUrl.Factories.PackageUrlFactory', () => {
+  test('construct', () => {
+    const type = randomString(5)
+
+    const actual = new Contrib.PackageUrl.Factories.PackageUrlFactory(type)
+
+    assert.strictEqual(actual.type, type)
+  })
+})

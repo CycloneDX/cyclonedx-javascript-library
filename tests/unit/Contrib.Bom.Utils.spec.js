@@ -22,21 +22,18 @@ const assert = require('node:assert')
 const { suite, test } = require('mocha')
 
 const {
-  Builders: { FromNodePackageJson: { ComponentBuilder } },
-  Factories: {
-    FromNodePackageJson: { ExternalReferenceFactory },
-    LicenseFactory
-  }
+  Contrib,
 } = require('../../')
 
-suite('unit: Builders.FromNodePackageJson.ComponentBuilder', () => {
-  test('construct', () => {
-    const extRefFactory = new ExternalReferenceFactory()
-    const licenseFactory = new LicenseFactory()
-
-    const actual = new ComponentBuilder(extRefFactory, licenseFactory)
-
-    assert.strictEqual(actual.extRefFactory, extRefFactory)
-    assert.strictEqual(actual.licenseFactory, licenseFactory)
+suite('unit: Contrib.Bom.Utils', () => {
+  suite('randomSerialNumber()', () => {
+    test('has correct format according to XSD', () => {
+      const value = Contrib.Bom.Utils.randomSerialNumber()
+      assert.match(value, /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$|^\\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\}$/)
+    })
+    test('has correct format according to JSON schema', () => {
+      const value = Contrib.Bom.Utils.randomSerialNumber()
+      assert.match(value, /^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)
+    })
   })
 })

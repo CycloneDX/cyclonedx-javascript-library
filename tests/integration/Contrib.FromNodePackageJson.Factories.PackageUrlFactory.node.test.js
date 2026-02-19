@@ -23,15 +23,15 @@ const { suite, test } = require('mocha')
 const { PackageURL } = require('packageurl-js')
 
 const {
+  Contrib,
   Enums,
   Models,
-  Factories: { FromNodePackageJson: { PackageUrlFactory } }
 } = require('../../')
 
-suite('integration: Factories.FromNodePackageJson.PackageUrlFactory', () => {
+suite('integration: Contrib.FromNodePackageJson.Factories.PackageUrlFactory', () => {
   const salt = Math.random()
 
-  const sut = new PackageUrlFactory('testing')
+  const sut = new Contrib.FromNodePackageJson.Factories.PackageUrlFactory('testing')
 
   suite('makeFromComponent', () => {
     test('no-name-no-purl', () => {
