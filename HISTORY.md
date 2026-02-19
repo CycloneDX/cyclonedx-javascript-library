@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 * BREAKING changes
   * Removed deprecated symbols
-  * No longer use external standard's implementations
+  * No longer use external standards' implementations nor models
 * Removed
   * Entrypoint `Builders` (via [#1377])
   * Entrypoint `Factories` (via [#1377])
