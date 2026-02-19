@@ -188,10 +188,6 @@
     "./Contrib/License": {
       "types": "./dist.d/contrib/license/index.node.d.ts",
       "default": "./dist.node/contrib/license/index.node.js"
-    },
-    "./Contrib/PackageUrl": {
-      "types": "./dist.d/contrib/packageUrl/index.d.ts",
-      "default": "./dist.node/contrib/packageUrl/index.js"
     }
   },
   "directories": {
