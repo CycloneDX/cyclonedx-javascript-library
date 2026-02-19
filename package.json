@@ -80,7 +80,6 @@
     "node": ">=20.18.0"
   },
   "dependencies": {
-    "packageurl-js": "^2.0.1",
     "spdx-expression-parse": "^3.0.1 || ^4"
   },
   "peerDependencies": {
@@ -188,10 +187,6 @@
     "./Contrib/License": {
       "types": "./dist.d/contrib/license/index.node.d.ts",
       "default": "./dist.node/contrib/license/index.node.js"
-    },
-    "./Contrib/PackageUrl": {
-      "types": "./dist.d/contrib/packageUrl/index.d.ts",
-      "default": "./dist.node/contrib/packageUrl/index.js"
     }
   },
   "directories": {

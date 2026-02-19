@@ -8,11 +8,13 @@ All notable changes to this project will be documented in this file.
 
 * BREAKING changes
   * Removed deprecated symbols
+  * Removed PackageUrl factories
   * No longer use external standards' implementations nor models
 * Removed
   * Entrypoint `Builders` (via [#1377])
   * Entrypoint `Factories` (via [#1377])
   * Entrypoint `Utils` (via [#1377])
+  * Entrypoint `Contrib/PackageUrl` (via [#1378])
   * Deprecated symbol `Builders` ([#1346] via [#1377])
   * Deprecated symbol `Builders.FromNodePackageJson` ([#1346] via [#1377])
   * Deprecated symbol `Builders.FromNodePackageJson.ToolBuilder` ([#1346] via [#1377])  
@@ -24,12 +26,10 @@ All notable changes to this project will be documented in this file.
   * Deprecated symbol `Factories.FromNodePackageJson.ExternalReferenceFactory` ([#1346] via [#1377])  
     Use `Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory` instead.
   * Deprecated symbol `Factories.FromNodePackageJson.PackageUrlFactory` ([#1346] via [#1377])  
-    Use `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` instead.
-  * Deprecated symbol `Factories.LicenseFactory` ([#1346] via [#1377])  
+  * Deprecated symbol `Factories.LicenseFactory` ([#1346], [#1348] via [#1377], [#1378])  
     Use `Contrib.License.Factories.LicenseFactory` instead.
   * Deprecated symbol `Factories.PackageUrlFactory` ([#1346] via [#1377])  
-    Use `Contrib.PackageUrl.Factories.PackageUrlFactory` instead.
-  * Deprecated symbol `Types.NodePackageJson` ([#1346] via [#1377])  
+  * Deprecated symbol `Types.NodePackageJson` ([#1346], [#1348] via [#1377], [#1378])  
     Use `Contrib.FromNodePackageJson.Types.NodePackageJson` instead.
   * Deprecated symbol `Types.assertNodePackageJson` ([#1346] via [#1377])  
     Use `Contrib.FromNodePackageJson.Types.assertNodePackageJson` instead.
@@ -55,8 +55,12 @@ All notable changes to this project will be documented in this file.
     Use `Contrib.FromNodePackageJson.Utils.parsePackageIntegrity` instead.
   * Deprecated symbol `Utils.NpmjsUtility.defaultRegistryMatcher` ([#1346] via [#1377])  
     Use `Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher` instead.
+  * Symbol `Contrib.PackageUrl.Factories.PackageUrlFactory` ([#1348] via [#1378])
+  * Symbol `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` ([#1348] via [#1378])
 * Changed
   * `Component.purl` is a `string` now, was `PackaheUrl` ([#1348] via [#1379])
+* Dependencies
+  * No longer depend on `packageurl-js@^2.0.1` ([#1348] via [#1378])
 * Build
   * Use _webpack_ `5.105.2` now, was `v5.103.0` (via [#1360], [#1374])
 
@@ -65,6 +69,7 @@ All notable changes to this project will be documented in this file.
 [#1360]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1360
 [#1374]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1374
 [#1377]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1377
+[#1378]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1378
 [#1379]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1379
 
 ## 9.4.1 -- 2025-12-04
