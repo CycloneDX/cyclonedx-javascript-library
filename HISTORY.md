@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file.
   * Entrypoint `Builders` (via [#1377])
   * Entrypoint `Factories` (via [#1377])
   * Entrypoint `Utils` (via [#1377])
-  * Entrypoint `/Contrib/PackageUrl` (via [#1378])
+  * Entrypoint `Contrib/PackageUrl` (via [#1378])
   * Deprecated symbol `Builders` ([#1346] via [#1377])
   * Deprecated symbol `Builders.FromNodePackageJson` ([#1346] via [#1377])
   * Deprecated symbol `Builders.FromNodePackageJson.ToolBuilder` ([#1346] via [#1377])  
