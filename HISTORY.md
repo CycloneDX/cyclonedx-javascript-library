@@ -56,7 +56,7 @@ All notable changes to this project will be documented in this file.
   * Deprecated symbol `Utils.NpmjsUtility.defaultRegistryMatcher` ([#1346] via [#1377])  
     Use `Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher` instead.
 * Changed
-  * `Component.purl` is a `string` now, was `PackaheUrl` ([#1348] via [#])
+  * `Component.purl` is a `string` now, was `PackaheUrl` ([#1348] via [#1379])
 * Build
   * Use _webpack_ `5.105.2` now, was `v5.103.0` (via [#1360], [#1374])
 
@@ -65,6 +65,7 @@ All notable changes to this project will be documented in this file.
 [#1360]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1360
 [#1374]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1374
 [#1377]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1377
+[#1379]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1379
 
 ## 9.4.1 -- 2025-12-04
 
