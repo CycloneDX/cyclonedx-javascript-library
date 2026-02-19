@@ -59,6 +59,8 @@ All notable changes to this project will be documented in this file.
   * Symbol `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` ([#1348] via [#1378])
 * Changed
   * `Component.purl` is a `string` now, was `PackaheUrl` ([#1348] via [#1379])
+* Dependencies
+  * No longer depend on `packageurl-js@^2.0.1` ([#1348] via [#1378])
 * Build
   * Use _webpack_ `5.105.2` now, was `v5.103.0` (via [#1360], [#1374])
 
