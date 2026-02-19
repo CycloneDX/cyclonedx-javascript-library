@@ -20,7 +20,6 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('node:assert')
 
 const { suite, test } = require('mocha')
-const { PackageURL } = require('packageurl-js')
 
 const {
   Models: {
@@ -62,7 +61,7 @@ suite('unit: Models.Component', () => {
     const dummyBomRef = new BomRef('testing')
     const dummyExtRef = new ExternalReference('../', 'other')
     const dummyLicense = new NamedLicense('mine')
-    const dummyPurl = new PackageURL('npm', 'ns', 'app', '1.33.7', {}, undefined)
+    const dummyPurl = 'pkg:npm/ns/app@1.33.7'
     const dummySupplier = new OrganizationalEntity({ name: 'dummySupplier' })
     const dummySWID = new SWID('my-fake-swid', 'foo-bar')
     const subComponent = new Component('library', 'MySubComponent')
