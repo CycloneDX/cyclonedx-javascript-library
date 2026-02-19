@@ -17,8 +17,6 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-const { PackageURL } = require('packageurl-js')
-
 const { Enums, Models, Types } = require('../../')
 
 /* eslint-disable jsdoc/no-undefined-types -- something is odd with type detection */
@@ -169,7 +167,7 @@ function createComplexStructure () {
       return license
     })(new Models.SpdxLicense('MIT')))
     component.publisher = 'the publisher'
-    component.purl = new PackageURL('npm', 'acme', 'dummy-component', '1337-beta', undefined, undefined)
+    component.purl = 'pkg:npm/acme/dummy-component@1337-beta'
     component.scope = Enums.ComponentScope.Required
     component.supplier = new Models.OrganizationalEntity({ name: 'Component Supplier' })
     component.supplier.url.add(new URL('https://localhost/componentSupplier-B'))

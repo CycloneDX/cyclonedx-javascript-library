@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 * BREAKING changes
   * Removed deprecated symbols
   * Removed PackageUrl factories
+  * No longer use external standards' implementations nor models
 * Removed
   * Entrypoint `Builders` (via [#1377])
   * Entrypoint `Factories` (via [#1377])
@@ -56,6 +57,8 @@ All notable changes to this project will be documented in this file.
     Use `Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher` instead.
   * Symbol `Contrib.PackageUrl.Factories.PackageUrlFactory` ([#1348] via [#1378])
   * Symbol `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` ([#1348] via [#1378])
+* Changed
+  * `Component.purl` is a `string` now, was `PackaheUrl` ([#1348] via [#1379])
 * Build
   * Use _webpack_ `5.105.2` now, was `v5.103.0` (via [#1360], [#1374])
 
@@ -65,6 +68,7 @@ All notable changes to this project will be documented in this file.
 [#1374]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1374
 [#1377]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1377
 [#1378]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1378
+[#1379]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1379
 
 ## 9.4.1 -- 2025-12-04
 
