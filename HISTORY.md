@@ -61,6 +61,7 @@ All notable changes to this project will be documented in this file.
   * `Component.purl` is a `string` now, was `PackaheUrl` ([#1348] via [#1379])
 * Dependencies
   * No longer depend on `packageurl-js@^2.0.1` ([#1348] via [#1378])
+  * Runtime-dependency `packageurl-js` ([#1348] via [#1378])
 * Build
   * Use _webpack_ `5.105.2` now, was `v5.103.0` (via [#1360], [#1374])
 * Chore
@@ -75,6 +76,7 @@ All notable changes to this project will be documented in this file.
 [#1378]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1378
 [#1379]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1379
 [#1380]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1380
+[#1382]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1382
 
 ## 9.4.1 -- 2025-12-04
 
