@@ -19,9 +19,26 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { DisjunctiveLicense, License } from '../../models/license'
 import { LicenseExpression, NamedLicense, SpdxLicense } from '../../models/license'
-import { fixupSpdxId, isValidSpdxLicenseExpression } from '../../spdx'
+import { fixupSpdxId } from '../../spdx'
+
+/**
+ * SPDXLicense Expression validation.
+ *
+ * We suggest one of the following 3rd-party libraries:
+ * - `spdx-expression-parse@^3.0.1||^4` - {@link https://www.npmjs.com/package/spdx-expression-parse}
+ *
+ * @throws {@link Error} when the argument is no valid SPDX License Expression
+ */
+type SpdxExpressionValidate = (data: string) => void
 
 export class LicenseFactory {
+
+  readonly #spdxExpressionValidate: SpdxExpressionValidate
+
+  constructor(spdxExpressionValidate: SpdxExpressionValidate) {
+    this.#spdxExpressionValidate = spdxExpressionValidate
+  }
+
   makeFromString (value: string): License {
     try {
       return this.makeSpdxLicense(value)
@@ -43,10 +60,12 @@ export class LicenseFactory {
    */
   makeExpression (value: string | any): LicenseExpression {
     const expression = String(value)
-    if (isValidSpdxLicenseExpression(expression)) {
-      return new LicenseExpression(expression)
+    try {
+      this.#spdxExpressionValidate(expression)
+    } catch (err) {
+      throw new RangeError('Invalid SPDX license expression', { cause: err })
     }
-    throw new RangeError('Invalid SPDX license expression')
+    return new LicenseExpression(expression)
   }
 
   makeDisjunctive (value: string): DisjunctiveLicense {

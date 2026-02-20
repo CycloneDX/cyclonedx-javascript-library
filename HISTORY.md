@@ -6,11 +6,87 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* BREAKING changes
+  * Removed deprecated symbols
+  * Removed PackageUrl factories
+  * No longer use external standards' implementations directly
+* Removed
+  * Entrypoint `Builders` (via [#1377])
+  * Entrypoint `Factories` (via [#1377])
+  * Entrypoint `Utils` (via [#1377])
+  * Entrypoint `Contrib/PackageUrl` (via [#1378])
+  * Deprecated symbol `Builders` ([#1346] via [#1377])
+  * Deprecated symbol `Builders.FromNodePackageJson` ([#1346] via [#1377])
+  * Deprecated symbol `Builders.FromNodePackageJson.ToolBuilder` ([#1346] via [#1377])  
+    Use `Contrib.FromNodePackageJson.Builders.ToolBuilder` instead.
+  * Deprecated symbol `Builders.FromNodePackageJson.ComponentBuilder` ([#1346] via [#1377])  
+    Use `Contrib.FromNodePackageJson.Builders.ComponentBuilder` instead.
+  * Deprecated symbol `Factories` ([#1346] via [#1377])
+  * Deprecated symbol `Factories.FromNodePackageJson` ([#1346] via [#1377])
+  * Deprecated symbol `Factories.FromNodePackageJson.ExternalReferenceFactory` ([#1346] via [#1377])  
+    Use `Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory` instead.
+  * Deprecated symbol `Factories.FromNodePackageJson.PackageUrlFactory` ([#1346] via [#1377])  
+    Use `packageurl-js` downstream.
+  * Deprecated symbol `Factories.LicenseFactory` ([#1346], [#1348] via [#1377], [#1378])  
+    Use `Contrib.License.Factories.LicenseFactory` instead.
+  * Deprecated symbol `Factories.PackageUrlFactory` ([#1346] via [#1377])  
+    Use `packageurl-js` downstream.
+  * Deprecated symbol `Types.NodePackageJson` ([#1346], [#1348] via [#1377], [#1378])  
+    Use `Contrib.FromNodePackageJson.Types.NodePackageJson` instead.
+  * Deprecated symbol `Types.assertNodePackageJson` ([#1346] via [#1377])  
+    Use `Contrib.FromNodePackageJson.Types.assertNodePackageJson` instead.
+  * Deprecated symbol `Types.isNodePackageJson` ([#1346] via [#1377])  
+    Use `Contrib.FromNodePackageJson.Types.isNodePackageJson` instead.
+  * Deprecated symbol `Utils` ([#1346] via [#1377])
+  * Deprecated symbol `Utils.BomUtility` ([#1346] via [#1377])
+  * Deprecated symbol `Utils.BomUtility.randomSerialNumber` ([#1346] via [#1377])  
+    Use `Contrib.Bom.Utils.randomSerialNumber` instead.
+  * Deprecated symbol `Utils.LicenseUtility` ([#1346] via [#1377])
+  * Deprecated symbol `Utils.LicenseUtility.FsUtils` ([#1346] via [#1377])  
+    Use `Contrib.License.Utils.FsUtils` instead.
+  * Deprecated symbol `Utils.LicenseUtility.PathUtils` ([#1346] via [#1377])  
+  * Use `Contrib.License.Utils.PathUtils` instead.
+  * Deprecated symbol `Utils.LicenseUtility.FileAttachment` ([#1346] via [#1377])  
+    Use `Contrib.License.Utils.FileAttachment` instead.
+  * Deprecated symbol `Utils.LicenseUtility.ErrorReporter` ([#1346] via [#1377])  
+    Use `Contrib.License.Utils.ErrorReporter` instead.
+  * Deprecated symbol `Utils.LicenseUtility.LicenseEvidenceGatherer` ([#1346] via [#1377])  
+    Use `Contrib.License.Utils.LicenseEvidenceGatherer` instead.
+  * Deprecated symbol `Utils.NpmjsUtility` ([#1346] via [#1377])
+  * Deprecated symbol `Utils.NpmjsUtility.parsePackageIntegrity` ([#1346] via [#1377])  
+    Use `Contrib.FromNodePackageJson.Utils.parsePackageIntegrity` instead.
+  * Deprecated symbol `Utils.NpmjsUtility.defaultRegistryMatcher` ([#1346] via [#1377])  
+    Use `Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher` instead.
+  * Symbol `Contrib.PackageUrl.Factories.PackageUrlFactory` ([#1348] via [#1378])  
+    Use `packageurl-js` downstream.
+  * Symbol `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` ([#1348] via [#1378])  
+    Use `packageurl-js` downstream.
+  * Symbol `SPDX.isValidSpdxLicenseExpression` ([#1348] via [#1382])  
+    Use package `spdx-expression-parse` instead.
+* Changed
+  * `Component.purl` is a `string` now, was `PackaheUrl` ([#1348] via [#1379])
+  * Constructor of `Contrib.License.Factories.LicenseFactory` got an injectable argument `spdxExpressionValidate` for validating SPDX License Expressions ([#1348] via [#1382])  
+    Suggested implementation is `spdx-expression-parse`.
+* Dependencies
+  * Dependency `packageurl-js` became a suggested (optional peer-dependency) library ([#1348] via [#1378])  
+    You may use it to craft and parse PackageURLs downstream. 
+  * Dependency `spdx-expression-parse` became a suggested (optional peer-dependency) library ([#1348] via [#1382])  
+    Used as an injectable in `Contrib.License.Factories.LicenseFactory.constructor`.
 * Build
   * Use _webpack_ `5.105.2` now, was `v5.103.0` (via [#1360], [#1374])
+* Chore
+  * Set dev-engines in `package.json` ([#1301] via [#1380])
 
+[#1301]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1301
+[#1346]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1346
+[#1348]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1348
 [#1360]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1360
 [#1374]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1374
+[#1377]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1377
+[#1378]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1378
+[#1379]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1379
+[#1380]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1380
+[#1382]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1382
 
 ## 9.4.1 -- 2025-12-04
 

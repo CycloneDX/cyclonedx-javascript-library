@@ -4,13 +4,14 @@
   "license": "Apache-2.0",
   "source": "src/index.html",
   "dependencies": {
-    "@cyclonedx/cyclonedx-library": "file:../../.."
+    "@cyclonedx/cyclonedx-library": "file:../../..",
+    "spdx-expression-parse": "^3.0.1||^4"
   },
   "devDependencies": {
     "parcel": "^2"
   },
   "scripts": {
-    "build": "parcel build --detailed-report",
+    "build": "parcel build --detailed-report --public-url .",
     "example": "parcel"
   }
 }

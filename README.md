@@ -82,7 +82,6 @@ written in _TypeScript_ and compiled for the target.
   * Gather license evidences from files (for _Node.js_ only)
 * Factories for the following use cases:
   * Create data models from any license descriptor string
-  * Create `PackageURL` from `Component` data models
   * Specific to _Node.js_: create data models from PackageJson-like data structures and derived data
 * Builders for the following use cases:
   * Specific to _Node.js_: create deep data models `Tool` or `Component` from PackageJson-like data structures
@@ -134,6 +133,12 @@ Some features require optional peer dependencies — see `package.json` for vers
 * Validation of XML on _Node.js_ requires any of:
   * [`libxmljs2`](https://www.npmjs.com/package/libxmljs2)  
     * the system might need to meet the requirements for [`node-gyp`](https://github.com/TooTallNate/node-gyp#installation), in certain cases.
+
+In addition, we have some suggestions for related 3rd-party standards:
+* [`packageurl-js`](https://www.npmjs.com/package/packageurl-js)
+  for crafting and parsing PackageURLs.
+* [`spdx-expression-parse`](https://www.npmjs.com/package/spdx-expression-parse)
+  for validating SPDX License Expressions.
 
 ## Usage
 

@@ -26,19 +26,14 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * Normalization should be done downstream, for example via [`normalize-package-data`](https://www.npmjs.com/package/normalize-package-data).
  */
 
-import type { PackageURL } from 'packageurl-js'
-import { PurlQualifierNames } from 'packageurl-js'
-
 import { isNotUndefined } from '../../_helpers/notUndefined'
 import { ExternalReferenceType } from '../../enums/externalReferenceType'
 import { HashAlgorithm } from '../../enums/hashAlogorithm'
-import type { Component } from '../../models/component'
 import { ExternalReference } from '../../models/externalReference'
 import { HashDictionary } from '../../models/hash'
-import { PackageUrlFactory as PlainPackageUrlFactory } from '../packageUrl/factories'
 import { tryCanonicalizeGitUrl } from './_helpers/gitUrl'
 import type { NodePackageJson } from './types'
-import { defaultRegistryMatcher, parsePackageIntegrity } from './utils'
+import { parsePackageIntegrity } from './utils'
 
 /**
  * Node-specific ExternalReferenceFactory.
@@ -128,59 +123,5 @@ export class ExternalReferenceFactory {
       return new ExternalReference(tarball, ExternalReferenceType.Distribution, { hashes, comment })
     }
     return undefined
-  }
-}
-
-/**
- * Node-specific PackageUrlFactory.
- * @see {@link https://github.com/package-url/purl-spec/blob/master/PURL-TYPES.rst#npm}
- */
-export class PackageUrlFactory extends PlainPackageUrlFactory<'npm'> {
-  /* eslint-disable-next-line @typescript-eslint/no-inferrable-types -- docs */
-  override makeFromComponent (component: Component, sort: boolean = false): PackageURL | undefined {
-    const purl = super.makeFromComponent(component, sort)
-    return purl === undefined
-      ? undefined
-      : this.#finalizeQualifiers(purl)
-  }
-
-  /**
-   * Will strip unnecessary qualifiers according to [PURL-SPECIFICATION](https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst#known-qualifiers-keyvalue-pairs).
-   * <blockquote cite="https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst#known-qualifiers-keyvalue-pairs">
-   *   Do not abuse qualifiers: it can be tempting to use many qualifier keys but their usage should be limited
-   *   to the bare minimum for proper package identification to ensure that a purl stays compact and readable
-   *   in most cases.
-   * </blockquote>
-   *
-   * Therefore:
-   * - "vcs_url" is stripped, if a "download_url" is given.
-   * - "download_url" is stripped, if it is NPM's default registry ("registry.npmjs.org")
-   * - "checksum" is stripped, unless a "download_url" or "vcs_url" is given.
-   */
-  #finalizeQualifiers(purl: PackageURL): PackageURL {
-    /* eslint-disable no-param-reassign -- intended */
-    const qualifiers = new Map(Object.entries(purl.qualifiers ?? {}))
-
-    const downloadUrl = qualifiers.get(PurlQualifierNames.DownloadUrl)
-    if (downloadUrl !== undefined) {
-      qualifiers.delete(PurlQualifierNames.VcsUrl)
-      if (defaultRegistryMatcher.test(downloadUrl)) {
-        qualifiers.delete(PurlQualifierNames.DownloadUrl)
-      }
-    }
-    if (!qualifiers.has(PurlQualifierNames.DownloadUrl) && !qualifiers.has(PurlQualifierNames.VcsUrl)) {
-      // nothing to base a checksum on
-      qualifiers.delete(PurlQualifierNames.Checksum)
-    }
-    if (qualifiers.size > 0) {
-      purl.qualifiers = Object.fromEntries(qualifiers.entries())
-      /* @ts-expect-error TS2322 */
-      purl.qualifiers.__proto__ = null /* eslint-disable-line no-proto -- intended */
-    } else {
-      purl.qualifiers = undefined
-    }
-
-    return purl
-    /* eslint-enable no-param-reassign */
   }
 }

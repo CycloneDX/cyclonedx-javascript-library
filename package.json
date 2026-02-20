@@ -1,6 +1,6 @@
 {
   "name": "@cyclonedx/cyclonedx-library",
-  "version": "9.4.1",
+  "version": "10.0.0-alpha.0",
   "description": "Core functionality of CycloneDX for JavaScript (Node.js or WebBrowser).",
   "license": "Apache-2.0",
   "keywords": [
@@ -80,15 +80,15 @@
     "node": ">=20.18.0"
   },
   "dependencies": {
-    "packageurl-js": "^2.0.1",
-    "spdx-expression-parse": "^3.0.1 || ^4"
   },
   "peerDependencies": {
     "ajv": "^8.12.0",
     "ajv-formats": "^3.0.1",
     "ajv-formats-draft2019": "^1.6.1",
     "libxmljs2": "^0.35||^0.37",
-    "xmlbuilder2": "^3.0.2||^4.0.0"
+    "xmlbuilder2": "^3.0.2||^4.0.0",
+    "packageurl-js": "*",
+    "spdx-expression-parse": "*"
   },
   "peerDependenciesMeta": {
     "ajv": {
@@ -105,6 +105,24 @@
     },
     "xmlbuilder2": {
       "optional": true
+    },
+    "packageurl-js": {
+      "optional": true
+    },
+    "spdx-expression-parse": {
+      "optional": true
+    }
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=20.18.0",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "npm",
+      "version": ">=9",
+      "onFail": "error"
     }
   },
   "devDependencies": {
@@ -113,6 +131,7 @@
     "ajv-formats-draft2019": "^1.6.1",
     "libxmljs2": "^0.35||^0.37",
     "xmlbuilder2": "^3.0.2||^4.0.0",
+    "spdx-expression-parse": "^3.0.1||^4",
     "@types/mocha": "^10",
     "@types/node": "ts5.7",
     "@types/spdx-expression-parse": "^3",
@@ -145,17 +164,9 @@
       "default": "./dist.node/index.node.js"
     },
     "./package.json": "./package.json",
-    "./Builders": {
-      "types": "./dist.d/builders/index.node.d.ts",
-      "default": "./dist.node/builders/index.node.js"
-    },
     "./Enums": {
       "types": "./dist.d/enums/index.d.ts",
       "default": "./dist.node/enums/index.js"
-    },
-    "./Factories": {
-      "types": "./dist.d/factories/index.node.d.ts",
-      "default": "./dist.node/factories/index.node.js"
     },
     "./Models": {
       "types": "./dist.d/models/index.d.ts",
@@ -177,10 +188,6 @@
       "types": "./dist.d/types/index.d.ts",
       "default": "./dist.node/types/index.js"
     },
-    "./Utils": {
-      "types": "./dist.d/utils/index.node.d.ts",
-      "default": "./dist.node/utils/index.node.js"
-    },
     "./Validation": {
       "types": "./dist.d/validation/index.node.d.ts",
       "default": "./dist.node/validation/index.node.js"
@@ -200,10 +207,6 @@
     "./Contrib/License": {
       "types": "./dist.d/contrib/license/index.node.d.ts",
       "default": "./dist.node/contrib/license/index.node.js"
-    },
-    "./Contrib/PackageUrl": {
-      "types": "./dist.d/contrib/packageUrl/index.d.ts",
-      "default": "./dist.node/contrib/packageUrl/index.js"
     }
   },
   "directories": {

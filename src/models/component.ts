@@ -17,8 +17,6 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type { PackageURL } from 'packageurl-js'
-
 import type { Comparable } from '../_helpers/sortable'
 import { SortableComparables } from '../_helpers/sortable'
 import { treeIteratorSymbol } from '../_helpers/tree'
@@ -69,7 +67,7 @@ export class Component implements Comparable<Component> {
   hashes: HashDictionary
   licenses: LicenseRepository
   publisher?: string
-  purl?: PackageURL
+  purl?: string
   scope?: ComponentScope
   supplier?: OrganizationalEntity
   swid?: SWID
@@ -139,7 +137,7 @@ export class Component implements Comparable<Component> {
       return bomRefCompare
     }
     if (this.purl !== undefined && other.purl !== undefined) {
-      return this.purl.toString().localeCompare(other.purl.toString())
+      return this.purl.localeCompare(other.purl)
     }
     if (this.#cpe !== undefined && other.#cpe !== undefined) {
       return this.#cpe.localeCompare(other.#cpe)
