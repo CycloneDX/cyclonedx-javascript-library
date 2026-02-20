@@ -82,7 +82,6 @@ written in _TypeScript_ and compiled for the target.
   * Gather license evidences from files (for _Node.js_ only)
 * Factories for the following use cases:
   * Create data models from any license descriptor string
-  * Create `PackageURL` from `Component` data models
   * Specific to _Node.js_: create data models from PackageJson-like data structures and derived data
 * Builders for the following use cases:
   * Specific to _Node.js_: create deep data models `Tool` or `Component` from PackageJson-like data structures
