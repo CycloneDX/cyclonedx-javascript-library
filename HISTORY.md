@@ -57,7 +57,7 @@ All notable changes to this project will be documented in this file.
     Use `Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher` instead.
   * Symbol `Contrib.PackageUrl.Factories.PackageUrlFactory` ([#1348] via [#1378])
   * Symbol `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` ([#1348] via [#1378])
-  * Symbol `SPDX.isValidSpdxLicenseExpression` ([#1348] via [#1382])
+  * Symbol `SPDX.isValidSpdxLicenseExpression` ([#1348] via [#1382])  
     Use package `spdx-expression-parse` instead.
 * Changed
   * `Component.purl` is a `string` now, was `PackaheUrl` ([#1348] via [#1379])
