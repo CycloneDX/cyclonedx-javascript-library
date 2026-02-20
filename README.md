@@ -134,6 +134,12 @@ Some features require optional peer dependencies — see `package.json` for vers
   * [`libxmljs2`](https://www.npmjs.com/package/libxmljs2)  
     * the system might need to meet the requirements for [`node-gyp`](https://github.com/TooTallNate/node-gyp#installation), in certain cases.
 
+In addition, we have some suggestions for related 3rd-party standards:
+* [`packageurl-js`](https://www.npmjs.com/package/packageurl-js)
+  for crafting and parsing PackageURLs.
+* [`spdx-expression-parse`](https://www.npmjs.com/package/spdx-expression-parse)
+  for validating SPDX License Expressions.
+
 ## Usage
 
 See extended [examples].

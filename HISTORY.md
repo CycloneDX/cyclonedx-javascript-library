@@ -26,9 +26,11 @@ All notable changes to this project will be documented in this file.
   * Deprecated symbol `Factories.FromNodePackageJson.ExternalReferenceFactory` ([#1346] via [#1377])  
     Use `Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory` instead.
   * Deprecated symbol `Factories.FromNodePackageJson.PackageUrlFactory` ([#1346] via [#1377])  
+    Use `packageurl-js` downstream.
   * Deprecated symbol `Factories.LicenseFactory` ([#1346], [#1348] via [#1377], [#1378])  
     Use `Contrib.License.Factories.LicenseFactory` instead.
   * Deprecated symbol `Factories.PackageUrlFactory` ([#1346] via [#1377])  
+    Use `packageurl-js` downstream.
   * Deprecated symbol `Types.NodePackageJson` ([#1346], [#1348] via [#1377], [#1378])  
     Use `Contrib.FromNodePackageJson.Types.NodePackageJson` instead.
   * Deprecated symbol `Types.assertNodePackageJson` ([#1346] via [#1377])  
@@ -55,8 +57,10 @@ All notable changes to this project will be documented in this file.
     Use `Contrib.FromNodePackageJson.Utils.parsePackageIntegrity` instead.
   * Deprecated symbol `Utils.NpmjsUtility.defaultRegistryMatcher` ([#1346] via [#1377])  
     Use `Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher` instead.
-  * Symbol `Contrib.PackageUrl.Factories.PackageUrlFactory` ([#1348] via [#1378])
-  * Symbol `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` ([#1348] via [#1378])
+  * Symbol `Contrib.PackageUrl.Factories.PackageUrlFactory` ([#1348] via [#1378])  
+    Use `packageurl-js` downstream.
+  * Symbol `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` ([#1348] via [#1378])  
+    Use `packageurl-js` downstream.
   * Symbol `SPDX.isValidSpdxLicenseExpression` ([#1348] via [#1382])  
     Use package `spdx-expression-parse` instead.
 * Changed
@@ -64,7 +68,8 @@ All notable changes to this project will be documented in this file.
   * Constructor of `Contrib.License.Factories.LicenseFactory` got an injectable argument `spdxExpressionValidate` for validating SPDX License Expressions ([#1348] via [#1382])  
     Suggested implementation is `spdx-expression-parse`.
 * Dependencies
-  * No longer depend on `packageurl-js@^2.0.1` ([#1348] via [#1378])
+  * Dependency `packageurl-js` became a suggested (optional peer-dependency) library ([#1348] via [#1378])  
+    You may use it to craft and parse PackageURLs downstream. 
   * Dependency `spdx-expression-parse` became a suggested (optional peer-dependency) library ([#1348] via [#1382])  
     Used as an injectable in `Contrib.License.Factories.LicenseFactory.constructor`.
 * Build
