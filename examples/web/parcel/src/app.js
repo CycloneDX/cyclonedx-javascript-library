@@ -22,7 +22,10 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const CDX = require('@cyclonedx/cyclonedx-library')
 // full Library is available as `CDX`, now
 
-const lFac = new CDX.Contrib.License.Factories.LicenseFactory()
+const spdxExpressionParser = require('spdx-expression-parse')
+
+
+const lFac = new CDX.Contrib.License.Factories.LicenseFactory(spdxExpressionParser)
 
 const bom = new CDX.Models.Bom()
 bom.metadata.component = new CDX.Models.Component(

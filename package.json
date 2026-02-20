@@ -80,13 +80,13 @@
     "node": ">=20.18.0"
   },
   "dependencies": {
-    "spdx-expression-parse": "^3.0.1 || ^4"
   },
   "peerDependencies": {
     "ajv": "^8.12.0",
     "ajv-formats": "^3.0.1",
     "ajv-formats-draft2019": "^1.6.1",
     "libxmljs2": "^0.35||^0.37",
+    "spdx-expression-parse": "^3.0.1 || ^4",
     "xmlbuilder2": "^3.0.2||^4.0.0"
   },
   "peerDependenciesMeta": {
@@ -100,6 +100,9 @@
       "optional": true
     },
     "libxmljs2": {
+      "optional": true
+    },
+    "spdx-expression-parse": {
       "optional": true
     },
     "xmlbuilder2": {
@@ -124,6 +127,7 @@
     "ajv-formats-draft2019": "^1.6.1",
     "libxmljs2": "^0.35||^0.37",
     "xmlbuilder2": "^3.0.2||^4.0.0",
+    "spdx-expression-parse": "^3.0.1||^4",
     "@types/mocha": "^10",
     "@types/node": "ts5.7",
     "@types/spdx-expression-parse": "^3",

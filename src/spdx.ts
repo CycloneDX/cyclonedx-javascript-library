@@ -17,8 +17,6 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import spdxExpressionParse from 'spdx-expression-parse'
-
 /* @ts-expect-error: TS6059 -- this works as long as the file/path is available in dist-package. */
 import { enum as _spdxSpecEnum } from '../res/schema/spdx.SNAPSHOT.schema.json' with { type: 'json' }
 
@@ -47,16 +45,4 @@ export function fixupSpdxId (value: string | any): SpdxId | undefined {
   return typeof value === 'string' && value.length > 0
     ? spdxLowerToActual[value.toLowerCase()]
     : undefined
-}
-
-export function isValidSpdxLicenseExpression (value: string | any): boolean {
-  if (typeof value !== 'string') {
-    return false
-  }
-  try {
-    spdxExpressionParse(value)
-  } catch (err) {
-    return false
-  }
-  return true
 }
