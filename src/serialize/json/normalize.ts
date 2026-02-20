@@ -529,11 +529,12 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
   }
 
   #normalizeNamedLicense (data: Models.NamedLicense, options: NormalizerOptions): Normalized.NamedLicense {
+    const spec = this._factory.spec
     const url = escapeUri(data.url?.toString())
     return {
       license: {
         name: data.name,
-        acknowledgement: this._factory.spec.supportsLicenseAcknowledgement
+        acknowledgement: spec.supportsLicenseAcknowledgement
           ? data.acknowledgement
           : undefined,
         text: data.text === undefined
@@ -541,17 +542,21 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
           : this._factory.makeForAttachment().normalize(data.text, options),
         url: JsonSchema.isIriReference(url)
           ? url
+          : undefined,
+        properties: spec.supportsProperties(data) && spec.supportsLicenseProperties && data.properties.size > 0
+          ? this._factory.makeForProperty().normalizeIterable(data.properties, options)
           : undefined
       }
     }
   }
 
   #normalizeSpdxLicense (data: Models.SpdxLicense, options: NormalizerOptions): Normalized.SpdxLicense {
+    const spec = this._factory.spec
     const url = escapeUri(data.url?.toString())
     return {
       license: {
         id: data.id,
-        acknowledgement: this._factory.spec.supportsLicenseAcknowledgement
+        acknowledgement: spec.supportsLicenseAcknowledgement
           ? data.acknowledgement
           : undefined,
         text: data.text === undefined
@@ -559,6 +564,9 @@ export class LicenseNormalizer extends BaseJsonNormalizer<Models.License> {
           : this._factory.makeForAttachment().normalize(data.text, options),
         url: JsonSchema.isIriReference(url)
           ? url
+          : undefined,
+        properties: spec.supportsProperties(data) && spec.supportsLicenseProperties && data.properties.size > 0
+          ? this._factory.makeForProperty().normalizeIterable(data.properties, options)
           : undefined
       }
     }
