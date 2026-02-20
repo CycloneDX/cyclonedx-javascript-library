@@ -59,8 +59,12 @@ All notable changes to this project will be documented in this file.
   * Symbol `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` ([#1348] via [#1378])
 * Changed
   * `Component.purl` is a `string` now, was `PackaheUrl` ([#1348] via [#1379])
+  * Constructor of `Contrib.License.Factories.LicenseFactory` got an injectable argument `spdxExpressionValidate` for validating SPDXExpressions ([#1348] via [#1382])  
+    Suggested implementation is `spdx-expression-parse`.
 * Dependencies
   * No longer depend on `packageurl-js@^2.0.1` ([#1348] via [#1378])
+  * Dependency `spdx-expression-parse` became a suggested (optional peer-dependency) library ([#1348] via [#1382])  
+    Used as an injectable in `Contrib.License.Factories.LicenseFactory.constructor`.
 * Build
   * Use _webpack_ `5.105.2` now, was `v5.103.0` (via [#1360], [#1374])
 * Chore
@@ -75,6 +79,7 @@ All notable changes to this project will be documented in this file.
 [#1378]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1378
 [#1379]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1379
 [#1380]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1380
+[#1382]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1382
 
 ## 9.4.1 -- 2025-12-04
 

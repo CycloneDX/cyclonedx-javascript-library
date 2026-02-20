@@ -20,6 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 const assert = require('node:assert')
 
 const { suite, test } = require('mocha')
+const spdxExpressionValidate = require('spdx-expression-parse')
 
 const {
   Contrib,
@@ -28,7 +29,9 @@ const {
 
 suite('integration: Contrib.License.Factories.LicenseFactory', () => {
   test('makeFromString() -> LicenseExpression', () => {
-    const sut = new Contrib.License.Factories.LicenseFactory()
+    const sut = new Contrib.License.Factories.LicenseFactory(
+      spdxExpressionValidate
+    )
     const expression = '(MIT OR Apache-2.0)'
 
     const license = sut.makeFromString(expression)

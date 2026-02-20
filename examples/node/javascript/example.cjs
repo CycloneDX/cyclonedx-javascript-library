@@ -25,7 +25,10 @@ const CDX = require('@cyclonedx/cyclonedx-library')
 //    const { Bom, Component } = require('@cyclonedx/cyclonedx-library/Models')
 //    const { ComponentType } = require('@cyclonedx/cyclonedx-library/Enums')
 
-const lFac = new CDX.Contrib.License.Factories.LicenseFactory()
+const spdxExpressionParser = require('spdx-expression-parse')
+
+
+const lFac = new CDX.Contrib.License.Factories.LicenseFactory(spdxExpressionParser)
 
 const bom = new CDX.Models.Bom()
 bom.metadata.component = new CDX.Models.Component(

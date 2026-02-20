@@ -25,7 +25,10 @@ import * as CDX from '@cyclonedx/cyclonedx-library'
 //    import { Bom, Component } from '@cyclonedx/cyclonedx-library/Models'
 //    import { ComponentType } from '@cyclonedx/cyclonedx-library/Enums'
 
-const lFac = new CDX.Contrib.License.Factories.LicenseFactory()
+import * as spdxExpressionParser from 'spdx-expression-parse'
+
+
+const lFac = new CDX.Contrib.License.Factories.LicenseFactory(spdxExpressionParser)
 
 const bom = new CDX.Models.Bom()
 bom.metadata.component = new CDX.Models.Component(
