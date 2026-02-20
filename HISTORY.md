@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 * BREAKING changes
   * Removed deprecated symbols
   * Removed PackageUrl factories
-  * No longer use external standards' for models
+  * No longer use external standards' implementations directly
 * Removed
   * Entrypoint `Builders` (via [#1377])
   * Entrypoint `Factories` (via [#1377])
