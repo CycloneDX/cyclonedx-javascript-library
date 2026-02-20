@@ -63,7 +63,10 @@ All notable changes to this project will be documented in this file.
   * No longer depend on `packageurl-js@^2.0.1` ([#1348] via [#1378])
 * Build
   * Use _webpack_ `5.105.2` now, was `v5.103.0` (via [#1360], [#1374])
+* Chore
+  * Set dev-engines in `package.json` ([#1301] via [#1380])
 
+[#1301]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1301
 [#1346]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1346
 [#1348]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1348
 [#1360]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1360
@@ -71,6 +74,7 @@ All notable changes to this project will be documented in this file.
 [#1377]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1377
 [#1378]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1378
 [#1379]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1379
+[#1380]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1380
 
 ## 9.4.1 -- 2025-12-04
 
