@@ -10,7 +10,7 @@
     "parcel": "^2"
   },
   "scripts": {
-    "build": "parcel build --detailed-report",
+    "build": "parcel build --detailed-report --public-url .",
     "example": "parcel"
   }
 }
