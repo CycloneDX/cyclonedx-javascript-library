@@ -59,7 +59,7 @@ All notable changes to this project will be documented in this file.
   * Symbol `Contrib.FromNodePackageJson.Factories.PackageUrlFactory` ([#1348] via [#1378])
 * Changed
   * `Component.purl` is a `string` now, was `PackaheUrl` ([#1348] via [#1379])
-  * Constructor of `Contrib.License.Factories.LicenseFactory` gat an injectable argument `spdxExpressionValidate` for validating SPDXExpressions ([#1348] via [#1382])
+  * Constructor of `Contrib.License.Factories.LicenseFactory` got an injectable argument `spdxExpressionValidate` for validating SPDXExpressions ([#1348] via [#1382])
 * Dependencies
   * No longer depend on `packageurl-js@^2.0.1` ([#1348] via [#1378])
   * Runtime-dependency `spdx-expression-parse` became an suggested library ([#1348] via [#1382])  
