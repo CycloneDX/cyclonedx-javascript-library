@@ -61,7 +61,7 @@ All notable changes to this project will be documented in this file.
     Use package `spdx-expression-parse` instead.
 * Changed
   * `Component.purl` is a `string` now, was `PackaheUrl` ([#1348] via [#1379])
-  * Constructor of `Contrib.License.Factories.LicenseFactory` got an injectable argument `spdxExpressionValidate` for validating SPDXExpressions ([#1348] via [#1382])  
+  * Constructor of `Contrib.License.Factories.LicenseFactory` got an injectable argument `spdxExpressionValidate` for validating SPDX License Expressions ([#1348] via [#1382])  
     Suggested implementation is `spdx-expression-parse`.
 * Dependencies
   * No longer depend on `packageurl-js@^2.0.1` ([#1348] via [#1378])
