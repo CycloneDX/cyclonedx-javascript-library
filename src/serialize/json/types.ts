@@ -196,6 +196,7 @@ export namespace Normalized {
       acknowledgement?: Enums.LicenseAcknowledgement
       text?: Attachment
       url?: string
+      properties?: Property[]
     }
   }
 
@@ -206,6 +207,7 @@ export namespace Normalized {
       acknowledgement?: Enums.LicenseAcknowledgement
       text?: Attachment
       url?: string
+      properties?: Property[]
     }
   }
 

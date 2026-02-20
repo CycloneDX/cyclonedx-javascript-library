@@ -967,6 +967,28 @@
                       "type": "element",
                       "name": "url",
                       "children": "https://localhost/license"
+                    },
+                    {
+                      "type": "element",
+                      "name": "properties",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "property",
+                          "attributes": {
+                            "name": "a"
+                          },
+                          "children": "b"
+                        },
+                        {
+                          "type": "element",
+                          "name": "property",
+                          "attributes": {
+                            "name": "primaryLicense"
+                          },
+                          "children": "true"
+                        }
+                      ]
                     }
                   ]
                 },
@@ -993,6 +1015,28 @@
                       "type": "element",
                       "name": "url",
                       "children": "https://spdx.org/licenses/MIT.html"
+                    },
+                    {
+                      "type": "element",
+                      "name": "properties",
+                      "children": [
+                        {
+                          "type": "element",
+                          "name": "property",
+                          "attributes": {
+                            "name": "c"
+                          },
+                          "children": "d"
+                        },
+                        {
+                          "type": "element",
+                          "name": "property",
+                          "attributes": {
+                            "name": "primaryLicense"
+                          },
+                          "children": "false"
+                        }
+                      ]
                     }
                   ]
                 }

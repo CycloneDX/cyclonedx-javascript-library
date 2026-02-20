@@ -699,12 +699,20 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
   }
 
   #normalizeNamedLicense (data: Models.NamedLicense, options: NormalizerOptions): SimpleXml.Element {
-    const url = escapeUri(data.url?.toString())
+    const spec = this._factory.spec
+    const url = escapeUri(data.url?.toString()) 
+    const properties: SimpleXml.Element | undefined = spec.supportsProperties(data) && spec.supportsLicenseProperties && data.properties.size > 0
+      ? {
+        type: 'element',
+        name: 'properties',
+        children: this._factory.makeForProperty().normalizeIterable(data.properties, options, 'property')
+      }
+      : undefined
     return {
       type: 'element',
       name: 'license',
       attributes: {
-        acknowledgement: this._factory.spec.supportsLicenseAcknowledgement
+        acknowledgement: spec.supportsLicenseAcknowledgement
           ? data.acknowledgement
           : undefined
       },
@@ -715,18 +723,27 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
           : this._factory.makeForAttachment().normalize(data.text, options, 'text'),
         XmlSchema.isAnyURI(url)
           ? makeTextElement(url, 'url')
-          : undefined
+          : undefined,
+        properties
       ].filter(isNotUndefined)
     }
   }
 
   #normalizeSpdxLicense (data: Models.SpdxLicense, options: NormalizerOptions): SimpleXml.Element {
-    const url = escapeUri(data.url?.toString())
+    const spec = this._factory.spec
+    const url = escapeUri(data.url?.toString())    
+    const properties: SimpleXml.Element | undefined = spec.supportsProperties(data) && spec.supportsLicenseProperties && data.properties.size > 0
+      ? {
+        type: 'element',
+        name: 'properties',
+        children: this._factory.makeForProperty().normalizeIterable(data.properties, options, 'property')
+      }
+      : undefined
     return {
       type: 'element',
       name: 'license',
       attributes: {
-        acknowledgement: this._factory.spec.supportsLicenseAcknowledgement
+        acknowledgement: spec.supportsLicenseAcknowledgement
           ? data.acknowledgement
           : undefined
       },
@@ -737,7 +754,8 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
           : this._factory.makeForAttachment().normalize(data.text, options, 'text'),
         XmlSchema.isAnyURI(url)
           ? makeTextElement(url, 'url')
-          : undefined
+          : undefined,
+        properties
       ].filter(isNotUndefined)
     }
   }

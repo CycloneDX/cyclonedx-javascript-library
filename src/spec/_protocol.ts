@@ -47,6 +47,7 @@ export interface _SpecProtocol {
   supportsMetadataProperties: boolean
   supportsExternalReferenceHashes: boolean
   supportsLicenseAcknowledgement: boolean
+  supportsLicenseProperties: boolean
   supportsServices: boolean
   supportsToolsComponentsServices: boolean
 }
@@ -77,6 +78,7 @@ export class _Spec implements _SpecProtocol {
   readonly #supportsMetadataProperties: boolean
   readonly #supportsExternalReferenceHashes: boolean
   readonly #supportsLicenseAcknowledgement: boolean
+  readonly #supportsLicenseProperties: boolean
   readonly #supportsServices: boolean
   readonly #supportsToolsComponentsServices: boolean
 
@@ -100,6 +102,7 @@ export class _Spec implements _SpecProtocol {
     supportsMetadataProperties: boolean,
     supportsExternalReferenceHashes: boolean,
     supportsLicenseAcknowledgement: boolean,
+    supportsLicenseProperties: boolean,
     supportsServices: boolean,
     supportsToolsComponentsServices: boolean
   ) {
@@ -121,6 +124,7 @@ export class _Spec implements _SpecProtocol {
     this.#supportsMetadataProperties = supportsMetadataProperties
     this.#supportsExternalReferenceHashes = supportsExternalReferenceHashes
     this.#supportsLicenseAcknowledgement = supportsLicenseAcknowledgement
+    this.#supportsLicenseProperties = supportsLicenseProperties
     this.#supportsServices = supportsServices
     this.#supportsToolsComponentsServices = supportsToolsComponentsServices
   }
@@ -202,6 +206,10 @@ export class _Spec implements _SpecProtocol {
 
   get supportsLicenseAcknowledgement (): boolean {
     return this.#supportsLicenseAcknowledgement
+  }
+
+  get supportsLicenseProperties (): boolean {
+    return this.#supportsLicenseProperties
   }
 
   get supportsServices (): boolean {
