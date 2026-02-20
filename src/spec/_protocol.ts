@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { ComponentType, ExternalReferenceType, HashAlgorithm, Vulnerability } from '../enums'
-import type { HashContent } from '../models'
+import { type HashContent, NamedLicense, SpdxLicense } from '../models'
 import type { Format, Version } from './enums'
 
 /**
@@ -79,6 +79,7 @@ export class _Spec implements _SpecProtocol {
   readonly #supportsLicenseAcknowledgement: boolean
   readonly #supportsServices: boolean
   readonly #supportsToolsComponentsServices: boolean
+  readonly #supportsLicenseProperties: boolean
 
   /* eslint-disable-next-line @typescript-eslint/max-params -- architectural decision */
   constructor (
@@ -101,7 +102,8 @@ export class _Spec implements _SpecProtocol {
     supportsExternalReferenceHashes: boolean,
     supportsLicenseAcknowledgement: boolean,
     supportsServices: boolean,
-    supportsToolsComponentsServices: boolean
+    supportsToolsComponentsServices: boolean,
+    supportsLicenseProperties: boolean
   ) {
     this.#version = version
     this.#formats = new Set(formats)
@@ -123,6 +125,7 @@ export class _Spec implements _SpecProtocol {
     this.#supportsLicenseAcknowledgement = supportsLicenseAcknowledgement
     this.#supportsServices = supportsServices
     this.#supportsToolsComponentsServices = supportsToolsComponentsServices
+    this.#supportsLicenseProperties = supportsLicenseProperties
   }
 
   get version (): Version {
@@ -166,9 +169,13 @@ export class _Spec implements _SpecProtocol {
     return this.#requiresComponentVersion
   }
 
-  supportsProperties (): boolean {
-    // currently a global allow/deny -- might work based on input, in the future
-    return this.#supportsProperties
+  supportsProperties (model: any): boolean {
+    switch (true) {
+      case model instanceof NamedLicense || model instanceof SpdxLicense:
+        return this.#supportsLicenseProperties 
+      default:
+        return this.#supportsProperties
+    }
   }
 
   get supportsVulnerabilities (): boolean {
