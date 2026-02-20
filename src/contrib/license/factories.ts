@@ -22,15 +22,20 @@ import { LicenseExpression, NamedLicense, SpdxLicense } from '../../models/licen
 import { fixupSpdxId } from '../../spdx'
 
 /**
+ * SPDXLicense Expression validation.
+ *
+ * We suggest one of the following 3rd-party libraries:
+ * - `spdx-expression-parse@^3.0.1||^4` - {@link https://www.npmjs.com/package/spdx-expression-parse}
+ *
  * @throws {@link Error} when the argument is no valid SPDX License Expression
  */
-type SpdxExpressionValidator = (data: string) => void
+type SpdxExpressionValidate = (data: string) => void
 
 export class LicenseFactory {
 
-  readonly #spdxExpressionValidate: SpdxExpressionValidator
+  readonly #spdxExpressionValidate: SpdxExpressionValidate
 
-  constructor(spdxExpressionValidate: SpdxExpressionValidator) {
+  constructor(spdxExpressionValidate: SpdxExpressionValidate) {
     this.#spdxExpressionValidate = spdxExpressionValidate
   }
 
