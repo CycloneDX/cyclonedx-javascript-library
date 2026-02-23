@@ -22,7 +22,7 @@ import { LicenseExpression, NamedLicense, SpdxLicense } from '../../models/licen
 import { fixupSpdxId } from '../../spdx'
 
 /**
- * SPDXLicense Expression validation.
+ * SPDX License Expression validation.
  *
  * We suggest one of the following 3rd-party libraries:
  * - `spdx-expression-parse@^3.0.1||^4` - {@link https://www.npmjs.com/package/spdx-expression-parse}
