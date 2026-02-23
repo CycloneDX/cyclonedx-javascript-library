@@ -24,6 +24,8 @@ import { fixupSpdxId } from '../../spdx'
 /**
  * SPDX License Expression validation.
  *
+ * A function that is expected to throw an error if the input is not a valid SPDX License Expression.
+ *
  * We suggest one of the following 3rd-party libraries:
  * - `spdx-expression-parse@^3.0.1||^4` - {@link https://www.npmjs.com/package/spdx-expression-parse}
  *
