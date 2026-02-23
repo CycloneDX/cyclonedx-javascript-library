@@ -1,6 +1,6 @@
 {
   "name": "@cyclonedx/cyclonedx-library",
-  "version": "10.0.0-alpha.0",
+  "version": "10.0.0-rc.1",
   "description": "Core functionality of CycloneDX for JavaScript (Node.js or WebBrowser).",
   "license": "Apache-2.0",
   "keywords": [
@@ -79,8 +79,7 @@
   "engines": {
     "node": ">=20.18.0"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "peerDependencies": {
     "ajv": "^8.12.0",
     "ajv-formats": "^3.0.1",
