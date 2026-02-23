@@ -27,7 +27,8 @@ import { fixupSpdxId } from '../../spdx'
  * We suggest one of the following 3rd-party libraries:
  * - `spdx-expression-parse@^3.0.1||^4` - {@link https://www.npmjs.com/package/spdx-expression-parse}
  *
- * @throws {@link Error} when the argument is no valid SPDX License Expression
+ * @throws {@link Error}
+ * Throws an error if the input is not a valid SPDX License Expression.
  */
 type SpdxExpressionValidate = (data: string) => void
 
