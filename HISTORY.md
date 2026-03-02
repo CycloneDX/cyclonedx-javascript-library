@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 9.5.0 -- 2026-03-02
+
 * Added
   * Classes `Models.NamedLicense` and `Models.SpdxLicense` support properties as per CycloneDX 1.5 (via [#1383])
 * Build
