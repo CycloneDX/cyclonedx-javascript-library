@@ -177,6 +177,10 @@ jobs:
           - ubuntu-latest
           - macos-latest
           - windows-latest
+        include:
+          - node: "25"
+            experimental: true
+    continue-on-error: ${{ matrix.experimental == true }}
     timeout-minutes: 10
     steps:
       - name: Checkout
