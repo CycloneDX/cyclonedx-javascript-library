@@ -21,6 +21,7 @@ import type { Sortable } from '../_helpers/sortable'
 import type { LicenseAcknowledgement } from '../enums/licenseAcknowledgement'
 import type { SpdxId } from '../spdx'
 import type { Attachment } from './attachment'
+import { PropertyRepository } from './property'
 
 /**
  * (SPDX) License Expression.
@@ -64,11 +65,13 @@ class DisjunctiveLicenseBase {
   acknowledgement?: LicenseAcknowledgement
   text?: Attachment
   #url?: URL | string
+  properties: PropertyRepository
 
   constructor (op: OptionalDisjunctiveLicenseProperties = {}) {
     this.acknowledgement = op.acknowledgement
     this.text = op.text
     this.url = op.url
+    this.properties = op.properties ?? new PropertyRepository()
   }
 
   get url (): URL | string | undefined {
@@ -86,6 +89,7 @@ interface OptionalDisjunctiveLicenseProperties {
   acknowledgement?: DisjunctiveLicenseBase['acknowledgement']
   text?: DisjunctiveLicenseBase['text']
   url?: DisjunctiveLicenseBase['url']
+  properties?: DisjunctiveLicenseBase['properties']
 }
 
 export interface OptionalNamedLicenseProperties extends OptionalDisjunctiveLicenseProperties {}

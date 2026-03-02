@@ -44,7 +44,7 @@ All notable changes to this project will be documented in this file.
   * Deprecated symbol `Utils.LicenseUtility` ([#1346] via [#1377])
   * Deprecated symbol `Utils.LicenseUtility.FsUtils` ([#1346] via [#1377])  
     Use `Contrib.License.Utils.FsUtils` instead.
-  * Deprecated symbol `Utils.LicenseUtility.PathUtils` ([#1346] via [#1377])  
+  * Deprecated symbol `Utils.LicenseUtility.PathUtils` ([#1346] via [#1377])
   * Use `Contrib.License.Utils.PathUtils` instead.
   * Deprecated symbol `Utils.LicenseUtility.FileAttachment` ([#1346] via [#1377])  
     Use `Contrib.License.Utils.FileAttachment` instead.
@@ -69,24 +69,32 @@ All notable changes to this project will be documented in this file.
     Suggested implementation is `spdx-expression-parse`.
 * Dependencies
   * Dependency `packageurl-js` became a suggested (optional peer-dependency) library ([#1348] via [#1378])  
-    You may use it to craft and parse PackageURLs downstream. 
+    You may use it to craft and parse PackageURLs downstream.
   * Dependency `spdx-expression-parse` became a suggested (optional peer-dependency) library ([#1348] via [#1382])  
     Used as an injectable in `Contrib.License.Factories.LicenseFactory.constructor`.
-* Build
-  * Use _webpack_ `5.105.2` now, was `v5.103.0` (via [#1360], [#1374])
 * Chore
   * Set dev-engines in `package.json` ([#1301] via [#1380])
 
 [#1301]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1301
 [#1346]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1346
 [#1348]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1348
-[#1360]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1360
-[#1374]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1374
 [#1377]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1377
 [#1378]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1378
 [#1379]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1379
 [#1380]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1380
 [#1382]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1382
+
+## 9.5.0 -- 2026-03-02
+
+* Added
+  * Classes `Models.NamedLicense` and `Models.SpdxLicense` support `properties` as per CycloneDX 1.5 (via [#1383])
+* Build
+  * Use _webpack_ `5.105.3` now, was `v5.103.0` (via [#1360], [#1374], [#1390])
+
+[#1360]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1360
+[#1374]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1374
+[#1383]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1383
+[#1390]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1390
 
 ## 9.4.1 -- 2025-12-04
 
