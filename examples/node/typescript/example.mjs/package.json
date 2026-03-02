@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@cyclonedx/cyclonedx-library": "file:../../../..",
+    "spdx-expression-parse": "^3.0.1||^4",
     "xmlbuilder2": "^3.0.2||^4.0.0"
   },
   "optionalDependencies": {
@@ -18,11 +19,12 @@
   },
   "devDependencies": {
     "@types/node": "*",
+    "@types/spdx-expression-parse": "^3",
     "typescript": "^4 || ^5"
   },
   "scripts": {
     "prebuild": "tsc -b --clean",
     "build": "tsc -b",
-    "example": "node dist/example.js && node dist/deprecated.js"
+    "example": "node dist/example.js"
   }
 }

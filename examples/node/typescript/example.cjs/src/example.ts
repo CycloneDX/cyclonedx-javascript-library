@@ -25,8 +25,10 @@ import * as CDX from '@cyclonedx/cyclonedx-library'
 //    import { Bom, Component } from '@cyclonedx/cyclonedx-library/Models'
 //    import { ComponentType } from '@cyclonedx/cyclonedx-library/Enums'
 
-const lFac = new CDX.Contrib.License.Factories.LicenseFactory()
-const purlFac = new CDX.Contrib.PackageUrl.Factories.PackageUrlFactory('generic')
+import * as spdxExpressionParser from 'spdx-expression-parse'
+
+
+const lFac = new CDX.Contrib.License.Factories.LicenseFactory(spdxExpressionParser)
 
 const bom = new CDX.Models.Bom()
 bom.metadata.component = new CDX.Models.Component(
@@ -44,7 +46,7 @@ const componentA = new CDX.Models.Component(
   }
 )
 componentA.licenses.add(lFac.makeFromString('Apache-2.0'))
-componentA.purl = purlFac.makeFromComponent(componentA)
+componentA.purl = `pkg:generic/${componentA.group}/${componentA.name}@${componentA.version}`
 
 bom.components.add(componentA)
 bom.metadata.component.dependencies.add(componentA.bomRef)

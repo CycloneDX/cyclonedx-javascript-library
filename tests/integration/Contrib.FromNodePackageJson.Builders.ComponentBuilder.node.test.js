@@ -22,19 +22,18 @@ const assert = require('node:assert')
 const { suite, test } = require('mocha')
 
 const {
+  Contrib,
   Enums,
   Models,
-  Factories,
-  Builders: { FromNodePackageJson: { ComponentBuilder } }
 } = require('../../')
 
-suite('integration: Builders.FromNodePackageJson.ComponentBuilder', () => {
+suite('integration: Contrib.FromNodePackageJson.Builders.ComponentBuilder', () => {
   const salt = Math.random()
 
-  const extRefFactory = new Factories.FromNodePackageJson.ExternalReferenceFactory()
-  const licenseFactory = new Factories.LicenseFactory()
+  const extRefFactory = new Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory()
+  const licenseFactory = new Contrib.License.Factories.LicenseFactory()
 
-  const sut = new ComponentBuilder(extRefFactory, licenseFactory);
+  const sut = new Contrib.FromNodePackageJson.Builders.ComponentBuilder(extRefFactory, licenseFactory);
 
   [
     [

@@ -17,18 +17,22 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import {defaultRegistryMatcher as _defaultRegistryMatcher, parsePackageIntegrity as _parsePackageIntegrity} from '../contrib/fromNodePackageJson/utils'
+const assert = require('node:assert')
 
-/**
- * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Utils.parsePackageIntegrity}.
- *
- * @deprecated Use `Contrib.FromNodePackageJson.Utils.parsePackageIntegrity` instead.
- */
-export const parsePackageIntegrity = _parsePackageIntegrity
+const { suite, test } = require('mocha')
 
-/**
- * Deprecated — Alias of {@link Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher}.
- *
- * @deprecated Use `Contrib.FromNodePackageJson.Utils.defaultRegistryMatcher` instead.
- */
-export const defaultRegistryMatcher = _defaultRegistryMatcher
+const {
+  Contrib,
+} = require('../../')
+
+suite('unit: Contrib.FromNodePackageJson.Builders.ComponentBuilder', () => {
+  test('construct', () => {
+    const extRefFactory = new Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory()
+    const licenseFactory = new Contrib.License.Factories.LicenseFactory()
+
+    const actual = new Contrib.FromNodePackageJson.Builders.ComponentBuilder(extRefFactory, licenseFactory)
+
+    assert.strictEqual(actual.extRefFactory, extRefFactory)
+    assert.strictEqual(actual.licenseFactory, licenseFactory)
+  })
+})

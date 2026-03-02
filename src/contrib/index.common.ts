@@ -22,4 +22,3 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
 export * as Bom from './bom'
-export * as PackageUrl from './packageUrl'

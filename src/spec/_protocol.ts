@@ -18,7 +18,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type { ComponentType, ExternalReferenceType, HashAlgorithm, Vulnerability } from '../enums'
-import { type HashContent, NamedLicense, SpdxLicense } from '../models'
+import type { HashContent } from '../models'
+import { NamedLicense, SpdxLicense } from '../models'
 import type { Format, Version } from './enums'
 
 /**
@@ -172,7 +173,7 @@ export class _Spec implements _SpecProtocol {
   supportsProperties (model: any): boolean {
     switch (true) {
       case model instanceof NamedLicense || model instanceof SpdxLicense:
-        return this.#supportsLicenseProperties 
+        return this.#supportsLicenseProperties
       default:
         return this.#supportsProperties
     }

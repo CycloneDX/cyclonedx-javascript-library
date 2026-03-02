@@ -25,14 +25,9 @@ export * from './index.common'
 
 // region node-specifics
 
-/** @deprecated next */
-export * as Builders from './builders/index.node'
+
 export * as Contrib from './contrib/index.node'
-/** @deprecated next */
-export * as Factories from './factories/index.node'
 export * as Serialize from './serialize/index.node'
-/** @deprecated next */
-export * as Utils from './utils/index.node'
 export * as Validation from './validation/index.node'
 
 /**
