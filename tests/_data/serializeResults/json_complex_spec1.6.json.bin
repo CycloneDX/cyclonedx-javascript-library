@@ -309,7 +309,17 @@
                             "contentType": "text/plain",
                             "encoding": "base64"
                         },
-                        "url": "https://localhost/license"
+                        "url": "https://localhost/license",
+                        "properties": [
+                            {
+                                "name": "a",
+                                "value": "b"
+                            },
+                            {
+                                "name": "primaryLicense",
+                                "value": "true"
+                            }
+                        ]
                     }
                 },
                 {
@@ -321,7 +331,17 @@
                             "contentType": "text/plain",
                             "encoding": "base64"
                         },
-                        "url": "https://spdx.org/licenses/MIT.html"
+                        "url": "https://spdx.org/licenses/MIT.html",
+                        "properties": [
+                            {
+                                "name": "c",
+                                "value": "d"
+                            },
+                            {
+                                "name": "primaryLicense",
+                                "value": "false"
+                            }
+                        ]
                     }
                 }
             ],

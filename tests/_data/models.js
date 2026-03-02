@@ -158,7 +158,11 @@ function createComplexStructure () {
         contentType: 'text/plain',
         encoding: Enums.AttachmentEncoding.Base64
       }),
-      url: 'https://localhost/license'
+      url: 'https://localhost/license',
+      properties: new Models.PropertyRepository([
+        new Models.Property('a', 'b'),
+        new Models.Property('primaryLicense', 'true')
+      ])
     }))
     component.licenses.add((function (license) {
       license.text = new Models.Attachment('TUlUIExpY2Vuc2UKLi4uClRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLi4u')
@@ -167,7 +171,12 @@ function createComplexStructure () {
       license.url = new URL('https://spdx.org/licenses/MIT.html')
       license.acknowledgement = Enums.LicenseAcknowledgement.Declared
       return license
-    })(new Models.SpdxLicense('MIT')))
+    })(new Models.SpdxLicense('MIT', {
+      properties: new Models.PropertyRepository([
+        new Models.Property('c', 'd'),
+        new Models.Property('primaryLicense', 'false')
+      ])
+    })))
     component.publisher = 'the publisher'
     component.purl = new PackageURL('npm', 'acme', 'dummy-component', '1337-beta', undefined, undefined)
     component.scope = Enums.ComponentScope.Required
