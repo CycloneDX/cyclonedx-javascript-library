@@ -27,13 +27,16 @@ import addFormats2019 from 'ajv-formats-draft2019'
 import type { ValidationError } from '../../validation/types'
 import type { Functionality, Validator } from '../jsonValidator'
 
-const ajvOptions: AjvOptions = Object.freeze({
+const ajvOptions: Readonly<AjvOptions> = Object.freeze({
   // no defaults => no data alteration
   useDefaults: false,
   strict: false,
   strictSchema: false,
-  addUsedSchema: false
-})
+  addUsedSchema: false,
+  loadSchema: (uri: string) => {
+    throw new Error(`Remote schemas are disabled: ${uri}`);
+  }
+} satisfies AjvOptions)
 
 /** @internal */
 export default (async function (schemaPath: string, schemaMap: Record<string, string> = {}): Promise<Validator> {

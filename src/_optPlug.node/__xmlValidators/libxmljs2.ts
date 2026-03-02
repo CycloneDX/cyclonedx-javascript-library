@@ -34,7 +34,7 @@ const xmlParseOptions: Readonly<ParserOptions> = Object.freeze({
   // see https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1061
   noent: false,
   dtdload: false
-})
+} satisfies ParserOptions)
 
 /** @internal */
 export default (async function (schemaPath: string): Promise<Validator> {
