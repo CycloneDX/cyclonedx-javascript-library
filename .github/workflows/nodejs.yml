@@ -54,7 +54,7 @@ jobs:
         run: npm run build:${{ matrix.target }}
       - name: artifact build result
         # see https://github.com/actions/upload-artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: dist.${{ matrix.target }}
           path: dist.${{ matrix.target }}
@@ -128,7 +128,7 @@ jobs:
           eslint-report: ${{ env.REPORTS_DIR }}/eslint.json
       - name: artifact eslint result
         # see https://github.com/actions/upload-artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: ${{ failure() }}
         with:
           name: ${{ env.STANDARD_REPORTS_ARTIFACT }}
@@ -242,7 +242,7 @@ jobs:
       - name: artifact test reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: '${{ env.TESTS_REPORTS_ARTIFACT }}_regular_${{ matrix.os }}_node${{ matrix.node-version }}'
           path: ${{ env.REPORTS_DIR }}
@@ -291,7 +291,7 @@ jobs:
       - name: artifact test reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: '${{ env.TESTS_REPORTS_ARTIFACT }}_no-opt_${{ matrix.os }}_node${{ matrix.node-version }}'
           path: ${{ env.REPORTS_DIR }}
