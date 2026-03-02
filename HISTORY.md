@@ -67,6 +67,7 @@ All notable changes to this project will be documented in this file.
   * `Component.purl` is a `string` now, was `PackaheUrl` ([#1348] via [#1379])
   * Constructor of `Contrib.License.Factories.LicenseFactory` got an injectable argument `spdxExpressionValidate` for validating SPDX License Expressions ([#1348] via [#1382])  
     Suggested implementation is `spdx-expression-parse`.
+  * Pulled SPDX license IDs v1.0-3.28.0 (via [#1395])
 * Dependencies
   * Dependency `packageurl-js` became a suggested (optional peer-dependency) library ([#1348] via [#1378])  
     You may use it to craft and parse PackageURLs downstream.
@@ -83,6 +84,7 @@ All notable changes to this project will be documented in this file.
 [#1379]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1379
 [#1380]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1380
 [#1382]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1382
+[#1395]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1395
 
 ## 9.5.0 -- 2026-03-02
 
