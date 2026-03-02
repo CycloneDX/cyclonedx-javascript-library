@@ -6,11 +6,14 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * Classes `Models.NamedLicense` and `Models.SpdxLicense` support properties as per CycloneDX 1.5 (via [#1383])
 * Build
   * Use _webpack_ `5.105.2` now, was `v5.103.0` (via [#1360], [#1374])
 
 [#1360]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1360
 [#1374]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1374
+[#1383]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1383
 
 ## 9.4.1 -- 2025-12-04
 
