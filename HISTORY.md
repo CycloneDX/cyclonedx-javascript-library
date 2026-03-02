@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 ## 9.5.0 -- 2026-03-02
 
 * Added
-  * Classes `Models.NamedLicense` and `Models.SpdxLicense` support properties as per CycloneDX 1.5 (via [#1383])
+  * Classes `Models.NamedLicense` and `Models.SpdxLicense` support `properties` as per CycloneDX 1.5 (via [#1383])
 * Build
   * Use _webpack_ `5.105.3` now, was `v5.103.0` (via [#1360], [#1374], [#1390])
 
