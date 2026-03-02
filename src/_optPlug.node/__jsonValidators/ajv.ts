@@ -33,9 +33,7 @@ const ajvOptions: Readonly<AjvOptions> = Object.freeze({
   strict: false,
   strictSchema: false,
   addUsedSchema: false,
-  loadSchema: (uri: string) => {
-    throw new Error(`Remote schemas are disabled: ${uri}`);
-  }
+  loadSchema: (uri: string) => { throw new Error(`Remote schemas are disabled: ${uri}`) }
 } satisfies AjvOptions)
 
 /** @internal */
