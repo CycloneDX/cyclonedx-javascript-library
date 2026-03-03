@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 10.0.0 -- 2026-03-03
+
 * BREAKING changes
   * Removed deprecated symbols
   * Removed PackageUrl factories
