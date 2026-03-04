@@ -93,7 +93,7 @@ jobs:
       id-token: write  # Enables provenance signing via OIDC
       packages: write  # Allows writing to organization packages
     env:
-      NPMJS_RELEASE_TAG: ${{ github.event.inputs.prerelease == 'true' && 'unstable-prerelease' || 'latest' }}
+      PACKAGE_RELEASE_TAG: ${{ github.event.inputs.prerelease == 'true' && 'unstable-prerelease' || 'latest' }}
     steps:
       - name: Checkout code
         # see https://github.com/actions/checkout
@@ -121,12 +121,12 @@ jobs:
           npm run -- dev-setup:tools:test-dependencies --ignore-scripts --loglevel=silly
           echo "::endgroup::"
       # no explicit npm build. if a build is required, it should be configured as prepublish/prepublishOnly script of npm.
-      - name: publish to NPMJS as "${{ env.NPMJS_RELEASE_TAG }}"
+      - name: publish to NPMJS as "${{ env.PACKAGE_RELEASE_TAG }}"
         run: >
           npm publish
           --provenance
           --access public
-          --tag "$NPMJS_RELEASE_TAG"
+          --tag "$PACKAGE_RELEASE_TAG"
       - name: login to GH package registries
         run: npm config set "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN"
       - name: publish to GitHub as "${{ env.PACKAGE_RELEASE_TAG }}"
