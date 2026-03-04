@@ -83,10 +83,10 @@ jobs:
       - name: git push back
         run: git push --follow-tags
 
-  publish-NPMJS:
+  publish-NPMJS-GH:
     needs:
       - "bump"
-    name: publish NPMJS
+    name: publish NPMJS & GH
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -151,7 +151,7 @@ jobs:
   release-GH:
     needs:
       - "bump"
-      - "publish-NPMJS"
+      - "publish-NPMJS-GH"
     name: publish GitHub
     runs-on: ubuntu-latest
     timeout-minutes: 30
