@@ -129,6 +129,8 @@ jobs:
           --tag "$PACKAGE_RELEASE_TAG"
       - name: login to GH package registries
         run: npm config set "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: publish to GitHub as "${{ env.PACKAGE_RELEASE_TAG }}"
         run: >
           npm publish
