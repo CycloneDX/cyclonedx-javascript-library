@@ -35,7 +35,7 @@ env:
   REPORTS_DIR: CI_reports
   PACKED_DIR: CI_packed
   PACKED_ARTIFACT: packed
-  NODE_ACTIVE_LTS: "24"
+  NODE_ACTIVE_LTS: "24"  # https://nodejs.org/en/about/releases/
 
 jobs:
   bump:
@@ -57,22 +57,20 @@ jobs:
         run: |
           set -eux
           git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git config --local user.name  "${GITHUB_ACTOR}"
+          git config --local user.name "${GITHUB_ACTOR}"
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
         uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
-      - name: update npm
-        run: npm install -g npm@latest
       ## ! no npm build at the moment
       - name: bump VERSION
         id: bump
         run: |
           set -eux
           COMMIT_SIG="Signed-off-by: $(git config user.name) <$(git config user.email)>"
-          VERSION="$( npm version "$NPMV_NEWVERSION" --message "$NPMV_MESSAGE"$'\n\n'"$COMMIT_SIG" --preid "$NPMV_PREID" )"
+          VERSION="$(npm version "$NPMV_NEWVERSION" --message "$NPMV_MESSAGE"$'\n\n'"$COMMIT_SIG" --preid "$NPMV_PREID")"
           echo "::debug::new version = $VERSION"
           VERSION_PLAIN="${VERSION:1}" # remove 'v' prefix
           echo "::debug::plain version = $VERSION_PLAIN"
@@ -85,10 +83,10 @@ jobs:
       - name: git push back
         run: git push --follow-tags
 
-  publish-package:
+  publish-NPMJS-GH:
     needs:
       - "bump"
-    name: publish package
+    name: publish NPMJS & GH
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -108,12 +106,10 @@ jobs:
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
-      - name: update npm
-        run: npm install -g npm@latest
       - name: setup project
         run: |
           npm install --ignore-scripts --include=optional --loglevel=silly
-      - name: setup tools
+      - name: install tools
         run: |
           echo "::group::install docs-gen deps"
           npm run -- dev-setup:tools:docs-gen   --ignore-scripts --loglevel=silly
@@ -125,20 +121,16 @@ jobs:
           npm run -- dev-setup:tools:test-dependencies --ignore-scripts --loglevel=silly
           echo "::endgroup::"
       # no explicit npm build. if a build is required, it should be configured as prepublish/prepublishOnly script of npm.
-      - name: login to registries
-        run: |
-          npm config set "//registry.npmjs.org/:_authToken=$NPM_TOKEN"
-          npm config set "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: publish to NPMJS as "${{ env.PACKAGE_RELEASE_TAG }}"
         run: >
           npm publish
-          --@cyclonedx:registry='https://registry.npmjs.org'
           --provenance
-          --access public 
+          --access public
           --tag "$PACKAGE_RELEASE_TAG"
+      - name: login to GH package registries
+        run: npm config set "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: publish to GitHub as "${{ env.PACKAGE_RELEASE_TAG }}"
         run: >
           npm publish
@@ -161,7 +153,7 @@ jobs:
   release-GH:
     needs:
       - "bump"
-      - "publish-package"
+      - "publish-NPMJS-GH"
     name: publish GitHub
     runs-on: ubuntu-latest
     timeout-minutes: 30
