@@ -160,7 +160,11 @@ jobs:
 
   test-node:
     needs: [ 'build' ]
-    name: test node (${{ matrix.node-version }}, ${{ matrix.os }})
+    name: >
+      test node
+      ${{ matrix.node-version }}
+      ${{ matrix.os }}
+      ${{ (matrix.experimental == true) && '[experimental]' || '' }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -178,7 +182,7 @@ jobs:
           - macos-latest
           - windows-latest
         include:
-          - node: "25"
+          - node-version: "25"
             experimental: true
     continue-on-error: ${{ matrix.experimental == true }}
     timeout-minutes: 10
