@@ -16,7 +16,7 @@
 OWASP [CycloneDX][link_website] is a full‑stack Bill of Materials (BOM) and system‑transparency standard
 that provides deep visibility into software, services, hardware, and AI components, enabling advanced supply‑chain security and cyber‑risk reduction.
 
-This package provides core functionality of _CycloneDX_ for _JavaScript_ (_Node.js_ or _WebBrowsers_),
+This package provides functionality of _CycloneDX_ for _JavaScript_ (_Node.js_ or _WebBrowsers_),
 written in _TypeScript_ and compiled for the target.
 
 > [!NOTE]  
