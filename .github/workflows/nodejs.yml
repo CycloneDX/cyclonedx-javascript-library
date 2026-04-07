@@ -49,7 +49,7 @@ jobs:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
       - name: setup project
-        run: npm i --ignore-scripts --include=optional --loglevel=silly
+        run: npm install --ignore-scripts --include=optional --loglevel=silly
       - name: build ${{ matrix.target }}
         run: npm run build:${{ matrix.target }}
       - name: artifact build result
@@ -75,7 +75,7 @@ jobs:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
       - name: setup project
-        run: npm i --ignore-scripts --include=optional --loglevel=silly
+        run: npm install --ignore-scripts --include=optional --loglevel=silly
       - name: test
         run: npm run test:lint
 
@@ -204,13 +204,15 @@ jobs:
         run:
           case "$NODE_VERSION" in
           '25' )
-            npm install -g npm@latest
+            npm install --loglevel=silly -g npm@latest
             ;;
-          '24' | '22')
-            npm i -g npm@^11
+          '24' )
+            npm install --loglevel=silly -g npm@^11
+            ;;
+          '22' )
             ;;
           '20' | '20.18.0')
-            npm i -g npm@^10
+            npm install --loglevel=silly -g npm@^10
             ;;
           esac
       - name: setup project
@@ -220,7 +222,7 @@ jobs:
         run: |
           set -ex
           echo "::group::install project"
-          npm i --ignore-scripts --include=optional --include=dev --loglevel=silly
+          npm install --ignore-scripts --include=optional --include=dev --loglevel=silly
           echo "::endgroup::"
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
           echo "::group::rebuild libxmljs2"
@@ -272,11 +274,11 @@ jobs:
           set -ex
           dev_constraints=' npm-run-all2 c8 mocha fast-glob memfs rimraf '
           echo "::group::install prod"
-          npm i --ignore-scripts --omit=optional --omit=dev --loglevel=silly
+          npm install --ignore-scripts --omit=optional --omit=dev --loglevel=silly
           echo "::endgroup::"
           echo "::group::install dev"
           ## install the needed dev-deps
-          npm i --ignore-scripts --omit=optional --no-save --loglevel=silly $dev_constraints
+          npm install --ignore-scripts --omit=optional --no-save --loglevel=silly $dev_constraints
           echo "::endgroup::"
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
@@ -356,14 +358,14 @@ jobs:
         run: |
           set -ex
           echo "::group::install"
-          npm i --ignore-scripts --omit=dev --include=optional --loglevel=silly
+          npm install --ignore-scripts --omit=dev --include=optional --loglevel=silly
           echo "::endgroup::"
           echo "::group::setup libxml2"
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
           npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
           echo "::endgroup::"
       - name: setup example project
-        run: npm i --no-save --loglevel=silly
+        run: npm install --no-save --loglevel=silly
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: run example
         run: node -- 'example.${{ matrix.js-type }}'
@@ -414,21 +416,21 @@ jobs:
         run: |
           set -ex
           echo "::group::install"
-          npm i --ignore-scripts --omit=dev --include=optional --loglevel=silly
+          npm install --ignore-scripts --omit=dev --include=optional --loglevel=silly
           echo "::endgroup::"
           echo "::group::setup libxml2"
           ## rebuild deps for which scripts were ignored, or partially installed - since "ignore-scripts" was used
           npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
           echo "::endgroup::"
       - name: setup example project
-        run: npm i --no-save --loglevel=silly 'typescript@${{ matrix.typescript-version }}'
+        run: npm install --no-save --loglevel=silly 'typescript@${{ matrix.typescript-version }}'
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: get TS-version
         id: ts_version
         run: node -p '`v=ts${require("typescript").version.split(".",2).join(".")}`' >> "$GITHUB_OUTPUT"
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: adjust @types/node version
-        run: npm i --no-save --loglevel=silly '@types/node@${{ matrix.nodeTypes-version || steps.ts_version.outputs.v}}'
+        run: npm install --no-save --loglevel=silly '@types/node@${{ matrix.nodeTypes-version || steps.ts_version.outputs.v}}'
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: build example
         run: npm run build
@@ -466,9 +468,9 @@ jobs:
           name: dist.web
           path: dist.web
       - name: setup library
-        run: npm i --ignore-scripts --omit=dev --include=optional --loglevel=silly
+        run: npm install --ignore-scripts --omit=dev --include=optional --loglevel=silly
       - name: setup example project
-        run: npm i --no-save --loglevel=silly
+        run: npm install --no-save --loglevel=silly
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: build example
         run: npm run build
