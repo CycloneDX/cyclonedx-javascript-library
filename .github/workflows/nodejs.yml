@@ -206,8 +206,10 @@ jobs:
           '25' )
             npm install --loglevel=silly -g npm@latest
             ;;
-          '24' | '22')
+          '24' )
             npm install --loglevel=silly -g npm@^11
+            ;;
+          '22' )
             ;;
           '20' | '20.18.0')
             npm install --loglevel=silly -g npm@^10
