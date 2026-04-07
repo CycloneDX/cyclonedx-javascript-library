@@ -239,7 +239,7 @@ jobs:
       - name: collect coverage
         if: ${{ failure() || success() }}
         run: >
-          node -- node_modules/c8/bin/c8.js
+          npm exec -- c8
           report
           --reporter clover
           --reports-dir '${{ env.REPORTS_DIR }}/coverage/${{ matrix.os }}_node${{ matrix.node-version }}'
