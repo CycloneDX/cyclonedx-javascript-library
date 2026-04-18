@@ -133,7 +133,7 @@
     "spdx-expression-parse": "^3.0.1||^4",
     "@types/mocha": "^10",
     "@types/node": "ts5.7",
-    "@types/spdx-expression-parse": "^3",
+    "@types/spdx-expression-parse": "^4",
     "c8": "^11",
     "copyfiles": "^2.4.1",
     "deepmerge": "^4.2.2",
