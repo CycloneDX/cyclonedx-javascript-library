@@ -132,7 +132,6 @@ Some features require optional peer dependencies — see `package.json` for vers
 * Validation of JSON on _Node.js_ requires all of:
   * [`ajv`](https://www.npmjs.com/package/ajv)
   * [`ajv-formats`](https://www.npmjs.com/package/ajv-formats)
-  * [`ajv-formats-draft2019`](https://www.npmjs.com/package/ajv-formats-draft2019)
 * Validation of XML on _Node.js_ requires any of:
   * [`libxmljs2`](https://www.npmjs.com/package/libxmljs2)  
     * the system might need to meet the requirements for [`node-gyp`](https://github.com/TooTallNate/node-gyp#installation), in certain cases.
