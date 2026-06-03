@@ -112,9 +112,6 @@
       "optional": true
     }
   },
-  "overrides": {
-    "yargs": ">=17.7.2 && <19"
-  },
   "devEngines": {
     "runtime": {
       "name": "node",
@@ -150,6 +147,9 @@
     "webpack": "5.105.3",
     "webpack-cli": "6.0.1",
     "webpack-node-externals": "3.0.0"
+  },
+  "overrides": {
+    "yargs": ">=17.7.2 && <19"
   },
   "types": "./dist.d/index.node.d.ts",
   "browser": "./dist.web/lib.js",
