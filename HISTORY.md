@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 10.1.0 -- 2026-06-04
+
 * Added
   * Support CycloneDX 1.7.1 ([#1463] via [#1465])
   * Support CycloneDX 1.6.2 (via [#1465])
