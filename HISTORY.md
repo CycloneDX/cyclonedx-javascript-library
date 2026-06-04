@@ -10,7 +10,10 @@ All notable changes to this project will be documented in this file.
   * Support CycloneDX 1.7.1 ([#1463] via [#1465])
   * Support CycloneDX 1.6.2 (via [#1465])
   * Support CycloneDX 1.5.1 (via [#1465])
+* Build
+  * Use _webpack_ `5.107.2` now, was `v5.105.3` (via [#1459])
 
+[#1459]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1459
 [#1463]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1463
 [#1465]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1465
 
