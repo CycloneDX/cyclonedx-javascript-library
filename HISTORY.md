@@ -6,6 +6,13 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * Support CycloneDX 1.7.1 ([#1463] via [#])
+  * Support CycloneDX 1.6.2 (via [#])
+  * Support CycloneDX 1.5.1 (via [#])
+
+[#1463]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1463
+
 ## 10.0.0 -- 2026-03-03
 
 * BREAKING changes
