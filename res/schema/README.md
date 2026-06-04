@@ -4,7 +4,7 @@ some schema for offline use as download via [script](../../tools/schema-download
 original sources: <https://github.com/CycloneDX/specification/blob/master>
 
 Currently using version
-[b29918c192fdd8f75d46fb24aeb871bb13bd477c](https://github.com/CycloneDX/specification/commit/b29918c192fdd8f75d46fb24aeb871bb13bd477c)
+[b29bae660048e0ad2fbc5f2972927b442ce951c4](https://github.com/CycloneDX/specification/commit/b29bae660048e0ad2fbc5f2972927b442ce951c4)
 
 | file | note |
 |------|------|
