@@ -132,7 +132,7 @@
     "xmlbuilder2": "^3.0.2||^4.0.0",
     "spdx-expression-parse": "^3.0.1||^4",
     "@types/mocha": "^10",
-    "@types/node": "ts5.7",
+    "@types/node": "ts6.0",
     "@types/spdx-expression-parse": "^3",
     "c8": "^11",
     "cpy-cli": "^7.0.0",
