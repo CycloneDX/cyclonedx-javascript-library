@@ -144,8 +144,8 @@
     "rimraf": "^6",
     "ts-loader": "9.6.0",
     "typescript": "5.9.3",
-    "webpack": "5.107.2",
-    "webpack-cli": "7.0.3",
+    "webpack": "5.108.1",
+    "webpack-cli": "7.1.0",
     "webpack-node-externals": "3.0.0"
   },
   "overrides": {
