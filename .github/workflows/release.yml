@@ -181,7 +181,7 @@ jobs:
       - "dep-test"
       - "quick-test-node"
       # - "quick-test-web"
-    name: publish NPMJS & GH
+    name: publish NPMJS
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -231,7 +231,8 @@ jobs:
       - "dep-test"
       - "quick-test-node"
       # - "quick-test-web"
-    name: publish NPMJS & GH
+    name: publish GH-packages
+    # see https://docs.github.com/en/packages
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
