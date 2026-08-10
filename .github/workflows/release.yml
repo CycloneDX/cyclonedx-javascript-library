@@ -181,7 +181,7 @@ jobs:
           name: ${{ env.BUILD_ARTIFACT }}
       - name: run tests
         run: |
-          npm run -- test:jest
+          npm run -- test:node
   # TODO: quick-test-web
   publish-NPMJS:
     needs:
