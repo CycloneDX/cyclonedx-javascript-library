@@ -42,9 +42,11 @@ jobs:
       - name: Checkout
         # see https://github.com/actions/checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #  v7.0.0
+        with:
+          persist-credentials: false
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
@@ -68,9 +70,11 @@ jobs:
       - name: Checkout
         # see https://github.com/actions/checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #  v7.0.0
+        with:
+          persist-credentials: false
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
@@ -88,6 +92,8 @@ jobs:
       - name: Checkout
         # see https://github.com/actions/checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #  v7.0.0
+        with:
+          persist-credentials: false
       - name: fetch build artifact
         # see https://github.com/actions/download-artifact
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
@@ -96,12 +102,12 @@ jobs:
           path: dist.d
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
       - name: update npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@latest # zizmor: ignore[adhoc-packages] -- global npm
       - name: setup project
         run: |
           npm install --ignore-scripts --loglevel=silly
@@ -123,7 +129,7 @@ jobs:
       - name: Annotate Code
         if: ${{ failure() || success() }}
         # see https://github.com/DerLev/eslint-annotations
-        uses: DerLev/eslint-annotations@a79ea65c1b45a649c48bcc6efc0103b6fd2e4c5f # v2
+        uses: DerLev/eslint-annotations@a79ea65c1b45a649c48bcc6efc0103b6fd2e4c5f # v2.1.0
         with:
           eslint-report: ${{ env.REPORTS_DIR }}/eslint.json
       - name: artifact eslint result
@@ -143,14 +149,16 @@ jobs:
       - name: Checkout
         # see https://github.com/actions/checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #  v7.0.0
+        with:
+          persist-credentials: false
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
       - name: update npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@latest  # zizmor: ignore[adhoc-packages] -- global npm
       - name: setup project
         run: npm install --ignore-scripts --loglevel=silly
       - name: setup tool
@@ -190,9 +198,11 @@ jobs:
       - name: Checkout
         # see https://github.com/actions/checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #  v7.0.0
+        with:
+          persist-credentials: false
       - name: Setup Node.js ${{ matrix.node-version }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version: ${{ matrix.node-version }}
           package-manager-cache: false
@@ -201,7 +211,7 @@ jobs:
         shell: bash
         env:
           NODE_VERSION: '${{ matrix.node-version }}'
-        run:
+        run: |  # zizmor: ignore[adhoc-packages] # no lock modifications wanted - the respective components are locked already
           case "$NODE_VERSION" in
           '26' )
             npm install --loglevel=silly -g npm@latest
@@ -263,14 +273,16 @@ jobs:
       - name: Checkout
         # see https://github.com/actions/checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #  v7.0.0
+        with:
+          persist-credentials: false
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
       - name: setup library
-        run: |
+        run: |  # zizmor: ignore[adhoc-packages] # no lock modifications wanted - the respective components are locked already
           set -ex
           dev_constraints=' npm-run-all2 c8 mocha fast-glob memfs rimraf '
           echo "::group::install prod"
@@ -323,7 +335,7 @@ jobs:
         ## see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-secrets
         if: ${{ env.CODACY_PROJECT_TOKEN != '' }}
         # see https://github.com/codacy/codacy-coverage-reporter-action
-        uses: codacy/codacy-coverage-reporter-action@89d6c85cfafaec52c72b6c5e8b2878d33104c699 # v1
+        uses: codacy/codacy-coverage-reporter-action@89d6c85cfafaec52c72b6c5e8b2878d33104c699 # v1.3.0
         with:
           project-token: ${{ env.CODACY_PROJECT_TOKEN }}
           coverage-reports: ${{ env.REPORTS_DIR }}/coverage/*/*
@@ -342,9 +354,11 @@ jobs:
       - name: Checkout
         # see https://github.com/actions/checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #  v7.0.0
+        with:
+          persist-credentials: false
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
@@ -394,9 +408,11 @@ jobs:
       - name: Checkout
         # see https://github.com/actions/checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #  v7.0.0
+        with:
+          persist-credentials: false
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
@@ -423,14 +439,24 @@ jobs:
           npm rebuild --loglevel=silly libxmljs2 || npm uninstall --no-save libxmljs2
           echo "::endgroup::"
       - name: setup example project
-        run: npm install --no-save --loglevel=silly 'typescript@${{ matrix.typescript-version }}'
+        run: >-  # zizmor: ignore[adhoc-packages] # no lock modifications wanted - the respective components are locked already
+          npm install
+          --no-save
+          --loglevel=silly
+          'typescript@${{ matrix.typescript-version }}'
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: get TS-version
         id: ts_version
         run: node -p '`v=ts${require("typescript").version.split(".",2).join(".")}`' >> "$GITHUB_OUTPUT"
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: adjust @types/node version
-        run: npm install --no-save --loglevel=silly '@types/node@${{ matrix.nodeTypes-version || steps.ts_version.outputs.v}}'
+        env:
+          NODETYPES_VERSION: '${{ matrix.nodeTypes-version || steps.ts_version.outputs.v}}'
+        run: >-  # zizmor: ignore[adhoc-packages] # no lock modifications wanted - the respective components are locked already
+          npm install
+          --no-save
+          --loglevel=silly
+          "@types/node@${NODETYPES_VERSION}"
         working-directory: ${{ env.EXAMPLE_DIR }}
       - name: build example
         run: npm run build
@@ -455,9 +481,11 @@ jobs:
       - name: Checkout
         # see https://github.com/actions/checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #  v7.0.0
+        with:
+          persist-credentials: false
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
@@ -490,14 +518,16 @@ jobs:
       - name: Checkout
         # see https://github.com/actions/checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #  v7.0.0
+        with:
+          persist-credentials: false
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.4.0
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
       - name: update npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@latest  # zizmor: ignore[adhoc-packages] -- global npm
       - name: setup project
         run: |
           set -ex
