@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 10.1.1 -- 2026-08-10
+
+Maintenance release.
+
 ## 10.1.0 -- 2026-06-04
 
 * Added

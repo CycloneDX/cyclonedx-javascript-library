@@ -278,7 +278,7 @@ jobs:
     needs:
       - "bump"
       - "publish-NPMJS"
-    name: publish GitHub
+    name: release GitHub
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
