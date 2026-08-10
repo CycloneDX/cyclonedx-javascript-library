@@ -265,6 +265,8 @@ jobs:
     # test-web:
     # TODO via https://github.com/CycloneDX/cyclonedx-javascript-library/issues/51
 
+  # TODO: west-web
+
   test-omit-optional-deps:
     needs: [ 'build' ]
     name: test w/o optional dependencies
