@@ -34,8 +34,8 @@ permissions: {}
 env:
   REPORTS_DIR: CI_reports
   PACKED_DIR: CI_packed
-  DIST_DIR: dist
-  BUILD_ARTIFACT: dist
+  DIST_DIRS: 'dist.*/'
+  BUILD_ARTIFACT: build
   PACKED_ARTIFACT: packed
   NODE_ACTIVE_LTS: "24"  # https://nodejs.org/en/about/releases/
 
@@ -141,6 +141,16 @@ jobs:
       - name: setup project
         run: |
           npm install --ignore-scripts --include=optional --loglevel=silly
+      - name: build project
+        run: |
+          npm run build
+      - name: artifact build result
+        # see https://github.com/actions/upload-artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ${{ env.BUILD_ARTIFACT }}
+          path: ${{ env.DIST_DIRS }}
+          if-no-files-found: error
   quick-test-node:
     needs:
       - "build"
@@ -169,7 +179,6 @@ jobs:
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: ${{ env.BUILD_ARTIFACT }}
-          path: ${{ env.DIST_DIR }}
       - name: run tests
         run: |
           npm run -- test:jest
@@ -206,7 +215,6 @@ jobs:
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: ${{ env.BUILD_ARTIFACT }}
-          path: ${{ env.DIST_DIR }}
       - name: publish to NPMJS as "${{ env.PACKAGE_RELEASE_TAG }}"
         run: >
           npm publish
@@ -258,7 +266,6 @@ jobs:
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: ${{ env.BUILD_ARTIFACT }}
-          path: ${{ env.DIST_DIR }}
       # see https://docs.github.com/en/packages/quickstart#publishing-your-package
       - name: publish to GitHub as "${{ env.PACKAGE_RELEASE_TAG }}"
         env:
