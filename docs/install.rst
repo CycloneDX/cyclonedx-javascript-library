@@ -30,7 +30,6 @@ See the shipped ``package.json`` for version constraints.
 * Validation of JSON on _Node.js_ requires all of:
     * `ajv <https://www.npmjs.com/package/ajv>`_
     * `ajv-formats <https://www.npmjs.com/package/ajv-formats>`_
-    * `ajv-formats-draft2019 <https://www.npmjs.com/package/ajv-formats-draft2019>`_
 * Validation of XML on _Node.js_ requires all of:
     * `libxmljs2 <https://www.npmjs.com/package/libxmljs2>`_
     * the system must meet the requirements for `node-gyp <https://github.com/TooTallNate/node-gyp#installation>`_

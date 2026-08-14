@@ -83,7 +83,6 @@
   "peerDependencies": {
     "ajv": "^8.12.0",
     "ajv-formats": "^3.0.1",
-    "ajv-formats-draft2019": "^1.6.1",
     "libxmljs2": "^0.35||^0.37",
     "xmlbuilder2": "^3.0.2||^4.0.0",
     "packageurl-js": "*",
@@ -94,9 +93,6 @@
       "optional": true
     },
     "ajv-formats": {
-      "optional": true
-    },
-    "ajv-formats-draft2019": {
       "optional": true
     },
     "libxmljs2": {
@@ -127,7 +123,6 @@
   "devDependencies": {
     "ajv": "^8.12.0",
     "ajv-formats": "^3.0.1",
-    "ajv-formats-draft2019": "^1.6.1",
     "libxmljs2": "^0.35||^0.37",
     "xmlbuilder2": "^3.0.2||^4.0.0",
     "spdx-expression-parse": "^3.0.1||^4",
