@@ -61,6 +61,10 @@ suite('integration: Contrib.FromNodePackageJson.Builders.ComponentBuilder', () =
         repository: {
           type: 'git',
           url: 'https://github.com/foo/bar.git'
+        },
+        engines: {
+          node: '>=20.18.0',
+          npm: '^10.8.2'
         }
         // to be continued
       },
@@ -84,9 +88,24 @@ suite('integration: Contrib.FromNodePackageJson.Builders.ComponentBuilder', () =
             new Models.NamedLicense(`dummy license ${salt}`),
             new Models.NamedLicense(`some license ${salt}`),
           ]),
+          properties: new Models.PropertyRepository([
+            new Models.Property('cdx:npm:package:constraint:engine:node', '>=20.18.0'),
+            new Models.Property('cdx:npm:package:constraint:engine:npm', '^10.8.2'),
+          ]),
           version: `1.33.7-alpha.23.${salt}`
         }
       )
+    ],
+    [
+      'ignore malformed engine constraints',
+      {
+        name: 'foo',
+        engines: {
+          node: 22,
+          npm: null
+        }
+      },
+      new Models.Component(Enums.ComponentType.Library, 'foo')
     ],
     [
       // Even though https://npmjs.org does not allow it,

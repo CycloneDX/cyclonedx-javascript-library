@@ -30,11 +30,27 @@ import { ComponentType } from '../../enums/componentType'
 import { Component } from '../../models/component'
 import { ExternalReferenceRepository } from '../../models/externalReference'
 import { LicenseRepository } from '../../models/license'
+import { Property, PropertyRepository } from '../../models/property'
 import { Tool } from '../../models/tool'
 import type { LicenseFactory } from '../license/factories'
 import { splitNameGroup } from './_helpers/packageJson'
 import type { ExternalReferenceFactory } from './factories'
 import type { NodePackageJson } from './types'
+
+function makeEngineProperties (engines: unknown): PropertyRepository {
+  const properties = new PropertyRepository()
+  if (engines === null || typeof engines !== 'object' || Array.isArray(engines)) {
+    return properties
+  }
+
+  for (const [engine, constraint] of Object.entries(engines)) {
+    if (typeof constraint === 'string') {
+      properties.add(new Property(`cdx:npm:package:constraint:engine:${engine}`, constraint))
+    }
+  }
+
+  return properties
+}
 
 /**
  * Node-specific ToolBuilder.
@@ -120,6 +136,8 @@ export class ComponentBuilder {
 
     const externalReferences = this.#extRefFactory.makeExternalReferences(data)
 
+    const properties = makeEngineProperties(data.engines)
+
     const licenses = new LicenseRepository()
     if (typeof data.license === 'string') {
       /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#license */
@@ -144,6 +162,7 @@ export class ComponentBuilder {
       externalReferences: new ExternalReferenceRepository(externalReferences),
       group,
       licenses,
+      properties,
       version
     })
   }

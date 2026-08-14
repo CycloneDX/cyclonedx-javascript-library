@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * Populate npm engine constraint properties from `package.json` ([#1506])
+
+[#1506]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1506
+
 ## 10.1.1 -- 2026-08-10
 
 Maintenance release.
