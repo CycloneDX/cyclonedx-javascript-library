@@ -7,9 +7,10 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Added
-  * Populate npm engine constraint properties from `package.json` ([#1506])
+  * `Contrib.FromNodePackageJson.Builders.ComponentBuilder` may populate properties with engine constraint ([#1506] via [#1507])
 
 [#1506]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1506
+[#1507]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1507
 
 ## 10.1.1 -- 2026-08-10
 
