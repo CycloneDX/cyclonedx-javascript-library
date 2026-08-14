@@ -1,0 +1,32 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:472bda2e-8d12-4ee5-af87-29b0bf1b348e",
+  "version": 1,
+  "metadata": {
+    "component": {
+      "bom-ref": "@cyclonedx/cyclonedx-library",
+      "type": "library",
+      "group": "cyclonedx",
+      "name": "cyclonedx-library",
+      "description": "Core functionality of CycloneDX for JavaScript (Node.js or WebBrowser).",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/CycloneDX/cyclonedx-javascript-library"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/CycloneDX/cyclonedx-javascript-library/issues"
+        }
+      ]
+    },
+    "authors": [
+      {
+        "name": "Jan Kowalleck",
+        "email": "jan.kowalleck@owasp.org"
+      }
+    ]
+  }
+}
