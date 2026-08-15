@@ -108,6 +108,30 @@ suite('integration: Contrib.FromNodePackageJson.Builders.ComponentBuilder', () =
       new Models.Component(Enums.ComponentType.Library, 'foo')
     ],
     [
+      'ignore array engines',
+      {
+        name: 'foo',
+        engines: ['node', '>=20.18.0']
+      },
+      new Models.Component(Enums.ComponentType.Library, 'foo')
+    ],
+    [
+      'ignore null engines',
+      {
+        name: 'foo',
+        engines: null
+      },
+      new Models.Component(Enums.ComponentType.Library, 'foo')
+    ],
+    [
+      'ignore string engines',
+      {
+        name: 'foo',
+        engines: '>=20.18.0'
+      },
+      new Models.Component(Enums.ComponentType.Library, 'foo')
+    ],
+    [
       // Even though https://npmjs.org does not allow it,
       // there is nothing wrong with a package name that contains more than one slash(/).
       // It is completely compliant to NodeJS rules and will be properly resolved.
