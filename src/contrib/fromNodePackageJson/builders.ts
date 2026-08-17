@@ -127,11 +127,10 @@ export class ComponentBuilder {
     )
 
     const licenses = new LicenseRepository(chainI(
-      (
-        /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#license */
-      typeof data.license === 'string'
-        ? [this.#licenseFactory.makeFromString(data.license)]
-        : []
+      ( /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#license */
+        typeof data.license === 'string'
+          ? [this.#licenseFactory.makeFromString(data.license)]
+          : []
       ),
       this.#makeLicenses(data.licenses)
     ))
