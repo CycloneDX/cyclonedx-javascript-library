@@ -27,6 +27,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
 import { isNotUndefined } from '../../_helpers/notUndefined'
+import { isObject } from '../../_helpers/object'
 import { ExternalReferenceType } from '../../enums/externalReferenceType'
 import { HashAlgorithm } from '../../enums/hashAlogorithm'
 import { ExternalReference } from '../../models/externalReference'
@@ -55,7 +56,7 @@ export class ExternalReferenceFactory {
     const repository = data.repository
     let url  // eslint-disable-line @typescript-eslint/init-declarations -- ack
     let comment  // eslint-disable-line @typescript-eslint/init-declarations -- ack
-    if (typeof repository === 'object') {
+    if (isObject(repository)) {
       url = tryCanonicalizeGitUrl(repository.url)
       comment = 'as detected from PackageJson property "repository.url"'
       if (typeof repository.directory === 'string' && url instanceof URL) {
@@ -88,7 +89,7 @@ export class ExternalReferenceFactory {
     const bugs = data.bugs
     let url  // eslint-disable-line @typescript-eslint/init-declarations -- ack
     let comment  // eslint-disable-line @typescript-eslint/init-declarations -- ack
-    if (typeof bugs === 'object') {
+    if (isObject(bugs)) {
       url = bugs.url
       comment = 'as detected from PackageJson property "bugs.url"'
     } else {

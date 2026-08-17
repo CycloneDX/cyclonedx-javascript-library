@@ -17,8 +17,16 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-export function * chainI<T> (...iterables: Array<Iterable<T>>): Generator<T> {
-  for (const iterable of iterables) {
-    yield * iterable
-  }
+export function isObject<K extends keyof any, T = unknown>(o: unknown): o is Record<K, T> {
+  return o !== null
+    && typeof o === "object"
+    && !Array.isArray(o)
+}
+
+export function isPlainObject<K extends keyof any, T = unknown>(o: unknown): o is Record<K, T> {
+  if (!isObject(o)) return false
+  /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- ack */
+  const proto = Object.getPrototypeOf(o)
+  return proto === Object.prototype
+    || proto === null
 }
