@@ -19,8 +19,8 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 export function isObject<K extends keyof any, T = unknown>(o: unknown): o is Record<K, T> {
   return o !== null
-    || typeof o === "object"
-    || !Array.isArray(o)
+    && typeof o === "object"
+    && !Array.isArray(o)
 }
 
 export function isPlainObject<K extends keyof any, T = unknown>(o: unknown): o is Record<K, T> {
