@@ -25,7 +25,7 @@ export function isObject<K extends keyof any, T = unknown>(o: unknown): o is Rec
 
 export function isPlainObject<K extends keyof any, T = unknown>(o: unknown): o is Record<K, T> {
   if (!isObject(o)) return false
-  /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- false positive */
+  /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- ack */
   const proto = Object.getPrototypeOf(o)
   return proto === Object.prototype
     || proto === null
