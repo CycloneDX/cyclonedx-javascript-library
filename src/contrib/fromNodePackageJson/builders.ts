@@ -26,9 +26,12 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  * Normalization should be done downstream, for example via [`normalize-package-data`](https://www.npmjs.com/package/normalize-package-data).
  */
 
+import { chainI } from '../../_helpers/iterable'
+import { isObject } from '../../_helpers/plainObject'
 import { ComponentType } from '../../enums/componentType'
 import { Component } from '../../models/component'
 import { ExternalReferenceRepository } from '../../models/externalReference'
+import type { License } from '../../models/license'
 import { LicenseRepository } from '../../models/license'
 import { Property, PropertyRepository } from '../../models/property'
 import { Tool } from '../../models/tool'
@@ -119,25 +122,19 @@ export class ComponentBuilder {
       ? data.version
       : undefined
 
-    const externalReferences = this.#extRefFactory.makeExternalReferences(data)
+    const externalReferences = new ExternalReferenceRepository(
+      this.#extRefFactory.makeExternalReferences(data)
+    )
 
-    const licenses = new LicenseRepository()
-    if (typeof data.license === 'string') {
-      /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#license */
-      licenses.add(this.#licenseFactory.makeFromString(data.license))
-    }
-    if (Array.isArray(data.licenses)) {
-      /* see https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json */
-      for (const licenseData of data.licenses) {
-        if (typeof licenseData.type === 'string') {
-          const license = this.#licenseFactory.makeDisjunctive(licenseData.type)
-          license.url = typeof licenseData.url === 'string'
-            ? licenseData.url
-            : undefined
-          licenses.add(license)
-        }
-      }
-    }
+    const licenses = new LicenseRepository(chainI(
+      (
+        /* see https://docs.npmjs.com/cli/v9/configuring-npm/package-json#license */
+      typeof data.license === 'string'
+        ? [this.#licenseFactory.makeFromString(data.license)]
+        : []
+      ),
+      this.#makeLicenses(data.licenses)
+    ))
 
     const properties = new PropertyRepository(
       this.#makeEngineProperties(data.engines)
@@ -146,7 +143,7 @@ export class ComponentBuilder {
     return new Component(type, name, {
       author,
       description,
-      externalReferences: new ExternalReferenceRepository(externalReferences),
+      externalReferences,
       group,
       licenses,
       properties,
@@ -154,17 +151,29 @@ export class ComponentBuilder {
     })
   }
 
-  * #makeEngineProperties (engines: unknown): Generator<Property> {
-    if (engines === null || typeof engines !== 'object' || Array.isArray(engines)) {
-      return;
-    }
-
-    for (const [engine, constraint] of Object.entries(engines)) {
-      if (typeof constraint === 'string') {
-        yield new Property(
-          `cdx:npm:package:constraint:engine:${engine}`,
-          constraint)
-      }
+  * #makeLicenses (licenses: NodePackageJson['licenses']): Generator<License> {
+    if (!Array.isArray(licenses)) return;
+    /* see https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json */
+    for (const licenseData of licenses) {
+      if (!isObject(licenses)) continue;
+      const { type, url } = licenseData
+      if (typeof type !== 'string') continue;
+      const license = this.#licenseFactory.makeDisjunctive(type)
+      license.url = typeof url === 'string'
+        ? url
+        : undefined
+      yield license
     }
   }
+
+  * #makeEngineProperties (engines: NodePackageJson['engines']): Generator<Property> {
+    if (!isObject(engines)) return;
+    for (const [engine, constraint] of Object.entries(engines)) {
+      if (typeof constraint !== 'string') continue;
+      yield new Property(
+        `cdx:npm:package:constraint:engine:${engine}`,
+        constraint)
+    }
+  }
+
 }
