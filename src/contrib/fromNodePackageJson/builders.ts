@@ -139,29 +139,32 @@ export class ComponentBuilder {
       }
     }
 
+    const properties = new PropertyRepository(
+      this.#makeEngineProperties(data.engines)
+    )
+
     return new Component(type, name, {
       author,
       description,
       externalReferences: new ExternalReferenceRepository(externalReferences),
       group,
       licenses,
-      properties: this.#makeEngineProperties(data.engines),
+      properties,
       version
     })
   }
 
-  #makeEngineProperties (engines: unknown): PropertyRepository {
-    const properties = new PropertyRepository()
+  * #makeEngineProperties (engines: unknown): Generator<Property> {
     if (engines === null || typeof engines !== 'object' || Array.isArray(engines)) {
-      return properties
+      return;
     }
 
     for (const [engine, constraint] of Object.entries(engines)) {
       if (typeof constraint === 'string') {
-        properties.add(new Property(`cdx:npm:package:constraint:engine:${engine}`, constraint))
+        yield new Property(
+          `cdx:npm:package:constraint:engine:${engine}`,
+          constraint)
       }
     }
-
-    return properties
   }
 }
