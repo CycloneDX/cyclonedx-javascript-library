@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 10.2.0 -- 2026-08-17
+
 * Added
   * `Contrib.FromNodePackageJson.Builders.ComponentBuilder` may populate properties with engine constraint ([#1506] via [#1507])
 
