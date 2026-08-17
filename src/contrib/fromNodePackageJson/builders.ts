@@ -30,6 +30,7 @@ import { ComponentType } from '../../enums/componentType'
 import { Component } from '../../models/component'
 import { ExternalReferenceRepository } from '../../models/externalReference'
 import { LicenseRepository } from '../../models/license'
+import { Property, PropertyRepository } from '../../models/property'
 import { Tool } from '../../models/tool'
 import type { LicenseFactory } from '../license/factories'
 import { splitNameGroup } from './_helpers/packageJson'
@@ -138,13 +139,32 @@ export class ComponentBuilder {
       }
     }
 
+    const properties = new PropertyRepository(
+      this.#makeEngineProperties(data.engines)
+    )
+
     return new Component(type, name, {
       author,
       description,
       externalReferences: new ExternalReferenceRepository(externalReferences),
       group,
       licenses,
+      properties,
       version
     })
+  }
+
+  * #makeEngineProperties (engines: unknown): Generator<Property> {
+    if (engines === null || typeof engines !== 'object' || Array.isArray(engines)) {
+      return;
+    }
+
+    for (const [engine, constraint] of Object.entries(engines)) {
+      if (typeof constraint === 'string') {
+        yield new Property(
+          `cdx:npm:package:constraint:engine:${engine}`,
+          constraint)
+      }
+    }
   }
 }
