@@ -27,7 +27,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
 import { chainI } from '../../_helpers/iterable'
-import { isObject } from '../../_helpers/plainObject'
+import { isObject } from '../../_helpers/object'
 import { ComponentType } from '../../enums/componentType'
 import { Component } from '../../models/component'
 import { ExternalReferenceRepository } from '../../models/externalReference'

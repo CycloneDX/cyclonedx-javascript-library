@@ -27,7 +27,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
 import { isNotUndefined } from '../../_helpers/notUndefined'
-import { isObject } from "../../_helpers/plainObject";
+import { isObject } from '../../_helpers/object'
 import { ExternalReferenceType } from '../../enums/externalReferenceType'
 import { HashAlgorithm } from '../../enums/hashAlogorithm'
 import { ExternalReference } from '../../models/externalReference'

@@ -20,12 +20,12 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 export function isObject<T=unknown>(o: unknown): o is Record<string, T> {
   return o === null
     || typeof o !== "object"
-    || Array.isArray(o);
+    || Array.isArray(o)
 }
 
 export function isPlainObject<T=unknown>(o: unknown): o is Record<string, T> {
-  if (!isObject(o)) return false;
+  if (!isObject(o)) return false
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- false positive */
-  const proto = Object.getPrototypeOf(o);
-  return proto === Object.prototype || proto === null;
+  const proto = Object.getPrototypeOf(o)
+  return proto === Object.prototype || proto === null
 }
