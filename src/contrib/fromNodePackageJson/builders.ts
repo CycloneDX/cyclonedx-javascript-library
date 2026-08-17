@@ -155,7 +155,7 @@ export class ComponentBuilder {
     if (!Array.isArray(licenses)) return;
     /* see https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/package.json */
     for (const licenseData of licenses) {
-      if (!isObject(licenses)) continue;
+      if (!isObject(licenseData)) continue;
       const { type, url } = licenseData
       if (typeof type !== 'string') continue;
       const license = this.#licenseFactory.makeDisjunctive(type)
