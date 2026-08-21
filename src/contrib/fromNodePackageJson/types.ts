@@ -48,6 +48,7 @@ export interface NodePackageJson {
     directory?: string
   }
   engines?: Record<string, string>
+  keywords?: string[]
   // ... to be continued
   dist?: any // see https://github.com/CycloneDX/cyclonedx-node-npm/issues/1300
 }

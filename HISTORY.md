@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
-<!-- add unreleased items here -->
+* Added
+  * `Contrib.FromNodePackageJson.Builders.ComponentBuilder` populates component `tags` from the npm `keywords` property; `tags` are serialised in JSON and XML for CycloneDX 1.6 and later ([#1055])
+
+[#1055]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1055
 
 ## 10.2.0 -- 2026-08-17
 
