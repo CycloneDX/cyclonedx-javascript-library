@@ -46,6 +46,7 @@ export interface OptionalComponentProperties {
   purl?: Component['purl']
   scope?: Component['scope']
   supplier?: Component['supplier']
+  tags?: Component['tags']
   swid?: Component['swid']
   version?: Component['version']
   components?: Component['components']
@@ -70,6 +71,7 @@ export class Component implements Comparable<Component> {
   purl?: string
   scope?: ComponentScope
   supplier?: OrganizationalEntity
+  tags?: string[]
   swid?: SWID
   version?: string
   components: ComponentRepository
@@ -92,6 +94,7 @@ export class Component implements Comparable<Component> {
     this.type = type
     this.name = name
     this.supplier = op.supplier
+    this.tags = op.tags
     this.author = op.author
     this.copyright = op.copyright
     this.externalReferences = op.externalReferences ?? new ExternalReferenceRepository()

@@ -531,6 +531,13 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
           children: this._factory.makeForProperty().normalizeIterable(data.properties, options, 'property')
         }
       : undefined
+    const tags: SimpleXml.Element | undefined = spec.supportsComponentTags && data.tags !== undefined && data.tags.length > 0
+      ? {
+          type: 'element',
+          name: 'tags',
+          children: data.tags.map(value => makeTextElement(value, 'tag', normalizedString))
+        }
+      : undefined
     const components: SimpleXml.Element | undefined = data.components.size > 0
       ? {
           type: 'element',
@@ -565,6 +572,7 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
         swid,
         extRefs,
         properties,
+        tags,
         components,
         evidence
       ].filter(isNotUndefined)

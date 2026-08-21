@@ -146,6 +146,11 @@ export class ComponentBuilder {
       group,
       licenses,
       properties,
+      tags: typeof data.keywords === 'string'
+        ? [data.keywords]
+        : (Array.isArray(data.keywords)
+          ? data.keywords.filter((k): k is string => typeof k === 'string')
+          : undefined),
       version
     })
   }
