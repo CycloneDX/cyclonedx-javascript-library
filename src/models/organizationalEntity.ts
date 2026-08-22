@@ -19,23 +19,27 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import type { Comparable } from '../_helpers/sortable'
 import { SortableComparables, SortableStringables } from '../_helpers/sortable'
+import type { OrganizationalContact } from './organizationalContact'
 import { OrganizationalContactRepository } from './organizationalContact'
 
 export interface OptionalOrganizationalEntityProperties {
   name?: OrganizationalEntity['name']
   url?: OrganizationalEntity['url']
   contact?: OrganizationalEntity['contact']
+  address?: OrganizationalEntity['address']
 }
 
 export class OrganizationalEntity implements Comparable<OrganizationalEntity> {
   name?: string
   url: Set<URL | string>
   contact: OrganizationalContactRepository
+  address?: OrganizationalContact
 
   constructor (op: OptionalOrganizationalEntityProperties = {}) {
     this.name = op.name
     this.url = op.url ?? new Set()
     this.contact = op.contact ?? new OrganizationalContactRepository()
+    this.address = op.address
   }
 
   compare (other: OrganizationalEntity): number {

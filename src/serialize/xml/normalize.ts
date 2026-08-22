@@ -468,7 +468,10 @@ export class OrganizationalEntityNormalizer extends BaseXmlNormalizer<Models.Org
           data.url, (s): string => escapeUri(s.toString())
         ), options, 'url'
         ).filter(({ children: u }) => XmlSchema.isAnyURI(u)),
-        ...this._factory.makeForOrganizationalContact().normalizeIterable(data.contact, options, 'contact')
+        ...this._factory.makeForOrganizationalContact().normalizeIterable(data.contact, options, 'contact'),
+        ...(data.address === undefined
+          ? []
+          : [this._factory.makeForOrganizationalContact().normalize(data.address, options, 'address')])
       ].filter(isNotUndefined)
     }
   }

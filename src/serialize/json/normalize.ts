@@ -373,7 +373,10 @@ export class OrganizationalEntityNormalizer extends BaseJsonNormalizer<Models.Or
         : undefined,
       contact: data.contact.size > 0
         ? this._factory.makeForOrganizationalContact().normalizeIterable(data.contact, options)
-        : undefined
+        : undefined,
+      address: data.address === undefined
+        ? undefined
+        : this._factory.makeForOrganizationalContact().normalize(data.address, options)
     }
   }
 
