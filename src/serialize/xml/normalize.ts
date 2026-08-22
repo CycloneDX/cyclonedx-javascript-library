@@ -468,7 +468,10 @@ export class OrganizationalEntityNormalizer extends BaseXmlNormalizer<Models.Org
           data.url, (s): string => escapeUri(s.toString())
         ), options, 'url'
         ).filter(({ children: u }) => XmlSchema.isAnyURI(u)),
-        ...this._factory.makeForOrganizationalContact().normalizeIterable(data.contact, options, 'contact')
+        ...this._factory.makeForOrganizationalContact().normalizeIterable(data.contact, options, 'contact'),
+        ...(data.address === undefined
+          ? []
+          : [this._factory.makeForOrganizationalContact().normalize(data.address, options, 'address')])
       ].filter(isNotUndefined)
     }
   }
@@ -531,6 +534,13 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
           children: this._factory.makeForProperty().normalizeIterable(data.properties, options, 'property')
         }
       : undefined
+    const tags: SimpleXml.Element | undefined = spec.supportsComponentTags && data.tags !== undefined && data.tags.length > 0
+      ? {
+          type: 'element',
+          name: 'tags',
+          children: data.tags.map(value => makeTextElement(value, 'tag', normalizedString))
+        }
+      : undefined
     const components: SimpleXml.Element | undefined = data.components.size > 0
       ? {
           type: 'element',
@@ -565,6 +575,7 @@ export class ComponentNormalizer extends BaseXmlNormalizer<Models.Component> {
         swid,
         extRefs,
         properties,
+        tags,
         components,
         evidence
       ].filter(isNotUndefined)

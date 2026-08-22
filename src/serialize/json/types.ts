@@ -136,6 +136,7 @@ export namespace Normalized {
     name?: string
     url?: JsonSchema.IriReference[]
     contact?: OrganizationalContact[]
+    address?: OrganizationalContact
   }
 
   export interface Hash {
@@ -166,6 +167,7 @@ export namespace Normalized {
     components?: Component[]
     evidence?: ComponentEvidence
     properties?: Property[]
+    tags?: string[]
   }
 
   export interface Service {
