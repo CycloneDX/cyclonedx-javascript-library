@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "@cyclonedx/cyclonedx-javascript-library/tools/cdx-json-schema-validator",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "validate.js",
+  "dependencies": {
+    "@cyclonedx/cyclonedx-library": "file:../.."
+  },
+  "scripts": {
+    "download": "node download.js",
+    "cs-fix": "npm --prefix ../code-style exec -- eslint --fix ."
+  },
+  "engines": {
+    "node": ">=20.18"
+  }
+}
