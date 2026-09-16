@@ -89,6 +89,14 @@ function createComplexStructure () {
       }),
       manufacture: new Models.OrganizationalEntity({
         name: 'meta manufacture',
+        address: new Models.PostalAddress({
+          country: 'United States',
+          region: 'Texas',
+          locality: 'Austin',
+          postOfficeBoxNumber: '901',
+          postalCode: '78758',
+          streetAddress: '100 Main Street'
+        }),
         url: new Set([new URL('https://meta-manufacture.xmpl')])
       }),
       supplier: new Models.OrganizationalEntity({

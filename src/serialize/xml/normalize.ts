@@ -90,6 +90,10 @@ export class Factory {
     return new OrganizationalContactNormalizer(this)
   }
 
+  makeForPostalAddress (): PostalAddressNormalizer {
+    return new PostalAddressNormalizer(this)
+  }
+
   makeForOrganizationalEntity (): OrganizationalEntityNormalizer {
     return new OrganizationalEntityNormalizer(this)
   }
@@ -457,18 +461,41 @@ export class OrganizationalContactNormalizer extends BaseXmlNormalizer<Models.Or
   }
 }
 
+export class PostalAddressNormalizer extends BaseXmlNormalizer<Models.PostalAddress> {
+  normalize (data: Models.PostalAddress, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    return {
+      type: 'element',
+      name: elementName,
+      children: [
+        makeOptionalTextElement(data.country, 'country'),
+        makeOptionalTextElement(data.region, 'region'),
+        makeOptionalTextElement(data.locality, 'locality'),
+        makeOptionalTextElement(data.postOfficeBoxNumber, 'postOfficeBoxNumber'),
+        makeOptionalTextElement(data.postalCode, 'postalCode'),
+        makeOptionalTextElement(data.streetAddress, 'streetAddress')
+      ].filter(isNotUndefined)
+    }
+  }
+}
+
 export class OrganizationalEntityNormalizer extends BaseXmlNormalizer<Models.OrganizationalEntity> {
   normalize (data: Models.OrganizationalEntity, options: NormalizerOptions, elementName: string): SimpleXml.Element {
+    const address = data.address === undefined || this._factory.spec.version < SpecVersion.v1dot6
+      ? undefined
+      : this._factory.makeForPostalAddress().normalize(data.address, options, 'address')
     return {
       type: 'element',
       name: elementName,
       children: [
         makeOptionalTextElement(data.name, 'name', normalizedString),
+        address,
         ...makeTextElementIter(Array.from(
           data.url, (s): string => escapeUri(s.toString())
         ), options, 'url'
         ).filter(({ children: u }) => XmlSchema.isAnyURI(u)),
-        ...this._factory.makeForOrganizationalContact().normalizeIterable(data.contact, options, 'contact')
+        ...(data.contact.size > 0
+          ? this._factory.makeForOrganizationalContact().normalizeIterable(data.contact, options, 'contact')
+          : [])
       ].filter(isNotUndefined)
     }
   }

@@ -79,6 +79,14 @@
     },
     "manufacture": {
       "name": "meta manufacture",
+      "address": {
+        "country": "United States",
+        "region": "Texas",
+        "locality": "Austin",
+        "postOfficeBoxNumber": "901",
+        "postalCode": "78758",
+        "streetAddress": "100 Main Street"
+      },
       "url": [
         "https://meta-manufacture.xmpl/"
       ]
