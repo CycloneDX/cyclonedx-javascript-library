@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
-<!-- add unreleased items here -->
+* Added
+  * Component model supports tags.
+  * Serializers and normalizers emit component tags.
+  * `Contrib.FromNodePackageJson.Builders.ComponentBuilder` may populate tags ([#1055] via [#1511]).
+
+[#1055]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1055
+[#1511]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1511
 
 ## 10.2.0 -- 2026-08-17
 
