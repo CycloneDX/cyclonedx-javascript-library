@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * Support CycloneDX 1.7.2 ([#1519] via [#])
+  * Pulled SPDX license IDs v1.0-3.29.0 (via [#1395])
+
+[#1519]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1519
+
 ## 10.2.0 -- 2026-08-17
 
 * Added
