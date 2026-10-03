@@ -148,6 +148,7 @@ function createComplexStructure () {
       Enums.ExternalReferenceType.ReleaseNotes // available since spec 1.4
     ))
     component.group = 'acme'
+    component.tags = new Set(['tag-b', 'tag-a'])
     component.hashes.set(Enums.HashAlgorithm['SHA-1'], 'e6f36746ccba42c288acf906e636bb278eaeb7e8')
     component.hashes.set(Enums.HashAlgorithm.MD5, '6bd3ac6fb35bb07c3f74d7f72451af57')
     component.hashes.set(Enums.HashAlgorithm['SHA-256'], 'something-invalid-according-to-spec')

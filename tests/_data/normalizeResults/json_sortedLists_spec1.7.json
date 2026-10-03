@@ -397,6 +397,10 @@
           "comment": "testing"
         }
       ],
+      "tags": [
+        "tag-a",
+        "tag-b"
+      ],
       "evidence": {
         "licenses": [
           {

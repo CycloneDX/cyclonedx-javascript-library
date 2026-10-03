@@ -1198,6 +1198,22 @@
             },
             {
               "type": "element",
+              "name": "tags",
+              "children": [
+                {
+                  "type": "element",
+                  "name": "tag",
+                  "children": "tag-a"
+                },
+                {
+                  "type": "element",
+                  "name": "tag",
+                  "children": "tag-b"
+                }
+              ]
+            },
+            {
+              "type": "element",
               "name": "evidence",
               "children": [
                 {

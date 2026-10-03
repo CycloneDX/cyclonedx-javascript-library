@@ -166,6 +166,7 @@ export namespace Normalized {
     components?: Component[]
     evidence?: ComponentEvidence
     properties?: Property[]
+    tags?: string[]
   }
 
   export interface Service {

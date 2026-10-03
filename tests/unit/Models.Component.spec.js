@@ -52,6 +52,8 @@ suite('unit: Models.Component', () => {
     assert.strictEqual(component.purl, undefined)
     assert.strictEqual(component.scope, undefined)
     assert.strictEqual(component.supplier, undefined)
+    assert.ok(component.tags instanceof Set)
+    assert.strictEqual(component.tags.size, 0)
     assert.strictEqual(component.swid, undefined)
     assert.strictEqual(component.version, undefined)
     assert.strictEqual(component.components.size, 0)
@@ -80,6 +82,7 @@ suite('unit: Models.Component', () => {
       purl: dummyPurl,
       scope: 'optional',
       supplier: dummySupplier,
+      tags: new Set(['tag-a', 'tag-b']),
       swid: dummySWID,
       version: '1.33.7',
       components: new ComponentRepository([subComponent])
@@ -104,9 +107,30 @@ suite('unit: Models.Component', () => {
     assert.strictEqual(component.purl, dummyPurl)
     assert.strictEqual(component.scope, 'optional')
     assert.strictEqual(component.supplier, dummySupplier)
+    assert.deepStrictEqual(component.tags, new Set(['tag-a', 'tag-b']))
     assert.strictEqual(component.swid, dummySWID)
     assert.strictEqual(component.version, '1.33.7')
     assert.strictEqual(component.components.size, 1)
     assert.strictEqual(Array.from(component.components)[0], subComponent)
+  })
+
+  test('compare includes tags after the component identity fields', () => {
+    const left = new Component('library', 'foobar', {
+      bomRef: 'same',
+      tags: new Set(['tag-a'])
+    })
+    const right = new Component('library', 'foobar', {
+      bomRef: 'same',
+      tags: new Set(['tag-b'])
+    })
+
+    assert.notStrictEqual(left.compare(right), 0)
+    assert.strictEqual(
+      left.compare(new Component('library', 'foobar', {
+        bomRef: 'same',
+        tags: new Set(['tag-a'])
+      })),
+      0
+    )
   })
 })
