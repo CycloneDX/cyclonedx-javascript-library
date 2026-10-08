@@ -21,8 +21,6 @@ import { readFile } from 'node:fs/promises'
 
 import Ajv, { type Options as AjvOptions } from 'ajv'
 import addFormats from 'ajv-formats'
-/* @ts-expect-error TS7016 */
-import addFormats2019 from 'ajv-formats-draft2019'
 
 import type { ValidationError } from '../../validation/types'
 import type { Functionality, Validator } from '../jsonValidator'
@@ -50,10 +48,18 @@ export default (async function (schemaPath: string, schemaMap: Record<string, st
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- intended */
   const ajv = new Ajv({ ...ajvOptions, schemas })
   addFormats(ajv)
-  /* eslint-disable-next-line @typescript-eslint/no-unsafe-call -- intended */
-  addFormats2019(ajv, { formats: ['idn-email'] })
+
   // there is just no working implementation for format "iri-reference": see https://github.com/luzlab/ajv-formats-draft2019/issues/22
   ajv.addFormat('iri-reference', true)
+
+  // add idn-email format (was previously provided by ajv-formats-draft2019)
+  const emailValidator = ajv.compile({type: 'string', format: 'email'})
+  ajv.addFormat('idn-email', {
+    type: 'string',
+    // syntax allows non-ASCII characters in places where 'x' would be allowed
+    // (don't attempt to validate exactly which Unicode characters are OK - too complex)
+    validate: x => emailValidator(x.replace(/[\u0080-\uffff]+/g, 'x'))
+  })
 
   const validator = ajv.compile(schema)
 

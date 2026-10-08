@@ -27,7 +27,7 @@ export default opWrapper<Functionality>('JsonValidator', [
   /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-require-imports
      -- needed */
 
-  ['( ajv && ajv-formats && ajv-formats-draft2019 )', () => require('./__jsonValidators/ajv').default]
+  ['( ajv && ajv-formats )', () => require('./__jsonValidators/ajv').default]
   // ... add others here, pull-requests welcome!
 
 /* eslint-enable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-require-imports */
