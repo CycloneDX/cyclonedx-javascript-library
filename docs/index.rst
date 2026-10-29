@@ -22,3 +22,5 @@ to help you create/render CycloneDX documents.
    api
    contributing
    changelog
+   View on GitHub <https://github.com/CycloneDX/cyclonedx-javascript-library>
+
