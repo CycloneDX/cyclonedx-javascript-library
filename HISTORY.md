@@ -6,6 +6,17 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * Optional-feature classes report when dependencies prevent them from acting (via [#1534])  
+    Adds static property `cannot`: `false` when available, otherwise an object with a `message1.
+    Affected classes:
+    * `Serialize.XmlSerializer`
+    * `Validation.JsonValidator`
+    * `Validation.JsonStrictValidator`
+    * `Validation.XmlValidator`
+
+[#1534]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1534
+
 ## 10.3.0 -- 2026-09-17
 
 * Added
