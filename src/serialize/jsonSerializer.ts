@@ -29,6 +29,14 @@ import type { NormalizerOptions, SerializerOptions } from './types'
  * Multi purpose Json serializer.
  */
 export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
+  /**
+   * Indicates whether this functionality cannot act.
+   *
+   * Always `false` for JSON functionality: no optional dependencies are involved,
+   * the platform-native `JSON.stringify` is used.
+   */
+  static readonly cannot: false | Readonly<{ message: string }> = false
+
   readonly #normalizerFactory: NormalizerFactory
 
   /**

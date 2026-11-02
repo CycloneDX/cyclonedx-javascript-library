@@ -26,6 +26,14 @@ import { XmlBaseSerializer } from './xmlBaseSerializer'
  * XML serializer for web browsers.
  */
 export class XmlSerializer extends XmlBaseSerializer {
+  /**
+   * Indicates whether this functionality cannot act.
+   *
+   * Always `false` in web browsers: no optional dependencies are involved,
+   * the platform-native "XMLSerializer" is used.
+   */
+  static readonly cannot: false | Readonly<{ message: string }> = false
+
   protected _serialize (
     normalizedBom: SimpleXml.Element,
     { space }: SerializerOptions = {}
