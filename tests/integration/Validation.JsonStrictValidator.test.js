@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 const assert = require('node:assert')
 
-const { describe, it } = require('mocha')
+const { before, describe, it } = require('mocha')
 
 const {
   Spec: { Version },
@@ -30,7 +30,11 @@ const {
 } = require('../../')
 
 describe('integration.Validation.JsonStrictValidator', () => {
-  const expectMissingDepError = JsonStrictValidator.cannot;
+  before(function () {
+    if (JsonStrictValidator.cannot !== false) {
+      this.skip()
+    }
+  });
 
   [
     Version.v1dot0,
@@ -53,17 +57,6 @@ describe('integration.Validation.JsonStrictValidator', () => {
     Version.v1dot3,
     Version.v1dot2
   ].forEach((version) => describe(version, () => {
-    if (expectMissingDepError !== false) {
-      it('throws MissingOptionalDependencyError', async () => {
-        const validator = new JsonStrictValidator(version)
-        await assert.rejects(
-          validator.validate('{}'),
-          (err) => err instanceof MissingOptionalDependencyError && err.message === expectMissingDepError.message
-        )
-      })
-      return // skip other tests
-    }
-
     it('invalid throws', async () => {
       const validator = new JsonStrictValidator(version)
       const input = JSON.stringify({
@@ -95,4 +88,20 @@ describe('integration.Validation.JsonStrictValidator', () => {
       assert.strictEqual(validationError, null)
     })
   }))
+})
+
+describe('integration.Validation.JsonStrictValidator cannot', () => {
+  before(function () {
+    if (JsonStrictValidator.cannot === false) {
+      this.skip()
+    }
+  })
+
+  it('deps missing throws MissingOptionalDependencyError', async () => {
+    const validator = new JsonStrictValidator(Version.v1dot7)
+    await assert.rejects(
+      validator.validate('{}'),
+      (err) => err instanceof MissingOptionalDependencyError && err.message === JsonStrictValidator.cannot.message
+    )
+  })
 })

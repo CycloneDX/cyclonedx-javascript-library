@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 const assert = require('node:assert')
 
-const { afterEach, beforeEach, describe, it } = require('mocha')
+const { afterEach, before, beforeEach, describe, it } = require('mocha')
 
 const {
   Models, Enums,
@@ -34,7 +34,11 @@ const { createAllTools, createComplexStructure } = require('../_data/models')
 const { loadSerializeResult, writeSerializeResult } = require('../_data/serialize')
 
 describe('integration.Serialize.XmlSerialize', function () {
-  const expectMissingDepError = XmlSerializer.cannot
+  before(function () {
+    if (XmlNormalizeFactory.cannot !== false) {
+      this.skip()
+    }
+  })
 
   this.timeout(60000)
 
@@ -59,17 +63,6 @@ describe('integration.Serialize.XmlSerialize', function () {
       afterEach(function () {
         delete this.bom
       })
-
-      if (expectMissingDepError !== false) {
-        it('throws MissingOptionalDependencyError', function () {
-          const serializer = new XmlSerializer(normalizerFactory)
-          assert.throws(
-            () => { serializer.serialize(this.bom, {}) },
-            (err) => err instanceof MissingOptionalDependencyError && err.message === expectMissingDepError.message
-          )
-        })
-        return // skip other tests
-      }
 
       it('serialize', async function () {
         const serializer = new XmlSerializer(normalizerFactory)
@@ -157,5 +150,23 @@ describe('integration.Serialize.XmlSerialize', function () {
       // everything back to before - all have
       knownBomRefs.forEach(({ value }) => assert.strictEqual(value, 'testing'))
     })
+  })
+})
+
+describe('integration.Serialize.XmlSerialize cannot', function () {
+  before(function () {
+    if (XmlSerializer.cannot === false) {
+      this.skip()
+    }
+  })
+
+  it('deps missing throws MissingOptionalDependencyError', function () {
+    const normalizerFactory = new XmlNormalizeFactory(Spec.Spec1dot7)
+    const serializer = new XmlSerializer(normalizerFactory)
+    const bom = createComplexStructure()
+    assert.throws(
+      () => { serializer.serialize(bom, {}) },
+      (err) => err instanceof MissingOptionalDependencyError && err.message === XmlSerializer.cannot.message
+    )
   })
 })
