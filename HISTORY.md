@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 * Added
   * Optional-feature classes report when dependencies prevent them from acting (via [#1534])  
-    Adds static property `cannot`: `false` when available, otherwise an object with a `message1.
+    Adds a static property `cannot`: `false` when available, otherwise an object with a `message` detailing why it is unavailable.
     Affected classes:
     * `Serialize.XmlSerializer`
     * `Validation.JsonValidator`
