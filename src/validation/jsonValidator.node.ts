@@ -17,13 +17,13 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import type * as OptionalFeature from '../_opt'
+import { cannotOf } from '../_opt'
 import makeValidator, { type Validator } from '../_optPlug.node/jsonValidator'
 import { FILES } from '../resources.node'
 import { BaseValidator } from './baseValidator'
 import { MissingOptionalDependencyError, NotImplementedError } from './errors'
 import type { ValidationError } from './types'
-import type * as OptionalFeature from '../_opt'
-import { cannotOf } from '../_opt'
 
 
 abstract class BaseJsonValidator extends BaseValidator {

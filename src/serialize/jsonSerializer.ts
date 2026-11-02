@@ -17,6 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import type * as OptionalFeature from '../_opt'
 import type { Bom } from '../models/bom'
 import { Format } from '../spec/enums'
 import { UnsupportedFormatError } from '../spec/errors'
@@ -24,7 +25,6 @@ import { BaseSerializer } from './baseSerializer'
 import type { Factory as NormalizerFactory } from './json/normalize'
 import type { Normalized } from './json/types'
 import type { NormalizerOptions, SerializerOptions } from './types'
-import type * as OptionalFeature from '../_opt'
 
 
 /**
