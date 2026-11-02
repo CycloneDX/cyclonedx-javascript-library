@@ -28,13 +28,12 @@ const {
     XmlValidator
   }
 } = require('../../')
-const { default: xmlValidator } = require('../../dist.node/_optPlug.node/xmlValidator')
 
 describe('integration.Validation.XmlValidator', () => {
-  const expectMissingDepError = xmlValidator.fails ?? false;
+  const expectMissingDepError = XmlValidator.cannot;
 
   [
-    'somthing-unexpected'
+    'something-unexpected'
   ].forEach((version) => describe(version, () => {
     it('throws not implemented', async () => {
       const validator = new XmlValidator(version)
@@ -55,12 +54,12 @@ describe('integration.Validation.XmlValidator', () => {
     Version.v1dot1,
     Version.v1dot0
   ].forEach((version) => describe(version, () => {
-    if (expectMissingDepError) {
+    if (expectMissingDepError !== false) {
       it('throws MissingOptionalDependencyError', async () => {
         const validator = new XmlValidator(version)
         await assert.rejects(
           validator.validate('<bom/>'),
-          (err) => err instanceof MissingOptionalDependencyError
+          (err) => err instanceof MissingOptionalDependencyError && err.message === expectMissingDepError.message
         )
       })
       return // skip other tests

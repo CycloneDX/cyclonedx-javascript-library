@@ -30,12 +30,11 @@ const {
   Spec,
   Validation
 } = require('../../')
-const { default: xmlStringify } = require('../../dist.node/_optPlug.node/xmlStringify')
 const { createAllTools, createComplexStructure } = require('../_data/models')
 const { loadSerializeResult, writeSerializeResult } = require('../_data/serialize')
 
 describe('integration.Serialize.XmlSerialize', function () {
-  const expectMissingDepError = xmlStringify.fails ?? false
+  const expectMissingDepError = XmlSerializer.cannot
 
   this.timeout(60000)
 
@@ -61,12 +60,12 @@ describe('integration.Serialize.XmlSerialize', function () {
         delete this.bom
       })
 
-      if (expectMissingDepError) {
+      if (expectMissingDepError !== false) {
         it('throws MissingOptionalDependencyError', function () {
           const serializer = new XmlSerializer(normalizerFactory)
           assert.throws(
             () => { serializer.serialize(this.bom, {}) },
-            (err) => err instanceof MissingOptionalDependencyError
+            (err) => err instanceof MissingOptionalDependencyError && err.message === expectMissingDepError.message
           )
         })
         return // skip other tests

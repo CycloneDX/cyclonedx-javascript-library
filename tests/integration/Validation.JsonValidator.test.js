@@ -28,10 +28,9 @@ const {
     JsonValidator
   }
 } = require('../../')
-const { default: jsonValidator } = require('../../dist.node/_optPlug.node/jsonValidator')
 
 describe('integration.Validation.JsonValidator', () => {
-  const expectMissingDepError = jsonValidator.fails ?? false;
+  const expectMissingDepError = JsonValidator.cannot;
 
   [
     'somthing-unexpected',
@@ -55,12 +54,12 @@ describe('integration.Validation.JsonValidator', () => {
     Version.v1dot3,
     Version.v1dot2
   ].forEach((version) => describe(version, () => {
-    if (expectMissingDepError) {
+    if (expectMissingDepError !== false) {
       it('throws MissingOptionalDependencyError', async () => {
         const validator = new JsonValidator(version)
         await assert.rejects(
           validator.validate('{}'),
-          (err) => err instanceof MissingOptionalDependencyError
+          (err) => err instanceof MissingOptionalDependencyError && err.message === expectMissingDepError.message
         )
       })
       return // skip other tests

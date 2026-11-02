@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { OptPlugError } from '../_optPlug.node/errors'
+import { isWillThrow } from '../_optPlug.node/_wrapper'
 import makeValidator, { type Validator } from '../_optPlug.node/xmlValidator'
 import { FILES } from '../resources.node'
 import { BaseValidator } from './baseValidator'
@@ -34,18 +34,22 @@ export class XmlValidator extends BaseValidator {
     return s
   }
 
+  /**
+   * Indicates whether this functionality cannot act.
+   *
+   * `false` if this functionality can act; otherwise, describes which optional dependencies are
+   * unavailable and prevent it from doing so.
+   */
+  static readonly cannot: false | Readonly<{message:string}> = isWillThrow(makeValidator)
+    ? Object.freeze({message: makeValidator.message})
+    : false
+
   #validatorCache?: Validator = undefined
 
   async #getValidator (): Promise<Validator> {
     if (this.#validatorCache === undefined) {
-      try {
-        this.#validatorCache = await makeValidator(this.#getSchemaFilePath())
-      } catch (err) {
-        if (err instanceof OptPlugError) {
-          throw new MissingOptionalDependencyError(err.message, err)
-        }
-        throw err
-      }
+      if (XmlValidator.cannot !== false) throw new MissingOptionalDependencyError(XmlValidator.cannot.message)
+      this.#validatorCache = await makeValidator(this.#getSchemaFilePath())
     }
     return this.#validatorCache
   }

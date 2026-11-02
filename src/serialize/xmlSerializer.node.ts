@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { OptPlugError } from '../_optPlug.node/errors'
+import { isWillThrow } from '../_optPlug.node/_wrapper'
 import stringify from '../_optPlug.node/xmlStringify'
 import { MissingOptionalDependencyError } from './errors'
 import type { SerializerOptions } from './types'
@@ -31,6 +31,16 @@ export class XmlSerializer extends XmlBaseSerializer {
   // maybe override  parent::serialize() and skip nonmalization and everything, in case `stringify.fails` is true
 
   /**
+   * Indicates whether this functionality cannot act.
+   *
+   * `false` if this functionality can act; otherwise, describes which optional dependencies are
+   * unavailable and prevent it from doing so.
+   */
+  static readonly cannot: false | Readonly<{message:string}> = isWillThrow(stringify)
+    ? Object.freeze({message: stringify.message})
+    : false
+
+  /**
    * @throws {@link Serialize.MissingOptionalDependencyError | MissingOptionalDependencyError}
    * @throws {@link Error}
    */
@@ -38,13 +48,7 @@ export class XmlSerializer extends XmlBaseSerializer {
     normalizedBom: SimpleXml.Element,
     options: SerializerOptions = {}
   ): string {
-    try {
-      return stringify(normalizedBom, options)
-    } catch (err) {
-      if (err instanceof OptPlugError) {
-        throw new MissingOptionalDependencyError(err.message, err)
-      }
-      throw err
-    }
+    if (XmlSerializer.cannot !== false) throw new MissingOptionalDependencyError(XmlSerializer.cannot.message)
+    return stringify(normalizedBom, options)
   }
 }
