@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type * as OptionalFeature from '../_opt'
-import { cannotOf } from '../_optPlug.node/cannot'
+import cannotOf from '../_optPlug.node/cannot'
 import makeValidator, { type Validator } from '../_optPlug.node/xmlValidator'
 import { FILES } from '../resources.node'
 import { BaseValidator } from './baseValidator'

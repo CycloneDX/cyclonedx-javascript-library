@@ -18,7 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import type * as OptionalFeature from '../_opt'
-import { cannotOf } from '../_optPlug.node/cannot'
+import cannotOf from '../_optPlug.node/cannot'
 import stringify from '../_optPlug.node/xmlStringify'
 import { MissingOptionalDependencyError } from './errors'
 import type { SerializerOptions } from './types'

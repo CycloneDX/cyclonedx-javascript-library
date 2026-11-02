@@ -25,7 +25,7 @@ import { isWillThrow } from './_wrapper'
  *
  * @internal
  */
-export function cannotOf (f: unknown): Cannot {
+export default function cannotOf (f: unknown): Cannot {
   return isWillThrow(f)
     ? Object.freeze({ message: f.message })
     : false
