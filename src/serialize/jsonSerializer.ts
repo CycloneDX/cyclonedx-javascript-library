@@ -24,6 +24,8 @@ import { BaseSerializer } from './baseSerializer'
 import type { Factory as NormalizerFactory } from './json/normalize'
 import type { Normalized } from './json/types'
 import type { NormalizerOptions, SerializerOptions } from './types'
+import type * as OptionalFeature from '../_opt'
+
 
 /**
  * Multi purpose Json serializer.
@@ -35,7 +37,7 @@ export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
    * Always `false` for JSON functionality: no optional dependencies are involved,
    * the platform-native `JSON.stringify` is used.
    */
-  static readonly cannot: false | Readonly<{ message: string }> = false
+  static readonly cannot: OptionalFeature.Cannot = false
 
   readonly #normalizerFactory: NormalizerFactory
 
@@ -70,3 +72,5 @@ export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
     return JSON.stringify(bom, null, space)
   }
 }
+
+JsonSerializer satisfies OptionalFeature.Provider

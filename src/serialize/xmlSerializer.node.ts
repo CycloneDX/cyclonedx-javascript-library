@@ -17,18 +17,19 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { isWillThrow } from '../_optPlug.node/_wrapper'
 import stringify from '../_optPlug.node/xmlStringify'
 import { MissingOptionalDependencyError } from './errors'
 import type { SerializerOptions } from './types'
 import type { SimpleXml } from './xml/types'
 import { XmlBaseSerializer } from './xmlBaseSerializer'
+import { cannotOf } from '../_opt'
+import type * as OptionalFeature from '../_opt'
+
 
 /**
  * XML serializer for node.
  */
 export class XmlSerializer extends XmlBaseSerializer {
-  // maybe override  parent::serialize() and skip nonmalization and everything, in case `stringify.fails` is true
 
   /**
    * Indicates whether this functionality cannot act.
@@ -36,9 +37,9 @@ export class XmlSerializer extends XmlBaseSerializer {
    * `false` if this functionality can act; otherwise, describes which optional dependencies are
    * unavailable and prevent it from doing so.
    */
-  static readonly cannot: false | Readonly<{message:string}> = isWillThrow(stringify)
-    ? Object.freeze({message: stringify.message})
-    : false
+  static readonly cannot: OptionalFeature.Cannot  = cannotOf(stringify)
+
+  // maybe override  parent::serialize() and skip nonmalization and everything, in case `stringify.fails` is true
 
   /**
    * @throws {@link Serialize.MissingOptionalDependencyError | MissingOptionalDependencyError}
@@ -52,3 +53,5 @@ export class XmlSerializer extends XmlBaseSerializer {
     return stringify(normalizedBom, options)
   }
 }
+
+XmlSerializer satisfies OptionalFeature.Provider

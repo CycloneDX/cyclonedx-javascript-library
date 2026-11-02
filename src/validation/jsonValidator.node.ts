@@ -17,14 +17,25 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { isWillThrow } from '../_optPlug.node/_wrapper'
 import makeValidator, { type Validator } from '../_optPlug.node/jsonValidator'
 import { FILES } from '../resources.node'
 import { BaseValidator } from './baseValidator'
 import { MissingOptionalDependencyError, NotImplementedError } from './errors'
 import type { ValidationError } from './types'
+import type * as OptionalFeature from '../_opt'
+import { cannotOf } from '../_opt'
+
 
 abstract class BaseJsonValidator extends BaseValidator {
+
+  /**
+   * Indicates whether this functionality cannot act.
+   *
+   * `false` if this functionality can act; otherwise, describes which optional dependencies are
+   * unavailable and prevent it from doing so.
+   */
+  static readonly cannot = cannotOf(makeValidator)
+
   /** @internal */
   protected abstract _getSchemaFile (): string | undefined
 
@@ -35,16 +46,6 @@ abstract class BaseJsonValidator extends BaseValidator {
     }
     return s
   }
-
-  /**
-   * Indicates whether this functionality cannot act.
-   *
-   * `false` if this functionality can act; otherwise, describes which optional dependencies are
-   * unavailable and prevent it from doing so.
-   */
-  static readonly cannot: false | Readonly<{message:string}> = isWillThrow(makeValidator)
-    ? Object.freeze({message: makeValidator.message})
-    : false
 
   #validatorCache?: Validator = undefined
 
@@ -75,6 +76,9 @@ abstract class BaseJsonValidator extends BaseValidator {
     return (await this.#getValidator())(data)
   }
 }
+
+BaseJsonValidator satisfies OptionalFeature.Provider
+
 export class JsonValidator extends BaseJsonValidator {
   /** @internal */
   protected _getSchemaFile (): string | undefined {

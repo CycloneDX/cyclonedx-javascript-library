@@ -17,14 +17,25 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { isWillThrow } from '../_optPlug.node/_wrapper'
 import makeValidator, { type Validator } from '../_optPlug.node/xmlValidator'
 import { FILES } from '../resources.node'
 import { BaseValidator } from './baseValidator'
 import { MissingOptionalDependencyError, NotImplementedError } from './errors'
 import type { ValidationError } from './types'
+import type * as OptionalFeature from '../_opt'
+import { cannotOf } from '../_opt'
+
 
 export class XmlValidator extends BaseValidator {
+
+  /**
+   * Indicates whether this functionality cannot act.
+   *
+   * `false` if this functionality can act; otherwise, describes which optional dependencies are
+   * unavailable and prevent it from doing so.
+   */
+  static readonly cannot = cannotOf(makeValidator)
+
   #getSchemaFilePath (): string {
     const s = FILES.CDX.XML_SCHEMA[this.version]
     /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- better be safe */
@@ -33,16 +44,6 @@ export class XmlValidator extends BaseValidator {
     }
     return s
   }
-
-  /**
-   * Indicates whether this functionality cannot act.
-   *
-   * `false` if this functionality can act; otherwise, describes which optional dependencies are
-   * unavailable and prevent it from doing so.
-   */
-  static readonly cannot: false | Readonly<{message:string}> = isWillThrow(makeValidator)
-    ? Object.freeze({message: makeValidator.message})
-    : false
 
   #validatorCache?: Validator = undefined
 
@@ -69,3 +70,5 @@ export class XmlValidator extends BaseValidator {
     return (await this.#getValidator())(data)
   }
 }
+
+XmlValidator satisfies OptionalFeature.Provider
