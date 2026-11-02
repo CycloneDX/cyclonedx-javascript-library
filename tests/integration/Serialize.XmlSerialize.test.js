@@ -35,7 +35,7 @@ const { loadSerializeResult, writeSerializeResult } = require('../_data/serializ
 
 describe('integration.Serialize.XmlSerialize', function () {
   before(function () {
-    if (XmlNormalizeFactory.cannot !== false) {
+    if (XmlSerializer.cannot !== false) {
       this.skip()
     }
   })

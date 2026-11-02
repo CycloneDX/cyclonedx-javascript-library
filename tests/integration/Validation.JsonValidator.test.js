@@ -99,7 +99,7 @@ describe('integration.Validation.JsonValidator cannot', () => {
   })
 
   it('deps missing throws MissingOptionalDependencyError', async () => {
-    const validator = new JsonValidator(Version.Version.v1dot7)
+    const validator = new JsonValidator(Version.v1dot7)
     await assert.rejects(
       validator.validate('{}'),
       (err) => err instanceof MissingOptionalDependencyError && err.message === JsonValidator.cannot.message

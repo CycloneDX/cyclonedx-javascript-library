@@ -17,8 +17,6 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { isWillThrow } from './_optPlug.node/_wrapper'
-
 /**
  * Describes why an optional feature cannot act.
  */
@@ -39,15 +37,4 @@ export type Cannot = false | Readonly<Blocker>
  */
 export interface Provider {
   readonly cannot: Cannot
-}
-
-/**
- * Translate a pluggable functionality into an {@link Cannot}.
- *
- * @internal
- */
-export function cannotOf (f: unknown): Cannot {
-  return isWillThrow(f)
-    ? Object.freeze({ message: f.message })
-    : false
 }
