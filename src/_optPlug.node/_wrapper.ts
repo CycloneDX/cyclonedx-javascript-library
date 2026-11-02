@@ -32,7 +32,7 @@ function makeWillThrow (message: string): WillThrow {
 }
 
 /** @internal */
-export function isWillThrow(v: any): v is WillThrow {
+export function isWillThrow (v: any): v is WillThrow {
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- ack */
   return typeof v === 'function' && (v as Partial<WillThrow>).fails === true
 }

@@ -37,7 +37,7 @@ export class XmlSerializer extends XmlBaseSerializer {
    * `false` if this functionality can act; otherwise, describes which optional dependencies are
    * unavailable and prevent it from doing so.
    */
-  static readonly cannot: OptionalFeature.Cannot  = cannotOf(stringify)
+  static readonly cannot: OptionalFeature.Cannot = cannotOf(stringify)
 
   // maybe override  parent::serialize() and skip nonmalization and everything, in case `stringify.fails` is true
 

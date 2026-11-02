@@ -34,7 +34,7 @@ export class XmlValidator extends BaseValidator {
    * `false` if this functionality can act; otherwise, describes which optional dependencies are
    * unavailable and prevent it from doing so.
    */
-  static readonly cannot = cannotOf(makeValidator)
+  static readonly cannot: OptionalFeature.Cannot = cannotOf(makeValidator)
 
   #getSchemaFilePath (): string {
     const s = FILES.CDX.XML_SCHEMA[this.version]
