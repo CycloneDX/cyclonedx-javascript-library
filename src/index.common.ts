@@ -19,9 +19,9 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 export * as Enums from './enums'
 export * as Models from './models'
+export type * as OptionalFeature from './optionalFeature'
 export * as SPDX from './spdx'
 export * as Spec from './spec'
 export * as Types from './types'
-export * as OptionalFeature from './optionalFeature'
 
 // do not export the _helpers, they are for internal use only
