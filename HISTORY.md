@@ -7,9 +7,9 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Added
-  * Publish sub-namespace `OptionalFeature` (via [#])
+  * Publish sub-namespace `OptionalFeature` (via [#1535])
 
-[#]: 
+[#1535]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1535
 
 ## 10.4.0 -- 2026-11-03
 
