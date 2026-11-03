@@ -245,9 +245,7 @@ jobs:
           name: dist.node
           path: dist.node
       - name: test
-        run: >
-          npm run -- test:node
-          ${{ startsWith(matrix.node-version, env.NODE_ACTIVE_LTS) && ' --forbid-pending' || '' }}
+        run: npm run -- test:node
       - name: collect coverage
         if: ${{ failure() || success() }}
         run: >

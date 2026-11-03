@@ -19,20 +19,31 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 import { OptPlugError } from './errors'
 
-export type WillThrow = (() => never) & { fails: true }
 
-function makeWIllThrow (message: string): WillThrow {
+export type WillThrow = (() => never) & { fails: true, message: string }
+
+function makeWillThrow (message: string): WillThrow {
   const f: WillThrow = function (): never {
-    throw new OptPlugError(message)
+    throw new OptPlugError(f.message)
   }
   f.fails = true
+  f.message = message
   return Object.freeze(f)
 }
 
-type PossibleFunctionalities<Functionality> = Array<[string, () => Functionality]>
+/** @internal */
+export function isWillThrow (v: any): v is WillThrow {
+  /* eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- ack */
+  return typeof v === 'function' && (v as Partial<WillThrow>).fails === true
+}
+
+
+type FunctionalityConstraint = CallableFunction & { fails?: false }
+
+type PossibleFunctionalities<Functionality extends FunctionalityConstraint> = Array<[string, () => Functionality]>
 
 /** @internal */
-export default function <Functionality> (
+export default function <Functionality extends FunctionalityConstraint>(
   name: string,
   pf: PossibleFunctionalities<Functionality>
 ): Functionality | WillThrow {
@@ -43,7 +54,7 @@ export default function <Functionality> (
       /* pass */
     }
   }
-  return makeWIllThrow(
+  return makeWillThrow(
     `No ${name} available.\n` +
     'Please install one of the optional dependencies: ' +
     pf.map(kv => kv[0]).join(' || ')

@@ -17,14 +17,25 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import { OptPlugError } from '../_optPlug.node/errors'
+import type * as OptionalFeature from '../_opt'
+import cannotOf from '../_optPlug.node/cannot'
 import makeValidator, { type Validator } from '../_optPlug.node/jsonValidator'
 import { FILES } from '../resources.node'
 import { BaseValidator } from './baseValidator'
 import { MissingOptionalDependencyError, NotImplementedError } from './errors'
 import type { ValidationError } from './types'
 
+
 abstract class BaseJsonValidator extends BaseValidator {
+
+  /**
+   * Indicates whether this functionality cannot act.
+   *
+   * `false` if this functionality can act; otherwise, describes which optional dependencies are
+   * unavailable and prevent it from doing so.
+   */
+  static readonly cannot: OptionalFeature.Cannot = cannotOf(makeValidator)
+
   /** @internal */
   protected abstract _getSchemaFile (): string | undefined
 
@@ -40,18 +51,12 @@ abstract class BaseJsonValidator extends BaseValidator {
 
   async #getValidator (): Promise<Validator> {
     if (this.#validatorCache === undefined) {
-      try {
-        this.#validatorCache = await makeValidator(this.#getSchemaFilePath(), {
-          'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': FILES.SPDX.JSON_SCHEMA,
-          'http://cyclonedx.org/schema/cryptography-defs.SNAPSHOT.schema.json': FILES.CryptoDefs.JSON_SCHEMA,
-          'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': FILES.JSF.JSON_SCHEMA
-        })
-      } catch (err) {
-        if (err instanceof OptPlugError) {
-          throw new MissingOptionalDependencyError(err.message, err)
-        }
-        throw err
-      }
+      if (BaseJsonValidator.cannot !== false) throw new MissingOptionalDependencyError(BaseJsonValidator.cannot.message)
+      this.#validatorCache = await makeValidator(this.#getSchemaFilePath(), {
+        'http://cyclonedx.org/schema/spdx.SNAPSHOT.schema.json': FILES.SPDX.JSON_SCHEMA,
+        'http://cyclonedx.org/schema/cryptography-defs.SNAPSHOT.schema.json': FILES.CryptoDefs.JSON_SCHEMA,
+        'http://cyclonedx.org/schema/jsf-0.82.SNAPSHOT.schema.json': FILES.JSF.JSON_SCHEMA
+      })
     }
     return this.#validatorCache
   }
@@ -71,6 +76,9 @@ abstract class BaseJsonValidator extends BaseValidator {
     return (await this.#getValidator())(data)
   }
 }
+
+BaseJsonValidator satisfies OptionalFeature.Provider
+
 export class JsonValidator extends BaseJsonValidator {
   /** @internal */
   protected _getSchemaFile (): string | undefined {

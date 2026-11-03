@@ -17,6 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
+import type * as OptionalFeature from '../_opt'
 import type { Bom } from '../models/bom'
 import { Format } from '../spec/enums'
 import { UnsupportedFormatError } from '../spec/errors'
@@ -25,10 +26,19 @@ import type { Factory as NormalizerFactory } from './json/normalize'
 import type { Normalized } from './json/types'
 import type { NormalizerOptions, SerializerOptions } from './types'
 
+
 /**
  * Multi purpose Json serializer.
  */
 export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
+  /**
+   * Indicates whether this functionality cannot act.
+   *
+   * Always `false` for JSON functionality: no optional dependencies are involved,
+   * the platform-native `JSON.stringify` is used.
+   */
+  static readonly cannot: OptionalFeature.Cannot = false
+
   readonly #normalizerFactory: NormalizerFactory
 
   /**
@@ -62,3 +72,5 @@ export class JsonSerializer extends BaseSerializer<Normalized.Bom> {
     return JSON.stringify(bom, null, space)
   }
 }
+
+JsonSerializer satisfies OptionalFeature.Provider

@@ -18,6 +18,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
 import { isNotUndefined } from '../_helpers/notUndefined'
+import type * as OptionalFeature from '../_opt'
 import type { SerializerOptions } from './types'
 import type { SimpleXml } from './xml/types'
 import { XmlBaseSerializer } from './xmlBaseSerializer'
@@ -26,6 +27,14 @@ import { XmlBaseSerializer } from './xmlBaseSerializer'
  * XML serializer for web browsers.
  */
 export class XmlSerializer extends XmlBaseSerializer {
+  /**
+   * Indicates whether this functionality cannot act.
+   *
+   * Always `false` in web browsers: no optional dependencies are involved,
+   * the platform-native "XMLSerializer" is used.
+   */
+  static readonly cannot: OptionalFeature.Cannot = false
+
   protected _serialize (
     normalizedBom: SimpleXml.Element,
     { space }: SerializerOptions = {}
@@ -91,3 +100,5 @@ export class XmlSerializer extends XmlBaseSerializer {
     }
   }
 }
+
+XmlSerializer satisfies OptionalFeature.Provider

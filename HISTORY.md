@@ -6,6 +6,24 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * Optional-feature classes expose a static `cannot` property (via [#1534])  
+    It tells whether missing optional dependencies prevent the class from acting:
+    `false` when the feature is available;
+    otherwise an object with a `message` describing why the feature is unavailable.
+    Affected classes:
+    * `Serialize.JsonSerializer` — always `false`
+    * `Serialize.XmlSerializer` — always `false` in web builds; in node it depends on an optional XML library
+    * `Validation.JsonValidator`
+    * `Validation.JsonStrictValidator`
+    * `Validation.XmlValidator`
+* Changed
+  * `Serialize.XmlSerializer`, `Validation.JsonValidator`, `Validation.JsonStrictValidator` and `Validation.XmlValidator`
+    now throw `MissingOptionalDependencyError` based on the new `cannot` check,
+    instead of wrapping the underlying `OptPlugError` (via [#1534])
+
+[#1534]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1534
+
 ## 10.3.0 -- 2026-09-17
 
 * Added

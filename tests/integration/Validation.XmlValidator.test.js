@@ -19,7 +19,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 
 const assert = require('node:assert')
 
-const { describe, it } = require('mocha')
+const { before, describe, it } = require('mocha')
 
 const {
   Spec: { Version },
@@ -28,13 +28,16 @@ const {
     XmlValidator
   }
 } = require('../../')
-const { default: xmlValidator } = require('../../dist.node/_optPlug.node/xmlValidator')
 
 describe('integration.Validation.XmlValidator', () => {
-  const expectMissingDepError = xmlValidator.fails ?? false;
+  before(function () {
+    if (XmlValidator.cannot !== false) {
+      this.skip()
+    }
+  });
 
   [
-    'somthing-unexpected'
+    'something-unexpected'
   ].forEach((version) => describe(version, () => {
     it('throws not implemented', async () => {
       const validator = new XmlValidator(version)
@@ -55,17 +58,6 @@ describe('integration.Validation.XmlValidator', () => {
     Version.v1dot1,
     Version.v1dot0
   ].forEach((version) => describe(version, () => {
-    if (expectMissingDepError) {
-      it('throws MissingOptionalDependencyError', async () => {
-        const validator = new XmlValidator(version)
-        await assert.rejects(
-          validator.validate('<bom/>'),
-          (err) => err instanceof MissingOptionalDependencyError
-        )
-      })
-      return // skip other tests
-    }
-
     it('invalid throws', async () => {
       const validator = new XmlValidator(version)
       const input = `<?xml version="1.0" encoding="UTF-8"?>
@@ -98,4 +90,20 @@ describe('integration.Validation.XmlValidator', () => {
       assert.strictEqual(validationError, null)
     })
   }))
+})
+
+describe('integration.Validation.XmlValidator cannot', () => {
+  before(function () {
+    if (XmlValidator.cannot === false) {
+      this.skip()
+    }
+  })
+
+  it('deps missing throws MissingOptionalDependencyError', async () => {
+    const validator = new XmlValidator(Version.v1dot7)
+    await assert.rejects(
+      validator.validate('<bom/>'),
+      (err) => err instanceof MissingOptionalDependencyError && err.message === XmlValidator.cannot.message
+    )
+  })
 })
