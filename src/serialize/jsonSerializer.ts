@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type * as OptionalFeature from '../_opt'
+import type * as OptionalFeature from '../optionalFeature'
 import type { Bom } from '../models/bom'
 import { Format } from '../spec/enums'
 import { UnsupportedFormatError } from '../spec/errors'

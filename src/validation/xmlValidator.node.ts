@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type * as OptionalFeature from '../_opt'
+import type * as OptionalFeature from '../optionalFeature'
 import cannotOf from '../_optPlug.node/cannot'
 import makeValidator, { type Validator } from '../_optPlug.node/xmlValidator'
 import { FILES } from '../resources.node'
