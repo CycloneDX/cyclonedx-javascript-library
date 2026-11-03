@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 10.4.0 -- 2026-11-03
+
 * Added
   * Optional-feature classes expose a static `cannot` property (via [#1534])  
     It tells whether missing optional dependencies prevent the class from acting:
