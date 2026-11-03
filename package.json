@@ -163,6 +163,9 @@
       "default": "./dist.node/index.node.js"
     },
     "./package.json": "./package.json",
+    "./OptionalFeature": {
+      "types": "./dist.d/optionalFeature.d.ts"
+    },
     "./Enums": {
       "types": "./dist.d/enums/index.d.ts",
       "default": "./dist.node/enums/index.js"

@@ -17,7 +17,7 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type { Cannot } from '../_opt'
+import type { Cannot } from '../optionalFeature'
 import { isWillThrow } from './_wrapper'
 
 /**

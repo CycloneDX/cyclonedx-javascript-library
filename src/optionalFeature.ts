@@ -20,7 +20,7 @@ Copyright (c) OWASP Foundation. All Rights Reserved.
 /**
  * Describes why an optional feature cannot act.
  */
-interface Blocker {
+export interface Blocker {
   readonly message: string
 }
 
