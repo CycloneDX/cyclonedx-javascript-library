@@ -97,28 +97,32 @@ jobs:
           git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $AUTH_B64" \
             push --follow-tags "https://github.com/${GITHUB_REPOSITORY}.git" "HEAD:${GITHUB_REF_NAME}"
   dep-test:
-    name: dependency tests
+    name: test dependencies
+    needs:
+      - "bump"
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
-      - name: Checkout code
+      - name: Checkout
         # see https://github.com/actions/checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #  v7.0.1
         with:
           ref: ${{ needs.bump.outputs.version }}
           persist-credentials: false
       - name: Setup Node.js ${{ env.NODE_ACTIVE_LTS }}
         # see https://github.com/actions/setup-node
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
         with:
           node-version: ${{ env.NODE_ACTIVE_LTS }}
           package-manager-cache: false
-      - name: setup dep-tester
-        run: |
-          npm run -- dev-setup:tools:test-dependencies --ignore-scripts --loglevel=silly
-      - name: run tests
-        run: |
-          npm run -- test:dependencies
+      - name: update npm
+        run: npm install -g npm@latest  # zizmor: ignore[adhoc-packages] -- global npm
+      - name: setup project
+        run: npm install --ignore-scripts --loglevel=silly
+      - name: setup tool
+        run: npm run -- dev-setup:tools:test-dependencies --ignore-scripts --loglevel=silly
+      - name: test
+        run: npm run -- test:dependencies -d
   build:
     needs:
       - "bump"
