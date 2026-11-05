@@ -63,6 +63,14 @@
         </component>
         <manufacture>
             <name>meta manufacture</name>
+            <address>
+                <country>United States</country>
+                <region>Texas</region>
+                <locality>Austin</locality>
+                <postOfficeBoxNumber>901</postOfficeBoxNumber>
+                <postalCode>78758</postalCode>
+                <streetAddress>100 Main Street</streetAddress>
+            </address>
             <url>https://meta-manufacture.xmpl/</url>
         </manufacture>
         <supplier>
