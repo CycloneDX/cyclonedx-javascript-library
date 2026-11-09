@@ -17,9 +17,9 @@ SPDX-License-Identifier: Apache-2.0
 Copyright (c) OWASP Foundation. All Rights Reserved.
 */
 
-import type * as OptionalFeature from '../_opt'
 import cannotOf from '../_optPlug.node/cannot'
 import stringify from '../_optPlug.node/xmlStringify'
+import type * as OptionalFeature from '../optionalFeature'
 import { MissingOptionalDependencyError } from './errors'
 import type { SerializerOptions } from './types'
 import type { SimpleXml } from './xml/types'

@@ -33,6 +33,13 @@ suite('functional: packageManifest:exports', () => {
     /** @type {Set<string>} */
     const pjRelExported = new Set(
       Object.keys(pjExports)
+        .filter(e => {
+          const ed = pjExports[e]
+          const edT = typeof ed
+          if (edT === 'string') return true
+          if (edT !== 'object') throw new RangeError(`unexpected export definition type for ${e}`)
+          return Object.hasOwn(ed, 'node') || Object.hasOwn(ed, 'default')
+        })
         .filter(e => e.startsWith('./'))
         .map(e => e.substring(2))
     )
@@ -61,7 +68,7 @@ suite('functional: packageManifest:exports', () => {
       }
     })
 
-    suite('does not export internal sobmodules', () => {
+    suite('does not export internal submodules', () => {
       for (const [cdxModName, cdxMod] of Object.entries(CDX)) {
         if (!cdxModName.startsWith('_')) {
           continue // skip non-internal
