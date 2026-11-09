@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 10.5.0 -- 2026-11-09
+
 * Added
   * Publish sub-namespace types `OptionalFeature` (via [#1535])
 
