@@ -24,6 +24,6 @@ export * as Models from './models'
 export * as SPDX from './spdx'
 export * as Spec from './spec'
 export * as Types from './types'
-export type {OptionalFeature}
+export type { OptionalFeature }
 
 // do not export the _helpers, they are for internal use only
