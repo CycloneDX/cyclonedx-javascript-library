@@ -686,7 +686,12 @@ export class LicenseNormalizer extends BaseXmlNormalizer<Models.License> {
           : this.#normalizeNamedLicense(new NamedLicense(
             // prevent information loss -> convert to broader type
             data.id,
-            { url: data.url }
+            {
+              acknowledgement: data.acknowledgement,
+              text: data.text,
+              url: data.url,
+              properties: data.properties
+            }
           ), options)
       case data instanceof LicenseExpression:
         return this.#normalizeLicenseExpression(data)

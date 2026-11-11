@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Fixed
+  * Serialization of `SpdxLicense` with unknown id keeps `text`, `acknowledgement` and `properties` ([#1539] via [#1540])
+
+[#1539]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1539
+[#1540]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1540
+
 ## 10.5.1 -- 2026-11-11
 
 * Fixed
