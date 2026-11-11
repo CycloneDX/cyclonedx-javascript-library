@@ -117,4 +117,24 @@ describe('integration.Serialize.XmlNormalize', function () {
       }))
     })
   })
+
+  describe('SpdxLicense with an id that is not a known SPDX id', () => {
+    const normalizer = new XmlNormalizeFactory(Spec.Spec1dot6).makeForLicense()
+    const details = () => ({
+      acknowledgement: Enums.LicenseAcknowledgement.Declared,
+      text: new Models.Attachment('the license text', { contentType: 'text/plain' }),
+      url: 'https://example.com/license',
+      properties: new Models.PropertyRepository([new Models.Property('k', 'v')])
+    })
+
+    it('is normalized like a NamedLicense with the same details', () => {
+      const normalized = normalizer.normalize(
+        new Models.SpdxLicense('not a known SPDX id', details()), {})
+      assert.deepStrictEqual(
+        normalized,
+        normalizer.normalize(new Models.NamedLicense('not a known SPDX id', details()), {})
+      )
+      assert.ok(JSON.stringify(normalized).includes('the license text'))
+    })
+  })
 })
