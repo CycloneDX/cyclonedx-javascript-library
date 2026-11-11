@@ -393,8 +393,8 @@
                 </advisory>
             </advisories>
             <created>2023-03-03T00:00:40.000Z</created>
-            <published>2023-03-03T00:00:40.000Z</published>
-            <updated>2023-03-03T00:00:40.000Z</updated>
+            <published>2023-03-03T00:00:41.000Z</published>
+            <updated>2023-03-03T00:00:42.000Z</updated>
             <credits>
                 <organizations>
                     <organization>
@@ -485,8 +485,8 @@
                 </advisory>
             </advisories>
             <created>2023-03-03T00:00:40.000Z</created>
-            <published>2023-03-03T00:00:40.000Z</published>
-            <updated>2023-03-03T00:00:40.000Z</updated>
+            <published>2023-03-03T00:00:41.000Z</published>
+            <updated>2023-03-03T00:00:42.000Z</updated>
             <credits>
                 <organizations>
                     <organization>
@@ -582,8 +582,8 @@
                 </advisory>
             </advisories>
             <created>2021-08-15T23:42:00.000Z</created>
-            <published>2021-08-15T23:42:00.000Z</published>
-            <updated>2021-08-15T23:42:00.000Z</updated>
+            <published>2022-01-01T00:00:00.000Z</published>
+            <updated>2023-01-01T00:00:00.000Z</updated>
             <analysis>
                 <state>not_affected</state>
                 <justification>code_not_reachable</justification>
