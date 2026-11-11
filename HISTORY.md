@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Fixed
+  * XML output of a vulnerability's `published` and `updated` dates, which carried the `created` date ([#1537] via [#1538])
+
+[#1537]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1537
+[#1538]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/1538
+
 ## 10.5.0 -- 2026-11-09
 
 * Added

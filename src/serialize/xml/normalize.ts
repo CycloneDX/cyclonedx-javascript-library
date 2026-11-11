@@ -1028,8 +1028,8 @@ export class VulnerabilityNormalizer extends BaseXmlNormalizer<Models.Vulnerabil
         makeOptionalTextElement(data.recommendation, 'recommendation'),
         advisories,
         makeOptionalDateTimeElement(data.created, 'created'),
-        makeOptionalDateTimeElement(data.created, 'published'),
-        makeOptionalDateTimeElement(data.created, 'updated'),
+        makeOptionalDateTimeElement(data.published, 'published'),
+        makeOptionalDateTimeElement(data.updated, 'updated'),
         data.credits === undefined
           ? undefined
           : this._factory.makeForVulnerabilityCredits().normalize(data.credits, options, 'credits'),
