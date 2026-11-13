@@ -260,6 +260,10 @@
                     <comment>testing</comment>
                 </reference>
             </externalReferences>
+            <tags>
+                <tag>tag-a</tag>
+                <tag>tag-b</tag>
+            </tags>
             <evidence>
                 <licenses>
                     <license>

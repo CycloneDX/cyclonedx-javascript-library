@@ -65,7 +65,8 @@ suite('integration: Contrib.FromNodePackageJson.Builders.ComponentBuilder', () =
         engines: {
           node: '>=20.18.0',
           npm: '^10.8.2'
-        }
+        },
+        keywords: ['alpha', 'beta']
         // to be continued
       },
       new Models.Component(
@@ -92,9 +93,28 @@ suite('integration: Contrib.FromNodePackageJson.Builders.ComponentBuilder', () =
             new Models.Property('cdx:npm:package:constraint:engine:node', '>=20.18.0'),
             new Models.Property('cdx:npm:package:constraint:engine:npm', '^10.8.2'),
           ]),
+          tags: new Set(['alpha', 'beta']),
           version: `1.33.7-alpha.23.${salt}`
         }
       )
+    ],
+    [
+      'ignore string keywords',
+      {
+        name: 'foo',
+        keywords: 'alpha'
+      },
+      new Models.Component(Enums.ComponentType.Library, 'foo')
+    ],
+    [
+      'filter malformed keyword values',
+      {
+        name: 'foo',
+        keywords: ['alpha', 42, null, 'beta']
+      },
+      new Models.Component(Enums.ComponentType.Library, 'foo', {
+        tags: new Set(['alpha', 'beta'])
+      })
     ],
     [
       'ignore malformed engine constraints',
