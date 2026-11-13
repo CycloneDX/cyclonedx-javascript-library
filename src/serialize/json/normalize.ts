@@ -87,6 +87,10 @@ export class Factory {
     return new OrganizationalContactNormalizer(this)
   }
 
+  makeForPostalAddress (): PostalAddressNormalizer {
+    return new PostalAddressNormalizer(this)
+  }
+
   makeForOrganizationalEntity (): OrganizationalEntityNormalizer {
     return new OrganizationalEntityNormalizer(this)
   }
@@ -360,14 +364,31 @@ export class OrganizationalContactNormalizer extends BaseJsonNormalizer<Models.O
   }
 }
 
+export class PostalAddressNormalizer extends BaseJsonNormalizer<Models.PostalAddress> {
+  normalize (data: Models.PostalAddress, options: NormalizerOptions): Normalized.PostalAddress {
+    return {
+      country: data.country || undefined,
+      region: data.region || undefined,
+      locality: data.locality || undefined,
+      postOfficeBoxNumber: data.postOfficeBoxNumber || undefined,
+      postalCode: data.postalCode || undefined,
+      streetAddress: data.streetAddress || undefined
+    }
+  }
+}
+
 export class OrganizationalEntityNormalizer extends BaseJsonNormalizer<Models.OrganizationalEntity> {
   normalize (data: Models.OrganizationalEntity, options: NormalizerOptions): Normalized.OrganizationalEntity {
     const urls = normalizeStringableIter(
       Array.from(data.url, (s) => escapeUri(s.toString())),
       options
     ).filter(JsonSchema.isIriReference)
+    const address = data.address === undefined || this._factory.spec.version < SpecVersion.v1dot6
+      ? undefined
+      : this._factory.makeForPostalAddress().normalize(data.address, options)
     return {
       name: data.name || undefined,
+      address,
       url: urls.length > 0
         ? urls
         : undefined,
