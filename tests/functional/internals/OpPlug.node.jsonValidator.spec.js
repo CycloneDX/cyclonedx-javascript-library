@@ -67,4 +67,49 @@ suite('functional: internals: OpPlug.node.jsonValidator auto', () => {
     const validator = await makeValidator(schemaPath, schemaMap)
     assert.throws(() => { validator(brokenJson) })
   })
+
+  // list of valid/invalid emails is from https://github.com/json-schema-org/JSON-Schema-Test-Suite
+  // (tests/draft2019-09/optional/format/email.json and idn-email.json)
+  // and https://github.com/luzlab/ajv-formats-draft2019 (index.test.js)
+
+  suite('accepts valid emails', () =>
+    [
+      'joe.bloggs@example.com',
+      'te~st@example.com',
+      '~test@example.com',
+      'test~@example.com',
+      'te.s.t@example.com',
+      '실례@실례.테스트',
+      'квіточка@пошта.укр',
+      'Dörte@Sörensen.example.com'
+    ].forEach(validEmail => test(validEmail, async () => {
+      const validator = await makeValidator(schemaPath, schemaMap)
+      const validJson = JSON.stringify({
+        bomFormat: 'CycloneDX',
+        specVersion: '1.7',
+        metadata: { authors: [{ email: validEmail }] }
+      })
+      assert.strictEqual(validator(validJson), null)
+    }))
+  )
+
+  suite('rejects invalid emails', () =>
+    [
+      '2962',
+      '.test@example.com',
+      'test.@example.com',
+      'te..st@example.com',
+      '',
+      'johndoe',
+      'valid@example.com?asdf'
+    ].forEach(invalidEmail => test(invalidEmail, async () => {
+      const validator = await makeValidator(schemaPath, schemaMap)
+      const invalidJson = JSON.stringify({
+        bomFormat: 'CycloneDX',
+        specVersion: '1.7',
+        metadata: { authors: [{ email: invalidEmail }] }
+      })
+      assert.notEqual(validator(invalidJson), null)
+    }))
+  )
 })
