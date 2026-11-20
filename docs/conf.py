@@ -40,5 +40,8 @@ exclude_patterns = [
 #
 html_theme = 'sphinx_rtd_theme'
 
+html_theme_options = {
+    'style_external_links': True,
+}
 
 html_extra_path = ['api']
