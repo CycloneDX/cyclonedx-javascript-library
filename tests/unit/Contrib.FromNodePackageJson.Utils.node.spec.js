@@ -40,7 +40,7 @@ suite('unit: Contrib.FromNodePackageJson.Utils', () => {
     })
     suite('not match unexpected', () => {
       for (const c of [
-        'https://my-own=registry.local',
+        'https://my-own-registry.local',
         'https://registry.npmjs.org.uk',
         'https://registry.npmjs.org.uk/foo/bar'
       ]) {
@@ -71,6 +71,18 @@ suite('unit: Contrib.FromNodePackageJson.Utils', () => {
           HashAlgorithm['SHA-384'],
           'a2a56e01f5d129aa7b7dd81c098e6eca433af91f46a90f0afeec72f6bc7b1cd42519897590fcd0868d70c7827063cc02'
         ],
+        ['sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg== sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=',
+          HashAlgorithm['SHA-512'],
+          'fd2aefe1db30c903417e8846a73f68e986f71b3dd2ad40ea047e6b4ee84647b6a1b656d82a7571c366c214c4658da03b1171da5d9f30b07768745bdb9212a6aa'
+        ],
+        ['sha1-2Klr13/Wjfd5OnMDajug1UBdR3s= sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==',
+          HashAlgorithm['SHA-512'],
+          'fd2aefe1db30c903417e8846a73f68e986f71b3dd2ad40ea047e6b4ee84647b6a1b656d82a7571c366c214c4658da03b1171da5d9f30b07768745bdb9212a6aa'
+        ],
+        ['sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU= sha1-Kq5sNclPz7QV2+lfQIuc6R7oRu0=',
+          HashAlgorithm['SHA-1'],
+          '2aae6c35c94fcfb415dbe95f408b9ce91ee846ed'
+        ],
       ]) {
         test(c, () => {
           const actual = Contrib.FromNodePackageJson.Utils.parsePackageIntegrity(c)
@@ -83,6 +95,7 @@ suite('unit: Contrib.FromNodePackageJson.Utils', () => {
         'sha1-Kq5sNclPz7QV2+lfQIuc6R7oRu0', // missing character
         'sha1-Kq5sNclPz7QV2+lfQIuc6R7oRu0==', // additional character
         'sha512-Kq5sNclPz7QV2+lfQIuc6R7oRu0=', // alg and hash dont match
+        'sha1-Kq5sNclPz7QV2+lfQIuc6R7oRu0 sha512-Kq5sNclPz7QV2+lfQIuc6R7oRu0=', // no supported hash
       ]) {
         test(c, () => {
           assert.throws(() => {
