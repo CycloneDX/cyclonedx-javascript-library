@@ -7,9 +7,9 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Added
-  * `Contrib.FromNodePackageJson.Utils.parsePackageIntegrities()` parses space-separated multi-hash SRI strings ([#1544] via [#PR])
+  * `Contrib.FromNodePackageJson.Utils.parsePackageIntegrities()` parses space-separated multi-hash SRI strings ([#1544])
 * Changed
-  * `Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory.makeDist()` takes all hashes of a multi-hash `dist.integrity` ([#1544] via [#PR])
+  * `Contrib.FromNodePackageJson.Factories.ExternalReferenceFactory.makeDist()` takes all hashes of a multi-hash `dist.integrity` ([#1544])
 
 [#1544]: https://github.com/CycloneDX/cyclonedx-javascript-library/issues/1544
 
