@@ -40,7 +40,7 @@ suite('unit: Contrib.FromNodePackageJson.Utils', () => {
     })
     suite('not match unexpected', () => {
       for (const c of [
-        'https://my-own-registry.local',
+        'https://my-own=registry.local',
         'https://registry.npmjs.org.uk',
         'https://registry.npmjs.org.uk/foo/bar'
       ]) {
