@@ -81,6 +81,26 @@ export function parsePackageIntegrity (integrity: string): [HashAlgorithm, strin
   throw new RangeError('unparsable value')
 }
 
+/**
+ * Parse an integrity string that may hold several space-separated
+ * [Subresource Integrity](https://www.w3.org/TR/SRI/) hash expressions,
+ * like `sha512-... sha1-...`.
+ * Option expressions (`?...`) are ignored, and unparsable or unknown
+ * hash expressions are skipped.
+ *
+ * @returns all parsable hashes, in their order of appearance
+ */
+export function parsePackageIntegrities (integrity: string): Array<[HashAlgorithm, string]> {
+  const hashes: Array<[HashAlgorithm, string]> = []
+  for (const expression of integrity.trim().split(/\s+/)) {
+    const hashExpression = expression.split('?', 1)[0]
+    try {
+      hashes.push(parsePackageIntegrity(hashExpression))
+    } catch { /* pass */ }
+  }
+  return hashes
+}
+
 
 /**
  * The default registry is `https://registry.npmjs.org`.

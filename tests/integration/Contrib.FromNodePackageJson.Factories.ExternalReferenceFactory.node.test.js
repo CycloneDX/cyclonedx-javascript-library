@@ -319,5 +319,28 @@ suite('integration: Contrib.FromNodePackageJson.Factories.ExternalReferenceFacto
       const actual = sut.makeExternalReferences(data)
       assert.deepStrictEqual(actual, expected)
     })
+    test('with tarball and multi-hash integrity', () => {
+      const expected = [new ExternalReference(
+        'https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz',
+        ExternalReferenceType.Distribution,
+        {
+          hashes: new HashDictionary([[HashAlgorithm['SHA-512'], 'fd2aefe1db30c903417e8846a73f68e986f71b3dd2ad40ea047e6b4ee84647b6a1b656d82a7571c366c214c4658da03b1171da5d9f30b07768745bdb9212a6aa'], [HashAlgorithm['SHA-1'], 'd8a96bd77fd68df7793a73036a3ba0d5405d477b']]),
+          comment: 'as detected from PackageJson property "dist.tarball" and property "dist.integrity"'
+        }
+      )]
+      const data = { dist: { tarball: 'https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz', integrity: 'sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg== sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=' } }
+      const actual = sut.makeExternalReferences(data)
+      assert.deepStrictEqual(actual, expected)
+    })
+    test('with tarball and unparsable integrity', () => {
+      const expected = [new ExternalReference(
+        'https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz',
+        ExternalReferenceType.Distribution,
+        { comment: 'as detected from PackageJson property "dist.tarball"' }
+      )]
+      const data = { dist: { tarball: 'https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz', integrity: 'md5-AAAAAAAAAAAAAAAAAAAAAA==' } }
+      const actual = sut.makeExternalReferences(data)
+      assert.deepStrictEqual(actual, expected)
+    })
   })
 })

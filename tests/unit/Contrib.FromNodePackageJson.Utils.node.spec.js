@@ -92,4 +92,24 @@ suite('unit: Contrib.FromNodePackageJson.Utils', () => {
       }
     })
   })
+  suite('unit: parsePackageIntegrities', () => {
+    const sha512 = 'sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg=='
+    const sha512Hex = 'fd2aefe1db30c903417e8846a73f68e986f71b3dd2ad40ea047e6b4ee84647b6a1b656d82a7571c366c214c4658da03b1171da5d9f30b07768745bdb9212a6aa'
+    const sha1 = 'sha1-2Klr13/Wjfd5OnMDajug1UBdR3s='
+    const sha1Hex = 'd8a96bd77fd68df7793a73036a3ba0d5405d477b'
+    for (const [c, expected] of [
+      [sha512, [[HashAlgorithm['SHA-512'], sha512Hex]]],
+      [`${sha512} ${sha1}`, [[HashAlgorithm['SHA-512'], sha512Hex], [HashAlgorithm['SHA-1'], sha1Hex]]],
+      [` ${sha1}\t${sha512}  `, [[HashAlgorithm['SHA-1'], sha1Hex], [HashAlgorithm['SHA-512'], sha512Hex]]],
+      [`${sha512}?foo ${sha1}`, [[HashAlgorithm['SHA-512'], sha512Hex], [HashAlgorithm['SHA-1'], sha1Hex]]],
+      [`md5-AAAAAAAAAAAAAAAAAAAAAA== ${sha1}`, [[HashAlgorithm['SHA-1'], sha1Hex]]],
+      ['sha1-Kq5sNclPz7QV2+lfQIuc6R7oRu0', []],
+      ['', []],
+    ]) {
+      test(JSON.stringify(c), () => {
+        const actual = Contrib.FromNodePackageJson.Utils.parsePackageIntegrities(c)
+        assert.deepStrictEqual(actual, expected)
+      })
+    }
+  })
 })

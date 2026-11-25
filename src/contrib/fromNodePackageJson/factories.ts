@@ -34,7 +34,7 @@ import { ExternalReference } from '../../models/externalReference'
 import { HashDictionary } from '../../models/hash'
 import { tryCanonicalizeGitUrl } from './_helpers/gitUrl'
 import type { NodePackageJson } from './types'
-import { parsePackageIntegrity } from './utils'
+import { parsePackageIntegrities } from './utils'
 
 /**
  * Node-specific ExternalReferenceFactory.
@@ -110,12 +110,15 @@ export class ExternalReferenceFactory {
       const hashes = new HashDictionary()
       let comment = 'as detected from PackageJson property "dist.tarball"'
       if (typeof integrity === 'string') {
-        try {
-          // actually not the hash of the file, but more of an integrity-check -- lets use it anyway.
-          // see https://blog.npmjs.org/post/172999548390/new-pgp-machinery
-          hashes.set(...parsePackageIntegrity(integrity))
+        // actually not the hash of the file, but more of an integrity-check -- lets use it anyway.
+        // see https://blog.npmjs.org/post/172999548390/new-pgp-machinery
+        const integrityHashes = parsePackageIntegrities(integrity)
+        for (const [hashAlgorithm, hashContent] of integrityHashes) {
+          hashes.set(hashAlgorithm, hashContent)
+        }
+        if (integrityHashes.length > 0) {
           comment += ' and property "dist.integrity"'
-        } catch { /* pass */ }
+        }
       }
       if (typeof shasum === 'string' && shasum.length === 40) {
         hashes.set(HashAlgorithm['SHA-1'], shasum)
