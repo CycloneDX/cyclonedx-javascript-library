@@ -54,38 +54,38 @@ suite('unit: Contrib.FromNodePackageJson.Utils', () => {
 
   suite('unit: parsePackageIntegrity', () => {
     suite('as expected', () => {
-      for (const [c, ...expected] of [
+      for (const [c, expected] of [
         ['sha512-zvj65TkFeIt3i6aj5bIvJDzjjQQGs4o/sNoezg1F1kYap9Nu2jcUdpwzRSJTHMMzG0H7bZkn4rNQpImhuxWX2A==',
-          HashAlgorithm['SHA-512'],
-          'cef8fae53905788b778ba6a3e5b22f243ce38d0406b38a3fb0da1ece0d45d6461aa7d36eda3714769c334522531cc3331b41fb6d9927e2b350a489a1bb1597d8'
+          [[HashAlgorithm['SHA-512'],
+          'cef8fae53905788b778ba6a3e5b22f243ce38d0406b38a3fb0da1ece0d45d6461aa7d36eda3714769c334522531cc3331b41fb6d9927e2b350a489a1bb1597d8']]
         ],
         ['sha1-Kq5sNclPz7QV2+lfQIuc6R7oRu0=',
-          HashAlgorithm['SHA-1'],
-          '2aae6c35c94fcfb415dbe95f408b9ce91ee846ed'
+          [[HashAlgorithm['SHA-1'],
+          '2aae6c35c94fcfb415dbe95f408b9ce91ee846ed']]
         ],
         ['sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=',
-          HashAlgorithm['SHA-256'],
-          'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+          [[HashAlgorithm['SHA-256'],
+          'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855']]
         ],
         ['sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC',
-          HashAlgorithm['SHA-384'],
-          'a2a56e01f5d129aa7b7dd81c098e6eca433af91f46a90f0afeec72f6bc7b1cd42519897590fcd0868d70c7827063cc02'
+          [[HashAlgorithm['SHA-384'],
+          'a2a56e01f5d129aa7b7dd81c098e6eca433af91f46a90f0afeec72f6bc7b1cd42519897590fcd0868d70c7827063cc02']]
         ],
         ['sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg== sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=',
-          HashAlgorithm['SHA-512'],
-          'fd2aefe1db30c903417e8846a73f68e986f71b3dd2ad40ea047e6b4ee84647b6a1b656d82a7571c366c214c4658da03b1171da5d9f30b07768745bdb9212a6aa'
+          [[HashAlgorithm['SHA-512'], 'fd2aefe1db30c903417e8846a73f68e986f71b3dd2ad40ea047e6b4ee84647b6a1b656d82a7571c366c214c4658da03b1171da5d9f30b07768745bdb9212a6aa'],
+          [HashAlgorithm['SHA-1'], 'd8a96bd77fd68df7793a73036a3ba0d5405d477b']]
         ],
         ['sha1-2Klr13/Wjfd5OnMDajug1UBdR3s= sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==',
-          HashAlgorithm['SHA-512'],
-          'fd2aefe1db30c903417e8846a73f68e986f71b3dd2ad40ea047e6b4ee84647b6a1b656d82a7571c366c214c4658da03b1171da5d9f30b07768745bdb9212a6aa'
+          [[HashAlgorithm['SHA-1'], 'd8a96bd77fd68df7793a73036a3ba0d5405d477b'],
+          [HashAlgorithm['SHA-512'], 'fd2aefe1db30c903417e8846a73f68e986f71b3dd2ad40ea047e6b4ee84647b6a1b656d82a7571c366c214c4658da03b1171da5d9f30b07768745bdb9212a6aa']]
         ],
         ['sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU= sha1-Kq5sNclPz7QV2+lfQIuc6R7oRu0=',
-          HashAlgorithm['SHA-1'],
-          '2aae6c35c94fcfb415dbe95f408b9ce91ee846ed'
+          [[HashAlgorithm['SHA-256'], 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'],
+          [HashAlgorithm['SHA-1'], '2aae6c35c94fcfb415dbe95f408b9ce91ee846ed']]
         ],
       ]) {
         test(c, () => {
-          const actual = Contrib.FromNodePackageJson.Utils.parsePackageIntegrity(c)
+          const actual = [...Contrib.FromNodePackageJson.Utils.parsePackageIntegrity(c)]
           assert.deepStrictEqual(actual, expected)
         })
       }
@@ -99,7 +99,7 @@ suite('unit: Contrib.FromNodePackageJson.Utils', () => {
       ]) {
         test(c, () => {
           assert.throws(() => {
-            Contrib.FromNodePackageJson.Utils.parsePackageIntegrity(c)
+            [...Contrib.FromNodePackageJson.Utils.parsePackageIntegrity(c)]
           })
         })
       }
