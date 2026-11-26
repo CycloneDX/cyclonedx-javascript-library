@@ -113,7 +113,7 @@ export class ExternalReferenceFactory {
         try {
           // actually not the hash of the file, but more of an integrity-check -- lets use it anyway.
           // see https://blog.npmjs.org/post/172999548390/new-pgp-machinery
-          hashes.set(...parsePackageIntegrity(integrity))
+          [...parsePackageIntegrity(integrity)].forEach(([hashAlgorithm, hash]) => hashes.set(hashAlgorithm, hash))
           comment += ' and property "dist.integrity"'
         } catch { /* pass */ }
       }
