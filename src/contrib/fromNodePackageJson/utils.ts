@@ -71,18 +71,21 @@ const integrityRE: ReadonlyMap<HashAlgorithm, RegExp> = new Map([
 export function * parsePackageIntegrity (integrity: string): Generator<[HashAlgorithm, string]> {
   // SRI strings may hold several whitespace-separated hashes, e.g. `sha512-… sha1-…`.
   const integrityTokens = integrity.split(/\s+/)
+  let yielded = false
   for (const integrityToken of integrityTokens) {
     for (const [hashAlgorithm, hashRE] of integrityRE) {
       const hashMatchBase64 = hashRE.exec(integrityToken) ?? []
       if (hashMatchBase64.length === 2) {
+        yielded = true
         yield [
           hashAlgorithm,
           Buffer.from(hashMatchBase64[1], 'base64').toString('hex')
         ]
+        break
       }
     }
   }
-  if (!integrityTokens.some((token) => [...integrityRE.values()].some((hashRE) => hashRE.test(token)))) throw new RangeError('unparsable value')
+  if (!yielded) throw new RangeError('unparsable value')
 }
 
 
